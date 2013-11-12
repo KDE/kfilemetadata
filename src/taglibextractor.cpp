@@ -389,4 +389,4 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
     return metadata;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::TagLibExtractor, "kmetadata_taglibextextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::TagLibExtractor, "kfilemetadata_taglibextextractor")

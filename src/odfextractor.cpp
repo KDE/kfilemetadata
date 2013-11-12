@@ -145,4 +145,4 @@ QVariantMap OdfExtractor::extract(const QString& fileUrl, const QString& mimeTyp
     return metadata;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::OdfExtractor, "kmetadata_odfextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::OdfExtractor, "kfilemetadata_odfextractor")

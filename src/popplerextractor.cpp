@@ -185,4 +185,4 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     return newPossibleTitle;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::PopplerExtractor, "kmetadata_popplerextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::PopplerExtractor, "kfilemetadata_popplerextractor")

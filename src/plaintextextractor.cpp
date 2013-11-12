@@ -68,4 +68,4 @@ QVariantMap PlainTextExtractor::extract(const QString& fileUrl, const QString& m
     return metadata;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::PlainTextExtractor, "kmetadata_plaintextextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::PlainTextExtractor, "kfilemetadata_plaintextextractor")

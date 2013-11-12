@@ -192,4 +192,4 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
     return metadata;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::EPubExtractor, "kmetadata_epubextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::EPubExtractor, "kfilemetadata_epubextractor")

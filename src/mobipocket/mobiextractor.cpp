@@ -99,4 +99,4 @@ QVariantMap MobiExtractor::extract(const QString& fileUrl, const QString& mimeTy
     return metadata;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::MobiExtractor, "kmetadata_mobiextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::MobiExtractor, "kfilemetadata_mobiextractor")

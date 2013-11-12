@@ -17,22 +17,22 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef _KMETADATA_EXPORT_H
-#define _KMETADATA_EXPORT_H
+#ifndef _KFILEMETADATA_EXPORT_H
+#define _KFILEMETADATA_EXPORT_H
 
 /* needed for KDE_EXPORT and KDE_IMPORT macros */
 #include <kdemacros.h>
 
-#ifndef KMETADATA_EXPORT
+#ifndef KFILEMETADATA_EXPORT
 # if defined(KDELIBS_STATIC_LIBS)
    /* No export/import for static libraries */
-#  define KMETADATA_EXPORT
+#  define KFILEMETADATA_EXPORT
 # elif defined(MAKE_KMETADATA_LIB)
    /* We are building this library */
-#  define KMETADATA_EXPORT KDE_EXPORT
+#  define KFILEMETADATA_EXPORT KDE_EXPORT
 # else
    /* We are using this library */
-#  define KMETADATA_EXPORT KDE_IMPORT
+#  define KFILEMETADATA_EXPORT KDE_IMPORT
 # endif
 #endif
 

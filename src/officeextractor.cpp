@@ -114,4 +114,4 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
         return QString::fromUtf8(process.readAll());
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::OfficeExtractor, "kmetadata_officeextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::OfficeExtractor, "kfilemetadata_officeextractor")

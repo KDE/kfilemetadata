@@ -24,7 +24,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QDateTime>
 
-#include "kmetadata_export.h"
+#include "kfilemetadata_export.h"
 
 #include <KService>
 #include <QStringList>
@@ -41,7 +41,7 @@ namespace KMetaData
  *
  * \author Vishesh Handa <me@vhanda.in>
  */
-class KMETADATA_EXPORT ExtractorPlugin : public QObject
+class KFILEMETADATA_EXPORT ExtractorPlugin : public QObject
 {
     Q_OBJECT
 public:
@@ -95,7 +95,7 @@ private:
  * \param classname The name of the subclass to export
  * \param libname The name of the library which should export the extractor
  */
-#define KMETADATA_EXPORT_EXTRACTOR( classname, libname )    \
+#define KFILEMETADATA_EXPORT_EXTRACTOR( classname, libname )    \
     K_PLUGIN_FACTORY(factory, registerPlugin<classname>();) \
     K_EXPORT_PLUGIN(factory(#libname))
 

@@ -1,4 +1,4 @@
-project(kmetadata)
+project(kfilemetadata)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
@@ -41,6 +41,7 @@ include_directories(
   ${QT_INCLUDES}
   ${KDE4_INCLUDES}
   ${CMAKE_SOURCE_DIR}
+  ${CMAKE_SOURCE_DIR}/src
 )
 
 add_subdirectory(src)

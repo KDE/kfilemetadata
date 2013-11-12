@@ -190,4 +190,4 @@ QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mime
     return metadata;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::FFmpegExtractor, "kmetadata_ffmpegextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::FFmpegExtractor, "kfilemetadata_ffmpegextractor")
