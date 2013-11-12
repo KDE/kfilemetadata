@@ -1,5 +1,5 @@
 /*
-    This file is part of a Nepomuk File Extractor
+    This file is part of a KMetaData File Extractor
     Copyright (C) 2013  Denis Steckelmacher <steckdenis@yahoo.fr>
 
     This library is free software; you can redistribute it and/or

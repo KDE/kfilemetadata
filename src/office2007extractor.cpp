@@ -282,4 +282,4 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
     }
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::Office2007Extractor, "nepomukoffice2007extractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::Office2007Extractor, "kmetadata_office2007extractor")

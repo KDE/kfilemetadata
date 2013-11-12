@@ -23,7 +23,7 @@
 
 #include <QtCore/QUrl>
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class ExtractorPlugin;

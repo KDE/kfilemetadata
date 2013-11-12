@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KMetaDataFileExtractor
+X-KDE-Library=kmetadata_officeextractor
+Name=KMetaData Office Extractor

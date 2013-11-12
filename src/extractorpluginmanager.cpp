@@ -26,9 +26,7 @@
 #include <KServiceTypeTrader>
 #include <KDebug>
 
-namespace Nepomuk2
-{
-
+using namespace KMetaData;
 
 ExtractorPluginManager::ExtractorPluginManager(QObject* parent): QObject(parent)
 {
@@ -55,7 +53,7 @@ ExtractorPluginManager::~ExtractorPluginManager()
 QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
 {
     // Get all the plugins
-    KService::List plugins = KServiceTypeTrader::self()->query("NepomukFileExtractor");
+    KService::List plugins = KServiceTypeTrader::self()->query("KMetaDataFileExtractor");
 
     QList<ExtractorPlugin*> extractors;
     KService::List::const_iterator it;
@@ -63,7 +61,7 @@ QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
         KService::Ptr service = *it;
 
         QString error;
-        Nepomuk2::ExtractorPlugin* ex = service->createInstance<Nepomuk2::ExtractorPlugin>(this, QVariantList(), &error);
+        ExtractorPlugin* ex = service->createInstance<KMetaData::ExtractorPlugin>(this, QVariantList(), &error);
         if (!ex) {
             kError() << "Could not create Extractor: " << service->library();
             kError() << error;
@@ -85,6 +83,4 @@ QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QUrl& url,
     }
 
     return plugins;
-}
-
 }

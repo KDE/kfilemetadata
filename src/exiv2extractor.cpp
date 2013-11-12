@@ -309,4 +309,4 @@ QVariantMap Exiv2Extractor::extract(const QString& fileUrl, const QString& mimeT
     return metadata;
 }
 
-KMETADATA_EXPORT_EXTRACTOR(KMetaData::Exiv2Extractor, "nepomukexivextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::Exiv2Extractor, "kmetaddata_exivextractor")
