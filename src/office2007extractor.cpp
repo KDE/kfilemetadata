@@ -225,9 +225,6 @@ void Office2007Extractor::extractAllText(QIODevice* device, QTextStream& stream)
     QXmlStreamReader xml(device);
 
     while (!xml.atEnd()) {
-        if (stream.string()->size() >= maxPlainTextSize())
-            return;
-
         xml.readNext();
         if (xml.isCharacters()) {
             QString str = xml.text().toString();
@@ -253,9 +250,6 @@ void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveD
             continue;
         }
 
-        if (stream.string()->size() >= maxPlainTextSize())
-            return;
-
         if (!entryName.endsWith(".xml"))
             continue;
 
@@ -270,9 +264,6 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
     int size = 0;
 
     while (!xml.atEnd()) {
-        if (size >= maxPlainTextSize())
-            break;
-
         xml.readNext();
         if (xml.qualifiedName().startsWith(tag) && xml.isStartElement()) {
             QString str = xml.readElementText(QXmlStreamReader::IncludeChildElements).simplified();

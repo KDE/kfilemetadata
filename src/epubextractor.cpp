@@ -154,10 +154,6 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
         QTextDocument doc;
         doc.setHtml(html);
         plainText.append(doc.toPlainText() + "\n");
-
-        if (plainText.size() >= maxPlainTextSize())
-            break;
-
     } while (epub_it_get_next(iter));
 
     epub_free_iterator(iter);
@@ -185,9 +181,6 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
                 doc.setHtml(html);
                 plainText.append(doc.toPlainText() + "\n");
                 free(data);
-
-                if (plainText.size() >= maxPlainTextSize())
-                    break;
             }
         } while (epub_tit_next(tit));
     }

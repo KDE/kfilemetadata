@@ -89,10 +89,6 @@ QVariantMap PopplerExtractor::extract(const QString& fileUrl, const QString& mim
 
     QString plainTextContent;
     for (int i = 0; i < pdfDoc->numPages(); i++) {
-        if (plainTextContent.size() >= maxPlainTextSize()) {
-            break;
-        }
-
         Poppler::Page* page = pdfDoc->page(i);
         if (!page) { // broken pdf files do not return a valid page
             kWarning() << "Could not read page content from" << fileUrl;

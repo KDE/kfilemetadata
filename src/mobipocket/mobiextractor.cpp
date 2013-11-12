@@ -86,7 +86,7 @@ QVariantMap MobiExtractor::extract(const QString& fileUrl, const QString& mimeTy
     }
 
     if (!doc.hasDRM()) {
-        QString html = doc.text(maxPlainTextSize());
+        QString html = doc.text();
 
         QTextDocument document;
         document.setHtml(html);
