@@ -31,11 +31,7 @@ class PlainTextExtractor : public ExtractorPlugin
 public:
     PlainTextExtractor(QObject* parent, const QVariantList&);
 
-    virtual ExtractingCritera criteria() {
-        return Custom;
-    }
-    virtual bool shouldExtract(const QString& type, const QString& mimeType);
-
+    virtual QStringList mimetypes();
     virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
 };
 

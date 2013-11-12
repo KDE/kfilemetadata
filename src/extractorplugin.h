@@ -39,11 +39,6 @@ namespace KMetaData
  * extractors. It is responsible for extracting the metadata and providing
  * key value pairs
  *
- * Make sure to implement either mimetypes or the shouldExtract function
- * and update the indexingCriteria accordingly
- *
- * FIXME: The IndexingCriteria is really not required. Remove it and make the code simpler!
- *
  * \author Vishesh Handa <me@vhanda.in>
  */
 class KMETADATA_EXPORT ExtractorPlugin : public QObject
@@ -54,44 +49,6 @@ public:
     virtual ~ExtractorPlugin();
 
     /**
-    * Each Plugin provides an extracting critera which determines when the
-    * plugin should be called.
-    */
-    enum ExtractingCritera {
-        /**
-        * This is a simple plugin that just has a list of mimetypes
-        * that it supports.
-        */
-        BasicMimeType = 1,
-
-        /**
-        * The plugin implements the determineMimeType function and uses
-        * that to determine if the url and mimetype are supported
-        */
-        Custom = 2
-    };
-
-    /**
-     * Returns the critera that is being used for determining if this plugin
-     * can index the files provided to it.
-     *
-     * By default this returns BasicMimeType
-     *
-     * \sa mimetypes
-     * \sa shouldExtract
-     */
-    virtual ExtractingCritera criteria();
-
-    /**
-     * By default this returns true if \p mimetype is in the list of
-     * mimetypes provided by the plugin.
-     *
-     * If this function has been reimplemented then the ExtractingCritera should
-     * be changed.
-     */
-    virtual bool shouldExtract(const QString& type, const QString& mimeType);
-
-    /**
      * Provide a list of mimetypes which are supported by this plugin.
      * Only files with those mimetypes will be provided to the plugin via
      * the extract function.
@@ -99,7 +56,7 @@ public:
      * \return A StringList containing the mimetypes.
      * \sa extract
      */
-    virtual QStringList mimetypes();
+    virtual QStringList mimetypes() = 0;
 
     /**
      * The main function of the plugin that is responsible for extracting the data

@@ -31,10 +31,9 @@ PlainTextExtractor::PlainTextExtractor(QObject* parent, const QVariantList&)
 
 }
 
-bool PlainTextExtractor::shouldExtract(const QString& url, const QString& mimeType)
+QStringList PlainTextExtractor::mimetypes()
 {
-    Q_UNUSED(url);
-    return mimeType.startsWith(QLatin1String("text/")) || mimeType.endsWith(QLatin1String("/xml"));
+    return QStringList() << QLatin1String("text/");
 }
 
 QVariantMap PlainTextExtractor::extract(const QString& fileUrl, const QString& mimeType)

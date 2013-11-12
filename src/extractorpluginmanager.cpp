@@ -30,23 +30,18 @@ using namespace KMetaData;
 
 ExtractorPluginManager::ExtractorPluginManager(QObject* parent): QObject(parent)
 {
-    QList< ExtractorPlugin* > all = allExtractors();
+    QList<ExtractorPlugin*> all = allExtractors();
 
-    foreach(ExtractorPlugin * ex, all) {
-        if (ex->criteria() == ExtractorPlugin::BasicMimeType) {
-            foreach(const QString & type, ex->mimetypes()) {
-                m_simpleExtractors.insertMulti(type, ex);
-            }
-        } else if (ex->criteria() == ExtractorPlugin::Custom) {
-            m_complexExtractors << ex;
+    foreach (ExtractorPlugin* ex, all) {
+        foreach (const QString& type, ex->mimetypes()) {
+            m_extractors.insertMulti(type, ex);
         }
     }
 }
 
 ExtractorPluginManager::~ExtractorPluginManager()
 {
-    qDeleteAll(m_simpleExtractors.values().toSet());
-    qDeleteAll(m_complexExtractors);
+    qDeleteAll(m_extractors);
 }
 
 
@@ -74,12 +69,15 @@ QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
     return extractors;
 }
 
-QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QUrl& url, const QString& mimetype)
+QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QString& mimetype)
 {
-    QList<ExtractorPlugin*> plugins = m_simpleExtractors.values(mimetype);
-    foreach(ExtractorPlugin * ex, m_complexExtractors) {
-        if (ex->shouldExtract(url, mimetype))
-            plugins << ex;
+    QList<ExtractorPlugin*> plugins = m_extractors.values(mimetype);
+    if (plugins.isEmpty()) {
+        QHash<QString, ExtractorPlugin*>::const_iterator it = m_extractors.constBegin();
+        for (; it != m_extractors.constEnd(); it++) {
+            if (mimetype.startsWith(it.key()))
+                plugins << it.value();
+        }
     }
 
     return plugins;

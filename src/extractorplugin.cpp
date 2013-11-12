@@ -33,20 +33,9 @@ ExtractorPlugin::~ExtractorPlugin()
 {
 }
 
-ExtractorPlugin::ExtractingCritera ExtractorPlugin::criteria()
-{
-    return BasicMimeType;
-}
-
 QStringList ExtractorPlugin::mimetypes()
 {
     return QStringList();
-}
-
-bool ExtractorPlugin::shouldExtract(const QString& type, const QString& mimeType)
-{
-    Q_UNUSED(type);
-    return mimetypes().contains(type);
 }
 
 //

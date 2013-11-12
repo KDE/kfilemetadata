@@ -38,12 +38,10 @@ public:
      * Fetch the extractors which can be used to extract
      * data for the respective file with the given mimetype
      */
-    QList<ExtractorPlugin*> fetchExtractors(const QUrl& url, const QString& mimetype);
+    QList<ExtractorPlugin*> fetchExtractors(const QString& mimetype);
 
 private:
-    QHash<QString, ExtractorPlugin*> m_simpleExtractors;
-    QList<ExtractorPlugin*> m_complexExtractors;
-
+    QHash<QString, ExtractorPlugin*> m_extractors;
 
     QList<ExtractorPlugin*> allExtractors();
 };
