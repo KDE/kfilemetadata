@@ -21,18 +21,10 @@
 
 #include "popplerextractor.h"
 
-#include "nco.h"
-#include "nie.h"
-#include "nfo.h"
-
 #include <KDE/KDebug>
-
 #include <poppler-qt4.h>
 
-using namespace Nepomuk2::Vocabulary;
-
-namespace Nepomuk2
-{
+using namespace KMetaData;
 
 PopplerExtractor::PopplerExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -49,18 +41,18 @@ QStringList PopplerExtractor::mimetypes()
 }
 
 
-SimpleResourceGraph PopplerExtractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+QVariantMap PopplerExtractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
 
-    SimpleResourceGraph graph;
-    SimpleResource fileRes(resUri);
+    QVariantMap metadata;
 
-    Poppler::Document* pdfDoc = Poppler::Document::load(fileUrl.toLocalFile(), 0, 0);
+    // FIXME: Make this into a QScopedPointer
+    Poppler::Document* pdfDoc = Poppler::Document::load(fileUrl, 0, 0);
 
     if (!pdfDoc || pdfDoc->isLocked()) {
         delete pdfDoc;
-        return graph;
+        return metadata;
     }
 
     QString title = pdfDoc->info(QLatin1String("Title")).trimmed();
@@ -77,32 +69,22 @@ SimpleResourceGraph PopplerExtractor::extract(const QUrl& resUri, const QUrl& fi
     }
 
     if (!title.isEmpty()) {
-        fileRes.addProperty(NIE::title(), title);
+        metadata.insert("title", title);
     }
 
     QString subject = pdfDoc->info(QLatin1String("Subject"));
     if (!subject.isEmpty()) {
-        fileRes.addProperty(NIE::subject(), subject);
+        metadata.insert("title", title);
     }
 
-    QString creator = pdfDoc->info(QLatin1String("Author"));
-    if (!creator.isEmpty()) {
-        SimpleResource res;
-        res.addType(NCO::Contact());
-        res.addProperty(NCO::fullname(), creator);
-        graph << res;
-
-        fileRes.addProperty(NCO::creator(), res);
+    QString author = pdfDoc->info(QLatin1String("Author"));
+    if (!author.isEmpty()) {
+        metadata.insert("author", author);
     }
 
-    QString generator = pdfDoc->info(QLatin1String("Creator"));
-    if (!creator.isEmpty()) {
-        SimpleResource res;
-        res.addType(NCO::Contact());
-        res.addProperty(NCO::fullname(), creator);
-        graph << res;
-
-        fileRes.addProperty(NIE::generator(), res);
+    QString creator = pdfDoc->info(QLatin1String("Creator"));
+    if (!author.isEmpty()) {
+        metadata.insert("creator", creator);
     }
 
     QString plainTextContent;
@@ -121,18 +103,15 @@ SimpleResourceGraph PopplerExtractor::extract(const QUrl& resUri, const QUrl& fi
     }
 
     if (!plainTextContent.isEmpty()) {
-        fileRes.addProperty(NIE::plainTextContent(), plainTextContent);
+        metadata.insert("text", plainTextContent);
     }
-
-    fileRes.addType(NFO::PaginatedTextDocument());
 
     delete pdfDoc;
 
-    graph << fileRes;
-    return graph;
+    return metadata;
 }
 
-QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QUrl& fileUrl)
+QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl)
 {
     Poppler::Page* p = pdfDoc->page(0);
 
@@ -210,6 +189,4 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QUrl& 
     return newPossibleTitle;
 }
 
-}
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::PopplerExtractor, "nepomukpopplerextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::PopplerExtractor, "nepomukpopplerextractor")

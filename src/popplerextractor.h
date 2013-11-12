@@ -25,10 +25,10 @@
 
 namespace Poppler
 {
-class Document;
+    class Document;
 }
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class PopplerExtractor : public ExtractorPlugin
@@ -37,10 +37,10 @@ public:
     PopplerExtractor(QObject* parent, const QVariantList&);
 
     virtual QStringList mimetypes();
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType);
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
 
 private:
-    QString parseFirstPage(Poppler::Document* pdfDoc, const QUrl& fileUrl);
+    QString parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl);
 };
 }
 

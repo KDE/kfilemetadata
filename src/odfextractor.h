@@ -23,7 +23,7 @@
 
 #include "extractorplugin.h"
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class OdfExtractor : public ExtractorPlugin
@@ -32,7 +32,7 @@ public:
     OdfExtractor(QObject* parent, const QVariantList&);
 
     virtual QStringList mimetypes();
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType);
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
 
 private:
 };

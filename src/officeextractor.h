@@ -23,7 +23,7 @@
 
 #include "extractorplugin.h"
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class OfficeExtractor : public ExtractorPlugin
@@ -32,11 +32,11 @@ public:
     OfficeExtractor(QObject* parent, const QVariantList&);
 
     virtual QStringList mimetypes();
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType);
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
 
 private:
     void findExe(const QString& mimeType, const QString& name, QString& fullPath);
-    QString textFromFile(const QUrl& fileUrl, const QString& command, QStringList& arguments);
+    QString textFromFile(const QString& fileUrl, const QString& command, QStringList& arguments);
 
 private:
     QStringList m_available_mime_types;

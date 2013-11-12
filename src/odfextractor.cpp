@@ -21,20 +21,13 @@
 
 #include "odfextractor.h"
 
-#include "nco.h"
-#include "nie.h"
-#include "nfo.h"
-
 #include <KDE/KDebug>
 #include <KDE/KZip>
 
 #include <QtXml/QDomDocument>
 #include <QtXml/QXmlStreamReader>
-#include <Soprano/Vocabulary/NAO>
 
-using namespace Soprano::Vocabulary;
-using namespace Nepomuk2::Vocabulary;
-using namespace Nepomuk2;
+using namespace KMetaData;
 
 OdfExtractor::OdfExtractor(QObject* parent, const QVariantList&): ExtractorPlugin(parent)
 {
@@ -51,30 +44,28 @@ QStringList OdfExtractor::mimetypes()
     return list;
 }
 
-SimpleResourceGraph OdfExtractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+QVariantMap OdfExtractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
+    QVariantMap metadata;
 
-    KZip zip(fileUrl.toLocalFile());
+    KZip zip(fileUrl);
     if (!zip.open(QIODevice::ReadOnly)) {
         qWarning() << "Document is not a valid ZIP archive";
-        return SimpleResourceGraph();
+        return metadata;
     }
 
     const KArchiveDirectory* directory = zip.directory();
     if (!directory) {
         qWarning() << "Invalid document structure (main directory is missing)";
-        return SimpleResourceGraph();
+        return metadata;
     }
 
     const QStringList entries = directory->entries();
     if (!entries.contains("meta.xml")) {
         qWarning() << "Invalid document structure (meta.xml is missing)";
-        return SimpleResourceGraph();
+        return metadata;
     }
-
-    SimpleResourceGraph graph;
-    SimpleResource fileRes(resUri);
 
     QDomDocument metaData("metaData");
     const KArchiveFile* file = static_cast<const KArchiveFile*>(directory->entry("meta.xml"));
@@ -91,20 +82,15 @@ SimpleResourceGraph OdfExtractor::extract(const QUrl& resUri, const QUrl& fileUr
 
             // Dublin Core
             if (tagName == QLatin1String("dc:description")) {
-                fileRes.addProperty(NAO::description(), e.text());
+                metadata.insert("dc:description", e.text());
             } else if (tagName == QLatin1String("dc:subject")) {
-                fileRes.addProperty(NIE::subject(), e.text());
+                metadata.insert("dc:subject", e.text());
             } else if (tagName == QLatin1String("dc:title")) {
-                fileRes.setProperty(NIE::title(), e.text());
+                metadata.insert("dc:title", e.text());
             } else if (tagName == QLatin1String("dc:creator")) {
-                SimpleResource creator;
-                creator.addType(NCO::Contact());
-                creator.addProperty(NCO::fullname(), e.text());
-                graph << creator;
-
-                fileRes.setProperty(NCO::creator(), creator);
+                metadata.insert("dc:creator", e.text());
             } else if (tagName == QLatin1String("dc:langauge")) {
-                fileRes.setProperty(NIE::language(), e.text());
+                metadata.insert("dc:language", e.text());
             }
 
             // Meta Properties
@@ -112,22 +98,22 @@ SimpleResourceGraph OdfExtractor::extract(const QUrl& resUri, const QUrl& fileUr
                 bool ok = false;
                 int pageCount = e.attribute("meta:page-count").toInt(&ok);
                 if (ok) {
-                    fileRes.setProperty(NFO::pageCount(), pageCount);
+                    metadata.insert("pageCount", pageCount);
                 }
 
                 int wordCount = e.attribute("meta:word-count").toInt(&ok);
                 if (ok) {
-                    fileRes.setProperty(NFO::wordCount(), wordCount);
+                    metadata.insert("wordCount", wordCount);
                 }
             } else if (tagName == QLatin1String("meta:keyword")) {
                 QString keywords = e.text();
-                fileRes.addProperty(NIE::keyword(), keywords);
+                    metadata.insert("keyword", keywords);
             } else if (tagName == QLatin1String("meta:generator")) {
-                fileRes.addProperty(NIE::generator(), e.text());
+                metadata.insert("generator", e.text());
             } else if (tagName == QLatin1String("meta:creation-date")) {
                 QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
                 if (!dt.isNull())
-                    fileRes.addProperty(NIE::contentCreated(), dt);
+                    metadata.insert("contentCreated", dt);
             }
         }
         n = n.nextSibling();
@@ -159,14 +145,9 @@ SimpleResourceGraph OdfExtractor::extract(const QUrl& resUri, const QUrl& fileUr
     }
 
     if (!plainText.isEmpty())
-        fileRes.addProperty(NIE::plainTextContent(), plainText);
+        metadata.insert("text", plainText);
 
-    if (fileRes.properties().isEmpty())
-        return SimpleResourceGraph();
-
-    graph << fileRes;
-    return graph;
+    return metadata;
 }
 
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::OdfExtractor, "nepomukodfextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::OdfExtractor, "nepomukodfextractor")

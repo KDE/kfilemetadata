@@ -21,21 +21,12 @@
 
 #include <epub.h>
 
-#include "nie.h"
-#include "nfo.h"
-#include "nco.h"
-
-#include <Soprano/Vocabulary/NAO>
-
 #include <KDebug>
 #include <QtCore/QDateTime>
 #include <QTextDocument>
 
-using namespace Nepomuk2::Vocabulary;
-using namespace Soprano::Vocabulary;
 
-namespace Nepomuk2
-{
+using namespace KMetaData;
 
 EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -72,27 +63,27 @@ QString fetchMetadata(struct epub* e, const epub_metadata& type)
 }
 }
 
-SimpleResourceGraph EPubExtractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+
+QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
 
-    struct epub* ePubDoc = epub_open(fileUrl.toLocalFile().toUtf8().constData(), 1);
+    struct epub* ePubDoc = epub_open(fileUrl.toUtf8().constData(), 1);
     if (!ePubDoc) {
         kError() << "Invalid document";
-        return SimpleResourceGraph();
+        return QVariantMap();
     }
 
-    SimpleResource fileRes(resUri);
-    SimpleResourceGraph graph;
+    QVariantMap metadata;
 
     QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
     if (!value.isEmpty()) {
-        fileRes.addProperty(NIE::title(), value);
+        metadata.insert("title", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_SUBJECT);
     if (!value.isEmpty()) {
-        fileRes.addProperty(NIE::subject(), value);
+        metadata.insert("subject", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_CREATOR);
@@ -108,12 +99,7 @@ SimpleResourceGraph EPubExtractor::extract(const QUrl& resUri, const QUrl& fileU
         if (index)
             value = value.mid(0, index);
 
-        SimpleResource con;
-        con.addType(NCO::Contact());
-        con.addProperty(NCO::fullname(), value);
-
-        fileRes.addProperty(NCO::creator(), con);
-        graph << con;
+        metadata.insert("creator", value);
     }
 
     // The Contributor just seems to be mostly Calibre aka the Generator
@@ -130,19 +116,12 @@ SimpleResourceGraph EPubExtractor::extract(const QUrl& resUri, const QUrl& fileU
 
     value = fetchMetadata(ePubDoc, EPUB_PUBLISHER);
     if (!value.isEmpty()) {
-        SimpleResource con;
-        con.addType(NCO::Contact());
-        con.addProperty(NCO::fullname(), value);
-
-        fileRes.addProperty(NCO::publisher(), con);
-        graph << con;
+        metadata.insert("publisher", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
     if (!value.isEmpty()) {
-        // nao:description is used for user visible comments. This field is generally
-        // a huge summary of the ebook
-        fileRes.addProperty(NIE::comment(), value);
+        metadata.insert("description", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DATE);
@@ -156,7 +135,7 @@ SimpleResourceGraph EPubExtractor::extract(const QUrl& resUri, const QUrl& fileU
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
         if (!dt.isNull())
-            fileRes.addProperty(NIE::contentCreated(), dt);
+            metadata.insert("creationDate", value);
     }
 
     //
@@ -215,13 +194,9 @@ SimpleResourceGraph EPubExtractor::extract(const QUrl& resUri, const QUrl& fileU
     epub_free_titerator(tit);
 
     if (!plainText.isEmpty())
-        fileRes.addProperty(NIE::plainTextContent(), plainText);
+        metadata.insert("text", plainText);
 
-    if (fileRes.isValid())
-        graph << fileRes;
-    return graph;
+    return metadata;
 }
 
-}
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::EPubExtractor, "nepomukepubextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::EPubExtractor, "nepomukepubextractor")

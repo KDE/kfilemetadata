@@ -222,4 +222,4 @@ if (QMOBIPOCKET_FOUND)
     add_subdirectory(mobipocket)
 endif(QMOBIPOCKET_FOUND)
 
-add_subdirectory(test)
+#add_subdirectory(test)

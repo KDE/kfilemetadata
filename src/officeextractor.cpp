@@ -20,15 +20,13 @@
 #include "officeextractor.h"
 
 #include <kstandarddirs.h>
-#include "nie.h"
-#include "nfo.h"
 
 #include <QtCore/QFile>
 #include <QtCore/QProcess>
 
-using namespace Nepomuk2::Vocabulary;
+using namespace KMetaData;
 
-Nepomuk2::OfficeExtractor::OfficeExtractor(QObject* parent, const QVariantList&)
+OfficeExtractor::OfficeExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
 {
     // Find the executables of catdoc, catppt and xls2csv. If an executable cannot
@@ -38,7 +36,7 @@ Nepomuk2::OfficeExtractor::OfficeExtractor(QObject* parent, const QVariantList&)
     findExe("application/vnd.ms-powerpoint", "catppt", m_catppt);
 }
 
-void Nepomuk2::OfficeExtractor::findExe(const QString& mimeType, const QString& name, QString& fullPath)
+void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QString& fullPath)
 {
     fullPath = KStandardDirs::findExe(name);
 
@@ -47,16 +45,15 @@ void Nepomuk2::OfficeExtractor::findExe(const QString& mimeType, const QString& 
     }
 }
 
-QStringList Nepomuk2::OfficeExtractor::mimetypes()
+QStringList OfficeExtractor::mimetypes()
 {
     return m_available_mime_types;
 }
 
-Nepomuk2::SimpleResourceGraph Nepomuk2::OfficeExtractor::extract(const QUrl& resUri,
-        const QUrl& fileUrl,
-        const QString& mimeType)
+
+QVariantMap OfficeExtractor::extract(const QString& fileUrl, const QString& mimeType)
 {
-    SimpleResource res(resUri);
+    QVariantMap metadata;
     QStringList args;
     QString contents;
 
@@ -64,7 +61,7 @@ Nepomuk2::SimpleResourceGraph Nepomuk2::OfficeExtractor::extract(const QUrl& res
     args << QLatin1String("-d") << QLatin1String("utf8");
 
     if (mimeType == QLatin1String("application/msword")) {
-        res.addType(NFO::TextDocument());
+        //res.addType(NFO::TextDocument());
 
         args << QLatin1String("-w");
         contents = textFromFile(fileUrl, m_catdoc, args);
@@ -75,34 +72,34 @@ Nepomuk2::SimpleResourceGraph Nepomuk2::OfficeExtractor::extract(const QUrl& res
         int lines = contents.count(QChar('\n'));
         int words = contents.count(QRegExp("\\b\\w+\\b"));
 
-        res.addProperty(NIE::plainTextContent(), contents);
-        res.addProperty(NFO::wordCount(), words);
-        res.addProperty(NFO::lineCount(), lines);
-        res.addProperty(NFO::characterCount(), characters);
+        metadata.insert("text", contents);
+        metadata.insert("wordCount", words);
+        metadata.insert("lineCount", lines);
+        metadata.insert("characterCount", characters);
     } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
-        res.addType(NFO::Spreadsheet());
+        //res.addType(NFO::Spreadsheet());
 
         args << QLatin1String("-c") << QLatin1String(" ");
         args << QLatin1String("-b") << QLatin1String(" ");
         args << QLatin1String("-q") << QLatin1String("0");
         contents = textFromFile(fileUrl, m_xls2csv, args);
     } else if (mimeType == QLatin1String("application/vnd.ms-powerpoint")) {
-        res.addType(NFO::Presentation());
+        //res.addType(NFO::Presentation());
 
         contents = textFromFile(fileUrl, m_catppt, args);
     }
 
     if (contents.isEmpty())
-        return SimpleResourceGraph();
+        return metadata;
 
-    res.addProperty(NIE::plainTextContent(), contents);
+    metadata.insert("text", contents);
 
-    return SimpleResourceGraph() << res;
+    return metadata;
 }
 
-QString Nepomuk2::OfficeExtractor::textFromFile(const QUrl& fileUrl, const QString& command, QStringList& arguments)
+QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& command, QStringList& arguments)
 {
-    arguments << fileUrl.toLocalFile();
+    arguments << fileUrl;
 
     // Start a process and read its standard output
     QProcess process;
@@ -117,4 +114,4 @@ QString Nepomuk2::OfficeExtractor::textFromFile(const QUrl& fileUrl, const QStri
         return QString::fromUtf8(process.readAll());
 }
 
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::OfficeExtractor, "nepomukofficeextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::OfficeExtractor, "nepomukofficeextractor")

@@ -23,7 +23,7 @@
 
 #include "../extractorplugin.h"
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class MobiExtractor : public ExtractorPlugin
@@ -31,7 +31,7 @@ class MobiExtractor : public ExtractorPlugin
 public:
     MobiExtractor(QObject* parent, const QVariantList&);
 
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType);
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
     virtual QStringList mimetypes();
 };
 }

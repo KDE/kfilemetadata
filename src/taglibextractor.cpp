@@ -20,10 +20,6 @@
 
 #include "taglibextractor.h"
 
-#include "nie.h"
-#include "nco.h"
-#include "nmm.h"
-#include "nfo.h"
 #include <KDebug>
 
 #include <taglib/fileref.h>
@@ -38,10 +34,7 @@
 #include <taglib/xiphcomment.h>
 #include <QDateTime>
 
-using namespace Nepomuk2::Vocabulary;
-
-namespace Nepomuk2
-{
+using namespace KMetaData;
 
 TagLibExtractor::TagLibExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -77,24 +70,23 @@ QStringList TagLibExtractor::mimetypes()
     return types;
 }
 
-Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
+    QVariantMap metadata;
 
-    TagLib::FileRef file(fileUrl.toLocalFile().toUtf8().data(), true);
+    TagLib::FileRef file(fileUrl.toUtf8().data(), true);
     if (file.isNull()) {
-        return SimpleResourceGraph();
+        return metadata;
     }
 
-    SimpleResourceGraph graph;
-    SimpleResource fileRes(resUri);
-
     TagLib::Tag* tags = file.tag();
+    /*
     if (!tags->isEmpty()) {
         fileRes.addType(NMM::MusicPiece());
     } else {
         fileRes.addType(NFO::Audio());
-    }
+    }*/
 
     TagLib::String artists;
     TagLib::String albumArtists;
@@ -104,7 +96,7 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
 
     // Handling multiple tags in mpeg files.
     if ((mimeType == "audio/mpeg") || (mimeType == "audio/mpeg3") || (mimeType == "audio/x-mpeg")) {
-        TagLib::MPEG::File mpegFile(fileUrl.toLocalFile().toUtf8().data(), true);
+        TagLib::MPEG::File mpegFile(fileUrl.toUtf8().data(), true);
         if (mpegFile.ID3v2Tag() && !mpegFile.ID3v2Tag()->isEmpty()) {
             TagLib::ID3v2::FrameList lstID3v2;
 
@@ -165,7 +157,7 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
 
     // Handling multiple tags in FLAC files.
     if (mimeType == "audio/flac") {
-        TagLib::FLAC::File flacFile(fileUrl.toLocalFile().toUtf8().data(), true);
+        TagLib::FLAC::File flacFile(fileUrl.toUtf8().data(), true);
         if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
             TagLib::Ogg::FieldListMap lstFLAC = flacFile.xiphComment()->fieldListMap();
             TagLib::Ogg::FieldListMap::ConstIterator itFLAC;
@@ -216,7 +208,7 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
 
     // Handling multiple tags in OGG files.
     if (mimeType == "audio/ogg" || mimeType == "audio/x-vorbis+ogg") {
-        TagLib::Ogg::Vorbis::File oggFile(fileUrl.toLocalFile().toUtf8().data(), true);
+        TagLib::Ogg::Vorbis::File oggFile(fileUrl.toUtf8().data(), true);
         if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
             TagLib::Ogg::FieldListMap lstOGG = oggFile.tag()->fieldListMap();
             TagLib::Ogg::FieldListMap::ConstIterator itOGG;
@@ -268,12 +260,12 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
     if (!tags->isEmpty()) {
         QString title = QString::fromUtf8(tags->title().toCString(true));
         if (!title.isEmpty()) {
-            fileRes.addProperty(NIE::title(), title);
+            metadata.insert("title", title);
         }
 
         QString comment = QString::fromUtf8(tags->comment().toCString(true));
         if (!comment.isEmpty()) {
-            fileRes.addProperty(NIE::comment(), comment);
+            metadata.insert("comment", comment);
         }
 
         if (genres.isEmpty()) {
@@ -290,7 +282,7 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
                 genre = QString::fromUtf8(TagLib::ID3v1::genre(genreNum).toCString(true));
             }
 
-            fileRes.addProperty(NMM::genre(), genre);
+            metadata.insertMulti("genre", genre);
         }
 
         QString artistString;
@@ -300,45 +292,36 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
             artistString = QString::fromUtf8(artists.toCString(true)).trimmed();
         }
 
-        QList< SimpleResource > artists = contactsFromString(artistString);
-        foreach(const SimpleResource & res, artists) {
-            fileRes.addProperty(NMM::performer(), res);
-            graph << res;
+        QStringList artists = contactsFromString(artistString);
+        foreach(const QString& artist, artists) {
+            metadata.insertMulti("artist", artist);
         }
 
         QString composersString = QString::fromUtf8(composers.toCString(true)).trimmed();
-        QList< SimpleResource > composers = contactsFromString(composersString);
-        foreach(const SimpleResource & res, composers) {
-            fileRes.addProperty(NMM::composer(), res);
-            graph << res;
+        QStringList composers = contactsFromString(composersString);
+        foreach(const QString& comp, composers) {
+            metadata.insertMulti("composer", comp);
         }
 
         QString lyricistsString = QString::fromUtf8(lyricists.toCString(true)).trimmed();
-        QList< SimpleResource > lyricists = contactsFromString(lyricistsString);
-        foreach(const SimpleResource & res, lyricists) {
-            fileRes.addProperty(NMM::lyricist(), res);
-            graph << res;
+        QStringList lyricists = contactsFromString(lyricistsString);
+        foreach(const QString& lyr, lyricists) {
+            metadata.insertMulti("lyricist", lyr);
         }
 
         QString album = QString::fromUtf8(tags->album().toCString(true));
         if (!album.isEmpty()) {
-            SimpleResource albumRes;
-            albumRes.addType(NMM::MusicAlbum());
-            albumRes.setProperty(NIE::title(), album);
+            metadata.insert("album", album);
 
             QString albumArtistsString = QString::fromUtf8(albumArtists.toCString(true)).trimmed();
-            QList< SimpleResource > albumArtists = contactsFromString(albumArtistsString);
-            foreach(const SimpleResource & res, albumArtists) {
-                albumRes.addProperty(NMM::albumArtist(), res);
-                graph << res;
+            QStringList albumArtists = contactsFromString(albumArtistsString);
+            foreach(const QString& res, albumArtists) {
+                metadata.insertMulti("albumArtist", res);
             }
-
-            fileRes.setProperty(NMM::musicAlbum(), albumRes);
-            graph << albumRes;
         }
 
         if (tags->track()) {
-            fileRes.setProperty(NMM::trackNumber(), tags->track());
+            metadata.insert("trackNumber", tags->track());
         }
 
         if (tags->year()) {
@@ -351,7 +334,7 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
                 date.setDate(1, 1, 1);
             }
             dt.setDate(date);
-            fileRes.setProperty(NMM::releaseDate(), dt);
+            metadata.insert("releaseDate", dt);
         }
     }
 
@@ -359,19 +342,19 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
     if (audioProp) {
         if (audioProp->length()) {
             // What about the xml duration?
-            fileRes.setProperty(NFO::duration(), audioProp->length());
+            metadata.insert("duration", audioProp->length());
         }
 
         if (audioProp->bitrate()) {
-            fileRes.setProperty(NFO::averageBitrate(), audioProp->bitrate() * 1000);
+            metadata.insert("averageBitrate", audioProp->bitrate() * 1000);
         }
 
         if (audioProp->channels()) {
-            fileRes.setProperty(NFO::channels(), audioProp->channels());
+            metadata.insert("channels", audioProp->channels());
         }
 
         if (audioProp->sampleRate()) {
-            fileRes.setProperty(NFO::sampleRate(), audioProp->sampleRate());
+            metadata.insert("sampleRate", audioProp->sampleRate());
         }
     }
 
@@ -403,10 +386,7 @@ Nepomuk2::SimpleResourceGraph TagLibExtractor::extract(const QUrl& resUri, const
     // Track number[/total tracks]:     TRCK
     // Genre:                           TCON
 
-    graph << fileRes;
-    return graph;
+    return metadata;
 }
 
-}
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::TagLibExtractor, "nepomuktaglibextextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::TagLibExtractor, "nepomuktaglibextextractor")

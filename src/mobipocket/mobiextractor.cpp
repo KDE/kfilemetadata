@@ -25,21 +25,11 @@
 #include <qmobipocket/mobipocket.h>
 #include "qfilestream.h"
 
-#include "nie.h"
-#include "nfo.h"
-#include "nco.h"
-
-#include <Soprano/Vocabulary/NAO>
-
 #include <KDebug>
 #include <QtCore/QDateTime>
 #include <QTextDocument>
 
-using namespace Nepomuk2::Vocabulary;
-using namespace Soprano::Vocabulary;
-
-namespace Nepomuk2
-{
+using namespace KMetaData;
 
 MobiExtractor::MobiExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -55,32 +45,26 @@ QStringList MobiExtractor::mimetypes()
     return types;
 }
 
-SimpleResourceGraph MobiExtractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+QVariantMap MobiExtractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
 
-    SimpleResource fileRes(resUri);
-    SimpleResourceGraph graph;
+    QVariantMap metadata;
 
-    Mobipocket::QFileStream stream(fileUrl.toLocalFile());
+    Mobipocket::QFileStream stream(fileUrl);
     Mobipocket::Document doc(&stream);
     if (!doc.isValid())
-        return graph;
+        return metadata;
 
     QMapIterator<Mobipocket::Document::MetaKey, QString> it(doc.metadata());
     while (it.hasNext()) {
         it.next();
         switch (it.key()) {
         case Mobipocket::Document::Title:
-            fileRes.addProperty(NIE::title(), it.value());
+            metadata.insert("title", it.value());
             break;
         case Mobipocket::Document::Author: {
-            SimpleResource con;
-            con.addType(NCO::Contact());
-            con.addProperty(NCO::fullname(), it.value());
-
-            fileRes.addProperty(NCO::creator(), con);
-            graph << con;
+            metadata.insert("author", it.value());
             break;
         }
         case Mobipocket::Document::Description: {
@@ -89,14 +73,14 @@ SimpleResourceGraph MobiExtractor::extract(const QUrl& resUri, const QUrl& fileU
 
             QString plain = document.toPlainText();
             if (!plain.isEmpty())
-                fileRes.addProperty(NIE::comment(), plain);
+                metadata.insert("comment", it.value());
             break;
         }
         case Mobipocket::Document::Subject:
-            fileRes.addProperty(NIE::subject(), it.value());
+            metadata.insert("subject", it.value());
             break;
         case Mobipocket::Document::Copyright:
-            fileRes.addProperty(NIE::copyright(), it.value());
+            metadata.insert("copyright", it.value());
             break;
         }
     }
@@ -109,13 +93,10 @@ SimpleResourceGraph MobiExtractor::extract(const QUrl& resUri, const QUrl& fileU
 
         QString plainText = document.toPlainText();
         if (!plainText.isEmpty())
-            fileRes.addProperty(NIE::plainTextContent(), plainText);
+            metadata.insert("text", it.value());
     }
 
-    graph << fileRes;
-    return graph;
+    return metadata;
 }
 
-}
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::MobiExtractor, "nepomukmobiextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::MobiExtractor, "nepomukmobiextractor")

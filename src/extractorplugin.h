@@ -24,26 +24,12 @@
 #include <QtCore/QStringList>
 #include <QtCore/QDateTime>
 
-#include "simpleresourcegraph.h"
-#include "simpleresource.h"
-#include "nepomuk_export.h"
+#include "kmetadata_export.h"
 
 #include <KService>
+#include <QStringList>
 
-#ifndef NEPOMUK_EXTRACTOR_EXPORT
-# if defined(KDELIBS_STATIC_LIBS)
-/* No export/import for static libraries */
-#  define NEPOMUK_EXTRACTOR_EXPORT
-# elif defined(MAKE_NEPOMUKEXTRACTOR_LIB)
-/* We are building this library */
-#  define NEPOMUK_EXTRACTOR_EXPORT KDE_EXPORT
-# else
-/* We are using this library */
-#  define NEPOMUK_EXTRACTOR_EXPORT KDE_IMPORT
-# endif
-#endif
-
-namespace Nepomuk2
+namespace KMetaData
 {
 
 /**
@@ -51,14 +37,16 @@ namespace Nepomuk2
  *
  * \brief The ExtractorPlugin is the base class for all file metadata
  * extractors. It is responsible for extracting the metadata and providing
- * it to Nepomuk.
+ * key value pairs
  *
  * Make sure to implement either mimetypes or the shouldExtract function
  * and update the indexingCriteria accordingly
  *
+ * FIXME: The IndexingCriteria is really not required. Remove it and make the code simpler!
+ *
  * \author Vishesh Handa <me@vhanda.in>
  */
-class NEPOMUK_EXTRACTOR_EXPORT ExtractorPlugin : public QObject
+class KMETADATA_EXPORT ExtractorPlugin : public QObject
 {
     Q_OBJECT
 public:
@@ -101,7 +89,7 @@ public:
      * If this function has been reimplemented then the ExtractingCritera should
      * be changed.
      */
-    virtual bool shouldExtract(const QUrl& url, const QString& mimeType);
+    virtual bool shouldExtract(const QString& type, const QString& mimeType);
 
     /**
      * Provide a list of mimetypes which are supported by this plugin.
@@ -123,7 +111,7 @@ public:
      * \param fileUrl The url of the file being indexed
      * \param mimeType the mimetype of the file url
      */
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType) = 0;
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType) = 0;
 
     //
     // Helper functions
@@ -138,7 +126,7 @@ public:
      * Creates a list of nco:Contacts from a list of strings which are separated
      * by a number of different separators. It sets the contact's nco:fullname.
      */
-    static QList<SimpleResource> contactsFromString(const QString& string);
+    static QStringList contactsFromString(const QString& string);
 
     /**
      * Virtuoso does not support streaming operators, and does not accept queries
@@ -156,12 +144,12 @@ private:
 }
 
 /**
- * Export a Nepomuk file extractor.
+ * Export a file extractor.
  *
  * \param classname The name of the subclass to export
  * \param libname The name of the library which should export the extractor
  */
-#define NEPOMUK_EXPORT_EXTRACTOR( classname, libname )    \
+#define KMETADATA_EXPORT_EXTRACTOR( classname, libname )    \
     K_PLUGIN_FACTORY(factory, registerPlugin<classname>();) \
     K_EXPORT_PLUGIN(factory(#libname))
 

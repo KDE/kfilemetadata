@@ -24,8 +24,9 @@
 #include "extractorplugin.h"
 
 class KArchiveDirectory;
+class QTextStream;
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class Office2007Extractor : public ExtractorPlugin
@@ -34,7 +35,7 @@ public:
     Office2007Extractor(QObject* parent, const QVariantList&);
 
     virtual QStringList mimetypes();
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType);
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
 
 private:
     void extractTextWithTag(QIODevice* device, const QString& tag, QTextStream& stream);

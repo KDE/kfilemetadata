@@ -23,7 +23,7 @@
 
 #include "extractorplugin.h"
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class PlainTextExtractor : public ExtractorPlugin
@@ -34,9 +34,9 @@ public:
     virtual ExtractingCritera criteria() {
         return Custom;
     }
-    virtual bool shouldExtract(const QUrl& url, const QString& mimeType);
+    virtual bool shouldExtract(const QString& type, const QString& mimeType);
 
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType);
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
 };
 
 }

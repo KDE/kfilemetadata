@@ -20,20 +20,13 @@
 
 #include "office2007extractor.h"
 
-#include "nco.h"
-#include "nie.h"
-#include "nfo.h"
-
 #include <KDE/KDebug>
 #include <KDE/KZip>
 
 #include <QtXml/QDomDocument>
 #include <QtXml/QXmlStreamReader>
-#include <Soprano/Vocabulary/NAO>
 
-using namespace Soprano::Vocabulary;
-using namespace Nepomuk2::Vocabulary;
-using namespace Nepomuk2;
+using namespace KMetaData;
 
 Office2007Extractor::Office2007Extractor(QObject* parent, const QVariantList&): ExtractorPlugin(parent)
 {
@@ -51,36 +44,34 @@ QStringList Office2007Extractor::mimetypes()
     return list;
 }
 
-SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
+    QVariantMap metadata;
 
-    KZip zip(fileUrl.toLocalFile());
+    KZip zip(fileUrl);
     if (!zip.open(QIODevice::ReadOnly)) {
         qWarning() << "Document is not a valid ZIP archive";
-        return SimpleResourceGraph();
+        return metadata;
     }
 
     const KArchiveDirectory* rootDir = zip.directory();
     if (!rootDir) {
         qWarning() << "Invalid document structure (main directory is missing)";
-        return SimpleResourceGraph();
+        return metadata;
     }
 
     const QStringList rootEntries = rootDir->entries();
     if (!rootEntries.contains("docProps")) {
         qWarning() << "Invalid document structure (docProps is missing)";
-        return SimpleResourceGraph();
+        return metadata;
     }
 
     const KArchiveEntry* docPropEntry = rootDir->entry("docProps");
     if (!docPropEntry->isDirectory()) {
         qWarning() << "Invalid document structure (docProps is not a directory)";
-        return SimpleResourceGraph();
+        return metadata;
     }
-
-    SimpleResourceGraph graph;
-    SimpleResource fileRes(resUri);
 
     const KArchiveDirectory* docPropDirectory = dynamic_cast<const KArchiveDirectory*>(docPropEntry);
     const QStringList docPropsEntries = docPropDirectory->entries();
@@ -96,7 +87,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                fileRes.setProperty(NAO::description(), str);
+                metadata.insert("dc:description", str);
             }
         }
 
@@ -104,7 +95,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                fileRes.setProperty(NIE::subject(), str);
+                metadata.insert("dc:subject", str);
             }
         }
 
@@ -112,7 +103,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                fileRes.setProperty(NIE::title(), str);
+                metadata.insert("dc:title", str);
             }
         }
 
@@ -120,12 +111,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                SimpleResource creator;
-                creator.addType(NCO::Contact());
-                creator.addProperty(NCO::fullname(), str);
-                graph << creator;
-
-                fileRes.setProperty(NCO::creator(), creator);
+                metadata.insert("dc:creator", str);
             }
         }
 
@@ -133,7 +119,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                fileRes.setProperty(NIE::language(), str);
+                metadata.insert("dc:langauge", str);
             }
         }
     }
@@ -152,7 +138,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
                 bool ok = false;
                 int pageCount = elem.text().toInt(&ok);
                 if (ok) {
-                    fileRes.setProperty(NFO::pageCount(), pageCount);
+                    metadata.insert("pageCount", pageCount);
                 }
             }
 
@@ -161,7 +147,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
                 bool ok = false;
                 int wordCount = elem.text().toInt(&ok);
                 if (ok) {
-                    fileRes.setProperty(NFO::wordCount(), wordCount);
+                    metadata.insert("wordCount", wordCount);
                 }
             }
         }
@@ -170,7 +156,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         if (!elem.isNull()) {
             QString app = elem.text();
             if (!app.isEmpty()) {
-                fileRes.setProperty(NIE::generator(), app);
+                metadata.insert("generator", app);
             }
         }
     }
@@ -180,7 +166,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         const KArchiveEntry* wordEntry = rootDir->entry("word");
         if (!wordEntry->isDirectory()) {
             qWarning() << "Invalid document structure (word is not a directory)";
-            return SimpleResourceGraph();
+            return metadata;
         }
 
         const KArchiveDirectory* wordDirectory = dynamic_cast<const KArchiveDirectory*>(wordEntry);
@@ -195,7 +181,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
 
             extractTextWithTag(file->createDevice(), QLatin1String("w:t"), stream);
             if (!plainText.isEmpty())
-                fileRes.addProperty(NIE::plainTextContent(), plainText);
+                metadata.insert("text", plainText);
         }
     }
 
@@ -203,7 +189,7 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         const KArchiveEntry* xlEntry = rootDir->entry("xl");
         if (!xlEntry->isDirectory()) {
             qWarning() << "Invalid document structure (xl is not a directory)";
-            return SimpleResourceGraph();
+            return metadata;
         }
 
         QString plainText;
@@ -212,14 +198,14 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         const KArchiveDirectory* xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
         extractTextFromFiles(xlDirectory, stream);
         if (!plainText.isEmpty())
-            fileRes.addProperty(NIE::plainTextContent(), plainText);
+            metadata.insert("text", plainText);
     }
 
     else if (rootEntries.contains("ppt")) {
         const KArchiveEntry* pptEntry = rootDir->entry("ppt");
         if (!pptEntry->isDirectory()) {
             qWarning() << "Invalid document structure (ppt is not a directory)";
-            return SimpleResourceGraph();
+            return metadata;
         }
 
         QString plainText;
@@ -228,14 +214,10 @@ SimpleResourceGraph Office2007Extractor::extract(const QUrl& resUri, const QUrl&
         const KArchiveDirectory* pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
         extractTextFromFiles(pptDirectory, stream);
         if (!plainText.isEmpty())
-            fileRes.addProperty(NIE::plainTextContent(), plainText);
+            metadata.insert("text", plainText);
     }
 
-    if (fileRes.properties().isEmpty())
-        return SimpleResourceGraph();
-
-    graph << fileRes;
-    return graph;
+    return metadata;
 }
 
 void Office2007Extractor::extractAllText(QIODevice* device, QTextStream& stream)
@@ -309,5 +291,4 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
     }
 }
 
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::Office2007Extractor, "nepomukoffice2007extractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::Office2007Extractor, "nepomukoffice2007extractor")

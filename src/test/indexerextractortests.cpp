@@ -21,21 +21,10 @@
 
 #include "indexerextractortests.h"
 
-#include <Soprano/Vocabulary/RDF>
-
 #include <QtTest>
-
-#include "simpleresourcegraph.h"
 #include "qtest_kde.h"
-#include "nie.h"
-#include "nfo.h"
-
 #include "../plaintextextractor.h"
-
 #include "indexerextractortestsconfig.h"
-
-using namespace Nepomuk2::Vocabulary;
-using namespace Soprano::Vocabulary;
 
 IndexerExtractorTests::IndexerExtractorTests(QObject* parent) :
     QObject(parent)

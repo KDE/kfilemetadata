@@ -23,7 +23,7 @@
 
 #include "extractorplugin.h"
 
-namespace Nepomuk2
+namespace KMetaData
 {
 
 class Exiv2Extractor : public ExtractorPlugin
@@ -32,7 +32,7 @@ class Exiv2Extractor : public ExtractorPlugin
 public:
     Exiv2Extractor(QObject* parent, const QVariantList&);
 
-    virtual SimpleResourceGraph extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType);
+    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
     virtual QStringList mimetypes();
 };
 }

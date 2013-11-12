@@ -20,16 +20,10 @@
 
 #include "plaintextextractor.h"
 
-#include "nie.h"
-#include "nfo.h"
-
 #include <QtCore/QFile>
 #include <KDebug>
 
-using namespace Nepomuk2::Vocabulary;
-
-namespace Nepomuk2
-{
+using namespace KMetaData;
 
 PlainTextExtractor::PlainTextExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -37,25 +31,26 @@ PlainTextExtractor::PlainTextExtractor(QObject* parent, const QVariantList&)
 
 }
 
-bool PlainTextExtractor::shouldExtract(const QUrl& url, const QString& mimeType)
+bool PlainTextExtractor::shouldExtract(const QString& url, const QString& mimeType)
 {
     Q_UNUSED(url);
     return mimeType.startsWith(QLatin1String("text/")) || mimeType.endsWith(QLatin1String("/xml"));
 }
 
-SimpleResourceGraph PlainTextExtractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+QVariantMap PlainTextExtractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
 
-    QFile file(fileUrl.toLocalFile());
+    QFile file(fileUrl);
+    QVariantMap metadata;
 
     // FIXME: make a size filter or something configurable
     if (file.size() > 5 * 1024 * 1024) {
-        return SimpleResourceGraph();
+        return metadata;
     }
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return SimpleResourceGraph();
+        return metadata;
     }
 
     QTextStream ts(&file);
@@ -65,16 +60,13 @@ SimpleResourceGraph PlainTextExtractor::extract(const QUrl& resUri, const QUrl& 
     int lines = contents.count(QChar('\n'));
     int words = contents.count(QRegExp("\\b\\w+\\b"));
 
-    SimpleResource fileRes(resUri);
-    fileRes.addType(NFO::PlainTextDocument());
-    fileRes.addProperty(NIE::plainTextContent(), contents);
-    fileRes.addProperty(NFO::wordCount(), words);
-    fileRes.addProperty(NFO::lineCount(), lines);
-    fileRes.addProperty(NFO::characterCount(), characters);
+    metadata.insert("type", "PlainTextDocument");
+    metadata.insert("text", contents);
+    metadata.insert("wordCount", words);
+    metadata.insert("lines", lines);
+    metadata.insert("characterCount", characters);
 
-    return SimpleResourceGraph() << fileRes;
+    return metadata;
 }
 
-}
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::PlainTextExtractor, "nepomukplaintextextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::PlainTextExtractor, "nepomukplaintextextractor")

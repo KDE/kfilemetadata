@@ -20,14 +20,10 @@
 
 
 #include "extractorplugin.h"
-#include "nco.h"
 
 #include <KDebug>
 
-using namespace Nepomuk2::Vocabulary;
-
-namespace Nepomuk2
-{
+using namespace KMetaData;
 
 ExtractorPlugin::ExtractorPlugin(QObject* parent): QObject(parent)
 {
@@ -47,9 +43,9 @@ QStringList ExtractorPlugin::mimetypes()
     return QStringList();
 }
 
-bool ExtractorPlugin::shouldExtract(const QUrl& url, const QString& type)
+bool ExtractorPlugin::shouldExtract(const QString& type, const QString& mimeType)
 {
-    Q_UNUSED(url);
+    Q_UNUSED(type);
     return mimetypes().contains(type);
 }
 
@@ -136,7 +132,7 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
     return dateTime;
 }
 
-QList<SimpleResource> ExtractorPlugin::contactsFromString(const QString& string)
+QStringList ExtractorPlugin::contactsFromString(const QString& string)
 {
     QString cleanedString = string;
     cleanedString = cleanedString.remove('{');
@@ -155,16 +151,12 @@ QList<SimpleResource> ExtractorPlugin::contactsFromString(const QString& string)
     if (contactStrings.size() == 1)
         contactStrings = string.split(" feat ", QString::SkipEmptyParts);
 
-    QList<SimpleResource> resList;
-    foreach(const QString & contactName, contactStrings) {
-        SimpleResource res;
-        res.addType(NCO::Contact());
-        res.addProperty(NCO::fullname(), contactName.trimmed());
-
-        resList << res;
+    QStringList list;
+    foreach(const QString& contactName, contactStrings) {
+        list << contactName.trimmed();
     }
 
-    return resList;
+    return list;
 }
 
 // This number has been experimentally chosen. Virtuoso cannot handle more than this
@@ -185,7 +177,4 @@ void ExtractorPlugin::resetMaxPlainTextSize()
 void ExtractorPlugin::setMaxPlainTextSize(int size)
 {
     s_plainTextSize = size;
-}
-
-
 }

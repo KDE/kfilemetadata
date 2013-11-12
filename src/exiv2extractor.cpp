@@ -20,18 +20,11 @@
 
 #include "exiv2extractor.h"
 
-#include "nfo.h"
-#include "nexif.h"
-#include "nie.h"
-
 #include <KDebug>
-
 #include <exiv2/exiv2.hpp>
 
-using namespace Nepomuk2::Vocabulary;
+using namespace KMetaData;
 
-namespace Nepomuk2
-{
 
 Exiv2Extractor::Exiv2Extractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -126,47 +119,49 @@ QVariant toVariantString(const Exiv2::Value& value)
 }
 }
 
-SimpleResourceGraph Exiv2Extractor::extract(const QUrl& resUri, const QUrl& fileUrl, const QString& mimeType)
+
+QVariantMap Exiv2Extractor::extract(const QString& fileUrl, const QString& mimeType)
 {
     Q_UNUSED(mimeType);
 
-    QByteArray arr = fileUrl.toLocalFile().toUtf8();
+    QByteArray arr = fileUrl.toUtf8();
     std::string fileString(arr.data(), arr.length());
 
     Exiv2::Image::AutoPtr image;
     try {
         image = Exiv2::ImageFactory::open(fileString);
     } catch (const std::exception&) {
-        return SimpleResourceGraph();
+        return QVariantMap();
     }
     if (!image.get()) {
-        return SimpleResourceGraph();
+        return QVariantMap();
     }
 
     try {
         image->readMetadata();
     } catch (const std::exception&) {
-        return SimpleResourceGraph();
+        return QVariantMap();
     }
     const Exiv2::ExifData& data = image->exifData();
 
-    SimpleResourceGraph graph;
-    SimpleResource fileRes(resUri);
-    fileRes.addType(NFO::RasterImage());
+    QVariantMap metadata;
+    // FIXME: Add some type information!!
 
     if (image->pixelHeight()) {
-        fileRes.setProperty(NFO::height(), image->pixelHeight());
+        metadata.insert("height", image->pixelHeight());
     }
 
     if (image->pixelWidth()) {
-        fileRes.setProperty(NFO::width(), image->pixelWidth());
+        metadata.insert("width", image->pixelWidth());
     }
 
     std::string comment = image->comment();
     if (!comment.empty()) {
-        fileRes.setProperty(NIE::comment(), QString::fromUtf8(comment.c_str(), comment.length()));
+        metadata.insert("comment", QString::fromUtf8(comment.c_str(), comment.length()));
     }
 
+    // FIXME: This is an absolute nightmare to maintain
+    //        Simplify all this code into one function!!
     /*
     Exiv2::ExifData::const_iterator end = data.end();
     Exiv2::ExifData::const_iterator i = data.begin();
@@ -181,7 +176,7 @@ SimpleResourceGraph Exiv2Extractor::extract(const QUrl& resUri, const QUrl& file
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::flash(), value);
+            metadata.insert("Exif.Photo.Flash", value);
     }
 
     // The width and height have already been set above, this is not required
@@ -203,120 +198,115 @@ SimpleResourceGraph Exiv2Extractor::extract(const QUrl& resUri, const QUrl& file
     if (it != data.end()) {
         QVariant value = toVariantString(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::make(), value);
+            metadata.insert("Exif.Image.Make", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Image.Model"));
     if (it != data.end()) {
         QVariant value = toVariantString(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::model(), value);
+            metadata.insert("Exif.Image.Model", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Image.DateTime"));
     if (it != data.end()) {
         QVariant value = toVariantDateTime(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NIE::contentCreated(), value);
+            metadata.insert("Exif.Image.DateTime", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Image.Orientation"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::orientation(), value);
+            metadata.insert("Exif.Image.Orientation", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.DateTimeOriginal"));
     if (it != data.end()) {
         QVariant value = toVariantDateTime(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::dateTimeOriginal(), value);
+            metadata.insert("Exif.Photo.DateTimeOriginal", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.FocalLength"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::focalLength(), value);
+            metadata.insert("Exif.Photo.FocalLength", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.FocalLengthIn35mmFilm"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::focalLengthIn35mmFilm(), value);
+            metadata.insert("Exif.Photo.FocalLengthIn35mmFilm", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ExposureTime"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::exposureTime(), value);
+            metadata.insert("Exif.Photo.ExposureTime", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.FNumber"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::fNumber(), value);
+            metadata.insert("Exif.Photo.FNumber", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ApertureValue"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::apertureValue(), value);
+            metadata.insert("Exif.Photo.ApertureValue", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ExposureBiasValue"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::exposureBiasValue(), value);
+            metadata.insert("Exif.Photo.ExposureBiasValue", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.WhiteBalance"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::whiteBalance(), value);
+            metadata.insert("Exif.Photo.WhiteBalance", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.MeteringMode"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::meteringMode(), value);
+            metadata.insert("Exif.Photo.MeteringMode", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ISOSpeedRatings"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::isoSpeedRatings(), value);
+            metadata.insert("Exif.Photo.ISOSpeedRatings", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.Saturation"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::saturation(), value);
+            metadata.insert("Exif.Photo.Saturation", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.Sharpness"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            fileRes.setProperty(NEXIF::sharpness(), value);
+            metadata.insert("Exif.Photo.Sharpness", value);
     }
 
-    fileRes.addType(NEXIF::Photo());
-
-    graph << fileRes;
-    return graph;
+    return metadata;
 }
 
-}
-
-NEPOMUK_EXPORT_EXTRACTOR(Nepomuk2::Exiv2Extractor, "nepomukexivextractor")
+KMETADATA_EXPORT_EXTRACTOR(KMetaData::Exiv2Extractor, "nepomukexivextractor")
