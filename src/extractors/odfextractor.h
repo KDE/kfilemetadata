@@ -23,7 +23,7 @@
 
 #include "extractorplugin.h"
 
-namespace KMetaData
+namespace KFileMetaData
 {
 
 class OdfExtractor : public ExtractorPlugin

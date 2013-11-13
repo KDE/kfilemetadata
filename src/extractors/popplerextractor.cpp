@@ -24,7 +24,7 @@
 #include <KDE/KDebug>
 #include <poppler-qt4.h>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 PopplerExtractor::PopplerExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -185,4 +185,4 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     return newPossibleTitle;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::PopplerExtractor, "kfilemetadata_popplerextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PopplerExtractor, "kfilemetadata_popplerextractor")

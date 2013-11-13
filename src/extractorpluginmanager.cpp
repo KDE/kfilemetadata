@@ -26,7 +26,7 @@
 #include <KServiceTypeTrader>
 #include <KDebug>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 ExtractorPluginManager::ExtractorPluginManager(QObject* parent): QObject(parent)
 {
@@ -41,14 +41,14 @@ ExtractorPluginManager::ExtractorPluginManager(QObject* parent): QObject(parent)
 
 ExtractorPluginManager::~ExtractorPluginManager()
 {
-    qDeleteAll(m_extractors);
+    qDeleteAll(m_extractors.values().toSet());
 }
 
 
 QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
 {
     // Get all the plugins
-    KService::List plugins = KServiceTypeTrader::self()->query("KMetaDataFileExtractor");
+    KService::List plugins = KServiceTypeTrader::self()->query("KFileMetaDataExtractor");
 
     QList<ExtractorPlugin*> extractors;
     KService::List::const_iterator it;
@@ -56,7 +56,7 @@ QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
         KService::Ptr service = *it;
 
         QString error;
-        ExtractorPlugin* ex = service->createInstance<KMetaData::ExtractorPlugin>(this, QVariantList(), &error);
+        ExtractorPlugin* ex = service->createInstance<ExtractorPlugin>(this, QVariantList(), &error);
         if (!ex) {
             kError() << "Could not create Extractor: " << service->library();
             kError() << error;

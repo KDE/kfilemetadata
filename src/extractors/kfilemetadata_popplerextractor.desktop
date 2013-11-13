@@ -1,6 +1,5 @@
 [Desktop Entry]
 Type=Service
-X-KDE-ServiceTypes=KMetaDataFileExtractor
-X-KDE-Library=kmetadata_popplerextractor
-Name=KMetaData Poppler Extractor
-Comment=KMetaData File extractor for PDF files
+X-KDE-ServiceTypes=KFileMetaDataExtractor
+X-KDE-Library=kfilemetadata_popplerextractor
+Name=KFileMetaData Poppler Extractor

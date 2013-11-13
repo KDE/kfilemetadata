@@ -23,7 +23,7 @@
 #include <KDebug>
 #include <exiv2/exiv2.hpp>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 
 Exiv2Extractor::Exiv2Extractor(QObject* parent, const QVariantList&)
@@ -309,4 +309,4 @@ QVariantMap Exiv2Extractor::extract(const QString& fileUrl, const QString& mimeT
     return metadata;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::Exiv2Extractor, "kmetaddata_exivextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::Exiv2Extractor, "kmetaddata_exivextractor")

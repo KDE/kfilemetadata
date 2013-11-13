@@ -1,5 +1,5 @@
 [Desktop Entry]
 Type=Service
-X-KDE-ServiceTypes=KMetaDataFileExtractor
-X-KDE-Library=kmetadata_odfextractor
-Name=KMetaData Odf Extractor
+X-KDE-ServiceTypes=KFileMetaDataExtractor
+X-KDE-Library=kfilemetadata_odfextractor
+Name=KFileMetaData Odf Extractor

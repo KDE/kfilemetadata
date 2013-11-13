@@ -26,7 +26,7 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QXmlStreamReader>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 Office2007Extractor::Office2007Extractor(QObject* parent, const QVariantList&): ExtractorPlugin(parent)
 {
@@ -282,4 +282,4 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
     }
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::Office2007Extractor, "kfilemetadata_office2007extractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::Office2007Extractor, "kfilemetadata_office2007extractor")

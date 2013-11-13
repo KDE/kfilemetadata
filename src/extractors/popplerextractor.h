@@ -28,7 +28,7 @@ namespace Poppler
     class Document;
 }
 
-namespace KMetaData
+namespace KFileMetaData
 {
 
 class PopplerExtractor : public ExtractorPlugin

@@ -24,7 +24,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QProcess>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 OfficeExtractor::OfficeExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -114,4 +114,4 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
         return QString::fromUtf8(process.readAll());
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::OfficeExtractor, "kfilemetadata_officeextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OfficeExtractor, "kfilemetadata_officeextractor")

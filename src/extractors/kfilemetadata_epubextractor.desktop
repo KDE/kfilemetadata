@@ -1,6 +1,5 @@
 [Desktop Entry]
 Type=Service
-X-KDE-ServiceTypes=KMetaDataFileExtractor
-X-KDE-Library=kmetadata_epubextractor
-Name=KMetaData EPub Extractor
-Comment=KMetaData extractor for EPub Files
+X-KDE-ServiceTypes=KFileMetaDataExtractor
+X-KDE-Library=kfilemetadata_epubextractor
+Name=KFileMetaData EPub Extractor

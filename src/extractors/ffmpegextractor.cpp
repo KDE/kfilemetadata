@@ -41,7 +41,7 @@ extern "C" {
 #include <KDebug>
 #include <QtCore/QDateTime>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 FFmpegExtractor::FFmpegExtractor(QObject* parent, const QVariantList&)
 : ExtractorPlugin(parent)
@@ -190,4 +190,4 @@ QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mime
     return metadata;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::FFmpegExtractor, "kfilemetadata_ffmpegextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::FFmpegExtractor, "kfilemetadata_ffmpegextractor")

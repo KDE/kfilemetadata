@@ -1,5 +1,5 @@
 [Desktop Entry]
 Type=Service
-X-KDE-ServiceTypes=KMetaDataFileExtractor
-X-KDE-Library=kmetadata_plaintextextractor
-Name=KMetaData Plain Text Extractor
+X-KDE-ServiceTypes=KFileMetaDataExtractor
+X-KDE-Library=kfilemetadata_plaintextextractor
+Name=KFileMetaData Plain Text Extractor

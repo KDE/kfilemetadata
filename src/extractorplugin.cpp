@@ -23,7 +23,7 @@
 
 #include <KDebug>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 ExtractorPlugin::ExtractorPlugin(QObject* parent): QObject(parent)
 {

@@ -34,7 +34,7 @@
 #include <taglib/xiphcomment.h>
 #include <QDateTime>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 TagLibExtractor::TagLibExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -389,4 +389,4 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
     return metadata;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::TagLibExtractor, "kfilemetadata_taglibextextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::TagLibExtractor, "kfilemetadata_taglibextextractor")

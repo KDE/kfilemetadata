@@ -29,7 +29,7 @@
 #include <KService>
 #include <QStringList>
 
-namespace KMetaData
+namespace KFileMetaData
 {
 
 /**

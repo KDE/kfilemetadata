@@ -29,7 +29,7 @@
 #include <QtCore/QDateTime>
 #include <QTextDocument>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 MobiExtractor::MobiExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -99,4 +99,4 @@ QVariantMap MobiExtractor::extract(const QString& fileUrl, const QString& mimeTy
     return metadata;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::MobiExtractor, "kfilemetadata_mobiextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::MobiExtractor, "kfilemetadata_mobiextractor")

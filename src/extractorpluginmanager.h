@@ -22,13 +22,14 @@
 #define EXTRACTORPLUGINMANAGER_H
 
 #include <QtCore/QUrl>
+#include "kfilemetadata_export.h"
 
-namespace KMetaData
+namespace KFileMetaData
 {
 
 class ExtractorPlugin;
 
-class ExtractorPluginManager : public QObject
+class KFILEMETADATA_EXPORT ExtractorPluginManager : public QObject
 {
 public:
     explicit ExtractorPluginManager(QObject* parent = 0);

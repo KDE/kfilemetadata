@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=ServiceType
-X-KDE-ServiceType=KMetaDataFileExtractor
-Comment=KMetaData File Extractor
+X-KDE-ServiceType=KFileMetaDataExtractor
+Comment=KFileMetaData Extractor

@@ -25,8 +25,7 @@
 #include <QtCore/QDateTime>
 #include <QTextDocument>
 
-
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -192,4 +191,4 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
     return metadata;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::EPubExtractor, "kfilemetadata_epubextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::EPubExtractor, "kfilemetadata_epubextractor")

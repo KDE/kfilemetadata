@@ -26,7 +26,7 @@
 class KArchiveDirectory;
 class QTextStream;
 
-namespace KMetaData
+namespace KFileMetaData
 {
 
 class Office2007Extractor : public ExtractorPlugin

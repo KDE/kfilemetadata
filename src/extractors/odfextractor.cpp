@@ -27,7 +27,7 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QXmlStreamReader>
 
-using namespace KMetaData;
+using namespace KFileMetaData;
 
 OdfExtractor::OdfExtractor(QObject* parent, const QVariantList&): ExtractorPlugin(parent)
 {
@@ -145,4 +145,4 @@ QVariantMap OdfExtractor::extract(const QString& fileUrl, const QString& mimeTyp
     return metadata;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KMetaData::OdfExtractor, "kfilemetadata_odfextractor")
+KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OdfExtractor, "kfilemetadata_odfextractor")

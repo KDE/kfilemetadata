@@ -23,7 +23,7 @@
 
 #include "extractorplugin.h"
 
-namespace KMetaData
+namespace KFileMetaData
 {
 
 class Exiv2Extractor : public ExtractorPlugin
