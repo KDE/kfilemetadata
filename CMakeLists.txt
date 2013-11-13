@@ -46,7 +46,7 @@ include_directories(
 
 add_subdirectory(src)
 
-#install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/BalooConfig.cmake
-#        DESTINATION ${LIB_INSTALL_DIR}/cmake/Baloo)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake
+        DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData)
 
 macro_display_feature_log()

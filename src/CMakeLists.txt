@@ -16,6 +16,7 @@ install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_
 install(FILES
     extractorplugin.h
     extractorpluginmanager.h
+    kfilemetadata_export.h
 
     DESTINATION ${INCLUDE_INSTALL_DIR}/kfilemetadata COMPONENT Devel
 )
