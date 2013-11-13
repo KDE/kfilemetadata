@@ -6,7 +6,7 @@ get_filename_component( _currentDir  ${_currentDir} PATH)
 
 
 # find the full paths to the library and the includes:
-find_path(KFILEMETADATA_INCLUDE_DIR kfilemetadata/core_export.h
+find_path(KFILEMETADATA_INCLUDE_DIR kfilemetadata/kfilemetadata_export.h
           HINTS ${_currentDir}/include
           NO_DEFAULT_PATH)
 
