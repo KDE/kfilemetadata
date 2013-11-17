@@ -46,7 +46,11 @@ include_directories(
 
 add_subdirectory(src)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake.in
+               ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake @ONLY)
+               
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake
         DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData)
 
 macro_display_feature_log()
+

@@ -13,6 +13,11 @@ install(TARGETS kfilemetadata ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kfilemetadata EXPORT KdeLibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
+install(EXPORT KdeLibsLibraryTargets
+        DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData
+        FILE KFileMetaDataTargetsWithPrefix.cmake)
+                
+
 install(FILES
     extractorplugin.h
     extractorpluginmanager.h
