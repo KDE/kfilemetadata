@@ -22,11 +22,7 @@
 #define POPPLEREXTRACTOR_H
 
 #include "extractorplugin.h"
-
-namespace Poppler
-{
-    class Document;
-}
+#include <poppler-qt4.h>
 
 namespace KFileMetaData
 {
@@ -37,7 +33,7 @@ public:
     PopplerExtractor(QObject* parent, const QVariantList&);
 
     virtual QStringList mimetypes();
-    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
+    virtual void extract(ExtractionResult* result);
 
 private:
     QString parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl);

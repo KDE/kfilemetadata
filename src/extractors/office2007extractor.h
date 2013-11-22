@@ -35,12 +35,12 @@ public:
     Office2007Extractor(QObject* parent, const QVariantList&);
 
     virtual QStringList mimetypes();
-    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
+    virtual void extract(ExtractionResult* result);
 
 private:
-    void extractTextWithTag(QIODevice* device, const QString& tag, QTextStream& stream);
-    void extractAllText(QIODevice* device, QTextStream& stream);
-    void extractTextFromFiles(const KArchiveDirectory* archiveDir, QTextStream& stream);
+    void extractTextWithTag(QIODevice* device, const QString& tag, ExtractionResult* result);
+    void extractAllText(QIODevice* device, ExtractionResult* result);
+    void extractTextFromFiles(const KArchiveDirectory* archiveDir, ExtractionResult* result);
 };
 }
 

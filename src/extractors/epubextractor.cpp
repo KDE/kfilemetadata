@@ -63,26 +63,22 @@ QString fetchMetadata(struct epub* e, const epub_metadata& type)
 }
 
 
-QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeType)
+void EPubExtractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-
-    struct epub* ePubDoc = epub_open(fileUrl.toUtf8().constData(), 1);
+    struct epub* ePubDoc = epub_open(result->inputUrl().toUtf8().constData(), 1);
     if (!ePubDoc) {
         kError() << "Invalid document";
-        return QVariantMap();
+        return;
     }
-
-    QVariantMap metadata;
 
     QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
     if (!value.isEmpty()) {
-        metadata.insert("title", value);
+        result->add("title", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_SUBJECT);
     if (!value.isEmpty()) {
-        metadata.insert("subject", value);
+        result->add("subject", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_CREATOR);
@@ -98,7 +94,7 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
         if (index)
             value = value.mid(0, index);
 
-        metadata.insert("creator", value);
+        result->add("creator", value);
     }
 
     // The Contributor just seems to be mostly Calibre aka the Generator
@@ -115,12 +111,12 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
 
     value = fetchMetadata(ePubDoc, EPUB_PUBLISHER);
     if (!value.isEmpty()) {
-        metadata.insert("publisher", value);
+        result->add("publisher", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
     if (!value.isEmpty()) {
-        metadata.insert("description", value);
+        result->add("description", value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DATE);
@@ -134,15 +130,12 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
         if (!dt.isNull())
-            metadata.insert("creationDate", value);
+            result->add("creationDate", value);
     }
 
     //
     // Plain Text
     //
-
-    QString plainText;
-
     struct eiterator* iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0);
     do {
         char* curr = epub_it_get_curr(iter);
@@ -152,7 +145,7 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
 
         QTextDocument doc;
         doc.setHtml(html);
-        plainText.append(doc.toPlainText() + "\n");
+        result->append(doc.toPlainText());
     } while (epub_it_get_next(iter));
 
     epub_free_iterator(iter);
@@ -178,17 +171,12 @@ QVariantMap EPubExtractor::extract(const QString& fileUrl, const QString& mimeTy
 
                 QTextDocument doc;
                 doc.setHtml(html);
-                plainText.append(doc.toPlainText() + "\n");
+                result->append(doc.toPlainText());
                 free(data);
             }
         } while (epub_tit_next(tit));
     }
     epub_free_titerator(tit);
-
-    if (!plainText.isEmpty())
-        metadata.insert("text", plainText);
-
-    return metadata;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::EPubExtractor, "kfilemetadata_epubextractor")

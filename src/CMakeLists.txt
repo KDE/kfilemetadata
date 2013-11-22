@@ -1,4 +1,5 @@
 kde4_add_library(kfilemetadata SHARED
+    extractionresult.cpp
     extractorplugin.cpp
     extractorpluginmanager.cpp
 )
@@ -19,6 +20,7 @@ install(EXPORT KdeLibsLibraryTargets
                 
 
 install(FILES
+    extractionresult.h
     extractorplugin.h
     extractorpluginmanager.h
     kfilemetadata_export.h

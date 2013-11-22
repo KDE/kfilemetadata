@@ -31,7 +31,7 @@ class EPubExtractor : public ExtractorPlugin
 public:
     EPubExtractor(QObject* parent, const QVariantList&);
 
-    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
+    virtual void extract(ExtractionResult* result);
     virtual QStringList mimetypes();
 };
 }

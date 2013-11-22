@@ -44,33 +44,30 @@ QStringList Office2007Extractor::mimetypes()
     return list;
 }
 
-QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& mimeType)
+void Office2007Extractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-    QVariantMap metadata;
-
-    KZip zip(fileUrl);
+    KZip zip(result->inputUrl());
     if (!zip.open(QIODevice::ReadOnly)) {
         qWarning() << "Document is not a valid ZIP archive";
-        return metadata;
+        return;
     }
 
     const KArchiveDirectory* rootDir = zip.directory();
     if (!rootDir) {
         qWarning() << "Invalid document structure (main directory is missing)";
-        return metadata;
+        return;
     }
 
     const QStringList rootEntries = rootDir->entries();
     if (!rootEntries.contains("docProps")) {
         qWarning() << "Invalid document structure (docProps is missing)";
-        return metadata;
+        return;
     }
 
     const KArchiveEntry* docPropEntry = rootDir->entry("docProps");
     if (!docPropEntry->isDirectory()) {
         qWarning() << "Invalid document structure (docProps is not a directory)";
-        return metadata;
+        return;
     }
 
     const KArchiveDirectory* docPropDirectory = dynamic_cast<const KArchiveDirectory*>(docPropEntry);
@@ -87,7 +84,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                metadata.insert("dc:description", str);
+                result->add("dc:description", str);
             }
         }
 
@@ -95,7 +92,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                metadata.insert("dc:subject", str);
+                result->add("dc:subject", str);
             }
         }
 
@@ -103,7 +100,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                metadata.insert("dc:title", str);
+                result->add("dc:title", str);
             }
         }
 
@@ -111,7 +108,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                metadata.insert("dc:creator", str);
+                result->add("dc:creator", str);
             }
         }
 
@@ -119,7 +116,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                metadata.insert("dc:langauge", str);
+                result->add("dc:langauge", str);
             }
         }
     }
@@ -132,13 +129,14 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         QDomElement docElem = appDoc.documentElement();
 
         // According to the ontologies only Documents can have a wordCount and pageCount
+        const QString mimeType = result->inputMimetype();
         if (mimeType == QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
             QDomElement elem = docElem.firstChildElement("Pages");
             if (!elem.isNull()) {
                 bool ok = false;
                 int pageCount = elem.text().toInt(&ok);
                 if (ok) {
-                    metadata.insert("pageCount", pageCount);
+                    result->add("pageCount", pageCount);
                 }
             }
 
@@ -147,7 +145,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
                 bool ok = false;
                 int wordCount = elem.text().toInt(&ok);
                 if (ok) {
-                    metadata.insert("wordCount", wordCount);
+                    result->add("wordCount", wordCount);
                 }
             }
         }
@@ -156,7 +154,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         if (!elem.isNull()) {
             QString app = elem.text();
             if (!app.isEmpty()) {
-                metadata.insert("generator", app);
+                result->add("generator", app);
             }
         }
     }
@@ -166,7 +164,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         const KArchiveEntry* wordEntry = rootDir->entry("word");
         if (!wordEntry->isDirectory()) {
             qWarning() << "Invalid document structure (word is not a directory)";
-            return metadata;
+            return;
         }
 
         const KArchiveDirectory* wordDirectory = dynamic_cast<const KArchiveDirectory*>(wordEntry);
@@ -176,12 +174,7 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
             QDomDocument appDoc("document");
             const KArchiveFile* file = static_cast<const KArchiveFile*>(wordDirectory->entry("document.xml"));
 
-            QString plainText;
-            QTextStream stream(&plainText);
-
-            extractTextWithTag(file->createDevice(), QLatin1String("w:t"), stream);
-            if (!plainText.isEmpty())
-                metadata.insert("text", plainText);
+            extractTextWithTag(file->createDevice(), QLatin1String("w:t"), result);
         }
     }
 
@@ -189,38 +182,28 @@ QVariantMap Office2007Extractor::extract(const QString& fileUrl, const QString& 
         const KArchiveEntry* xlEntry = rootDir->entry("xl");
         if (!xlEntry->isDirectory()) {
             qWarning() << "Invalid document structure (xl is not a directory)";
-            return metadata;
+            return;
         }
 
-        QString plainText;
-        QTextStream stream(&plainText);
-
         const KArchiveDirectory* xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
-        extractTextFromFiles(xlDirectory, stream);
-        if (!plainText.isEmpty())
-            metadata.insert("text", plainText);
+        extractTextFromFiles(xlDirectory, result);
     }
 
     else if (rootEntries.contains("ppt")) {
         const KArchiveEntry* pptEntry = rootDir->entry("ppt");
         if (!pptEntry->isDirectory()) {
             qWarning() << "Invalid document structure (ppt is not a directory)";
-            return metadata;
+            return;
         }
 
-        QString plainText;
-        QTextStream stream(&plainText);
-
         const KArchiveDirectory* pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
-        extractTextFromFiles(pptDirectory, stream);
-        if (!plainText.isEmpty())
-            metadata.insert("text", plainText);
+        extractTextFromFiles(pptDirectory, result);
     }
 
-    return metadata;
+    return;
 }
 
-void Office2007Extractor::extractAllText(QIODevice* device, QTextStream& stream)
+void Office2007Extractor::extractAllText(QIODevice* device, ExtractionResult* result)
 {
     QXmlStreamReader xml(device);
 
@@ -228,10 +211,7 @@ void Office2007Extractor::extractAllText(QIODevice* device, QTextStream& stream)
         xml.readNext();
         if (xml.isCharacters()) {
             QString str = xml.text().toString();
-            stream << str;
-
-            if (!str.at(str.length() - 1).isSpace())
-                stream << QLatin1Char(' ');
+            result->append(str);
         }
 
         if (xml.isEndDocument() || xml.hasError())
@@ -239,14 +219,14 @@ void Office2007Extractor::extractAllText(QIODevice* device, QTextStream& stream)
     }
 }
 
-void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveDir, QTextStream& stream)
+void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveDir, ExtractionResult* result)
 {
     const QStringList entries = archiveDir->entries();
     foreach(const QString & entryName, entries) {
         const KArchiveEntry* entry = archiveDir->entry(entryName);
         if (entry->isDirectory()) {
             const KArchiveDirectory* subDir = dynamic_cast<const KArchiveDirectory*>(entry);
-            extractTextFromFiles(subDir, stream);
+            extractTextFromFiles(subDir, result);
             continue;
         }
 
@@ -254,26 +234,21 @@ void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveD
             continue;
 
         const KArchiveFile* file = static_cast<const KArchiveFile*>(entry);
-        extractAllText(file->createDevice(), stream);
+        extractAllText(file->createDevice(), result);
     }
 }
 
-void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& tag, QTextStream& stream)
+void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& tag, ExtractionResult* result)
 {
     QXmlStreamReader xml(device);
-    int size = 0;
 
     while (!xml.atEnd()) {
         xml.readNext();
         if (xml.qualifiedName().startsWith(tag) && xml.isStartElement()) {
-            QString str = xml.readElementText(QXmlStreamReader::IncludeChildElements).simplified();
+            QString str = xml.readElementText(QXmlStreamReader::IncludeChildElements);
 
             if (!str.isEmpty()) {
-                stream << str;
-                size += str.size();
-
-                if (!str.at(str.length() - 1).isSpace())
-                    stream << QLatin1Char(' ');
+                result->append(str);
             }
         }
 

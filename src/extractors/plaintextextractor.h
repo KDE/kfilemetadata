@@ -32,7 +32,7 @@ public:
     PlainTextExtractor(QObject* parent, const QVariantList&);
 
     virtual QStringList mimetypes();
-    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
+    virtual void extract(ExtractionResult* result);
 };
 
 }

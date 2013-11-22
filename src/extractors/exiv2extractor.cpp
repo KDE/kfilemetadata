@@ -120,44 +120,41 @@ QVariant toVariantString(const Exiv2::Value& value)
 }
 
 
-QVariantMap Exiv2Extractor::extract(const QString& fileUrl, const QString& mimeType)
+void Exiv2Extractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-
-    QByteArray arr = fileUrl.toUtf8();
+    QByteArray arr = result->inputUrl().toUtf8();
     std::string fileString(arr.data(), arr.length());
 
     Exiv2::Image::AutoPtr image;
     try {
         image = Exiv2::ImageFactory::open(fileString);
     } catch (const std::exception&) {
-        return QVariantMap();
+        return;
     }
     if (!image.get()) {
-        return QVariantMap();
+        return;
     }
 
     try {
         image->readMetadata();
     } catch (const std::exception&) {
-        return QVariantMap();
+        return;
     }
     const Exiv2::ExifData& data = image->exifData();
 
-    QVariantMap metadata;
     // FIXME: Add some type information!!
 
     if (image->pixelHeight()) {
-        metadata.insert("height", image->pixelHeight());
+        result->add("height", image->pixelHeight());
     }
 
     if (image->pixelWidth()) {
-        metadata.insert("width", image->pixelWidth());
+        result->add("width", image->pixelWidth());
     }
 
     std::string comment = image->comment();
     if (!comment.empty()) {
-        metadata.insert("comment", QString::fromUtf8(comment.c_str(), comment.length()));
+        result->add("comment", QString::fromUtf8(comment.c_str(), comment.length()));
     }
 
     // FIXME: This is an absolute nightmare to maintain
@@ -176,7 +173,7 @@ QVariantMap Exiv2Extractor::extract(const QString& fileUrl, const QString& mimeT
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.Flash", value);
+            result->add("Exif.Photo.Flash", value);
     }
 
     // The width and height have already been set above, this is not required
@@ -198,115 +195,113 @@ QVariantMap Exiv2Extractor::extract(const QString& fileUrl, const QString& mimeT
     if (it != data.end()) {
         QVariant value = toVariantString(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Image.Make", value);
+            result->add("Exif.Image.Make", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Image.Model"));
     if (it != data.end()) {
         QVariant value = toVariantString(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Image.Model", value);
+            result->add("Exif.Image.Model", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Image.DateTime"));
     if (it != data.end()) {
         QVariant value = toVariantDateTime(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Image.DateTime", value);
+            result->add("Exif.Image.DateTime", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Image.Orientation"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Image.Orientation", value);
+            result->add("Exif.Image.Orientation", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.DateTimeOriginal"));
     if (it != data.end()) {
         QVariant value = toVariantDateTime(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.DateTimeOriginal", value);
+            result->add("Exif.Photo.DateTimeOriginal", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.FocalLength"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.FocalLength", value);
+            result->add("Exif.Photo.FocalLength", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.FocalLengthIn35mmFilm"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.FocalLengthIn35mmFilm", value);
+            result->add("Exif.Photo.FocalLengthIn35mmFilm", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ExposureTime"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.ExposureTime", value);
+            result->add("Exif.Photo.ExposureTime", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.FNumber"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.FNumber", value);
+            result->add("Exif.Photo.FNumber", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ApertureValue"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.ApertureValue", value);
+            result->add("Exif.Photo.ApertureValue", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ExposureBiasValue"));
     if (it != data.end()) {
         QVariant value = toVariantFloat(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.ExposureBiasValue", value);
+            result->add("Exif.Photo.ExposureBiasValue", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.WhiteBalance"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.WhiteBalance", value);
+            result->add("Exif.Photo.WhiteBalance", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.MeteringMode"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.MeteringMode", value);
+            result->add("Exif.Photo.MeteringMode", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.ISOSpeedRatings"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.ISOSpeedRatings", value);
+            result->add("Exif.Photo.ISOSpeedRatings", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.Saturation"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.Saturation", value);
+            result->add("Exif.Photo.Saturation", value);
     }
 
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.Sharpness"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
         if (!value.isNull())
-            metadata.insert("Exif.Photo.Sharpness", value);
+            result->add("Exif.Photo.Sharpness", value);
     }
-
-    return metadata;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::Exiv2Extractor, "kmetaddata_exivextractor")

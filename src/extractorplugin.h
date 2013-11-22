@@ -25,6 +25,7 @@
 #include <QtCore/QDateTime>
 
 #include "kfilemetadata_export.h"
+#include "extractionresult.h"
 
 #include <KService>
 #include <QStringList>
@@ -68,7 +69,7 @@ public:
      * \param fileUrl The url of the file being indexed
      * \param mimeType the mimetype of the file url
      */
-    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType) = 0;
+    virtual void extract(ExtractionResult* result) = 0;
 
     //
     // Helper functions

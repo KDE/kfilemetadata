@@ -22,7 +22,6 @@
 #include "popplerextractor.h"
 
 #include <KDE/KDebug>
-#include <poppler-qt4.h>
 
 using namespace KFileMetaData;
 
@@ -41,18 +40,15 @@ QStringList PopplerExtractor::mimetypes()
 }
 
 
-QVariantMap PopplerExtractor::extract(const QString& fileUrl, const QString& mimeType)
+void PopplerExtractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-
-    QVariantMap metadata;
-
     // FIXME: Make this into a QScopedPointer
+    const QString fileUrl = result->inputUrl();
     Poppler::Document* pdfDoc = Poppler::Document::load(fileUrl, 0, 0);
 
     if (!pdfDoc || pdfDoc->isLocked()) {
         delete pdfDoc;
-        return metadata;
+        return;
     }
 
     QString title = pdfDoc->info(QLatin1String("Title")).trimmed();
@@ -69,42 +65,35 @@ QVariantMap PopplerExtractor::extract(const QString& fileUrl, const QString& mim
     }
 
     if (!title.isEmpty()) {
-        metadata.insert("title", title);
+        result->add("title", title);
     }
 
     QString subject = pdfDoc->info(QLatin1String("Subject"));
     if (!subject.isEmpty()) {
-        metadata.insert("title", title);
+        result->add("title", title);
     }
 
     QString author = pdfDoc->info(QLatin1String("Author"));
     if (!author.isEmpty()) {
-        metadata.insert("author", author);
+        result->add("author", author);
     }
 
     QString creator = pdfDoc->info(QLatin1String("Creator"));
     if (!author.isEmpty()) {
-        metadata.insert("creator", creator);
+        result->add("creator", creator);
     }
 
-    QString plainTextContent;
     for (int i = 0; i < pdfDoc->numPages(); i++) {
         Poppler::Page* page = pdfDoc->page(i);
         if (!page) { // broken pdf files do not return a valid page
             kWarning() << "Could not read page content from" << fileUrl;
             break;
         }
-        plainTextContent.append(page->text(QRectF()));
+        result->append(page->text(QRectF()));
         delete page;
     }
 
-    if (!plainTextContent.isEmpty()) {
-        metadata.insert("text", plainTextContent);
-    }
-
     delete pdfDoc;
-
-    return metadata;
 }
 
 QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl)

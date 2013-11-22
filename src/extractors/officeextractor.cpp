@@ -51,7 +51,7 @@ QStringList OfficeExtractor::mimetypes()
 }
 
 
-QVariantMap OfficeExtractor::extract(const QString& fileUrl, const QString& mimeType)
+void OfficeExtractor::extract(ExtractionResult* result)
 {
     QVariantMap metadata;
     QStringList args;
@@ -60,6 +60,8 @@ QVariantMap OfficeExtractor::extract(const QString& fileUrl, const QString& mime
     args << QLatin1String("-s") << QLatin1String("cp1252"); // FIXME: Store somewhere a map between the user's language and the encoding of the Windows files it may use ?
     args << QLatin1String("-d") << QLatin1String("utf8");
 
+    const QString fileUrl = result->inputUrl();
+    const QString mimeType = result->inputMimetype();
     if (mimeType == QLatin1String("application/msword")) {
         //res.addType(NFO::TextDocument());
 
@@ -72,10 +74,10 @@ QVariantMap OfficeExtractor::extract(const QString& fileUrl, const QString& mime
         int lines = contents.count(QChar('\n'));
         int words = contents.count(QRegExp("\\b\\w+\\b"));
 
-        metadata.insert("text", contents);
-        metadata.insert("wordCount", words);
-        metadata.insert("lineCount", lines);
-        metadata.insert("characterCount", characters);
+        result->add("text", contents);
+        result->add("wordCount", words);
+        result->add("lineCount", lines);
+        result->add("characterCount", characters);
     } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
         //res.addType(NFO::Spreadsheet());
 
@@ -90,11 +92,11 @@ QVariantMap OfficeExtractor::extract(const QString& fileUrl, const QString& mime
     }
 
     if (contents.isEmpty())
-        return metadata;
+        return;
 
-    metadata.insert("text", contents);
+    result->append(contents);
 
-    return metadata;
+    return;
 }
 
 QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& command, QStringList& arguments)

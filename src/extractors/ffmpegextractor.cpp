@@ -65,31 +65,27 @@ QStringList FFmpegExtractor::mimetypes()
     return types;
 }
 
-QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mimeType)
+void FFmpegExtractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-
     AVFormatContext* fmt_ctx = NULL;
 
     av_register_all();
 
-    QByteArray arr = fileUrl.toUtf8();
+    QByteArray arr = result->inputUrl().toUtf8();
 
     fmt_ctx = avformat_alloc_context();
     if (int ret = avformat_open_input(&fmt_ctx, arr.data(), NULL, NULL)) {
         kError() << "avformat_open_input error: " << ret;
-        return QVariantMap();
+        return;
     }
 
     int ret = avformat_find_stream_info(fmt_ctx, NULL);
     if (ret < 0) {
         kError() << "avform_find_stream_info error: " << ret;
-        return QVariantMap();
+        return;
     }
 
-    QVariantMap metadata;
     // TODO: Add types!!
-
     /*if (fmt_ctx->nb_streams == 1 && fmt_ctx->streams[0]->codec->codec_type == AVMEDIA_TYPE_AUDIO) {
         fileRes.addType(NMM::MusicPiece());
     } else {
@@ -99,8 +95,8 @@ QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mime
     int totalSecs = fmt_ctx->duration / AV_TIME_BASE;
     int bitrate = fmt_ctx->bit_rate;
 
-    metadata.insert("duration", totalSecs);
-    metadata.insert("averageBitrate", bitrate);
+    result->add("duration", totalSecs);
+    result->add("averageBitrate", bitrate);
 
     for (uint i = 0; i < fmt_ctx->nb_streams; i++) {
         const AVStream* stream = fmt_ctx->streams[i];
@@ -125,10 +121,10 @@ QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mime
                 if (stream->avg_frame_rate.den)
                     frameRate /= stream->avg_frame_rate.den;
 
-                metadata.insert("width", codec->width);
-                metadata.insert("height", codec->height);
-                metadata.insert("aspectRatio", aspectRatio);
-                metadata.insert("frameRate", frameRate);
+                result->add("width", codec->width);
+                result->add("height", codec->height);
+                result->add("aspectRatio", aspectRatio);
+                result->add("frameRate", frameRate);
             }
         }
     }
@@ -138,33 +134,33 @@ QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mime
 
     entry = av_dict_get(dict, "title", NULL, 0);
     if (entry) {
-        metadata.insert("title", QString::fromUtf8(entry->value));
+        result->add("title", QString::fromUtf8(entry->value));
     }
 
 
     entry = av_dict_get(dict, "author", NULL, 0);
     if (entry) {
-        metadata.insert("author", QString::fromUtf8(entry->value));
+        result->add("author", QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "copyright", NULL, 0);
     if (entry) {
-        metadata.insert("copyright", QString::fromUtf8(entry->value));
+        result->add("copyright", QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "comment", NULL, 0);
     if (entry) {
-        metadata.insert("comment", QString::fromUtf8(entry->value));
+        result->add("comment", QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "album", NULL, 0);
     if (entry) {
-        metadata.insert("album", QString::fromUtf8(entry->value));
+        result->add("album", QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "genre", NULL, 0);
     if (entry) {
-        metadata.insert("genre", QString::fromUtf8(entry->value));
+        result->add("genre", QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "track", NULL, 0);
@@ -174,7 +170,7 @@ QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mime
         bool ok = false;
         int track = value.toInt(&ok);
         if (ok && track)
-            metadata.insert("track", track);
+            result->add("track", track);
     }
 
     entry = av_dict_get(dict, "year", NULL, 0);
@@ -182,12 +178,10 @@ QVariantMap FFmpegExtractor::extract(const QString& fileUrl, const QString& mime
         //FIXME: Parse date in different formats
         QString value = QString::fromUtf8(entry->value);
         QDate date = QDate::fromString("yyyy", value);
-        metadata.insert("contentCreated", date);
+        result->add("contentCreated", date);
     }
 
     avformat_close_input(&fmt_ctx);
-
-    return metadata;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::FFmpegExtractor, "kfilemetadata_ffmpegextractor")

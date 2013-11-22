@@ -31,7 +31,7 @@ class MobiExtractor : public ExtractorPlugin
 public:
     MobiExtractor(QObject* parent, const QVariantList&);
 
-    virtual QVariantMap extract(const QString& fileUrl, const QString& mimeType);
+    virtual void extract(ExtractionResult* result);
     virtual QStringList mimetypes();
 };
 }

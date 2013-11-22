@@ -36,20 +36,17 @@ QStringList PlainTextExtractor::mimetypes()
     return QStringList() << QLatin1String("text/");
 }
 
-QVariantMap PlainTextExtractor::extract(const QString& fileUrl, const QString& mimeType)
+// TODO: Make this iterative! And remove the size filter
+void PlainTextExtractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
+    QFile file(result->inputUrl());
 
-    QFile file(fileUrl);
-    QVariantMap metadata;
-
-    // FIXME: make a size filter or something configurable
     if (file.size() > 5 * 1024 * 1024) {
-        return metadata;
+        return;
     }
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return metadata;
+        return;
     }
 
     QTextStream ts(&file);
@@ -59,13 +56,13 @@ QVariantMap PlainTextExtractor::extract(const QString& fileUrl, const QString& m
     int lines = contents.count(QChar('\n'));
     int words = contents.count(QRegExp("\\b\\w+\\b"));
 
-    metadata.insert("type", "PlainTextDocument");
-    metadata.insert("text", contents);
-    metadata.insert("wordCount", words);
-    metadata.insert("lines", lines);
-    metadata.insert("characterCount", characters);
+    result->add("type", "PlainTextDocument");
+    result->add("wordCount", words);
+    result->add("lines", lines);
+    result->add("characterCount", characters);
+    result->append(contents);
 
-    return metadata;
+    return;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PlainTextExtractor, "kfilemetadata_plaintextextractor")

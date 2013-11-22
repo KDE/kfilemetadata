@@ -44,27 +44,24 @@ QStringList OdfExtractor::mimetypes()
     return list;
 }
 
-QVariantMap OdfExtractor::extract(const QString& fileUrl, const QString& mimeType)
+void OdfExtractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-    QVariantMap metadata;
-
-    KZip zip(fileUrl);
+    KZip zip(result->inputUrl());
     if (!zip.open(QIODevice::ReadOnly)) {
         qWarning() << "Document is not a valid ZIP archive";
-        return metadata;
+        return;
     }
 
     const KArchiveDirectory* directory = zip.directory();
     if (!directory) {
         qWarning() << "Invalid document structure (main directory is missing)";
-        return metadata;
+        return;
     }
 
     const QStringList entries = directory->entries();
     if (!entries.contains("meta.xml")) {
         qWarning() << "Invalid document structure (meta.xml is missing)";
-        return metadata;
+        return;
     }
 
     QDomDocument metaData("metaData");
@@ -82,15 +79,15 @@ QVariantMap OdfExtractor::extract(const QString& fileUrl, const QString& mimeTyp
 
             // Dublin Core
             if (tagName == QLatin1String("dc:description")) {
-                metadata.insert("dc:description", e.text());
+                result->add("dc:description", e.text());
             } else if (tagName == QLatin1String("dc:subject")) {
-                metadata.insert("dc:subject", e.text());
+                result->add("dc:subject", e.text());
             } else if (tagName == QLatin1String("dc:title")) {
-                metadata.insert("dc:title", e.text());
+                result->add("dc:title", e.text());
             } else if (tagName == QLatin1String("dc:creator")) {
-                metadata.insert("dc:creator", e.text());
+                result->add("dc:creator", e.text());
             } else if (tagName == QLatin1String("dc:langauge")) {
-                metadata.insert("dc:language", e.text());
+                result->add("dc:language", e.text());
             }
 
             // Meta Properties
@@ -98,22 +95,22 @@ QVariantMap OdfExtractor::extract(const QString& fileUrl, const QString& mimeTyp
                 bool ok = false;
                 int pageCount = e.attribute("meta:page-count").toInt(&ok);
                 if (ok) {
-                    metadata.insert("pageCount", pageCount);
+                    result->add("pageCount", pageCount);
                 }
 
                 int wordCount = e.attribute("meta:word-count").toInt(&ok);
                 if (ok) {
-                    metadata.insert("wordCount", wordCount);
+                    result->add("wordCount", wordCount);
                 }
             } else if (tagName == QLatin1String("meta:keyword")) {
                 QString keywords = e.text();
-                    metadata.insert("keyword", keywords);
+                    result->add("keyword", keywords);
             } else if (tagName == QLatin1String("meta:generator")) {
-                metadata.insert("generator", e.text());
+                result->add("generator", e.text());
             } else if (tagName == QLatin1String("meta:creation-date")) {
                 QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
                 if (!dt.isNull())
-                    metadata.insert("contentCreated", dt);
+                    result->add("contentCreated", dt);
             }
         }
         n = n.nextSibling();
@@ -122,27 +119,18 @@ QVariantMap OdfExtractor::extract(const QString& fileUrl, const QString& mimeTyp
     const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry("content.xml"));
     QXmlStreamReader xml(contentsFile->createDevice());
 
-    QString plainText;
-    QTextStream stream(&plainText);
-
     while (!xml.atEnd()) {
         xml.readNext();
         if (xml.isCharacters()) {
             QString str = xml.text().toString();
-            stream << str;
-
-            if (!str.at(str.length() - 1).isSpace())
-                stream << QLatin1Char(' ');
+            result->append(str);
         }
 
         if (xml.hasError() || xml.isEndDocument())
             break;
     }
 
-    if (!plainText.isEmpty())
-        metadata.insert("text", plainText);
-
-    return metadata;
+    return;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OdfExtractor, "kfilemetadata_odfextractor")

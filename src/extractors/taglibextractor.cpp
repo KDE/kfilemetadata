@@ -70,14 +70,14 @@ QStringList TagLibExtractor::mimetypes()
     return types;
 }
 
-QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mimeType)
+void TagLibExtractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-    QVariantMap metadata;
+    const QString fileUrl = result->inputUrl();
+    const QString mimeType = result->inputMimetype();
 
     TagLib::FileRef file(fileUrl.toUtf8().data(), true);
     if (file.isNull()) {
-        return metadata;
+        return;
     }
 
     TagLib::Tag* tags = file.tag();
@@ -260,12 +260,12 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
     if (!tags->isEmpty()) {
         QString title = QString::fromUtf8(tags->title().toCString(true));
         if (!title.isEmpty()) {
-            metadata.insert("title", title);
+            result->add("title", title);
         }
 
         QString comment = QString::fromUtf8(tags->comment().toCString(true));
         if (!comment.isEmpty()) {
-            metadata.insert("comment", comment);
+            result->add("comment", comment);
         }
 
         if (genres.isEmpty()) {
@@ -282,7 +282,7 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
                 genre = QString::fromUtf8(TagLib::ID3v1::genre(genreNum).toCString(true));
             }
 
-            metadata.insertMulti("genre", genre);
+            result->add("genre", genre);
         }
 
         QString artistString;
@@ -294,34 +294,34 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
 
         QStringList artists = contactsFromString(artistString);
         foreach(const QString& artist, artists) {
-            metadata.insertMulti("artist", artist);
+            result->add("artist", artist);
         }
 
         QString composersString = QString::fromUtf8(composers.toCString(true)).trimmed();
         QStringList composers = contactsFromString(composersString);
         foreach(const QString& comp, composers) {
-            metadata.insertMulti("composer", comp);
+            result->add("composer", comp);
         }
 
         QString lyricistsString = QString::fromUtf8(lyricists.toCString(true)).trimmed();
         QStringList lyricists = contactsFromString(lyricistsString);
         foreach(const QString& lyr, lyricists) {
-            metadata.insertMulti("lyricist", lyr);
+            result->add("lyricist", lyr);
         }
 
         QString album = QString::fromUtf8(tags->album().toCString(true));
         if (!album.isEmpty()) {
-            metadata.insert("album", album);
+            result->add("album", album);
 
             QString albumArtistsString = QString::fromUtf8(albumArtists.toCString(true)).trimmed();
             QStringList albumArtists = contactsFromString(albumArtistsString);
             foreach(const QString& res, albumArtists) {
-                metadata.insertMulti("albumArtist", res);
+                result->add("albumArtist", res);
             }
         }
 
         if (tags->track()) {
-            metadata.insert("trackNumber", tags->track());
+            result->add("trackNumber", tags->track());
         }
 
         if (tags->year()) {
@@ -334,7 +334,7 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
                 date.setDate(1, 1, 1);
             }
             dt.setDate(date);
-            metadata.insert("releaseDate", dt);
+            result->add("releaseDate", dt);
         }
     }
 
@@ -342,19 +342,19 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
     if (audioProp) {
         if (audioProp->length()) {
             // What about the xml duration?
-            metadata.insert("duration", audioProp->length());
+            result->add("duration", audioProp->length());
         }
 
         if (audioProp->bitrate()) {
-            metadata.insert("averageBitrate", audioProp->bitrate() * 1000);
+            result->add("averageBitrate", audioProp->bitrate() * 1000);
         }
 
         if (audioProp->channels()) {
-            metadata.insert("channels", audioProp->channels());
+            result->add("channels", audioProp->channels());
         }
 
         if (audioProp->sampleRate()) {
-            metadata.insert("sampleRate", audioProp->sampleRate());
+            result->add("sampleRate", audioProp->sampleRate());
         }
     }
 
@@ -385,8 +385,6 @@ QVariantMap TagLibExtractor::extract(const QString& fileUrl, const QString& mime
     // Disc number[/total dics]:        TPOS
     // Track number[/total tracks]:     TRCK
     // Genre:                           TCON
-
-    return metadata;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::TagLibExtractor, "kfilemetadata_taglibextextractor")

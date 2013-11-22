@@ -45,26 +45,22 @@ QStringList MobiExtractor::mimetypes()
     return types;
 }
 
-QVariantMap MobiExtractor::extract(const QString& fileUrl, const QString& mimeType)
+void MobiExtractor::extract(ExtractionResult* result)
 {
-    Q_UNUSED(mimeType);
-
-    QVariantMap metadata;
-
-    Mobipocket::QFileStream stream(fileUrl);
+    Mobipocket::QFileStream stream(result->inputUrl());
     Mobipocket::Document doc(&stream);
     if (!doc.isValid())
-        return metadata;
+        return;
 
     QMapIterator<Mobipocket::Document::MetaKey, QString> it(doc.metadata());
     while (it.hasNext()) {
         it.next();
         switch (it.key()) {
         case Mobipocket::Document::Title:
-            metadata.insert("title", it.value());
+            result->add("title", it.value());
             break;
         case Mobipocket::Document::Author: {
-            metadata.insert("author", it.value());
+            result->add("author", it.value());
             break;
         }
         case Mobipocket::Document::Description: {
@@ -73,14 +69,14 @@ QVariantMap MobiExtractor::extract(const QString& fileUrl, const QString& mimeTy
 
             QString plain = document.toPlainText();
             if (!plain.isEmpty())
-                metadata.insert("comment", it.value());
+                result->add("comment", it.value());
             break;
         }
         case Mobipocket::Document::Subject:
-            metadata.insert("subject", it.value());
+            result->add("subject", it.value());
             break;
         case Mobipocket::Document::Copyright:
-            metadata.insert("copyright", it.value());
+            result->add("copyright", it.value());
             break;
         }
     }
@@ -91,12 +87,8 @@ QVariantMap MobiExtractor::extract(const QString& fileUrl, const QString& mimeTy
         QTextDocument document;
         document.setHtml(html);
 
-        QString plainText = document.toPlainText();
-        if (!plainText.isEmpty())
-            metadata.insert("text", it.value());
+        result->append(document.toPlainText());
     }
-
-    return metadata;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::MobiExtractor, "kfilemetadata_mobiextractor")
