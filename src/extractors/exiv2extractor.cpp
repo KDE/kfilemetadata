@@ -21,7 +21,6 @@
 #include "exiv2extractor.h"
 
 #include <KDebug>
-#include <exiv2/exiv2.hpp>
 
 using namespace KFileMetaData;
 
@@ -94,15 +93,16 @@ QVariant toVariantLong(const Exiv2::Value& value)
     return QVariant();
 }
 
-QVariant toVariantFloat(const Exiv2::Value& value)
+QVariant toVariantDouble(const Exiv2::Value& value)
 {
-    // WARNING: Dbus does not recognize float, cast to double
-    if (value.typeId() == Exiv2::tiffFloat || value.typeId() == Exiv2::tiffDouble || value.typeId() == Exiv2::unsignedRational || value.typeId() == Exiv2::signedRational)
+    if (value.typeId() == Exiv2::tiffFloat || value.typeId() == Exiv2::tiffDouble
+        || value.typeId() == Exiv2::unsignedRational || value.typeId() == Exiv2::signedRational) {
         return QVariant(static_cast<double>(value.toFloat()));
+    }
 
     QString str(toString(value));
     bool ok = false;
-    double val = str.toFloat(&ok);
+    double val = str.toDouble(&ok);
     if (ok)
         return QVariant(val);
 
@@ -117,8 +117,24 @@ QVariant toVariantString(const Exiv2::Value& value)
 
     return QVariant();
 }
-}
 
+QVariant toVariant(const Exiv2::Value& value, QVariant::Type type) {
+    switch (type) {
+    case QVariant::Int:
+        return toVariantLong(value);
+
+    case QVariant::DateTime:
+        return toVariantDateTime(value);
+
+    case QVariant::Double:
+        return toVariantDouble(value);
+
+    case QVariant::String:
+    default:
+        return toVariantString(value);
+    }
+}
+}
 
 void Exiv2Extractor::extract(ExtractionResult* result)
 {
@@ -155,151 +171,38 @@ void Exiv2Extractor::extract(ExtractionResult* result)
         result->add("comment", QString::fromUtf8(comment.c_str(), comment.length()));
     }
 
-    // FIXME: This is an absolute nightmare to maintain
-    //        Simplify all this code into one function!!
-    /*
-    Exiv2::ExifData::const_iterator end = data.end();
-    Exiv2::ExifData::const_iterator i = data.begin();
-    for( ; i != end; i++ ) {
-        kDebug() << i->key().c_str();
-        kDebug() << i->value().toString().c_str();
-    }*/
-
-    Exiv2::ExifData::const_iterator it;
-
     const Exiv2::ExifData& data = image->exifData();
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.Flash"));
+
+    add(result, data, "Exif.Image.Make", QVariant::String);
+    add(result, data, "Exif.Image.Make", QVariant::String);
+    add(result, data, "Exif.Image.Model", QVariant::String);
+    add(result, data, "Exif.Image.DateTime", QVariant::DateTime);
+    add(result, data, "Exif.Image.Orientation", QVariant::Int);
+    add(result, data, "Exif.Photo.Flash", QVariant::Int);
+    add(result, data, "Exif.Photo.PixelXDimension", QVariant::Int);
+    add(result, data, "Exif.Photo.PixelYDimension", QVariant::Int);
+    add(result, data, "Exif.Photo.DateTimeOriginal", QVariant::DateTime);
+    add(result, data, "Exif.Photo.FocalLength", QVariant::Double);
+    add(result, data, "Exif.Photo.FocalLengthIn35mmFilm", QVariant::Double);
+    add(result, data, "Exif.Photo.ExposureTime", QVariant::Double);
+    add(result, data, "Exif.Photo.FNumber", QVariant::Double);
+    add(result, data, "Exif.Photo.ApertureValue", QVariant::Double);
+    add(result, data, "Exif.Photo.ExposureBiasValue", QVariant::Double);
+    add(result, data, "Exif.Photo.WhiteBalance", QVariant::Int);
+    add(result, data, "Exif.Photo.MeteringMode", QVariant::Int);
+    add(result, data, "Exif.Photo.ISOSpeedRatings", QVariant::Int);
+    add(result, data, "Exif.Photo.Saturation", QVariant::Int);
+    add(result, data, "Exif.Photo.Sharpness", QVariant::Int);
+}
+
+void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
+                         const char* name, QVariant::Type type)
+{
+    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end()) {
-        QVariant value = toVariantLong(it->value());
+        QVariant value = toVariant(it->value(), type);
         if (!value.isNull())
-            result->add("Exif.Photo.Flash", value);
-    }
-
-    // The width and height have already been set above, this is not required
-    /*it = data.findKey( Exiv2::ExifKey("Exif.Photo.PixelXDimension") );
-    if( it != data.end() ) {
-        QVariant value = toVariantLong( it->value() );
-        if( !value.isNull() )
-            fileRes.setProperty( NFO::width(), value );
-    }
-
-    it = data.findKey( Exiv2::ExifKey("Exif.Photo.PixelYDimension") );
-    if( it != data.end() ) {
-        QVariant value = toVariantLong( it->value() );
-        if( !value.isNull() )
-            fileRes.setProperty( NFO::height(), value );
-    }*/
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Image.Make"));
-    if (it != data.end()) {
-        QVariant value = toVariantString(it->value());
-        if (!value.isNull())
-            result->add("Exif.Image.Make", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Image.Model"));
-    if (it != data.end()) {
-        QVariant value = toVariantString(it->value());
-        if (!value.isNull())
-            result->add("Exif.Image.Model", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Image.DateTime"));
-    if (it != data.end()) {
-        QVariant value = toVariantDateTime(it->value());
-        if (!value.isNull())
-            result->add("Exif.Image.DateTime", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Image.Orientation"));
-    if (it != data.end()) {
-        QVariant value = toVariantLong(it->value());
-        if (!value.isNull())
-            result->add("Exif.Image.Orientation", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.DateTimeOriginal"));
-    if (it != data.end()) {
-        QVariant value = toVariantDateTime(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.DateTimeOriginal", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.FocalLength"));
-    if (it != data.end()) {
-        QVariant value = toVariantFloat(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.FocalLength", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.FocalLengthIn35mmFilm"));
-    if (it != data.end()) {
-        QVariant value = toVariantFloat(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.FocalLengthIn35mmFilm", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.ExposureTime"));
-    if (it != data.end()) {
-        QVariant value = toVariantFloat(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.ExposureTime", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.FNumber"));
-    if (it != data.end()) {
-        QVariant value = toVariantFloat(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.FNumber", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.ApertureValue"));
-    if (it != data.end()) {
-        QVariant value = toVariantFloat(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.ApertureValue", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.ExposureBiasValue"));
-    if (it != data.end()) {
-        QVariant value = toVariantFloat(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.ExposureBiasValue", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.WhiteBalance"));
-    if (it != data.end()) {
-        QVariant value = toVariantLong(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.WhiteBalance", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.MeteringMode"));
-    if (it != data.end()) {
-        QVariant value = toVariantLong(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.MeteringMode", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.ISOSpeedRatings"));
-    if (it != data.end()) {
-        QVariant value = toVariantLong(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.ISOSpeedRatings", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.Saturation"));
-    if (it != data.end()) {
-        QVariant value = toVariantLong(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.Saturation", value);
-    }
-
-    it = data.findKey(Exiv2::ExifKey("Exif.Photo.Sharpness"));
-    if (it != data.end()) {
-        QVariant value = toVariantLong(it->value());
-        if (!value.isNull())
-            result->add("Exif.Photo.Sharpness", value);
+            result->add(name, value);
     }
 }
 

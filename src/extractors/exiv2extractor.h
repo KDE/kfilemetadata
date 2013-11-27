@@ -22,6 +22,7 @@
 #define EXIV2EXTRACTOR_H
 
 #include "extractorplugin.h"
+#include <exiv2/exiv2.hpp>
 
 namespace KFileMetaData
 {
@@ -33,6 +34,10 @@ public:
 
     virtual void extract(ExtractionResult* result);
     virtual QStringList mimetypes();
+
+private:
+    void add(ExtractionResult* result, const Exiv2::ExifData& data,
+             const char* name, QVariant::Type type);
 };
 }
 
