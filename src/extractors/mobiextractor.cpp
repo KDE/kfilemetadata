@@ -23,13 +23,29 @@
 #include "mobiextractor.h"
 
 #include <qmobipocket/mobipocket.h>
-#include "qfilestream.h"
 
 #include <KDebug>
-#include <QtCore/QDateTime>
+#include <QDateTime>
+#include <QFile>
 #include <QTextDocument>
 
 using namespace KFileMetaData;
+
+class QFileStream : public Mobipocket::Stream
+{
+public:
+    QFileStream(const QString& name) : d(name) {
+        d.open(QIODevice::ReadOnly);
+    }
+    int read(char* buf, int size) {
+        return d.read(buf, size);
+    }
+    bool seek(int pos) {
+        return d.seek(pos);
+    }
+private:
+    QFile d;
+};
 
 MobiExtractor::MobiExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -47,7 +63,7 @@ QStringList MobiExtractor::mimetypes()
 
 void MobiExtractor::extract(ExtractionResult* result)
 {
-    Mobipocket::QFileStream stream(result->inputUrl());
+    QFileStream stream(result->inputUrl());
     Mobipocket::Document doc(&stream);
     if (!doc.isValid())
         return;
