@@ -41,26 +41,30 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 {
     QFile file(result->inputUrl());
 
-    if (file.size() > 5 * 1024 * 1024) {
-        return;
-    }
-
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
     }
 
-    QTextStream ts(&file);
-    QString contents = ts.readAll();
+    int characters = 0;
+    int lines = 0;
+    int words = 0;
 
-    int characters = contents.length();
-    int lines = contents.count(QChar('\n'));
-    int words = contents.count(QRegExp("\\b\\w+\\b"));
+    QRegExp wordsRegex("\\b\\w+\\b");
+
+    QTextStream ts(&file);
+    while (!ts.atEnd()) {
+        QString str = ts.readLine();
+        result->append(str);
+
+        characters += str.length();
+        lines += 1;
+        words += str.count(wordsRegex);
+    }
 
     result->add("type", "PlainTextDocument");
     result->add("wordCount", words);
     result->add("lines", lines);
     result->add("characterCount", characters);
-    result->append(contents);
 
     return;
 }
