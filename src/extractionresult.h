@@ -45,6 +45,12 @@ public:
     virtual void append(const QString& text) = 0;
     virtual void add(const QString& key, const QVariant& value) = 0;
 
+    /**
+     * A type is a higher level classification of the file. Any file can
+     * have multiple types. Eg - "Audio" and "Music" or "Video", "Movie"
+     */
+    virtual void addType(const QString& type);
+
 private:
     class Private;
     Private* d;

@@ -81,12 +81,10 @@ void TagLibExtractor::extract(ExtractionResult* result)
     }
 
     TagLib::Tag* tags = file.tag();
-    /*
     if (!tags->isEmpty()) {
-        fileRes.addType(NMM::MusicPiece());
-    } else {
-        fileRes.addType(NFO::Audio());
-    }*/
+        result->addType("Music");
+    }
+    result->addType("Audio");
 
     TagLib::String artists;
     TagLib::String albumArtists;

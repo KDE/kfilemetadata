@@ -60,4 +60,6 @@ void ExtractionResult::setInputMimetype(const QString& mime)
     d->mimetype = mime;
 }
 
-
+void ExtractionResult::addType(const QString&)
+{
+}

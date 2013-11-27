@@ -61,10 +61,10 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         words += str.count(wordsRegex);
     }
 
-    result->add("type", "PlainTextDocument");
     result->add("wordCount", words);
     result->add("lines", lines);
     result->add("characterCount", characters);
+    result->addType("PlainText");
 
     return;
 }

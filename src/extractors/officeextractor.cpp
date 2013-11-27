@@ -63,7 +63,7 @@ void OfficeExtractor::extract(ExtractionResult* result)
     const QString fileUrl = result->inputUrl();
     const QString mimeType = result->inputMimetype();
     if (mimeType == QLatin1String("application/msword")) {
-        //res.addType(NFO::TextDocument());
+        result->addType("Document");
 
         args << QLatin1String("-w");
         contents = textFromFile(fileUrl, m_catdoc, args);
@@ -79,14 +79,16 @@ void OfficeExtractor::extract(ExtractionResult* result)
         result->add("lineCount", lines);
         result->add("characterCount", characters);
     } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
-        //res.addType(NFO::Spreadsheet());
+        result->addType("Spreadsheet");
+        result->addType("Document");
 
         args << QLatin1String("-c") << QLatin1String(" ");
         args << QLatin1String("-b") << QLatin1String(" ");
         args << QLatin1String("-q") << QLatin1String("0");
         contents = textFromFile(fileUrl, m_xls2csv, args);
     } else if (mimeType == QLatin1String("application/vnd.ms-powerpoint")) {
-        //res.addType(NFO::Presentation());
+        result->addType("Presentation");
+        result->addType("Document");
 
         contents = textFromFile(fileUrl, m_catppt, args);
     }

@@ -85,12 +85,11 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    // TODO: Add types!!
-    /*if (fmt_ctx->nb_streams == 1 && fmt_ctx->streams[0]->codec->codec_type == AVMEDIA_TYPE_AUDIO) {
-        fileRes.addType(NMM::MusicPiece());
+    if (fmt_ctx->nb_streams == 1 && fmt_ctx->streams[0]->codec->codec_type == AVMEDIA_TYPE_AUDIO) {
+        result->addType("Music");
     } else {
-        fileRes.addType(NFO::Video());
-    }*/
+        result->addType("Video");
+    }
 
     int totalSecs = fmt_ctx->duration / AV_TIME_BASE;
     int bitrate = fmt_ctx->bit_rate;
@@ -175,9 +174,7 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     entry = av_dict_get(dict, "year", NULL, 0);
     if (entry) {
-        //FIXME: Parse date in different formats
-        QString value = QString::fromUtf8(entry->value);
-        QDate date = QDate::fromString("yyyy", value);
+        QDate date = dateTimeFromString(QString::fromUtf8(entry->value)).date();
         result->add("contentCreated", date);
     }
 

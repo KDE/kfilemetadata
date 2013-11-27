@@ -140,9 +140,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     } catch (const std::exception&) {
         return;
     }
-    const Exiv2::ExifData& data = image->exifData();
-
-    // FIXME: Add some type information!!
+    result->addType("Image");
 
     if (image->pixelHeight()) {
         result->add("height", image->pixelHeight());
@@ -169,6 +167,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     Exiv2::ExifData::const_iterator it;
 
+    const Exiv2::ExifData& data = image->exifData();
     it = data.findKey(Exiv2::ExifKey("Exif.Photo.Flash"));
     if (it != data.end()) {
         QVariant value = toVariantLong(it->value());
