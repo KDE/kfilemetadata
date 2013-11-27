@@ -22,6 +22,7 @@
 #include "popplerextractor.h"
 
 #include <KDE/KDebug>
+#include <QScopedPointer>
 
 using namespace KFileMetaData;
 
@@ -44,10 +45,9 @@ void PopplerExtractor::extract(ExtractionResult* result)
 {
     // FIXME: Make this into a QScopedPointer
     const QString fileUrl = result->inputUrl();
-    Poppler::Document* pdfDoc = Poppler::Document::load(fileUrl, 0, 0);
+    QScopedPointer<Poppler::Document> pdfDoc(Poppler::Document::load(fileUrl, 0, 0));
 
     if (!pdfDoc || pdfDoc->isLocked()) {
-        delete pdfDoc;
         return;
     }
 
@@ -61,7 +61,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
             !title.contains(' ') ||                        // very unlikely the title of a document does only contain one word.
             title.contains(QLatin1String("Microsoft"), Qt::CaseInsensitive)) {  // most research papers i found written with microsoft word
         // have a garbage title of the pdf creator rather than the real document title
-        title = parseFirstPage(pdfDoc, fileUrl);
+        title = parseFirstPage(pdfDoc.data(), fileUrl);
     }
 
     if (!title.isEmpty()) {
@@ -84,21 +84,18 @@ void PopplerExtractor::extract(ExtractionResult* result)
     }
 
     for (int i = 0; i < pdfDoc->numPages(); i++) {
-        Poppler::Page* page = pdfDoc->page(i);
+        QScopedPointer<Poppler::Page> page(pdfDoc->page(i));
         if (!page) { // broken pdf files do not return a valid page
             kWarning() << "Could not read page content from" << fileUrl;
             break;
         }
         result->append(page->text(QRectF()));
-        delete page;
     }
-
-    delete pdfDoc;
 }
 
 QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl)
 {
-    Poppler::Page* p = pdfDoc->page(0);
+    QScopedPointer<Poppler::Page> p(pdfDoc->page(0));
 
     if (!p) {
         kWarning() << "Could not read page content from" << fileUrl;
@@ -148,7 +145,6 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     }
 
     qDeleteAll(tbList);
-    delete p;
 
     QList<int> titleSizes = possibleTitleMap.keys();
     qSort(titleSizes.begin(), titleSizes.end(), qGreater<int>());
