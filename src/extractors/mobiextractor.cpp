@@ -85,7 +85,7 @@ void MobiExtractor::extract(ExtractionResult* result)
 
             QString plain = document.toPlainText();
             if (!plain.isEmpty())
-                result->add("comment", it.value());
+                result->add("description", it.value());
             break;
         }
         case Mobipocket::Document::Subject:
