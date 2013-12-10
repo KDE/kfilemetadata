@@ -4,6 +4,7 @@ X-KDE-ServiceType=KFileMetaDataExtractor
 Comment=KFileMetaData Extractor
 Comment[cs]=Extraktor KFileMetaData
 Comment[de]=KFileMetaData-Extraktion
+Comment[fr]=Extracteur de KFileMetaData
 Comment[nl]=Extractieprogramma voor KFileMetaData
 Comment[pt]=Extracção do KFileMetaData
 Comment[pt_BR]=Extrator do KFileMetaData
