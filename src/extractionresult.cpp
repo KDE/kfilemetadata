@@ -35,6 +35,11 @@ ExtractionResult::ExtractionResult()
 {
 }
 
+ExtractionResult::ExtractionResult(const ExtractionResult& rhs)
+    : d(new Private(*rhs.d))
+{
+}
+
 ExtractionResult::~ExtractionResult()
 {
     delete d;

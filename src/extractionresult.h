@@ -34,6 +34,7 @@ class KFILEMETADATA_EXPORT ExtractionResult
 {
 public:
     ExtractionResult();
+    ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
 
     QString inputUrl();
