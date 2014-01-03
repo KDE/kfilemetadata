@@ -174,7 +174,6 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     const Exiv2::ExifData& data = image->exifData();
 
     add(result, data, "Exif.Image.Make", QVariant::String);
-    add(result, data, "Exif.Image.Make", QVariant::String);
     add(result, data, "Exif.Image.Model", QVariant::String);
     add(result, data, "Exif.Image.DateTime", QVariant::DateTime);
     add(result, data, "Exif.Image.Orientation", QVariant::Int);
