@@ -1,12 +1,16 @@
-kde4_add_library(kfilemetadata SHARED
+add_library(kfilemetadata SHARED
     extractionresult.cpp
     extractorplugin.cpp
     extractorpluginmanager.cpp
 )
 
 target_link_libraries(kfilemetadata
-  ${QT_QTCORE_LIBRARY}
-  ${KDE4_KDECORE_LIBS}
+  PUBLIC
+    Qt5::Core
+  PRIVATE
+    KF5::KDE4Support
+    KF5::Service
+    Qt5::Widgets
 )
 
 install(TARGETS kfilemetadata ${INSTALL_TARGETS_DEFAULT_ARGS})
@@ -17,7 +21,7 @@ install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_
 install(EXPORT KdeLibsLibraryTargets
         DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData
         FILE KFileMetaDataTargetsWithPrefix.cmake)
-                
+
 
 install(FILES
     extractionresult.h

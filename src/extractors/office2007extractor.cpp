@@ -23,8 +23,8 @@
 #include <KDE/KDebug>
 #include <KDE/KZip>
 
-#include <QtXml/QDomDocument>
-#include <QtXml/QXmlStreamReader>
+#include <QDomDocument>
+#include <QXmlStreamReader>
 
 using namespace KFileMetaData;
 

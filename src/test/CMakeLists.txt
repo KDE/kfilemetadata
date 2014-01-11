@@ -14,8 +14,8 @@ kde4_add_unit_test(indexerextractortests
   ../plaintextextractor.cpp)
 
 target_link_libraries(indexerextractortests
-  ${QT_QTTEST_LIBRARY}
-  ${KDE4_KDECORE_LIBS}
+  Qt5::Test
+  
   nepomukextractor
   nepomukcommon
   nepomukcore

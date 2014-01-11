@@ -1,14 +1,17 @@
 project(kfilemetadata)
+cmake_minimum_required(VERSION 2.8.12)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
+find_package(ECM 0.0.9 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
 
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
+find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml)
+find_package(KF5 REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
+include(KDEInstallDirs)
 
-find_package(PopplerQt4 0.12.1)
-set_package_properties(PopplerQt4 PROPERTIES DESCRIPTION "A PDF rendering library"
+find_package(PopplerQt5 0.12.1)
+set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"
                        URL "http://poppler.freedesktop.org" TYPE OPTIONAL
                        PURPOSE "Support for PDF files")
 
@@ -32,15 +35,12 @@ set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
                        URL "http://sourceforge.net/projects/ebook-tools" TYPE OPTIONAL
                        PURPOSE "Support for epub metadata")
 
-find_package(QMobipocket)
-set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
-                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
-                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
+#find_package(QMobipocket)
+#set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
+#                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
+#                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
 
 include_directories(
-  ${QT_INCLUDES}
-  ${KDE4_INCLUDES}
-  ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/src
 )
 
@@ -48,9 +48,9 @@ add_subdirectory(src)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake.in
                ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake @ONLY)
-               
+
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake
         DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData)
 
-macro_display_feature_log()
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
