@@ -69,7 +69,7 @@ QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
     return extractors;
 }
 
-QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QString& mimetype)
+QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QString& mimetype) const
 {
     QList<ExtractorPlugin*> plugins = m_extractors.values(mimetype);
     if (plugins.isEmpty()) {

@@ -39,7 +39,7 @@ public:
      * Fetch the extractors which can be used to extract
      * data for the respective file with the given mimetype
      */
-    QList<ExtractorPlugin*> fetchExtractors(const QString& mimetype);
+    QList<ExtractorPlugin*> fetchExtractors(const QString& mimetype) const;
 
 private:
     QHash<QString, ExtractorPlugin*> m_extractors;

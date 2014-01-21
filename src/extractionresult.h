@@ -36,10 +36,10 @@ public:
     ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
 
-    QString inputUrl();
+    QString inputUrl() const;
     void setInputUrl(const QString& url);
 
-    QString inputMimetype();
+    QString inputMimetype() const;
     void setInputMimetype(const QString& mime);
 
     virtual void append(const QString& text) = 0;

@@ -44,7 +44,7 @@ ExtractionResult::~ExtractionResult()
     delete d;
 }
 
-QString ExtractionResult::inputUrl()
+QString ExtractionResult::inputUrl() const
 {
     return d->url;
 }
@@ -54,7 +54,7 @@ void ExtractionResult::setInputUrl(const QString& url)
     d->url = url;
 }
 
-QString ExtractionResult::inputMimetype()
+QString ExtractionResult::inputMimetype() const
 {
     return d->mimetype;
 }
