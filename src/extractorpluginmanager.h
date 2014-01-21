@@ -42,7 +42,8 @@ public:
     QList<ExtractorPlugin*> fetchExtractors(const QString& mimetype) const;
 
 private:
-    QHash<QString, ExtractorPlugin*> m_extractors;
+    class Private;
+    Private* d;
 
     QList<ExtractorPlugin*> allExtractors();
 };
