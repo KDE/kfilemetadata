@@ -3,6 +3,7 @@ kde4_add_library(kfilemetadata SHARED
     extractorplugin.cpp
     extractorpluginmanager.cpp
     propertyinfo.cpp
+    typeinfo.cpp
 )
 
 target_link_libraries(kfilemetadata
@@ -31,6 +32,7 @@ install(FILES
     properties.h
     propertyinfo.h
     types.h
+    typeinfo.h
     kfilemetadata_export.h
 
     DESTINATION ${INCLUDE_INSTALL_DIR}/kfilemetadata COMPONENT Devel
