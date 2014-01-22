@@ -37,7 +37,10 @@ public:
 
     /**
      * Fetch the extractors which can be used to extract
-     * data for the respective file with the given mimetype
+     * data for the respective file with the given mimetype.
+     *
+     * If no match is found then all the plugins whose mimetype list
+     * starts with \p mimetype are returned.
      */
     QList<ExtractorPlugin*> fetchExtractors(const QString& mimetype) const;
 

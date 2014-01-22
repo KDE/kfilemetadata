@@ -53,6 +53,9 @@ public:
      * Only files with those mimetypes will be provided to the plugin via
      * the extract function.
      *
+     * This can also contains partial mimetypes like "text/", in that case
+     * this plugin will be chosen only if a better plugin does not exist.
+     *
      * \return A StringList containing the mimetypes.
      * \sa extract
      */
