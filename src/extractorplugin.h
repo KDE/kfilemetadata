@@ -37,8 +37,7 @@ namespace KFileMetaData
  * \class ExtractorPlugin extractorplugin.h
  *
  * \brief The ExtractorPlugin is the base class for all file metadata
- * extractors. It is responsible for extracting the metadata and providing
- * key value pairs
+ * extractors. It is responsible for extracting the metadata in a file.
  *
  * \author Vishesh Handa <me@vhanda.in>
  */
@@ -61,13 +60,10 @@ public:
 
     /**
      * The main function of the plugin that is responsible for extracting the data
-     * from the file url and returning a SimpleResourceGraph.
+     * and filling up the ExtractionResult
      *
-     * It does so on the basis of the mimetype provided.
-     *
-     * \param resUri The resource uri of the fileUrl which should be used in the SimpleResource
-     * \param fileUrl The url of the file being indexed
-     * \param mimeType the mimetype of the file url
+     * These ExtractionResult provides the input url and mimetype which
+     * can be used to identify the file.
      */
     virtual void extract(ExtractionResult* result) = 0;
 
