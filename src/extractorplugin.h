@@ -77,8 +77,8 @@ public:
     static QDateTime dateTimeFromString(const QString& dateString);
 
     /**
-     * Creates a list of nco:Contacts from a list of strings which are separated
-     * by a number of different separators. It sets the contact's nco:fullname.
+     * Tries to split the string into names. It cleans up any superflous words
+     * and removes extra junk such as curly braces
      */
     static QStringList contactsFromString(const QString& string);
 
