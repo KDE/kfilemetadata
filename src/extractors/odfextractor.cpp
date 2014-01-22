@@ -79,15 +79,15 @@ void OdfExtractor::extract(ExtractionResult* result)
 
             // Dublin Core
             if (tagName == QLatin1String("dc:description")) {
-                result->add("dc:description", e.text());
+                result->add(Property::Description, e.text());
             } else if (tagName == QLatin1String("dc:subject")) {
-                result->add("dc:subject", e.text());
+                result->add(Property::Subject, e.text());
             } else if (tagName == QLatin1String("dc:title")) {
-                result->add("dc:title", e.text());
+                result->add(Property::Title, e.text());
             } else if (tagName == QLatin1String("dc:creator")) {
-                result->add("dc:creator", e.text());
+                result->add(Property::Creator, e.text());
             } else if (tagName == QLatin1String("dc:langauge")) {
-                result->add("dc:language", e.text());
+                result->add(Property::Langauge, e.text());
             }
 
             // Meta Properties
@@ -95,22 +95,22 @@ void OdfExtractor::extract(ExtractionResult* result)
                 bool ok = false;
                 int pageCount = e.attribute("meta:page-count").toInt(&ok);
                 if (ok) {
-                    result->add("pageCount", pageCount);
+                    result->add(Property::PageCount, pageCount);
                 }
 
                 int wordCount = e.attribute("meta:word-count").toInt(&ok);
                 if (ok) {
-                    result->add("wordCount", wordCount);
+                    result->add(Property::WordCount, wordCount);
                 }
             } else if (tagName == QLatin1String("meta:keyword")) {
                 QString keywords = e.text();
-                    result->add("keyword", keywords);
+                    result->add(Property::Keywords, keywords);
             } else if (tagName == QLatin1String("meta:generator")) {
-                result->add("generator", e.text());
+                result->add(Property::Creator, e.text());
             } else if (tagName == QLatin1String("meta:creation-date")) {
                 QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
                 if (!dt.isNull())
-                    result->add("contentCreated", dt);
+                    result->add(Property::CreationDate, dt);
             }
         }
         n = n.nextSibling();

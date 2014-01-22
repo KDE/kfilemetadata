@@ -159,49 +159,50 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     result->addType("Image");
 
     if (image->pixelHeight()) {
-        result->add("height", image->pixelHeight());
+        result->add(Property::Height, image->pixelHeight());
     }
 
     if (image->pixelWidth()) {
-        result->add("width", image->pixelWidth());
+        result->add(Property::Width, image->pixelWidth());
     }
 
     std::string comment = image->comment();
     if (!comment.empty()) {
-        result->add("comment", QString::fromUtf8(comment.c_str(), comment.length()));
+        result->add(Property::Comment, QString::fromUtf8(comment.c_str(), comment.length()));
     }
 
     const Exiv2::ExifData& data = image->exifData();
 
-    add(result, data, "Exif.Image.Make", QVariant::String);
-    add(result, data, "Exif.Image.Model", QVariant::String);
-    add(result, data, "Exif.Image.DateTime", QVariant::DateTime);
-    add(result, data, "Exif.Image.Orientation", QVariant::Int);
-    add(result, data, "Exif.Photo.Flash", QVariant::Int);
-    add(result, data, "Exif.Photo.PixelXDimension", QVariant::Int);
-    add(result, data, "Exif.Photo.PixelYDimension", QVariant::Int);
-    add(result, data, "Exif.Photo.DateTimeOriginal", QVariant::DateTime);
-    add(result, data, "Exif.Photo.FocalLength", QVariant::Double);
-    add(result, data, "Exif.Photo.FocalLengthIn35mmFilm", QVariant::Double);
-    add(result, data, "Exif.Photo.ExposureTime", QVariant::Double);
-    add(result, data, "Exif.Photo.FNumber", QVariant::Double);
-    add(result, data, "Exif.Photo.ApertureValue", QVariant::Double);
-    add(result, data, "Exif.Photo.ExposureBiasValue", QVariant::Double);
-    add(result, data, "Exif.Photo.WhiteBalance", QVariant::Int);
-    add(result, data, "Exif.Photo.MeteringMode", QVariant::Int);
-    add(result, data, "Exif.Photo.ISOSpeedRatings", QVariant::Int);
-    add(result, data, "Exif.Photo.Saturation", QVariant::Int);
-    add(result, data, "Exif.Photo.Sharpness", QVariant::Int);
+    add(result, data, Property::ImageMake, "Exif.Image.Make", QVariant::String);
+    add(result, data, Property::ImageModel, "Exif.Image.Model", QVariant::String);
+    add(result, data, Property::ImageDateTime, "Exif.Image.DateTime", QVariant::DateTime);
+    add(result, data, Property::ImageOrientation, "Exif.Image.Orientation", QVariant::Int);
+    add(result, data, Property::PhotoFlash, "Exif.Photo.Flash", QVariant::Int);
+    add(result, data, Property::PhotoPixelXDimension, "Exif.Photo.PixelXDimension", QVariant::Int);
+    add(result, data, Property::PhotoPixelXDimension, "Exif.Photo.PixelYDimension", QVariant::Int);
+    add(result, data, Property::PhotoDateTimeOriginal, "Exif.Photo.DateTimeOriginal", QVariant::DateTime);
+    add(result, data, Property::PhotoFocalLength, "Exif.Photo.FocalLength", QVariant::Double);
+    add(result, data, Property::PhotoFocalLengthIn35mmFilm, "Exif.Photo.FocalLengthIn35mmFilm", QVariant::Double);
+    add(result, data, Property::PhotoExposureTime, "Exif.Photo.ExposureTime", QVariant::Double);
+    add(result, data, Property::PhotoExposureBiasValue, "Exif.Photo.ExposureBiasValue", QVariant::Double);
+    add(result, data, Property::PhotoFNumber, "Exif.Photo.FNumber", QVariant::Double);
+    add(result, data, Property::PhotoApertureValue, "Exif.Photo.ApertureValue", QVariant::Double);
+    add(result, data, Property::PhotoWhiteBalance, "Exif.Photo.WhiteBalance", QVariant::Int);
+    add(result, data, Property::PhotoMeteringMode, "Exif.Photo.MeteringMode", QVariant::Int);
+    add(result, data, Property::PhotoISOSpeedRatings, "Exif.Photo.ISOSpeedRatings", QVariant::Int);
+    add(result, data, Property::PhotoSaturation, "Exif.Photo.Saturation", QVariant::Int);
+    add(result, data, Property::PhotoSharpness, "Exif.Photo.Sharpness", QVariant::Int);
 }
 
 void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
-                         const char* name, QVariant::Type type)
+                         Property::Property prop, const char* name,
+                         QVariant::Type type)
 {
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end()) {
         QVariant value = toVariant(it->value(), type);
         if (!value.isNull())
-            result->add(name, value);
+            result->add(prop, value);
     }
 }
 

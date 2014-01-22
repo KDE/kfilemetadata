@@ -37,6 +37,7 @@ public:
 
 private:
     void add(ExtractionResult* result, const Exiv2::ExifData& data,
+             Property::Property prop,
              const char* name, QVariant::Type type);
 };
 }

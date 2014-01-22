@@ -70,14 +70,11 @@ void OfficeExtractor::extract(ExtractionResult* result)
 
         // Now that we have the plain text content, count words, lines and characters
         // (original code from plaintextextractor.cpp, authored by Vishesh Handa)
-        int characters = contents.length();
         int lines = contents.count(QChar('\n'));
         int words = contents.count(QRegExp("\\b\\w+\\b"));
 
-        result->add("text", contents);
-        result->add("wordCount", words);
-        result->add("lineCount", lines);
-        result->add("characterCount", characters);
+        result->add(Property::WordCount, words);
+        result->add(Property::LineCount, lines);
     } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
         result->addType("Spreadsheet");
         result->addType("Document");

@@ -73,10 +73,10 @@ void MobiExtractor::extract(ExtractionResult* result)
         it.next();
         switch (it.key()) {
         case Mobipocket::Document::Title:
-            result->add("title", it.value());
+            result->add(Property::Title, it.value());
             break;
         case Mobipocket::Document::Author: {
-            result->add("author", it.value());
+            result->add(Property::Author, it.value());
             break;
         }
         case Mobipocket::Document::Description: {
@@ -85,14 +85,14 @@ void MobiExtractor::extract(ExtractionResult* result)
 
             QString plain = document.toPlainText();
             if (!plain.isEmpty())
-                result->add("description", it.value());
+                result->add(Property::Description, it.value());
             break;
         }
         case Mobipocket::Document::Subject:
-            result->add("subject", it.value());
+            result->add(Property::Subject, it.value());
             break;
         case Mobipocket::Document::Copyright:
-            result->add("copyright", it.value());
+            result->add(Property::Copyright, it.value());
             break;
         }
     }

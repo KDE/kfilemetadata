@@ -94,8 +94,8 @@ void FFmpegExtractor::extract(ExtractionResult* result)
     int totalSecs = fmt_ctx->duration / AV_TIME_BASE;
     int bitrate = fmt_ctx->bit_rate;
 
-    result->add("duration", totalSecs);
-    result->add("averageBitrate", bitrate);
+    result->add(Property::Duration, totalSecs);
+    result->add(Property::BitRate, bitrate);
 
     for (uint i = 0; i < fmt_ctx->nb_streams; i++) {
         const AVStream* stream = fmt_ctx->streams[i];
@@ -120,10 +120,10 @@ void FFmpegExtractor::extract(ExtractionResult* result)
                 if (stream->avg_frame_rate.den)
                     frameRate /= stream->avg_frame_rate.den;
 
-                result->add("width", codec->width);
-                result->add("height", codec->height);
-                result->add("aspectRatio", aspectRatio);
-                result->add("frameRate", frameRate);
+                result->add(Property::Width, codec->width);
+                result->add(Property::Height, codec->height);
+                result->add(Property::AspectRatio, aspectRatio);
+                result->add(Property::FrameRate, frameRate);
             }
         }
     }
@@ -133,33 +133,33 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     entry = av_dict_get(dict, "title", NULL, 0);
     if (entry) {
-        result->add("title", QString::fromUtf8(entry->value));
+        result->add(Property::Title, QString::fromUtf8(entry->value));
     }
 
 
     entry = av_dict_get(dict, "author", NULL, 0);
     if (entry) {
-        result->add("author", QString::fromUtf8(entry->value));
+        result->add(Property::Author, QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "copyright", NULL, 0);
     if (entry) {
-        result->add("copyright", QString::fromUtf8(entry->value));
+        result->add(Property::Copyright, QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "comment", NULL, 0);
     if (entry) {
-        result->add("comment", QString::fromUtf8(entry->value));
+        result->add(Property::Comment, QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "album", NULL, 0);
     if (entry) {
-        result->add("album", QString::fromUtf8(entry->value));
+        result->add(Property::Album, QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "genre", NULL, 0);
     if (entry) {
-        result->add("genre", QString::fromUtf8(entry->value));
+        result->add(Property::Genre, QString::fromUtf8(entry->value));
     }
 
     entry = av_dict_get(dict, "track", NULL, 0);
@@ -169,13 +169,13 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         bool ok = false;
         int track = value.toInt(&ok);
         if (ok && track)
-            result->add("track", track);
+            result->add(Property::TrackNumber, track);
     }
 
     entry = av_dict_get(dict, "year", NULL, 0);
     if (entry) {
-        QDate date = dateTimeFromString(QString::fromUtf8(entry->value)).date();
-        result->add("contentCreated", date);
+        int year = QString::fromUtf8(entry->value).toInt();
+        result->add(Property::ReleaseYear, year);
     }
 
     avformat_close_input(&fmt_ctx);

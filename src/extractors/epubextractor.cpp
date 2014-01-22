@@ -76,12 +76,12 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
     if (!value.isEmpty()) {
-        result->add("title", value);
+        result->add(Property::Title, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_SUBJECT);
     if (!value.isEmpty()) {
-        result->add("subject", value);
+        result->add(Property::Subject, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_CREATOR);
@@ -97,7 +97,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (index)
             value = value.mid(0, index);
 
-        result->add("creator", value);
+        result->add(Property::Creator, value);
     }
 
     // The Contributor just seems to be mostly Calibre aka the Generator
@@ -114,12 +114,12 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_PUBLISHER);
     if (!value.isEmpty()) {
-        result->add("publisher", value);
+        result->add(Property::Publisher, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
     if (!value.isEmpty()) {
-        result->add("description", value);
+        result->add(Property::Description, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DATE);
@@ -133,7 +133,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
         if (!dt.isNull())
-            result->add("creationDate", value);
+            result->add(Property::CreationDate, value);
     }
 
     //

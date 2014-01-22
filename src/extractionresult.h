@@ -26,6 +26,7 @@
 #include <QVariant>
 
 #include "kfilemetadata_export.h"
+#include "properties.h"
 
 namespace KFileMetaData {
 
@@ -69,13 +70,12 @@ public:
      * Add a key value pair which should be indexed. This function may be
      * called multiple times for the same key.
      *
-     * \p key This specifies a property name. It should be of the
-     *        form - "artist", "album", "author", etc. Please take a look at
-     *        the other plugins to see what properties they are using.
+     * \p property This specifies a property name. It should be one of the
+     *             properties from the global list of properties.
      *
      * \p value The value of the property
      */
-    virtual void add(const QString& key, const QVariant& value) = 0;
+    virtual void add(Property::Property property, const QVariant& value) = 0;
 
     /**
      * A type is a higher level classification of the file. Any file can

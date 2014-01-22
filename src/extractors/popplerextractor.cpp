@@ -67,22 +67,22 @@ void PopplerExtractor::extract(ExtractionResult* result)
     }
 
     if (!title.isEmpty()) {
-        result->add("title", title);
+        result->add(Property::Title, title);
     }
 
     QString subject = pdfDoc->info(QLatin1String("Subject"));
     if (!subject.isEmpty()) {
-        result->add("title", title);
+        result->add(Property::Subject, title);
     }
 
     QString author = pdfDoc->info(QLatin1String("Author"));
     if (!author.isEmpty()) {
-        result->add("author", author);
+        result->add(Property::Author, author);
     }
 
     QString creator = pdfDoc->info(QLatin1String("Creator"));
     if (!author.isEmpty()) {
-        result->add("creator", creator);
+        result->add(Property::Creator, creator);
     }
 
     for (int i = 0; i < pdfDoc->numPages(); i++) {
