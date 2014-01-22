@@ -87,6 +87,8 @@ public:
     static QStringList contactsFromString(const QString& string);
 
 private:
+    class Private;
+    Private* d;
 };
 }
 
