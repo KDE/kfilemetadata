@@ -33,7 +33,7 @@ EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
 
 }
 
-QStringList EPubExtractor::mimetypes()
+QStringList EPubExtractor::mimetypes() const
 {
     QStringList types;
     types << QLatin1String("application/epub+zip");

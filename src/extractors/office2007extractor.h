@@ -34,7 +34,7 @@ class Office2007Extractor : public ExtractorPlugin
 public:
     Office2007Extractor(QObject* parent, const QVariantList&);
 
-    virtual QStringList mimetypes();
+    virtual QStringList mimetypes() const;
     virtual void extract(ExtractionResult* result);
 
 private:

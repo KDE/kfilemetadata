@@ -41,7 +41,7 @@ TagLibExtractor::TagLibExtractor(QObject* parent, const QVariantList&)
 {
 }
 
-QStringList TagLibExtractor::mimetypes()
+QStringList TagLibExtractor::mimetypes() const
 {
     QStringList types;
     // MP3 FLAC, MPC, Speex, WavPack TrueAudio, WAV, AIFF, MP4 and ASF files.

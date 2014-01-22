@@ -32,7 +32,7 @@ PopplerExtractor::PopplerExtractor(QObject* parent, const QVariantList&)
 
 }
 
-QStringList PopplerExtractor::mimetypes()
+QStringList PopplerExtractor::mimetypes() const
 {
     QStringList list;
     list << QLatin1String("application/pdf");

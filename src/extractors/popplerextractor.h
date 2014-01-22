@@ -32,7 +32,7 @@ class PopplerExtractor : public ExtractorPlugin
 public:
     PopplerExtractor(QObject* parent, const QVariantList&);
 
-    virtual QStringList mimetypes();
+    virtual QStringList mimetypes() const;
     virtual void extract(ExtractionResult* result);
 
 private:

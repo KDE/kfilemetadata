@@ -53,7 +53,7 @@ MobiExtractor::MobiExtractor(QObject* parent, const QVariantList&)
 
 }
 
-QStringList MobiExtractor::mimetypes()
+QStringList MobiExtractor::mimetypes() const
 {
     QStringList types;
     types << QLatin1String("application/x-mobipocket-ebook");

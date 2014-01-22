@@ -31,7 +31,7 @@ Exiv2Extractor::Exiv2Extractor(QObject* parent, const QVariantList&)
 
 }
 
-QStringList Exiv2Extractor::mimetypes()
+QStringList Exiv2Extractor::mimetypes() const
 {
     QStringList types;
 

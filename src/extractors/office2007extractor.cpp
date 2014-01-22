@@ -34,7 +34,7 @@ Office2007Extractor::Office2007Extractor(QObject* parent, const QVariantList&): 
 }
 
 
-QStringList Office2007Extractor::mimetypes()
+QStringList Office2007Extractor::mimetypes() const
 {
     QStringList list;
     list << QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")

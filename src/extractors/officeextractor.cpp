@@ -45,7 +45,7 @@ void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QStr
     }
 }
 
-QStringList OfficeExtractor::mimetypes()
+QStringList OfficeExtractor::mimetypes() const
 {
     return m_available_mime_types;
 }

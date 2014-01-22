@@ -34,7 +34,7 @@ OdfExtractor::OdfExtractor(QObject* parent, const QVariantList&): ExtractorPlugi
 
 }
 
-QStringList OdfExtractor::mimetypes()
+QStringList OdfExtractor::mimetypes() const
 {
     QStringList list;
     list << QLatin1String("application/vnd.oasis.opendocument.text")

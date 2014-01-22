@@ -48,7 +48,7 @@ FFmpegExtractor::FFmpegExtractor(QObject* parent, const QVariantList&)
 {
 }
 
-QStringList FFmpegExtractor::mimetypes()
+QStringList FFmpegExtractor::mimetypes() const
 {
     QStringList types;
 

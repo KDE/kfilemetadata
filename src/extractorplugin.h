@@ -57,7 +57,7 @@ public:
      * \return A StringList containing the mimetypes.
      * \sa extract
      */
-    virtual QStringList mimetypes() = 0;
+    virtual QStringList mimetypes() const = 0;
 
     /**
      * The main function of the plugin that is responsible for extracting the data

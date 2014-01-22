@@ -31,7 +31,7 @@ class OfficeExtractor : public ExtractorPlugin
 public:
     OfficeExtractor(QObject* parent, const QVariantList&);
 
-    virtual QStringList mimetypes();
+    virtual QStringList mimetypes() const;
     virtual void extract(ExtractionResult* result);
 
 private:

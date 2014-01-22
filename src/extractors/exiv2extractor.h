@@ -33,7 +33,7 @@ public:
     Exiv2Extractor(QObject* parent, const QVariantList&);
 
     virtual void extract(ExtractionResult* result);
-    virtual QStringList mimetypes();
+    virtual QStringList mimetypes() const;
 
 private:
     void add(ExtractionResult* result, const Exiv2::ExifData& data,
