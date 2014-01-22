@@ -28,7 +28,7 @@ enum Property {
     FirstProperty = 0,
 
     // Audio
-    BitRate,
+    BitRate = 0,
     Channels,
     Duration,
     Genre,
@@ -88,7 +88,7 @@ enum Property {
     PhotoSaturation,
     PhotoSharpness,
 
-    LastProperty
+    LastProperty = PhotoSharpness
 };
 
 } // namespace Property

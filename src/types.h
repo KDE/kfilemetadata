@@ -67,7 +67,7 @@ enum Type {
      */
     Text,
 
-    LastType
+    LastType = Text
 };
 
 }
