@@ -49,7 +49,7 @@ public:
      * A type is a higher level classification of the file. Any file can
      * have multiple types. Eg - "Audio" and "Music" or "Video", "Movie"
      */
-    virtual void addType(const QString& type);
+    virtual void addType(const QString& type) = 0;
 
 private:
     class Private;
