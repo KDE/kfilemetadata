@@ -27,6 +27,7 @@
 
 #include "kfilemetadata_export.h"
 #include "properties.h"
+#include "types.h"
 
 namespace KFileMetaData {
 
@@ -79,9 +80,11 @@ public:
 
     /**
      * A type is a higher level classification of the file. Any file can
-     * have multiple types. Eg - "Audio" and "Music" or "Video", "Movie"
+     * have multiple types. Eg - "Audio", "Video" or "Document"
+     *
+     * Please choose one type from the list of available types
      */
-    virtual void addType(const QString& type) = 0;
+    virtual void addType(Type::Type type) = 0;
 
 private:
     class Private;

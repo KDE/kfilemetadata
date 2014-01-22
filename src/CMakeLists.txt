@@ -30,6 +30,7 @@ install(FILES
     extractorpluginmanager.h
     properties.h
     propertyinfo.h
+    types.h
     kfilemetadata_export.h
 
     DESTINATION ${INCLUDE_INSTALL_DIR}/kfilemetadata COMPONENT Devel

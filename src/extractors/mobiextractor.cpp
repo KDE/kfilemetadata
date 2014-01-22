@@ -106,8 +106,7 @@ void MobiExtractor::extract(ExtractionResult* result)
         result->append(document.toPlainText());
     }
 
-    result->addType("EBook");
-    result->addType("Document");
+    result->addType(Type::Document);
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::MobiExtractor, "kfilemetadata_mobiextractor")

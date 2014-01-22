@@ -130,7 +130,7 @@ void OdfExtractor::extract(ExtractionResult* result)
             break;
     }
 
-    result->addType("Document");
+    result->addType(Type::Document);
 
     return;
 }

@@ -71,8 +71,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    result->addType("Document");
-    result->addType("EBook");
+    result->addType(Type::Document);
 
     QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
     if (!value.isEmpty()) {

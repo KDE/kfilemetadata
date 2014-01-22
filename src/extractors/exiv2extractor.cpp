@@ -156,7 +156,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     } catch (const std::exception&) {
         return;
     }
-    result->addType("Image");
+    result->addType(Type::Image);
 
     if (image->pixelHeight()) {
         result->add(Property::Height, image->pixelHeight());

@@ -85,11 +85,7 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    if (fmt_ctx->nb_streams == 1 && fmt_ctx->streams[0]->codec->codec_type == AVMEDIA_TYPE_AUDIO) {
-        result->addType("Music");
-    } else {
-        result->addType("Video");
-    }
+    result->addType(Type::Video);
 
     int totalSecs = fmt_ctx->duration / AV_TIME_BASE;
     int bitrate = fmt_ctx->bit_rate;

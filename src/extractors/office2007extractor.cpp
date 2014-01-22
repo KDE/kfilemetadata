@@ -177,7 +177,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             extractTextWithTag(file->createDevice(), QLatin1String("w:t"), result);
         }
 
-        result->addType("Document");
+        result->addType(Type::Document);
     }
 
     else if (rootEntries.contains("xl")) {
@@ -190,8 +190,8 @@ void Office2007Extractor::extract(ExtractionResult* result)
         const KArchiveDirectory* xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
         extractTextFromFiles(xlDirectory, result);
 
-        result->addType("Document");
-        result->addType("Spreadsheet");
+        result->addType(Type::Document);
+        result->addType(Type::Spreadsheet);
     }
 
     else if (rootEntries.contains("ppt")) {
@@ -204,8 +204,8 @@ void Office2007Extractor::extract(ExtractionResult* result)
         const KArchiveDirectory* pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
         extractTextFromFiles(pptDirectory, result);
 
-        result->addType("Document");
-        result->addType("Presentation");
+        result->addType(Type::Document);
+        result->addType(Type::Presentation);
     }
 
     return;

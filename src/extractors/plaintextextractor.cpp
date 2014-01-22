@@ -61,7 +61,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 
     result->add(Property::WordCount, words);
     result->add(Property::LineCount, lines);
-    result->addType("PlainText");
+    result->addType(Type::Text);
 
     return;
 }

@@ -50,8 +50,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    result->addType("Document");
-    result->addType("PDF");
+    result->addType(Type::Document);
 
     QString title = pdfDoc->info(QLatin1String("Title")).trimmed();
 

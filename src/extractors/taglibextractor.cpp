@@ -81,10 +81,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     }
 
     TagLib::Tag* tags = file.tag();
-    if (!tags->isEmpty()) {
-        result->addType("Music");
-    }
-    result->addType("Audio");
+    result->addType(Type::Audio);
 
     TagLib::String artists;
     TagLib::String albumArtists;
