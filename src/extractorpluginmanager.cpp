@@ -31,13 +31,15 @@ using namespace KFileMetaData;
 class ExtractorPluginManager::Private {
 public:
     QHash<QString, ExtractorPlugin*> m_extractors;
+
+    QList<ExtractorPlugin*> allExtractors() const;
 };
 
 ExtractorPluginManager::ExtractorPluginManager(QObject* parent)
     : QObject(parent)
     , d(new Private)
 {
-    QList<ExtractorPlugin*> all = allExtractors();
+    QList<ExtractorPlugin*> all = d->allExtractors();
 
     foreach (ExtractorPlugin* ex, all) {
         foreach (const QString& type, ex->mimetypes()) {
@@ -53,7 +55,7 @@ ExtractorPluginManager::~ExtractorPluginManager()
 }
 
 
-QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
+QList<ExtractorPlugin*> ExtractorPluginManager::Private::allExtractors() const
 {
     // Get all the plugins
     KService::List plugins = KServiceTypeTrader::self()->query("KFileMetaDataExtractor");
@@ -64,7 +66,7 @@ QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
         KService::Ptr service = *it;
 
         QString error;
-        ExtractorPlugin* ex = service->createInstance<ExtractorPlugin>(this, QVariantList(), &error);
+        ExtractorPlugin* ex = service->createInstance<ExtractorPlugin>(0, QVariantList(), &error);
         if (!ex) {
             kError() << "Could not create Extractor: " << service->library();
             kError() << error;

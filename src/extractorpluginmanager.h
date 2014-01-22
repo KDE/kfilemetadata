@@ -44,8 +44,6 @@ public:
 private:
     class Private;
     Private* d;
-
-    QList<ExtractorPlugin*> allExtractors();
 };
 }
 
