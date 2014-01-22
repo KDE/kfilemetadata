@@ -43,7 +43,7 @@ namespace KFileMetaData {
 class KFILEMETADATA_EXPORT ExtractionResult
 {
 public:
-    ExtractionResult();
+    ExtractionResult(const QString& url, const QString& mimetype);
     ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
 
@@ -51,7 +51,6 @@ public:
      * The input url which the plugins will use to locate the file
      */
     QString inputUrl() const;
-    void setInputUrl(const QString& url);
 
     /*
      * The input mimetype. This mimetype should correspond with the
@@ -59,7 +58,6 @@ public:
      * passed to the Extractor
      */
     QString inputMimetype() const;
-    void setInputMimetype(const QString& mime);
 
     /**
      * Add some plain text which should be indexed without any property.

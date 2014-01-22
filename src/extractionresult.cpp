@@ -29,9 +29,11 @@ public:
     QString mimetype;
 };
 
-ExtractionResult::ExtractionResult()
+ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype)
     : d(new Private)
 {
+    d->url = url;
+    d->mimetype = mimetype;
 }
 
 ExtractionResult::ExtractionResult(const ExtractionResult& rhs)
@@ -49,17 +51,7 @@ QString ExtractionResult::inputUrl() const
     return d->url;
 }
 
-void ExtractionResult::setInputUrl(const QString& url)
-{
-    d->url = url;
-}
-
 QString ExtractionResult::inputMimetype() const
 {
     return d->mimetype;
-}
-
-void ExtractionResult::setInputMimetype(const QString& mime)
-{
-    d->mimetype = mime;
 }
