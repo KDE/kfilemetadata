@@ -39,32 +39,37 @@ TypeInfo::TypeInfo(Type::Type type)
     switch (type) {
     case Type::Audio:
         d->name = QLatin1String("Audio");
-        d->displayName = i18n("Audio");
+        d->displayName = i18nc("@label", "Audio");
         break;
 
     case Type::Document:
         d->name = QLatin1String("Document");
-        d->displayName = i18n("Document");
+        d->displayName = i18nc("@label", "Document");
         break;
 
     case Type::Image:
         d->name = QLatin1String("Image");
-        d->displayName = i18n("Image");
+        d->displayName = i18nc("@label", "Image");
         break;
 
     case Type::Presentation:
         d->name = QLatin1String("Presentation");
-        d->displayName = i18n("Presentation");
+        d->displayName = i18nc("@label", "Presentation");
         break;
 
     case Type::Spreadsheet:
         d->name = QLatin1String("Spreadsheet");
-        d->displayName = i18n("Spreadsheet");
+        d->displayName = i18nc("@label", "Spreadsheet");
         break;
 
     case Type::Text:
         d->name = QLatin1String("Text");
-        d->displayName = i18n("Text");
+        d->displayName = i18nc("@label", "Text");
+        break;
+
+    case Type::Video:
+        d->name = QLatin1String("Video");
+        d->displayName = i18nc("@label", "Video");
         break;
     }
 }
