@@ -23,7 +23,7 @@
 #define INDEXEREXTRACTORTESTS_H
 
 #include <QObject>
-#include <QUrl>
+#include <QString>
 
 class IndexerExtractorTests : public QObject
 {
@@ -32,7 +32,7 @@ public:
     explicit IndexerExtractorTests(QObject* parent = 0);
 
 private:
-    QUrl testFilePath(const QString& fileName) const;
+    QString testFilePath(const QString& fileName) const;
 
 private slots:
     void benchMarkPlainTextExtractor();
