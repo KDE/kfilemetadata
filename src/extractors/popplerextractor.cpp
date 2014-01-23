@@ -131,7 +131,7 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
             // if the text has follow up words add them to to create the full title
             Poppler::TextBox* next = tb->nextWord();
             while (next) {
-                possibleTitle.append(QLatin1String(" "));
+                possibleTitle.append(QLatin1Char(' '));
                 possibleTitle.append(next->text());
                 next = next->nextWord();
                 skipTextboxes++;
@@ -139,7 +139,7 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
 
             // now combine text for each font size together, very likeley it must be connected
             QString existingTitlePart = possibleTitleMap.value(currentLargestChar, QString());
-            existingTitlePart.append(QLatin1String(" "));
+            existingTitlePart.append(QLatin1Char(' '));
             existingTitlePart.append(possibleTitle);
             possibleTitleMap.insert(currentLargestChar, existingTitlePart);
         }

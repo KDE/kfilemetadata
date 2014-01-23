@@ -70,7 +70,7 @@ void OfficeExtractor::extract(ExtractionResult* result)
 
         // Now that we have the plain text content, count words, lines and characters
         // (original code from plaintextextractor.cpp, authored by Vishesh Handa)
-        int lines = contents.count(QChar('\n'));
+        int lines = contents.count(QLatin1Char('\n'));
         int words = contents.count(QRegExp("\\b\\w+\\b"));
 
         result->add(Property::WordCount, words);
