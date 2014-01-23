@@ -38,6 +38,9 @@ namespace KFileMetaData {
  * the indexer is saved. This class acts as a base class which should be
  * dervied from and then passed to the relevant plugins.
  *
+ * The dervied class needs to implement 3 pure virtual functions through
+ * which it receives the extracted data.
+ *
  * \author Vishesh Handa <me@vhanda.in>
  */
 class KFILEMETADATA_EXPORT ExtractionResult
@@ -60,13 +63,15 @@ public:
     QString inputMimetype() const;
 
     /**
-     * Add some plain text which should be indexed without any property.
-     * This generally corresponds to the text content in a file
+     * This function is called by plugins when they wish for some plain
+     * text to be indexed without any property. This generally corresponds
+     * to the text content in a file
      */
     virtual void append(const QString& text) = 0;
 
     /**
-     * Add a key value pair which should be indexed. This function may be
+     * This function is called by the plugins when they wish to
+     * add a key value pair which should be indexed. This function may be
      * called multiple times for the same key.
      *
      * \p property This specifies a property name. It should be one of the
@@ -77,6 +82,7 @@ public:
     virtual void add(Property::Property property, const QVariant& value) = 0;
 
     /**
+     * This function is caleld by the plugins.
      * A type is a higher level classification of the file. Any file can
      * have multiple types. Eg - "Audio", "Video" or "Document"
      *

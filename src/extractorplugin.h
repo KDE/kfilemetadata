@@ -39,6 +39,11 @@ namespace KFileMetaData
  * \brief The ExtractorPlugin is the base class for all file metadata
  * extractors. It is responsible for extracting the metadata in a file.
  *
+ * Plugins should derive from this class and implement the mimetypes
+ * and extract method.
+ *
+ * All Plugins should be synchronous and blocking.
+ *
  * \author Vishesh Handa <me@vhanda.in>
  */
 class KFILEMETADATA_EXPORT ExtractorPlugin : public QObject
@@ -62,11 +67,14 @@ public:
     virtual QStringList mimetypes() const = 0;
 
     /**
-     * The main function of the plugin that is responsible for extracting the data
-     * and filling up the ExtractionResult
+     * The main function of the plugin that is responsible for extracting
+     * the data and filling up the ExtractionResult
      *
-     * These ExtractionResult provides the input url and mimetype which
+     * The \p result provides the input url and mimetype which
      * can be used to identify the file.
+     *
+     * This function is synchronous and should be reentrant as it
+     * can be called by multiple threads.
      */
     virtual void extract(ExtractionResult* result) = 0;
 
