@@ -18,11 +18,11 @@
 */
 
 
-#ifndef EXTRACTOR_H
-#define EXTRACTOR_H
+#ifndef _KFILEMETADATA_EXTRACTOR_H
+#define _KFILEMETADATA_EXTRACTOR_H
 
-#include <QtCore/QStringList>
-#include <QtCore/QDateTime>
+#include <QStringList>
+#include <QDateTime>
 
 #include "kfilemetadata_export.h"
 #include "extractionresult.h"
@@ -109,4 +109,4 @@ private:
     K_PLUGIN_FACTORY(factory, registerPlugin<classname>();) \
     K_EXPORT_PLUGIN(factory(#libname))
 
-#endif // EXTRACTOR_H
+#endif // _KFILEMETADATA_EXTRACTOR_H

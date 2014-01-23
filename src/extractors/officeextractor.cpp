@@ -21,8 +21,8 @@
 
 #include <kstandarddirs.h>
 
-#include <QtCore/QFile>
-#include <QtCore/QProcess>
+#include <QFile>
+#include <QProcess>
 
 using namespace KFileMetaData;
 

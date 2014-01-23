@@ -39,7 +39,7 @@ extern "C" {
 }
 
 #include <KDebug>
-#include <QtCore/QDateTime>
+#include <QDateTime>
 
 using namespace KFileMetaData;
 

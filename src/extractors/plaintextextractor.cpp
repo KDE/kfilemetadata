@@ -20,8 +20,8 @@
 
 #include "plaintextextractor.h"
 
-#include <QtCore/QFile>
-#include <KDebug>
+#include <QFile>
+#include <QTextStream>
 
 using namespace KFileMetaData;
 

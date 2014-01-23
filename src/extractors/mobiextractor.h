@@ -21,7 +21,7 @@
 #ifndef MOBIEXTRACTOR_H
 #define MOBIEXTRACTOR_H
 
-#include "../extractorplugin.h"
+#include "extractorplugin.h"
 
 namespace KFileMetaData
 {

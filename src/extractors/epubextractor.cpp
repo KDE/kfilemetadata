@@ -22,7 +22,7 @@
 #include <epub.h>
 
 #include <KDebug>
-#include <QtCore/QDateTime>
+#include <QDateTime>
 #include <QTextDocument>
 
 using namespace KFileMetaData;
