@@ -37,6 +37,11 @@ TypeInfo::TypeInfo(Type::Type type)
     d->type = type;
 
     switch (type) {
+    case Type::Archive:
+        d->name = QLatin1String("Archive");
+        d->displayName = i18nc("@label", "Archive");
+        break;
+
     case Type::Audio:
         d->name = QLatin1String("Audio");
         d->displayName = i18nc("@label", "Audio");

@@ -28,10 +28,16 @@ enum Type {
     FirstType = 0,
 
     /**
+     * Any file which contains a compressed collection of other files
+     * eg - tar, zip, rar, gz
+     */
+    Archive = 0,
+
+    /**
      * Used to mark any file which just contains audio. Do not use this
      * type if the file also contains Video
      */
-    Audio = 0,
+    Audio,
 
     /**
      * Any file which contains Video. It may also contain Audio
