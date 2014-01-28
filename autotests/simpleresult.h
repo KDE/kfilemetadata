@@ -27,8 +27,6 @@
 
 namespace KFileMetaData {
 
-typedef QMap<Property::Property, QVariant> PropertyMap;
-
 class SimpleResult : public ExtractionResult
 {
 public:

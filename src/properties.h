@@ -21,6 +21,9 @@
 #ifndef KFILEMETADATA_PROPERTIES
 #define KFILEMETADATA_PROPERTIES
 
+#include <QMap>
+#include <QVariant>
+
 namespace KFileMetaData {
 namespace Property {
 
@@ -93,6 +96,31 @@ enum Property {
 };
 
 } // namespace Property
+
+typedef QMap<Property::Property, QVariant> PropertyMap;
+
+inline QVariantMap toVariantMap(const PropertyMap& propMap) {
+    QVariantMap varMap;
+    PropertyMap::const_iterator it = propMap.constBegin();
+    for (; it != propMap.constEnd(); ++it) {
+        int p = static_cast<int>(it.key());
+        varMap.insertMulti(QString::number(p), it.value());
+    }
+
+    return varMap;
+}
+
+inline PropertyMap toPropertyMap(const QVariantMap& varMap) {
+    PropertyMap propMap;
+    QVariantMap::const_iterator it = varMap.constBegin();
+    for (; it != varMap.constEnd(); ++it) {
+        int p = it.key().toInt();
+        propMap.insertMulti(static_cast<Property::Property>(p), it.value());
+    }
+
+    return propMap;
+}
+
 } // namespace KFileMetaData
 
 #endif
