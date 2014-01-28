@@ -155,7 +155,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::Genre:
             d->name = QLatin1String("genre");
-            d->displayName = i18nc("@label", "Genre");
+            d->displayName = i18nc("@label music genre", "Genre");
             d->valueType = QVariant::StringList;
             d->shouldBeIndexed = false;
             break;
@@ -168,27 +168,27 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::ImageDateTime:
             d->name = QLatin1String("imageDateTime");
-            d->displayName = i18nc("@label", "Image Date Time");
+            d->displayName = i18nc("@label EXIF", "Image Date Time");
             d->valueType = QVariant::DateTime;
             break;
 
         case Property::ImageMake:
             d->name = QLatin1String("imageMake");
-            d->displayName = i18nc("@label", "Image Make");
+            d->displayName = i18nc("@label EXIF", "Image Make");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::ImageModel:
             d->name = QLatin1String("imageModel");
-            d->displayName = i18nc("@label", "Image Model");
+            d->displayName = i18nc("@label EXIF", "Image Model");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::ImageOrientation:
             d->name = QLatin1String("imageOrientation");
-            d->displayName = i18nc("@label", "Image Orientation");
+            d->displayName = i18nc("@label EXIF", "Image Orientation");
             d->valueType = QVariant::Int;
             break;
 
@@ -208,7 +208,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::LineCount:
             d->name = QLatin1String("lineCount");
-            d->displayName = i18nc("@label", "Line Count");
+            d->displayName = i18nc("@label number of lines", "Line Count");
             d->valueType = QVariant::Int;
             break;
 
@@ -227,91 +227,91 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::PhotoApertureValue:
             d->name = QLatin1String("photoApertureValue");
-            d->displayName = i18nc("@label", "Photo Aperture Value");
+            d->displayName = i18nc("@label EXIF", "Photo Aperture Value");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoDateTimeOriginal:
             d->name = QLatin1String("photoDateTimeOriginal");
-            d->displayName = i18nc("@label", "Photo Original Date Time");
+            d->displayName = i18nc("@label EXIF", "Photo Original Date Time");
             d->valueType = QVariant::DateTime;
             break;
 
         case Property::PhotoExposureBiasValue:
             d->name = QLatin1String("photoExposureBiasValue");
-            d->displayName = i18nc("@label", "Photo Exposure Bias");
+            d->displayName = i18nc("@label EXIF", "Photo Exposure Bias");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoExposureTime:
             d->name = QLatin1String("photoExposureTime");
-            d->displayName = i18nc("@label", "Photo Exposure Time");
+            d->displayName = i18nc("@label EXIF", "Photo Exposure Time");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoFlash:
             d->name = QLatin1String("photoFlash");
-            d->displayName = i18nc("@label", "Photo Flash");
+            d->displayName = i18nc("@label EXIF", "Photo Flash");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoFNumber:
             d->name = QLatin1String("photoFNumber");
-            d->displayName = i18nc("@label", "Photo F Number");
+            d->displayName = i18nc("@label EXIF", "Photo F Number");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoFocalLength:
             d->name = QLatin1String("photoFocalLength");
-            d->displayName = i18nc("@label", "Photo Focal Length");
+            d->displayName = i18nc("@label EXIF", "Photo Focal Length");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoFocalLengthIn35mmFilm:
             d->name = QLatin1String("photoFocalLengthIn35mmFilm");
-            d->displayName = i18nc("@label", "Photo Focal Length 35mm");
+            d->displayName = i18nc("@label EXIF", "Photo Focal Length 35mm");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoISOSpeedRatings:
             d->name = QLatin1String("photoISOSpeedRatings");
-            d->displayName = i18nc("@label", "Photo ISO Speed Rating");
+            d->displayName = i18nc("@label EXIF", "Photo ISO Speed Rating");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoMeteringMode:
             d->name = QLatin1String("photoMeteringMode");
-            d->displayName = i18nc("@label", "Photo Metering Mode");
+            d->displayName = i18nc("@label EXIF", "Photo Metering Mode");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoPixelXDimension:
             d->name = QLatin1String("photoPixelXDimension");
-            d->displayName = i18nc("@label", "Photo X Dimension");
+            d->displayName = i18nc("@label EXIF", "Photo X Dimension");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoPixelYDimension:
             d->name = QLatin1String("photoPixelYDimension");
-            d->displayName = i18nc("@label", "Photo Y Dimension");
+            d->displayName = i18nc("@label EXIF", "Photo Y Dimension");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoSaturation:
             d->name = QLatin1String("photoSaturation");
-            d->displayName = i18nc("@label", "Photo Saturation");
+            d->displayName = i18nc("@label EXIF", "Photo Saturation");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoSharpness:
             d->name = QLatin1String("photoSharpness");
-            d->displayName = i18nc("@label", "Photo Sharpness");
+            d->displayName = i18nc("@label EXIF", "Photo Sharpness");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoWhiteBalance:
             d->name = QLatin1String("photoWhiteBalance");
-            d->displayName = i18nc("@label", "Photo White Balance");
+            d->displayName = i18nc("@label EXIF", "Photo White Balance");
             d->valueType = QVariant::Int;
             break;
 
@@ -348,7 +348,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::TrackNumber:
             d->name = QLatin1String("trackNumber");
-            d->displayName = i18nc("@label", "Track Number");
+            d->displayName = i18nc("@label music track number", "Track Number");
             d->valueType = QVariant::Int;
             break;
 
@@ -360,7 +360,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::WordCount:
             d->name = QLatin1String("wordCount");
-            d->displayName = i18nc("@label", "Word Count");
+            d->displayName = i18nc("@label number of words", "Word Count");
             d->valueType = QVariant::Int;
             break;
 
