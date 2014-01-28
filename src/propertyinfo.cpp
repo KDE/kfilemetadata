@@ -310,6 +310,12 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Int;
             break;
 
+        case Property::Publisher:
+            d->name = QLatin1String("publisher");
+            d->displayName = i18nc("@label", "Publisher");
+            d->valueType = QVariant::String;
+            break;
+
         case Property::ReleaseYear:
             d->name = QLatin1String("releaseYear");
             d->displayName = i18nc("@label", "Release Year");
@@ -330,7 +336,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             break;
 
         case Property::Title:
-            d->name = QLatin1String("Title");
+            d->name = QLatin1String("title");
             d->displayName = i18nc("@label", "Title");
             d->valueType = QVariant::String;
             break;
