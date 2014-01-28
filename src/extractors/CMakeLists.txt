@@ -151,6 +151,7 @@ target_link_libraries(kfilemetadata_odfextractor
     Qt5::Xml
     KF5::KIOWidgets
     KF5::Service
+    KF5::Archive
     KF5::KDE4Support
 )
 
@@ -174,6 +175,7 @@ target_link_libraries(kfilemetadata_office2007extractor
     Qt5::Xml
     KF5::KIOWidgets
     KF5::Service
+    KF5::Archive
     KF5::KDE4Support
 )
 
