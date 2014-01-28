@@ -43,9 +43,8 @@ public:
     Property::Property property() const;
 
     /**
-     * A simple name. This should not be shown to a user
+     * The internal developer named used to refer to the property
      */
-    // FIXME: Maybe this should be a byte array?
     QString name() const;
 
     /**
@@ -66,6 +65,12 @@ public:
      *      that height
      */
     bool shouldBeIndexed() const;
+
+    /**
+     * Construct a PropertyInfo from the internal property name.
+     * The internal property name is case insensitive
+     */
+    static PropertyInfo fromName(const QString& name);
 
 private:
     class Private;

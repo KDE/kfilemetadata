@@ -12,3 +12,17 @@ target_link_libraries(extractortests
   ${KDE4_KDECORE_LIBS}
   kfilemetadata
 )
+
+#
+# Property Info
+#
+kde4_add_unit_test(propertyinfotest
+  propertyinfotest.cpp
+)
+
+target_link_libraries(propertyinfotest
+  ${QT_QTTEST_LIBRARY}
+  ${KDE4_KDECORE_LIBS}
+  kfilemetadata
+)
+
