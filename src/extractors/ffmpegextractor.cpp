@@ -118,8 +118,10 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
                 result->add(Property::Width, codec->width);
                 result->add(Property::Height, codec->height);
-                result->add(Property::AspectRatio, aspectRatio);
-                result->add(Property::FrameRate, frameRate);
+                if (aspectRatio)
+                    result->add(Property::AspectRatio, aspectRatio);
+                if (frameRate)
+                    result->add(Property::FrameRate, frameRate);
             }
         }
     }
