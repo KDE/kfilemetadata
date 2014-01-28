@@ -134,6 +134,11 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Int;
             break;
 
+        case Property::Empty:
+            d->name = QLatin1String("empty");
+            d->valueType = QVariant::Invalid;
+            break;
+
         case Property::FrameRate:
             d->name = QLatin1String("frameRate");
             d->displayName = i18nc("@label", "Frame Rate");

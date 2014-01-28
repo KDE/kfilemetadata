@@ -26,9 +26,10 @@ namespace Property {
 
 enum Property {
     FirstProperty = 0,
+    Empty = 0,
 
     // Audio
-    BitRate = 0,
+    BitRate,
     Channels,
     Duration,
     Genre,
