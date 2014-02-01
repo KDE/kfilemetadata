@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_mobiextractor
 Name=KFileMetaData Mobi Extractor
+Name[bs]=KFileMetaData Mobi ekstraktor
 Name[cs]=Extraktor Mobi KFileMetaData
 Name[de]=Mobi-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας Mobi KFileMetaData

@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_exiv2extractor
 Name=KFileMetaData Exiv2 Extractor
+Name[bs]=KFileMetaData Exiv2 ekstraktor
 Name[cs]=Extraktor Exiv2 KFileMetaData
 Name[de]=Exiv2-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας Exiv2 KFileMetaData

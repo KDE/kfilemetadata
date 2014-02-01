@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_officeextractor
 Name=KFileMetaData Office Extractor
+Name[bs]=KFileMetaData Office ekstraktor
 Name[cs]=Extraktor Office KFileMetaData
 Name[de]=Office-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας Office KFileMetaData

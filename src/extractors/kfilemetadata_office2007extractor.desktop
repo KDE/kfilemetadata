@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_office2007extractor
 Name=KFileMetaData Office2007 Extractor
+Name[bs]=KFileMetaData Office2007 ekstraktor
 Name[cs]=Extraktor Office2007 KFileMetaData
 Name[de]=Office 2007-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας Office2007 KFileMetaData

@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_ffmpegextractor
 Name=KFileMetaData FFmpeg Extractor
+Name[bs]=KFileMetaData FFmpeg ekstraktor
 Name[cs]=Extraktor FFmpeg KFileMetaData
 Name[de]=FFmpeg-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας FFmpeg KFileMetaData

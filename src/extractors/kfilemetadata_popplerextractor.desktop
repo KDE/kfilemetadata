@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_popplerextractor
 Name=KFileMetaData Poppler Extractor
+Name[bs]=KFileMetaData Poppler ekstraktor
 Name[cs]=Extraktor Poppler KFileMetaData
 Name[de]=Poppler-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας Poppler KFileMetaData

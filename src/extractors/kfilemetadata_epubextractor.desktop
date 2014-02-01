@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_epubextractor
 Name=KFileMetaData EPub Extractor
+Name[bs]=KFileMetaData EPub ekstraktor
 Name[cs]=Extraktor EPub KFileMetaData
 Name[de]=EPub-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας EPub KFileMetaData

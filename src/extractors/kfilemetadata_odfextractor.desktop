@@ -3,6 +3,7 @@ Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
 X-KDE-Library=kfilemetadata_odfextractor
 Name=KFileMetaData Odf Extractor
+Name[bs]=KFileMetaData Odf ekstraktor
 Name[cs]=Extraktor Odf KFileMetaData
 Name[de]=ODF-Extraktion für KFileMetaData
 Name[el]=Εξαγωγέας Odf KFileMetaData
