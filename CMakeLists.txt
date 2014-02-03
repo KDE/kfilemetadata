@@ -9,6 +9,7 @@ find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml)
 find_package(KF5 REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
 
 include(KDEInstallDirs)
+include(KDECMakeSettings)
 
 find_package(PopplerQt5 0.12.1)
 set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"
