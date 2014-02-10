@@ -24,6 +24,8 @@
 
 #include <taglib/fileref.h>
 #include <taglib/flacfile.h>
+#include <taglib/apetag.h>
+#include <taglib/mpcfile.h>
 #include <taglib/id3v2tag.h>
 #include <taglib/id3v1genres.h>
 #include <taglib/mpegfile.h>
@@ -51,6 +53,9 @@ QStringList TagLibExtractor::mimetypes() const
 
     // FLAC
     types << QLatin1String("audio/flac");
+
+    // MPC
+    types << QLatin1String("audio/x-musepack");
 
     //OGG
     types << QLatin1String("audio/ogg"); types << QLatin1String("audio/x-vorbis+ogg");
@@ -197,6 +202,57 @@ void TagLibExtractor::extract(ExtractionResult* result)
             itFLAC = lstFLAC.find("GENRE");
             if (itFLAC != lstFLAC.end()) {
                 genres.append((*itFLAC).second);
+            }
+        }
+    }
+
+    // Handling multiple tags in Musepack files.
+    if (mimeType == ("audio/x-musepack")) {
+        TagLib::MPC::File mpcFile(fileUrl.toUtf8().data(), true);
+        if (mpcFile.tag() && !mpcFile.tag()->isEmpty()) {
+            TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();
+            TagLib::APE::ItemListMap::ConstIterator itMPC;
+
+            // Artist.
+            itMPC = lstMusepack.find("ARTIST");
+            if (itMPC != lstMusepack.end()) {
+                if (!artists.isEmpty()) {
+                    artists += ", ";
+                }
+                artists += (*itMPC).second.toString();
+            }
+
+            // Album Artist.
+            itMPC = lstMusepack.find("ALBUMARTIST");
+            if (itMPC != lstMusepack.end()) {
+                if(!albumArtists.isEmpty()) {
+                    albumArtists += ", ";
+                }
+                albumArtists += (*itMPC).second.toString();
+            }
+
+            // Composer.
+            itMPC = lstMusepack.find("COMPOSER");
+            if (itMPC != lstMusepack.end()) {
+                if (!composers.isEmpty()) {
+                    composers += ", ";
+                }
+                composers += (*itMPC).second.toString();
+            }
+
+            // Lyricist.
+            itMPC = lstMusepack.find("LYRICIST");
+            if (itMPC != lstMusepack.end()) {
+                if (!lyricists.isEmpty()) {
+                    lyricists += ", ";
+                }
+                lyricists += (*itMPC).second.toString();
+            }
+
+            // Genre.
+            itMPC = lstMusepack.find("GENRE");
+            if (itMPC != lstMusepack.end()) {
+                genres.append((*itMPC).second.toString());
             }
         }
     }
