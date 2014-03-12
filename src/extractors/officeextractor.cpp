@@ -21,8 +21,8 @@
 
 #include <kstandarddirs.h>
 
-#include <QtCore/QFile>
-#include <QtCore/QProcess>
+#include <QFile>
+#include <QProcess>
 
 using namespace KFileMetaData;
 
@@ -45,7 +45,7 @@ void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QStr
     }
 }
 
-QStringList OfficeExtractor::mimetypes()
+QStringList OfficeExtractor::mimetypes() const
 {
     return m_available_mime_types;
 }
@@ -63,32 +63,29 @@ void OfficeExtractor::extract(ExtractionResult* result)
     const QString fileUrl = result->inputUrl();
     const QString mimeType = result->inputMimetype();
     if (mimeType == QLatin1String("application/msword")) {
-        result->addType("Document");
+        result->addType(Type::Document);
 
         args << QLatin1String("-w");
         contents = textFromFile(fileUrl, m_catdoc, args);
 
         // Now that we have the plain text content, count words, lines and characters
         // (original code from plaintextextractor.cpp, authored by Vishesh Handa)
-        int characters = contents.length();
-        int lines = contents.count(QChar('\n'));
+        int lines = contents.count(QLatin1Char('\n'));
         int words = contents.count(QRegExp("\\b\\w+\\b"));
 
-        result->add("text", contents);
-        result->add("wordCount", words);
-        result->add("lineCount", lines);
-        result->add("characterCount", characters);
+        result->add(Property::WordCount, words);
+        result->add(Property::LineCount, lines);
     } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
-        result->addType("Spreadsheet");
-        result->addType("Document");
+        result->addType(Type::Document);
+        result->addType(Type::Spreadsheet);
 
         args << QLatin1String("-c") << QLatin1String(" ");
         args << QLatin1String("-b") << QLatin1String(" ");
         args << QLatin1String("-q") << QLatin1String("0");
         contents = textFromFile(fileUrl, m_xls2csv, args);
     } else if (mimeType == QLatin1String("application/vnd.ms-powerpoint")) {
-        result->addType("Presentation");
-        result->addType("Document");
+        result->addType(Type::Document);
+        result->addType(Type::Presentation);
 
         contents = textFromFile(fileUrl, m_catppt, args);
     }

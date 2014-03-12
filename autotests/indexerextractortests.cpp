@@ -1,6 +1,7 @@
 /*
    This file is part of the Nepomuk KDE project.
    Copyright (C) 2013 David Edmundson <davidedmundson@kde.org>
+   Copyright (C) 2014 Vishesh Handa <me@vhanda.in>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Lesser General Public
@@ -23,31 +24,36 @@
 
 #include <QtTest>
 #include "qtest_kde.h"
-#include "../plaintextextractor.h"
+#include "simpleresult.h"
 #include "indexerextractortestsconfig.h"
+#include "extractors/plaintextextractor.h"
+
+using namespace KFileMetaData;
 
 IndexerExtractorTests::IndexerExtractorTests(QObject* parent) :
     QObject(parent)
 {
 }
 
-QUrl IndexerExtractorTests::testFilePath(const QString& fileName) const
+QString IndexerExtractorTests::testFilePath(const QString& fileName) const
 {
-    return QUrl(QString(NEPOMUK_INDEXER_TESTS_SAMPLE_FILES_PATH) + '/' + fileName);
+    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QDir::separator() + fileName;
 }
 
 void IndexerExtractorTests::benchMarkPlainTextExtractor()
 {
-    QScopedPointer<Nepomuk2::ExtractorPlugin> plugin(new Nepomuk2::PlainTextExtractor(this, QVariantList()));
-    QBENCHMARK(plugin->extract(QUrl(), testFilePath("plain_text_file.txt"), "text/plain"));
+    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
+
+    SimpleResult result(testFilePath("plain_text_file.txt"), "text/plain");
+    plugin->extract(&result);
 }
 
 void IndexerExtractorTests::testPlainTextExtractor()
 {
-    QScopedPointer<Nepomuk2::ExtractorPlugin> plugin(new Nepomuk2::PlainTextExtractor(this, QVariantList()));
-    QUrl resUri("nepomuk://a");
+    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
 
-    const Nepomuk2::SimpleResourceGraph actualResourceGraph = plugin->extract(resUri, testFilePath("plain_text_file.txt"), "text/plain");
+    SimpleResult result(testFilePath("plain_text_file.txt"), "text/plain");
+    plugin->extract(&result);
 
     QString content;
     QTextStream(&content) << "This is a text file\n"
@@ -55,14 +61,15 @@ void IndexerExtractorTests::testPlainTextExtractor()
                           << "it has 77 characters\n"
                           << "and 17 words.\n";
 
-    const Nepomuk2::SimpleResource fileResource = actualResourceGraph[resUri];
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().first(), Type::Text);
 
-    QVERIFY(fileResource.isValid());
-    QVERIFY(fileResource.property(RDF::type()) == QVariantList() << NFO::PlainTextDocument());
-    QVERIFY(fileResource.property(NIE::plainTextContent()) ==  QVariantList() << content);
-    QVERIFY(fileResource.property(NFO::wordCount()) ==  QVariantList() << 17);
-    QVERIFY(fileResource.property(NFO::characterCount()) ==  QVariantList() << 77);
-    QVERIFY(fileResource.property(NFO::lineCount()) ==  QVariantList() << 4);
+    QCOMPARE(result.properties().size(), 2);
+    QCOMPARE(result.properties().value(Property::WordCount), QVariant(17));
+    QCOMPARE(result.properties().value(Property::LineCount), QVariant(4));
+
+    content.replace(QLatin1Char('\n'), QLatin1Char(' '));
+    QCOMPARE(result.text(), content);
 }
 
 QTEST_KDEMAIN_CORE(IndexerExtractorTests)

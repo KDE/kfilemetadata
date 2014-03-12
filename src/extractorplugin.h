@@ -18,11 +18,11 @@
 */
 
 
-#ifndef EXTRACTOR_H
-#define EXTRACTOR_H
+#ifndef _KFILEMETADATA_EXTRACTOR_H
+#define _KFILEMETADATA_EXTRACTOR_H
 
-#include <QtCore/QStringList>
-#include <QtCore/QDateTime>
+#include <QStringList>
+#include <QDateTime>
 
 #include "kfilemetadata_export.h"
 #include "extractionresult.h"
@@ -37,8 +37,12 @@ namespace KFileMetaData
  * \class ExtractorPlugin extractorplugin.h
  *
  * \brief The ExtractorPlugin is the base class for all file metadata
- * extractors. It is responsible for extracting the metadata and providing
- * key value pairs
+ * extractors. It is responsible for extracting the metadata in a file.
+ *
+ * Plugins should derive from this class and implement the mimetypes
+ * and extract method.
+ *
+ * All Plugins should be synchronous and blocking.
  *
  * \author Vishesh Handa <me@vhanda.in>
  */
@@ -54,20 +58,23 @@ public:
      * Only files with those mimetypes will be provided to the plugin via
      * the extract function.
      *
+     * This can also contains partial mimetypes like "text/", in that case
+     * this plugin will be chosen only if a better plugin does not exist.
+     *
      * \return A StringList containing the mimetypes.
      * \sa extract
      */
-    virtual QStringList mimetypes() = 0;
+    virtual QStringList mimetypes() const = 0;
 
     /**
-     * The main function of the plugin that is responsible for extracting the data
-     * from the file url and returning a SimpleResourceGraph.
+     * The main function of the plugin that is responsible for extracting
+     * the data and filling up the ExtractionResult
      *
-     * It does so on the basis of the mimetype provided.
+     * The \p result provides the input url and mimetype which
+     * can be used to identify the file.
      *
-     * \param resUri The resource uri of the fileUrl which should be used in the SimpleResource
-     * \param fileUrl The url of the file being indexed
-     * \param mimeType the mimetype of the file url
+     * This function is synchronous and should be reentrant as it
+     * can be called by multiple threads.
      */
     virtual void extract(ExtractionResult* result) = 0;
 
@@ -81,12 +88,14 @@ public:
     static QDateTime dateTimeFromString(const QString& dateString);
 
     /**
-     * Creates a list of nco:Contacts from a list of strings which are separated
-     * by a number of different separators. It sets the contact's nco:fullname.
+     * Tries to split the string into names. It cleans up any superflous words
+     * and removes extra junk such as curly braces
      */
     static QStringList contactsFromString(const QString& string);
 
 private:
+    class Private;
+    Private* d;
 };
 }
 
@@ -100,4 +109,4 @@ private:
     K_PLUGIN_FACTORY(factory, registerPlugin<classname>();) \
     K_EXPORT_PLUGIN(factory(#libname))
 
-#endif // EXTRACTOR_H
+#endif // _KFILEMETADATA_EXTRACTOR_H

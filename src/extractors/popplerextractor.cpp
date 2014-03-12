@@ -21,7 +21,7 @@
 
 #include "popplerextractor.h"
 
-#include <KDE/KDebug>
+#include <KDebug>
 #include <QScopedPointer>
 
 using namespace KFileMetaData;
@@ -32,7 +32,7 @@ PopplerExtractor::PopplerExtractor(QObject* parent, const QVariantList&)
 
 }
 
-QStringList PopplerExtractor::mimetypes()
+QStringList PopplerExtractor::mimetypes() const
 {
     QStringList list;
     list << QLatin1String("application/pdf");
@@ -50,8 +50,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    result->addType("Document");
-    result->addType("PDF");
+    result->addType(Type::Document);
 
     QString title = pdfDoc->info(QLatin1String("Title")).trimmed();
 
@@ -67,22 +66,22 @@ void PopplerExtractor::extract(ExtractionResult* result)
     }
 
     if (!title.isEmpty()) {
-        result->add("title", title);
+        result->add(Property::Title, title);
     }
 
     QString subject = pdfDoc->info(QLatin1String("Subject"));
     if (!subject.isEmpty()) {
-        result->add("title", title);
+        result->add(Property::Subject, title);
     }
 
     QString author = pdfDoc->info(QLatin1String("Author"));
     if (!author.isEmpty()) {
-        result->add("author", author);
+        result->add(Property::Author, author);
     }
 
     QString creator = pdfDoc->info(QLatin1String("Creator"));
     if (!author.isEmpty()) {
-        result->add("creator", creator);
+        result->add(Property::Creator, creator);
     }
 
     for (int i = 0; i < pdfDoc->numPages(); i++) {
@@ -132,7 +131,7 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
             // if the text has follow up words add them to to create the full title
             Poppler::TextBox* next = tb->nextWord();
             while (next) {
-                possibleTitle.append(QLatin1String(" "));
+                possibleTitle.append(QLatin1Char(' '));
                 possibleTitle.append(next->text());
                 next = next->nextWord();
                 skipTextboxes++;
@@ -140,7 +139,7 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
 
             // now combine text for each font size together, very likeley it must be connected
             QString existingTitlePart = possibleTitleMap.value(currentLargestChar, QString());
-            existingTitlePart.append(QLatin1String(" "));
+            existingTitlePart.append(QLatin1Char(' '));
             existingTitlePart.append(possibleTitle);
             possibleTitleMap.insert(currentLargestChar, existingTitlePart);
         }

@@ -21,7 +21,7 @@
 #ifndef MOBIEXTRACTOR_H
 #define MOBIEXTRACTOR_H
 
-#include "../extractorplugin.h"
+#include "extractorplugin.h"
 
 namespace KFileMetaData
 {
@@ -32,7 +32,7 @@ public:
     MobiExtractor(QObject* parent, const QVariantList&);
 
     virtual void extract(ExtractionResult* result);
-    virtual QStringList mimetypes();
+    virtual QStringList mimetypes() const;
 };
 }
 

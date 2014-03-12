@@ -2,14 +2,14 @@ project(kfilemetadata)
 cmake_minimum_required(VERSION 2.8.12)
 
 find_package(ECM 0.0.9 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
 find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml)
 find_package(KF5 REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
+include(FeatureSummary)
 
 find_package(PopplerQt5 0.12.1)
 set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"
@@ -46,6 +46,7 @@ include_directories(
 )
 
 add_subdirectory(src)
+add_subdirectory(autotests)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake.in
                ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake @ONLY)

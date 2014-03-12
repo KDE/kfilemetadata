@@ -41,7 +41,7 @@ TagLibExtractor::TagLibExtractor(QObject* parent, const QVariantList&)
 {
 }
 
-QStringList TagLibExtractor::mimetypes()
+QStringList TagLibExtractor::mimetypes() const
 {
     QStringList types;
     // MP3 FLAC, MPC, Speex, WavPack TrueAudio, WAV, AIFF, MP4 and ASF files.
@@ -81,10 +81,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     }
 
     TagLib::Tag* tags = file.tag();
-    if (!tags->isEmpty()) {
-        result->addType("Music");
-    }
-    result->addType("Audio");
+    result->addType(Type::Audio);
 
     TagLib::String artists;
     TagLib::String albumArtists;
@@ -258,12 +255,12 @@ void TagLibExtractor::extract(ExtractionResult* result)
     if (!tags->isEmpty()) {
         QString title = QString::fromUtf8(tags->title().toCString(true));
         if (!title.isEmpty()) {
-            result->add("title", title);
+            result->add(Property::Title, title);
         }
 
         QString comment = QString::fromUtf8(tags->comment().toCString(true));
         if (!comment.isEmpty()) {
-            result->add("comment", comment);
+            result->add(Property::Comment, comment);
         }
 
         if (genres.isEmpty()) {
@@ -280,7 +277,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 genre = QString::fromUtf8(TagLib::ID3v1::genre(genreNum).toCString(true));
             }
 
-            result->add("genre", genre);
+            result->add(Property::Genre, genre);
         }
 
         QString artistString;
@@ -292,47 +289,38 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         QStringList artists = contactsFromString(artistString);
         foreach(const QString& artist, artists) {
-            result->add("artist", artist);
+            result->add(Property::Artist, artist);
         }
 
         QString composersString = QString::fromUtf8(composers.toCString(true)).trimmed();
         QStringList composers = contactsFromString(composersString);
         foreach(const QString& comp, composers) {
-            result->add("composer", comp);
+            result->add(Property::Composer, comp);
         }
 
         QString lyricistsString = QString::fromUtf8(lyricists.toCString(true)).trimmed();
         QStringList lyricists = contactsFromString(lyricistsString);
         foreach(const QString& lyr, lyricists) {
-            result->add("lyricist", lyr);
+            result->add(Property::Lyricist, lyr);
         }
 
         QString album = QString::fromUtf8(tags->album().toCString(true));
         if (!album.isEmpty()) {
-            result->add("album", album);
+            result->add(Property::Album, album);
 
             QString albumArtistsString = QString::fromUtf8(albumArtists.toCString(true)).trimmed();
             QStringList albumArtists = contactsFromString(albumArtistsString);
             foreach(const QString& res, albumArtists) {
-                result->add("albumArtist", res);
+                result->add(Property::AlbumArtist, res);
             }
         }
 
         if (tags->track()) {
-            result->add("trackNumber", tags->track());
+            result->add(Property::TrackNumber, tags->track());
         }
 
         if (tags->year()) {
-            QDateTime dt;
-            dt.setUtcOffset(0); // Date must not be converted.
-            QDate date = dt.date();
-            // If there is only the year then January 1 it's used to complete the date.
-            date.setDate(tags->year(), 1, 1);
-            if (date.year() < 0) {
-                date.setDate(1, 1, 1);
-            }
-            dt.setDate(date);
-            result->add("releaseDate", dt);
+            result->add(Property::ReleaseYear, tags->year());
         }
     }
 
@@ -340,19 +328,19 @@ void TagLibExtractor::extract(ExtractionResult* result)
     if (audioProp) {
         if (audioProp->length()) {
             // What about the xml duration?
-            result->add("duration", audioProp->length());
+            result->add(Property::Duration, audioProp->length());
         }
 
         if (audioProp->bitrate()) {
-            result->add("averageBitrate", audioProp->bitrate() * 1000);
+            result->add(Property::BitRate, audioProp->bitrate() * 1000);
         }
 
         if (audioProp->channels()) {
-            result->add("channels", audioProp->channels());
+            result->add(Property::Channels, audioProp->channels());
         }
 
         if (audioProp->sampleRate()) {
-            result->add("sampleRate", audioProp->sampleRate());
+            result->add(Property::SampleRate, audioProp->sampleRate());
         }
     }
 

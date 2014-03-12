@@ -22,7 +22,7 @@
 #include <epub.h>
 
 #include <KDebug>
-#include <QtCore/QDateTime>
+#include <QDateTime>
 #include <QTextDocument>
 
 using namespace KFileMetaData;
@@ -33,7 +33,7 @@ EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
 
 }
 
-QStringList EPubExtractor::mimetypes()
+QStringList EPubExtractor::mimetypes() const
 {
     QStringList types;
     types << QLatin1String("application/epub+zip");
@@ -71,17 +71,16 @@ void EPubExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    result->addType("Document");
-    result->addType("EBook");
+    result->addType(Type::Document);
 
     QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
     if (!value.isEmpty()) {
-        result->add("title", value);
+        result->add(Property::Title, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_SUBJECT);
     if (!value.isEmpty()) {
-        result->add("subject", value);
+        result->add(Property::Subject, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_CREATOR);
@@ -97,7 +96,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (index)
             value = value.mid(0, index);
 
-        result->add("creator", value);
+        result->add(Property::Creator, value);
     }
 
     // The Contributor just seems to be mostly Calibre aka the Generator
@@ -114,12 +113,12 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_PUBLISHER);
     if (!value.isEmpty()) {
-        result->add("publisher", value);
+        result->add(Property::Publisher, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
     if (!value.isEmpty()) {
-        result->add("description", value);
+        result->add(Property::Description, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DATE);
@@ -133,7 +132,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
         if (!dt.isNull())
-            result->add("creationDate", value);
+            result->add(Property::CreationDate, value);
     }
 
     //

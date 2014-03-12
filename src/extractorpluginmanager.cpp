@@ -28,24 +28,34 @@
 
 using namespace KFileMetaData;
 
-ExtractorPluginManager::ExtractorPluginManager(QObject* parent): QObject(parent)
+class ExtractorPluginManager::Private {
+public:
+    QHash<QString, ExtractorPlugin*> m_extractors;
+
+    QList<ExtractorPlugin*> allExtractors() const;
+};
+
+ExtractorPluginManager::ExtractorPluginManager(QObject* parent)
+    : QObject(parent)
+    , d(new Private)
 {
-    QList<ExtractorPlugin*> all = allExtractors();
+    QList<ExtractorPlugin*> all = d->allExtractors();
 
     foreach (ExtractorPlugin* ex, all) {
         foreach (const QString& type, ex->mimetypes()) {
-            m_extractors.insertMulti(type, ex);
+            d->m_extractors.insertMulti(type, ex);
         }
     }
 }
 
 ExtractorPluginManager::~ExtractorPluginManager()
 {
-    qDeleteAll(m_extractors.values().toSet());
+    qDeleteAll(d->m_extractors.values().toSet());
+    delete d;
 }
 
 
-QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
+QList<ExtractorPlugin*> ExtractorPluginManager::Private::allExtractors() const
 {
     // Get all the plugins
     KService::List plugins = KServiceTypeTrader::self()->query("KFileMetaDataExtractor");
@@ -56,7 +66,7 @@ QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
         KService::Ptr service = *it;
 
         QString error;
-        ExtractorPlugin* ex = service->createInstance<ExtractorPlugin>(this, QVariantList(), &error);
+        ExtractorPlugin* ex = service->createInstance<ExtractorPlugin>(0, QVariantList(), &error);
         if (!ex) {
             kError() << "Could not create Extractor: " << service->library();
             kError() << error;
@@ -69,12 +79,12 @@ QList<ExtractorPlugin*> ExtractorPluginManager::allExtractors()
     return extractors;
 }
 
-QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QString& mimetype)
+QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QString& mimetype) const
 {
-    QList<ExtractorPlugin*> plugins = m_extractors.values(mimetype);
+    QList<ExtractorPlugin*> plugins = d->m_extractors.values(mimetype);
     if (plugins.isEmpty()) {
-        QHash<QString, ExtractorPlugin*>::const_iterator it = m_extractors.constBegin();
-        for (; it != m_extractors.constEnd(); it++) {
+        QHash<QString, ExtractorPlugin*>::const_iterator it = d->m_extractors.constBegin();
+        for (; it != d->m_extractors.constEnd(); it++) {
             if (mimetype.startsWith(it.key()))
                 plugins << it.value();
         }

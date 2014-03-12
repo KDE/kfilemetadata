@@ -33,11 +33,6 @@ ExtractorPlugin::~ExtractorPlugin()
 {
 }
 
-QStringList ExtractorPlugin::mimetypes()
-{
-    return QStringList();
-}
-
 //
 // Helper functions
 //

@@ -26,30 +26,69 @@
 #include <QVariant>
 
 #include "kfilemetadata_export.h"
+#include "properties.h"
+#include "types.h"
 
 namespace KFileMetaData {
 
+/**
+ * \class ExtractionResult extractionresult.h
+ *
+ * \brief The ExtractionResult class is where all the data extracted by
+ * the indexer is saved. This class acts as a base class which should be
+ * dervied from and then passed to the relevant plugins.
+ *
+ * The dervied class needs to implement 3 pure virtual functions through
+ * which it receives the extracted data.
+ *
+ * \author Vishesh Handa <me@vhanda.in>
+ */
 class KFILEMETADATA_EXPORT ExtractionResult
 {
 public:
-    ExtractionResult();
+    ExtractionResult(const QString& url, const QString& mimetype);
     ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
 
-    QString inputUrl();
-    void setInputUrl(const QString& url);
+    /**
+     * The input url which the plugins will use to locate the file
+     */
+    QString inputUrl() const;
 
-    QString inputMimetype();
-    void setInputMimetype(const QString& mime);
-
-    virtual void append(const QString& text) = 0;
-    virtual void add(const QString& key, const QVariant& value) = 0;
+    /*
+     * The input mimetype. This mimetype should correspond with the
+     * mimetypes supported with the relevant plugin when it is being
+     * passed to the Extractor
+     */
+    QString inputMimetype() const;
 
     /**
-     * A type is a higher level classification of the file. Any file can
-     * have multiple types. Eg - "Audio" and "Music" or "Video", "Movie"
+     * This function is called by plugins when they wish for some plain
+     * text to be indexed without any property. This generally corresponds
+     * to the text content in a file
      */
-    virtual void addType(const QString& type);
+    virtual void append(const QString& text) = 0;
+
+    /**
+     * This function is called by the plugins when they wish to
+     * add a key value pair which should be indexed. This function may be
+     * called multiple times for the same key.
+     *
+     * \p property This specifies a property name. It should be one of the
+     *             properties from the global list of properties.
+     *
+     * \p value The value of the property
+     */
+    virtual void add(Property::Property property, const QVariant& value) = 0;
+
+    /**
+     * This function is caleld by the plugins.
+     * A type is a higher level classification of the file. Any file can
+     * have multiple types. Eg - "Audio", "Video" or "Document"
+     *
+     * Please choose one type from the list of available types
+     */
+    virtual void addType(Type::Type type) = 0;
 
 private:
     class Private;

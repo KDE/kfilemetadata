@@ -20,8 +20,8 @@
 
 #include "plaintextextractor.h"
 
-#include <QtCore/QFile>
-#include <KDebug>
+#include <QFile>
+#include <QTextStream>
 
 using namespace KFileMetaData;
 
@@ -31,7 +31,7 @@ PlainTextExtractor::PlainTextExtractor(QObject* parent, const QVariantList&)
 
 }
 
-QStringList PlainTextExtractor::mimetypes()
+QStringList PlainTextExtractor::mimetypes() const
 {
     return QStringList() << QLatin1String("text/");
 }
@@ -45,7 +45,6 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    int characters = 0;
     int lines = 0;
     int words = 0;
 
@@ -56,15 +55,13 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         QString str = ts.readLine();
         result->append(str);
 
-        characters += str.length();
         lines += 1;
         words += str.count(wordsRegex);
     }
 
-    result->add("wordCount", words);
-    result->add("lines", lines);
-    result->add("characterCount", characters);
-    result->addType("PlainText");
+    result->add(Property::WordCount, words);
+    result->add(Property::LineCount, lines);
+    result->addType(Type::Text);
 
     return;
 }

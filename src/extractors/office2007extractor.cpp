@@ -20,8 +20,8 @@
 
 #include "office2007extractor.h"
 
-#include <KDE/KDebug>
-#include <KDE/KZip>
+#include <KDebug>
+#include <KZip>
 
 #include <QDomDocument>
 #include <QXmlStreamReader>
@@ -34,7 +34,7 @@ Office2007Extractor::Office2007Extractor(QObject* parent, const QVariantList&): 
 }
 
 
-QStringList Office2007Extractor::mimetypes()
+QStringList Office2007Extractor::mimetypes() const
 {
     QStringList list;
     list << QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
@@ -84,7 +84,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                result->add("dc:description", str);
+                result->add(Property::Description, str);
             }
         }
 
@@ -92,7 +92,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                result->add("dc:subject", str);
+                result->add(Property::Subject, str);
             }
         }
 
@@ -100,7 +100,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                result->add("dc:title", str);
+                result->add(Property::Title, str);
             }
         }
 
@@ -108,7 +108,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                result->add("dc:creator", str);
+                result->add(Property::Creator, str);
             }
         }
 
@@ -116,7 +116,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                result->add("dc:langauge", str);
+                result->add(Property::Langauge, str);
             }
         }
     }
@@ -136,7 +136,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
                 bool ok = false;
                 int pageCount = elem.text().toInt(&ok);
                 if (ok) {
-                    result->add("pageCount", pageCount);
+                    result->add(Property::PageCount, pageCount);
                 }
             }
 
@@ -145,7 +145,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
                 bool ok = false;
                 int wordCount = elem.text().toInt(&ok);
                 if (ok) {
-                    result->add("wordCount", wordCount);
+                    result->add(Property::WordCount, wordCount);
                 }
             }
         }
@@ -154,7 +154,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!elem.isNull()) {
             QString app = elem.text();
             if (!app.isEmpty()) {
-                result->add("generator", app);
+                result->add(Property::Generator, app);
             }
         }
     }
@@ -177,7 +177,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             extractTextWithTag(file->createDevice(), QLatin1String("w:t"), result);
         }
 
-        result->addType("Document");
+        result->addType(Type::Document);
     }
 
     else if (rootEntries.contains("xl")) {
@@ -190,8 +190,8 @@ void Office2007Extractor::extract(ExtractionResult* result)
         const KArchiveDirectory* xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
         extractTextFromFiles(xlDirectory, result);
 
-        result->addType("Document");
-        result->addType("Spreadsheet");
+        result->addType(Type::Document);
+        result->addType(Type::Spreadsheet);
     }
 
     else if (rootEntries.contains("ppt")) {
@@ -204,8 +204,8 @@ void Office2007Extractor::extract(ExtractionResult* result)
         const KArchiveDirectory* pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
         extractTextFromFiles(pptDirectory, result);
 
-        result->addType("Document");
-        result->addType("Presentation");
+        result->addType(Type::Document);
+        result->addType(Type::Presentation);
     }
 
     return;

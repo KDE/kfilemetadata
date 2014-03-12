@@ -2,6 +2,8 @@ add_library(kfilemetadata SHARED
     extractionresult.cpp
     extractorplugin.cpp
     extractorpluginmanager.cpp
+    propertyinfo.cpp
+    typeinfo.cpp
 )
 
 target_link_libraries(kfilemetadata
@@ -14,6 +16,10 @@ target_link_libraries(kfilemetadata
 )
 
 generate_export_header(kfilemetadata BASE_NAME KFileMetaData)
+set_target_properties(kfilemetadata PROPERTIES
+    VERSION ${GENERIC_LIB_VERSION}
+    SOVERSION ${GENERIC_LIB_SOVERSION}
+)
 
 install(TARGETS kfilemetadata ${INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -25,15 +31,17 @@ install(EXPORT KdeLibsLibraryTargets
         DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData
         FILE KFileMetaDataTargetsWithPrefix.cmake)
 
-
 install(FILES
     extractionresult.h
     extractorplugin.h
     extractorpluginmanager.h
+    properties.h
+    propertyinfo.h
+    types.h
+    typeinfo.h
     ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h
 
     DESTINATION ${INCLUDE_INSTALL_DIR}/kfilemetadata COMPONENT Devel
 )
 
 add_subdirectory(extractors)
-#add_subdirectory(test)

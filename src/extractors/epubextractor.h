@@ -32,7 +32,7 @@ public:
     EPubExtractor(QObject* parent, const QVariantList&);
 
     virtual void extract(ExtractionResult* result);
-    virtual QStringList mimetypes();
+    virtual QStringList mimetypes() const;
 };
 }
 
