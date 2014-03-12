@@ -14,5 +14,5 @@ set(KFILEMETADATA_INCLUDE_DIR "@INCLUDE_INSTALL_DIR@")
 include(${_currentDir}/KFileMetaDataTargetsWithPrefix.cmake)
 
 # Set the library variable
-set(KFILEMETADATA_LIBRARY kfilemetadata)
+set(KFILEMETADATA_LIBRARY KF5::FileMetaData)
 

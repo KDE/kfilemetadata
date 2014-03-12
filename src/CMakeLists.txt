@@ -5,6 +5,7 @@ add_library(kfilemetadata SHARED
     propertyinfo.cpp
     typeinfo.cpp
 )
+add_library(KF5::FileMetaData ALIAS kfilemetadata)
 
 target_link_libraries(kfilemetadata
   PUBLIC
@@ -19,15 +20,17 @@ generate_export_header(kfilemetadata BASE_NAME KFileMetaData)
 set_target_properties(kfilemetadata PROPERTIES
     VERSION ${GENERIC_LIB_VERSION}
     SOVERSION ${GENERIC_LIB_SOVERSION}
+    EXPORT_NAME FileMetaData
 )
+target_include_directories(kfilemetadata INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>")
 
 install(TARGETS kfilemetadata ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-install(TARGETS kfilemetadata EXPORT KdeLibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kfilemetadata EXPORT KFileMetaDataTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
-# TODO: properly export the targets when not in Qt4-support mode
-install(EXPORT KdeLibsLibraryTargets
+install(EXPORT KFileMetaDataTargets
+        NAMESPACE KF5::
         DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData
         FILE KFileMetaDataTargetsWithPrefix.cmake)
 
