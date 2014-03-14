@@ -67,3 +67,5 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PlainTextExtractor, "kfilemetadata_plaintextextractor")
+
+#include "plaintextextractor.moc"
