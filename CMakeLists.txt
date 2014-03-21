@@ -5,12 +5,25 @@ find_package(ECM 0.0.11 REQUIRED NO_MODULE)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
-find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml Test)
-find_package(KF5 REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
+set(KF5_VERSION "4.97.0")
+set(REQUIRED_QT_VERSION "5.2.0")
+
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(FeatureSummary)
+include(GenerateExportHeader)
+include(ECMSetupVersion)
+
+ecm_setup_version(${KF5_VERSION}
+                  VARIABLE_PREFIX KFILEMETADATA
+                  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfigVersion.cmake"
+                  SOVERSION 5)
+
+
+# Build dependencies
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Widgets Xml Test)
+find_package(KF5 ${KF5_VERSION} REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
 
 find_package(PopplerQt5 0.12.1)
 set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"
@@ -49,11 +62,23 @@ include_directories(
 add_subdirectory(src)
 add_subdirectory(autotests)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake.in
-               ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake @ONLY)
+# Config files
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KFileMetaData")
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake
-        DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData)
+include(ECMPackageConfigHelpers)
+
+ecm_configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake"
+  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+)
+
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT devel
+)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

@@ -5,6 +5,7 @@ add_library(kfilemetadata SHARED
     propertyinfo.cpp
     typeinfo.cpp
 )
+
 add_library(KF5::FileMetaData ALIAS kfilemetadata)
 
 target_link_libraries(kfilemetadata
@@ -18,8 +19,8 @@ target_link_libraries(kfilemetadata
 
 generate_export_header(kfilemetadata BASE_NAME KFileMetaData)
 set_target_properties(kfilemetadata PROPERTIES
-    VERSION ${GENERIC_LIB_VERSION}
-    SOVERSION ${GENERIC_LIB_SOVERSION}
+    VERSION ${KFILEMETADATA_VERSION_STRING}
+    SOVERSION ${KFILEMETADATA_SOVERSION}
     EXPORT_NAME FileMetaData
 )
 target_include_directories(kfilemetadata INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>")
