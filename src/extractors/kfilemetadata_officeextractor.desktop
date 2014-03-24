@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_officeextractor
 Name=KFileMetaData Office Extractor
 Name[bs]=KFileMetaData Office ekstraktor
 Name[ca]=Extractor Office del KFileMetaData
+Name[ca@valencia]=Extractor Office del KFileMetaData
 Name[cs]=Extraktor Office KFileMetaData
 Name[da]=KFileMetaData Office-udtrækker
 Name[de]=Office-Extraktion für KFileMetaData

@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_ffmpegextractor
 Name=KFileMetaData FFmpeg Extractor
 Name[bs]=KFileMetaData FFmpeg ekstraktor
 Name[ca]=Extractor FFmpeg del KFileMetaData
+Name[ca@valencia]=Extractor FFmpeg del KFileMetaData
 Name[cs]=Extraktor FFmpeg KFileMetaData
 Name[da]=KFileMetaData FFmpeg-udtrækker
 Name[de]=FFmpeg-Extraktion für KFileMetaData

@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_popplerextractor
 Name=KFileMetaData Poppler Extractor
 Name[bs]=KFileMetaData Poppler ekstraktor
 Name[ca]=Extractor Poppler del KFileMetaData
+Name[ca@valencia]=Extractor Poppler del KFileMetaData
 Name[cs]=Extraktor Poppler KFileMetaData
 Name[da]=KFileMetaData Poppler-udtrækker
 Name[de]=Poppler-Extraktion für KFileMetaData

@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_taglibextractor
 Name=KFileMetaData TagLib Extractor
 Name[bs]=KFileMetaData TagLib ekstraktor
 Name[ca]=Extractor TagLib del KFileMetaData
+Name[ca@valencia]=Extractor TagLib del KFileMetaData
 Name[cs]=Extraktor TagLib KFileMetaData
 Name[da]=KFileMetaData TagLib-udtrækker
 Name[de]=TagLib-Extraktion für KFileMetaData

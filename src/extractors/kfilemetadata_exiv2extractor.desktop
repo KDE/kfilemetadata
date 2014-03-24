@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_exiv2extractor
 Name=KFileMetaData Exiv2 Extractor
 Name[bs]=KFileMetaData Exiv2 ekstraktor
 Name[ca]=Extractor Exiv2 del KFileMetaData
+Name[ca@valencia]=Extractor Exiv2 del KFileMetaData
 Name[cs]=Extraktor Exiv2 KFileMetaData
 Name[da]=KFileMetaData Exiv2-udtrækker
 Name[de]=Exiv2-Extraktion für KFileMetaData

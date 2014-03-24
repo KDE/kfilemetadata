@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_plaintextextractor
 Name=KFileMetaData Plain Text Extractor
 Name[bs]=KFileMetaData ekstraktor običnog teksta
 Name[ca]=Extractor de text del KFileMetaData
+Name[ca@valencia]=Extractor de text del KFileMetaData
 Name[cs]=Extraktor čistého textu KFileMetaData
 Name[da]=KFileMetaData Klartekst-udtrækker
 Name[de]=Extraktion von einfachen Text für KFileMetaData

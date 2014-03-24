@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_office2007extractor
 Name=KFileMetaData Office2007 Extractor
 Name[bs]=KFileMetaData Office2007 ekstraktor
 Name[ca]=Extractor Office2007 del KFileMetaData
+Name[ca@valencia]=Extractor Office2007 del KFileMetaData
 Name[cs]=Extraktor Office2007 KFileMetaData
 Name[da]=KFileMetaData Office2007-udtrækker
 Name[de]=Office 2007-Extraktion für KFileMetaData

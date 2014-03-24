@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_odfextractor
 Name=KFileMetaData Odf Extractor
 Name[bs]=KFileMetaData Odf ekstraktor
 Name[ca]=Extractor Odf del KFileMetaData
+Name[ca@valencia]=Extractor Odf del KFileMetaData
 Name[cs]=Extraktor Odf KFileMetaData
 Name[da]=KFileMetaData Odf-udtrækker
 Name[de]=ODF-Extraktion für KFileMetaData

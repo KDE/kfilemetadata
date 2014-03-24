@@ -5,6 +5,7 @@ X-KDE-Library=kfilemetadata_epubextractor
 Name=KFileMetaData EPub Extractor
 Name[bs]=KFileMetaData EPub ekstraktor
 Name[ca]=Extractor EPub del KFileMetaData
+Name[ca@valencia]=Extractor EPub del KFileMetaData
 Name[cs]=Extraktor EPub KFileMetaData
 Name[da]=KFileMetaData EPub-udtrækker
 Name[de]=EPub-Extraktion für KFileMetaData
