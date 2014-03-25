@@ -24,7 +24,6 @@
 
 #include <qmobipocket/mobipocket.h>
 
-#include <KDebug>
 #include <QDateTime>
 #include <QFile>
 #include <QTextDocument>

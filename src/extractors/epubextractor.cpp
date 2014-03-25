@@ -21,9 +21,9 @@
 
 #include <epub.h>
 
-#include <KDebug>
 #include <QDateTime>
 #include <QTextDocument>
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -67,7 +67,7 @@ void EPubExtractor::extract(ExtractionResult* result)
 {
     struct epub* ePubDoc = epub_open(result->inputUrl().toUtf8().constData(), 1);
     if (!ePubDoc) {
-        kError() << "Invalid document";
+        qWarning() << "Invalid document";
         return;
     }
 

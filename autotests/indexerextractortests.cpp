@@ -23,7 +23,7 @@
 #include "indexerextractortests.h"
 
 #include <QtTest>
-#include "qtest_kde.h"
+
 #include "simpleresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/plaintextextractor.h"
@@ -72,5 +72,5 @@ void IndexerExtractorTests::testPlainTextExtractor()
     QCOMPARE(result.text(), content);
 }
 
-QTEST_KDEMAIN_CORE(IndexerExtractorTests)
+QTEST_MAIN(IndexerExtractorTests)
 

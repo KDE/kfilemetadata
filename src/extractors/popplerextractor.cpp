@@ -21,7 +21,6 @@
 
 #include "popplerextractor.h"
 
-#include <KDebug>
 #include <QScopedPointer>
 
 using namespace KFileMetaData;

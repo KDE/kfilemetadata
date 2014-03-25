@@ -20,8 +20,6 @@
 
 #include "taglibextractor.h"
 
-#include <KDebug>
-
 #include <taglib/fileref.h>
 #include <taglib/flacfile.h>
 #include <taglib/id3v2tag.h>

@@ -20,9 +20,9 @@
 
 #include "office2007extractor.h"
 
-#include <KDebug>
 #include <KZip>
 
+#include <QDebug>
 #include <QDomDocument>
 #include <QXmlStreamReader>
 

@@ -5,9 +5,7 @@ if(POPPLER_QT5_FOUND)
 
     target_link_libraries(kfilemetadata_popplerextractor
         kfilemetadata
-        KF5::KIOWidgets
         KF5::Service
-        KF5::KDE4Support
         ${POPPLER_QT5_LIBRARIES}
     )
 
@@ -28,9 +26,7 @@ if(TAGLIB_FOUND)
 
     target_link_libraries( kfilemetadata_taglibextractor
         kfilemetadata
-        KF5::KIOWidgets
         KF5::Service
-        KF5::KDE4Support
         ${TAGLIB_LIBRARIES}
     )
 
@@ -55,9 +51,7 @@ if(EXIV2_FOUND)
 
     target_link_libraries(kfilemetadata_exiv2extractor
         kfilemetadata
-        KF5::KIOWidgets
         KF5::Service
-        KF5::KDE4Support
         ${EXIV2_LIBRARIES}
     )
 
@@ -78,9 +72,7 @@ if(FFMPEG_FOUND)
 
     target_link_libraries(kfilemetadata_ffmpegextractor
         kfilemetadata
-        KF5::KIOWidgets
         KF5::Service
-        KF5::KDE4Support
         ${FFMPEG_LIBRARIES}
     )
 
@@ -102,9 +94,8 @@ if(EPUB_FOUND)
 
     target_link_libraries(kfilemetadata_epubextractor
         kfilemetadata
-        KF5::KIOWidgets
+        Qt5::Widgets
         KF5::Service
-        KF5::KDE4Support
         ${EPUB_LIBRARIES}
     )
 
@@ -125,9 +116,7 @@ add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp )
 
 target_link_libraries( kfilemetadata_plaintextextractor
     kfilemetadata
-    KF5::KIOWidgets
     KF5::Service
-    KF5::KDE4Support
     ${FFMPEG_LIBRARIES}
 )
 
@@ -149,10 +138,8 @@ target_link_libraries(kfilemetadata_odfextractor
     kfilemetadata
     Qt5::Core
     Qt5::Xml
-    KF5::KIOWidgets
     KF5::Service
     KF5::Archive
-    KF5::KDE4Support
 )
 
 install(
@@ -173,10 +160,8 @@ target_link_libraries(kfilemetadata_office2007extractor
     kfilemetadata
     Qt5::Core
     Qt5::Xml
-    KF5::KIOWidgets
     KF5::Service
     KF5::Archive
-    KF5::KDE4Support
 )
 
 install(
@@ -195,7 +180,6 @@ add_library(kfilemetadata_officeextractor MODULE officeextractor.cpp)
 
 target_link_libraries(kfilemetadata_officeextractor
     kfilemetadata
-    KF5::KIOWidgets
     KF5::Service
     KF5::KDE4Support
 )
@@ -217,9 +201,7 @@ if (QMOBIPOCKET_FOUND)
     include_directories(${QMOBIPOCKET_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_mobiextractor
         kfilemetadata
-        KF5::KIOWidgets
         KF5::Service
-        KF5::KDE4Support
         ${QMOBIPOCKET_LIBRARIES}
     )
 

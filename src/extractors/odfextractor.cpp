@@ -21,9 +21,9 @@
 
 #include "odfextractor.h"
 
-#include <KDebug>
 #include <KZip>
 
+#include <QDebug>
 #include <QDomDocument>
 #include <QXmlStreamReader>
 

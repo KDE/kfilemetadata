@@ -22,7 +22,6 @@
 #include "propertyinfo.h"
 
 #include <QtTest>
-#include <qtest_kde.h>
 
 using namespace KFileMetaData;
 
@@ -46,4 +45,4 @@ void PropertyInfoTest::testNameIdMapping()
     }
 }
 
-QTEST_KDEMAIN_CORE(PropertyInfoTest)
+QTEST_MAIN(PropertyInfoTest)

@@ -38,8 +38,8 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 }
 
-#include <KDebug>
 #include <QDateTime>
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -75,13 +75,13 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     fmt_ctx = avformat_alloc_context();
     if (int ret = avformat_open_input(&fmt_ctx, arr.data(), NULL, NULL)) {
-        kError() << "avformat_open_input error: " << ret;
+        qWarning() << "avformat_open_input error: " << ret;
         return;
     }
 
     int ret = avformat_find_stream_info(fmt_ctx, NULL);
     if (ret < 0) {
-        kError() << "avform_find_stream_info error: " << ret;
+        qWarning() << "avform_find_stream_info error: " << ret;
         return;
     }
 

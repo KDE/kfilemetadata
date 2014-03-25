@@ -22,9 +22,8 @@
 #include "extractorpluginmanager.h"
 
 #include <KService>
-#include <KMimeType>
 #include <KServiceTypeTrader>
-#include <KDebug>
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -68,8 +67,8 @@ QList<ExtractorPlugin*> ExtractorPluginManager::Private::allExtractors() const
         QString error;
         ExtractorPlugin* ex = service->createInstance<ExtractorPlugin>(0, QVariantList(), &error);
         if (!ex) {
-            kError() << "Could not create Extractor: " << service->library();
-            kError() << error;
+            qWarning() << "Could not create Extractor: " << service->library();
+            qWarning() << error;
             continue;
         }
 

@@ -22,6 +22,7 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -36,7 +37,6 @@ QStringList PlainTextExtractor::mimetypes() const
     return QStringList() << QLatin1String("text/");
 }
 
-// TODO: Make this iterative! And remove the size filter
 void PlainTextExtractor::extract(ExtractionResult* result)
 {
     QFile file(result->inputUrl());

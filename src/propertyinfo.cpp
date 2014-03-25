@@ -23,9 +23,9 @@
 #include "propertyinfo.h"
 
 #include <KLocalizedString>
-#include <KGlobal>
 
-static const KCatalogLoader loader("kfilemetadata");
+// FIXME: vhanda
+//static const KCatalogLoader loader("kfilemetadata");
 
 using namespace KFileMetaData;
 

@@ -12,8 +12,8 @@ target_link_libraries(kfilemetadata
   PUBLIC
     Qt5::Core
   PRIVATE
-    KF5::KDE4Support
     KF5::Service
+    KF5::I18n
     Qt5::Widgets
 )
 

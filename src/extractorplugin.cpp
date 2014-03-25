@@ -21,7 +21,7 @@
 
 #include "extractorplugin.h"
 
-#include <KDebug>
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -109,7 +109,7 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        kWarning() << "Could not determine correct datetime format from:" << dateString;
+        qWarning() << "Could not determine correct datetime format from:" << dateString;
         return QDateTime();
     }
 
