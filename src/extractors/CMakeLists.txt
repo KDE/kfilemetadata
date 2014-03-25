@@ -181,7 +181,6 @@ add_library(kfilemetadata_officeextractor MODULE officeextractor.cpp)
 target_link_libraries(kfilemetadata_officeextractor
     kfilemetadata
     KF5::Service
-    KF5::KDE4Support
 )
 
 install(

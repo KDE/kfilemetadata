@@ -19,7 +19,7 @@
 
 #include "officeextractor.h"
 
-#include <kstandarddirs.h>
+#include <QStandardPaths>
 
 #include <QFile>
 #include <QProcess>
@@ -38,7 +38,7 @@ OfficeExtractor::OfficeExtractor(QObject* parent, const QVariantList&)
 
 void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QString& fullPath)
 {
-    fullPath = KStandardDirs::findExe(name);
+    fullPath = QStandardPaths::findExecutable(name);
 
     if (!fullPath.isEmpty()) {
         m_available_mime_types << mimeType;
