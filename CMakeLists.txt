@@ -8,9 +8,12 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_P
 set(KF5_VERSION "4.97.0")
 set(REQUIRED_QT_VERSION "5.2.0")
 
+find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml Test)
+find_package(KF5 REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
+include(ECMAddTests)
 include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)

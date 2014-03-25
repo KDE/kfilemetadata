@@ -1,28 +1,21 @@
 configure_file(indexerextractortestsconfig.h.in
                ${CMAKE_CURRENT_BINARY_DIR}/indexerextractortestsconfig.h @ONLY)
 
-kde4_add_unit_test(extractortests
+set(indexerextractor_SRCS
   indexerextractortests.cpp
   simpleresult.cpp
   ../src/extractors/plaintextextractor.cpp
 )
-
-target_link_libraries(extractortests
-  ${QT_QTTEST_LIBRARY}
-  ${KDE4_KDECORE_LIBS}
-  kfilemetadata
+ecm_add_test(${indexerextractor_SRCS}
+    TEST_NAME "indexextractortest"
+    LINK_LIBRARIES Qt5::Test KF5::KDE4Support kfilemetadata
 )
 
 #
 # Property Info
 #
-kde4_add_unit_test(propertyinfotest
-  propertyinfotest.cpp
-)
-
-target_link_libraries(propertyinfotest
-  ${QT_QTTEST_LIBRARY}
-  ${KDE4_KDECORE_LIBS}
-  kfilemetadata
+ecm_add_test(propertyinfotest.cpp
+    TEST_NAME "propertyinfotest"
+    LINK_LIBRARIES Qt5::Test KF5::KDE4Support kfilemetadata
 )
 
