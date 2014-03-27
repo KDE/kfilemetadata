@@ -86,7 +86,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
     for (int i = 0; i < pdfDoc->numPages(); i++) {
         QScopedPointer<Poppler::Page> page(pdfDoc->page(i));
         if (!page) { // broken pdf files do not return a valid page
-            kWarning() << "Could not read page content from" << fileUrl;
+            qWarning() << "Could not read page content from" << fileUrl;
             break;
         }
         result->append(page->text(QRectF()));
@@ -98,7 +98,7 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     QScopedPointer<Poppler::Page> p(pdfDoc->page(0));
 
     if (!p) {
-        kWarning() << "Could not read page content from" << fileUrl;
+        qWarning() << "Could not read page content from" << fileUrl;
         return QString();
     }
 
