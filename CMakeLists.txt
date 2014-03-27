@@ -5,12 +5,6 @@ find_package(ECM 0.0.11 REQUIRED NO_MODULE)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
-set(KF5_VERSION "4.97.0")
-set(REQUIRED_QT_VERSION "5.2.0")
-
-find_package(Qt5 REQUIRED NO_MODULE COMPONENTS Widgets Xml Test)
-find_package(KF5 REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
-
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(ECMAddTests)
@@ -18,15 +12,17 @@ include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
 
+set(KF5_VERSION "4.97.0")
+set(REQUIRED_QT_VERSION "5.2.0")
+
 ecm_setup_version(${KF5_VERSION}
                   VARIABLE_PREFIX KFILEMETADATA
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfigVersion.cmake"
                   SOVERSION 5)
 
-
 # Build dependencies
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Widgets Xml Test)
-find_package(KF5 ${KF5_VERSION} REQUIRED NO_MODULE COMPONENTS KDE4Support I18n Service)
+find_package(KF5 ${KF5_VERSION} REQUIRED NO_MODULE COMPONENTS I18n Service Archive)
 
 find_package(PopplerQt5 0.12.1)
 set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"
