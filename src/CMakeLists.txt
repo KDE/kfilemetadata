@@ -17,7 +17,7 @@ target_link_libraries(kfilemetadata
     Qt5::Widgets
 )
 
-generate_export_header(kfilemetadata BASE_NAME KFileMetaData)
+generate_export_header(kfilemetadata BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)
 set_target_properties(kfilemetadata PROPERTIES
     VERSION ${KFILEMETADATA_VERSION_STRING}
     SOVERSION ${KFILEMETADATA_SOVERSION}
