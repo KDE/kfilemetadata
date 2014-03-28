@@ -205,3 +205,5 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::Exiv2Extractor, "kmetaddata_exivextractor")
+
+#include "exiv2extractor.moc"

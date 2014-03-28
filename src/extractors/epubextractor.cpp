@@ -182,3 +182,5 @@ void EPubExtractor::extract(ExtractionResult* result)
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::EPubExtractor, "kfilemetadata_epubextractor")
+
+#include "epubextractor.moc"

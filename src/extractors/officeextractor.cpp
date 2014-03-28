@@ -116,3 +116,5 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OfficeExtractor, "kfilemetadata_officeextractor")
+
+#include "officeextractor.moc"

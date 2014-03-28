@@ -180,3 +180,5 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::FFmpegExtractor, "kfilemetadata_ffmpegextractor")
+
+#include "ffmpegextractor.moc"

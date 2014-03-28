@@ -43,10 +43,7 @@ endif(TAGLIB_FOUND)
 if(EXIV2_FOUND)
     include_directories( ${EXIV2_INCLUDE_DIR} )
 
-    set_source_files_properties( exiv2extractor.cpp PROPERTIES
-        COMPILE_FLAGS "${KDE4_ENABLE_EXCEPTIONS}"
-        )
-
+    kde_enable_exceptions()
     add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp)
 
     target_link_libraries(kfilemetadata_exiv2extractor

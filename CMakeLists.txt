@@ -7,6 +7,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_P
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
+include(KDECompilerSettings)
 include(ECMAddTests)
 include(FeatureSummary)
 include(GenerateExportHeader)

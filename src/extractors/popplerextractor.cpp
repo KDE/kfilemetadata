@@ -22,6 +22,7 @@
 #include "popplerextractor.h"
 
 #include <QScopedPointer>
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -171,3 +172,5 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PopplerExtractor, "kfilemetadata_popplerextractor")
+
+#include "popplerextractor.moc"

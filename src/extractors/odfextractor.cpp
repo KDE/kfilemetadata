@@ -136,3 +136,5 @@ void OdfExtractor::extract(ExtractionResult* result)
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OdfExtractor, "kfilemetadata_odfextractor")
+
+#include "odfextractor.moc"

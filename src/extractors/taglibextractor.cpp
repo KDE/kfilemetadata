@@ -372,3 +372,5 @@ void TagLibExtractor::extract(ExtractionResult* result)
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::TagLibExtractor, "kfilemetadata_taglibextextractor")
+
+#include "taglibextractor.moc"

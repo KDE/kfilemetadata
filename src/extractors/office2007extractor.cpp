@@ -266,3 +266,5 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::Office2007Extractor, "kfilemetadata_office2007extractor")
+
+#include "office2007extractor.moc"
