@@ -24,7 +24,6 @@
 #include "extractorplugin.h"
 
 class KArchiveDirectory;
-class QTextStream;
 
 namespace KFileMetaData
 {
