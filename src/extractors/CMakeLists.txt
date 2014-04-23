@@ -114,7 +114,6 @@ add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp )
 target_link_libraries( kfilemetadata_plaintextextractor
     kfilemetadata
     KF5::Service
-    ${FFMPEG_LIBRARIES}
 )
 
 install(
