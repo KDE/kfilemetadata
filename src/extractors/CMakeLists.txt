@@ -116,7 +116,6 @@ kde4_add_plugin( kfilemetadata_plaintextextractor plaintextextractor.cpp )
 target_link_libraries( kfilemetadata_plaintextextractor
     kfilemetadata
     ${KDE4_KIO_LIBS}
-    ${FFMPEG_LIBRARIES}
 )
 
 install(
