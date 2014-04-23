@@ -27,7 +27,7 @@
 # if defined(KDELIBS_STATIC_LIBS)
    /* No export/import for static libraries */
 #  define KFILEMETADATA_EXPORT
-# elif defined(MAKE_KMETADATA_LIB)
+# elif defined(MAKE_KFILEMETADATA_LIB)
    /* We are building this library */
 #  define KFILEMETADATA_EXPORT KDE_EXPORT
 # else
