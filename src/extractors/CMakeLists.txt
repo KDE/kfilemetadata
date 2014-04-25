@@ -63,7 +63,7 @@ if(EXIV2_FOUND)
 endif(EXIV2_FOUND)
 
 if(FFMPEG_FOUND)
-    include_directories( ${FFMPEG_INCLUDE_DIRS} )
+    include_directories( ${FFMPEG_INCLUDE_DIR} )
 
     add_library(kfilemetadata_ffmpegextractor MODULE ffmpegextractor.cpp)
 
