@@ -106,7 +106,6 @@ private:
  * \param libname The name of the library which should export the extractor
  */
 #define KFILEMETADATA_EXPORT_EXTRACTOR( classname, libname )    \
-    K_PLUGIN_FACTORY(factory, registerPlugin<classname>();) \
-    K_EXPORT_PLUGIN(factory(#libname))
+    K_PLUGIN_FACTORY(factory, registerPlugin<classname>();)
 
 #endif // _KFILEMETADATA_EXTRACTOR_H
