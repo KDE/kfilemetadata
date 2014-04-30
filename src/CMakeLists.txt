@@ -14,7 +14,6 @@ target_link_libraries(kfilemetadata
   PRIVATE
     KF5::Service
     KF5::I18n
-    Qt5::Widgets
 )
 
 generate_export_header(kfilemetadata BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)

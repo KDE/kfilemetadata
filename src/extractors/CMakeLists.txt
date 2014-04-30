@@ -91,7 +91,6 @@ if(EPUB_FOUND)
 
     target_link_libraries(kfilemetadata_epubextractor
         kfilemetadata
-        Qt5::Widgets
         KF5::Service
         ${EPUB_LIBRARIES}
     )

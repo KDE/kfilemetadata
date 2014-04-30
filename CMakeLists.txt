@@ -22,7 +22,7 @@ ecm_setup_version(${KF5_VERSION}
                   SOVERSION 5)
 
 # Build dependencies
-find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Widgets Xml Test)
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml Test)
 find_package(KF5 ${KF5_VERSION} REQUIRED COMPONENTS I18n Service Archive)
 
 find_package(PopplerQt5 0.12.1)

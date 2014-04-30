@@ -22,7 +22,7 @@
 #include <epub.h>
 
 #include <QDateTime>
-#include <QTextDocument>
+#include <QRegularExpression>
 #include <QDebug>
 
 #include <KService>
@@ -146,10 +146,9 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (!curr)
             continue;
         QString html = QString::fromUtf8(curr);
+        html.remove(QRegularExpression("<[^>]*>"));
 
-        QTextDocument doc;
-        doc.setHtml(html);
-        result->append(doc.toPlainText());
+        result->append(html);
     } while (epub_it_get_next(iter));
 
     epub_free_iterator(iter);
@@ -172,10 +171,10 @@ void EPubExtractor::extract(ExtractionResult* result)
             // epub_get_data returns -1 on failure
             if (size > 0 && data) {
                 QString html = QString::fromUtf8(data, size);
+                // strip html tags
+                html.remove(QRegularExpression("<[^>]*>"));
 
-                QTextDocument doc;
-                doc.setHtml(html);
-                result->append(doc.toPlainText());
+                result->append(html);
                 free(data);
             }
         } while (epub_tit_next(tit));
