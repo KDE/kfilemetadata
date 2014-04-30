@@ -23,6 +23,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -66,6 +67,6 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     return;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PlainTextExtractor, "kfilemetadata_plaintextextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<PlainTextExtractor>();)
 
 #include "plaintextextractor.moc"

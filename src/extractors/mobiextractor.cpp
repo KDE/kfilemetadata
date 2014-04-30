@@ -27,6 +27,7 @@
 #include <QDateTime>
 #include <QFile>
 #include <QTextDocument>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -108,4 +109,4 @@ void MobiExtractor::extract(ExtractionResult* result)
     result->addType(Type::Document);
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::MobiExtractor, "kfilemetadata_mobiextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<MobiExtractor>();)

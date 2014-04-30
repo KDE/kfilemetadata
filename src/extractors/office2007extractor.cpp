@@ -21,6 +21,7 @@
 #include "office2007extractor.h"
 
 #include <KZip>
+#include <KService>
 
 #include <QDebug>
 #include <QDomDocument>
@@ -265,6 +266,6 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
     }
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::Office2007Extractor, "kfilemetadata_office2007extractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<Office2007Extractor>();)
 
 #include "office2007extractor.moc"

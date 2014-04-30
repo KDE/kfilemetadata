@@ -19,6 +19,7 @@
 
 
 #include "exiv2extractor.h"
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -26,7 +27,6 @@ using namespace KFileMetaData;
 Exiv2Extractor::Exiv2Extractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
 {
-
 }
 
 QStringList Exiv2Extractor::mimetypes() const
@@ -204,6 +204,6 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
     }
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::Exiv2Extractor, "kmetaddata_exivextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<Exiv2Extractor>();)
 
 #include "exiv2extractor.moc"

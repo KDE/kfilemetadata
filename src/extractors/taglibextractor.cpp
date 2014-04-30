@@ -33,6 +33,7 @@
 #include <taglib/vorbisfile.h>
 #include <taglib/xiphcomment.h>
 #include <QDateTime>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -427,6 +428,6 @@ void TagLibExtractor::extract(ExtractionResult* result)
     // Genre:                           TCON
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::TagLibExtractor, "kfilemetadata_taglibextextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<TagLibExtractor>();)
 
 #include "taglibextractor.moc"

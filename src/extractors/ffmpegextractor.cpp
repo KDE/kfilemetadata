@@ -40,6 +40,7 @@ extern "C" {
 
 #include <QDateTime>
 #include <QDebug>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -179,6 +180,6 @@ void FFmpegExtractor::extract(ExtractionResult* result)
     avformat_close_input(&fmt_ctx);
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::FFmpegExtractor, "kfilemetadata_ffmpegextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<FFmpegExtractor>();)
 
 #include "ffmpegextractor.moc"

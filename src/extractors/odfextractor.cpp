@@ -22,6 +22,7 @@
 #include "odfextractor.h"
 
 #include <KZip>
+#include <KService>
 
 #include <QDebug>
 #include <QDomDocument>
@@ -135,6 +136,6 @@ void OdfExtractor::extract(ExtractionResult* result)
     return;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OdfExtractor, "kfilemetadata_odfextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<OdfExtractor>();)
 
 #include "odfextractor.moc"

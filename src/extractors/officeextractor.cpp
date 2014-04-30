@@ -23,6 +23,7 @@
 
 #include <QFile>
 #include <QProcess>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -115,6 +116,6 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
         return QString::fromUtf8(process.readAll());
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OfficeExtractor, "kfilemetadata_officeextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<OfficeExtractor>();)
 
 #include "officeextractor.moc"

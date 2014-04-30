@@ -23,6 +23,7 @@
 
 #include <QScopedPointer>
 #include <QDebug>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -171,6 +172,6 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     return newPossibleTitle;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PopplerExtractor, "kfilemetadata_popplerextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<PopplerExtractor>();)
 
 #include "popplerextractor.moc"

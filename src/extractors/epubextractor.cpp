@@ -25,6 +25,8 @@
 #include <QTextDocument>
 #include <QDebug>
 
+#include <KService>
+
 using namespace KFileMetaData;
 
 EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
@@ -181,6 +183,6 @@ void EPubExtractor::extract(ExtractionResult* result)
     epub_free_titerator(tit);
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::EPubExtractor, "kfilemetadata_epubextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<EPubExtractor>();)
 
 #include "epubextractor.moc"
