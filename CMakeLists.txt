@@ -56,11 +56,13 @@ set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
 #                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
 
 include_directories(
+  ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/src
 )
 
 add_subdirectory(src)
 add_subdirectory(autotests)
+add_subdirectory(test)
 
 # Config files
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KFileMetaData")
