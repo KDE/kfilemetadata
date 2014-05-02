@@ -42,10 +42,24 @@ QString IndexerExtractorTests::testFilePath(const QString& fileName) const
 
 void IndexerExtractorTests::benchMarkPlainTextExtractor()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
+    PlainTextExtractor plugin(this, QVariantList());
 
-    SimpleResult result(testFilePath("plain_text_file.txt"), "text/plain");
-    plugin->extract(&result);
+    // generate a test file with varying number of words per line
+    QTemporaryFile file("XXXXXX.txt");
+    QVERIFY(file.open());
+    QByteArray chunk("foo bar ");
+    for (int line = 0; line < 10000; ++line) {
+        for (int i = 0; i < line % 100; ++i) {
+            file.write(chunk);
+        }
+        file.write("\n");
+    }
+
+    SimpleResult result(file.fileName(), "text/plain");
+
+    QBENCHMARK {
+        plugin.extract(&result);
+    }
 }
 
 void IndexerExtractorTests::testPlainTextExtractor()
