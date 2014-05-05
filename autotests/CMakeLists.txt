@@ -1,7 +1,7 @@
 configure_file(indexerextractortestsconfig.h.in
                ${CMAKE_CURRENT_BINARY_DIR}/indexerextractortestsconfig.h @ONLY)
 
-kde4_add_unit_test(extractortests
+kde4_add_unit_test(extractortests NOGUI
   indexerextractortests.cpp
   simpleresult.cpp
   ../src/extractors/plaintextextractor.cpp
@@ -16,7 +16,7 @@ target_link_libraries(extractortests
 #
 # Property Info
 #
-kde4_add_unit_test(propertyinfotest
+kde4_add_unit_test(propertyinfotest NOGUI
   propertyinfotest.cpp
 )
 
