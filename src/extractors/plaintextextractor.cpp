@@ -19,37 +19,11 @@
 
 
 #include "plaintextextractor.h"
-
 #include <QFile>
-#include <QTextStream>
+
+#include <fstream>
 
 using namespace KFileMetaData;
-
-namespace {
-inline bool isWordCharacter(const QChar& c)
-{
-    // The Qt docs say for word characters:
-    //      \w  - Matches a word character (QChar::isLetterOrNumber(), QChar::isMark(), or '_').
-    // see also: http://qt-project.org/doc/qt-4.8/qregexp.html
-    return c.isLetterOrNumber() || c.isMark() || c.unicode() == '_';
-}
-
-inline int countWords(const QString &string)
-{
-    int words = 0;
-    bool inWord = false;
-    foreach(QChar c, string) {
-        if (isWordCharacter(c) != inWord) {
-            inWord = !inWord;
-            if (inWord) {
-                ++words;
-            }
-        }
-    }
-
-    return words;
-}
-}
 
 PlainTextExtractor::PlainTextExtractor(QObject* parent, const QVariantList&)
     : ExtractorPlugin(parent)
@@ -62,32 +36,22 @@ QStringList PlainTextExtractor::mimetypes() const
     return QStringList() << QLatin1String("text/");
 }
 
-// TODO: Make this iterative! And remove the size filter
 void PlainTextExtractor::extract(ExtractionResult* result)
 {
-    QFile file(result->inputUrl());
+    std::string line;
+    int lines = 0;
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    std::ifstream fstream(QFile::encodeName(result->inputUrl()));
+    if (!fstream.is_open()) {
         return;
     }
 
-    int lines = 0;
-    int words = 0;
-
-    QTextStream ts(&file);
-    while (!ts.atEnd()) {
-        QString str = ts.readLine();
-        result->append(str);
+    while (std::getline(fstream, line)) {
+        QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
+        result->append(QString::fromUtf8(arr));
 
         lines += 1;
-        words += countWords(str);
     }
-
-    result->add(Property::WordCount, words);
-    result->add(Property::LineCount, lines);
-    result->addType(Type::Text);
-
-    return;
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PlainTextExtractor, "kfilemetadata_plaintextextractor")

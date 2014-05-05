@@ -78,8 +78,7 @@ void IndexerExtractorTests::testPlainTextExtractor()
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().first(), Type::Text);
 
-    QCOMPARE(result.properties().size(), 2);
-    QCOMPARE(result.properties().value(Property::WordCount), QVariant(17));
+    QCOMPARE(result.properties().size(), 1);
     QCOMPARE(result.properties().value(Property::LineCount), QVariant(4));
 
     content.replace(QLatin1Char('\n'), QLatin1Char(' '));
