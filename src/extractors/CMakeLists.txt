@@ -4,7 +4,7 @@ if(POPPLER_QT5_FOUND)
     add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp)
 
     target_link_libraries(kfilemetadata_popplerextractor
-        kfilemetadata
+        KF5::FileMetaData
         KF5::Service
         ${POPPLER_QT5_LIBRARIES}
     )
@@ -25,7 +25,7 @@ if(TAGLIB_FOUND)
     add_library(kfilemetadata_taglibextractor MODULE taglibextractor.cpp )
 
     target_link_libraries( kfilemetadata_taglibextractor
-        kfilemetadata
+        KF5::FileMetaData
         KF5::Service
         ${TAGLIB_LIBRARIES}
     )
@@ -47,7 +47,7 @@ if(EXIV2_FOUND)
     add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp)
 
     target_link_libraries(kfilemetadata_exiv2extractor
-        kfilemetadata
+        KF5::FileMetaData
         KF5::Service
         ${EXIV2_LIBRARIES}
     )
@@ -68,7 +68,7 @@ if(FFMPEG_FOUND)
     add_library(kfilemetadata_ffmpegextractor MODULE ffmpegextractor.cpp)
 
     target_link_libraries(kfilemetadata_ffmpegextractor
-        kfilemetadata
+        KF5::FileMetaData
         KF5::Service
         ${FFMPEG_LIBRARIES}
     )
@@ -90,7 +90,7 @@ if(EPUB_FOUND)
     add_library(kfilemetadata_epubextractor MODULE epubextractor.cpp)
 
     target_link_libraries(kfilemetadata_epubextractor
-        kfilemetadata
+        KF5::FileMetaData
         KF5::Service
         ${EPUB_LIBRARIES}
     )
@@ -111,7 +111,7 @@ endif(EPUB_FOUND)
 add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp )
 
 target_link_libraries( kfilemetadata_plaintextextractor
-    kfilemetadata
+    KF5::FileMetaData
     KF5::Service
 )
 
@@ -130,7 +130,7 @@ DESTINATION ${PLUGIN_INSTALL_DIR})
 add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp)
 
 target_link_libraries(kfilemetadata_odfextractor
-    kfilemetadata
+    KF5::FileMetaData
     Qt5::Core
     Qt5::Xml
     KF5::Service
@@ -152,7 +152,7 @@ DESTINATION ${PLUGIN_INSTALL_DIR})
 add_library(kfilemetadata_office2007extractor MODULE office2007extractor.cpp)
 
 target_link_libraries(kfilemetadata_office2007extractor
-    kfilemetadata
+    KF5::FileMetaData
     Qt5::Core
     Qt5::Xml
     KF5::Service
@@ -174,7 +174,7 @@ DESTINATION ${PLUGIN_INSTALL_DIR})
 add_library(kfilemetadata_officeextractor MODULE officeextractor.cpp)
 
 target_link_libraries(kfilemetadata_officeextractor
-    kfilemetadata
+    KF5::FileMetaData
     KF5::Service
 )
 
@@ -194,7 +194,7 @@ if (QMOBIPOCKET_FOUND)
 
     include_directories(${QMOBIPOCKET_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_mobiextractor
-        kfilemetadata
+        KF5::FileMetaData
         KF5::Service
         ${QMOBIPOCKET_LIBRARIES}
     )

@@ -12,13 +12,14 @@ include(ECMAddTests)
 include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
+include(ECMGenerateHeaders)
 
 set(KF5_VERSION "4.97.0")
 set(REQUIRED_QT_VERSION "5.2.0")
 
 ecm_setup_version(${KF5_VERSION}
                   VARIABLE_PREFIX KFILEMETADATA
-                  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfigVersion.cmake"
+                  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
                   SOVERSION 5)
 
 # Build dependencies
@@ -67,19 +68,19 @@ if (BUILD_TESTING)
 endif()
 
 # Config files
-set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KFileMetaData")
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5FileMetaData")
 
 include(ECMPackageConfigHelpers)
 
 ecm_configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5FileMetaDataConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfig.cmake"
   INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
 )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT devel
 )

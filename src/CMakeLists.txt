@@ -1,4 +1,4 @@
-add_library(kfilemetadata SHARED
+add_library(KF5FileMetaData SHARED
     extractionresult.cpp
     extractorplugin.cpp
     extractorpluginmanager.cpp
@@ -6,9 +6,9 @@ add_library(kfilemetadata SHARED
     typeinfo.cpp
 )
 
-add_library(KF5::FileMetaData ALIAS kfilemetadata)
+add_library(KF5::FileMetaData ALIAS KF5FileMetaData)
 
-target_link_libraries(kfilemetadata
+target_link_libraries(KF5FileMetaData
   PUBLIC
     Qt5::Core
   PRIVATE
@@ -16,35 +16,41 @@ target_link_libraries(kfilemetadata
     KF5::I18n
 )
 
-generate_export_header(kfilemetadata BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)
-set_target_properties(kfilemetadata PROPERTIES
+generate_export_header(KF5FileMetaData BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)
+set_target_properties(KF5FileMetaData PROPERTIES
     VERSION ${KFILEMETADATA_VERSION_STRING}
     SOVERSION ${KFILEMETADATA_SOVERSION}
     EXPORT_NAME FileMetaData
 )
-target_include_directories(kfilemetadata INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>")
+target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData>")
 
-install(TARGETS kfilemetadata ${INSTALL_TARGETS_DEFAULT_ARGS})
+ecm_generate_headers(KF5FileMetaData_HEADERS
+    HEADER_NAMES
+    ExtractionResult
+    ExtractorPlugin
+    ExtractorPluginManager
+    Properties
+    PropertyInfo
+    Types
+    TypeInfo
 
-install(TARGETS kfilemetadata EXPORT KFileMetaDataTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+    REQUIRED_HEADERS KF5FileMetaData_HEADERS
+)
+
+install(TARGETS KF5FileMetaData ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+install(TARGETS KF5FileMetaData EXPORT KFileMetaDataTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
 install(EXPORT KFileMetaDataTargets
         NAMESPACE KF5::
-        DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData
-        FILE KFileMetaDataTargetsWithPrefix.cmake)
+        DESTINATION ${LIB_INSTALL_DIR}/cmake/KF5FileMetaData
+        FILE KF5FileMetaDataTargetsWithPrefix.cmake)
 
 install(FILES
-    extractionresult.h
-    extractorplugin.h
-    extractorpluginmanager.h
-    properties.h
-    propertyinfo.h
-    types.h
-    typeinfo.h
     ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h
-
-    DESTINATION ${INCLUDE_INSTALL_DIR}/kfilemetadata COMPONENT Devel
+    ${KF5FileMetaData_HEADERS}
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData COMPONENT Devel
 )
 
 add_subdirectory(extractors)
