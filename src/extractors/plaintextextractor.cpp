@@ -19,10 +19,8 @@
 
 
 #include "plaintextextractor.h"
-
 #include <QFile>
-#include <QTextStream>
-#include <QDebug>
+#include <fstream>
 #include <KService>
 
 using namespace KFileMetaData;
@@ -40,31 +38,23 @@ QStringList PlainTextExtractor::mimetypes() const
 
 void PlainTextExtractor::extract(ExtractionResult* result)
 {
-    QFile file(result->inputUrl());
+    std::string line;
+    int lines = 0;
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    std::ifstream fstream(QFile::encodeName(result->inputUrl()));
+    if (!fstream.is_open()) {
         return;
     }
 
-    int lines = 0;
-    int words = 0;
-
-    QRegExp wordsRegex("\\b\\w+\\b");
-
-    QTextStream ts(&file);
-    while (!ts.atEnd()) {
-        QString str = ts.readLine();
-        result->append(str);
+    while (std::getline(fstream, line)) {
+        QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
+        result->append(QString::fromUtf8(arr));
 
         lines += 1;
-        words += str.count(wordsRegex);
     }
 
-    result->add(Property::WordCount, words);
     result->add(Property::LineCount, lines);
     result->addType(Type::Text);
-
-    return;
 }
 
 K_PLUGIN_FACTORY(factory, registerPlugin<PlainTextExtractor>();)
