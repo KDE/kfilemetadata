@@ -52,6 +52,9 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 
         lines += 1;
     }
+
+    result->add(Property::LineCount, lines);
+    result->addType(Type::Text);
 }
 
 KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PlainTextExtractor, "kfilemetadata_plaintextextractor")
