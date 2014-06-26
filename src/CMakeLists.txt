@@ -37,15 +37,13 @@ ecm_generate_headers(KF5FileMetaData_HEADERS
     REQUIRED_HEADERS KF5FileMetaData_HEADERS
 )
 
-install(TARGETS KF5FileMetaData ${INSTALL_TARGETS_DEFAULT_ARGS})
-
-install(TARGETS KF5FileMetaData EXPORT KFileMetaDataTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5FileMetaData EXPORT KF5FileMetaDataTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
-install(EXPORT KFileMetaDataTargets
+install(EXPORT KF5FileMetaDataTargets
         NAMESPACE KF5::
         DESTINATION ${LIB_INSTALL_DIR}/cmake/KF5FileMetaData
-        FILE KF5FileMetaDataTargetsWithPrefix.cmake)
+        FILE KF5FileMetaDataTargets.cmake)
 
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h

@@ -11,7 +11,7 @@ get_filename_component(rootDir ${_currentDir}/@relInstallDir@ ABSOLUTE) # The in
 set(KFILEMETADATA_INSTALL_PREFIX "${rootDir}")
 set(KFILEMETADATA_INCLUDE_DIR "@INCLUDE_INSTALL_DIR@")
 
-include(${_currentDir}/KF5FileMetaDataTargetsWithPrefix.cmake)
+include(${_currentDir}/KF5FileMetaDataTargets.cmake)
 
 # Set the library variable
 set(KFILEMETADATA_LIBRARY KF5::FileMetaData)
