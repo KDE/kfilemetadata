@@ -24,7 +24,7 @@ set_target_properties(KF5FileMetaData PROPERTIES
 )
 target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData>")
 
-ecm_generate_headers(KF5FileMetaData_HEADERS
+ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     HEADER_NAMES
     ExtractionResult
     ExtractorPlugin
@@ -34,6 +34,7 @@ ecm_generate_headers(KF5FileMetaData_HEADERS
     Types
     TypeInfo
 
+    PREFIX kfilemetadata
     REQUIRED_HEADERS KF5FileMetaData_HEADERS
 )
 
@@ -48,7 +49,12 @@ install(EXPORT KF5FileMetaDataTargets
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h
     ${KF5FileMetaData_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData COMPONENT Devel
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData/kfilemetadata COMPONENT Devel
+)
+
+install(FILES
+    ${KF5FileMetaData_CamelCase_HEADERS}
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData/KFileMetaData COMPONENT Devel
 )
 
 add_subdirectory(extractors)
