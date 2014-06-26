@@ -20,4 +20,3 @@ ecm_add_test(propertyinfotest.cpp
     TEST_NAME "propertyinfotest"
     LINK_LIBRARIES Qt5::Test KF5::FileMetaData
 )
-

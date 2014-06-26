@@ -17,7 +17,7 @@ if(POPPLER_QT5_FOUND)
     TARGETS kfilemetadata_popplerextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(POPPLER_QT5_FOUND)
+endif()
 
 if(TAGLIB_FOUND)
     include_directories( ${TAGLIB_INCLUDES} )
@@ -38,7 +38,7 @@ if(TAGLIB_FOUND)
     TARGETS kfilemetadata_taglibextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(TAGLIB_FOUND)
+endif()
 
 if(EXIV2_FOUND)
     include_directories( ${EXIV2_INCLUDE_DIR} )
@@ -60,7 +60,7 @@ if(EXIV2_FOUND)
     TARGETS kfilemetadata_exiv2extractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(EXIV2_FOUND)
+endif()
 
 if(FFMPEG_FOUND)
     include_directories( ${FFMPEG_INCLUDE_DIRS} )
@@ -81,7 +81,7 @@ if(FFMPEG_FOUND)
     TARGETS kfilemetadata_ffmpegextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(FFMPEG_FOUND)
+endif()
 
 
 if(EPUB_FOUND)
@@ -103,12 +103,12 @@ if(EPUB_FOUND)
     TARGETS kfilemetadata_epubextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(EPUB_FOUND)
+endif()
 
 #
 # Plain Text
 #
-add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp )
+add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp)
 
 target_link_libraries( kfilemetadata_plaintextextractor
     KF5::FileMetaData
@@ -206,4 +206,5 @@ if (QMOBIPOCKET_FOUND)
     install(
     TARGETS kfilemetadata_mobiextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
-endif(QMOBIPOCKET_FOUND)
+
+endif()

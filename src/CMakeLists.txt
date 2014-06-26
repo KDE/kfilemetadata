@@ -1,4 +1,4 @@
-add_library(KF5FileMetaData SHARED
+add_library(KF5FileMetaData
     extractionresult.cpp
     extractorplugin.cpp
     extractorpluginmanager.cpp
@@ -17,11 +17,13 @@ target_link_libraries(KF5FileMetaData
 )
 
 generate_export_header(KF5FileMetaData BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)
+
 set_target_properties(KF5FileMetaData PROPERTIES
     VERSION ${KFILEMETADATA_VERSION_STRING}
     SOVERSION ${KFILEMETADATA_SOVERSION}
     EXPORT_NAME FileMetaData
 )
+
 target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData>")
 
 ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
