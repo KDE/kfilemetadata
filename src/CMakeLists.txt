@@ -40,7 +40,7 @@ ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     REQUIRED_HEADERS KF5FileMetaData_HEADERS
 )
 
-install(TARGETS KF5FileMetaData EXPORT KF5FileMetaDataTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF5FileMetaData EXPORT KF5FileMetaDataTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
 install(EXPORT KF5FileMetaDataTargets
