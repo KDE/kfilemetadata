@@ -31,6 +31,7 @@ private:
 
 private Q_SLOTS:
     void testText();
+    void testTextMetaDataOnly();
 
 };
 

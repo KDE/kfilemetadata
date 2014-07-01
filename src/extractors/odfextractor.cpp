@@ -117,6 +117,12 @@ void OdfExtractor::extract(ExtractionResult* result)
         n = n.nextSibling();
     }
 
+    result->addType(Type::Document);
+
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        return;
+    }
+
     const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry("content.xml"));
     QXmlStreamReader xml(contentsFile->createDevice());
 
@@ -130,10 +136,6 @@ void OdfExtractor::extract(ExtractionResult* result)
         if (xml.hasError() || xml.isEndDocument())
             break;
     }
-
-    result->addType(Type::Document);
-
-    return;
 }
 
 K_PLUGIN_FACTORY(factory, registerPlugin<OdfExtractor>();)

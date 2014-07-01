@@ -62,4 +62,17 @@ void OdfExtractorTest::testText()
     QCOMPARE(result.properties().size(), 8);
 }
 
+void OdfExtractorTest::testTextMetaDataOnly()
+{
+    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
+
+    SimpleResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text", ExtractionResult::ExtractMetaData);
+    plugin->extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.properties().size(), 8);
+    QVERIFY(result.text().isEmpty());
+}
+
+
 QTEST_MAIN(OdfExtractorTest)
