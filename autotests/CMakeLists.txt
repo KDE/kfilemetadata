@@ -8,12 +8,23 @@ set(indexerextractor_SRCS
   simpleresult.cpp
   ../src/extractors/plaintextextractor.cpp
 )
+
 ecm_add_test(${indexerextractor_SRCS}
     TEST_NAME "indexextractortest"
     LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::Service
 )
 
+#
+# ODF
+#
+ecm_add_test(odfextractortest.cpp simpleresult.cpp ../src/extractors/odfextractor.cpp
+    TEST_NAME "odfextractortest"
+    LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData KF5::Service KF5::Archive
+)
+
+#
 # Poppler
+#
 if(POPPLER_QT5_FOUND)
     include_directories(${POPPLER_QT5_INCLUDE_DIR})
 
