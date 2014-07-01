@@ -91,7 +91,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
         result->add(Property::CreationDate, Poppler::convertDate(utf8.data()));
     }
 
-    if (result->inputFlags() & !ExtractionResult::ExtractPlainText) {
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
         return;
     }
 

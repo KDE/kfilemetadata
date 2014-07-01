@@ -58,4 +58,17 @@ void PopplerExtractorTest::test()
     QCOMPARE(result.properties().size(), 5);
 }
 
+void PopplerExtractorTest::testMetaDataOnly()
+{
+    QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this, QVariantList()));
+
+    SimpleResult result(testFilePath("test.pdf"), "application/pdf", ExtractionResult::ExtractMetaData);
+    plugin->extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QVERIFY(result.text().isEmpty());
+    QCOMPARE(result.properties().size(), 5);
+
+}
+
 QTEST_MAIN(PopplerExtractorTest)
