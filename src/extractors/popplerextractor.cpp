@@ -72,7 +72,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
 
     QString subject = pdfDoc->info(QLatin1String("Subject"));
     if (!subject.isEmpty()) {
-        result->add(Property::Subject, title);
+        result->add(Property::Subject, subject);
     }
 
     QString author = pdfDoc->info(QLatin1String("Author"));
@@ -81,8 +81,18 @@ void PopplerExtractor::extract(ExtractionResult* result)
     }
 
     QString creator = pdfDoc->info(QLatin1String("Creator"));
-    if (!author.isEmpty()) {
+    if (!creator.isEmpty()) {
         result->add(Property::Creator, creator);
+    }
+
+    QString creationDate = pdfDoc->info(QLatin1String("CreationDate"));
+    if (!creationDate.isEmpty()) {
+        QByteArray utf8 = creationDate.toUtf8();
+        result->add(Property::CreationDate, Poppler::convertDate(utf8.data()));
+    }
+
+    if (result->inputFlags() & !ExtractionResult::ExtractPlainText) {
+        return;
     }
 
     for (int i = 0; i < pdfDoc->numPages(); i++) {
