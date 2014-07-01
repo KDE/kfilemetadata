@@ -80,7 +80,7 @@ void OdfExtractor::extract(ExtractionResult* result)
 
             // Dublin Core
             if (tagName == QLatin1String("dc:description")) {
-                result->add(Property::Description, e.text());
+                result->add(Property::Comment, e.text());
             } else if (tagName == QLatin1String("dc:subject")) {
                 result->add(Property::Subject, e.text());
             } else if (tagName == QLatin1String("dc:title")) {

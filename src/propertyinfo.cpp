@@ -121,13 +121,6 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->shouldBeIndexed = false;
             break;
 
-        case Property::Description:
-            d->name = QLatin1String("description");
-            d->displayName = i18nc("@label", "Description");
-            d->valueType = QVariant::String;
-            d->shouldBeIndexed = false;
-            break;
-
         case Property::Duration:
             d->name = QLatin1String("duration");
             d->displayName = i18nc("@label", "Duration");
@@ -440,7 +433,6 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         propertyHash.insert(QLatin1String("language"), Property::Langauge);
         propertyHash.insert(QLatin1String("copyright"), Property::Copyright);
         propertyHash.insert(QLatin1String("publisher"), Property::Publisher);
-        propertyHash.insert(QLatin1String("description"), Property::Description);
         propertyHash.insert(QLatin1String("creationdate"), Property::CreationDate);
         propertyHash.insert(QLatin1String("keywords"), Property::Keywords);
         propertyHash.insert(QLatin1String("width"), Property::Width);

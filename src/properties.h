@@ -40,7 +40,7 @@ enum Property {
     TrackNumber,
     ReleaseYear,
 
-    // Maybe merge this with the description?
+    // Synonymous with description
     Comment,
 
     // Music
@@ -62,7 +62,6 @@ enum Property {
     Langauge,
     Copyright,
     Publisher,
-    Description,
     CreationDate,
     Keywords,
 

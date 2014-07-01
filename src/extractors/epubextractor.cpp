@@ -120,7 +120,7 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
     if (!value.isEmpty()) {
-        result->add(Property::Description, value);
+        result->add(Property::Comment, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DATE);

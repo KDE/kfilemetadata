@@ -85,7 +85,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
-                result->add(Property::Description, str);
+                result->add(Property::Comment, str);
             }
         }
 
