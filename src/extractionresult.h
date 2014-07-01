@@ -46,7 +46,15 @@ namespace KFileMetaData {
 class KFILEMETADATA_EXPORT ExtractionResult
 {
 public:
-    ExtractionResult(const QString& url, const QString& mimetype);
+    enum Flag {
+        ExtractNothing = 0,
+        ExtractMetaData = 1,
+        ExtractPlainText = 2,
+        ExtractEverything = (ExtractMetaData | ExtractPlainText)
+    };
+    Q_DECLARE_FLAGS(Flags, Flag)
+
+    ExtractionResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
     ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
 
@@ -55,12 +63,18 @@ public:
      */
     QString inputUrl() const;
 
-    /*
+    /**
      * The input mimetype. This mimetype should correspond with the
      * mimetypes supported with the relevant plugin when it is being
      * passed to the Extractor
      */
     QString inputMimetype() const;
+
+    /**
+     * The flags which the extraction plugin should considering following
+     * when extracting metadata from the file
+     */
+    Flags inputFlags() const;
 
     /**
      * This function is called by plugins when they wish for some plain

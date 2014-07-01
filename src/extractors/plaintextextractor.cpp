@@ -46,6 +46,11 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
+    result->addType(Type::Text);
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        return;
+    }
+
     while (std::getline(fstream, line)) {
         QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
         result->append(QString::fromUtf8(arr));
@@ -54,7 +59,6 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     }
 
     result->add(Property::LineCount, lines);
-    result->addType(Type::Text);
 }
 
 K_PLUGIN_FACTORY(factory, registerPlugin<PlainTextExtractor>();)

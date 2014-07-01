@@ -85,5 +85,24 @@ void IndexerExtractorTests::testPlainTextExtractor()
     QCOMPARE(result.text(), content);
 }
 
+void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
+{
+    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
+
+    SimpleResult result(testFilePath("plain_text_file.txt"), "text/plain", ExtractionResult::ExtractMetaData);
+    plugin->extract(&result);
+
+    QString content;
+    QTextStream(&content) << "This is a text file\n"
+                          << "it is four lines long\n"
+                          << "it has 77 characters\n"
+                          << "and 17 words.\n";
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().first(), Type::Text);
+
+    QCOMPARE(result.properties().size(), 0);
+}
+
 QTEST_MAIN(IndexerExtractorTests)
 

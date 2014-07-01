@@ -22,8 +22,8 @@
 
 using namespace KFileMetaData;
 
-SimpleResult::SimpleResult(const QString& url, const QString& mimetype)
-    : ExtractionResult(url, mimetype)
+SimpleResult::SimpleResult(const QString& url, const QString& mimetype, const Flags& flags)
+    : ExtractionResult(url, mimetype, flags)
 {
 }
 

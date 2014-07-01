@@ -30,7 +30,7 @@ namespace KFileMetaData {
 class SimpleResult : public ExtractionResult
 {
 public:
-    SimpleResult(const QString& url, const QString& mimetype);
+    SimpleResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
 
     virtual void add(Property::Property property, const QVariant& value);
     virtual void addType(Type::Type type);
