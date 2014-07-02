@@ -47,6 +47,18 @@ if(EPUB_FOUND)
 endif()
 
 #
+# Mobi
+#
+if (QMOBIPOCKET_FOUND)
+    include_directories(${QMOBIPOCKET_INCLUDE_DIR})
+
+    ecm_add_test(mobiextractortest.cpp simpleresult.cpp ../src/extractors/mobiextractor.cpp
+        TEST_NAME "mobiextractortest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::Service ${QMOBIPOCKET_LIBRARIES}
+    )
+endif()
+
+#
 # Property Info
 #
 ecm_add_test(propertyinfotest.cpp
