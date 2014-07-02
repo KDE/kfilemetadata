@@ -51,11 +51,11 @@ enum Property {
     Lyricist,
 
     // Documents
-    // What is the difference between author and creator? Dublin Core uses
-    // dc:creator, whereas pdf metadata often has author, but that's only cause
-    // it is not standardized
+    /**
+     * The Author field indicated the primary creator of the document.
+     * This often corresponds directly to dc:creator
+     */
     Author,
-    Creator,
 
     Title,
     Subject,

@@ -49,7 +49,7 @@ void PopplerExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("PDF Metadata")));
-    QCOMPARE(result.properties().value(Property::Creator), QVariant(QStringLiteral("Writer")));
+    QCOMPARE(result.properties().value(Property::Generator), QVariant(QStringLiteral("Writer")));
 
     QDateTime dt(QDate(2014, 07, 01), QTime(13, 38, 50));
     dt.setTimeSpec(Qt::UTC);

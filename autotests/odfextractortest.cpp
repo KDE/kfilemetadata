@@ -49,7 +49,7 @@ void OdfExtractorTest::testText()
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("KFileMetaData Subject")));
     QCOMPARE(result.properties().value(Property::Keywords), QVariant(QStringLiteral("KFileMetaData keyword")));
     QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("KFileMetaData comment")));
-    QVERIFY(!result.properties().value(Property::Creator).toString().isEmpty());
+    QVERIFY(result.properties().value(Property::Generator).toString().contains("LibreOffice"));
 
     QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40, 690));
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
@@ -83,7 +83,7 @@ void OdfExtractorTest::testPresentation()
     QCOMPARE(result.types()[0], Type::Document);
     QCOMPARE(result.types()[1], Type::Presentation);
 
-    QVERIFY(!result.properties().value(Property::Creator).toString().isEmpty());
+    QVERIFY(result.properties().value(Property::Generator).toString().contains("LibreOffice"));
     QDateTime dt(QDate(2014, 07, 02), QTime(10, 59, 23, 434));
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 

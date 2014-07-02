@@ -114,13 +114,6 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::String;
             break;
 
-        case Property::Creator:
-            d->name = QLatin1String("creator");
-            d->displayName = i18nc("@label", "Creator");
-            d->valueType = QVariant::String;
-            d->shouldBeIndexed = false;
-            break;
-
         case Property::Duration:
             d->name = QLatin1String("duration");
             d->displayName = i18nc("@label", "Duration");
@@ -425,7 +418,6 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         propertyHash.insert(QLatin1String("author"), Property::Author);
         propertyHash.insert(QLatin1String("title"), Property::Title);
         propertyHash.insert(QLatin1String("subject"), Property::Subject);
-        propertyHash.insert(QLatin1String("creator"), Property::Creator);
         propertyHash.insert(QLatin1String("generator"), Property::Generator);
         propertyHash.insert(QLatin1String("pagecount"), Property::PageCount);
         propertyHash.insert(QLatin1String("wordcount"), Property::WordCount);

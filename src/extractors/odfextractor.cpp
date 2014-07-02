@@ -86,7 +86,7 @@ void OdfExtractor::extract(ExtractionResult* result)
             } else if (tagName == QLatin1String("dc:title")) {
                 result->add(Property::Title, e.text());
             } else if (tagName == QLatin1String("dc:creator")) {
-                result->add(Property::Creator, e.text());
+                result->add(Property::Author, e.text());
             } else if (tagName == QLatin1String("dc:langauge")) {
                 result->add(Property::Langauge, e.text());
             }
@@ -107,7 +107,7 @@ void OdfExtractor::extract(ExtractionResult* result)
                 QString keywords = e.text();
                     result->add(Property::Keywords, keywords);
             } else if (tagName == QLatin1String("meta:generator")) {
-                result->add(Property::Creator, e.text());
+                result->add(Property::Generator, e.text());
             } else if (tagName == QLatin1String("meta:creation-date")) {
                 QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
                 if (!dt.isNull())
