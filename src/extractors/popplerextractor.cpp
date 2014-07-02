@@ -80,9 +80,9 @@ void PopplerExtractor::extract(ExtractionResult* result)
         result->add(Property::Author, author);
     }
 
-    QString creator = pdfDoc->info(QLatin1String("Creator"));
-    if (!creator.isEmpty()) {
-        result->add(Property::Generator, creator);
+    QString generator = pdfDoc->info(QLatin1String("Producer"));
+    if (!generator.isEmpty()) {
+        result->add(Property::Generator, generator);
     }
 
     QString creationDate = pdfDoc->info(QLatin1String("CreationDate"));
