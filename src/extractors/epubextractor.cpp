@@ -98,7 +98,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (index)
             value = value.mid(0, index);
 
-        result->add(Property::Creator, value);
+        result->add(Property::Author, value);
     }
 
     // The Contributor just seems to be mostly Calibre aka the Generator
@@ -134,7 +134,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
         if (!dt.isNull())
-            result->add(Property::CreationDate, value);
+            result->add(Property::CreationDate, dt);
     }
 
     //

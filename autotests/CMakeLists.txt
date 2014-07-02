@@ -35,6 +35,18 @@ if(POPPLER_QT5_FOUND)
 endif()
 
 #
+# EPub
+#
+if(EPUB_FOUND)
+    include_directories(${EPUB_INCLUDE_DIR})
+
+    ecm_add_test(epubextractortest.cpp simpleresult.cpp ../src/extractors/epubextractor.cpp
+        TEST_NAME "epubextractortest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::Service ${EPUB_LIBRARIES}
+    )
+endif()
+
+#
 # Property Info
 #
 ecm_add_test(propertyinfotest.cpp
