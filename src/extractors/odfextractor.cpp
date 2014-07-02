@@ -118,6 +118,12 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     result->addType(Type::Document);
+    if (result->inputMimetype() == QStringLiteral("application/vnd.oasis.opendocument.presentation")) {
+        result->addType(Type::Presentation);
+    }
+    else if (result->inputMimetype() == QStringLiteral("application/vnd.oasis.opendocument.spreadsheet")) {
+        result->addType(Type::Spreadsheet);
+    }
 
     if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
         return;

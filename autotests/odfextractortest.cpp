@@ -72,5 +72,23 @@ void OdfExtractorTest::testTextMetaDataOnly()
     QVERIFY(result.text().isEmpty());
 }
 
+void OdfExtractorTest::testPresentation()
+{
+    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
+
+    SimpleResult result(testFilePath("test.odp"), "application/vnd.oasis.opendocument.presentation");
+    plugin->extract(&result);
+
+    QCOMPARE(result.types().size(), 2);
+    QCOMPARE(result.types()[0], Type::Document);
+    QCOMPARE(result.types()[1], Type::Presentation);
+
+    QVERIFY(!result.properties().value(Property::Creator).toString().isEmpty());
+    QDateTime dt(QDate(2014, 07, 02), QTime(10, 59, 23, 434));
+    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
+
+    QCOMPARE(result.text(), QStringLiteral("KFileMetaData Pres "));
+}
+
 
 QTEST_MAIN(OdfExtractorTest)

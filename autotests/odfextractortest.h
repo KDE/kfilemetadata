@@ -33,6 +33,8 @@ private Q_SLOTS:
     void testText();
     void testTextMetaDataOnly();
 
+    void testPresentation();
+
 };
 
 #endif // ODFEXTRACTORTEST_H
