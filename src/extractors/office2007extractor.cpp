@@ -113,11 +113,28 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        elem = docElem.firstChildElement("dc:langauge");
+        elem = docElem.firstChildElement("dc:language");
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
                 result->add(Property::Langauge, str);
+            }
+        }
+
+        elem = docElem.firstChildElement("dcterms:created");
+        if (!elem.isNull()) {
+            QString str = elem.text();
+            QDateTime dt = dateTimeFromString(elem.text());
+            if (!dt.isNull()) {
+                result->add(Property::CreationDate, dt);
+            }
+        }
+
+        elem = docElem.firstChildElement("cp:keywords");
+        if (!elem.isNull()) {
+            QString str = elem.text();
+            if (!str.isEmpty()) {
+                result->add(Property::Keywords, str);
             }
         }
     }
