@@ -140,6 +140,10 @@ void EPubExtractor::extract(ExtractionResult* result)
     //
     // Plain Text
     //
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        return;
+    }
+
     struct eiterator* iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0);
     do {
         char* curr = epub_it_get_curr(iter);

@@ -31,6 +31,7 @@ private:
 
 private Q_SLOTS:
     void test();
+    void testMetaDataOnly();
 };
 
 #endif // EPUBEXTRACTORTEST_H

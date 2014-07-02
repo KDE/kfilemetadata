@@ -45,8 +45,6 @@ void EPubExtractorTest::test()
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().first(), Type::Document);
 
-    qDebug() << result.properties();
-
     // We're doing a contains instead of an exact check cause the epub file contains
     // a ton of css and other garbage.
     QVERIFY(result.text().contains(QStringLiteral("This is a sample PDF file for KFileMetaData.")));
@@ -61,5 +59,18 @@ void EPubExtractorTest::test()
 
     QCOMPARE(result.properties().size(), 5);
 }
+
+void EPubExtractorTest::testMetaDataOnly()
+{
+    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this, QVariantList()));
+
+    SimpleResult result(testFilePath("test.epub"), "application/epub+zip", ExtractionResult::ExtractMetaData);
+    plugin->extract(&result);
+
+    QVERIFY(!result.types().isEmpty());
+    QVERIFY(!result.properties().isEmpty());
+    QVERIFY(result.text().isEmpty());
+}
+
 
 QTEST_MAIN(EPubExtractorTest)
