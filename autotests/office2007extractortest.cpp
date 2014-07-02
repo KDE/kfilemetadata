@@ -60,4 +60,19 @@ void Office2007ExtractorTest::test()
     QCOMPARE(result.text(), QStringLiteral("Test file for KFileMetaData. "));
 }
 
+void Office2007ExtractorTest::testMetaDataOnly()
+{
+    QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this, QVariantList()));
+
+    SimpleResult result(testFilePath("test_libreoffice.docx"),
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        ExtractionResult::ExtractMetaData);
+
+    plugin->extract(&result);
+
+    QVERIFY(!result.types().isEmpty());
+    QVERIFY(!result.properties().isEmpty());
+    QVERIFY(result.text().isEmpty());
+}
+
 QTEST_MAIN(Office2007ExtractorTest)

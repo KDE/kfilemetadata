@@ -31,6 +31,7 @@ private:
 
 private Q_SLOTS:
     void test();
+    void testMetaDataOnly();
 };
 
 #endif // OFFICE2007EXTRACTORTEST_H

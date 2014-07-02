@@ -177,8 +177,17 @@ void Office2007Extractor::extract(ExtractionResult* result)
         }
     }
 
+    //
+    // Plain Text
+    //
+    bool extractPlainText = (result->inputFlags() & ExtractionResult::ExtractPlainText);
 
     if (rootEntries.contains("word")) {
+        result->addType(Type::Document);
+
+        if (!extractPlainText)
+            return;
+
         const KArchiveEntry* wordEntry = rootDir->entry("word");
         if (!wordEntry->isDirectory()) {
             qWarning() << "Invalid document structure (word is not a directory)";
@@ -194,11 +203,15 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
             extractTextWithTag(file->createDevice(), QLatin1String("w:t"), result);
         }
-
-        result->addType(Type::Document);
     }
 
     else if (rootEntries.contains("xl")) {
+        result->addType(Type::Document);
+        result->addType(Type::Spreadsheet);
+
+        if (!extractPlainText)
+            return;
+
         const KArchiveEntry* xlEntry = rootDir->entry("xl");
         if (!xlEntry->isDirectory()) {
             qWarning() << "Invalid document structure (xl is not a directory)";
@@ -207,12 +220,15 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         const KArchiveDirectory* xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
         extractTextFromFiles(xlDirectory, result);
-
-        result->addType(Type::Document);
-        result->addType(Type::Spreadsheet);
     }
 
     else if (rootEntries.contains("ppt")) {
+        result->addType(Type::Document);
+        result->addType(Type::Presentation);
+
+        if (!extractPlainText)
+            return;
+
         const KArchiveEntry* pptEntry = rootDir->entry("ppt");
         if (!pptEntry->isDirectory()) {
             qWarning() << "Invalid document structure (ppt is not a directory)";
@@ -221,12 +237,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         const KArchiveDirectory* pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
         extractTextFromFiles(pptDirectory, result);
-
-        result->addType(Type::Document);
-        result->addType(Type::Presentation);
     }
-
-    return;
 }
 
 void Office2007Extractor::extractAllText(QIODevice* device, ExtractionResult* result)
