@@ -131,10 +131,9 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Int;
             break;
 
-        // FIXME: This doesn't tell the user much
         case Property::Generator:
             d->name = QLatin1String("generator");
-            d->displayName = i18nc("@label", "Generator");
+            d->displayName = i18nc("@label", "Software used to Generate the document");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
