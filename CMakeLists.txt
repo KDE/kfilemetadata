@@ -14,10 +14,10 @@ include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 
-set(KF5_VERSION "4.97.0")
+set(KF5_VERSION "5.0.0")
 set(REQUIRED_QT_VERSION "5.2.0")
 
-ecm_setup_version(${KF5_VERSION}
+ecm_setup_version(4.98.0
                   VARIABLE_PREFIX KFILEMETADATA
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
                   SOVERSION 5)
