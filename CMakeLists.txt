@@ -65,6 +65,11 @@ endif()
 # Config files
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5FileMetaData")
 
+add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata\")
+if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+    ki18n_install(po)
+endif()
+
 include(ECMPackageConfigHelpers)
 
 ecm_configure_package_config_file(
