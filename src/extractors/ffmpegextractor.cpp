@@ -53,15 +53,15 @@ QStringList FFmpegExtractor::mimetypes() const
 {
     QStringList types;
 
-    types << QLatin1String("video/x-ms-asf");
-    types << QLatin1String("video/x-msvideo");
-    types << QLatin1String("video/x-flv");
-    types << QLatin1String("video/quicktime");
-    types << QLatin1String("video/mpeg");
-    types << QLatin1String("video/x-ms-wmv");
-    types << QLatin1String("video/mp4");
-    types << QLatin1String("video/x-matroska");
-    types << QLatin1String("video/webm");
+    types << QStringLiteral("video/x-ms-asf");
+    types << QStringLiteral("video/x-msvideo");
+    types << QStringLiteral("video/x-flv");
+    types << QStringLiteral("video/quicktime");
+    types << QStringLiteral("video/mpeg");
+    types << QStringLiteral("video/x-ms-wmv");
+    types << QStringLiteral("video/mp4");
+    types << QStringLiteral("video/x-matroska");
+    types << QStringLiteral("video/webm");
 
     return types;
 }

@@ -47,29 +47,29 @@ QStringList TagLibExtractor::mimetypes() const
     QStringList types;
     // MP3 FLAC, MPC, Speex, WavPack TrueAudio, WAV, AIFF, MP4 and ASF files.
     // MP3
-    types << QLatin1String("audio/mpeg");
-    types << QLatin1String("audio/mpeg3"); types << QLatin1String("audio/x-mpeg");
+    types << QStringLiteral("audio/mpeg");
+    types << QStringLiteral("audio/mpeg3"); types << QStringLiteral("audio/x-mpeg");
 
     // FLAC
-    types << QLatin1String("audio/flac");
+    types << QStringLiteral("audio/flac");
 
     // MPC
-    types << QLatin1String("audio/x-musepack");
+    types << QStringLiteral("audio/x-musepack");
 
     //OGG
-    types << QLatin1String("audio/ogg"); types << QLatin1String("audio/x-vorbis+ogg");
+    types << QStringLiteral("audio/ogg"); types << QStringLiteral("audio/x-vorbis+ogg");
 
     // WAV
-    types << QLatin1String("audio/wav");
+    types << QStringLiteral("audio/wav");
 
     // AIFF
-    types << QLatin1String("audio/x-aiff");
+    types << QStringLiteral("audio/x-aiff");
 
     // APE
-    types << QLatin1String("audio/x-ape");
+    types << QStringLiteral("audio/x-ape");
 
     // WV
-    types << QLatin1String("audio/x-wavpack");
+    types << QStringLiteral("audio/x-wavpack");
 
     return types;
 }

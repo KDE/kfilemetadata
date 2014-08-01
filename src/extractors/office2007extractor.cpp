@@ -38,9 +38,9 @@ Office2007Extractor::Office2007Extractor(QObject* parent, const QVariantList&): 
 QStringList Office2007Extractor::mimetypes() const
 {
     QStringList list;
-    list << QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-         << QLatin1String("application/vnd.openxmlformats-officedocument.presentationml.presentation")
-         << QLatin1String("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    list << QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+         << QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.presentation")
+         << QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
     return list;
 }
@@ -148,7 +148,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         // According to the ontologies only Documents can have a wordCount and pageCount
         const QString mimeType = result->inputMimetype();
-        if (mimeType == QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+        if (mimeType == QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
             QDomElement elem = docElem.firstChildElement("Pages");
             if (!elem.isNull()) {
                 bool ok = false;
@@ -201,7 +201,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             QDomDocument appDoc("document");
             const KArchiveFile* file = static_cast<const KArchiveFile*>(wordDirectory->entry("document.xml"));
 
-            extractTextWithTag(file->createDevice(), QLatin1String("w:t"), result);
+            extractTextWithTag(file->createDevice(), QStringLiteral("w:t"), result);
         }
     }
 

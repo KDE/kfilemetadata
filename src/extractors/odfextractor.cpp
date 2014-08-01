@@ -38,9 +38,9 @@ OdfExtractor::OdfExtractor(QObject* parent, const QVariantList&): ExtractorPlugi
 QStringList OdfExtractor::mimetypes() const
 {
     QStringList list;
-    list << QLatin1String("application/vnd.oasis.opendocument.text")
-         << QLatin1String("application/vnd.oasis.opendocument.presentation")
-         << QLatin1String("application/vnd.oasis.opendocument.spreadsheet");
+    list << QStringLiteral("application/vnd.oasis.opendocument.text")
+         << QStringLiteral("application/vnd.oasis.opendocument.presentation")
+         << QStringLiteral("application/vnd.oasis.opendocument.spreadsheet");
 
     return list;
 }
@@ -79,20 +79,20 @@ void OdfExtractor::extract(ExtractionResult* result)
             const QString tagName = e.tagName();
 
             // Dublin Core
-            if (tagName == QLatin1String("dc:description")) {
+            if (tagName == QStringLiteral("dc:description")) {
                 result->add(Property::Comment, e.text());
-            } else if (tagName == QLatin1String("dc:subject")) {
+            } else if (tagName == QStringLiteral("dc:subject")) {
                 result->add(Property::Subject, e.text());
-            } else if (tagName == QLatin1String("dc:title")) {
+            } else if (tagName == QStringLiteral("dc:title")) {
                 result->add(Property::Title, e.text());
-            } else if (tagName == QLatin1String("dc:creator")) {
+            } else if (tagName == QStringLiteral("dc:creator")) {
                 result->add(Property::Author, e.text());
-            } else if (tagName == QLatin1String("dc:langauge")) {
+            } else if (tagName == QStringLiteral("dc:langauge")) {
                 result->add(Property::Langauge, e.text());
             }
 
             // Meta Properties
-            else if (tagName == QLatin1String("meta:document-statistic")) {
+            else if (tagName == QStringLiteral("meta:document-statistic")) {
                 bool ok = false;
                 int pageCount = e.attribute("meta:page-count").toInt(&ok);
                 if (ok) {
@@ -103,12 +103,12 @@ void OdfExtractor::extract(ExtractionResult* result)
                 if (ok) {
                     result->add(Property::WordCount, wordCount);
                 }
-            } else if (tagName == QLatin1String("meta:keyword")) {
+            } else if (tagName == QStringLiteral("meta:keyword")) {
                 QString keywords = e.text();
                     result->add(Property::Keywords, keywords);
-            } else if (tagName == QLatin1String("meta:generator")) {
+            } else if (tagName == QStringLiteral("meta:generator")) {
                 result->add(Property::Generator, e.text());
-            } else if (tagName == QLatin1String("meta:creation-date")) {
+            } else if (tagName == QStringLiteral("meta:creation-date")) {
                 QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
                 if (!dt.isNull())
                     result->add(Property::CreationDate, dt);

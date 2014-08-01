@@ -38,7 +38,7 @@ EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
 QStringList EPubExtractor::mimetypes() const
 {
     QStringList types;
-    types << QLatin1String("application/epub+zip");
+    types << QStringLiteral("application/epub+zip");
 
     return types;
 }
@@ -87,9 +87,9 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_CREATOR);
     if (!value.isEmpty()) {
-        if (value.startsWith(QLatin1String("aut:"), Qt::CaseInsensitive)) {
+        if (value.startsWith(QStringLiteral("aut:"), Qt::CaseInsensitive)) {
             value = value.mid(4).simplified();
-        } else if (value.startsWith(QLatin1String("author:"), Qt::CaseInsensitive)) {
+        } else if (value.startsWith(QStringLiteral("author:"), Qt::CaseInsensitive)) {
             value = value.mid(7).simplified();
         }
 

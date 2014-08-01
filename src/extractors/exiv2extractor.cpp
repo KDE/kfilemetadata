@@ -33,22 +33,22 @@ QStringList Exiv2Extractor::mimetypes() const
 {
     QStringList types;
 
-    types << QLatin1String("image/jp2")
-          << QLatin1String("image/jpeg")
-          << QLatin1String("image/pgf")
-          << QLatin1String("image/png")
-          << QLatin1String("image/tiff")
-          << QLatin1String("image/x-exv")
-          << QLatin1String("image/x-canon-cr2")
-          << QLatin1String("image/x-canon-crw")
-          << QLatin1String("image/x-fuji-raf")
-          << QLatin1String("image/x-minolta-mrw")
-          << QLatin1String("image/x-nikon-nef")
-          << QLatin1String("image/x-olympus-orf")
-          << QLatin1String("image/x-panasonic-rw2")
-          << QLatin1String("image/x-pentax-pef")
-          << QLatin1String("image/x-photoshop")
-          << QLatin1String("image/x-samsung-srw");
+    types << QStringLiteral("image/jp2")
+          << QStringLiteral("image/jpeg")
+          << QStringLiteral("image/pgf")
+          << QStringLiteral("image/png")
+          << QStringLiteral("image/tiff")
+          << QStringLiteral("image/x-exv")
+          << QStringLiteral("image/x-canon-cr2")
+          << QStringLiteral("image/x-canon-crw")
+          << QStringLiteral("image/x-fuji-raf")
+          << QStringLiteral("image/x-minolta-mrw")
+          << QStringLiteral("image/x-nikon-nef")
+          << QStringLiteral("image/x-olympus-orf")
+          << QStringLiteral("image/x-panasonic-rw2")
+          << QStringLiteral("image/x-pentax-pef")
+          << QStringLiteral("image/x-photoshop")
+          << QStringLiteral("image/x-samsung-srw");
 
     return types;
 }

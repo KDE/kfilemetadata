@@ -46,305 +46,305 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
     switch (property) {
         case Property::Album:
-            d->name = QLatin1String("album");
+            d->name = QStringLiteral("album");
             d->displayName = i18nc("@label music album", "Album");
             d->valueType = QVariant::String;
             break;
 
         case Property::AlbumArtist:
-            d->name = QLatin1String("albumArtist");
+            d->name = QStringLiteral("albumArtist");
             d->displayName = i18nc("@label", "Album Artist");
             d->valueType = QVariant::StringList;
             break;
 
         case Property::Artist:
-            d->name = QLatin1String("artist");
+            d->name = QStringLiteral("artist");
             d->displayName = i18nc("@label", "Artist");
             d->valueType = QVariant::StringList;
             break;
 
         case Property::AspectRatio:
-            d->name = QLatin1String("aspectRatio");
+            d->name = QStringLiteral("aspectRatio");
             d->displayName = i18nc("@label", "Aspect Ratio");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Author:
-            d->name = QLatin1String("author");
+            d->name = QStringLiteral("author");
             d->displayName = i18nc("@label", "Author");
             d->valueType = QVariant::StringList;
             break;
 
         case Property::BitRate:
-            d->name = QLatin1String("bitRate");
+            d->name = QStringLiteral("bitRate");
             d->displayName = i18nc("@label", "Bitrate");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Channels:
-            d->name = QLatin1String("channels");
+            d->name = QStringLiteral("channels");
             d->displayName = i18nc("@label", "Channels");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Comment:
-            d->name = QLatin1String("comment");
+            d->name = QStringLiteral("comment");
             d->displayName = i18nc("@label", "Comment");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Composer:
-            d->name = QLatin1String("composer");
+            d->name = QStringLiteral("composer");
             d->displayName = i18nc("@label", "Composer");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Copyright:
-            d->name = QLatin1String("copyright");
+            d->name = QStringLiteral("copyright");
             d->displayName = i18nc("@label", "Copyright");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::CreationDate:
-            d->name = QLatin1String("creationDate");
+            d->name = QStringLiteral("creationDate");
             d->displayName = i18nc("@label", "Creation Date");
             d->valueType = QVariant::String;
             break;
 
         case Property::Duration:
-            d->name = QLatin1String("duration");
+            d->name = QStringLiteral("duration");
             d->displayName = i18nc("@label", "Duration");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Empty:
-            d->name = QLatin1String("empty");
+            d->name = QStringLiteral("empty");
             d->valueType = QVariant::Invalid;
             break;
 
         case Property::FrameRate:
-            d->name = QLatin1String("frameRate");
+            d->name = QStringLiteral("frameRate");
             d->displayName = i18nc("@label", "Frame Rate");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Generator:
-            d->name = QLatin1String("generator");
+            d->name = QStringLiteral("generator");
             d->displayName = i18nc("@label", "Software used to Generate the document");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Genre:
-            d->name = QLatin1String("genre");
+            d->name = QStringLiteral("genre");
             d->displayName = i18nc("@label music genre", "Genre");
             d->valueType = QVariant::StringList;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Height:
-            d->name = QLatin1String("height");
+            d->name = QStringLiteral("height");
             d->displayName = i18nc("@label", "Height");
             d->valueType = QVariant::Int;
             break;
 
         case Property::ImageDateTime:
-            d->name = QLatin1String("imageDateTime");
+            d->name = QStringLiteral("imageDateTime");
             d->displayName = i18nc("@label EXIF", "Image Date Time");
             d->valueType = QVariant::DateTime;
             break;
 
         case Property::ImageMake:
-            d->name = QLatin1String("imageMake");
+            d->name = QStringLiteral("imageMake");
             d->displayName = i18nc("@label EXIF", "Image Make");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::ImageModel:
-            d->name = QLatin1String("imageModel");
+            d->name = QStringLiteral("imageModel");
             d->displayName = i18nc("@label EXIF", "Image Model");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::ImageOrientation:
-            d->name = QLatin1String("imageOrientation");
+            d->name = QStringLiteral("imageOrientation");
             d->displayName = i18nc("@label EXIF", "Image Orientation");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Keywords:
-            d->name = QLatin1String("keywords");
+            d->name = QStringLiteral("keywords");
             d->displayName = i18nc("@label", "Keywords");
             d->valueType = QVariant::StringList;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Langauge:
-            d->name = QLatin1String("language");
+            d->name = QStringLiteral("language");
             d->displayName = i18nc("@label", "Language");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::LineCount:
-            d->name = QLatin1String("lineCount");
+            d->name = QStringLiteral("lineCount");
             d->displayName = i18nc("@label number of lines", "Line Count");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Lyricist:
-            d->name = QLatin1String("lyricist");
+            d->name = QStringLiteral("lyricist");
             d->displayName = i18nc("@label", "Lyricist");
             d->valueType = QVariant::StringList;
             d->shouldBeIndexed = false;
             break;
 
         case Property::PageCount:
-            d->name = QLatin1String("pageCount");
+            d->name = QStringLiteral("pageCount");
             d->displayName = i18nc("@label", "Page Count");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoApertureValue:
-            d->name = QLatin1String("photoApertureValue");
+            d->name = QStringLiteral("photoApertureValue");
             d->displayName = i18nc("@label EXIF", "Photo Aperture Value");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoDateTimeOriginal:
-            d->name = QLatin1String("photoDateTimeOriginal");
+            d->name = QStringLiteral("photoDateTimeOriginal");
             d->displayName = i18nc("@label EXIF", "Photo Original Date Time");
             d->valueType = QVariant::DateTime;
             break;
 
         case Property::PhotoExposureBiasValue:
-            d->name = QLatin1String("photoExposureBiasValue");
+            d->name = QStringLiteral("photoExposureBiasValue");
             d->displayName = i18nc("@label EXIF", "Photo Exposure Bias");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoExposureTime:
-            d->name = QLatin1String("photoExposureTime");
+            d->name = QStringLiteral("photoExposureTime");
             d->displayName = i18nc("@label EXIF", "Photo Exposure Time");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoFlash:
-            d->name = QLatin1String("photoFlash");
+            d->name = QStringLiteral("photoFlash");
             d->displayName = i18nc("@label EXIF", "Photo Flash");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoFNumber:
-            d->name = QLatin1String("photoFNumber");
+            d->name = QStringLiteral("photoFNumber");
             d->displayName = i18nc("@label EXIF", "Photo F Number");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoFocalLength:
-            d->name = QLatin1String("photoFocalLength");
+            d->name = QStringLiteral("photoFocalLength");
             d->displayName = i18nc("@label EXIF", "Photo Focal Length");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoFocalLengthIn35mmFilm:
-            d->name = QLatin1String("photoFocalLengthIn35mmFilm");
+            d->name = QStringLiteral("photoFocalLengthIn35mmFilm");
             d->displayName = i18nc("@label EXIF", "Photo Focal Length 35mm");
             d->valueType = QVariant::Double;
             break;
 
         case Property::PhotoISOSpeedRatings:
-            d->name = QLatin1String("photoISOSpeedRatings");
+            d->name = QStringLiteral("photoISOSpeedRatings");
             d->displayName = i18nc("@label EXIF", "Photo ISO Speed Rating");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoMeteringMode:
-            d->name = QLatin1String("photoMeteringMode");
+            d->name = QStringLiteral("photoMeteringMode");
             d->displayName = i18nc("@label EXIF", "Photo Metering Mode");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoPixelXDimension:
-            d->name = QLatin1String("photoPixelXDimension");
+            d->name = QStringLiteral("photoPixelXDimension");
             d->displayName = i18nc("@label EXIF", "Photo X Dimension");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoPixelYDimension:
-            d->name = QLatin1String("photoPixelYDimension");
+            d->name = QStringLiteral("photoPixelYDimension");
             d->displayName = i18nc("@label EXIF", "Photo Y Dimension");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoSaturation:
-            d->name = QLatin1String("photoSaturation");
+            d->name = QStringLiteral("photoSaturation");
             d->displayName = i18nc("@label EXIF", "Photo Saturation");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoSharpness:
-            d->name = QLatin1String("photoSharpness");
+            d->name = QStringLiteral("photoSharpness");
             d->displayName = i18nc("@label EXIF", "Photo Sharpness");
             d->valueType = QVariant::Int;
             break;
 
         case Property::PhotoWhiteBalance:
-            d->name = QLatin1String("photoWhiteBalance");
+            d->name = QStringLiteral("photoWhiteBalance");
             d->displayName = i18nc("@label EXIF", "Photo White Balance");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Publisher:
-            d->name = QLatin1String("publisher");
+            d->name = QStringLiteral("publisher");
             d->displayName = i18nc("@label", "Publisher");
             d->valueType = QVariant::String;
             break;
 
         case Property::ReleaseYear:
-            d->name = QLatin1String("releaseYear");
+            d->name = QStringLiteral("releaseYear");
             d->displayName = i18nc("@label", "Release Year");
             d->valueType = QVariant::Int;
             break;
 
         case Property::SampleRate:
-            d->name = QLatin1String("sampleRate");
+            d->name = QStringLiteral("sampleRate");
             d->displayName = i18nc("@label", "Sample Rate");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Subject:
-            d->name = QLatin1String("subject");
+            d->name = QStringLiteral("subject");
             d->displayName = i18nc("@label", "Subject");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Title:
-            d->name = QLatin1String("title");
+            d->name = QStringLiteral("title");
             d->displayName = i18nc("@label", "Title");
             d->valueType = QVariant::String;
             break;
 
         case Property::TrackNumber:
-            d->name = QLatin1String("trackNumber");
+            d->name = QStringLiteral("trackNumber");
             d->displayName = i18nc("@label music track number", "Track Number");
             d->valueType = QVariant::Int;
             break;
 
         case Property::Width:
-            d->name = QLatin1String("width");
+            d->name = QStringLiteral("width");
             d->displayName = i18nc("@label", "Width");
             d->valueType = QVariant::Int;
             break;
 
         case Property::WordCount:
-            d->name = QLatin1String("wordCount");
+            d->name = QStringLiteral("wordCount");
             d->displayName = i18nc("@label number of words", "Word Count");
             d->valueType = QVariant::Int;
             break;
@@ -401,54 +401,54 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
 
     // FIXME: Multi-threading?
     if (propertyHash.isEmpty()) {
-        propertyHash.insert(QLatin1String("bitrate"), Property::BitRate);
-        propertyHash.insert(QLatin1String("channels"), Property::Channels);
-        propertyHash.insert(QLatin1String("duration"), Property::Duration);
-        propertyHash.insert(QLatin1String("genre"), Property::Genre);
-        propertyHash.insert(QLatin1String("samplerate"), Property::SampleRate);
-        propertyHash.insert(QLatin1String("tracknumber"), Property::TrackNumber);
-        propertyHash.insert(QLatin1String("releaseyear"), Property::ReleaseYear);
-        propertyHash.insert(QLatin1String("comment"), Property::Comment);
-        propertyHash.insert(QLatin1String("artist"), Property::Artist);
-        propertyHash.insert(QLatin1String("album"), Property::Album);
-        propertyHash.insert(QLatin1String("albumartist"), Property::AlbumArtist);
-        propertyHash.insert(QLatin1String("composer"), Property::Composer);
-        propertyHash.insert(QLatin1String("lyricist"), Property::Lyricist);
-        propertyHash.insert(QLatin1String("author"), Property::Author);
-        propertyHash.insert(QLatin1String("title"), Property::Title);
-        propertyHash.insert(QLatin1String("subject"), Property::Subject);
-        propertyHash.insert(QLatin1String("generator"), Property::Generator);
-        propertyHash.insert(QLatin1String("pagecount"), Property::PageCount);
-        propertyHash.insert(QLatin1String("wordcount"), Property::WordCount);
-        propertyHash.insert(QLatin1String("linecount"), Property::LineCount);
-        propertyHash.insert(QLatin1String("language"), Property::Langauge);
-        propertyHash.insert(QLatin1String("copyright"), Property::Copyright);
-        propertyHash.insert(QLatin1String("publisher"), Property::Publisher);
-        propertyHash.insert(QLatin1String("creationdate"), Property::CreationDate);
-        propertyHash.insert(QLatin1String("keywords"), Property::Keywords);
-        propertyHash.insert(QLatin1String("width"), Property::Width);
-        propertyHash.insert(QLatin1String("height"), Property::Height);
-        propertyHash.insert(QLatin1String("aspectratio"), Property::AspectRatio);
-        propertyHash.insert(QLatin1String("framerate"), Property::FrameRate);
-        propertyHash.insert(QLatin1String("imagemake"), Property::ImageMake);
-        propertyHash.insert(QLatin1String("imagemodel"), Property::ImageModel);
-        propertyHash.insert(QLatin1String("imagedatetime"), Property::ImageDateTime);
-        propertyHash.insert(QLatin1String("imageorientation"), Property::ImageOrientation);
-        propertyHash.insert(QLatin1String("photoflash"), Property::PhotoFlash);
-        propertyHash.insert(QLatin1String("photopixelxdimension"), Property::PhotoPixelXDimension);
-        propertyHash.insert(QLatin1String("photopixelydimension"), Property::PhotoPixelYDimension);
-        propertyHash.insert(QLatin1String("photodatetimeoriginal"), Property::PhotoDateTimeOriginal);
-        propertyHash.insert(QLatin1String("photofocallength"), Property::PhotoFocalLength);
-        propertyHash.insert(QLatin1String("photofocallengthin35mmfilm"), Property::PhotoFocalLengthIn35mmFilm);
-        propertyHash.insert(QLatin1String("photoexposuretime"), Property::PhotoExposureTime);
-        propertyHash.insert(QLatin1String("photofnumber"), Property::PhotoFNumber);
-        propertyHash.insert(QLatin1String("photoaperturevalue"), Property::PhotoApertureValue);
-        propertyHash.insert(QLatin1String("photoexposurebiasvalue"), Property::PhotoExposureBiasValue);
-        propertyHash.insert(QLatin1String("photowhitebalance"), Property::PhotoWhiteBalance);
-        propertyHash.insert(QLatin1String("photometeringmode"), Property::PhotoMeteringMode);
-        propertyHash.insert(QLatin1String("photoisospeedratings"), Property::PhotoISOSpeedRatings);
-        propertyHash.insert(QLatin1String("photosaturation"), Property::PhotoSaturation);
-        propertyHash.insert(QLatin1String("photosharpness"), Property::PhotoSharpness);
+        propertyHash.insert(QStringLiteral("bitrate"), Property::BitRate);
+        propertyHash.insert(QStringLiteral("channels"), Property::Channels);
+        propertyHash.insert(QStringLiteral("duration"), Property::Duration);
+        propertyHash.insert(QStringLiteral("genre"), Property::Genre);
+        propertyHash.insert(QStringLiteral("samplerate"), Property::SampleRate);
+        propertyHash.insert(QStringLiteral("tracknumber"), Property::TrackNumber);
+        propertyHash.insert(QStringLiteral("releaseyear"), Property::ReleaseYear);
+        propertyHash.insert(QStringLiteral("comment"), Property::Comment);
+        propertyHash.insert(QStringLiteral("artist"), Property::Artist);
+        propertyHash.insert(QStringLiteral("album"), Property::Album);
+        propertyHash.insert(QStringLiteral("albumartist"), Property::AlbumArtist);
+        propertyHash.insert(QStringLiteral("composer"), Property::Composer);
+        propertyHash.insert(QStringLiteral("lyricist"), Property::Lyricist);
+        propertyHash.insert(QStringLiteral("author"), Property::Author);
+        propertyHash.insert(QStringLiteral("title"), Property::Title);
+        propertyHash.insert(QStringLiteral("subject"), Property::Subject);
+        propertyHash.insert(QStringLiteral("generator"), Property::Generator);
+        propertyHash.insert(QStringLiteral("pagecount"), Property::PageCount);
+        propertyHash.insert(QStringLiteral("wordcount"), Property::WordCount);
+        propertyHash.insert(QStringLiteral("linecount"), Property::LineCount);
+        propertyHash.insert(QStringLiteral("language"), Property::Langauge);
+        propertyHash.insert(QStringLiteral("copyright"), Property::Copyright);
+        propertyHash.insert(QStringLiteral("publisher"), Property::Publisher);
+        propertyHash.insert(QStringLiteral("creationdate"), Property::CreationDate);
+        propertyHash.insert(QStringLiteral("keywords"), Property::Keywords);
+        propertyHash.insert(QStringLiteral("width"), Property::Width);
+        propertyHash.insert(QStringLiteral("height"), Property::Height);
+        propertyHash.insert(QStringLiteral("aspectratio"), Property::AspectRatio);
+        propertyHash.insert(QStringLiteral("framerate"), Property::FrameRate);
+        propertyHash.insert(QStringLiteral("imagemake"), Property::ImageMake);
+        propertyHash.insert(QStringLiteral("imagemodel"), Property::ImageModel);
+        propertyHash.insert(QStringLiteral("imagedatetime"), Property::ImageDateTime);
+        propertyHash.insert(QStringLiteral("imageorientation"), Property::ImageOrientation);
+        propertyHash.insert(QStringLiteral("photoflash"), Property::PhotoFlash);
+        propertyHash.insert(QStringLiteral("photopixelxdimension"), Property::PhotoPixelXDimension);
+        propertyHash.insert(QStringLiteral("photopixelydimension"), Property::PhotoPixelYDimension);
+        propertyHash.insert(QStringLiteral("photodatetimeoriginal"), Property::PhotoDateTimeOriginal);
+        propertyHash.insert(QStringLiteral("photofocallength"), Property::PhotoFocalLength);
+        propertyHash.insert(QStringLiteral("photofocallengthin35mmfilm"), Property::PhotoFocalLengthIn35mmFilm);
+        propertyHash.insert(QStringLiteral("photoexposuretime"), Property::PhotoExposureTime);
+        propertyHash.insert(QStringLiteral("photofnumber"), Property::PhotoFNumber);
+        propertyHash.insert(QStringLiteral("photoaperturevalue"), Property::PhotoApertureValue);
+        propertyHash.insert(QStringLiteral("photoexposurebiasvalue"), Property::PhotoExposureBiasValue);
+        propertyHash.insert(QStringLiteral("photowhitebalance"), Property::PhotoWhiteBalance);
+        propertyHash.insert(QStringLiteral("photometeringmode"), Property::PhotoMeteringMode);
+        propertyHash.insert(QStringLiteral("photoisospeedratings"), Property::PhotoISOSpeedRatings);
+        propertyHash.insert(QStringLiteral("photosaturation"), Property::PhotoSaturation);
+        propertyHash.insert(QStringLiteral("photosharpness"), Property::PhotoSharpness);
     }
 
     return PropertyInfo(propertyHash.value(name.toLower()));
