@@ -18,42 +18,19 @@
  *
  */
 
-#include "simpleresult.h"
+#ifndef MOBIEXTRACTORTEST_H
+#define MOBIEXTRACTORTEST_H
 
-using namespace KFileMetaData;
+#include <QObject>
 
-SimpleResult::SimpleResult(const QString& url, const QString& mimetype, const Flags& flags)
-    : ExtractionResult(url, mimetype, flags)
+class MobiExtractorTest : public QObject
 {
-}
+    Q_OBJECT
+private:
+    QString testFilePath(const QString& fileName) const;
 
-void SimpleResult::add(Property::Property property, const QVariant& value)
-{
-    m_properties.insertMulti(property, value);
-}
+private Q_SLOTS:
+    void test();
+};
 
-void SimpleResult::addType(Type::Type type)
-{
-    m_types << type;
-}
-
-void SimpleResult::append(const QString& text)
-{
-    m_text.append(text);
-    m_text.append(QLatin1Char(' '));
-}
-
-PropertyMap SimpleResult::properties() const
-{
-    return m_properties;
-}
-
-QString SimpleResult::text() const
-{
-    return m_text;
-}
-
-QVector<Type::Type> SimpleResult::types() const
-{
-    return m_types;
-}
+#endif // MOBIEXTRACTORTEST_H

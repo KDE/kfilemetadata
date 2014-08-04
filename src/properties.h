@@ -40,7 +40,7 @@ enum Property {
     TrackNumber,
     ReleaseYear,
 
-    // Maybe merge this with the description?
+    // Synonymous with description
     Comment,
 
     // Music
@@ -51,18 +51,21 @@ enum Property {
     Lyricist,
 
     // Documents
+    /**
+     * The Author field indicated the primary creator of the document.
+     * This often corresponds directly to dc:creator
+     */
     Author,
+
     Title,
     Subject,
-    Creator,
-    Generator, // What's the difference?
+    Generator,
     PageCount,
     WordCount,
     LineCount,
     Langauge,
     Copyright,
     Publisher,
-    Description,
     CreationDate,
     Keywords,
 

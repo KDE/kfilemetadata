@@ -21,9 +21,10 @@
 
 #include "odfextractor.h"
 
-#include <KDebug>
 #include <KZip>
+#include <KService>
 
+#include <QDebug>
 #include <QDomDocument>
 #include <QXmlStreamReader>
 
@@ -37,9 +38,9 @@ OdfExtractor::OdfExtractor(QObject* parent, const QVariantList&): ExtractorPlugi
 QStringList OdfExtractor::mimetypes() const
 {
     QStringList list;
-    list << QLatin1String("application/vnd.oasis.opendocument.text")
-         << QLatin1String("application/vnd.oasis.opendocument.presentation")
-         << QLatin1String("application/vnd.oasis.opendocument.spreadsheet");
+    list << QStringLiteral("application/vnd.oasis.opendocument.text")
+         << QStringLiteral("application/vnd.oasis.opendocument.presentation")
+         << QStringLiteral("application/vnd.oasis.opendocument.spreadsheet");
 
     return list;
 }
@@ -78,20 +79,20 @@ void OdfExtractor::extract(ExtractionResult* result)
             const QString tagName = e.tagName();
 
             // Dublin Core
-            if (tagName == QLatin1String("dc:description")) {
-                result->add(Property::Description, e.text());
-            } else if (tagName == QLatin1String("dc:subject")) {
+            if (tagName == QStringLiteral("dc:description")) {
+                result->add(Property::Comment, e.text());
+            } else if (tagName == QStringLiteral("dc:subject")) {
                 result->add(Property::Subject, e.text());
-            } else if (tagName == QLatin1String("dc:title")) {
+            } else if (tagName == QStringLiteral("dc:title")) {
                 result->add(Property::Title, e.text());
-            } else if (tagName == QLatin1String("dc:creator")) {
-                result->add(Property::Creator, e.text());
-            } else if (tagName == QLatin1String("dc:langauge")) {
+            } else if (tagName == QStringLiteral("dc:creator")) {
+                result->add(Property::Author, e.text());
+            } else if (tagName == QStringLiteral("dc:langauge")) {
                 result->add(Property::Langauge, e.text());
             }
 
             // Meta Properties
-            else if (tagName == QLatin1String("meta:document-statistic")) {
+            else if (tagName == QStringLiteral("meta:document-statistic")) {
                 bool ok = false;
                 int pageCount = e.attribute("meta:page-count").toInt(&ok);
                 if (ok) {
@@ -102,18 +103,30 @@ void OdfExtractor::extract(ExtractionResult* result)
                 if (ok) {
                     result->add(Property::WordCount, wordCount);
                 }
-            } else if (tagName == QLatin1String("meta:keyword")) {
+            } else if (tagName == QStringLiteral("meta:keyword")) {
                 QString keywords = e.text();
                     result->add(Property::Keywords, keywords);
-            } else if (tagName == QLatin1String("meta:generator")) {
-                result->add(Property::Creator, e.text());
-            } else if (tagName == QLatin1String("meta:creation-date")) {
+            } else if (tagName == QStringLiteral("meta:generator")) {
+                result->add(Property::Generator, e.text());
+            } else if (tagName == QStringLiteral("meta:creation-date")) {
                 QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
                 if (!dt.isNull())
                     result->add(Property::CreationDate, dt);
             }
         }
         n = n.nextSibling();
+    }
+
+    result->addType(Type::Document);
+    if (result->inputMimetype() == QStringLiteral("application/vnd.oasis.opendocument.presentation")) {
+        result->addType(Type::Presentation);
+    }
+    else if (result->inputMimetype() == QStringLiteral("application/vnd.oasis.opendocument.spreadsheet")) {
+        result->addType(Type::Spreadsheet);
+    }
+
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        return;
     }
 
     const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry("content.xml"));
@@ -129,10 +142,8 @@ void OdfExtractor::extract(ExtractionResult* result)
         if (xml.hasError() || xml.isEndDocument())
             break;
     }
-
-    result->addType(Type::Document);
-
-    return;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OdfExtractor, "kfilemetadata_odfextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<OdfExtractor>();)
+
+#include "odfextractor.moc"

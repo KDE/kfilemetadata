@@ -38,8 +38,9 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 }
 
-#include <KDebug>
 #include <QDateTime>
+#include <QDebug>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -52,15 +53,15 @@ QStringList FFmpegExtractor::mimetypes() const
 {
     QStringList types;
 
-    types << QLatin1String("video/x-ms-asf");
-    types << QLatin1String("video/x-msvideo");
-    types << QLatin1String("video/x-flv");
-    types << QLatin1String("video/quicktime");
-    types << QLatin1String("video/mpeg");
-    types << QLatin1String("video/x-ms-wmv");
-    types << QLatin1String("video/mp4");
-    types << QLatin1String("video/x-matroska");
-    types << QLatin1String("video/webm");
+    types << QStringLiteral("video/x-ms-asf");
+    types << QStringLiteral("video/x-msvideo");
+    types << QStringLiteral("video/x-flv");
+    types << QStringLiteral("video/quicktime");
+    types << QStringLiteral("video/mpeg");
+    types << QStringLiteral("video/x-ms-wmv");
+    types << QStringLiteral("video/mp4");
+    types << QStringLiteral("video/x-matroska");
+    types << QStringLiteral("video/webm");
 
     return types;
 }
@@ -75,13 +76,13 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     fmt_ctx = avformat_alloc_context();
     if (int ret = avformat_open_input(&fmt_ctx, arr.data(), NULL, NULL)) {
-        kError() << "avformat_open_input error: " << ret;
+        qWarning() << "avformat_open_input error: " << ret;
         return;
     }
 
     int ret = avformat_find_stream_info(fmt_ctx, NULL);
     if (ret < 0) {
-        kError() << "avform_find_stream_info error: " << ret;
+        qWarning() << "avform_find_stream_info error: " << ret;
         return;
     }
 
@@ -179,4 +180,6 @@ void FFmpegExtractor::extract(ExtractionResult* result)
     avformat_close_input(&fmt_ctx);
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::FFmpegExtractor, "kfilemetadata_ffmpegextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<FFmpegExtractor>();)
+
+#include "ffmpegextractor.moc"

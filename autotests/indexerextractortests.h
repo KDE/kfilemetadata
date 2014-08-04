@@ -37,6 +37,7 @@ private:
 private slots:
     void benchMarkPlainTextExtractor();
     void testPlainTextExtractor();
+    void testPlainTextExtractorNoPlainText();
 };
 
 #endif // INDEXERTESTS_H

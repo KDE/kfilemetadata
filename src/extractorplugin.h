@@ -27,7 +27,6 @@
 #include "kfilemetadata_export.h"
 #include "extractionresult.h"
 
-#include <KService>
 #include <QStringList>
 
 namespace KFileMetaData
@@ -98,15 +97,5 @@ private:
     Private* d;
 };
 }
-
-/**
- * Export a file extractor.
- *
- * \param classname The name of the subclass to export
- * \param libname The name of the library which should export the extractor
- */
-#define KFILEMETADATA_EXPORT_EXTRACTOR( classname, libname )    \
-    K_PLUGIN_FACTORY(factory, registerPlugin<classname>();) \
-    K_EXPORT_PLUGIN(factory(#libname))
 
 #endif // _KFILEMETADATA_EXTRACTOR_H

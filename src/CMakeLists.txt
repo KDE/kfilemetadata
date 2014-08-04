@@ -1,4 +1,4 @@
-kde4_add_library(kfilemetadata SHARED
+add_library(KF5FileMetaData
     extractionresult.cpp
     extractorplugin.cpp
     extractorpluginmanager.cpp
@@ -6,36 +6,57 @@ kde4_add_library(kfilemetadata SHARED
     typeinfo.cpp
 )
 
-target_link_libraries(kfilemetadata
-  ${QT_QTCORE_LIBRARY}
-  ${KDE4_KDECORE_LIBS}
+add_library(KF5::FileMetaData ALIAS KF5FileMetaData)
+
+target_link_libraries(KF5FileMetaData
+  PUBLIC
+    Qt5::Core
+  PRIVATE
+    KF5::Service
+    KF5::I18n
 )
 
-set_target_properties(kfilemetadata PROPERTIES
-    VERSION ${GENERIC_LIB_VERSION}
-    SOVERSION ${GENERIC_LIB_SOVERSION}
+generate_export_header(KF5FileMetaData BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)
+
+set_target_properties(KF5FileMetaData PROPERTIES
+    VERSION ${KFILEMETADATA_VERSION_STRING}
+    SOVERSION ${KFILEMETADATA_SOVERSION}
+    EXPORT_NAME FileMetaData
 )
 
-install(TARGETS kfilemetadata ${INSTALL_TARGETS_DEFAULT_ARGS})
+target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData>")
 
-install(TARGETS kfilemetadata EXPORT KdeLibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
+    HEADER_NAMES
+    ExtractionResult
+    ExtractorPlugin
+    ExtractorPluginManager
+    Properties
+    PropertyInfo
+    Types
+    TypeInfo
+
+    PREFIX kfilemetadata
+    REQUIRED_HEADERS KF5FileMetaData_HEADERS
+)
+
+install(TARGETS KF5FileMetaData EXPORT KF5FileMetaDataTargets ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kfilemetadataextractor.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
-install(EXPORT KdeLibsLibraryTargets
-        DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData
-        FILE KFileMetaDataTargetsWithPrefix.cmake)
+install(EXPORT KF5FileMetaDataTargets
+        NAMESPACE KF5::
+        DESTINATION ${LIB_INSTALL_DIR}/cmake/KF5FileMetaData
+        FILE KF5FileMetaDataTargets.cmake)
 
 install(FILES
-    extractionresult.h
-    extractorplugin.h
-    extractorpluginmanager.h
-    properties.h
-    propertyinfo.h
-    types.h
-    typeinfo.h
-    kfilemetadata_export.h
+    ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h
+    ${KF5FileMetaData_HEADERS}
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData/kfilemetadata COMPONENT Devel
+)
 
-    DESTINATION ${INCLUDE_INSTALL_DIR}/kfilemetadata COMPONENT Devel
+install(FILES
+    ${KF5FileMetaData_CamelCase_HEADERS}
+    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData/KFileMetaData COMPONENT Devel
 )
 
 add_subdirectory(extractors)

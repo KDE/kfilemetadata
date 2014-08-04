@@ -1,12 +1,12 @@
-if(POPPLER_QT4_FOUND)
-    include_directories(${POPPLER_QT4_INCLUDE_DIR})
+if(POPPLER_QT5_FOUND)
+    include_directories(${POPPLER_QT5_INCLUDE_DIR})
 
-    kde4_add_plugin(kfilemetadata_popplerextractor popplerextractor.cpp)
+    add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp)
 
     target_link_libraries(kfilemetadata_popplerextractor
-        kfilemetadata
-        ${KDE4_KIO_LIBS}
-        ${POPPLER_QT4_LIBRARIES}
+        KF5::FileMetaData
+        KF5::Service
+        ${POPPLER_QT5_LIBRARIES}
     )
 
     install(
@@ -17,16 +17,16 @@ if(POPPLER_QT4_FOUND)
     TARGETS kfilemetadata_popplerextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(POPPLER_QT4_FOUND)
+endif()
 
 if(TAGLIB_FOUND)
     include_directories( ${TAGLIB_INCLUDES} )
 
-    kde4_add_plugin( kfilemetadata_taglibextractor taglibextractor.cpp )
+    add_library(kfilemetadata_taglibextractor MODULE taglibextractor.cpp )
 
     target_link_libraries( kfilemetadata_taglibextractor
-        kfilemetadata
-        ${KDE4_KIO_LIBS}
+        KF5::FileMetaData
+        KF5::Service
         ${TAGLIB_LIBRARIES}
     )
 
@@ -38,20 +38,17 @@ if(TAGLIB_FOUND)
     TARGETS kfilemetadata_taglibextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(TAGLIB_FOUND)
+endif()
 
 if(EXIV2_FOUND)
     include_directories( ${EXIV2_INCLUDE_DIR} )
 
-    set_source_files_properties( exiv2extractor.cpp PROPERTIES
-        COMPILE_FLAGS "${KDE4_ENABLE_EXCEPTIONS}"
-        )
-
-    kde4_add_plugin(kfilemetadata_exiv2extractor exiv2extractor.cpp)
+    kde_enable_exceptions()
+    add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp)
 
     target_link_libraries(kfilemetadata_exiv2extractor
-        kfilemetadata
-        ${KDE4_KIO_LIBS}
+        KF5::FileMetaData
+        KF5::Service
         ${EXIV2_LIBRARIES}
     )
 
@@ -63,16 +60,16 @@ if(EXIV2_FOUND)
     TARGETS kfilemetadata_exiv2extractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(EXIV2_FOUND)
+endif()
 
 if(FFMPEG_FOUND)
     include_directories( ${FFMPEG_INCLUDE_DIRS} )
 
-    kde4_add_plugin(kfilemetadata_ffmpegextractor ffmpegextractor.cpp)
+    add_library(kfilemetadata_ffmpegextractor MODULE ffmpegextractor.cpp)
 
     target_link_libraries(kfilemetadata_ffmpegextractor
-        kfilemetadata
-        ${KDE4_KIO_LIBS}
+        KF5::FileMetaData
+        KF5::Service
         ${FFMPEG_LIBRARIES}
     )
 
@@ -84,17 +81,17 @@ if(FFMPEG_FOUND)
     TARGETS kfilemetadata_ffmpegextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(FFMPEG_FOUND)
+endif()
 
 
 if(EPUB_FOUND)
     include_directories( ${EPUB_INCLUDE_DIR} )
 
-    kde4_add_plugin(kfilemetadata_epubextractor epubextractor.cpp)
+    add_library(kfilemetadata_epubextractor MODULE epubextractor.cpp)
 
     target_link_libraries(kfilemetadata_epubextractor
-        kfilemetadata
-        ${KDE4_KIO_LIBS}
+        KF5::FileMetaData
+        KF5::Service
         ${EPUB_LIBRARIES}
     )
 
@@ -106,16 +103,16 @@ if(EPUB_FOUND)
     TARGETS kfilemetadata_epubextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
 
-endif(EPUB_FOUND)
+endif()
 
 #
 # Plain Text
 #
-kde4_add_plugin( kfilemetadata_plaintextextractor plaintextextractor.cpp )
+add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp)
 
 target_link_libraries( kfilemetadata_plaintextextractor
-    kfilemetadata
-    ${KDE4_KIO_LIBS}
+    KF5::FileMetaData
+    KF5::Service
 )
 
 install(
@@ -130,11 +127,14 @@ DESTINATION ${PLUGIN_INSTALL_DIR})
 # ODF
 #
 
-kde4_add_plugin(kfilemetadata_odfextractor odfextractor.cpp)
+add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp)
 
 target_link_libraries(kfilemetadata_odfextractor
-    kfilemetadata
-    ${KDE4_KIO_LIBS}
+    KF5::FileMetaData
+    Qt5::Core
+    Qt5::Xml
+    KF5::Service
+    KF5::Archive
 )
 
 install(
@@ -149,11 +149,14 @@ DESTINATION ${PLUGIN_INSTALL_DIR})
 # Office 2007
 #
 
-kde4_add_plugin(kfilemetadata_office2007extractor office2007extractor.cpp)
+add_library(kfilemetadata_office2007extractor MODULE office2007extractor.cpp)
 
 target_link_libraries(kfilemetadata_office2007extractor
-    kfilemetadata
-    ${KDE4_KIO_LIBS}
+    KF5::FileMetaData
+    Qt5::Core
+    Qt5::Xml
+    KF5::Service
+    KF5::Archive
 )
 
 install(
@@ -168,11 +171,11 @@ DESTINATION ${PLUGIN_INSTALL_DIR})
 # Office (binary formats)
 #
 
-kde4_add_plugin(kfilemetadata_officeextractor officeextractor.cpp)
+add_library(kfilemetadata_officeextractor MODULE officeextractor.cpp)
 
 target_link_libraries(kfilemetadata_officeextractor
-    kfilemetadata
-    ${KDE4_KIO_LIBS}
+    KF5::FileMetaData
+    KF5::Service
 )
 
 install(
@@ -187,12 +190,12 @@ DESTINATION ${PLUGIN_INSTALL_DIR})
 # Mobipocket
 #
 if (QMOBIPOCKET_FOUND)
-    kde4_add_plugin(kfilemetadata_mobiextractor mobiextractor.cpp)
+    add_library(kfilemetadata_mobiextractor MODULE mobiextractor.cpp)
 
     include_directories(${QMOBIPOCKET_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_mobiextractor
-        kfilemetadata
-        ${KDE4_KIO_LIBS}
+        KF5::FileMetaData
+        KF5::Service
         ${QMOBIPOCKET_LIBRARIES}
     )
 
@@ -203,4 +206,5 @@ if (QMOBIPOCKET_FOUND)
     install(
     TARGETS kfilemetadata_mobiextractor
     DESTINATION ${PLUGIN_INSTALL_DIR})
-endif(QMOBIPOCKET_FOUND)
+
+endif()

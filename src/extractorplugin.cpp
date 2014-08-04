@@ -21,7 +21,7 @@
 
 #include "extractorplugin.h"
 
-#include <KDebug>
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -42,58 +42,58 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
     QDateTime dateTime;
 
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("yyyy-MM-dd"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy-MM-dd"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("dd-MM-yyyy"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("dd-MM-yyyy"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("yyyy-MM"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy-MM"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("MM-yyyy"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("MM-yyyy"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("yyyy.MM.dd"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy.MM.dd"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("dd.MM.yyyy"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("dd.MM.yyyy"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("dd MMMM yyyy"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("dd MMMM yyyy"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("MM.yyyy"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("MM.yyyy"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("yyyy.MM"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy.MM"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("yyyy"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("yy"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("yy"));
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, Qt::ISODate);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("dddd d MMM yyyy h':'mm':'ss AP"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("dddd d MMM yyyy h':'mm':'ss AP"));
         dateTime.setTimeSpec(Qt::LocalTime);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, QLatin1String("yyyy:MM:dd hh:mm:ss"));
+        dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy:MM:dd hh:mm:ss"));
         dateTime.setTimeSpec(Qt::LocalTime);
     }
     if (!dateTime.isValid()) {
@@ -109,7 +109,7 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
         dateTime.setTimeSpec(Qt::UTC);
     }
     if (!dateTime.isValid()) {
-        kWarning() << "Could not determine correct datetime format from:" << dateString;
+        qWarning() << "Could not determine correct datetime format from:" << dateString;
         return QDateTime();
     }
 

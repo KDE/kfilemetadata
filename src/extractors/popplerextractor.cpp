@@ -21,8 +21,9 @@
 
 #include "popplerextractor.h"
 
-#include <KDebug>
 #include <QScopedPointer>
+#include <QDebug>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -35,7 +36,7 @@ PopplerExtractor::PopplerExtractor(QObject* parent, const QVariantList&)
 QStringList PopplerExtractor::mimetypes() const
 {
     QStringList list;
-    list << QLatin1String("application/pdf");
+    list << QStringLiteral("application/pdf");
 
     return list;
 }
@@ -52,7 +53,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Document);
 
-    QString title = pdfDoc->info(QLatin1String("Title")).trimmed();
+    QString title = pdfDoc->info(QStringLiteral("Title")).trimmed();
 
     // The title extracted from the pdf metadata is in many cases not the real title
     // of the document. Especially for research papers that are exported to pdf.
@@ -60,7 +61,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
     // we use this if the pdfDoc title is considered junk
     if (title.isEmpty() ||
             !title.contains(' ') ||                        // very unlikely the title of a document does only contain one word.
-            title.contains(QLatin1String("Microsoft"), Qt::CaseInsensitive)) {  // most research papers i found written with microsoft word
+            title.contains(QStringLiteral("Microsoft"), Qt::CaseInsensitive)) {  // most research papers i found written with microsoft word
         // have a garbage title of the pdf creator rather than the real document title
         title = parseFirstPage(pdfDoc.data(), fileUrl);
     }
@@ -69,25 +70,35 @@ void PopplerExtractor::extract(ExtractionResult* result)
         result->add(Property::Title, title);
     }
 
-    QString subject = pdfDoc->info(QLatin1String("Subject"));
+    QString subject = pdfDoc->info(QStringLiteral("Subject"));
     if (!subject.isEmpty()) {
-        result->add(Property::Subject, title);
+        result->add(Property::Subject, subject);
     }
 
-    QString author = pdfDoc->info(QLatin1String("Author"));
+    QString author = pdfDoc->info(QStringLiteral("Author"));
     if (!author.isEmpty()) {
         result->add(Property::Author, author);
     }
 
-    QString creator = pdfDoc->info(QLatin1String("Creator"));
-    if (!author.isEmpty()) {
-        result->add(Property::Creator, creator);
+    QString generator = pdfDoc->info(QStringLiteral("Producer"));
+    if (!generator.isEmpty()) {
+        result->add(Property::Generator, generator);
+    }
+
+    QString creationDate = pdfDoc->info(QStringLiteral("CreationDate"));
+    if (!creationDate.isEmpty()) {
+        QByteArray utf8 = creationDate.toUtf8();
+        result->add(Property::CreationDate, Poppler::convertDate(utf8.data()));
+    }
+
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        return;
     }
 
     for (int i = 0; i < pdfDoc->numPages(); i++) {
         QScopedPointer<Poppler::Page> page(pdfDoc->page(i));
         if (!page) { // broken pdf files do not return a valid page
-            kWarning() << "Could not read page content from" << fileUrl;
+            qWarning() << "Could not read page content from" << fileUrl;
             break;
         }
         result->append(page->text(QRectF()));
@@ -99,7 +110,7 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     QScopedPointer<Poppler::Page> p(pdfDoc->page(0));
 
     if (!p) {
-        kWarning() << "Could not read page content from" << fileUrl;
+        qWarning() << "Could not read page content from" << fileUrl;
         return QString();
     }
 
@@ -171,4 +182,6 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     return newPossibleTitle;
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::PopplerExtractor, "kfilemetadata_popplerextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<PopplerExtractor>();)
+
+#include "popplerextractor.moc"

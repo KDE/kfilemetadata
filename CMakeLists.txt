@@ -1,14 +1,33 @@
 project(kfilemetadata)
+cmake_minimum_required(VERSION 2.8.12)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
+find_package(ECM 1.0.0 REQUIRED NO_MODULE)
 
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(ECMAddTests)
+include(FeatureSummary)
+include(GenerateExportHeader)
+include(ECMSetupVersion)
+include(ECMGenerateHeaders)
 
-find_package(PopplerQt4 0.12.1)
-set_package_properties(PopplerQt4 PROPERTIES DESCRIPTION "A PDF rendering library"
+set(KF5_VERSION "5.0.0")
+set(REQUIRED_QT_VERSION "5.2.0")
+
+ecm_setup_version(5.0.0
+                  VARIABLE_PREFIX KFILEMETADATA
+                  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
+                  SOVERSION 1)
+
+# Build dependencies
+find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
+find_package(KF5 ${KF5_VERSION} REQUIRED COMPONENTS I18n Service Archive)
+
+find_package(PopplerQt5 0.12.1)
+set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"
                        URL "http://poppler.freedesktop.org" TYPE OPTIONAL
                        PURPOSE "Support for PDF files")
 
@@ -32,26 +51,38 @@ set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
                        URL "http://sourceforge.net/projects/ebook-tools" TYPE OPTIONAL
                        PURPOSE "Support for epub metadata")
 
-find_package(QMobipocket)
-set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
-                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
-                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
-
-include_directories(
-  ${QT_INCLUDES}
-  ${KDE4_INCLUDES}
-  ${CMAKE_SOURCE_DIR}
-  ${CMAKE_SOURCE_DIR}/src
-)
+#find_package(QMobipocket)
+#set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
+#                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
+#                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
 
 add_subdirectory(src)
-add_subdirectory(autotests)
+if (BUILD_TESTING)
+  add_subdirectory(autotests)
+  add_subdirectory(test)
+endif()
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/KFileMetaDataConfig.cmake.in
-               ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake @ONLY)
+# Config files
+set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5FileMetaData")
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/KFileMetaDataConfig.cmake
-        DESTINATION ${LIB_INSTALL_DIR}/cmake/KFileMetaData)
+add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata\")
+if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
+    ki18n_install(po)
+endif()
 
-macro_display_feature_log()
+include(ECMPackageConfigHelpers)
 
+ecm_configure_package_config_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF5FileMetaDataConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfig.cmake"
+  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+)
+
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
+  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+  COMPONENT devel
+)
+
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

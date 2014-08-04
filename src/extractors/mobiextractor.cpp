@@ -24,10 +24,10 @@
 
 #include <qmobipocket/mobipocket.h>
 
-#include <KDebug>
 #include <QDateTime>
 #include <QFile>
 #include <QTextDocument>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -56,7 +56,7 @@ MobiExtractor::MobiExtractor(QObject* parent, const QVariantList&)
 QStringList MobiExtractor::mimetypes() const
 {
     QStringList types;
-    types << QLatin1String("application/x-mobipocket-ebook");
+    types << QStringLiteral("application/x-mobipocket-ebook");
 
     return types;
 }
@@ -109,4 +109,4 @@ void MobiExtractor::extract(ExtractionResult* result)
     result->addType(Type::Document);
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::MobiExtractor, "kfilemetadata_mobiextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<MobiExtractor>();)

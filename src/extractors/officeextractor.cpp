@@ -19,10 +19,11 @@
 
 #include "officeextractor.h"
 
-#include <kstandarddirs.h>
+#include <QStandardPaths>
 
 #include <QFile>
 #include <QProcess>
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -38,7 +39,7 @@ OfficeExtractor::OfficeExtractor(QObject* parent, const QVariantList&)
 
 void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QString& fullPath)
 {
-    fullPath = KStandardDirs::findExe(name);
+    fullPath = QStandardPaths::findExecutable(name);
 
     if (!fullPath.isEmpty()) {
         m_available_mime_types << mimeType;
@@ -57,15 +58,15 @@ void OfficeExtractor::extract(ExtractionResult* result)
     QStringList args;
     QString contents;
 
-    args << QLatin1String("-s") << QLatin1String("cp1252"); // FIXME: Store somewhere a map between the user's language and the encoding of the Windows files it may use ?
-    args << QLatin1String("-d") << QLatin1String("utf8");
+    args << QStringLiteral("-s") << QStringLiteral("cp1252"); // FIXME: Store somewhere a map between the user's language and the encoding of the Windows files it may use ?
+    args << QStringLiteral("-d") << QStringLiteral("utf8");
 
     const QString fileUrl = result->inputUrl();
     const QString mimeType = result->inputMimetype();
-    if (mimeType == QLatin1String("application/msword")) {
+    if (mimeType == QStringLiteral("application/msword")) {
         result->addType(Type::Document);
 
-        args << QLatin1String("-w");
+        args << QStringLiteral("-w");
         contents = textFromFile(fileUrl, m_catdoc, args);
 
         // Now that we have the plain text content, count words, lines and characters
@@ -75,15 +76,15 @@ void OfficeExtractor::extract(ExtractionResult* result)
 
         result->add(Property::WordCount, words);
         result->add(Property::LineCount, lines);
-    } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
+    } else if (mimeType == QStringLiteral("application/vnd.ms-excel")) {
         result->addType(Type::Document);
         result->addType(Type::Spreadsheet);
 
-        args << QLatin1String("-c") << QLatin1String(" ");
-        args << QLatin1String("-b") << QLatin1String(" ");
-        args << QLatin1String("-q") << QLatin1String("0");
+        args << QStringLiteral("-c") << QStringLiteral(" ");
+        args << QStringLiteral("-b") << QStringLiteral(" ");
+        args << QStringLiteral("-q") << QStringLiteral("0");
         contents = textFromFile(fileUrl, m_xls2csv, args);
-    } else if (mimeType == QLatin1String("application/vnd.ms-powerpoint")) {
+    } else if (mimeType == QStringLiteral("application/vnd.ms-powerpoint")) {
         result->addType(Type::Document);
         result->addType(Type::Presentation);
 
@@ -115,4 +116,6 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
         return QString::fromUtf8(process.readAll());
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::OfficeExtractor, "kfilemetadata_officeextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<OfficeExtractor>();)
+
+#include "officeextractor.moc"

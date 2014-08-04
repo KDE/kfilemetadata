@@ -21,9 +21,11 @@
 
 #include <epub.h>
 
-#include <KDebug>
 #include <QDateTime>
-#include <QTextDocument>
+#include <QRegularExpression>
+#include <QDebug>
+
+#include <KService>
 
 using namespace KFileMetaData;
 
@@ -36,7 +38,7 @@ EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
 QStringList EPubExtractor::mimetypes() const
 {
     QStringList types;
-    types << QLatin1String("application/epub+zip");
+    types << QStringLiteral("application/epub+zip");
 
     return types;
 }
@@ -67,7 +69,7 @@ void EPubExtractor::extract(ExtractionResult* result)
 {
     struct epub* ePubDoc = epub_open(result->inputUrl().toUtf8().constData(), 1);
     if (!ePubDoc) {
-        kError() << "Invalid document";
+        qWarning() << "Invalid document";
         return;
     }
 
@@ -85,9 +87,9 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_CREATOR);
     if (!value.isEmpty()) {
-        if (value.startsWith(QLatin1String("aut:"), Qt::CaseInsensitive)) {
+        if (value.startsWith(QStringLiteral("aut:"), Qt::CaseInsensitive)) {
             value = value.mid(4).simplified();
-        } else if (value.startsWith(QLatin1String("author:"), Qt::CaseInsensitive)) {
+        } else if (value.startsWith(QStringLiteral("author:"), Qt::CaseInsensitive)) {
             value = value.mid(7).simplified();
         }
 
@@ -96,7 +98,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (index)
             value = value.mid(0, index);
 
-        result->add(Property::Creator, value);
+        result->add(Property::Author, value);
     }
 
     // The Contributor just seems to be mostly Calibre aka the Generator
@@ -118,7 +120,7 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
     if (!value.isEmpty()) {
-        result->add(Property::Description, value);
+        result->add(Property::Comment, value);
     }
 
     value = fetchMetadata(ePubDoc, EPUB_DATE);
@@ -132,22 +134,25 @@ void EPubExtractor::extract(ExtractionResult* result)
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
         if (!dt.isNull())
-            result->add(Property::CreationDate, value);
+            result->add(Property::CreationDate, dt);
     }
 
     //
     // Plain Text
     //
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        return;
+    }
+
     struct eiterator* iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0);
     do {
         char* curr = epub_it_get_curr(iter);
         if (!curr)
             continue;
         QString html = QString::fromUtf8(curr);
+        html.remove(QRegularExpression("<[^>]*>"));
 
-        QTextDocument doc;
-        doc.setHtml(html);
-        result->append(doc.toPlainText());
+        result->append(html);
     } while (epub_it_get_next(iter));
 
     epub_free_iterator(iter);
@@ -170,10 +175,10 @@ void EPubExtractor::extract(ExtractionResult* result)
             // epub_get_data returns -1 on failure
             if (size > 0 && data) {
                 QString html = QString::fromUtf8(data, size);
+                // strip html tags
+                html.remove(QRegularExpression("<[^>]*>"));
 
-                QTextDocument doc;
-                doc.setHtml(html);
-                result->append(doc.toPlainText());
+                result->append(html);
                 free(data);
             }
         } while (epub_tit_next(tit));
@@ -181,4 +186,6 @@ void EPubExtractor::extract(ExtractionResult* result)
     epub_free_titerator(tit);
 }
 
-KFILEMETADATA_EXPORT_EXTRACTOR(KFileMetaData::EPubExtractor, "kfilemetadata_epubextractor")
+K_PLUGIN_FACTORY(factory, registerPlugin<EPubExtractor>();)
+
+#include "epubextractor.moc"

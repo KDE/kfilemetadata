@@ -27,13 +27,15 @@ class ExtractionResult::Private {
 public:
     QString url;
     QString mimetype;
+    ExtractionResult::Flags flags;
 };
 
-ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype)
+ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
     : d(new Private)
 {
     d->url = url;
     d->mimetype = mimetype;
+    d->flags = flags;
 }
 
 ExtractionResult::ExtractionResult(const ExtractionResult& rhs)
@@ -55,3 +57,9 @@ QString ExtractionResult::inputMimetype() const
 {
     return d->mimetype;
 }
+
+ExtractionResult::Flags ExtractionResult::inputFlags() const
+{
+    return d->flags;
+}
+
