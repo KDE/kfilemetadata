@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_exiv2extractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_exiv2extractor
 Name=KFileMetaData Exiv2 Extractor
 Name[bs]=KFileMetaData Exiv2 ekstraktor
 Name[ca]=Extractor Exiv2 del KFileMetaData

@@ -15,7 +15,7 @@ if(POPPLER_QT5_FOUND)
 
     install(
     TARGETS kfilemetadata_popplerextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR})
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -36,7 +36,7 @@ if(TAGLIB_FOUND)
 
     install(
     TARGETS kfilemetadata_taglibextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR})
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -58,7 +58,7 @@ if(EXIV2_FOUND)
 
     install(
     TARGETS kfilemetadata_exiv2extractor
-    DESTINATION ${PLUGIN_INSTALL_DIR})
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -79,7 +79,7 @@ if(FFMPEG_FOUND)
 
     install(
     TARGETS kfilemetadata_ffmpegextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR})
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -101,7 +101,7 @@ if(EPUB_FOUND)
 
     install(
     TARGETS kfilemetadata_epubextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR})
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -121,7 +121,7 @@ DESTINATION ${SERVICES_INSTALL_DIR})
 
 install(
 TARGETS kfilemetadata_plaintextextractor
-DESTINATION ${PLUGIN_INSTALL_DIR})
+DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 #
 # ODF
@@ -143,7 +143,7 @@ DESTINATION ${SERVICES_INSTALL_DIR})
 
 install(
 TARGETS kfilemetadata_odfextractor
-DESTINATION ${PLUGIN_INSTALL_DIR})
+DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 #
 # Office 2007
@@ -165,7 +165,7 @@ DESTINATION ${SERVICES_INSTALL_DIR})
 
 install(
 TARGETS kfilemetadata_office2007extractor
-DESTINATION ${PLUGIN_INSTALL_DIR})
+DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 #
 # Office (binary formats)
@@ -184,7 +184,7 @@ DESTINATION ${SERVICES_INSTALL_DIR})
 
 install(
 TARGETS kfilemetadata_officeextractor
-DESTINATION ${PLUGIN_INSTALL_DIR})
+DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 #
 # Mobipocket
@@ -205,6 +205,6 @@ if (QMOBIPOCKET_FOUND)
 
     install(
     TARGETS kfilemetadata_mobiextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR})
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_mobiextractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_mobiextractor
 Name=KFileMetaData Mobi Extractor
 Name[bs]=KFileMetaData Mobi ekstraktor
 Name[ca]=Extractor Mobi del KFileMetaData

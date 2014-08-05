@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_plaintextextractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_plaintextextractor
 Name=KFileMetaData Plain Text Extractor
 Name[bs]=KFileMetaData ekstraktor običnog teksta
 Name[ca]=Extractor de text del KFileMetaData

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_office2007extractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_office2007extractor
 Name=KFileMetaData Office2007 Extractor
 Name[bs]=KFileMetaData Office2007 ekstraktor
 Name[ca]=Extractor Office2007 del KFileMetaData

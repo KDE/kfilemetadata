@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_taglibextractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_taglibextractor
 Name=KFileMetaData TagLib Extractor
 Name[bs]=KFileMetaData TagLib ekstraktor
 Name[ca]=Extractor TagLib del KFileMetaData

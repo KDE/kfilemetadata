@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_ffmpegextractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_ffmpegextractor
 Name=KFileMetaData FFmpeg Extractor
 Name[bs]=KFileMetaData FFmpeg ekstraktor
 Name[ca]=Extractor FFmpeg del KFileMetaData

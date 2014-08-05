@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_officeextractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_officeextractor
 Name=KFileMetaData Office Extractor
 Name[bs]=KFileMetaData Office ekstraktor
 Name[ca]=Extractor Office del KFileMetaData

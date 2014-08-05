@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 X-KDE-ServiceTypes=KFileMetaDataExtractor
-X-KDE-Library=kfilemetadata_popplerextractor
+X-KDE-Library=kf5/kfilemetadata/kfilemetadata_popplerextractor
 Name=KFileMetaData Poppler Extractor
 Name[bs]=KFileMetaData Poppler ekstraktor
 Name[ca]=Extractor Poppler del KFileMetaData
