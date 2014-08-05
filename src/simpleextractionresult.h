@@ -27,10 +27,20 @@
 
 namespace KFileMetaData {
 
+/**
+ * A simple ExtractionResult implementation which stores
+ * all the data in memory.
+ *
+ * This should ideally not be used in production applications as
+ * it holds all of the plain text in memory, and that can get quite large
+ * when extracting certain documents.
+ */
 class KFILEMETADATA_EXPORT SimpleExtractionResult : public ExtractionResult
 {
 public:
     SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
+    SimpleExtractionResult(const SimpleExtractionResult& rhs);
+    virtual ~SimpleExtractionResult();
 
     virtual void add(Property::Property property, const QVariant& value);
     virtual void addType(Type::Type type);
@@ -41,9 +51,8 @@ public:
     QVector<Type::Type> types() const;
 
 private:
-    PropertyMap m_properties;
-    QString m_text;
-    QVector<Type::Type> m_types;
+    class Private;
+    Private* d;
 };
 
 }

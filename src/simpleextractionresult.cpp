@@ -22,38 +22,56 @@
 
 using namespace KFileMetaData;
 
+class SimpleExtractionResult::Private {
+public:
+    PropertyMap m_properties;
+    QString m_text;
+    QVector<Type::Type> m_types;
+};
 SimpleExtractionResult::SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
     : ExtractionResult(url, mimetype, flags)
+    , d(new Private)
 {
+}
+
+SimpleExtractionResult::SimpleExtractionResult(const SimpleExtractionResult& rhs)
+    : ExtractionResult(*this)
+    , d(new Private(*rhs.d))
+{
+}
+
+SimpleExtractionResult::~SimpleExtractionResult()
+{
+    delete d;
 }
 
 void SimpleExtractionResult::add(Property::Property property, const QVariant& value)
 {
-    m_properties.insertMulti(property, value);
+    d->m_properties.insertMulti(property, value);
 }
 
 void SimpleExtractionResult::addType(Type::Type type)
 {
-    m_types << type;
+    d->m_types << type;
 }
 
 void SimpleExtractionResult::append(const QString& text)
 {
-    m_text.append(text);
-    m_text.append(QLatin1Char(' '));
+    d->m_text.append(text);
+    d->m_text.append(QLatin1Char(' '));
 }
 
 PropertyMap SimpleExtractionResult::properties() const
 {
-    return m_properties;
+    return d->m_properties;
 }
 
 QString SimpleExtractionResult::text() const
 {
-    return m_text;
+    return d->m_text;
 }
 
 QVector<Type::Type> SimpleExtractionResult::types() const
 {
-    return m_types;
+    return d->m_types;
 }
