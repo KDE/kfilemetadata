@@ -21,9 +21,10 @@
 #include "extractorplugin.h"
 #include "extractorpluginmanager.h"
 
-#include <KService>
-#include <KServiceTypeTrader>
 #include <QDebug>
+#include <QCoreApplication>
+#include <QPluginLoader>
+#include <QDir>
 
 using namespace KFileMetaData;
 
@@ -56,23 +57,51 @@ ExtractorPluginManager::~ExtractorPluginManager()
 
 QList<ExtractorPlugin*> ExtractorPluginManager::Private::allExtractors() const
 {
-    // Get all the plugins
-    KService::List plugins = KServiceTypeTrader::self()->query("KFileMetaDataExtractor");
+    QStringList plugins;
+    QStringList pluginPaths;
 
-    QList<ExtractorPlugin*> extractors;
-    KService::List::const_iterator it;
-    for (it = plugins.constBegin(); it != plugins.constEnd(); it++) {
-        KService::Ptr service = *it;
+    QStringList paths = QCoreApplication::libraryPaths();
+    Q_FOREACH (const QString& libraryPath, paths) {
+        QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata"));
+        QDir dir(path);
 
-        QString error;
-        ExtractorPlugin* ex = service->createInstance<ExtractorPlugin>(0, QVariantList(), &error);
-        if (!ex) {
-            qWarning() << "Could not create Extractor: " << service->library();
-            qWarning() << error;
+        if (!dir.exists()) {
             continue;
         }
 
-        extractors << ex;
+        QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
+        Q_FOREACH (const QString& fileName, entryList) {
+            if (plugins.contains(fileName))
+                continue;
+
+            pluginPaths << dir.absoluteFilePath(fileName);
+        }
+    }
+    plugins.clear();
+
+    QList<ExtractorPlugin*> extractors;
+    Q_FOREACH (const QString& pluginPath, pluginPaths) {
+        QPluginLoader loader(pluginPath);
+
+        if (!loader.load()) {
+            qWarning() << "Could not create Extractor: " << pluginPath;
+            qWarning() << loader.errorString();
+            continue;
+        }
+
+        QObject* obj = loader.instance();
+        if (obj) {
+            ExtractorPlugin* ex = qobject_cast<ExtractorPlugin*>(obj);
+            if (ex) {
+                extractors << ex;
+            } else {
+                qDebug() << "Plugin could not be converted to an ExtractorPlugin";
+                qDebug() << pluginPath;
+            }
+        }
+        else {
+            qDebug() << "Plugin could not creaate instance" << pluginPath;
+        }
     }
 
     return extractors;

@@ -30,8 +30,12 @@ namespace KFileMetaData
 
 class Office2007Extractor : public ExtractorPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+    Q_INTERFACES(KFileMetaData::ExtractorPlugin)
+
 public:
-    Office2007Extractor(QObject* parent, const QVariantList&);
+    Office2007Extractor(QObject* parent = 0);
 
     virtual QStringList mimetypes() const;
     virtual void extract(ExtractionResult* result);

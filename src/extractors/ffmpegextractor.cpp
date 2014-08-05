@@ -40,11 +40,10 @@ extern "C" {
 
 #include <QDateTime>
 #include <QDebug>
-#include <KService>
 
 using namespace KFileMetaData;
 
-FFmpegExtractor::FFmpegExtractor(QObject* parent, const QVariantList&)
+FFmpegExtractor::FFmpegExtractor(QObject* parent)
 : ExtractorPlugin(parent)
 {
 }
@@ -179,7 +178,3 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     avformat_close_input(&fmt_ctx);
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<FFmpegExtractor>();)
-
-#include "ffmpegextractor.moc"

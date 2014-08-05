@@ -37,7 +37,7 @@ QString PopplerExtractorTest::testFilePath(const QString& fileName) const
 
 void PopplerExtractorTest::test()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this));
 
     SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf");
     plugin->extract(&result);
@@ -60,7 +60,7 @@ void PopplerExtractorTest::test()
 
 void PopplerExtractorTest::testMetaDataOnly()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this));
 
     SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);

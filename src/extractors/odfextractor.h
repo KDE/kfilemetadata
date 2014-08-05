@@ -28,8 +28,12 @@ namespace KFileMetaData
 
 class OdfExtractor : public ExtractorPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+    Q_INTERFACES(KFileMetaData::ExtractorPlugin)
+
 public:
-    OdfExtractor(QObject* parent, const QVariantList&);
+    OdfExtractor(QObject* parent = 0);
 
     virtual QStringList mimetypes() const;
     virtual void extract(ExtractionResult* result);

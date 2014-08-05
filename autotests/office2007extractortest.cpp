@@ -37,7 +37,7 @@ QString Office2007ExtractorTest::testFilePath(const QString& fileName) const
 
 void Office2007ExtractorTest::test()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this));
 
     SimpleExtractionResult result(testFilePath("test_libreoffice.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
     plugin->extract(&result);
@@ -62,7 +62,7 @@ void Office2007ExtractorTest::test()
 
 void Office2007ExtractorTest::testMetaDataOnly()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this));
 
     SimpleExtractionResult result(testFilePath("test_libreoffice.docx"),
                         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",

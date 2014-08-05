@@ -37,7 +37,7 @@ QString EPubExtractorTest::testFilePath(const QString& fileName) const
 
 void EPubExtractorTest::test()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this));
 
     SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip");
     plugin->extract(&result);
@@ -62,7 +62,7 @@ void EPubExtractorTest::test()
 
 void EPubExtractorTest::testMetaDataOnly()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this));
 
     SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);

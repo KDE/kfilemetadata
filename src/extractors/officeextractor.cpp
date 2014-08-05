@@ -27,7 +27,7 @@
 
 using namespace KFileMetaData;
 
-OfficeExtractor::OfficeExtractor(QObject* parent, const QVariantList&)
+OfficeExtractor::OfficeExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
     // Find the executables of catdoc, catppt and xls2csv. If an executable cannot
@@ -115,7 +115,3 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
     else
         return QString::fromUtf8(process.readAll());
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<OfficeExtractor>();)
-
-#include "officeextractor.moc"

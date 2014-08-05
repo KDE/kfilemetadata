@@ -37,7 +37,7 @@
 
 using namespace KFileMetaData;
 
-TagLibExtractor::TagLibExtractor(QObject* parent, const QVariantList&)
+TagLibExtractor::TagLibExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
 }
@@ -427,7 +427,3 @@ void TagLibExtractor::extract(ExtractionResult* result)
     // Track number[/total tracks]:     TRCK
     // Genre:                           TCON
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<TagLibExtractor>();)
-
-#include "taglibextractor.moc"

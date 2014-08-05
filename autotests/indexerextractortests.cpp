@@ -42,7 +42,7 @@ QString IndexerExtractorTests::testFilePath(const QString& fileName) const
 
 void IndexerExtractorTests::benchMarkPlainTextExtractor()
 {
-    PlainTextExtractor plugin(this, QVariantList());
+    PlainTextExtractor plugin(this);
 
     // generate a test file with varying number of words per line
     QTemporaryFile file("XXXXXX.txt");
@@ -64,7 +64,7 @@ void IndexerExtractorTests::benchMarkPlainTextExtractor()
 
 void IndexerExtractorTests::testPlainTextExtractor()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this));
 
     SimpleExtractionResult result(testFilePath("plain_text_file.txt"), "text/plain");
     plugin->extract(&result);
@@ -87,7 +87,7 @@ void IndexerExtractorTests::testPlainTextExtractor()
 
 void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this));
 
     SimpleExtractionResult result(testFilePath("plain_text_file.txt"), "text/plain", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);

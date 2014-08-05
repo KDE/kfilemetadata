@@ -27,7 +27,6 @@
 #include <QDateTime>
 #include <QFile>
 #include <QTextDocument>
-#include <KService>
 
 using namespace KFileMetaData;
 
@@ -47,7 +46,7 @@ private:
     QFile d;
 };
 
-MobiExtractor::MobiExtractor(QObject* parent, const QVariantList&)
+MobiExtractor::MobiExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
 
@@ -108,5 +107,3 @@ void MobiExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Document);
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<MobiExtractor>();)

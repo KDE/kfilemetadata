@@ -29,8 +29,12 @@ namespace KFileMetaData
 
 class Exiv2Extractor : public ExtractorPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+    Q_INTERFACES(KFileMetaData::ExtractorPlugin)
+
 public:
-    Exiv2Extractor(QObject* parent, const QVariantList&);
+    Exiv2Extractor(QObject* parent = 0);
 
     virtual void extract(ExtractionResult* result);
     virtual QStringList mimetypes() const;

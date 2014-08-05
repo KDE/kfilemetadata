@@ -28,8 +28,12 @@ namespace KFileMetaData
 
 class EPubExtractor : public ExtractorPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+    Q_INTERFACES(KFileMetaData::ExtractorPlugin)
+
 public:
-    EPubExtractor(QObject* parent, const QVariantList&);
+    EPubExtractor(QObject* parent = 0);
 
     virtual void extract(ExtractionResult* result);
     virtual QStringList mimetypes() const;

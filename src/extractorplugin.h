@@ -98,4 +98,6 @@ private:
 };
 }
 
+Q_DECLARE_INTERFACE(KFileMetaData::ExtractorPlugin, "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+
 #endif // _KFILEMETADATA_EXTRACTOR_H

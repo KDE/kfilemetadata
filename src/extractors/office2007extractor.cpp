@@ -29,7 +29,8 @@
 
 using namespace KFileMetaData;
 
-Office2007Extractor::Office2007Extractor(QObject* parent, const QVariantList&): ExtractorPlugin(parent)
+Office2007Extractor::Office2007Extractor(QObject* parent)
+    : ExtractorPlugin(parent)
 {
 
 }
@@ -293,7 +294,3 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
             break;
     }
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<Office2007Extractor>();)
-
-#include "office2007extractor.moc"

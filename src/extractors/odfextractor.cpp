@@ -30,7 +30,8 @@
 
 using namespace KFileMetaData;
 
-OdfExtractor::OdfExtractor(QObject* parent, const QVariantList&): ExtractorPlugin(parent)
+OdfExtractor::OdfExtractor(QObject* parent)
+    : ExtractorPlugin(parent)
 {
 
 }
@@ -143,7 +144,3 @@ void OdfExtractor::extract(ExtractionResult* result)
             break;
     }
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<OdfExtractor>();)
-
-#include "odfextractor.moc"

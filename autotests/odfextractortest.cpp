@@ -37,7 +37,7 @@ QString OdfExtractorTest::testFilePath(const QString& fileName) const
 
 void OdfExtractorTest::testText()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this));
 
     SimpleExtractionResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text");
     plugin->extract(&result);
@@ -62,7 +62,7 @@ void OdfExtractorTest::testText()
 
 void OdfExtractorTest::testTextMetaDataOnly()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this));
 
     SimpleExtractionResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);
@@ -74,7 +74,7 @@ void OdfExtractorTest::testTextMetaDataOnly()
 
 void OdfExtractorTest::testPresentation()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
+    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this));
 
     SimpleExtractionResult result(testFilePath("test.odp"), "application/vnd.oasis.opendocument.presentation");
     plugin->extract(&result);

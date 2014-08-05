@@ -28,8 +28,12 @@ namespace KFileMetaData
 
 class FFmpegExtractor : public ExtractorPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+    Q_INTERFACES(KFileMetaData::ExtractorPlugin)
+
 public:
-    FFmpegExtractor(QObject* parent, const QVariantList&);
+    FFmpegExtractor(QObject* parent = 0);
 
     virtual void extract(ExtractionResult* result);
     virtual QStringList mimetypes() const;

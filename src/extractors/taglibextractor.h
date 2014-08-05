@@ -28,9 +28,12 @@ namespace KFileMetaData
 
 class TagLibExtractor : public ExtractorPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+    Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    TagLibExtractor(QObject* parent, const QVariantList&);
+    TagLibExtractor(QObject* parent = 0);
 
     virtual void extract(ExtractionResult* result);
     virtual QStringList mimetypes() const;

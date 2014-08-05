@@ -27,7 +27,7 @@
 
 using namespace KFileMetaData;
 
-PopplerExtractor::PopplerExtractor(QObject* parent, const QVariantList&)
+PopplerExtractor::PopplerExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
 
@@ -181,7 +181,3 @@ QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QStrin
     newPossibleTitle.truncate(50);
     return newPossibleTitle;
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<PopplerExtractor>();)
-
-#include "popplerextractor.moc"

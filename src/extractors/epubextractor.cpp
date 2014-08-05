@@ -25,11 +25,9 @@
 #include <QRegularExpression>
 #include <QDebug>
 
-#include <KService>
-
 using namespace KFileMetaData;
 
-EPubExtractor::EPubExtractor(QObject* parent, const QVariantList&)
+EPubExtractor::EPubExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
 
@@ -185,7 +183,3 @@ void EPubExtractor::extract(ExtractionResult* result)
     }
     epub_free_titerator(tit);
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<EPubExtractor>();)
-
-#include "epubextractor.moc"

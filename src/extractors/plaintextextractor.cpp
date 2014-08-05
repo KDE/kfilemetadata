@@ -25,7 +25,7 @@
 
 using namespace KFileMetaData;
 
-PlainTextExtractor::PlainTextExtractor(QObject* parent, const QVariantList&)
+PlainTextExtractor::PlainTextExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
 
@@ -60,7 +60,3 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 
     result->add(Property::LineCount, lines);
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<PlainTextExtractor>();)
-
-#include "plaintextextractor.moc"

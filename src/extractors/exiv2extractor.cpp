@@ -19,12 +19,11 @@
 
 
 #include "exiv2extractor.h"
-#include <KService>
 
 using namespace KFileMetaData;
 
 
-Exiv2Extractor::Exiv2Extractor(QObject* parent, const QVariantList&)
+Exiv2Extractor::Exiv2Extractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
 }
@@ -203,7 +202,3 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
             result->add(prop, value);
     }
 }
-
-K_PLUGIN_FACTORY(factory, registerPlugin<Exiv2Extractor>();)
-
-#include "exiv2extractor.moc"
