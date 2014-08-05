@@ -21,7 +21,6 @@
 #include "plaintextextractor.h"
 #include <QFile>
 #include <fstream>
-#include <KService>
 
 using namespace KFileMetaData;
 

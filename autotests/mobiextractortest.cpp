@@ -26,7 +26,6 @@
 #include <QDebug>
 #include <QTest>
 #include <QDir>
-#include <KService>
 
 using namespace KFileMetaData;
 

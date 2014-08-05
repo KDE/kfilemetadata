@@ -23,7 +23,6 @@
 
 #include <QScopedPointer>
 #include <QDebug>
-#include <KService>
 
 using namespace KFileMetaData;
 

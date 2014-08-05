@@ -13,7 +13,6 @@ target_link_libraries(KF5FileMetaData
   PUBLIC
     Qt5::Core
   PRIVATE
-    KF5::Service
     KF5::I18n
 )
 

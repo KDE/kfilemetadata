@@ -5,7 +5,6 @@ if(POPPLER_QT5_FOUND)
 
     target_link_libraries(kfilemetadata_popplerextractor
         KF5::FileMetaData
-        KF5::Service
         ${POPPLER_QT5_LIBRARIES}
     )
 
@@ -22,7 +21,6 @@ if(TAGLIB_FOUND)
 
     target_link_libraries( kfilemetadata_taglibextractor
         KF5::FileMetaData
-        KF5::Service
         ${TAGLIB_LIBRARIES}
     )
 
@@ -40,7 +38,6 @@ if(EXIV2_FOUND)
 
     target_link_libraries(kfilemetadata_exiv2extractor
         KF5::FileMetaData
-        KF5::Service
         ${EXIV2_LIBRARIES}
     )
 
@@ -57,7 +54,6 @@ if(FFMPEG_FOUND)
 
     target_link_libraries(kfilemetadata_ffmpegextractor
         KF5::FileMetaData
-        KF5::Service
         ${FFMPEG_LIBRARIES}
     )
 
@@ -75,7 +71,6 @@ if(EPUB_FOUND)
 
     target_link_libraries(kfilemetadata_epubextractor
         KF5::FileMetaData
-        KF5::Service
         ${EPUB_LIBRARIES}
     )
 
@@ -92,7 +87,6 @@ add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp)
 
 target_link_libraries( kfilemetadata_plaintextextractor
     KF5::FileMetaData
-    KF5::Service
 )
 
 install(
@@ -109,7 +103,6 @@ target_link_libraries(kfilemetadata_odfextractor
     KF5::FileMetaData
     Qt5::Core
     Qt5::Xml
-    KF5::Service
     KF5::Archive
 )
 
@@ -127,7 +120,6 @@ target_link_libraries(kfilemetadata_office2007extractor
     KF5::FileMetaData
     Qt5::Core
     Qt5::Xml
-    KF5::Service
     KF5::Archive
 )
 
@@ -143,7 +135,6 @@ add_library(kfilemetadata_officeextractor MODULE officeextractor.cpp)
 
 target_link_libraries(kfilemetadata_officeextractor
     KF5::FileMetaData
-    KF5::Service
 )
 
 install(
@@ -159,7 +150,6 @@ if (QMOBIPOCKET_FOUND)
     include_directories(${QMOBIPOCKET_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_mobiextractor
         KF5::FileMetaData
-        KF5::Service
         ${QMOBIPOCKET_LIBRARIES}
     )
 

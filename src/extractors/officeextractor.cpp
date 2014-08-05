@@ -23,7 +23,6 @@
 
 #include <QFile>
 #include <QProcess>
-#include <KService>
 
 using namespace KFileMetaData;
 

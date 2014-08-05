@@ -21,7 +21,6 @@
 #include "office2007extractor.h"
 
 #include <KZip>
-#include <KService>
 
 #include <QDebug>
 #include <QDomDocument>

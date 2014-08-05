@@ -33,7 +33,6 @@
 #include <taglib/vorbisfile.h>
 #include <taglib/xiphcomment.h>
 #include <QDateTime>
-#include <KService>
 
 using namespace KFileMetaData;
 

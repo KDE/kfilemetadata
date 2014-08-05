@@ -22,7 +22,6 @@
 #include "odfextractor.h"
 
 #include <KZip>
-#include <KService>
 
 #include <QDebug>
 #include <QDomDocument>
