@@ -54,6 +54,12 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
+    /**
+     * Create an ExtractionResult which can be passed be to Extractors. The
+     * extractors use the \p url, \p mimetype and \p flags in order to determine
+     * which file the data should be extracted from and and which all should
+     * be extracted.
+     */
     ExtractionResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
     ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
@@ -96,9 +102,10 @@ public:
     virtual void add(Property::Property property, const QVariant& value) = 0;
 
     /**
-     * This function is caleld by the plugins.
-     * A type is a higher level classification of the file. Any file can
-     * have multiple types. Eg - "Audio", "Video" or "Document"
+     * This function is called by the plugins.
+     * A type is a higher level classification of the file. A file can
+     * have multiple types, but mostly when it does, those types are related.
+     * Eg - Document and Presenentation.
      *
      * Please choose one type from the list of available types
      */
