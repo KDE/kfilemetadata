@@ -5,7 +5,6 @@ configure_file(indexerextractortestsconfig.h.in
 
 set(indexerextractor_SRCS
   indexerextractortests.cpp
-  simpleresult.cpp
   ../src/extractors/plaintextextractor.cpp
 )
 
@@ -17,12 +16,12 @@ ecm_add_test(${indexerextractor_SRCS}
 #
 # Office
 #
-ecm_add_test(odfextractortest.cpp simpleresult.cpp ../src/extractors/odfextractor.cpp
+ecm_add_test(odfextractortest.cpp ../src/extractors/odfextractor.cpp
     TEST_NAME "odfextractortest"
     LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData KF5::Service KF5::Archive
 )
 
-ecm_add_test(office2007extractortest.cpp simpleresult.cpp ../src/extractors/office2007extractor.cpp
+ecm_add_test(office2007extractortest.cpp ../src/extractors/office2007extractor.cpp
     TEST_NAME "officeextractortest"
     LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData KF5::Service KF5::Archive
 )
@@ -33,7 +32,7 @@ ecm_add_test(office2007extractortest.cpp simpleresult.cpp ../src/extractors/offi
 if(POPPLER_QT5_FOUND)
     include_directories(${POPPLER_QT5_INCLUDE_DIR})
 
-    ecm_add_test(popplerextractortest.cpp simpleresult.cpp ../src/extractors/popplerextractor.cpp
+    ecm_add_test(popplerextractortest.cpp ../src/extractors/popplerextractor.cpp
         TEST_NAME "popplerextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::Service ${POPPLER_QT5_LIBRARIES}
     )
@@ -45,7 +44,7 @@ endif()
 if(EPUB_FOUND)
     include_directories(${EPUB_INCLUDE_DIR})
 
-    ecm_add_test(epubextractortest.cpp simpleresult.cpp ../src/extractors/epubextractor.cpp
+    ecm_add_test(epubextractortest.cpp ../src/extractors/epubextractor.cpp
         TEST_NAME "epubextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::Service ${EPUB_LIBRARIES}
     )
@@ -57,7 +56,7 @@ endif()
 if (QMOBIPOCKET_FOUND)
     include_directories(${QMOBIPOCKET_INCLUDE_DIR})
 
-    ecm_add_test(mobiextractortest.cpp simpleresult.cpp ../src/extractors/mobiextractor.cpp
+    ecm_add_test(mobiextractortest.cpp ../src/extractors/mobiextractor.cpp
         TEST_NAME "mobiextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::Service ${QMOBIPOCKET_LIBRARIES}
     )

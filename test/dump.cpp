@@ -29,7 +29,7 @@
 #include "extractorplugin.h"
 #include "extractorpluginmanager.h"
 #include "propertyinfo.h"
-#include "autotests/simpleresult.h"
+#include "simpleresult.h"
 
 #include <iostream>
 int main(int argc, char** argv)

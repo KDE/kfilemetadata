@@ -1,4 +1,4 @@
-add_executable(dump dump.cpp ../autotests/simpleresult.cpp)
+add_executable(dump dump.cpp)
 
 target_include_directories(dump  PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>")
 
