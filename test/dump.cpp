@@ -56,8 +56,10 @@ int main(int argc, char** argv)
 
     QTextStream out(stdout);
     out << url << " " << mimetype << "\n\n";
+
     Q_FOREACH (KFileMetaData::ExtractorPlugin* ex, exList) {
-        KFileMetaData::SimpleExtractionResult result(url, mimetype);
+        KFileMetaData::SimpleExtractionResult result(url, mimetype,
+                                                     KFileMetaData::ExtractionResult::ExtractMetaData);
         ex->extract(&result);
 
         out << "Extractor For: " << ex->mimetypes().join(" ") << "\n";
