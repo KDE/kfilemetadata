@@ -1,6 +1,6 @@
 add_library(KF5FileMetaData
     extractionresult.cpp
-    simpleresult.cpp
+    simpleextractionresult.cpp
     extractorplugin.cpp
     extractorpluginmanager.cpp
     propertyinfo.cpp
@@ -30,7 +30,7 @@ target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KF5_
 ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     HEADER_NAMES
     ExtractionResult
-    SimpleResult
+    SimpleExtractionResult
     ExtractorPlugin
     ExtractorPluginManager
     Properties

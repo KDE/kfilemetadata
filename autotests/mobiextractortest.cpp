@@ -19,7 +19,7 @@
  */
 
 #include "mobiextractortest.h"
-#include "simpleresult.h"
+#include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/epubextractor.h"
 
@@ -39,7 +39,7 @@ void MobiExtractorTest::test()
 {
     QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.mobi"), "application/epub+zip");
+    SimpleExtractionResult result(testFilePath("test.mobi"), "application/epub+zip");
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);

@@ -18,34 +18,42 @@
  *
  */
 
-#ifndef KFILEMETADATA_SIMPLERESULT_H
-#define KFILEMETADATA_SIMPLERESULT_H
+#include "simpleextractionresult.h"
 
-#include "extractionresult.h"
-#include <QVector>
-#include <QString>
+using namespace KFileMetaData;
 
-namespace KFileMetaData {
-
-class KFILEMETADATA_EXPORT SimpleResult : public ExtractionResult
+SimpleExtractionResult::SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
+    : ExtractionResult(url, mimetype, flags)
 {
-public:
-    SimpleResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
-
-    virtual void add(Property::Property property, const QVariant& value);
-    virtual void addType(Type::Type type);
-    virtual void append(const QString& text);
-
-    PropertyMap properties() const;
-    QString text() const;
-    QVector<Type::Type> types() const;
-
-private:
-    PropertyMap m_properties;
-    QString m_text;
-    QVector<Type::Type> m_types;
-};
-
 }
 
-#endif // KFILEMETADATA_SIMPLERESULT_H
+void SimpleExtractionResult::add(Property::Property property, const QVariant& value)
+{
+    m_properties.insertMulti(property, value);
+}
+
+void SimpleExtractionResult::addType(Type::Type type)
+{
+    m_types << type;
+}
+
+void SimpleExtractionResult::append(const QString& text)
+{
+    m_text.append(text);
+    m_text.append(QLatin1Char(' '));
+}
+
+PropertyMap SimpleExtractionResult::properties() const
+{
+    return m_properties;
+}
+
+QString SimpleExtractionResult::text() const
+{
+    return m_text;
+}
+
+QVector<Type::Type> SimpleExtractionResult::types() const
+{
+    return m_types;
+}

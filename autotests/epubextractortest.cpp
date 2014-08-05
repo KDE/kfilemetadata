@@ -19,7 +19,7 @@
  */
 
 #include "epubextractortest.h"
-#include "simpleresult.h"
+#include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/epubextractor.h"
 
@@ -39,7 +39,7 @@ void EPubExtractorTest::test()
 {
     QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.epub"), "application/epub+zip");
+    SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip");
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -64,7 +64,7 @@ void EPubExtractorTest::testMetaDataOnly()
 {
     QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.epub"), "application/epub+zip", ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);
 
     QVERIFY(!result.types().isEmpty());

@@ -19,7 +19,7 @@
  */
 
 #include "office2007extractortest.h"
-#include "simpleresult.h"
+#include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/office2007extractor.h"
 
@@ -39,7 +39,7 @@ void Office2007ExtractorTest::test()
 {
     QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test_libreoffice.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+    SimpleExtractionResult result(testFilePath("test_libreoffice.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -64,7 +64,7 @@ void Office2007ExtractorTest::testMetaDataOnly()
 {
     QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test_libreoffice.docx"),
+    SimpleExtractionResult result(testFilePath("test_libreoffice.docx"),
                         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                         ExtractionResult::ExtractMetaData);
 

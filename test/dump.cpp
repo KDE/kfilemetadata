@@ -29,9 +29,10 @@
 #include "extractorplugin.h"
 #include "extractorpluginmanager.h"
 #include "propertyinfo.h"
-#include "simpleresult.h"
+#include "simpleextractionresult.h"
 
 #include <iostream>
+
 int main(int argc, char** argv)
 {
     QCoreApplication app(argc, argv);
@@ -56,7 +57,7 @@ int main(int argc, char** argv)
     QTextStream out(stdout);
     out << url << " " << mimetype << "\n\n";
     Q_FOREACH (KFileMetaData::ExtractorPlugin* ex, exList) {
-        KFileMetaData::SimpleResult result(url, mimetype);
+        KFileMetaData::SimpleExtractionResult result(url, mimetype);
         ex->extract(&result);
 
         out << "Extractor For: " << ex->mimetypes().join(" ") << "\n";

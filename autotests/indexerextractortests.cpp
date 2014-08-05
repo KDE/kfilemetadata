@@ -24,7 +24,7 @@
 
 #include <QtTest>
 
-#include "simpleresult.h"
+#include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/plaintextextractor.h"
 
@@ -55,7 +55,7 @@ void IndexerExtractorTests::benchMarkPlainTextExtractor()
         file.write("\n");
     }
 
-    SimpleResult result(file.fileName(), "text/plain");
+    SimpleExtractionResult result(file.fileName(), "text/plain");
 
     QBENCHMARK {
         plugin.extract(&result);
@@ -66,7 +66,7 @@ void IndexerExtractorTests::testPlainTextExtractor()
 {
     QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("plain_text_file.txt"), "text/plain");
+    SimpleExtractionResult result(testFilePath("plain_text_file.txt"), "text/plain");
     plugin->extract(&result);
 
     QString content;
@@ -89,7 +89,7 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 {
     QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("plain_text_file.txt"), "text/plain", ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath("plain_text_file.txt"), "text/plain", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);
 
     QString content;

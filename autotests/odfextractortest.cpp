@@ -24,7 +24,7 @@
 #include <QDir>
 #include <QDebug>
 
-#include "simpleresult.h"
+#include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/odfextractor.h"
 
@@ -39,7 +39,7 @@ void OdfExtractorTest::testText()
 {
     QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text");
+    SimpleExtractionResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text");
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -64,7 +64,7 @@ void OdfExtractorTest::testTextMetaDataOnly()
 {
     QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text", ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -76,7 +76,7 @@ void OdfExtractorTest::testPresentation()
 {
     QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.odp"), "application/vnd.oasis.opendocument.presentation");
+    SimpleExtractionResult result(testFilePath("test.odp"), "application/vnd.oasis.opendocument.presentation");
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 2);

@@ -19,7 +19,7 @@
  */
 
 #include "popplerextractortest.h"
-#include "simpleresult.h"
+#include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/popplerextractor.h"
 
@@ -39,7 +39,7 @@ void PopplerExtractorTest::test()
 {
     QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.pdf"), "application/pdf");
+    SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf");
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -62,7 +62,7 @@ void PopplerExtractorTest::testMetaDataOnly()
 {
     QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this, QVariantList()));
 
-    SimpleResult result(testFilePath("test.pdf"), "application/pdf", ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf", ExtractionResult::ExtractMetaData);
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
