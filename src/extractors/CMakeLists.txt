@@ -10,10 +10,6 @@ if(POPPLER_QT5_FOUND)
     )
 
     install(
-    FILES kfilemetadata_popplerextractor.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR})
-
-    install(
     TARGETS kfilemetadata_popplerextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
@@ -29,10 +25,6 @@ if(TAGLIB_FOUND)
         KF5::Service
         ${TAGLIB_LIBRARIES}
     )
-
-    install(
-    FILES kfilemetadata_taglibextractor.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR})
 
     install(
     TARGETS kfilemetadata_taglibextractor
@@ -53,10 +45,6 @@ if(EXIV2_FOUND)
     )
 
     install(
-    FILES kfilemetadata_exiv2extractor.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR})
-
-    install(
     TARGETS kfilemetadata_exiv2extractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
@@ -72,10 +60,6 @@ if(FFMPEG_FOUND)
         KF5::Service
         ${FFMPEG_LIBRARIES}
     )
-
-    install(
-    FILES kfilemetadata_ffmpegextractor.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR})
 
     install(
     TARGETS kfilemetadata_ffmpegextractor
@@ -96,10 +80,6 @@ if(EPUB_FOUND)
     )
 
     install(
-    FILES kfilemetadata_epubextractor.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR})
-
-    install(
     TARGETS kfilemetadata_epubextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
@@ -114,10 +94,6 @@ target_link_libraries( kfilemetadata_plaintextextractor
     KF5::FileMetaData
     KF5::Service
 )
-
-install(
-FILES kfilemetadata_plaintextextractor.desktop
-DESTINATION ${SERVICES_INSTALL_DIR})
 
 install(
 TARGETS kfilemetadata_plaintextextractor
@@ -138,10 +114,6 @@ target_link_libraries(kfilemetadata_odfextractor
 )
 
 install(
-FILES kfilemetadata_odfextractor.desktop
-DESTINATION ${SERVICES_INSTALL_DIR})
-
-install(
 TARGETS kfilemetadata_odfextractor
 DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
@@ -160,10 +132,6 @@ target_link_libraries(kfilemetadata_office2007extractor
 )
 
 install(
-FILES kfilemetadata_office2007extractor.desktop
-DESTINATION ${SERVICES_INSTALL_DIR})
-
-install(
 TARGETS kfilemetadata_office2007extractor
 DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
@@ -177,10 +145,6 @@ target_link_libraries(kfilemetadata_officeextractor
     KF5::FileMetaData
     KF5::Service
 )
-
-install(
-FILES kfilemetadata_officeextractor.desktop
-DESTINATION ${SERVICES_INSTALL_DIR})
 
 install(
 TARGETS kfilemetadata_officeextractor
@@ -198,10 +162,6 @@ if (QMOBIPOCKET_FOUND)
         KF5::Service
         ${QMOBIPOCKET_LIBRARIES}
     )
-
-    install(
-    FILES kfilemetadata_mobiextractor.desktop
-    DESTINATION ${SERVICES_INSTALL_DIR})
 
     install(
     TARGETS kfilemetadata_mobiextractor
