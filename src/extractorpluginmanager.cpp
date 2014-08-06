@@ -71,9 +71,12 @@ QList<ExtractorPlugin*> ExtractorPluginManager::Private::allExtractors() const
 
         QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
         Q_FOREACH (const QString& fileName, entryList) {
+            // Make sure the same plugin is not loaded twice, even if it
+            // installed in two different locations
             if (plugins.contains(fileName))
                 continue;
 
+            plugins << fileName;
             pluginPaths << dir.absoluteFilePath(fileName);
         }
     }
