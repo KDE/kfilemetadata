@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     parser.addPositionalArgument("filename", "File to process");
     parser.process(app);
 
-    if (parser.positionalArguments().size() > 1) {
+    if (parser.positionalArguments().size() != 1) {
         qDebug() << "Only one arugment is accepted";
         parser.showHelp(1);
     }
