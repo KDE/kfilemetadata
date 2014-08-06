@@ -370,6 +370,18 @@ PropertyInfo::~PropertyInfo()
     delete d;
 }
 
+PropertyInfo& PropertyInfo::operator=(const PropertyInfo& rhs)
+{
+    *d = *rhs.d;
+    return *this;
+}
+
+bool PropertyInfo::operator==(const PropertyInfo& rhs) const
+{
+    return d->name == rhs.d->name && d->displayName == rhs.d->displayName &&
+           d->prop == rhs.d->prop && d->shouldBeIndexed == rhs.d->shouldBeIndexed;
+}
+
 QString PropertyInfo::displayName() const
 {
     return d->displayName;

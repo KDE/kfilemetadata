@@ -89,6 +89,17 @@ TypeInfo::~TypeInfo()
     delete d;
 }
 
+TypeInfo& TypeInfo::operator=(const TypeInfo& rhs)
+{
+    *d = *rhs.d;
+    return *this;
+}
+
+bool TypeInfo::operator==(const TypeInfo& rhs)
+{
+    return d->type == rhs.d->type && d->name == rhs.d->name && d->displayName == rhs.d->displayName;
+}
+
 QString TypeInfo::displayName() const
 {
     return d->displayName;
@@ -97,5 +108,10 @@ QString TypeInfo::displayName() const
 QString TypeInfo::name() const
 {
     return d->name;
+}
+
+Type::Type TypeInfo::type() const
+{
+    return d->type;
 }
 

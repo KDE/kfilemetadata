@@ -1,5 +1,4 @@
 /*
- * <one line to give the library's name and an idea of what it does.>
  * Copyright (C) 2014  Vishesh Handa <me@vhanda.in>
  *
  * This library is free software; you can redistribute it and/or
@@ -28,6 +27,7 @@ public:
     QString m_text;
     QVector<Type::Type> m_types;
 };
+
 SimpleExtractionResult::SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
     : ExtractionResult(url, mimetype, flags)
     , d(new Private)
@@ -43,6 +43,18 @@ SimpleExtractionResult::SimpleExtractionResult(const SimpleExtractionResult& rhs
 SimpleExtractionResult::~SimpleExtractionResult()
 {
     delete d;
+}
+
+SimpleExtractionResult& SimpleExtractionResult::operator=(const SimpleExtractionResult& rhs)
+{
+    *d = *rhs.d;
+    return *this;
+}
+
+bool SimpleExtractionResult::operator==(const SimpleExtractionResult& rhs) const
+{
+    return d->m_properties == rhs.d->m_properties && d->m_text == rhs.d->m_text
+           && d->m_types == rhs.d->m_types;
 }
 
 void SimpleExtractionResult::add(Property::Property property, const QVariant& value)

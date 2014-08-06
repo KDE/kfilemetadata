@@ -37,6 +37,9 @@ public:
     PropertyInfo(const PropertyInfo& pi);
     ~PropertyInfo();
 
+    PropertyInfo& operator=(const PropertyInfo& rhs);
+    bool operator==(const PropertyInfo& rhs) const;
+
     /**
      * The enumeration which represents this property
      */

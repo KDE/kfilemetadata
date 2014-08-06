@@ -1,5 +1,4 @@
 /*
- * <one line to give the library's name and an idea of what it does.>
  * Copyright (C) 2014  Vishesh Handa <me@vhanda.in>
  *
  * This library is free software; you can redistribute it and/or
@@ -41,6 +40,9 @@ public:
     SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
     SimpleExtractionResult(const SimpleExtractionResult& rhs);
     virtual ~SimpleExtractionResult();
+
+    SimpleExtractionResult& operator=(const SimpleExtractionResult& rhs);
+    bool operator==(const SimpleExtractionResult& rhs) const;
 
     virtual void add(Property::Property property, const QVariant& value);
     virtual void addType(Type::Type type);

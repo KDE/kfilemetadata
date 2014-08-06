@@ -34,6 +34,9 @@ public:
     TypeInfo(const TypeInfo& ti);
     ~TypeInfo();
 
+    TypeInfo& operator=(const TypeInfo& rhs);
+    bool operator==(const TypeInfo& rhs);
+
     /**
      * The type identifier
      */
