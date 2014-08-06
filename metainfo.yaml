@@ -1,9 +1,9 @@
 maintainer: vhanda
 description: A file metadata and text extraction library
 tier: 2
-type: functional
+type: integration
 platforms:
     - name: All
 portingAid: false
 deprecated: false
-release: true
+release: false
