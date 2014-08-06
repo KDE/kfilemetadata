@@ -22,7 +22,7 @@
 #define _KFILEMETADATA_EXTRACTORPLUGINMANAGER_H
 
 #include <QtCore/QUrl>
-#include "kfilemetadata_export.h"
+#include <kfilemetadata_export.h>
 
 namespace KFileMetaData
 {
