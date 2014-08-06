@@ -41,10 +41,10 @@ class ExtractorPlugin;
  *
  * \author Vishesh Handa <me@vhanda.in>
  */
-class KFILEMETADATA_EXPORT ExtractorPluginManager : public QObject
+class KFILEMETADATA_EXPORT ExtractorPluginManager
 {
 public:
-    explicit ExtractorPluginManager(QObject* parent = 0);
+    explicit ExtractorPluginManager();
     virtual ~ExtractorPluginManager();
 
     /**

@@ -35,9 +35,8 @@ public:
     QList<ExtractorPlugin*> allExtractors() const;
 };
 
-ExtractorPluginManager::ExtractorPluginManager(QObject* parent)
-    : QObject(parent)
-    , d(new Private)
+ExtractorPluginManager::ExtractorPluginManager()
+    : d(new Private)
 {
     QList<ExtractorPlugin*> all = d->allExtractors();
 
