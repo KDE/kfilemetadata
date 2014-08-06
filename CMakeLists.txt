@@ -59,7 +59,7 @@ set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
 add_subdirectory(src)
 if (BUILD_TESTING)
   add_subdirectory(autotests)
-  add_subdirectory(test)
+  add_subdirectory(tests)
 endif()
 
 # Config files
