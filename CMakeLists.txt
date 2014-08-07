@@ -14,7 +14,7 @@ include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 
-set(KF5_VERSION "5.0.0")
+set(KF5_VERSION "5.0.1")
 set(REQUIRED_QT_VERSION "5.2.0")
 
 ecm_setup_version(5.0.0
