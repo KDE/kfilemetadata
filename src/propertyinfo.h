@@ -25,8 +25,8 @@
 
 #include <QString>
 #include <QVariant>
-#include <properties.h>
-#include <kfilemetadata_export.h>
+#include "properties.h"
+#include "kfilemetadata_export.h"
 
 namespace KFileMetaData {
 

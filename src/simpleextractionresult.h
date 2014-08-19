@@ -20,9 +20,9 @@
 #ifndef KFILEMETADATA_SimpleExtractionResult_H
 #define KFILEMETADATA_SimpleExtractionResult_H
 
+#include "extractionresult.h"
 #include <QVector>
 #include <QString>
-#include <extractionresult.h>
 
 namespace KFileMetaData {
 

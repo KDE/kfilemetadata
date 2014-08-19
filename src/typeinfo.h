@@ -21,10 +21,9 @@
 #ifndef KFILEMETADATA_TYPEINFO_H
 #define KFILEMETADATA_TYPEINFO_H
 
+#include "types.h"
+#include "kfilemetadata_export.h"
 #include <QString>
-
-#include <types.h>
-#include <kfilemetadata_export.h>
 
 namespace KFileMetaData {
 

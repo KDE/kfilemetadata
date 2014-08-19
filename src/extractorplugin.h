@@ -24,8 +24,8 @@
 #include <QStringList>
 #include <QDateTime>
 
-#include <kfilemetadata_export.h>
-#include <extractionresult.h>
+#include "kfilemetadata_export.h"
+#include "extractionresult.h"
 
 #include <QStringList>
 
