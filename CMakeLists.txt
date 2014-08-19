@@ -1,4 +1,6 @@
 project(kfilemetadata)
+set(PROJECT_VERSION "5.0.95")
+
 cmake_minimum_required(VERSION 2.8.12)
 
 find_package(ECM 1.0.0 REQUIRED NO_MODULE)
@@ -17,7 +19,7 @@ include(ECMGenerateHeaders)
 set(KF5_VERSION "5.0.0")
 set(REQUIRED_QT_VERSION "5.2.0")
 
-ecm_setup_version(5.0.0
+ecm_setup_version(${PROJECT_VERSION}
                   VARIABLE_PREFIX KFILEMETADATA
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
                   SOVERSION 1)
