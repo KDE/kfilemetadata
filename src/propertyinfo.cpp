@@ -409,59 +409,56 @@ bool PropertyInfo::shouldBeIndexed() const
 
 PropertyInfo PropertyInfo::fromName(const QString& name)
 {
-    static QHash<QString, Property::Property> propertyHash;
-
-    // FIXME: Multi-threading?
-    if (propertyHash.isEmpty()) {
-        propertyHash.insert(QStringLiteral("bitrate"), Property::BitRate);
-        propertyHash.insert(QStringLiteral("channels"), Property::Channels);
-        propertyHash.insert(QStringLiteral("duration"), Property::Duration);
-        propertyHash.insert(QStringLiteral("genre"), Property::Genre);
-        propertyHash.insert(QStringLiteral("samplerate"), Property::SampleRate);
-        propertyHash.insert(QStringLiteral("tracknumber"), Property::TrackNumber);
-        propertyHash.insert(QStringLiteral("releaseyear"), Property::ReleaseYear);
-        propertyHash.insert(QStringLiteral("comment"), Property::Comment);
-        propertyHash.insert(QStringLiteral("artist"), Property::Artist);
-        propertyHash.insert(QStringLiteral("album"), Property::Album);
-        propertyHash.insert(QStringLiteral("albumartist"), Property::AlbumArtist);
-        propertyHash.insert(QStringLiteral("composer"), Property::Composer);
-        propertyHash.insert(QStringLiteral("lyricist"), Property::Lyricist);
-        propertyHash.insert(QStringLiteral("author"), Property::Author);
-        propertyHash.insert(QStringLiteral("title"), Property::Title);
-        propertyHash.insert(QStringLiteral("subject"), Property::Subject);
-        propertyHash.insert(QStringLiteral("generator"), Property::Generator);
-        propertyHash.insert(QStringLiteral("pagecount"), Property::PageCount);
-        propertyHash.insert(QStringLiteral("wordcount"), Property::WordCount);
-        propertyHash.insert(QStringLiteral("linecount"), Property::LineCount);
-        propertyHash.insert(QStringLiteral("language"), Property::Langauge);
-        propertyHash.insert(QStringLiteral("copyright"), Property::Copyright);
-        propertyHash.insert(QStringLiteral("publisher"), Property::Publisher);
-        propertyHash.insert(QStringLiteral("creationdate"), Property::CreationDate);
-        propertyHash.insert(QStringLiteral("keywords"), Property::Keywords);
-        propertyHash.insert(QStringLiteral("width"), Property::Width);
-        propertyHash.insert(QStringLiteral("height"), Property::Height);
-        propertyHash.insert(QStringLiteral("aspectratio"), Property::AspectRatio);
-        propertyHash.insert(QStringLiteral("framerate"), Property::FrameRate);
-        propertyHash.insert(QStringLiteral("imagemake"), Property::ImageMake);
-        propertyHash.insert(QStringLiteral("imagemodel"), Property::ImageModel);
-        propertyHash.insert(QStringLiteral("imagedatetime"), Property::ImageDateTime);
-        propertyHash.insert(QStringLiteral("imageorientation"), Property::ImageOrientation);
-        propertyHash.insert(QStringLiteral("photoflash"), Property::PhotoFlash);
-        propertyHash.insert(QStringLiteral("photopixelxdimension"), Property::PhotoPixelXDimension);
-        propertyHash.insert(QStringLiteral("photopixelydimension"), Property::PhotoPixelYDimension);
-        propertyHash.insert(QStringLiteral("photodatetimeoriginal"), Property::PhotoDateTimeOriginal);
-        propertyHash.insert(QStringLiteral("photofocallength"), Property::PhotoFocalLength);
-        propertyHash.insert(QStringLiteral("photofocallengthin35mmfilm"), Property::PhotoFocalLengthIn35mmFilm);
-        propertyHash.insert(QStringLiteral("photoexposuretime"), Property::PhotoExposureTime);
-        propertyHash.insert(QStringLiteral("photofnumber"), Property::PhotoFNumber);
-        propertyHash.insert(QStringLiteral("photoaperturevalue"), Property::PhotoApertureValue);
-        propertyHash.insert(QStringLiteral("photoexposurebiasvalue"), Property::PhotoExposureBiasValue);
-        propertyHash.insert(QStringLiteral("photowhitebalance"), Property::PhotoWhiteBalance);
-        propertyHash.insert(QStringLiteral("photometeringmode"), Property::PhotoMeteringMode);
-        propertyHash.insert(QStringLiteral("photoisospeedratings"), Property::PhotoISOSpeedRatings);
-        propertyHash.insert(QStringLiteral("photosaturation"), Property::PhotoSaturation);
-        propertyHash.insert(QStringLiteral("photosharpness"), Property::PhotoSharpness);
-    }
+    static QHash<QString, Property::Property> propertyHash = {
+        { QStringLiteral("bitrate"), Property::BitRate },
+        { QStringLiteral("channels"), Property::Channels },
+        { QStringLiteral("duration"), Property::Duration },
+        { QStringLiteral("genre"), Property::Genre },
+        { QStringLiteral("samplerate"), Property::SampleRate },
+        { QStringLiteral("tracknumber"), Property::TrackNumber },
+        { QStringLiteral("releaseyear"), Property::ReleaseYear },
+        { QStringLiteral("comment"), Property::Comment },
+        { QStringLiteral("artist"), Property::Artist },
+        { QStringLiteral("album"), Property::Album },
+        { QStringLiteral("albumartist"), Property::AlbumArtist },
+        { QStringLiteral("composer"), Property::Composer },
+        { QStringLiteral("lyricist"), Property::Lyricist },
+        { QStringLiteral("author"), Property::Author },
+        { QStringLiteral("title"), Property::Title },
+        { QStringLiteral("subject"), Property::Subject },
+        { QStringLiteral("generator"), Property::Generator },
+        { QStringLiteral("pagecount"), Property::PageCount },
+        { QStringLiteral("wordcount"), Property::WordCount },
+        { QStringLiteral("linecount"), Property::LineCount },
+        { QStringLiteral("language"), Property::Langauge },
+        { QStringLiteral("copyright"), Property::Copyright },
+        { QStringLiteral("publisher"), Property::Publisher },
+        { QStringLiteral("creationdate"), Property::CreationDate },
+        { QStringLiteral("keywords"), Property::Keywords },
+        { QStringLiteral("width"), Property::Width },
+        { QStringLiteral("height"), Property::Height },
+        { QStringLiteral("aspectratio"), Property::AspectRatio },
+        { QStringLiteral("framerate"), Property::FrameRate },
+        { QStringLiteral("imagemake"), Property::ImageMake },
+        { QStringLiteral("imagemodel"), Property::ImageModel },
+        { QStringLiteral("imagedatetime"), Property::ImageDateTime },
+        { QStringLiteral("imageorientation"), Property::ImageOrientation },
+        { QStringLiteral("photoflash"), Property::PhotoFlash },
+        { QStringLiteral("photopixelxdimension"), Property::PhotoPixelXDimension },
+        { QStringLiteral("photopixelydimension"), Property::PhotoPixelYDimension },
+        { QStringLiteral("photodatetimeoriginal"), Property::PhotoDateTimeOriginal },
+        { QStringLiteral("photofocallength"), Property::PhotoFocalLength },
+        { QStringLiteral("photofocallengthin35mmfilm"), Property::PhotoFocalLengthIn35mmFilm },
+        { QStringLiteral("photoexposuretime"), Property::PhotoExposureTime },
+        { QStringLiteral("photofnumber"), Property::PhotoFNumber },
+        { QStringLiteral("photoaperturevalue"), Property::PhotoApertureValue },
+        { QStringLiteral("photoexposurebiasvalue"), Property::PhotoExposureBiasValue },
+        { QStringLiteral("photowhitebalance"), Property::PhotoWhiteBalance },
+        { QStringLiteral("photometeringmode"), Property::PhotoMeteringMode },
+        { QStringLiteral("photoisospeedratings"), Property::PhotoISOSpeedRatings },
+        { QStringLiteral("photosaturation"), Property::PhotoSaturation },
+        { QStringLiteral("photosharpness"), Property::PhotoSharpness },
+    };
 
     return PropertyInfo(propertyHash.value(name.toLower()));
 }
