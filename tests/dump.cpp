@@ -26,7 +26,7 @@
 #include <QMimeDatabase>
 #include <QTextStream>
 
-#include "extractorplugin.h"
+#include "extractor.h"
 #include "extractorcollection.h"
 #include "propertyinfo.h"
 #include "simpleextractionresult.h"
@@ -52,12 +52,12 @@ int main(int argc, char** argv)
     QString mimetype = mimeDb.mimeTypeForFile(url).name();
 
     KFileMetaData::ExtractorCollection extractors;
-    QList<KFileMetaData::ExtractorPlugin*> exList = extractors.fetchExtractors(mimetype);
+    QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
 
     QTextStream out(stdout);
     out << url << " " << mimetype << "\n\n";
 
-    Q_FOREACH (KFileMetaData::ExtractorPlugin* ex, exList) {
+    Q_FOREACH (KFileMetaData::Extractor* ex, exList) {
         KFileMetaData::SimpleExtractionResult result(url, mimetype,
                                                      KFileMetaData::ExtractionResult::ExtractMetaData);
         ex->extract(&result);

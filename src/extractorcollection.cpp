@@ -18,8 +18,10 @@
  *
  */
 
+#include "extractor.h"
 #include "extractorplugin.h"
 #include "extractorcollection.h"
+#include "extractor_p.h"
 
 #include <QDebug>
 #include <QCoreApplication>
@@ -30,17 +32,17 @@ using namespace KFileMetaData;
 
 class ExtractorCollection::Private {
 public:
-    QHash<QString, ExtractorPlugin*> m_extractors;
+    QHash<QString, Extractor*> m_extractors;
 
-    QList<ExtractorPlugin*> allExtractors() const;
+    QList<Extractor*> allExtractors() const;
 };
 
 ExtractorCollection::ExtractorCollection()
     : d(new Private)
 {
-    QList<ExtractorPlugin*> all = d->allExtractors();
+    QList<Extractor*> all = d->allExtractors();
 
-    foreach (ExtractorPlugin* ex, all) {
+    foreach (Extractor* ex, all) {
         foreach (const QString& type, ex->mimetypes()) {
             d->m_extractors.insertMulti(type, ex);
         }
@@ -54,7 +56,7 @@ ExtractorCollection::~ExtractorCollection()
 }
 
 
-QList<ExtractorPlugin*> ExtractorCollection::Private::allExtractors() const
+QList<Extractor*> ExtractorCollection::Private::allExtractors() const
 {
     QStringList plugins;
     QStringList pluginPaths;
@@ -81,7 +83,7 @@ QList<ExtractorPlugin*> ExtractorCollection::Private::allExtractors() const
     }
     plugins.clear();
 
-    QList<ExtractorPlugin*> extractors;
+    QList<Extractor*> extractors;
     Q_FOREACH (const QString& pluginPath, pluginPaths) {
         QPluginLoader loader(pluginPath);
 
@@ -93,8 +95,11 @@ QList<ExtractorPlugin*> ExtractorCollection::Private::allExtractors() const
 
         QObject* obj = loader.instance();
         if (obj) {
-            ExtractorPlugin* ex = qobject_cast<ExtractorPlugin*>(obj);
-            if (ex) {
+            ExtractorPlugin* plugin = qobject_cast<ExtractorPlugin*>(obj);
+            if (plugin) {
+                Extractor* ex= new Extractor;
+                ex->d->m_plugin = plugin;
+
                 extractors << ex;
             } else {
                 qDebug() << "Plugin could not be converted to an ExtractorPlugin";
@@ -109,11 +114,11 @@ QList<ExtractorPlugin*> ExtractorCollection::Private::allExtractors() const
     return extractors;
 }
 
-QList<ExtractorPlugin*> ExtractorCollection::fetchExtractors(const QString& mimetype) const
+QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) const
 {
-    QList<ExtractorPlugin*> plugins = d->m_extractors.values(mimetype);
+    QList<Extractor*> plugins = d->m_extractors.values(mimetype);
     if (plugins.isEmpty()) {
-        QHash<QString, ExtractorPlugin*>::const_iterator it = d->m_extractors.constBegin();
+        auto it = d->m_extractors.constBegin();
         for (; it != d->m_extractors.constEnd(); it++) {
             if (mimetype.startsWith(it.key()))
                 plugins << it.value();

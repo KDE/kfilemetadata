@@ -26,7 +26,7 @@
 namespace KFileMetaData
 {
 
-class ExtractorPlugin;
+class Extractor;
 
 /**
  * \class ExtractorCollection extractorcollection.h
@@ -53,7 +53,7 @@ public:
      * If no match is found then all the plugins whose mimetype list
      * starts with \p mimetype are returned.
      */
-    QList<ExtractorPlugin*> fetchExtractors(const QString& mimetype) const;
+    QList<Extractor*> fetchExtractors(const QString& mimetype) const;
 
 private:
     class Private;
