@@ -19,7 +19,7 @@
  */
 
 #include "extractorplugin.h"
-#include "extractorpluginmanager.h"
+#include "extractorcollection.h"
 
 #include <QDebug>
 #include <QCoreApplication>
@@ -28,14 +28,14 @@
 
 using namespace KFileMetaData;
 
-class ExtractorPluginManager::Private {
+class ExtractorCollection::Private {
 public:
     QHash<QString, ExtractorPlugin*> m_extractors;
 
     QList<ExtractorPlugin*> allExtractors() const;
 };
 
-ExtractorPluginManager::ExtractorPluginManager()
+ExtractorCollection::ExtractorCollection()
     : d(new Private)
 {
     QList<ExtractorPlugin*> all = d->allExtractors();
@@ -47,14 +47,14 @@ ExtractorPluginManager::ExtractorPluginManager()
     }
 }
 
-ExtractorPluginManager::~ExtractorPluginManager()
+ExtractorCollection::~ExtractorCollection()
 {
     qDeleteAll(d->m_extractors.values().toSet());
     delete d;
 }
 
 
-QList<ExtractorPlugin*> ExtractorPluginManager::Private::allExtractors() const
+QList<ExtractorPlugin*> ExtractorCollection::Private::allExtractors() const
 {
     QStringList plugins;
     QStringList pluginPaths;
@@ -109,7 +109,7 @@ QList<ExtractorPlugin*> ExtractorPluginManager::Private::allExtractors() const
     return extractors;
 }
 
-QList<ExtractorPlugin*> ExtractorPluginManager::fetchExtractors(const QString& mimetype) const
+QList<ExtractorPlugin*> ExtractorCollection::fetchExtractors(const QString& mimetype) const
 {
     QList<ExtractorPlugin*> plugins = d->m_extractors.values(mimetype);
     if (plugins.isEmpty()) {

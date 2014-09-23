@@ -2,7 +2,7 @@ add_library(KF5FileMetaData
     extractionresult.cpp
     simpleextractionresult.cpp
     extractorplugin.cpp
-    extractorpluginmanager.cpp
+    extractorcollection.cpp
     propertyinfo.cpp
     typeinfo.cpp
 )
@@ -31,7 +31,7 @@ ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     ExtractionResult
     SimpleExtractionResult
     ExtractorPlugin
-    ExtractorPluginManager
+    ExtractorCollection
     Properties
     PropertyInfo
     Types

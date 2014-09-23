@@ -1,6 +1,5 @@
 /*
-    <one line to give the library's name and an idea of what it does.>
-    Copyright (C) 2012  Vishesh Handa <me@vhanda.in>
+    Copyright (C) 2012-2014  Vishesh Handa <me@vhanda.in>
 
     Code adapted from Strigi FFmpeg Analyzer -
     Copyright (C) 2010 Evgeny Egorochkin <phreedom.stdin@gmail.com>

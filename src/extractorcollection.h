@@ -18,10 +18,9 @@
  *
  */
 
-#ifndef _KFILEMETADATA_EXTRACTORPLUGINMANAGER_H
-#define _KFILEMETADATA_EXTRACTORPLUGINMANAGER_H
+#ifndef _KFILEMETADATA_EXTRACTORCOLLECTION_H
+#define _KFILEMETADATA_EXTRACTORCOLLECTION_H
 
-#include <QtCore/QUrl>
 #include "kfilemetadata_export.h"
 
 namespace KFileMetaData
@@ -30,9 +29,9 @@ namespace KFileMetaData
 class ExtractorPlugin;
 
 /**
- * \class ExtractorPluginManager extractorpluginmanager.h
+ * \class ExtractorCollection extractorcollection.h
  *
- * \brief The ExtractorPluginManager is a helper class which internally
+ * \brief The ExtractorCollection is a helper class which internally
  * loads all the extractor plugins. It can be used to fetch a certain
  * subset of thse pulgins based on a given mimetype.
  *
@@ -41,11 +40,11 @@ class ExtractorPlugin;
  *
  * \author Vishesh Handa <me@vhanda.in>
  */
-class KFILEMETADATA_EXPORT ExtractorPluginManager
+class KFILEMETADATA_EXPORT ExtractorCollection
 {
 public:
-    explicit ExtractorPluginManager();
-    virtual ~ExtractorPluginManager();
+    explicit ExtractorCollection();
+    virtual ~ExtractorCollection();
 
     /**
      * Fetch the extractors which can be used to extract
@@ -62,4 +61,4 @@ private:
 };
 }
 
-#endif // _KFILEMETADATA_EXTRACTORPLUGINMANAGER_H
+#endif
