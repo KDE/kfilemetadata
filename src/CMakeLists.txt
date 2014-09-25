@@ -6,6 +6,7 @@ add_library(KF5FileMetaData
     extractorcollection.cpp
     propertyinfo.cpp
     typeinfo.cpp
+    usermetadata.cpp
 )
 
 add_library(KF5::FileMetaData ALIAS KF5FileMetaData)
@@ -38,6 +39,7 @@ ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     PropertyInfo
     Types
     TypeInfo
+    UserMetaData
 
     PREFIX kfilemetadata
     REQUIRED_HEADERS KF5FileMetaData_HEADERS
