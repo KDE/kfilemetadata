@@ -51,9 +51,9 @@ public:
     QString userComment() const;
     void setUserComment(const QString& userComment);
 
-    QString custom(const QString& key);
-    void setCustom(const QString& key, const QString& value);
-    bool hasCustom(const QString& key);
+    QString attribute(const QString& name);
+    void setAttribute(const QString& name, const QString& value);
+    bool hasAttribute(const QString& name);
 
     // FIXME: Error handling?
 private:

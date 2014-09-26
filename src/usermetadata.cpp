@@ -128,19 +128,19 @@ void UserMetaData::setUserComment(const QString& userComment)
     k_setxattr(d->filePath, QStringLiteral("user.xdg.comment"), userComment);
 }
 
-void UserMetaData::setCustom(const QString& key, const QString& value)
+void UserMetaData::setAttribute(const QString& key, const QString& value)
 {
     k_setxattr(d->filePath, QStringLiteral("user") + key, value);
 }
 
-bool UserMetaData::hasCustom(const QString& key)
+bool UserMetaData::hasAttribute(const QString& key)
 {
     k_getxattr(d->filePath, QStringLiteral("user") + key, 0);
 
     return (errno != ENODATA);
 }
 
-QString UserMetaData::custom(const QString& key)
+QString UserMetaData::attribute(const QString& key)
 {
     QString value;
     k_getxattr(d->filePath, QStringLiteral("user") + key, &value);
