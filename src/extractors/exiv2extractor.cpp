@@ -19,6 +19,7 @@
 
 
 #include "exiv2extractor.h"
+#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -189,6 +190,9 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     add(result, data, Property::PhotoISOSpeedRatings, "Exif.Photo.ISOSpeedRatings", QVariant::Int);
     add(result, data, Property::PhotoSaturation, "Exif.Photo.Saturation", QVariant::Int);
     add(result, data, Property::PhotoSharpness, "Exif.Photo.Sharpness", QVariant::Int);
+    addGps(result, data, Property::PhotoGpsLatitude, "Exif.GPSInfo.GPSLatitude");
+    addGps(result, data, Property::PhotoGpsLongitude, "Exif.GPSInfo.GPSLongitude");
+    addGps(result, data, Property::PhotoGpsAltitude, "Exif.GPSInfo.GPSAltitude");
 }
 
 void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
@@ -201,4 +205,37 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
         if (!value.isNull())
             result->add(prop, value);
     }
+}
+
+void Exiv2Extractor::addGps(ExtractionResult* result, const Exiv2::ExifData& data,
+                            Property::Property prop, const char* name)
+{
+    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
+    if (it != data.end()) {
+        QString strVal = QString::fromStdString(it->value().toString());
+        QStringList list = strVal.split(' ', QString::SkipEmptyParts);
+        qSort(list.begin(), list.end(), [](const QString& left, const QString& right) {
+            return left.size() < right.size();
+        });
+
+        QString val;
+        if (!list.empty()){
+            val = list.last();
+        }
+
+        if (val.contains('/')) {
+            int pos = val.indexOf('/');
+            int num = val.mid(0, pos).toInt();
+            int denom = val.mid(pos + 1).toInt();
+
+            if (denom != 0) {
+                double doubleValue = (num * 1.0)/denom;
+                result->add(prop, QVariant(doubleValue));
+            }
+        }
+        else {
+            result->add(prop, QVariant(static_cast<double>(it->value().toFloat())));
+        }
+    }
+
 }

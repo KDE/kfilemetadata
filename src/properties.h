@@ -229,8 +229,11 @@ enum Property {
     PhotoISOSpeedRatings,
     PhotoSaturation,
     PhotoSharpness,
+    PhotoGpsLatitude,
+    PhotoGpsLongitude,
+    PhotoGpsAltitude,
 
-    LastProperty = PhotoSharpness
+    LastProperty = PhotoGpsAltitude
 };
 
 } // namespace Property

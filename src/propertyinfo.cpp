@@ -258,6 +258,24 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Double;
             break;
 
+        case Property::PhotoGpsLatitude:
+            d->name = QStringLiteral("photoGpsLatitude");
+            d->displayName = i18nc("@label EXIF", "Photo GPS Latitude");
+            d->valueType = QVariant::Double;
+            break;
+
+        case Property::PhotoGpsLongitude:
+            d->name = QStringLiteral("photoGpsLongitude");
+            d->displayName = i18nc("@label EXIF", "Photo GPS Longitude");
+            d->valueType = QVariant::Double;
+            break;
+
+        case Property::PhotoGpsAltitude:
+            d->name = QStringLiteral("photoGpsAltitude");
+            d->displayName = i18nc("@label EXIF", "Photo GPS Altitude");
+            d->valueType = QVariant::Double;
+            break;
+
         case Property::PhotoISOSpeedRatings:
             d->name = QStringLiteral("photoISOSpeedRatings");
             d->displayName = i18nc("@label EXIF", "Photo ISO Speed Rating");
@@ -458,6 +476,9 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("photoisospeedratings"), Property::PhotoISOSpeedRatings },
         { QStringLiteral("photosaturation"), Property::PhotoSaturation },
         { QStringLiteral("photosharpness"), Property::PhotoSharpness },
+        { QStringLiteral("photogpslatitude"), Property::PhotoGpsLatitude },
+        { QStringLiteral("photogpslongitude"), Property::PhotoGpsLongitude },
+        { QStringLiteral("photogpsaltitude"), Property::PhotoGpsAltitude }
     };
 
     return PropertyInfo(propertyHash.value(name.toLower()));
