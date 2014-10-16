@@ -21,6 +21,8 @@
 
 #include "extractionresult.h"
 
+#include <QMimeDatabase>
+
 using namespace KFileMetaData;
 
 class ExtractionResult::Private {
@@ -35,6 +37,9 @@ ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype, 
 {
     d->url = url;
     d->mimetype = mimetype;
+    if (mimetype.isEmpty()) {
+        d->mimetype = QMimeDatabase().mimeTypeForFile(url).name();
+    }
     d->flags = flags;
 }
 

@@ -37,7 +37,7 @@ namespace KFileMetaData {
 class KFILEMETADATA_EXPORT SimpleExtractionResult : public ExtractionResult
 {
 public:
-    SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
+    SimpleExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = ExtractEverything);
     SimpleExtractionResult(const SimpleExtractionResult& rhs);
     virtual ~SimpleExtractionResult();
 

@@ -60,7 +60,7 @@ public:
      * which file the data should be extracted from and and which all should
      * be extracted.
      */
-    ExtractionResult(const QString& url, const QString& mimetype, const Flags& flags = ExtractEverything);
+    ExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = ExtractEverything);
     ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
 
