@@ -190,9 +190,30 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     add(result, data, Property::PhotoISOSpeedRatings, "Exif.Photo.ISOSpeedRatings", QVariant::Int);
     add(result, data, Property::PhotoSaturation, "Exif.Photo.Saturation", QVariant::Int);
     add(result, data, Property::PhotoSharpness, "Exif.Photo.Sharpness", QVariant::Int);
-    addGps(result, data, Property::PhotoGpsLatitude, "Exif.GPSInfo.GPSLatitude");
-    addGps(result, data, Property::PhotoGpsLongitude, "Exif.GPSInfo.GPSLongitude");
-    addGps(result, data, Property::PhotoGpsAltitude, "Exif.GPSInfo.GPSAltitude");
+
+    double latitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLatitude");
+    double longitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLongitude");
+    double altitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSAltitude");
+
+    QByteArray latRef = fetchByteArray(data, "Exif.GPSInfo.GPSLatitudeRef");
+    if (!latRef.isEmpty() && latRef[0] == 'S')
+        latitude *= -1;
+
+    QByteArray longRef = fetchByteArray(data, "Exif.GPSInfo.GPSLongitudeRef");
+    if (!longRef.isEmpty() && longRef[0] == 'W')
+        longitude *= -1;
+
+    if (latitude) {
+        result->add(Property::PhotoGpsLatitude, latitude);
+    }
+
+    if (longitude) {
+        result->add(Property::PhotoGpsLongitude, longitude);
+    }
+
+    if (altitude) {
+        result->add(Property::PhotoGpsAltitude, altitude);
+    }
 }
 
 void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
@@ -207,35 +228,59 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
     }
 }
 
-void Exiv2Extractor::addGps(ExtractionResult* result, const Exiv2::ExifData& data,
-                            Property::Property prop, const char* name)
+double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* name)
+{
+    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
+    if (it != data.end() && it->count() == 3) {
+        double n = 0.0;
+        double d = 0.0;
+
+        n = (*it).toRational(0).first;
+        d = (*it).toRational(0).second;
+
+        if (d == 0) {
+            return 0.0;
+        }
+
+        double deg = n / d;
+
+        n = (*it).toRational(1).first;
+        d = (*it).toRational(1).second;
+
+        if (d == 0) {
+            return deg;
+        }
+
+        double min = n / d;
+        if (min != -1.0) {
+            deg += min / 60.0;
+        }
+
+        n = (*it).toRational(2).first;
+        d = (*it).toRational(2).second;
+
+        if (d == 0) {
+            return deg;
+        }
+
+        double sec = n / d;
+        if (sec != -1.0) {
+            deg += sec / 3600.0;
+        }
+
+        return deg;
+    }
+
+    return 0.0;
+}
+
+QByteArray Exiv2Extractor::fetchByteArray(const Exiv2::ExifData& data, const char* name)
 {
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end()) {
-        QString strVal = QString::fromStdString(it->value().toString());
-        QStringList list = strVal.split(' ', QString::SkipEmptyParts);
-        qSort(list.begin(), list.end(), [](const QString& left, const QString& right) {
-            return left.size() < right.size();
-        });
-
-        QString val;
-        if (!list.empty()){
-            val = list.last();
-        }
-
-        if (val.contains('/')) {
-            int pos = val.indexOf('/');
-            int num = val.mid(0, pos).toInt();
-            int denom = val.mid(pos + 1).toInt();
-
-            if (denom != 0) {
-                double doubleValue = (num * 1.0)/denom;
-                result->add(prop, QVariant(doubleValue));
-            }
-        }
-        else {
-            result->add(prop, QVariant(static_cast<double>(it->value().toFloat())));
-        }
+        std::string str = it->value().toString();
+        return QByteArray(str.c_str(), str.size());
     }
 
+    return QByteArray();
 }

@@ -45,23 +45,11 @@ void Exiv2ExtractorTest::test()
     QCOMPARE(result.types().first(), Type::Image);
 
     using namespace KFileMetaData::Property;
-    QCOMPARE(result.properties().value(PhotoGpsLatitude), QVariant(41.163));
-    QCOMPARE(result.properties().value(PhotoGpsLongitude), QVariant(25.1074));
-    QCOMPARE(result.properties().value(PhotoGpsAltitude), QVariant(0.0f));
-    /*
-    QVERIFY(result.text().contains(QStringLiteral("This is a sample PDF file for KFileMetaData.")));
-    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));
-    QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Happy Publisher")));
-    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
-    QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Baloo KFileMetaData")));
-
-    QDateTime dt(QDate(2014, 1, 1), QTime(1, 1, 1));
-    dt.setTimeSpec(Qt::UTC);
-    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
-
-    QCOMPARE(result.properties().size(), 5);
-
-    */
+    double lat = 41.4114341666667;
+    double lon = 2.1736409444444;
+    QCOMPARE(result.properties().value(PhotoGpsLatitude).toDouble(), lat);
+    QCOMPARE(result.properties().value(PhotoGpsLongitude).toDouble(), lon);
+    QCOMPARE(result.properties().value(PhotoGpsAltitude), QVariant());
 }
 
 QTEST_MAIN(Exiv2ExtractorTest)
