@@ -233,7 +233,15 @@ enum Property {
     PhotoGpsLongitude,
     PhotoGpsAltitude,
 
-    LastProperty = PhotoGpsAltitude
+    TranslationUnitsTotal,
+    TranslationUnitsWithTranslation,
+    TranslationUnitsWithDraftTranslation,
+    TranslationLastAuthor,
+    TranslationLastUpDate,
+    TranslationTemplateDate,
+
+    PropertyCount,
+    LastProperty = PropertyCount-1
 };
 
 } // namespace Property

@@ -94,6 +94,18 @@ TARGETS kfilemetadata_plaintextextractor
 DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 #
+# PO
+#
+add_library(kfilemetadata_poextractor MODULE poextractor.cpp)
+target_link_libraries( kfilemetadata_poextractor
+    KF5::FileMetaData
+)
+
+install(
+TARGETS kfilemetadata_poextractor
+DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+
+#
 # ODF
 #
 
