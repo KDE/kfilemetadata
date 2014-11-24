@@ -35,7 +35,7 @@ POExtractor::POExtractor(QObject* parent)
 
 QStringList POExtractor::mimetypes() const
 {
-    return QStringList() << QStringLiteral("text/");
+    return QStringList() << QStringLiteral("text/x-gettext-translation");
 }
 
 void POExtractor::endMessage()
@@ -168,6 +168,8 @@ void POExtractor::extract(ExtractionResult* result)
             }
         }
     }
+    handleLine("", 0); //for files with non-empty last line
+    messages--;//cause header does not count
 
     result->add(Property::TranslationUnitsTotal, messages);
     result->add(Property::TranslationUnitsWithTranslation, messages-untranslated);
