@@ -19,6 +19,7 @@
 
 #include "usermetadata.h"
 #include "xattr_p.h"
+#include <errno.h>
 
 #include <QSet>
 
