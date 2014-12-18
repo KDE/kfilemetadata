@@ -367,8 +367,54 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Int;
             break;
 
-        default:
+        case Property::TranslationUnitsTotal:
+            d->name = QStringLiteral("translationUnitsTotal");
+            d->displayName = i18nc("@label number of translatable strings",
+                                   "Translatable Units");
+            d->valueType = QVariant::Int;
+            d->shouldBeIndexed = false;
             break;
+
+        case Property::TranslationUnitsWithTranslation:
+            d->name = QStringLiteral("translationUnitsWithTranslation");
+            d->displayName = i18nc("@label number of translated strings", "Translations");
+            d->valueType = QVariant::Int;
+            d->shouldBeIndexed = false;
+            break;
+
+        case Property::TranslationUnitsWithDraftTranslation:
+            d->name = QStringLiteral("translationUnitsWithDraftTranslation");
+            d->displayName = i18nc("@label number of fuzzy translated strings",
+                                   "Draft Translations");
+            d->valueType = QVariant::Int;
+            d->shouldBeIndexed = false;
+            break;
+
+        case Property::TranslationLastAuthor:
+            d->name = QStringLiteral("translationLastAuthor");
+            d->displayName = i18nc("@label translation author", "Author");
+            d->valueType = QVariant::String;
+            d->shouldBeIndexed = false;
+            break;
+
+        case Property::TranslationLastUpDate:
+            d->name = QStringLiteral("translationLastUpDate");
+            d->displayName = i18nc("@label translations last update", "Last Update");
+            d->valueType = QVariant::String;
+            d->shouldBeIndexed = false;
+            break;
+
+        case Property::TranslationTemplateDate:
+            d->name = QStringLiteral("translationTemplateDate");
+            d->displayName = i18nc("@label date of template creation8", "Template Creation");
+            d->valueType = QVariant::String;
+            d->shouldBeIndexed = false;
+            break;
+
+        case Property::PropertyCount: // To silence the compiler.
+            break;
+
+        // NOTE: new properties must also be added to ::fromName()
     }
 
     if (d->valueType == QVariant::Int || d->valueType == QVariant::DateTime ||
@@ -478,7 +524,13 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("photosharpness"), Property::PhotoSharpness },
         { QStringLiteral("photogpslatitude"), Property::PhotoGpsLatitude },
         { QStringLiteral("photogpslongitude"), Property::PhotoGpsLongitude },
-        { QStringLiteral("photogpsaltitude"), Property::PhotoGpsAltitude }
+        { QStringLiteral("photogpsaltitude"), Property::PhotoGpsAltitude },
+        { QStringLiteral("translationunitstotal"), Property::TranslationUnitsTotal },
+        { QStringLiteral("translationunitswithtranslation"), Property::TranslationUnitsWithTranslation },
+        { QStringLiteral("translationunitswithdrafttranslation"), Property::TranslationUnitsWithDraftTranslation },
+        { QStringLiteral("translationlastauthor"), Property::TranslationLastAuthor },
+        { QStringLiteral("translationlastupdate"), Property::TranslationLastUpDate },
+        { QStringLiteral("translationtemplatedate"), Property::TranslationTemplateDate }
     };
 
     return PropertyInfo(propertyHash.value(name.toLower()));
