@@ -20,18 +20,20 @@
 
 #include "taglibextractor.h"
 
-#include <taglib/fileref.h>
-#include <taglib/flacfile.h>
-#include <taglib/apetag.h>
-#include <taglib/mpcfile.h>
-#include <taglib/id3v2tag.h>
-#include <taglib/id3v1genres.h>
-#include <taglib/mpegfile.h>
-#include <taglib/oggfile.h>
-#include <taglib/taglib.h>
-#include <taglib/tag.h>
-#include <taglib/vorbisfile.h>
-#include <taglib/xiphcomment.h>
+// Taglib includes
+#include <fileref.h>
+#include <flacfile.h>
+#include <apetag.h>
+#include <mpcfile.h>
+#include <id3v2tag.h>
+#include <id3v1genres.h>
+#include <mpegfile.h>
+#include <oggfile.h>
+#include <taglib.h>
+#include <tag.h>
+#include <vorbisfile.h>
+#include <xiphcomment.h>
+
 #include <QDateTime>
 
 using namespace KFileMetaData;
