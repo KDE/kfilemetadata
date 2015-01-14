@@ -138,7 +138,7 @@ bool UserMetaData::hasAttribute(const QString& key)
 {
     k_getxattr(d->filePath, QStringLiteral("user") + key, 0);
 
-    return (errno != ENODATA);
+    return (errno != ENOATTR);
 }
 
 QString UserMetaData::attribute(const QString& key)
