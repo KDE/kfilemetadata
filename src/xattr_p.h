@@ -28,6 +28,7 @@
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
 #include <sys/types.h>
 #include <sys/xattr.h>
+#include <attr/xattr.h>
 #elif defined(Q_OS_MAC)
 #include <sys/types.h>
 #include <sys/xattr.h>
