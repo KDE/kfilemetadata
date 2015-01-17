@@ -23,6 +23,8 @@
 
 #include "extractorplugin.h"
 
+#include <QIODevice>
+
 class KArchiveDirectory;
 
 namespace KFileMetaData
