@@ -43,7 +43,7 @@ public:
     Type::Type type() const;
 
     /**
-     * An internal name for the type
+     * An internal unique name for the type
      */
     QString name() const;
 

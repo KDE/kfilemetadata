@@ -30,6 +30,12 @@
 
 namespace KFileMetaData {
 
+/**
+ * The PropertyInfo class can be used to obtain extra information
+ * about any property. It is commonly used be indexers in order
+ * to obtain a translatable name of the property along with
+ * additional information such as if the property should be indexed.
+ */
 class KFILEMETADATA_EXPORT PropertyInfo
 {
 public:
@@ -46,7 +52,7 @@ public:
     Property::Property property() const;
 
     /**
-     * The internal developer named used to refer to the property
+     * The internal unique name used to refer to the property
      */
     QString name() const;
 
@@ -66,6 +72,8 @@ public:
      * Eg - Property::Height does not need to be part of the global index.
      *      When a user searches for 600, they should not get images with
      *      that height
+     *
+     * This is just a recommendation.
      */
     bool shouldBeIndexed() const;
 

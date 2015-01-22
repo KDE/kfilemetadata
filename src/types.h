@@ -24,6 +24,12 @@
 namespace KFileMetaData {
 namespace Type {
 
+/**
+ * A Type represents a way to represent a way to group files based on
+ * a higher level view, which the user generally expects.
+ *
+ * Every extractor provides a list of types applicable for each file.
+ */
 enum Type {
     FirstType = 0,
 
