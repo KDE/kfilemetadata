@@ -1,5 +1,5 @@
 project(kfilemetadata)
-set(PROJECT_VERSION "5.2.0")
+set(PROJECT_VERSION "5.6.0")
 
 cmake_minimum_required(VERSION 2.8.12)
 
