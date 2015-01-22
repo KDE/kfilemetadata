@@ -98,12 +98,12 @@ void UserMetaData::setUserComment(const QString& userComment)
 
 void UserMetaData::setAttribute(const QString& key, const QString& value)
 {
-    k_setxattr(d->filePath, QStringLiteral("user") + key, value);
+    k_setxattr(d->filePath, QStringLiteral("user.") + key, value);
 }
 
 bool UserMetaData::hasAttribute(const QString& key)
 {
-    k_getxattr(d->filePath, QStringLiteral("user") + key, 0);
+    k_getxattr(d->filePath, QStringLiteral("user.") + key, 0);
 
     return (errno != ENOATTR);
 }
@@ -111,7 +111,7 @@ bool UserMetaData::hasAttribute(const QString& key)
 QString UserMetaData::attribute(const QString& key)
 {
     QString value;
-    k_getxattr(d->filePath, QStringLiteral("user") + key, &value);
+    k_getxattr(d->filePath, QStringLiteral("user.") + key, &value);
 
     return value;
 }
