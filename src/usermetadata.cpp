@@ -57,42 +57,9 @@ QString UserMetaData::filePath() const
     return d->filePath;
 }
 
-void UserMetaData::addTag(const QString& tag)
-{
-    QSet<QString> tagSet = tags().toSet();
-    tagSet << tag;
-
-    setTags(tagSet.toList());
-}
-
-void UserMetaData::addTags(const QStringList& tagList)
-{
-    QSet<QString> tagSet = tags().toSet();
-    tagSet.unite(tagList.toSet());
-
-    setTags(tagSet.toList());
-}
-
 void UserMetaData::setTags(const QStringList& tags)
 {
     k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(", "));
-}
-
-void UserMetaData::removeTag(const QString& tag)
-{
-    QSet<QString> tagSet = tags().toSet();
-    tagSet.remove(tag);
-
-    setTags(tagSet.toList());
-}
-
-void UserMetaData::removeTags(const QStringList& tagList)
-{
-    QSet<QString> tagSet = tags().toSet();
-    tagSet.subtract(tagList.toSet());
-
-    setTags(tagSet.toList());
-
 }
 
 QStringList UserMetaData::tags() const

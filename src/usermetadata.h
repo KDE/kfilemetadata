@@ -38,11 +38,6 @@ public:
     bool isSupported() const;
 
     void setTags(const QStringList& tags);
-    void addTags(const QStringList& tags);
-    void addTag(const QString& tag);
-    void removeTags(const QStringList& tags);
-    void removeTag(const QString& tag);
-
     QStringList tags() const;
 
     int rating() const;
