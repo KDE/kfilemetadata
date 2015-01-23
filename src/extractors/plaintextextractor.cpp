@@ -19,7 +19,11 @@
 
 
 #include "plaintextextractor.h"
+
 #include <QFile>
+#include <QTextCodec>
+#include <QDebug>
+
 #include <fstream>
 
 using namespace KFileMetaData;
@@ -50,9 +54,18 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
+    QTextCodec* codec = QTextCodec::codecForLocale();
     while (std::getline(fstream, line)) {
         QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
-        result->append(QString::fromUtf8(arr));
+
+        QTextCodec::ConverterState state;
+        QString text = codec->toUnicode(arr.constData(), arr.size(), &state);
+
+        if (state.invalidChars > 0) {
+            qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();
+            return;
+        }
+        result->append(text);
 
         lines += 1;
     }
