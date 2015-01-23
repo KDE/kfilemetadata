@@ -22,7 +22,7 @@ set(REQUIRED_QT_VERSION "5.2.0")
 ecm_setup_version(${PROJECT_VERSION}
                   VARIABLE_PREFIX KFILEMETADATA
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
-                  SOVERSION 2)
+                  SOVERSION 3)
 
 # Build dependencies
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
