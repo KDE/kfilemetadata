@@ -155,53 +155,70 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
     }
 
-    // Handling multiple tags in FLAC files.
-    if (mimeType == "audio/flac") {
-        TagLib::FLAC::File flacFile(fileUrl.toUtf8().data(), true);
-        if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
-            TagLib::Ogg::FieldListMap lstFLAC = flacFile.xiphComment()->fieldListMap();
-            TagLib::Ogg::FieldListMap::ConstIterator itFLAC;
+    // Handling multiple tags in Ogg containers.
+    {
+        TagLib::Ogg::FieldListMap lstOgg;
+
+        // FLAC files.
+        if (mimeType == "audio/flac") {
+            TagLib::FLAC::File flacFile(fileUrl.toUtf8().data(), true);
+            if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
+                lstOgg = flacFile.xiphComment()->fieldListMap();
+            }
+        }
+
+        // Vorbis files.
+        if (mimeType == "audio/ogg" || mimeType == "audio/x-vorbis+ogg") {
+            TagLib::Ogg::Vorbis::File oggFile(fileUrl.toUtf8().data(), true);
+            if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
+                lstOgg = oggFile.tag()->fieldListMap();
+            }
+        }
+
+        // Handling OGG container tags.
+        if (!lstOgg.isEmpty()) {
+            TagLib::Ogg::FieldListMap::ConstIterator itOgg;
 
             // Artist.
-            itFLAC = lstFLAC.find("ARTIST");
-            if (itFLAC != lstFLAC.end()) {
+            itOgg = lstOgg.find("ARTIST");
+            if (itOgg != lstOgg.end()) {
                 if (!artists.isEmpty()) {
                     artists += ", ";
                 }
-                artists += (*itFLAC).second.toString(", ");
+                artists += (*itOgg).second.toString(", ");
             }
 
             // Album Artist.
-            itFLAC = lstFLAC.find("ALBUMARTIST");
-            if (itFLAC != lstFLAC.end()) {
+            itOgg = lstOgg.find("ALBUMARTIST");
+            if (itOgg != lstOgg.end()) {
                 if (!albumArtists.isEmpty()) {
                     albumArtists += ", ";
                 }
-                albumArtists += (*itFLAC).second.toString(", ");
+                albumArtists += (*itOgg).second.toString(", ");
             }
 
             // Composer.
-            itFLAC = lstFLAC.find("COMPOSER");
-            if (itFLAC != lstFLAC.end()) {
+            itOgg = lstOgg.find("COMPOSER");
+            if (itOgg != lstOgg.end()) {
                 if (!composers.isEmpty()) {
                     composers += ", ";
                 }
-                composers += (*itFLAC).second.toString(", ");
+                composers += (*itOgg).second.toString(", ");
             }
 
             // Lyricist.
-            itFLAC = lstFLAC.find("LYRICIST");
-            if (itFLAC != lstFLAC.end()) {
+            itOgg = lstOgg.find("LYRICIST");
+            if (itOgg != lstOgg.end()) {
                 if (!lyricists.isEmpty()) {
                     lyricists += ", ";
                 }
-                lyricists += (*itFLAC).second.toString(", ");
+                lyricists += (*itOgg).second.toString(", ");
             }
 
             // Genre.
-            itFLAC = lstFLAC.find("GENRE");
-            if (itFLAC != lstFLAC.end()) {
-                genres.append((*itFLAC).second);
+            itOgg = lstOgg.find("GENRE");
+            if (itOgg != lstOgg.end()) {
+                genres.append((*itOgg).second);
             }
         }
     }
@@ -253,57 +270,6 @@ void TagLibExtractor::extract(ExtractionResult* result)
             itMPC = lstMusepack.find("GENRE");
             if (itMPC != lstMusepack.end()) {
                 genres.append((*itMPC).second.toString());
-            }
-        }
-    }
-
-    // Handling multiple tags in OGG files.
-    if (mimeType == "audio/ogg" || mimeType == "audio/x-vorbis+ogg") {
-        TagLib::Ogg::Vorbis::File oggFile(fileUrl.toUtf8().data(), true);
-        if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
-            TagLib::Ogg::FieldListMap lstOGG = oggFile.tag()->fieldListMap();
-            TagLib::Ogg::FieldListMap::ConstIterator itOGG;
-
-            // Artist.
-            itOGG = lstOGG.find("ARTIST");
-            if (itOGG != lstOGG.end()) {
-                if (!artists.isEmpty()) {
-                    artists += ", ";
-                }
-                artists += (*itOGG).second.toString(", ");
-            }
-
-            // Album Artist.
-            itOGG = lstOGG.find("ALBUMARTIST");
-            if (itOGG != lstOGG.end()) {
-                if (!albumArtists.isEmpty()) {
-                    albumArtists += ", ";
-                }
-                albumArtists += (*itOGG).second.toString(", ");
-            }
-
-            // Composer.
-            itOGG = lstOGG.find("COMPOSER");
-            if (itOGG != lstOGG.end()) {
-                if (!composers.isEmpty()) {
-                    composers += ", ";
-                }
-                composers += (*itOGG).second.toString(", ");
-            }
-
-            // Lyricist.
-            itOGG = lstOGG.find("LYRICIST");
-            if (itOGG != lstOGG.end()) {
-                if (!lyricists.isEmpty()) {
-                    lyricists += ", ";
-                }
-                lyricists += (*itOGG).second.toString(", ");
-            }
-
-            // Genre.
-            itOGG = lstOGG.find("GENRE");
-            if (itOGG != lstOGG.end()) {
-                genres.append((*itOGG).second);
             }
         }
     }
