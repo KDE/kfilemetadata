@@ -82,3 +82,16 @@ if(EXIV2_FOUND)
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${EXIV2_LIBRARIES}
     )
 endif()
+
+#
+# TagLib
+#
+if(TAGLIB_FOUND)
+    include_directories(${TAGLIB_INCLUDES})
+
+    kde_enable_exceptions()
+    ecm_add_test(taglibextractortest.cpp ../src/extractors/taglibextractor.cpp
+        TEST_NAME "taglibextractortest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
+    )
+endif()
