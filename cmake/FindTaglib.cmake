@@ -37,7 +37,7 @@ if(TAGLIBCONFIG_EXECUTABLE)
   include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(Taglib FOUND_VAR TAGLIB_FOUND
                                     REQUIRED_VARS TAGLIB_LIBRARIES TAGLIB_INCLUDES
-                                    VERSION_STRING TAGLIB_VERSION)
+                                    VERSION_VAR TAGLIB_VERSION)
   mark_as_advanced(TAGLIB_CFLAGS TAGLIB_LIBRARIES TAGLIB_INCLUDES)
 
 else(TAGLIBCONFIG_EXECUTABLE)
