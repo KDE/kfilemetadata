@@ -2,7 +2,7 @@
 # Once done this will define
 #
 #  TAGLIB_FOUND - system has the taglib library
-#  TAGLIB_CFLAGS - the taglib cflags
+#  TAGLIB_INCLUDES - the taglib includes
 #  TAGLIB_LIBRARIES - The libraries needed to use taglib
 
 # Copyright (c) 2006, Laurent Montel, <montel@kde.org>
@@ -29,21 +29,15 @@ if(TAGLIBCONFIG_EXECUTABLE)
 
   exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --version RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_VERSION)
 
-  if(TAGLIB_VERSION STRLESS "${TAGLIB_MIN_VERSION}")
-     message(STATUS "TagLib version not found: version searched :${TAGLIB_MIN_VERSION}, found ${TAGLIB_VERSION}")
-     set(TAGLIB_FOUND FALSE)
-  else(TAGLIB_VERSION STRLESS "${TAGLIB_MIN_VERSION}")
+  exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --libs RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_LIBRARIES)
 
-     exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --libs RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_LIBRARIES)
+  exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --cflags RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_CFLAGS)
+  string(REGEX REPLACE " *-I" ";" TAGLIB_INCLUDES "${TAGLIB_CFLAGS}")
 
-     exec_program(${TAGLIBCONFIG_EXECUTABLE} ARGS --cflags RETURN_VALUE _return_VALUE OUTPUT_VARIABLE TAGLIB_CFLAGS)
-
-     if(TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
-        set(TAGLIB_FOUND TRUE)
-        message(STATUS "Found taglib: ${TAGLIB_LIBRARIES}")
-     endif(TAGLIB_LIBRARIES AND TAGLIB_CFLAGS)
-     string(REGEX REPLACE " *-I" ";" TAGLIB_INCLUDES "${TAGLIB_CFLAGS}")
-  endif(TAGLIB_VERSION STRLESS "${TAGLIB_MIN_VERSION}") 
+  include(FindPackageHandleStandardArgs)
+  find_package_handle_standard_args(Taglib FOUND_VAR TAGLIB_FOUND
+                                    REQUIRED_VARS TAGLIB_LIBRARIES TAGLIB_INCLUDES
+                                    VERSION_STRING TAGLIB_VERSION)
   mark_as_advanced(TAGLIB_CFLAGS TAGLIB_LIBRARIES TAGLIB_INCLUDES)
 
 else(TAGLIBCONFIG_EXECUTABLE)
@@ -68,18 +62,7 @@ else(TAGLIBCONFIG_EXECUTABLE)
     ${LIB_INSTALL_DIR}
   )
   
+  include(FindPackageHandleStandardArgs)
   find_package_handle_standard_args(Taglib DEFAULT_MSG 
                                     TAGLIB_INCLUDES TAGLIB_LIBRARIES)
 endif(TAGLIBCONFIG_EXECUTABLE)
-
-
-if(TAGLIB_FOUND)
-  if(NOT Taglib_FIND_QUIETLY AND TAGLIBCONFIG_EXECUTABLE)
-    message(STATUS "Taglib found: ${TAGLIB_LIBRARIES}")
-  endif(NOT Taglib_FIND_QUIETLY AND TAGLIBCONFIG_EXECUTABLE)
-else(TAGLIB_FOUND)
-  if(Taglib_FIND_REQUIRED)
-    message(FATAL_ERROR "Could not find Taglib")
-  endif(Taglib_FIND_REQUIRED)
-endif(TAGLIB_FOUND)
-
