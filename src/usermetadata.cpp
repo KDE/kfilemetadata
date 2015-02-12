@@ -121,5 +121,5 @@ bool UserMetaData::isSupported() const
     QString value;
     k_getxattr(d->filePath, QStringLiteral("user.test"), &value);
 
-    return (errno == ENOTSUP);
+    return (errno != ENOTSUP);
 }
