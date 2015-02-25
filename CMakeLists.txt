@@ -17,7 +17,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 
 set(KF5_VERSION "5.0.0")
-set(REQUIRED_QT_VERSION "5.2.0")
+set(REQUIRED_QT_VERSION "5.4.0")
 
 ecm_setup_version(${PROJECT_VERSION}
                   VARIABLE_PREFIX KFILEMETADATA
