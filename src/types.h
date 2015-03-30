@@ -79,7 +79,12 @@ enum Type {
      */
     Text,
 
-    LastType = Text
+    /**
+     * A directory or folder
+     */
+    Folder,
+
+    LastType = Folder
 };
 
 }
