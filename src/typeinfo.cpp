@@ -37,6 +37,11 @@ TypeInfo::TypeInfo(Type::Type type)
     d->type = type;
 
     switch (type) {
+    case Type::Empty:
+        d->name = QStringLiteral("empty");
+        d->displayName = QString();
+        break;
+
     case Type::Archive:
         d->name = QStringLiteral("Archive");
         d->displayName = i18nc("@label", "Archive");
@@ -120,3 +125,14 @@ Type::Type TypeInfo::type() const
     return d->type;
 }
 
+TypeInfo TypeInfo::fromName(const QString& name)
+{
+    for (int t = static_cast<int>(Type::FirstType); t != static_cast<int>(Type::LastType); t++) {
+        TypeInfo ti(static_cast<Type::Type>(t));
+        if (ti.name().compare(name, Qt::CaseInsensitive) == 0) {
+            return ti;
+        }
+    }
+
+    return TypeInfo(Type::Empty);
+}

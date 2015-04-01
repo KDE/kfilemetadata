@@ -32,12 +32,13 @@ namespace Type {
  */
 enum Type {
     FirstType = 0,
+    Empty = 0,
 
     /**
      * Any file which contains a compressed collection of other files
      * eg - tar, zip, rar, gz
      */
-    Archive = 0,
+    Archive,
 
     /**
      * Used to mark any file which just contains audio. Do not use this

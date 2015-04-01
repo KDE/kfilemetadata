@@ -52,6 +52,12 @@ public:
      */
     QString displayName() const;
 
+    /**
+     * Construct a TypeInfo from the internal type name.
+     * The internal type name is case insensitive
+     */
+    static TypeInfo fromName(const QString& name);
+
 private:
     class Private;
     Private* d;
