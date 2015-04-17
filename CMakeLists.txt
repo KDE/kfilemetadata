@@ -58,6 +58,8 @@ set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
 #                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
 #                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
 
+add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata\")
+
 add_subdirectory(src)
 if (BUILD_TESTING)
   add_subdirectory(autotests)
@@ -67,7 +69,6 @@ endif()
 # Config files
 set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KF5FileMetaData")
 
-add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata\")
 if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
     ki18n_install(po)
 endif()
