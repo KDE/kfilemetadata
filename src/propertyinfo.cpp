@@ -24,9 +24,6 @@
 
 #include <KLocalizedString>
 
-// FIXME: vhanda
-//static const KCatalogLoader loader("kfilemetadata");
-
 using namespace KFileMetaData;
 
 class PropertyInfo::Private {
