@@ -127,7 +127,7 @@ Type::Type TypeInfo::type() const
 
 TypeInfo TypeInfo::fromName(const QString& name)
 {
-    for (int t = static_cast<int>(Type::FirstType); t != static_cast<int>(Type::LastType); t++) {
+    for (int t = static_cast<int>(Type::FirstType); t <= static_cast<int>(Type::LastType); t++) {
         TypeInfo ti(static_cast<Type::Type>(t));
         if (ti.name().compare(name, Qt::CaseInsensitive) == 0) {
             return ti;
