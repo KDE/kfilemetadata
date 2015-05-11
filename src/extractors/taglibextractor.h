@@ -35,8 +35,8 @@ class TagLibExtractor : public ExtractorPlugin
 public:
     TagLibExtractor(QObject* parent = 0);
 
-    virtual void extract(ExtractionResult* result);
-    virtual QStringList mimetypes() const;
+    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
+    QStringList mimetypes() const Q_DECL_OVERRIDE;
 };
 
 }

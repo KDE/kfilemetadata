@@ -39,8 +39,8 @@ class Office2007Extractor : public ExtractorPlugin
 public:
     Office2007Extractor(QObject* parent = 0);
 
-    virtual QStringList mimetypes() const;
-    virtual void extract(ExtractionResult* result);
+    QStringList mimetypes() const Q_DECL_OVERRIDE;
+    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
 
 private:
     void extractTextWithTag(QIODevice* device, const QString& tag, ExtractionResult* result);

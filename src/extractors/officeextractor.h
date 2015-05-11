@@ -35,8 +35,8 @@ class OfficeExtractor : public ExtractorPlugin
 public:
     OfficeExtractor(QObject* parent = 0);
 
-    virtual QStringList mimetypes() const;
-    virtual void extract(ExtractionResult* result);
+    QStringList mimetypes() const Q_DECL_OVERRIDE;
+    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
 
 private:
     void findExe(const QString& mimeType, const QString& name, QString& fullPath);
