@@ -26,6 +26,13 @@
 
 #include <fstream>
 
+#ifdef __linux__
+    #include <sys/types.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+    #include <unistd.h>
+#endif
+
 using namespace KFileMetaData;
 
 PlainTextExtractor::PlainTextExtractor(QObject* parent)
@@ -41,6 +48,54 @@ QStringList PlainTextExtractor::mimetypes() const
 
 void PlainTextExtractor::extract(ExtractionResult* result)
 {
+#ifdef __linux__
+    QByteArray filePath = QFile::encodeName(result->inputUrl());
+
+    int fd = open(filePath.constData(), O_RDONLY | O_NOATIME);
+    if (!fd) {
+        fd = open(filePath.constData(), O_RDONLY);
+    }
+
+    if (fd < 0) {
+        return;
+    }
+
+    result->addType(Type::Text);
+    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        close(fd);
+        return;
+    }
+
+    QTextCodec* codec = QTextCodec::codecForLocale();
+
+    char* line = 0;
+    size_t len = 0;
+    int lines = 0;
+    int r = 0;
+
+    FILE* fp = fdopen(fd, "r");
+
+    while ( (r = getline(&line, &len, fp)) != -1) {
+        QTextCodec::ConverterState state;
+        QString text = codec->toUnicode(line, r - 1, &state);
+
+        if (state.invalidChars > 0) {
+            qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();
+            free(line);
+            close(fd);
+            return;
+        }
+        result->append(text);
+
+        lines += 1;
+    }
+
+    result->add(Property::LineCount, lines);
+
+    free(line);
+    close(fd);
+
+#else
     std::string line;
     int lines = 0;
 
@@ -71,4 +126,5 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     }
 
     result->add(Property::LineCount, lines);
+#endif
 }
