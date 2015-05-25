@@ -53,6 +53,11 @@ set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
                        URL "http://sourceforge.net/projects/ebook-tools" TYPE OPTIONAL
                        PURPOSE "Support for epub metadata")
 
+find_package(CatDoc)
+set_package_properties(CatDoc PROPERTIES DESCRIPTION "catdoc executable"
+                       URL "http://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE OPTIONAL
+                       PURPOSE "Extract text from office 98 files - RUNTIME dependency")
+
 #find_package(QMobipocket)
 #set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
 #                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
