@@ -127,7 +127,7 @@ void POExtractor::handleLine(const char* data, uint32_t length)
 
 void POExtractor::extract(ExtractionResult* result)
 {
-    std::ifstream fstream(QFile::encodeName(result->inputUrl()));
+    std::ifstream fstream(QFile::encodeName(result->inputUrl()).constData());
     if (!fstream.is_open()) {
         return;
     }

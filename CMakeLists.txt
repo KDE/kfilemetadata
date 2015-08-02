@@ -1,32 +1,35 @@
-project(kfilemetadata)
-set(PROJECT_VERSION "5.9.90")
-
 cmake_minimum_required(VERSION 2.8.12)
 
-find_package(ECM 1.0.0 REQUIRED NO_MODULE)
+project(kfilemetadata)
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH})
+include(FeatureSummary)
+find_package(ECM 5.13.0  NO_MODULE)
+set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Modules." URL "https://projects.kde.org/projects/kdesupport/extra-cmake-modules")
+feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
+
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 include(KDEInstallDirs)
+include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
-include(KDECompilerSettings)
 include(ECMAddTests)
-include(FeatureSummary)
 include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 
-set(KF5_VERSION "5.0.0")
-set(REQUIRED_QT_VERSION "5.4.0")
+set(KF5_VERSION "5.13.0") # handled by release scripts
+set(KF5_DEP_VERSION "5.13.0") # handled by release scripts
 
-ecm_setup_version(${PROJECT_VERSION}
+ecm_setup_version(${KF5_VERSION}
                   VARIABLE_PREFIX KFILEMETADATA
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
                   SOVERSION 3)
 
-# Build dependencies
+# Dependencies
+set(REQUIRED_QT_VERSION 5.3.0)
+
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
-find_package(KF5 ${KF5_VERSION} REQUIRED COMPONENTS I18n Archive)
+find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n Archive)
 
 find_package(PopplerQt5 0.12.1)
 set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"

@@ -1,5 +1,7 @@
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test)
 
+remove_definitions(-DQT_NO_CAST_FROM_ASCII)
+
 configure_file(indexerextractortestsconfig.h.in
                ${CMAKE_CURRENT_BINARY_DIR}/indexerextractortestsconfig.h @ONLY)
 

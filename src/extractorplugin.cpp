@@ -119,21 +119,21 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
 QStringList ExtractorPlugin::contactsFromString(const QString& string)
 {
     QString cleanedString = string;
-    cleanedString = cleanedString.remove('{');
-    cleanedString = cleanedString.remove('}');
+    cleanedString = cleanedString.remove(QLatin1Char('{'));
+    cleanedString = cleanedString.remove(QLatin1Char('}'));
 
-    QStringList contactStrings = string.split(',', QString::SkipEmptyParts);
+    QStringList contactStrings = string.split(QLatin1Char(','), QString::SkipEmptyParts);
     if (contactStrings.size() == 1)
-        contactStrings = string.split(';', QString::SkipEmptyParts);
-
-    if (contactStrings.size() == 1)
-        contactStrings = string.split(" ft ", QString::SkipEmptyParts);
+        contactStrings = string.split(QLatin1Char(';'), QString::SkipEmptyParts);
 
     if (contactStrings.size() == 1)
-        contactStrings = string.split(" feat. ", QString::SkipEmptyParts);
+        contactStrings = string.split(QLatin1String(" ft "), QString::SkipEmptyParts);
 
     if (contactStrings.size() == 1)
-        contactStrings = string.split(" feat ", QString::SkipEmptyParts);
+        contactStrings = string.split(QLatin1String(" feat. "), QString::SkipEmptyParts);
+
+    if (contactStrings.size() == 1)
+        contactStrings = string.split(QLatin1String(" feat "), QString::SkipEmptyParts);
 
     QStringList list;
     foreach(const QString& contactName, contactStrings) {

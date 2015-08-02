@@ -31,9 +31,9 @@ OfficeExtractor::OfficeExtractor(QObject* parent)
 {
     // Find the executables of catdoc, catppt and xls2csv. If an executable cannot
     // be found, indexing its corresponding MIME type will be disabled
-    findExe("application/msword", "catdoc", m_catdoc);
-    findExe("application/vnd.ms-excel", "xls2csv", m_xls2csv);
-    findExe("application/vnd.ms-powerpoint", "catppt", m_catppt);
+    findExe(QLatin1String("application/msword"), QLatin1String("catdoc"), m_catdoc);
+    findExe(QLatin1String("application/vnd.ms-excel"), QLatin1String("xls2csv"), m_xls2csv);
+    findExe(QLatin1String("application/vnd.ms-powerpoint"), QLatin1String("catppt"), m_catppt);
 }
 
 void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QString& fullPath)
@@ -62,7 +62,7 @@ void OfficeExtractor::extract(ExtractionResult* result)
 
     const QString fileUrl = result->inputUrl();
     const QString mimeType = result->inputMimetype();
-    if (mimeType == QStringLiteral("application/msword")) {
+    if (mimeType == QLatin1String("application/msword")) {
         result->addType(Type::Document);
 
         args << QStringLiteral("-w");
@@ -71,11 +71,11 @@ void OfficeExtractor::extract(ExtractionResult* result)
         // Now that we have the plain text content, count words, lines and characters
         // (original code from plaintextextractor.cpp, authored by Vishesh Handa)
         int lines = contents.count(QLatin1Char('\n'));
-        int words = contents.count(QRegExp("\\b\\w+\\b"));
+        int words = contents.count(QRegExp(QStringLiteral("\\b\\w+\\b")));
 
         result->add(Property::WordCount, words);
         result->add(Property::LineCount, lines);
-    } else if (mimeType == QStringLiteral("application/vnd.ms-excel")) {
+    } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
         result->addType(Type::Document);
         result->addType(Type::Spreadsheet);
 
@@ -83,7 +83,7 @@ void OfficeExtractor::extract(ExtractionResult* result)
         args << QStringLiteral("-b") << QStringLiteral(" ");
         args << QStringLiteral("-q") << QStringLiteral("0");
         contents = textFromFile(fileUrl, m_xls2csv, args);
-    } else if (mimeType == QStringLiteral("application/vnd.ms-powerpoint")) {
+    } else if (mimeType == QLatin1String("application/vnd.ms-powerpoint")) {
         result->addType(Type::Document);
         result->addType(Type::Presentation);
 

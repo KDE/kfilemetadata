@@ -59,7 +59,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
     // As mostly the title of a pdf document is written on the first page in the biggest font
     // we use this if the pdfDoc title is considered junk
     if (title.isEmpty() ||
-            !title.contains(' ') ||                        // very unlikely the title of a document does only contain one word.
+            !title.contains(QLatin1Char(' ')) ||                        // very unlikely the title of a document does only contain one word.
             title.contains(QStringLiteral("Microsoft"), Qt::CaseInsensitive)) {  // most research papers i found written with microsoft word
         // have a garbage title of the pdf creator rather than the real document title
         title = parseFirstPage(pdfDoc.data(), fileUrl);

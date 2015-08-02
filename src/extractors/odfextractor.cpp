@@ -60,13 +60,13 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     const QStringList entries = directory->entries();
-    if (!entries.contains("meta.xml")) {
+    if (!entries.contains(QLatin1String("meta.xml"))) {
         qWarning() << "Invalid document structure (meta.xml is missing)";
         return;
     }
 
-    QDomDocument metaData("metaData");
-    const KArchiveFile* file = static_cast<const KArchiveFile*>(directory->entry("meta.xml"));
+    QDomDocument metaData(QLatin1String("metaData"));
+    const KArchiveFile* file = static_cast<const KArchiveFile*>(directory->entry(QLatin1String("meta.xml")));
     metaData.setContent(file->data());
 
     // parse metadata ...
@@ -79,36 +79,36 @@ void OdfExtractor::extract(ExtractionResult* result)
             const QString tagName = e.tagName();
 
             // Dublin Core
-            if (tagName == QStringLiteral("dc:description")) {
+            if (tagName == QLatin1String("dc:description")) {
                 result->add(Property::Comment, e.text());
-            } else if (tagName == QStringLiteral("dc:subject")) {
+            } else if (tagName == QLatin1String("dc:subject")) {
                 result->add(Property::Subject, e.text());
-            } else if (tagName == QStringLiteral("dc:title")) {
+            } else if (tagName == QLatin1String("dc:title")) {
                 result->add(Property::Title, e.text());
-            } else if (tagName == QStringLiteral("dc:creator")) {
+            } else if (tagName == QLatin1String("dc:creator")) {
                 result->add(Property::Author, e.text());
-            } else if (tagName == QStringLiteral("dc:langauge")) {
+            } else if (tagName == QLatin1String("dc:langauge")) {
                 result->add(Property::Langauge, e.text());
             }
 
             // Meta Properties
-            else if (tagName == QStringLiteral("meta:document-statistic")) {
+            else if (tagName == QLatin1String("meta:document-statistic")) {
                 bool ok = false;
-                int pageCount = e.attribute("meta:page-count").toInt(&ok);
+                int pageCount = e.attribute(QLatin1String("meta:page-count")).toInt(&ok);
                 if (ok) {
                     result->add(Property::PageCount, pageCount);
                 }
 
-                int wordCount = e.attribute("meta:word-count").toInt(&ok);
+                int wordCount = e.attribute(QLatin1String("meta:word-count")).toInt(&ok);
                 if (ok) {
                     result->add(Property::WordCount, wordCount);
                 }
-            } else if (tagName == QStringLiteral("meta:keyword")) {
+            } else if (tagName == QLatin1String("meta:keyword")) {
                 QString keywords = e.text();
                     result->add(Property::Keywords, keywords);
-            } else if (tagName == QStringLiteral("meta:generator")) {
+            } else if (tagName == QLatin1String("meta:generator")) {
                 result->add(Property::Generator, e.text());
-            } else if (tagName == QStringLiteral("meta:creation-date")) {
+            } else if (tagName == QLatin1String("meta:creation-date")) {
                 QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
                 if (!dt.isNull())
                     result->add(Property::CreationDate, dt);
@@ -118,10 +118,10 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     result->addType(Type::Document);
-    if (result->inputMimetype() == QStringLiteral("application/vnd.oasis.opendocument.presentation")) {
+    if (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation")) {
         result->addType(Type::Presentation);
     }
-    else if (result->inputMimetype() == QStringLiteral("application/vnd.oasis.opendocument.spreadsheet")) {
+    else if (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet")) {
         result->addType(Type::Spreadsheet);
     }
 
@@ -129,7 +129,7 @@ void OdfExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry("content.xml"));
+    const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry(QLatin1String("content.xml")));
     QXmlStreamReader xml(contentsFile->createDevice());
 
     while (!xml.atEnd()) {

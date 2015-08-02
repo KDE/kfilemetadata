@@ -34,7 +34,7 @@ public:
 private:
     QString testFilePath(const QString& fileName) const;
 
-private slots:
+private Q_SLOTS:
     void benchMarkPlainTextExtractor();
     void testPlainTextExtractor();
     void testPlainTextExtractorNoPlainText();

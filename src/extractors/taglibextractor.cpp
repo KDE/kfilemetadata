@@ -99,7 +99,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     TagLib::StringList genres;
 
     // Handling multiple tags in mpeg files.
-    if ((mimeType == "audio/mpeg") || (mimeType == "audio/mpeg3") || (mimeType == "audio/x-mpeg")) {
+    if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3")) || (mimeType == QLatin1String("audio/x-mpeg"))) {
         TagLib::MPEG::File mpegFile(fileUrl.toUtf8().data(), true);
         if (mpegFile.ID3v2Tag() && !mpegFile.ID3v2Tag()->isEmpty()) {
             TagLib::ID3v2::FrameList lstID3v2;
@@ -164,7 +164,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
         TagLib::Ogg::FieldListMap lstOgg;
 
         // FLAC files.
-        if (mimeType == "audio/flac") {
+        if (mimeType == QLatin1String("audio/flac")) {
             TagLib::FLAC::File flacFile(fileUrl.toUtf8().data(), true);
             if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
                 lstOgg = flacFile.xiphComment()->fieldListMap();
@@ -172,7 +172,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
 
         // Vorbis files.
-        if (mimeType == "audio/ogg" || mimeType == "audio/x-vorbis+ogg") {
+        if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
             TagLib::Ogg::Vorbis::File oggFile(fileUrl.toUtf8().data(), true);
             if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
                 lstOgg = oggFile.tag()->fieldListMap();
@@ -180,7 +180,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
 
         // Opus files.
-        if (mimeType == "audio/opus" || mimeType == "audio/x-opus+ogg") {
+        if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
             TagLib::Ogg::Opus::File opusFile(fileUrl.toUtf8().data(), true);
             if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
                 lstOgg = opusFile.tag()->fieldListMap();
@@ -236,7 +236,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     }
 
     // Handling multiple tags in Musepack files.
-    if (mimeType == ("audio/x-musepack")) {
+    if (mimeType == QLatin1String("audio/x-musepack")) {
         TagLib::MPC::File mpcFile(fileUrl.toUtf8().data(), true);
         if (mpcFile.tag() && !mpcFile.tag()->isEmpty()) {
             TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();

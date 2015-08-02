@@ -57,14 +57,14 @@ namespace
 {
 QString toString(const Exiv2::Value& value)
 {
-    std::string str = value.toString();
+    const std::string str = value.toString();
     return QString::fromUtf8(str.c_str(), str.length());
 }
 
 QVariant toVariantDateTime(const Exiv2::Value& value)
 {
     if (value.typeId() == Exiv2::asciiString) {
-        QDateTime val = ExtractorPlugin::dateTimeFromString(value.toString().c_str());
+        QDateTime val = ExtractorPlugin::dateTimeFromString(QString::fromLatin1(value.toString().c_str()));
         if (val.isValid()) {
             // Datetime is stored in exif as local time.
             val.setUtcOffset(0);

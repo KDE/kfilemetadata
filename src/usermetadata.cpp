@@ -59,7 +59,7 @@ QString UserMetaData::filePath() const
 
 UserMetaData::Error UserMetaData::setTags(const QStringList& tags)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(','));
+    k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(QLatin1Char(',')));
     return NoError;
 }
 
