@@ -57,9 +57,10 @@ QString UserMetaData::filePath() const
     return d->filePath;
 }
 
-void UserMetaData::setTags(const QStringList& tags)
+UserMetaData::Error UserMetaData::setTags(const QStringList& tags)
 {
     k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(','));
+    return NoError;
 }
 
 QStringList UserMetaData::tags() const
@@ -78,9 +79,10 @@ int UserMetaData::rating() const
     return value.toInt();
 }
 
-void UserMetaData::setRating(int rating)
+UserMetaData::Error UserMetaData::setRating(int rating)
 {
     k_setxattr(d->filePath, QStringLiteral("user.baloo.rating"), QString::number(rating));
+    return NoError;
 }
 
 QString UserMetaData::userComment() const
@@ -91,14 +93,16 @@ QString UserMetaData::userComment() const
     return value;
 }
 
-void UserMetaData::setUserComment(const QString& userComment)
+UserMetaData::Error UserMetaData::setUserComment(const QString& userComment)
 {
     k_setxattr(d->filePath, QStringLiteral("user.xdg.comment"), userComment);
+    return NoError;
 }
 
-void UserMetaData::setAttribute(const QString& key, const QString& value)
+UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString& value)
 {
     k_setxattr(d->filePath, QStringLiteral("user.") + key, value);
+    return NoError;
 }
 
 bool UserMetaData::hasAttribute(const QString& key)

@@ -32,25 +32,26 @@ public:
     UserMetaData(const UserMetaData &rhs);
     virtual ~UserMetaData();
 
+    enum Error {
+        NoError = 0
+    };
     const UserMetaData& operator =(const UserMetaData& rhs);
 
     QString filePath() const;
     bool isSupported() const;
 
-    void setTags(const QStringList& tags);
+    Error setTags(const QStringList& tags);
     QStringList tags() const;
 
     int rating() const;
-    void setRating(int rating);
+    Error setRating(int rating);
 
     QString userComment() const;
-    void setUserComment(const QString& userComment);
+    Error setUserComment(const QString& userComment);
 
     QString attribute(const QString& name);
-    void setAttribute(const QString& name, const QString& value);
+    Error setAttribute(const QString& name, const QString& value);
     bool hasAttribute(const QString& name);
-
-    // FIXME: Error handling?
 private:
     class Private;
     Private *d;
