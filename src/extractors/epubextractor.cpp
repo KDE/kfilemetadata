@@ -56,7 +56,7 @@ QString fetchMetadata(struct epub* e, const epub_metadata& type)
         }
         free(data);
 
-        return strList.join(";");
+        return strList.join(QLatin1Char(';'));
     }
     return QString();
 }
@@ -85,14 +85,14 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_CREATOR);
     if (!value.isEmpty()) {
-        if (value.startsWith(QStringLiteral("aut:"), Qt::CaseInsensitive)) {
+        if (value.startsWith(QLatin1String("aut:"), Qt::CaseInsensitive)) {
             value = value.mid(4).simplified();
-        } else if (value.startsWith(QStringLiteral("author:"), Qt::CaseInsensitive)) {
+        } else if (value.startsWith(QLatin1String("author:"), Qt::CaseInsensitive)) {
             value = value.mid(7).simplified();
         }
 
         // A lot of authors have their name written in () again. We discard that part
-        int index = value.indexOf('(');
+        int index = value.indexOf(QLatin1Char('('));
         if (index)
             value = value.mid(0, index);
 
@@ -123,12 +123,12 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     value = fetchMetadata(ePubDoc, EPUB_DATE);
     if (!value.isEmpty()) {
-        if (value.startsWith("Unspecified:", Qt::CaseInsensitive)) {
-            value = value.mid(QString("Unspecified:").size()).simplified();
+        if (value.startsWith(QLatin1String("Unspecified:"), Qt::CaseInsensitive)) {
+            value = value.mid(QByteArray("Unspecified:").size()).simplified();
         }
-        int ind = value.indexOf("publication:", Qt::CaseInsensitive);
+        int ind = value.indexOf(QLatin1String("publication:"), Qt::CaseInsensitive);
         if (ind != -1) {
-            value = value.mid(ind + QString("publication:").size()).simplified();
+            value = value.mid(ind + QByteArray("publication:").size()).simplified();
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
         if (!dt.isNull())
@@ -148,7 +148,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (!curr)
             continue;
         QString html = QString::fromUtf8(curr);
-        html.remove(QRegularExpression("<[^>]*>"));
+        html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
 
         result->append(html);
     } while (epub_it_get_next(iter));
@@ -174,7 +174,7 @@ void EPubExtractor::extract(ExtractionResult* result)
             if (size > 0 && data) {
                 QString html = QString::fromUtf8(data, size);
                 // strip html tags
-                html.remove(QRegularExpression("<[^>]*>"));
+                html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
 
                 result->append(html);
                 free(data);
