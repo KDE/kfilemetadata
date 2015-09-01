@@ -51,8 +51,13 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 #ifdef __linux__
     QByteArray filePath = QFile::encodeName(result->inputUrl());
 
+#ifdef O_NOATIME
     int fd = open(filePath.constData(), O_RDONLY | O_NOATIME);
-    if (fd < 0) {
+    if (fd < 0)
+#else
+    int fd;
+#endif
+    {
         fd = open(filePath.constData(), O_RDONLY);
     }
 
