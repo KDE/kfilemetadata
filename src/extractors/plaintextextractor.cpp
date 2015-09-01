@@ -52,7 +52,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     QByteArray filePath = QFile::encodeName(result->inputUrl());
 
     int fd = open(filePath.constData(), O_RDONLY | O_NOATIME);
-    if (!fd) {
+    if (fd < 0) {
         fd = open(filePath.constData(), O_RDONLY);
     }
 
