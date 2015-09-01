@@ -26,7 +26,7 @@
 
 #include <fstream>
 
-#ifdef __linux__
+#if defined(Q_OS_LINUX) || defined(__GLIBC__)
     #include <sys/types.h>
     #include <sys/stat.h>
     #include <fcntl.h>
@@ -48,7 +48,7 @@ QStringList PlainTextExtractor::mimetypes() const
 
 void PlainTextExtractor::extract(ExtractionResult* result)
 {
-#ifdef __linux__
+#if defined(Q_OS_LINUX) || defined(__GLIBC__)
     QByteArray filePath = QFile::encodeName(result->inputUrl());
 
 #ifdef O_NOATIME
