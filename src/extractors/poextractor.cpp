@@ -49,7 +49,7 @@ void POExtractor::endMessage()
     state = WHITESPACE;
 }
 
-void POExtractor::handleComment(const char* data, uint32_t length)
+void POExtractor::handleComment(const char* data, quint32 length)
 {
     state = COMMENT;
     if (length >= 8 && strncmp(data, "#, fuzzy", 8) == 0) { // could be better
@@ -57,7 +57,7 @@ void POExtractor::handleComment(const char* data, uint32_t length)
     }
 }
 
-void POExtractor::handleLine(const char* data, uint32_t length)
+void POExtractor::handleLine(const char* data, quint32 length)
 {
     if (state == ERROR) return;
     if (state == WHITESPACE) {

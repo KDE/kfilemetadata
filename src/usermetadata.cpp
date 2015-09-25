@@ -19,7 +19,6 @@
 
 #include "usermetadata.h"
 #include "xattr_p.h"
-#include <errno.h>
 
 #include <QSet>
 
@@ -107,9 +106,7 @@ UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString
 
 bool UserMetaData::hasAttribute(const QString& key)
 {
-    k_getxattr(d->filePath, QStringLiteral("user.") + key, 0);
-
-    return (errno != ENOATTR);
+    return k_hasAttribute(d->filePath, QStringLiteral("user.") + key);
 }
 
 QString UserMetaData::attribute(const QString& key)
@@ -122,8 +119,5 @@ QString UserMetaData::attribute(const QString& key)
 
 bool UserMetaData::isSupported() const
 {
-    QString value;
-    k_getxattr(d->filePath, QStringLiteral("user.test"), &value);
-
-    return (errno != ENOTSUP);
+    return k_isSupported(d->filePath);
 }

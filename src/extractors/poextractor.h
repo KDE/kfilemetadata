@@ -43,8 +43,8 @@ public:
 
 private:
     void endMessage();
-    void handleComment(const char* data, uint32_t length);
-    void handleLine(const char* data, uint32_t length);
+    void handleComment(const char* data, quint32 length);
+    void handleLine(const char* data, quint32 length);
 
 
     enum PoState {COMMENT, MSGCTXT, MSGID, MSGID_PLURAL, MSGSTR, MSGSTR_PLURAL,
