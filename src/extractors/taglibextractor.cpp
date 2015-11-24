@@ -57,6 +57,9 @@ QStringList TagLibExtractor::mimetypes() const
     types << QStringLiteral("audio/mpeg");
     types << QStringLiteral("audio/mpeg3"); types << QStringLiteral("audio/x-mpeg");
 
+    // M4A
+    types << QStringLiteral("audio/mp4");
+
     // FLAC
     types << QStringLiteral("audio/flac");
 
