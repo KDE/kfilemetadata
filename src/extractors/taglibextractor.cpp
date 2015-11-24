@@ -39,6 +39,11 @@
 
 using namespace KFileMetaData;
 
+static QString t2q(const TagLib::String& t)
+{
+    return QString::fromWCharArray((const wchar_t*)t.toCWString(), t.length());
+}
+
 TagLibExtractor::TagLibExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
@@ -84,7 +89,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     const QString fileUrl = result->inputUrl();
     const QString mimeType = result->inputMimetype();
 
-    TagLib::FileRef file(fileUrl.toUtf8().data(), true);
+    TagLib::FileRef file(fileUrl.toUtf8().constData(), true);
     if (file.isNull()) {
         return;
     }
@@ -100,7 +105,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
     // Handling multiple tags in mpeg files.
     if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3")) || (mimeType == QLatin1String("audio/x-mpeg"))) {
-        TagLib::MPEG::File mpegFile(fileUrl.toUtf8().data(), true);
+        TagLib::MPEG::File mpegFile(fileUrl.toUtf8().constData(), true);
         if (mpegFile.ID3v2Tag() && !mpegFile.ID3v2Tag()->isEmpty()) {
             TagLib::ID3v2::FrameList lstID3v2;
 
@@ -165,7 +170,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         // FLAC files.
         if (mimeType == QLatin1String("audio/flac")) {
-            TagLib::FLAC::File flacFile(fileUrl.toUtf8().data(), true);
+            TagLib::FLAC::File flacFile(fileUrl.toUtf8().constData(), true);
             if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
                 lstOgg = flacFile.xiphComment()->fieldListMap();
             }
@@ -173,7 +178,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         // Vorbis files.
         if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
-            TagLib::Ogg::Vorbis::File oggFile(fileUrl.toUtf8().data(), true);
+            TagLib::Ogg::Vorbis::File oggFile(fileUrl.toUtf8().constData(), true);
             if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
                 lstOgg = oggFile.tag()->fieldListMap();
             }
@@ -181,7 +186,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         // Opus files.
         if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
-            TagLib::Ogg::Opus::File opusFile(fileUrl.toUtf8().data(), true);
+            TagLib::Ogg::Opus::File opusFile(fileUrl.toUtf8().constData(), true);
             if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
                 lstOgg = opusFile.tag()->fieldListMap();
             }
@@ -237,7 +242,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
     // Handling multiple tags in Musepack files.
     if (mimeType == QLatin1String("audio/x-musepack")) {
-        TagLib::MPC::File mpcFile(fileUrl.toUtf8().data(), true);
+        TagLib::MPC::File mpcFile(fileUrl.toUtf8().constData(), true);
         if (mpcFile.tag() && !mpcFile.tag()->isEmpty()) {
             TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();
             TagLib::APE::ItemListMap::ConstIterator itMPC;
@@ -287,12 +292,12 @@ void TagLibExtractor::extract(ExtractionResult* result)
     }
 
     if (!tags->isEmpty()) {
-        QString title = QString::fromUtf8(tags->title().toCString(true));
+        QString title = t2q(tags->title());
         if (!title.isEmpty()) {
             result->add(Property::Title, title);
         }
 
-        QString comment = QString::fromUtf8(tags->comment().toCString(true));
+        QString comment = t2q(tags->comment());
         if (!comment.isEmpty()) {
             result->add(Property::Comment, comment);
         }
@@ -302,13 +307,13 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
 
         for (uint i = 0; i < genres.size(); i++) {
-            QString genre = QString::fromUtf8(genres[i].toCString(true)).trimmed();
+            QString genre = t2q(genres[i]).trimmed();
 
             // Convert from int
             bool ok = false;
             int genreNum = genre.toInt(&ok);
             if (ok) {
-                genre = QString::fromUtf8(TagLib::ID3v1::genre(genreNum).toCString(true));
+                genre = t2q(TagLib::ID3v1::genre(genreNum));
             }
 
             result->add(Property::Genre, genre);
@@ -316,9 +321,9 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         QString artistString;
         if (artists.isEmpty()) {
-            artistString = QString::fromUtf8(tags->artist().toCString(true));
+            artistString = t2q(tags->artist());
         } else {
-            artistString = QString::fromUtf8(artists.toCString(true)).trimmed();
+            artistString = t2q(artists).trimmed();
         }
 
         QStringList artists = contactsFromString(artistString);
@@ -326,23 +331,23 @@ void TagLibExtractor::extract(ExtractionResult* result)
             result->add(Property::Artist, artist);
         }
 
-        QString composersString = QString::fromUtf8(composers.toCString(true)).trimmed();
+        QString composersString = t2q(composers).trimmed();
         QStringList composers = contactsFromString(composersString);
         foreach(const QString& comp, composers) {
             result->add(Property::Composer, comp);
         }
 
-        QString lyricistsString = QString::fromUtf8(lyricists.toCString(true)).trimmed();
+        QString lyricistsString = t2q(lyricists).trimmed();
         QStringList lyricists = contactsFromString(lyricistsString);
         foreach(const QString& lyr, lyricists) {
             result->add(Property::Lyricist, lyr);
         }
 
-        QString album = QString::fromUtf8(tags->album().toCString(true));
+        QString album = t2q(tags->album());
         if (!album.isEmpty()) {
             result->add(Property::Album, album);
 
-            QString albumArtistsString = QString::fromUtf8(albumArtists.toCString(true)).trimmed();
+            QString albumArtistsString = t2q(albumArtists).trimmed();
             QStringList albumArtists = contactsFromString(albumArtistsString);
             foreach(const QString& res, albumArtists) {
                 result->add(Property::AlbumArtist, res);
