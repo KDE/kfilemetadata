@@ -23,7 +23,7 @@ set(KF5_DEP_VERSION "5.17.0") # handled by release scripts
 ecm_setup_version(${KF5_VERSION}
                   VARIABLE_PREFIX KFILEMETADATA
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
-                  SOVERSION 3)
+                  SOVERSION 5)
 
 # Dependencies
 set(REQUIRED_QT_VERSION 5.3.0)
