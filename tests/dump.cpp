@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     QCoreApplication app(argc, argv);
 
     QCommandLineParser parser;
-    parser.addPositionalArgument("filename", "File to process");
+    parser.addPositionalArgument(QStringLiteral("filename"), QStringLiteral("File to process"));
     parser.process(app);
 
     if (parser.positionalArguments().size() != 1) {
@@ -46,7 +46,7 @@ int main(int argc, char** argv)
         parser.showHelp(1);
     }
 
-    QString url = QFileInfo(parser.positionalArguments().first()).absoluteFilePath();
+    QString url = QFileInfo(parser.positionalArguments().at(0)).absoluteFilePath();
 
     QMimeDatabase mimeDb;
     QString mimetype = mimeDb.mimeTypeForFile(url).name();
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
                                                      KFileMetaData::ExtractionResult::ExtractMetaData);
         ex->extract(&result);
 
-        out << "Extractor For: " << ex->mimetypes().join(" ") << "\n";
+        out << "Extractor For: " << ex->mimetypes().join(QLatin1Char(' ')) << "\n";
         KFileMetaData::PropertyMap properties = result.properties();
         KFileMetaData::PropertyMap::const_iterator it = properties.constBegin();
         for (; it != properties.constEnd(); it++) {

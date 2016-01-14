@@ -31,9 +31,9 @@ OfficeExtractor::OfficeExtractor(QObject* parent)
 {
     // Find the executables of catdoc, catppt and xls2csv. If an executable cannot
     // be found, indexing its corresponding MIME type will be disabled
-    findExe(QLatin1String("application/msword"), QLatin1String("catdoc"), m_catdoc);
-    findExe(QLatin1String("application/vnd.ms-excel"), QLatin1String("xls2csv"), m_xls2csv);
-    findExe(QLatin1String("application/vnd.ms-powerpoint"), QLatin1String("catppt"), m_catppt);
+    findExe(QStringLiteral("application/msword"), QStringLiteral("catdoc"), m_catdoc);
+    findExe(QStringLiteral("application/vnd.ms-excel"), QStringLiteral("xls2csv"), m_xls2csv);
+    findExe(QStringLiteral("application/vnd.ms-powerpoint"), QStringLiteral("catppt"), m_catppt);
 }
 
 void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QString& fullPath)

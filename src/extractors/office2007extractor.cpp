@@ -60,12 +60,12 @@ void Office2007Extractor::extract(ExtractionResult* result)
     }
 
     const QStringList rootEntries = rootDir->entries();
-    if (!rootEntries.contains(QLatin1String("docProps"))) {
+    if (!rootEntries.contains(QStringLiteral("docProps"))) {
         qWarning() << "Invalid document structure (docProps is missing)";
         return;
     }
 
-    const KArchiveEntry* docPropEntry = rootDir->entry(QLatin1String("docProps"));
+    const KArchiveEntry* docPropEntry = rootDir->entry(QStringLiteral("docProps"));
     if (!docPropEntry->isDirectory()) {
         qWarning() << "Invalid document structure (docProps is not a directory)";
         return;
@@ -74,14 +74,14 @@ void Office2007Extractor::extract(ExtractionResult* result)
     const KArchiveDirectory* docPropDirectory = dynamic_cast<const KArchiveDirectory*>(docPropEntry);
     const QStringList docPropsEntries = docPropDirectory->entries();
 
-    if (docPropsEntries.contains(QLatin1String("core.xml"))) {
-        QDomDocument coreDoc(QLatin1String("core"));
-        const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QLatin1String("core.xml")));
+    if (docPropsEntries.contains(QStringLiteral("core.xml"))) {
+        QDomDocument coreDoc(QStringLiteral("core"));
+        const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QStringLiteral("core.xml")));
         coreDoc.setContent(file->data());
 
         QDomElement docElem = coreDoc.documentElement();
 
-        QDomElement elem = docElem.firstChildElement(QLatin1String("dc:description"));
+        QDomElement elem = docElem.firstChildElement(QStringLiteral("dc:description"));
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
@@ -89,7 +89,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        elem = docElem.firstChildElement(QLatin1String("dc:subject"));
+        elem = docElem.firstChildElement(QStringLiteral("dc:subject"));
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
@@ -97,7 +97,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        elem = docElem.firstChildElement(QLatin1String("dc:title"));
+        elem = docElem.firstChildElement(QStringLiteral("dc:title"));
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
@@ -105,7 +105,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        elem = docElem.firstChildElement(QLatin1String("dc:creator"));
+        elem = docElem.firstChildElement(QStringLiteral("dc:creator"));
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
@@ -113,7 +113,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        elem = docElem.firstChildElement(QLatin1String("dc:language"));
+        elem = docElem.firstChildElement(QStringLiteral("dc:language"));
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
@@ -121,7 +121,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        elem = docElem.firstChildElement(QLatin1String("dcterms:created"));
+        elem = docElem.firstChildElement(QStringLiteral("dcterms:created"));
         if (!elem.isNull()) {
             QString str = elem.text();
             QDateTime dt = dateTimeFromString(elem.text());
@@ -130,7 +130,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        elem = docElem.firstChildElement(QLatin1String("cp:keywords"));
+        elem = docElem.firstChildElement(QStringLiteral("cp:keywords"));
         if (!elem.isNull()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
@@ -139,9 +139,9 @@ void Office2007Extractor::extract(ExtractionResult* result)
         }
     }
 
-    if (docPropsEntries.contains(QLatin1String("app.xml"))) {
-        QDomDocument appDoc(QLatin1String("app"));
-        const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QLatin1String("app.xml")));
+    if (docPropsEntries.contains(QStringLiteral("app.xml"))) {
+        QDomDocument appDoc(QStringLiteral("app"));
+        const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QStringLiteral("app.xml")));
         appDoc.setContent(file->data());
 
         QDomElement docElem = appDoc.documentElement();
@@ -149,7 +149,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         // According to the ontologies only Documents can have a wordCount and pageCount
         const QString mimeType = result->inputMimetype();
         if (mimeType == QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
-            QDomElement elem = docElem.firstChildElement(QLatin1String("Pages"));
+            QDomElement elem = docElem.firstChildElement(QStringLiteral("Pages"));
             if (!elem.isNull()) {
                 bool ok = false;
                 int pageCount = elem.text().toInt(&ok);
@@ -158,7 +158,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
                 }
             }
 
-            elem = docElem.firstChildElement(QLatin1String("Words"));
+            elem = docElem.firstChildElement(QStringLiteral("Words"));
             if (!elem.isNull()) {
                 bool ok = false;
                 int wordCount = elem.text().toInt(&ok);
@@ -168,7 +168,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
             }
         }
 
-        QDomElement elem = docElem.firstChildElement(QLatin1String("Application"));
+        QDomElement elem = docElem.firstChildElement(QStringLiteral("Application"));
         if (!elem.isNull()) {
             QString app = elem.text();
             if (!app.isEmpty()) {
@@ -182,13 +182,13 @@ void Office2007Extractor::extract(ExtractionResult* result)
     //
     bool extractPlainText = (result->inputFlags() & ExtractionResult::ExtractPlainText);
 
-    if (rootEntries.contains(QLatin1String("word"))) {
+    if (rootEntries.contains(QStringLiteral("word"))) {
         result->addType(Type::Document);
 
         if (!extractPlainText)
             return;
 
-        const KArchiveEntry* wordEntry = rootDir->entry(QLatin1String("word"));
+        const KArchiveEntry* wordEntry = rootDir->entry(QStringLiteral("word"));
         if (!wordEntry->isDirectory()) {
             qWarning() << "Invalid document structure (word is not a directory)";
             return;
@@ -197,22 +197,22 @@ void Office2007Extractor::extract(ExtractionResult* result)
         const KArchiveDirectory* wordDirectory = dynamic_cast<const KArchiveDirectory*>(wordEntry);
         const QStringList wordEntries = wordDirectory->entries();
 
-        if (wordEntries.contains(QLatin1String("document.xml"))) {
-            QDomDocument appDoc(QLatin1String("document"));
-            const KArchiveFile* file = static_cast<const KArchiveFile*>(wordDirectory->entry(QLatin1String("document.xml")));
+        if (wordEntries.contains(QStringLiteral("document.xml"))) {
+            QDomDocument appDoc(QStringLiteral("document"));
+            const KArchiveFile* file = static_cast<const KArchiveFile*>(wordDirectory->entry(QStringLiteral("document.xml")));
 
             extractTextWithTag(file->createDevice(), QStringLiteral("w:t"), result);
         }
     }
 
-    else if (rootEntries.contains(QLatin1String("xl"))) {
+    else if (rootEntries.contains(QStringLiteral("xl"))) {
         result->addType(Type::Document);
         result->addType(Type::Spreadsheet);
 
         if (!extractPlainText)
             return;
 
-        const KArchiveEntry* xlEntry = rootDir->entry(QLatin1String("xl"));
+        const KArchiveEntry* xlEntry = rootDir->entry(QStringLiteral("xl"));
         if (!xlEntry->isDirectory()) {
             qWarning() << "Invalid document structure (xl is not a directory)";
             return;
@@ -222,14 +222,14 @@ void Office2007Extractor::extract(ExtractionResult* result)
         extractTextFromFiles(xlDirectory, result);
     }
 
-    else if (rootEntries.contains(QLatin1String("ppt"))) {
+    else if (rootEntries.contains(QStringLiteral("ppt"))) {
         result->addType(Type::Document);
         result->addType(Type::Presentation);
 
         if (!extractPlainText)
             return;
 
-        const KArchiveEntry* pptEntry = rootDir->entry(QLatin1String("ppt"));
+        const KArchiveEntry* pptEntry = rootDir->entry(QStringLiteral("ppt"));
         if (!pptEntry->isDirectory()) {
             qWarning() << "Invalid document structure (ppt is not a directory)";
             return;

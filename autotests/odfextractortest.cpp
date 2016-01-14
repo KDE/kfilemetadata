@@ -39,17 +39,17 @@ void OdfExtractorTest::testText()
 {
     QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this));
 
-    SimpleExtractionResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text");
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"));
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().first(), Type::Document);
+    QCOMPARE(result.types().at(0), Type::Document);
 
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("KFileMetaData Title")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("KFileMetaData Subject")));
     QCOMPARE(result.properties().value(Property::Keywords), QVariant(QStringLiteral("KFileMetaData keyword")));
     QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("KFileMetaData comment")));
-    QVERIFY(result.properties().value(Property::Generator).toString().contains("LibreOffice"));
+    QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
 
     QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40, 690));
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
@@ -64,7 +64,7 @@ void OdfExtractorTest::testTextMetaDataOnly()
 {
     QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this));
 
-    SimpleExtractionResult result(testFilePath("test.odt"), "application/vnd.oasis.opendocument.text", ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"), ExtractionResult::ExtractMetaData);
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -76,14 +76,14 @@ void OdfExtractorTest::testPresentation()
 {
     QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor(this));
 
-    SimpleExtractionResult result(testFilePath("test.odp"), "application/vnd.oasis.opendocument.presentation");
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.odp")), QStringLiteral("application/vnd.oasis.opendocument.presentation"));
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 2);
-    QCOMPARE(result.types()[0], Type::Document);
-    QCOMPARE(result.types()[1], Type::Presentation);
+    QCOMPARE(result.types().at(0), Type::Document);
+    QCOMPARE(result.types().at(1), Type::Presentation);
 
-    QVERIFY(result.properties().value(Property::Generator).toString().contains("LibreOffice"));
+    QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
     QDateTime dt(QDate(2014, 07, 02), QTime(10, 59, 23, 434));
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 

@@ -127,13 +127,13 @@ QStringList ExtractorPlugin::contactsFromString(const QString& string)
         contactStrings = string.split(QLatin1Char(';'), QString::SkipEmptyParts);
 
     if (contactStrings.size() == 1)
-        contactStrings = string.split(QLatin1String(" ft "), QString::SkipEmptyParts);
+        contactStrings = string.split(QStringLiteral(" ft "), QString::SkipEmptyParts);
 
     if (contactStrings.size() == 1)
-        contactStrings = string.split(QLatin1String(" feat. "), QString::SkipEmptyParts);
+        contactStrings = string.split(QStringLiteral(" feat. "), QString::SkipEmptyParts);
 
     if (contactStrings.size() == 1)
-        contactStrings = string.split(QLatin1String(" feat "), QString::SkipEmptyParts);
+        contactStrings = string.split(QStringLiteral(" feat "), QString::SkipEmptyParts);
 
     QStringList list;
     foreach(const QString& contactName, contactStrings) {

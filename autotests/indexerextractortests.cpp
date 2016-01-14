@@ -45,7 +45,7 @@ void IndexerExtractorTests::benchMarkPlainTextExtractor()
     PlainTextExtractor plugin(this);
 
     // generate a test file with varying number of words per line
-    QTemporaryFile file("XXXXXX.txt");
+    QTemporaryFile file(QStringLiteral("XXXXXX.txt"));
     QVERIFY(file.open());
     QByteArray chunk("foo bar ");
     for (int line = 0; line < 10000; ++line) {
@@ -55,7 +55,7 @@ void IndexerExtractorTests::benchMarkPlainTextExtractor()
         file.write("\n");
     }
 
-    SimpleExtractionResult result(file.fileName(), "text/plain");
+    SimpleExtractionResult result(file.fileName(), QStringLiteral("text/plain"));
 
     QBENCHMARK {
         plugin.extract(&result);
@@ -66,7 +66,7 @@ void IndexerExtractorTests::testPlainTextExtractor()
 {
     QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this));
 
-    SimpleExtractionResult result(testFilePath("plain_text_file.txt"), "text/plain");
+    SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"));
     plugin->extract(&result);
 
     QString content;
@@ -76,7 +76,7 @@ void IndexerExtractorTests::testPlainTextExtractor()
                           << "and 17 words.\n";
 
     QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().first(), Type::Text);
+    QCOMPARE(result.types().at(0), Type::Text);
 
     QCOMPARE(result.properties().size(), 1);
     QCOMPARE(result.properties().value(Property::LineCount), QVariant(4));
@@ -89,7 +89,7 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 {
     QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this));
 
-    SimpleExtractionResult result(testFilePath("plain_text_file.txt"), "text/plain", ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"), ExtractionResult::ExtractMetaData);
     plugin->extract(&result);
 
     QString content;
@@ -99,7 +99,7 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
                           << "and 17 words.\n";
 
     QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().first(), Type::Text);
+    QCOMPARE(result.types().at(0), Type::Text);
 
     QCOMPARE(result.properties().size(), 0);
 }

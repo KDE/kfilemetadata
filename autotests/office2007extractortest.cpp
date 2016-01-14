@@ -38,18 +38,18 @@ void Office2007ExtractorTest::test()
 {
     QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this));
 
-    SimpleExtractionResult result(testFilePath("test_libreoffice.docx"), "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_libreoffice.docx")), QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().first(), Type::Document);
+    QCOMPARE(result.types().at(0), Type::Document);
 
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("KFileMetaData Title")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("KFileMetaData Subject")));
     QCOMPARE(result.properties().value(Property::Keywords), QVariant(QStringLiteral("KFileMetaData keyword")));
     QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("KFileMetaData comment")));
     QCOMPARE(result.properties().value(Property::Langauge), QVariant(QStringLiteral("en-US")));
-    QVERIFY(result.properties().value(Property::Generator).toString().contains("LibreOffice"));
+    QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
 
     QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40));
     dt.setTimeSpec(Qt::UTC);
@@ -63,8 +63,8 @@ void Office2007ExtractorTest::testMetaDataOnly()
 {
     QScopedPointer<ExtractorPlugin> plugin(new Office2007Extractor(this));
 
-    SimpleExtractionResult result(testFilePath("test_libreoffice.docx"),
-                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_libreoffice.docx")),
+                        QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
                         ExtractionResult::ExtractMetaData);
 
     plugin->extract(&result);

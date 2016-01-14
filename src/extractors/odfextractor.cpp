@@ -60,13 +60,13 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     const QStringList entries = directory->entries();
-    if (!entries.contains(QLatin1String("meta.xml"))) {
+    if (!entries.contains(QStringLiteral("meta.xml"))) {
         qWarning() << "Invalid document structure (meta.xml is missing)";
         return;
     }
 
-    QDomDocument metaData(QLatin1String("metaData"));
-    const KArchiveFile* file = static_cast<const KArchiveFile*>(directory->entry(QLatin1String("meta.xml")));
+    QDomDocument metaData(QStringLiteral("metaData"));
+    const KArchiveFile* file = static_cast<const KArchiveFile*>(directory->entry(QStringLiteral("meta.xml")));
     metaData.setContent(file->data());
 
     // parse metadata ...
@@ -94,12 +94,12 @@ void OdfExtractor::extract(ExtractionResult* result)
             // Meta Properties
             else if (tagName == QLatin1String("meta:document-statistic")) {
                 bool ok = false;
-                int pageCount = e.attribute(QLatin1String("meta:page-count")).toInt(&ok);
+                int pageCount = e.attribute(QStringLiteral("meta:page-count")).toInt(&ok);
                 if (ok) {
                     result->add(Property::PageCount, pageCount);
                 }
 
-                int wordCount = e.attribute(QLatin1String("meta:word-count")).toInt(&ok);
+                int wordCount = e.attribute(QStringLiteral("meta:word-count")).toInt(&ok);
                 if (ok) {
                     result->add(Property::WordCount, wordCount);
                 }
@@ -129,7 +129,7 @@ void OdfExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry(QLatin1String("content.xml")));
+    const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry(QStringLiteral("content.xml")));
     QXmlStreamReader xml(contentsFile->createDevice());
 
     while (!xml.atEnd()) {
