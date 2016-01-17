@@ -240,6 +240,11 @@ enum Property {
     TranslationLastUpDate,
     TranslationTemplateDate,
 
+    /**
+     * The URL this file has originally been downloaded from.
+     */
+    OriginUrl,
+
     PropertyCount,
     LastProperty = PropertyCount-1
 };

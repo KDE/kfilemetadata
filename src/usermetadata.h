@@ -23,6 +23,7 @@
 
 #include "kfilemetadata_export.h"
 #include <QStringList>
+#include <QUrl>
 
 namespace KFileMetaData {
 
@@ -48,6 +49,9 @@ public:
 
     QString userComment() const;
     Error setUserComment(const QString& userComment);
+
+    QUrl originUrl() const;
+    Error setOriginUrl(const QUrl &originUrl);
 
     QString attribute(const QString& name);
     Error setAttribute(const QString& name, const QString& value);

@@ -408,6 +408,13 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->shouldBeIndexed = false;
             break;
 
+        case Property::OriginUrl:
+            d->name = QStringLiteral("originUrl");
+            d->displayName = i18nc("@label the URL a file was originally downloded from", "Downloaded From");
+            d->valueType = QVariant::Url;
+            d->shouldBeIndexed = false;
+            break;
+
         case Property::PropertyCount: // To silence the compiler.
             break;
 
@@ -527,7 +534,8 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("translationunitswithdrafttranslation"), Property::TranslationUnitsWithDraftTranslation },
         { QStringLiteral("translationlastauthor"), Property::TranslationLastAuthor },
         { QStringLiteral("translationlastupdate"), Property::TranslationLastUpDate },
-        { QStringLiteral("translationtemplatedate"), Property::TranslationTemplateDate }
+        { QStringLiteral("translationtemplatedate"), Property::TranslationTemplateDate },
+        { QStringLiteral("originurl"), Property::OriginUrl }
     };
 
     return PropertyInfo(propertyHash.value(name.toLower()));

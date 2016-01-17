@@ -98,6 +98,20 @@ UserMetaData::Error UserMetaData::setUserComment(const QString& userComment)
     return NoError;
 }
 
+QUrl UserMetaData::originUrl() const
+{
+    QString value;
+    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.url"), &value);
+
+    return QUrl(value);
+}
+
+UserMetaData::Error UserMetaData::setOriginUrl(const QUrl &originUrl)
+{
+    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.url"), originUrl.toString());
+    return NoError;
+}
+
 UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString& value)
 {
     k_setxattr(d->filePath, QStringLiteral("user.") + key, value);
