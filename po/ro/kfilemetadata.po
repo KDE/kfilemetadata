@@ -1,0 +1,354 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sergiu Bivol <sergiu@cip.md>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-01-18 09:16+0000\n"
+"PO-Revision-Date: 2015-04-26 15:04+0300\n"
+"Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
+"Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: src/propertyinfo.cpp:47
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Album"
+
+#: src/propertyinfo.cpp:53
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Interpret album"
+
+#: src/propertyinfo.cpp:59
+msgctxt "@label"
+msgid "Artist"
+msgstr "Interpret"
+
+#: src/propertyinfo.cpp:65
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Raport de aspect"
+
+#: src/propertyinfo.cpp:71
+msgctxt "@label"
+msgid "Author"
+msgstr "Autor"
+
+#: src/propertyinfo.cpp:77
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Rată de biți"
+
+#: src/propertyinfo.cpp:83
+msgctxt "@label"
+msgid "Channels"
+msgstr "Canale"
+
+#: src/propertyinfo.cpp:89
+msgctxt "@label"
+msgid "Comment"
+msgstr "Comentariu"
+
+#: src/propertyinfo.cpp:96
+msgctxt "@label"
+msgid "Composer"
+msgstr "Compozitor"
+
+#: src/propertyinfo.cpp:103
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Drept de autor"
+
+#: src/propertyinfo.cpp:110
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Data creării"
+
+#: src/propertyinfo.cpp:116
+msgctxt "@label"
+msgid "Duration"
+msgstr "Durată"
+
+#: src/propertyinfo.cpp:127
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Rata de cadre"
+
+#: src/propertyinfo.cpp:133
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "Aplicația folosită pentru generarea documentului"
+
+#: src/propertyinfo.cpp:140
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Gen"
+
+#: src/propertyinfo.cpp:147
+msgctxt "@label"
+msgid "Height"
+msgstr "Înălțime"
+
+#: src/propertyinfo.cpp:153
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr ""
+
+#: src/propertyinfo.cpp:159
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr ""
+
+#: src/propertyinfo.cpp:166
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr ""
+
+#: src/propertyinfo.cpp:173
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr ""
+
+#: src/propertyinfo.cpp:179
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Cuvinte-cheie"
+
+#: src/propertyinfo.cpp:186
+msgctxt "@label"
+msgid "Language"
+msgstr "Limbă"
+
+#: src/propertyinfo.cpp:193
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Număr de linii"
+
+#: src/propertyinfo.cpp:199
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Textier"
+
+#: src/propertyinfo.cpp:206
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Număr pagini"
+
+#: src/propertyinfo.cpp:212
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr ""
+
+#: src/propertyinfo.cpp:218
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr ""
+
+#: src/propertyinfo.cpp:224
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr ""
+
+#: src/propertyinfo.cpp:230
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr ""
+
+#: src/propertyinfo.cpp:236
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr ""
+
+#: src/propertyinfo.cpp:242
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr ""
+
+#: src/propertyinfo.cpp:248
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr ""
+
+#: src/propertyinfo.cpp:254
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr ""
+
+#: src/propertyinfo.cpp:260
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr ""
+
+#: src/propertyinfo.cpp:266
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr ""
+
+#: src/propertyinfo.cpp:272
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr ""
+
+#: src/propertyinfo.cpp:278
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr ""
+
+#: src/propertyinfo.cpp:284
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr ""
+
+#: src/propertyinfo.cpp:290
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr ""
+
+#: src/propertyinfo.cpp:296
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr ""
+
+#: src/propertyinfo.cpp:302
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr ""
+
+#: src/propertyinfo.cpp:308
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr ""
+
+#: src/propertyinfo.cpp:314
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr ""
+
+#: src/propertyinfo.cpp:320
+msgctxt "@label"
+msgid "Publisher"
+msgstr ""
+
+#: src/propertyinfo.cpp:326
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Anul lansării"
+
+#: src/propertyinfo.cpp:332
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Rată de eșantionare"
+
+#: src/propertyinfo.cpp:338
+msgctxt "@label"
+msgid "Subject"
+msgstr "Subiect"
+
+#: src/propertyinfo.cpp:345
+msgctxt "@label"
+msgid "Title"
+msgstr "Titlu"
+
+#: src/propertyinfo.cpp:351
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Număr pistă"
+
+#: src/propertyinfo.cpp:357
+msgctxt "@label"
+msgid "Width"
+msgstr "Lățime"
+
+#: src/propertyinfo.cpp:363
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Număr de cuvinte"
+
+#: src/propertyinfo.cpp:370
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Unități traductibile"
+
+#: src/propertyinfo.cpp:377
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Traduceri"
+
+#: src/propertyinfo.cpp:385
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Traduceri pe ciornă"
+
+#: src/propertyinfo.cpp:392
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Autor"
+
+#: src/propertyinfo.cpp:399
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Ultima actualizare"
+
+#: src/propertyinfo.cpp:406
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Creare șablon"
+
+#: src/propertyinfo.cpp:413
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr ""
+
+#: src/typeinfo.cpp:47
+msgctxt "@label"
+msgid "Archive"
+msgstr "Arhivă"
+
+#: src/typeinfo.cpp:52
+msgctxt "@label"
+msgid "Audio"
+msgstr "Audio"
+
+#: src/typeinfo.cpp:57
+msgctxt "@label"
+msgid "Document"
+msgstr "Document"
+
+#: src/typeinfo.cpp:62
+msgctxt "@label"
+msgid "Image"
+msgstr "Imagine"
+
+#: src/typeinfo.cpp:67
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Prezentare"
+
+#: src/typeinfo.cpp:72
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Foaie de calcul"
+
+#: src/typeinfo.cpp:77
+msgctxt "@label"
+msgid "Text"
+msgstr "Text"
+
+#: src/typeinfo.cpp:82
+msgctxt "@label"
+msgid "Video"
+msgstr "Video"
+
+#: src/typeinfo.cpp:87
+msgctxt "@label"
+msgid "Folder"
+msgstr "Dosar"

@@ -1,0 +1,353 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2014, 2015, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-01-18 09:16+0000\n"
+"PO-Revision-Date: 2016-01-19 00:37+0100\n"
+"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: src/propertyinfo.cpp:47
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Album"
+
+#: src/propertyinfo.cpp:53
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Albumartiest"
+
+#: src/propertyinfo.cpp:59
+msgctxt "@label"
+msgid "Artist"
+msgstr "Artiest"
+
+#: src/propertyinfo.cpp:65
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Aspectverhouding"
+
+#: src/propertyinfo.cpp:71
+msgctxt "@label"
+msgid "Author"
+msgstr "Auteur"
+
+#: src/propertyinfo.cpp:77
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Bitsnelheid"
+
+#: src/propertyinfo.cpp:83
+msgctxt "@label"
+msgid "Channels"
+msgstr "Kanalen"
+
+#: src/propertyinfo.cpp:89
+msgctxt "@label"
+msgid "Comment"
+msgstr "Toelichting"
+
+#: src/propertyinfo.cpp:96
+msgctxt "@label"
+msgid "Composer"
+msgstr "Opsteller"
+
+#: src/propertyinfo.cpp:103
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Copyright"
+
+#: src/propertyinfo.cpp:110
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Aanmaakdatum"
+
+#: src/propertyinfo.cpp:116
+msgctxt "@label"
+msgid "Duration"
+msgstr "Duur"
+
+#: src/propertyinfo.cpp:127
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Framesnelheid"
+
+#: src/propertyinfo.cpp:133
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "Gebruikte software voor het genereren van het document"
+
+#: src/propertyinfo.cpp:140
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Genre"
+
+#: src/propertyinfo.cpp:147
+msgctxt "@label"
+msgid "Height"
+msgstr "Hoogte"
+
+#: src/propertyinfo.cpp:153
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "Datum en tijd van afbeelding"
+
+#: src/propertyinfo.cpp:159
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "Maker van afbeelding"
+
+#: src/propertyinfo.cpp:166
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "Model van de afbeelding"
+
+#: src/propertyinfo.cpp:173
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "Oriëntatie van de afbeelding"
+
+#: src/propertyinfo.cpp:179
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Trefwoorden"
+
+#: src/propertyinfo.cpp:186
+msgctxt "@label"
+msgid "Language"
+msgstr "Taal"
+
+#: src/propertyinfo.cpp:193
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Aantal regels"
+
+#: src/propertyinfo.cpp:199
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Maker liedtekst"
+
+#: src/propertyinfo.cpp:206
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Aantal pagina's"
+
+#: src/propertyinfo.cpp:212
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "Diafragmawaarde van foto"
+
+#: src/propertyinfo.cpp:218
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "Oorspronkelijke datum/tijd van foto"
+
+#: src/propertyinfo.cpp:224
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "Belichtingsinstelling van de foto"
+
+#: src/propertyinfo.cpp:230
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "Belichtingstijd van de foto"
+
+#: src/propertyinfo.cpp:236
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "Fotoflits"
+
+#: src/propertyinfo.cpp:242
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "F-getal van de foto"
+
+#: src/propertyinfo.cpp:248
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "Brandpuntsafstand van de foto"
+
+#: src/propertyinfo.cpp:254
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "Brandpuntsafstand 35mm van de foto"
+
+#: src/propertyinfo.cpp:260
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "GPS-breedtegraad van foto"
+
+#: src/propertyinfo.cpp:266
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "GPS-lengtegraad van foto"
+
+#: src/propertyinfo.cpp:272
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "GPS-hoogte van foto"
+
+#: src/propertyinfo.cpp:278
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "ISO-snelheid van de foto"
+
+#: src/propertyinfo.cpp:284
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "Lichtmetingsmodus van de foto"
+
+#: src/propertyinfo.cpp:290
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "X-afmeting van de foto"
+
+#: src/propertyinfo.cpp:296
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "Y-afmeting van de foto"
+
+#: src/propertyinfo.cpp:302
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "Verzadiging van de foto"
+
+#: src/propertyinfo.cpp:308
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "Scherpte van de foto"
+
+#: src/propertyinfo.cpp:314
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "Witbalans van de foto"
+
+#: src/propertyinfo.cpp:320
+msgctxt "@label"
+msgid "Publisher"
+msgstr "Uitgever"
+
+#: src/propertyinfo.cpp:326
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Jaar van uitgave"
+
+#: src/propertyinfo.cpp:332
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Samplesnelheid"
+
+#: src/propertyinfo.cpp:338
+msgctxt "@label"
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: src/propertyinfo.cpp:345
+msgctxt "@label"
+msgid "Title"
+msgstr "Titel"
+
+#: src/propertyinfo.cpp:351
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Tracknummer"
+
+#: src/propertyinfo.cpp:357
+msgctxt "@label"
+msgid "Width"
+msgstr "Breedte"
+
+#: src/propertyinfo.cpp:363
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Aantal woorden"
+
+#: src/propertyinfo.cpp:370
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Vertaalbare eenheden"
+
+#: src/propertyinfo.cpp:377
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Vertalingen"
+
+#: src/propertyinfo.cpp:385
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Concept vertalingen"
+
+#: src/propertyinfo.cpp:392
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Auteur"
+
+#: src/propertyinfo.cpp:399
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Laatste keer bijwerken"
+
+#: src/propertyinfo.cpp:406
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Maken van sjabloon"
+
+#: src/propertyinfo.cpp:413
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr "Gedownload van"
+
+#: src/typeinfo.cpp:47
+msgctxt "@label"
+msgid "Archive"
+msgstr "Archief"
+
+#: src/typeinfo.cpp:52
+msgctxt "@label"
+msgid "Audio"
+msgstr "Geluid"
+
+#: src/typeinfo.cpp:57
+msgctxt "@label"
+msgid "Document"
+msgstr "Document"
+
+#: src/typeinfo.cpp:62
+msgctxt "@label"
+msgid "Image"
+msgstr "Afbeelding"
+
+#: src/typeinfo.cpp:67
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Presentatie"
+
+#: src/typeinfo.cpp:72
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Rekenblad"
+
+#: src/typeinfo.cpp:77
+msgctxt "@label"
+msgid "Text"
+msgstr "Tekst"
+
+#: src/typeinfo.cpp:82
+msgctxt "@label"
+msgid "Video"
+msgstr "Video"
+
+#: src/typeinfo.cpp:87
+msgctxt "@label"
+msgid "Folder"
+msgstr "Map"
