@@ -53,6 +53,15 @@ public:
     QUrl originUrl() const;
     Error setOriginUrl(const QUrl &originUrl);
 
+    QString originEmailSubject() const;
+    Error setOriginEmailSubject(const QString &originEmailSubject);
+
+    QString originEmailSender() const;
+    Error setOriginEmailSender(const QString &originEmailSender);
+
+    QString originEmailMessageId() const;
+    Error setOriginEmailMessageId(const QString &originEmailMessageId);
+
     QString attribute(const QString& name);
     Error setAttribute(const QString& name, const QString& value);
     bool hasAttribute(const QString& name);

@@ -415,6 +415,27 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->shouldBeIndexed = false;
             break;
 
+        case Property::OriginEmailSubject:
+            d->name = QStringLiteral("originEmailSubject");
+            d->displayName = i18nc("@label the subject of an email this file was attached to", "E-Mail Attachment Subject");
+            d->valueType = QVariant::String;
+            d->shouldBeIndexed = false;
+            break;
+
+        case Property::OriginEmailSender:
+            d->name = QStringLiteral("originEmailSender");
+            d->displayName = i18nc("@label the sender of an email this file was attached to", "E-Mail Attachment Sender");
+            d->valueType = QVariant::String;
+            d->shouldBeIndexed = false;
+            break;
+
+        case Property::OriginEmailMessageId:
+            d->name = QStringLiteral("originEmailMessageId");
+            d->displayName = i18nc("@label the message ID of an email this file was attached to", "E-Mail Attachment Message ID");
+            d->valueType = QVariant::String;
+            d->shouldBeIndexed = false;
+            break;
+
         case Property::PropertyCount: // To silence the compiler.
             break;
 
@@ -535,7 +556,10 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("translationlastauthor"), Property::TranslationLastAuthor },
         { QStringLiteral("translationlastupdate"), Property::TranslationLastUpDate },
         { QStringLiteral("translationtemplatedate"), Property::TranslationTemplateDate },
-        { QStringLiteral("originurl"), Property::OriginUrl }
+        { QStringLiteral("originurl"), Property::OriginUrl },
+        { QStringLiteral("originemailsubject"), Property::OriginEmailSubject },
+        { QStringLiteral("originemailsender"), Property::OriginEmailSender },
+        { QStringLiteral("originemailmessageid"), Property::OriginEmailMessageId }
     };
 
     return PropertyInfo(propertyHash.value(name.toLower()));

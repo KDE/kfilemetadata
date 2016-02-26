@@ -112,6 +112,45 @@ UserMetaData::Error UserMetaData::setOriginUrl(const QUrl &originUrl)
     return NoError;
 }
 
+QString UserMetaData::originEmailSubject() const
+{
+    QString value;
+    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"), &value);
+    return value;
+}
+
+UserMetaData::Error UserMetaData::setOriginEmailSubject(const QString &originEmailSubject)
+{
+    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"), originEmailSubject);
+    return NoError;
+}
+
+QString UserMetaData::originEmailSender() const
+{
+    QString value;
+    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"), &value);
+    return value;
+}
+
+UserMetaData::Error UserMetaData::setOriginEmailSender(const QString &originEmailSender)
+{
+    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"), originEmailSender);
+    return NoError;
+}
+
+QString UserMetaData::originEmailMessageId() const
+{
+    QString value;
+    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"), &value);
+    return value;
+}
+
+UserMetaData::Error UserMetaData::setOriginEmailMessageId(const QString &originEmailMessageId)
+{
+    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"), originEmailMessageId);
+    return NoError;
+}
+
 UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString& value)
 {
     k_setxattr(d->filePath, QStringLiteral("user.") + key, value);

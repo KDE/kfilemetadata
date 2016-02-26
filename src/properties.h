@@ -245,6 +245,21 @@ enum Property {
      */
     OriginUrl,
 
+    /**
+     * The subject of the email this file was originally attached to.
+     */
+    OriginEmailSubject,
+
+    /**
+     * The sender of the email this file was originally attached to.
+     */
+    OriginEmailSender,
+
+    /**
+     * The message ID of the email this file was originally attached to.
+     */
+    OriginEmailMessageId,
+
     PropertyCount,
     LastProperty = PropertyCount-1
 };
