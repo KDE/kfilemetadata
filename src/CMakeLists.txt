@@ -4,6 +4,7 @@ add_library(KF5FileMetaData
     extractor.cpp
     extractorplugin.cpp
     extractorcollection.cpp
+    externalextractor.cpp
     propertyinfo.cpp
     typeinfo.cpp
     usermetadata.cpp

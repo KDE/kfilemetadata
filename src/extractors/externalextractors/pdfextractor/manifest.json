@@ -1,0 +1,5 @@
+{
+    "main": "main.py",
+    "mimetypes": ["application/pdf"],
+    "language": "python"
+}

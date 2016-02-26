@@ -21,13 +21,11 @@
 #ifndef _KFILEMETADATA_EXTRACTORCOLLECTION_H
 #define _KFILEMETADATA_EXTRACTORCOLLECTION_H
 
+#include "extractor.h"
 #include "kfilemetadata_export.h"
 
 namespace KFileMetaData
 {
-
-class Extractor;
-
 /**
  * \class ExtractorCollection extractorcollection.h
  *

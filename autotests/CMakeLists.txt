@@ -97,3 +97,9 @@ if(TAGLIB_FOUND)
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )
 endif()
+
+
+ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp
+        TEST_NAME "externalextractortest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
+    )
