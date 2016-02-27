@@ -1,0 +1,141 @@
+/*
+ * This file is part of the KFileMetaData project
+ * Copyright (C) 2016  Varun Joshi <varunj.1011@gmail.com>
+ * Copyright (C) 2016  Vishesh Handa <me@vhanda.in>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) version 3, or any
+ * later version accepted by the membership of KDE e.V. (or its
+ * successor approved by the membership of KDE e.V.), which shall
+ * act as a proxy defined in Section 6 of version 3 of the license.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+#include <QDebug>
+#include <QCoreApplication>
+#include <QPluginLoader>
+#include <QDir>
+
+#include <KLocalizedString>
+
+#include "writer.h"
+#include "writer_p.h"
+#include "writerplugin.h"
+#include "writercollection.h"
+
+#include "config-kfilemetadata.h"
+
+using namespace KFileMetaData;
+
+struct WriterCollection::WriterCollectionPrivate {
+    QHash<QString, Writer*> m_writers;
+
+    QList<Writer*> allWriters() const;
+};
+
+WriterCollection::WriterCollection()
+    : d_ptr(new WriterCollectionPrivate)
+{
+    Q_D(WriterCollection);
+    QList<Writer*> all = d->allWriters();
+
+    foreach (Writer* writer, all) {
+        foreach (const QString& type, writer->mimetypes()) {
+            d->m_writers.insertMulti(type, writer);
+        }
+    }
+}
+
+WriterCollection::~WriterCollection()
+{
+    Q_D(WriterCollection);
+    qDeleteAll(d->m_writers.values().toSet());
+    delete d;
+}
+
+
+QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
+{
+    QStringList plugins;
+    QStringList pluginPaths;
+
+    QStringList paths = QCoreApplication::libraryPaths();
+    Q_FOREACH (const QString& libraryPath, paths) {
+        QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata/writers"));
+        QDir dir(path);
+
+        if (!dir.exists()) {
+            continue;
+        }
+
+        QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
+        Q_FOREACH (const QString& fileName, entryList) {
+            // Make sure the same plugin is not loaded twice, even if it
+            // installed in two different locations
+            if (plugins.contains(fileName))
+                continue;
+
+            plugins << fileName;
+            pluginPaths << dir.absoluteFilePath(fileName);
+        }
+    }
+    plugins.clear();
+
+    QList<Writer*> writers;
+    Q_FOREACH (const QString& pluginPath, pluginPaths) {
+        QPluginLoader loader(pluginPath);
+
+        if (!loader.load()) {
+            qWarning() << "Could not create Writer: " << pluginPath;
+            qWarning() << loader.errorString();
+            continue;
+        }
+
+        QObject* obj = loader.instance();
+        if (obj) {
+            WriterPlugin* plugin = qobject_cast<WriterPlugin*>(obj);
+            if (plugin) {
+                Writer* writer = new Writer;
+                writer->d_ptr->m_plugin = plugin;
+
+                writers << writer;
+            } else {
+                qDebug() << i18n("Plugin could not be converted to an WriterPlugin");
+                qDebug() << pluginPath;
+            }
+        }
+        else {
+            qDebug() << i18n("Plugin could not create instance") << pluginPath;
+        }
+    }
+
+    return writers;
+}
+
+QList<Writer*> WriterCollection::fetchWriters(const QString& mimetype) const
+{
+    Q_D(const WriterCollection);
+    QList<Writer*> plugins = d->m_writers.values(mimetype);
+    if (plugins.isEmpty()) {
+        auto it = d->m_writers.constBegin();
+        for (; it != d->m_writers.constEnd(); it++) {
+            if (mimetype.startsWith(it.key()))
+                plugins << it.value();
+        }
+    }
+
+    return plugins;
+}
+
+
+
