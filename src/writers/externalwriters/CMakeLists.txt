@@ -1,0 +1,6 @@
+install(
+    DIRECTORY pdfwriter
+    DESTINATION ${KF5_LIBEXEC_INSTALL_DIR}/kfilemetadata/externalwriters
+    PATTERN "*.py"
+    PERMISSIONS WORLD_READ OWNER_WRITE GROUP_READ WORLD_EXECUTE
+    )

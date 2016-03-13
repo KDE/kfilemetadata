@@ -32,6 +32,7 @@
 #include "writer_p.h"
 #include "writerplugin.h"
 #include "writercollection.h"
+#include "externalwriter.h"
 
 #include "config-kfilemetadata.h"
 
@@ -68,6 +69,8 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
 {
     QStringList plugins;
     QStringList pluginPaths;
+    QStringList externalPlugins;
+    QStringList externalPluginPaths;
 
     QStringList paths = QCoreApplication::libraryPaths();
     Q_FOREACH (const QString& libraryPath, paths) {
@@ -90,6 +93,18 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
         }
     }
     plugins.clear();
+
+    QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/writers/externalwriters"));
+    // For external plugins, we look into the directories
+    QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    Q_FOREACH (const QString& externalPlugin, externalPluginEntryList) {
+        if (externalPlugins.contains(externalPlugin))
+            continue;
+
+        externalPlugins << externalPlugin;
+        externalPluginPaths << externalPluginDir.absoluteFilePath(externalPlugin);
+    }
+    externalPlugins.clear();
 
     QList<Writer*> writers;
     Q_FOREACH (const QString& pluginPath, pluginPaths) {
@@ -117,6 +132,14 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
         else {
             qDebug() << i18n("Plugin could not create instance") << pluginPath;
         }
+    }
+
+    Q_FOREACH (const QString& externalPluginPath, externalPluginPaths) {
+        ExternalWriter *plugin = new ExternalWriter(externalPluginPath);
+        Writer* writer = new Writer;
+        writer->d_ptr->m_plugin = plugin;
+
+        writers << writer;
     }
 
     return writers;

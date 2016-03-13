@@ -12,6 +12,7 @@ add_library(KF5FileMetaData
     writer.cpp
     writerplugin.cpp
     writercollection.cpp
+    externalwriter.cpp
 )
 
 add_library(KF5::FileMetaData ALIAS KF5FileMetaData)
