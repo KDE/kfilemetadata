@@ -1,0 +1,369 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Andrej Mernik <andrejm@ubuntu.si>, 2014, 2015, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-02-27 07:21+0000\n"
+"PO-Revision-Date: 2016-03-07 17:07+0100\n"
+"Last-Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
+"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: src/propertyinfo.cpp:47
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Album"
+
+#: src/propertyinfo.cpp:53
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Izvajalec albuma"
+
+#: src/propertyinfo.cpp:59
+msgctxt "@label"
+msgid "Artist"
+msgstr "Izvajalec"
+
+#: src/propertyinfo.cpp:65
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Razmerje"
+
+#: src/propertyinfo.cpp:71
+msgctxt "@label"
+msgid "Author"
+msgstr "Avtor"
+
+#: src/propertyinfo.cpp:77
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Bitna hitrost"
+
+#: src/propertyinfo.cpp:83
+msgctxt "@label"
+msgid "Channels"
+msgstr "Kanali"
+
+#: src/propertyinfo.cpp:89
+msgctxt "@label"
+msgid "Comment"
+msgstr "Opomba"
+
+#: src/propertyinfo.cpp:96
+msgctxt "@label"
+msgid "Composer"
+msgstr "Skladatelj"
+
+#: src/propertyinfo.cpp:103
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Avtorske pravice"
+
+#: src/propertyinfo.cpp:110
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Datum ustvaritve"
+
+#: src/propertyinfo.cpp:116
+msgctxt "@label"
+msgid "Duration"
+msgstr "Trajanje"
+
+#: src/propertyinfo.cpp:127
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Hitrost sličic"
+
+#: src/propertyinfo.cpp:133
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "Programska oprema uporabljena za ustvaritev dokumenta"
+
+#: src/propertyinfo.cpp:140
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Zvrst"
+
+#: src/propertyinfo.cpp:147
+msgctxt "@label"
+msgid "Height"
+msgstr "Višina"
+
+#: src/propertyinfo.cpp:153
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "Datum in čas slike"
+
+#: src/propertyinfo.cpp:159
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "Slika: znamka"
+
+#: src/propertyinfo.cpp:166
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "Slika: model"
+
+#: src/propertyinfo.cpp:173
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "Usmerjenost slike"
+
+#: src/propertyinfo.cpp:179
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Ključne besede"
+
+#: src/propertyinfo.cpp:186
+msgctxt "@label"
+msgid "Language"
+msgstr "Jezik"
+
+#: src/propertyinfo.cpp:193
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Število vrstic"
+
+#: src/propertyinfo.cpp:199
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Pisec besedila"
+
+#: src/propertyinfo.cpp:206
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Število strani"
+
+#: src/propertyinfo.cpp:212
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "Vrednost zaslonke za fotografijo"
+
+#: src/propertyinfo.cpp:218
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "Izvirni čas in datum fotografije"
+
+#: src/propertyinfo.cpp:224
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "Odmik osvetlitve za fotografijo"
+
+#: src/propertyinfo.cpp:230
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "Čas osvetlitve za fotografijo"
+
+#: src/propertyinfo.cpp:236
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "Bliskavica"
+
+#: src/propertyinfo.cpp:242
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "Število F za fotografijo"
+
+#: src/propertyinfo.cpp:248
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "Goriščna razdalja za fotografijo"
+
+#: src/propertyinfo.cpp:254
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "Goriščna razdalja 35 mm za fotografijo"
+
+#: src/propertyinfo.cpp:260
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "Zem. širina fotografije"
+
+#: src/propertyinfo.cpp:266
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "Zem. dolžina fotografije"
+
+#: src/propertyinfo.cpp:272
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "Zem. višina fotografije"
+
+#: src/propertyinfo.cpp:278
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "Hitrost ISO za fotografijo"
+
+#: src/propertyinfo.cpp:284
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "Način merjenja za fotografijo"
+
+#: src/propertyinfo.cpp:290
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "Velikost X fotografije"
+
+#: src/propertyinfo.cpp:296
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "Velikost Y fotografije"
+
+#: src/propertyinfo.cpp:302
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "Nasičenost fotografije"
+
+#: src/propertyinfo.cpp:308
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "Ostrina fotografije"
+
+#: src/propertyinfo.cpp:314
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "Ravnovesje beline fotografije"
+
+#: src/propertyinfo.cpp:320
+msgctxt "@label"
+msgid "Publisher"
+msgstr "Založnik"
+
+#: src/propertyinfo.cpp:326
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Leto izdaje"
+
+#: src/propertyinfo.cpp:332
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Hitrost vzorčenja"
+
+#: src/propertyinfo.cpp:338
+msgctxt "@label"
+msgid "Subject"
+msgstr "Zadeva"
+
+#: src/propertyinfo.cpp:345
+msgctxt "@label"
+msgid "Title"
+msgstr "Naslov"
+
+#: src/propertyinfo.cpp:351
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Številka skladbe"
+
+#: src/propertyinfo.cpp:357
+msgctxt "@label"
+msgid "Width"
+msgstr "Širina"
+
+#: src/propertyinfo.cpp:363
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Število besed"
+
+#: src/propertyinfo.cpp:370
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Prevedljive enote"
+
+#: src/propertyinfo.cpp:377
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Prevodi"
+
+#: src/propertyinfo.cpp:385
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Ohlapni prevodi"
+
+#: src/propertyinfo.cpp:392
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Avtor"
+
+#: src/propertyinfo.cpp:399
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Zadnja posodobitev"
+
+#: src/propertyinfo.cpp:406
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Predloga ustvarjena"
+
+#: src/propertyinfo.cpp:413
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr "Prejeto iz"
+
+#: src/propertyinfo.cpp:420
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr "Zadeva e-sporočila te priloge"
+
+#: src/propertyinfo.cpp:427
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr "Pošiljatelj e-sporočila te priloge"
+
+#: src/propertyinfo.cpp:434
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr "ID e-sporočila te priloge"
+
+#: src/typeinfo.cpp:47
+msgctxt "@label"
+msgid "Archive"
+msgstr "Arhiv"
+
+#: src/typeinfo.cpp:52
+msgctxt "@label"
+msgid "Audio"
+msgstr "Zvok"
+
+#: src/typeinfo.cpp:57
+msgctxt "@label"
+msgid "Document"
+msgstr "Dokument"
+
+#: src/typeinfo.cpp:62
+msgctxt "@label"
+msgid "Image"
+msgstr "Slika"
+
+#: src/typeinfo.cpp:67
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Predstavitev"
+
+#: src/typeinfo.cpp:72
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Preglednica"
+
+#: src/typeinfo.cpp:77
+msgctxt "@label"
+msgid "Text"
+msgstr "Besedilo"
+
+#: src/typeinfo.cpp:82
+msgctxt "@label"
+msgid "Video"
+msgstr "Video"
+
+#: src/typeinfo.cpp:87
+msgctxt "@label"
+msgid "Folder"
+msgstr "Mapa"

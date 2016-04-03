@@ -1,0 +1,366 @@
+# Burkhard Lück <lueck@hube-lueck.de>, 2014, 2015, 2016.
+# Frederik Schwarzer <schwarzer@kde.org>, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-02-27 07:21+0000\n"
+"PO-Revision-Date: 2016-03-01 13:07+0100\n"
+"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: src/propertyinfo.cpp:47
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Album"
+
+#: src/propertyinfo.cpp:53
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Interpret des Albums"
+
+#: src/propertyinfo.cpp:59
+msgctxt "@label"
+msgid "Artist"
+msgstr "Interpret"
+
+#: src/propertyinfo.cpp:65
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Seitenverhältnis"
+
+#: src/propertyinfo.cpp:71
+msgctxt "@label"
+msgid "Author"
+msgstr "Autor"
+
+#: src/propertyinfo.cpp:77
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Bitrate"
+
+#: src/propertyinfo.cpp:83
+msgctxt "@label"
+msgid "Channels"
+msgstr "Kanäle"
+
+#: src/propertyinfo.cpp:89
+msgctxt "@label"
+msgid "Comment"
+msgstr "Kommentar"
+
+#: src/propertyinfo.cpp:96
+msgctxt "@label"
+msgid "Composer"
+msgstr "Komponist"
+
+#: src/propertyinfo.cpp:103
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Copyright"
+
+#: src/propertyinfo.cpp:110
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Erstellungsdatum"
+
+#: src/propertyinfo.cpp:116
+msgctxt "@label"
+msgid "Duration"
+msgstr "Dauer"
+
+#: src/propertyinfo.cpp:127
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Bildwiederholrate"
+
+#: src/propertyinfo.cpp:133
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "Verwendete Software zur Generierung des Dokuments"
+
+#: src/propertyinfo.cpp:140
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Genre"
+
+#: src/propertyinfo.cpp:147
+msgctxt "@label"
+msgid "Height"
+msgstr "Höhe"
+
+#: src/propertyinfo.cpp:153
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "Bilddatum und -zeit"
+
+#: src/propertyinfo.cpp:159
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "Bilderstellung"
+
+#: src/propertyinfo.cpp:166
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "Bildmodell"
+
+#: src/propertyinfo.cpp:173
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "Bildausrichtung"
+
+#: src/propertyinfo.cpp:179
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Schlüsselwörter"
+
+#: src/propertyinfo.cpp:186
+msgctxt "@label"
+msgid "Language"
+msgstr "Sprache"
+
+#: src/propertyinfo.cpp:193
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Zeilenanzahl"
+
+#: src/propertyinfo.cpp:199
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Lyriker"
+
+#: src/propertyinfo.cpp:206
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Seitenanzahl"
+
+#: src/propertyinfo.cpp:212
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "Blendeneinstellung des Fotos"
+
+#: src/propertyinfo.cpp:218
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "Originaldatum und -zeit des Fotos"
+
+#: src/propertyinfo.cpp:224
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "Belichtungsausgleich des Fotos"
+
+#: src/propertyinfo.cpp:230
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "Belichtungszeit des Fotos"
+
+#: src/propertyinfo.cpp:236
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "Fotoblitz"
+
+#: src/propertyinfo.cpp:242
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "F-Wert (Öffnung/Brennweite) des Fotos"
+
+#: src/propertyinfo.cpp:248
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "Brennweite des Fotos"
+
+#: src/propertyinfo.cpp:254
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "Brennweite 35 mm des Fotos"
+
+#: src/propertyinfo.cpp:260
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "GPS-Breitengrad des Fotos"
+
+#: src/propertyinfo.cpp:266
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "GPS-Längengrad des Fotos"
+
+#: src/propertyinfo.cpp:272
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "GPS-Höhe des Fotos"
+
+#: src/propertyinfo.cpp:278
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "ISO-Empfindlichkeit des Fotos"
+
+#: src/propertyinfo.cpp:284
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "Belichtungsmessung des Fotos"
+
+#: src/propertyinfo.cpp:290
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "X-Dimension des Fotos"
+
+#: src/propertyinfo.cpp:296
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "Y-Dimension des Fotos"
+
+#: src/propertyinfo.cpp:302
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "Foto-Sättigung"
+
+#: src/propertyinfo.cpp:308
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "Schärfentiefe des Fotos"
+
+#: src/propertyinfo.cpp:314
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "Weißabgleich des Fotos"
+
+#: src/propertyinfo.cpp:320
+msgctxt "@label"
+msgid "Publisher"
+msgstr "Herausgeber"
+
+#: src/propertyinfo.cpp:326
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Jahr der Veröffentlichung"
+
+#: src/propertyinfo.cpp:332
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Abtastrate"
+
+#: src/propertyinfo.cpp:338
+msgctxt "@label"
+msgid "Subject"
+msgstr "Thema"
+
+#: src/propertyinfo.cpp:345
+msgctxt "@label"
+msgid "Title"
+msgstr "Titel"
+
+#: src/propertyinfo.cpp:351
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Nummer des Stücks"
+
+#: src/propertyinfo.cpp:357
+msgctxt "@label"
+msgid "Width"
+msgstr "Breite"
+
+#: src/propertyinfo.cpp:363
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Wortanzahl"
+
+#: src/propertyinfo.cpp:370
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Übersetzbare Einheiten"
+
+#: src/propertyinfo.cpp:377
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: src/propertyinfo.cpp:385
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Fragliche Übersetzungen"
+
+#: src/propertyinfo.cpp:392
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Autor"
+
+#: src/propertyinfo.cpp:399
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Letzte Aktualisierung"
+
+#: src/propertyinfo.cpp:406
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Vorlagenerstellung"
+
+#: src/propertyinfo.cpp:413
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr "Heruntergeladen von"
+
+#: src/propertyinfo.cpp:420
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr "E-Mail-Betreff des Anhangs"
+
+#: src/propertyinfo.cpp:427
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr "E-Mail-Absender des Anhangs"
+
+#: src/propertyinfo.cpp:434
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr "E-Mail-Kennung des Anhangs"
+
+#: src/typeinfo.cpp:47
+msgctxt "@label"
+msgid "Archive"
+msgstr "Archiv"
+
+#: src/typeinfo.cpp:52
+msgctxt "@label"
+msgid "Audio"
+msgstr "Audio"
+
+#: src/typeinfo.cpp:57
+msgctxt "@label"
+msgid "Document"
+msgstr "Dokument"
+
+#: src/typeinfo.cpp:62
+msgctxt "@label"
+msgid "Image"
+msgstr "Bild"
+
+#: src/typeinfo.cpp:67
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Präsentation"
+
+#: src/typeinfo.cpp:72
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Tabellenkalkulation"
+
+#: src/typeinfo.cpp:77
+msgctxt "@label"
+msgid "Text"
+msgstr "Text"
+
+#: src/typeinfo.cpp:82
+msgctxt "@label"
+msgid "Video"
+msgstr "Video"
+
+#: src/typeinfo.cpp:87
+msgctxt "@label"
+msgid "Folder"
+msgstr "Ordner"
