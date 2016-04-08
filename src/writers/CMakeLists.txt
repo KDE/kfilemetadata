@@ -13,5 +13,3 @@ if(TAGLIB_FOUND)
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata/writers)
 
 endif()
-
-add_subdirectory(externalwriters)

@@ -3,6 +3,9 @@
 #include "writers/taglibwriter.h"
 #include "writedata.h"
 
+#include "taglib.h"
+#include "fileref.h"
+
 #include <QDebug>
 #include <QTest>
 #include <QDir>
@@ -11,6 +14,11 @@
 #define TEST_FILENAME "writertest.opus"
 
 using namespace KFileMetaData;
+
+static QString t2q(const TagLib::String& t)
+{
+    return QString::fromWCharArray((const wchar_t*)t.toCWString(), t.length());
+}
 
 QString TagLibWriterTest::testFilePath(const QString& fileName) const
 {
@@ -29,22 +37,18 @@ void TagLibWriterTest::test()
     QScopedPointer<WriterPlugin> writerPlugin(new TagLibWriter(this));
 
     WriteData data(testFilePath(TEST_FILENAME), "audio/opus");
-    data.add(Property::Title, "Title");
-    data.add(Property::Artist, "Artist");
+    data.add(Property::Title, "Title1");
+    data.add(Property::Artist, "Artist1");
     writerPlugin->write(data);
 
-    /* Testing whether data was correctly written */
-// Adding taglibextractor.cpp in ecm_add_tests leads to weird MOC errors, so just checking the filesize
-//    QScopedPointer<ExtractorPlugin> extractorPlugin(new TagLibExtractor(this));
+    TagLib::FileRef file(testFilePath(TEST_FILENAME).toUtf8().constData(), true);
+    TagLib::Tag* tags = file.tag();
 
-//    SimpleExtractionResult result(testFilePath("test.opus"), "audio/opus");
-//    extractorPlugin->extract(&result);
+    QString extractedTitle = t2q(tags->title());
+    QString extractedArtist = t2q(tags->artist());
 
-//    QCOMPARE(result.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
-//    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
-
-    QFile testFile(testFilePath(TEST_FILENAME));
-    QCOMPARE(testFile.size(), 5945);
+    QCOMPARE(extractedTitle, QStringLiteral("Title1"));
+    QCOMPARE(extractedArtist, QStringLiteral("Artist1"));
 }
 
 void TagLibWriterTest::cleanupTestCase()

@@ -170,5 +170,3 @@ if (QMOBIPOCKET_FOUND)
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()
-
-add_subdirectory(externalextractors)

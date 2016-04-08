@@ -122,8 +122,11 @@ void ExternalWriter::write(const WriteData& data)
     writerProcess.closeWriteChannel();
     writerProcess.waitForFinished(WRITER_TIMEOUT_MS);
 
+    errorOutput = writerProcess.readAllStandardError();
+
     if (writerProcess.exitStatus()) {
         qDebug() << i18n("Something went wrong while trying to write data");
+        qDebug() << errorOutput;
         return;
     }
 
@@ -137,8 +140,6 @@ void ExternalWriter::write(const WriteData& data)
 
     if (outputRootObject[QStringLiteral("status")].toString() != QStringLiteral("OK")) {
         qDebug() << outputRootObject[QStringLiteral("error")].toString();
-
-        errorOutput = writerProcess.readAllStandardError();
         qDebug() << errorOutput;
     }
 

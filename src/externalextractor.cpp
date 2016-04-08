@@ -113,16 +113,16 @@ void ExternalExtractor::extract(ExtractionResult* result)
     writeRootObject[QStringLiteral("mimetype")] = result->inputMimetype();
     writeData.setObject(writeRootObject);
 
-    QProcess writerProcess;
-    writerProcess.start(d->mainPath, QIODevice::ReadWrite);
-    writerProcess.write(writeData.toJson());
-    writerProcess.closeWriteChannel();
-    writerProcess.waitForFinished(EXTRACTOR_TIMEOUT_MS);
+    QProcess extractorProcess;
+    extractorProcess.start(d->mainPath, QIODevice::ReadWrite);
+    extractorProcess.write(writeData.toJson());
+    extractorProcess.closeWriteChannel();
+    extractorProcess.waitForFinished(EXTRACTOR_TIMEOUT_MS);
 
-    output = writerProcess.readAll();
-    errorOutput = writerProcess.readAllStandardError();
+    output = extractorProcess.readAll();
+    errorOutput = extractorProcess.readAllStandardError();
 
-    if (writerProcess.exitStatus()) {
+    if (extractorProcess.exitStatus()) {
         qDebug() << errorOutput;
         return;
     }

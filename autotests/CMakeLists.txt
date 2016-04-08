@@ -120,3 +120,8 @@ if(TAGLIB_FOUND)
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )
 endif()
+
+ecm_add_test(externalwritertest.cpp ../src/externalwriter.cpp
+        TEST_NAME "externalwritertest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
+)

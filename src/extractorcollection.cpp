@@ -125,7 +125,7 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
             }
         }
         else {
-            qDebug() << "Plugin could not creaate instance" << pluginPath;
+            qDebug() << "Plugin could not create instance" << pluginPath;
         }
     }
 

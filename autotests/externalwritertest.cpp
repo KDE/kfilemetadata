@@ -18,10 +18,10 @@
  *
  */
 
-#include "externalextractortest.h"
-#include "simpleextractionresult.h"
+#include "externalwritertest.h"
+#include "writedata.h"
 #include "indexerextractortestsconfig.h"
-#include "externalextractor.h"
+#include "externalwriter.h"
 #include "config-kfilemetadata.h"
 
 #include <QDebug>
@@ -31,25 +31,23 @@
 
 using namespace KFileMetaData;
 
-QString ExternalExtractorTest::testFilePath(const QString& fileName) const
+QString ExternalWriterTest::testFilePath(const QString& fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QDir::separator() + fileName;
 }
 
-void ExternalExtractorTest::test()
+void ExternalWriterTest::test()
 {
     QTemporaryFile file;
-    file.open();
-    file.write("Hello");
-    file.close();
-    QScopedPointer<ExtractorPlugin> plugin(new ExternalExtractor(
-                    testFilePath("testexternalextractor")
+    QScopedPointer<WriterPlugin> plugin(
+                new ExternalWriter(testFilePath("testexternalwriter")
     ));
 
-    SimpleExtractionResult result(file.fileName(), "application/text");
-    plugin->extract(&result);
+    file.open();
+    WriteData data(file.fileName(), "application/text");
+    plugin->write(data);
 
-    QCOMPARE(result.text(), QStringLiteral("Hello "));
+    QCOMPARE(QString(file.readAll()), QStringLiteral("{}"));
 }
 
-QTEST_MAIN(ExternalExtractorTest)
+QTEST_MAIN(ExternalWriterTest)

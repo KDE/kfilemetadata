@@ -19,15 +19,14 @@
  *
  */
 
-#ifndef EXTERNALEXTRACTORTEST_H
-#define EXTERNALEXTRACTORTEST_H
+#ifndef EXTERNALWRITERTEST_H
+#define EXTERNALWRITERTEST_H
 
 #include <QObject>
 
-class ExternalExtractorTest : public QObject
+class ExternalWriterTest : public QObject
 {
     Q_OBJECT
-
 private:
     QString testFilePath(const QString& fileName) const;
 
@@ -35,4 +34,4 @@ private Q_SLOTS:
     void test();
 };
 
-#endif // EXTERNALEXTRACTORTEST_H
+#endif // EXTERNALWRITERTEST_H
