@@ -1,12 +1,15 @@
 /*
- * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2012  Vishesh Handa <me@vhanda.in>
+ * This file is part of the KFileMetaData project
  * Copyright (C) 2016  Varun Joshi <varunj.1011@gmail.com>
+ * Copyright (C) 2016  Vishesh Handa <me@vhanda.in>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * version 2.1 of the License, or (at your option) version 3, or any
+ * later version accepted by the membership of KDE e.V. (or its
+ * successor approved by the membership of KDE e.V.), which shall
+ * act as a proxy defined in Section 6 of version 3 of the license.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,53 +17,55 @@
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-#include "extractor.h"
-#include "extractorplugin.h"
-#include "extractorcollection.h"
-#include "extractor_p.h"
-#include "externalextractor.h"
 
 #include <QDebug>
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDir>
 
+#include <KLocalizedString>
+
+#include "writer.h"
+#include "writer_p.h"
+#include "writerplugin.h"
+#include "writercollection.h"
+#include "externalwriter.h"
+
 #include "config-kfilemetadata.h"
 
 using namespace KFileMetaData;
 
-class ExtractorCollection::Private {
-public:
-    QHash<QString, Extractor*> m_extractors;
+struct WriterCollection::WriterCollectionPrivate {
+    QHash<QString, Writer*> m_writers;
 
-    QList<Extractor*> allExtractors() const;
+    QList<Writer*> allWriters() const;
 };
 
-ExtractorCollection::ExtractorCollection()
-    : d(new Private)
+WriterCollection::WriterCollection()
+    : d_ptr(new WriterCollectionPrivate)
 {
-    QList<Extractor*> all = d->allExtractors();
+    Q_D(WriterCollection);
+    QList<Writer*> all = d->allWriters();
 
-    foreach (Extractor* ex, all) {
-        foreach (const QString& type, ex->mimetypes()) {
-            d->m_extractors.insertMulti(type, ex);
+    foreach (Writer* writer, all) {
+        foreach (const QString& type, writer->mimetypes()) {
+            d->m_writers.insertMulti(type, writer);
         }
     }
 }
 
-ExtractorCollection::~ExtractorCollection()
+WriterCollection::~WriterCollection()
 {
-    qDeleteAll(d->m_extractors.values().toSet());
+    Q_D(WriterCollection);
+    qDeleteAll(d->m_writers.values().toSet());
     delete d;
 }
 
 
-QList<Extractor*> ExtractorCollection::Private::allExtractors() const
+QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
 {
     QStringList plugins;
     QStringList pluginPaths;
@@ -69,7 +74,7 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
 
     QStringList paths = QCoreApplication::libraryPaths();
     Q_FOREACH (const QString& libraryPath, paths) {
-        QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata"));
+        QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata/writers"));
         QDir dir(path);
 
         if (!dir.exists()) {
@@ -78,7 +83,7 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
 
         QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
         Q_FOREACH (const QString& fileName, entryList) {
-            // Make sure the same plugin is not loaded twice, even if it is
+            // Make sure the same plugin is not loaded twice, even if it
             // installed in two different locations
             if (plugins.contains(fileName))
                 continue;
@@ -89,7 +94,7 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
     }
     plugins.clear();
 
-    QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/externalextractors"));
+    QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/writers/externalwriters"));
     // For external plugins, we look into the directories
     QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     Q_FOREACH (const QString& externalPlugin, externalPluginEntryList) {
@@ -101,51 +106,52 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
     }
     externalPlugins.clear();
 
-    QList<Extractor*> extractors;
+    QList<Writer*> writers;
     Q_FOREACH (const QString& pluginPath, pluginPaths) {
         QPluginLoader loader(pluginPath);
 
         if (!loader.load()) {
-            qWarning() << "Could not create Extractor: " << pluginPath;
+            qWarning() << "Could not create Writer: " << pluginPath;
             qWarning() << loader.errorString();
             continue;
         }
 
         QObject* obj = loader.instance();
         if (obj) {
-            ExtractorPlugin* plugin = qobject_cast<ExtractorPlugin*>(obj);
+            WriterPlugin* plugin = qobject_cast<WriterPlugin*>(obj);
             if (plugin) {
-                Extractor* ex= new Extractor;
-                ex->d->m_plugin = plugin;
+                Writer* writer = new Writer;
+                writer->d_ptr->m_plugin = plugin;
 
-                extractors << ex;
+                writers << writer;
             } else {
-                qDebug() << "Plugin could not be converted to an ExtractorPlugin";
+                qDebug() << i18n("Plugin could not be converted to an WriterPlugin");
                 qDebug() << pluginPath;
             }
         }
         else {
-            qDebug() << "Plugin could not create instance" << pluginPath;
+            qDebug() << i18n("Plugin could not create instance") << pluginPath;
         }
     }
 
     Q_FOREACH (const QString& externalPluginPath, externalPluginPaths) {
-        ExternalExtractor *plugin = new ExternalExtractor(externalPluginPath);
-        Extractor* extractor = new Extractor;
-        extractor->d->m_plugin = plugin;
+        ExternalWriter *plugin = new ExternalWriter(externalPluginPath);
+        Writer* writer = new Writer;
+        writer->d_ptr->m_plugin = plugin;
 
-        extractors << extractor;
+        writers << writer;
     }
 
-    return extractors;
+    return writers;
 }
 
-QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) const
+QList<Writer*> WriterCollection::fetchWriters(const QString& mimetype) const
 {
-    QList<Extractor*> plugins = d->m_extractors.values(mimetype);
+    Q_D(const WriterCollection);
+    QList<Writer*> plugins = d->m_writers.values(mimetype);
     if (plugins.isEmpty()) {
-        auto it = d->m_extractors.constBegin();
-        for (; it != d->m_extractors.constEnd(); it++) {
+        auto it = d->m_writers.constBegin();
+        for (; it != d->m_writers.constEnd(); it++) {
             if (mimetype.startsWith(it.key()))
                 plugins << it.value();
         }
@@ -153,3 +159,6 @@ QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) 
 
     return plugins;
 }
+
+
+

@@ -97,3 +97,31 @@ if(TAGLIB_FOUND)
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )
 endif()
+
+
+ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp
+        TEST_NAME "externalextractortest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
+)
+
+################
+# Writer tests #
+################
+
+#
+# TagLib
+#
+if(TAGLIB_FOUND)
+    include_directories(${TAGLIB_INCLUDES})
+
+    kde_enable_exceptions()
+    ecm_add_test(taglibwritertest.cpp ../src/writers/taglibwriter.cpp
+        TEST_NAME "taglibwritertest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
+    )
+endif()
+
+ecm_add_test(externalwritertest.cpp ../src/externalwriter.cpp
+        TEST_NAME "externalwritertest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
+)

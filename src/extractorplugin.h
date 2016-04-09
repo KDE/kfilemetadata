@@ -27,8 +27,6 @@
 #include "kfilemetadata_export.h"
 #include "extractionresult.h"
 
-#include <QStringList>
-
 namespace KFileMetaData
 {
 
