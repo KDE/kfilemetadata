@@ -125,7 +125,7 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
 
                 writers << writer;
             } else {
-                qDebug() << i18n("Plugin could not be converted to an WriterPlugin");
+                qDebug() << i18n("Plugin could not be converted to a WriterPlugin");
                 qDebug() << pluginPath;
             }
         }
