@@ -125,12 +125,12 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
 
                 writers << writer;
             } else {
-                qDebug() << i18n("Plugin could not be converted to a WriterPlugin");
+                qDebug() << "Plugin could not be converted to a WriterPlugin";
                 qDebug() << pluginPath;
             }
         }
         else {
-            qDebug() << i18n("Plugin could not create instance") << pluginPath;
+            qDebug() << "Plugin could not create instance" << pluginPath;
         }
     }
 

@@ -125,7 +125,7 @@ void ExternalWriter::write(const WriteData& data)
     errorOutput = writerProcess.readAllStandardError();
 
     if (writerProcess.exitStatus()) {
-        qDebug() << i18n("Something went wrong while trying to write data");
+        qDebug() << "Something went wrong while trying to write data";
         qDebug() << errorOutput;
         return;
     }

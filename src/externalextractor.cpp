@@ -65,7 +65,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     QStringList pluginDirContents = pluginDir.entryList();
 
     if (!pluginDirContents.contains(QStringLiteral("manifest.json"))) {
-        qDebug() << i18n("Path does not seem to contain a valid plugin");
+        qDebug() << "Path does not seem to contain a valid plugin";
         return;
     }
 
@@ -73,7 +73,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     manifest.open(QIODevice::ReadOnly);
     QJsonDocument manifestDoc = QJsonDocument::fromJson(manifest.readAll());
     if (!manifestDoc.isObject()) {
-        qDebug() << i18n("Manifest does not seem to be a valid JSON Object");
+        qDebug() << "Manifest does not seem to be a valid JSON Object";
         return;
     }
 
