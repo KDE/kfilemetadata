@@ -58,7 +58,7 @@ set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
 
 find_package(CatDoc)
 set_package_properties(CatDoc PROPERTIES DESCRIPTION "catdoc executable"
-                       URL "http://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE OPTIONAL
+                       URL "http://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE RUNTIME
                        PURPOSE "Extract text from office 98 files - RUNTIME dependency")
 
 #find_package(QMobipocket)
