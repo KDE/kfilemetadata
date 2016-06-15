@@ -3,7 +3,9 @@ description: A file metadata and text extraction library
 tier: 2
 type: integration
 platforms:
-    - name: All
+    - name: Linux
+    - name: Windows
+    - name: MacOSX
 portingAid: false
 deprecated: false
 release: true
