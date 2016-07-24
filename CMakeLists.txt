@@ -26,7 +26,7 @@ ecm_setup_version(${KF5_VERSION}
                   SOVERSION 3)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 5.4.0)
+set(REQUIRED_QT_VERSION 5.5.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n Archive)
