@@ -61,10 +61,12 @@ set_package_properties(CatDoc PROPERTIES DESCRIPTION "catdoc executable"
                        URL "http://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE RUNTIME
                        PURPOSE "Extract text from office 98 files - RUNTIME dependency")
 
-find_package(Xattr)
-set_package_properties(Xattr PROPERTIES
-    URL "http://savannah.nongnu.org/projects/attr"
-    TYPE REQUIRED)
+if (NOT WIN32)
+    find_package(Xattr)
+    set_package_properties(Xattr PROPERTIES
+        URL "http://savannah.nongnu.org/projects/attr"
+        TYPE REQUIRED)
+endif()
 
 #find_package(QMobipocket)
 #set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
