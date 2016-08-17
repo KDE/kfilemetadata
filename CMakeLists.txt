@@ -61,7 +61,7 @@ set_package_properties(CatDoc PROPERTIES DESCRIPTION "catdoc executable"
                        URL "http://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE RUNTIME
                        PURPOSE "Extract text from office 98 files - RUNTIME dependency")
 
-if (NOT WIN32)
+if ( CMAKE_SYSTEM_NAME MATCHES "Linux" )
     find_package(Xattr)
     set_package_properties(Xattr PROPERTIES
         URL "http://savannah.nongnu.org/projects/attr"
