@@ -1,0 +1,368 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Shinjo Park <kde@peremen.name>, 2014, 2015, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-04-17 07:23+0000\n"
+"PO-Revision-Date: 2016-02-14 15:15+0100\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde@peremen.name>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: src/propertyinfo.cpp:47
+msgctxt "@label music album"
+msgid "Album"
+msgstr "앨범"
+
+#: src/propertyinfo.cpp:53
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "앨범 가수"
+
+#: src/propertyinfo.cpp:59
+msgctxt "@label"
+msgid "Artist"
+msgstr "가수"
+
+#: src/propertyinfo.cpp:65
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "종횡 비율"
+
+#: src/propertyinfo.cpp:71
+msgctxt "@label"
+msgid "Author"
+msgstr "작성자"
+
+#: src/propertyinfo.cpp:77
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "비트 전송률"
+
+#: src/propertyinfo.cpp:83
+msgctxt "@label"
+msgid "Channels"
+msgstr "채널"
+
+#: src/propertyinfo.cpp:89
+msgctxt "@label"
+msgid "Comment"
+msgstr "설명"
+
+#: src/propertyinfo.cpp:96
+msgctxt "@label"
+msgid "Composer"
+msgstr "작곡가"
+
+#: src/propertyinfo.cpp:103
+msgctxt "@label"
+msgid "Copyright"
+msgstr "저작권"
+
+#: src/propertyinfo.cpp:110
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "만든 날짜"
+
+#: src/propertyinfo.cpp:116
+msgctxt "@label"
+msgid "Duration"
+msgstr "시간"
+
+#: src/propertyinfo.cpp:127
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "초당 프레임 수"
+
+#: src/propertyinfo.cpp:133
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "문서를 생성하는 데 사용된 소프트웨어"
+
+#: src/propertyinfo.cpp:140
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "장르"
+
+#: src/propertyinfo.cpp:147
+msgctxt "@label"
+msgid "Height"
+msgstr "높이"
+
+#: src/propertyinfo.cpp:153
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "그림 날짜와 시간"
+
+#: src/propertyinfo.cpp:159
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "그림 제조사"
+
+#: src/propertyinfo.cpp:166
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "그림 모델"
+
+#: src/propertyinfo.cpp:173
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "그림 방향"
+
+#: src/propertyinfo.cpp:179
+msgctxt "@label"
+msgid "Keywords"
+msgstr "키워드"
+
+#: src/propertyinfo.cpp:186
+msgctxt "@label"
+msgid "Language"
+msgstr "언어"
+
+#: src/propertyinfo.cpp:193
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "줄 수"
+
+#: src/propertyinfo.cpp:199
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "작사자"
+
+#: src/propertyinfo.cpp:206
+msgctxt "@label"
+msgid "Page Count"
+msgstr "쪽 수"
+
+#: src/propertyinfo.cpp:212
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "사진 조리개 값"
+
+#: src/propertyinfo.cpp:218
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "사진 원본 날짜와 시간"
+
+#: src/propertyinfo.cpp:224
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "사진 노출 보정"
+
+#: src/propertyinfo.cpp:230
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "사진 노출 시간"
+
+#: src/propertyinfo.cpp:236
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "사진 플래시"
+
+#: src/propertyinfo.cpp:242
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "사진 F 번호"
+
+#: src/propertyinfo.cpp:248
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "사진 초점 거리"
+
+#: src/propertyinfo.cpp:254
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "사진 35mm 환산 초점 거리"
+
+#: src/propertyinfo.cpp:260
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "사진 GPS 위도"
+
+#: src/propertyinfo.cpp:266
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "사진 GPS 경도"
+
+#: src/propertyinfo.cpp:272
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "사진 GPS 고도"
+
+#: src/propertyinfo.cpp:278
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "사진 ISO 감도"
+
+#: src/propertyinfo.cpp:284
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "사진 측량 모드"
+
+#: src/propertyinfo.cpp:290
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "사진 X 크기"
+
+#: src/propertyinfo.cpp:296
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "사진 Y 크기"
+
+#: src/propertyinfo.cpp:302
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "사진 색 농도"
+
+#: src/propertyinfo.cpp:308
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "사진 선명도"
+
+#: src/propertyinfo.cpp:314
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "사진 화이트 밸런스"
+
+#: src/propertyinfo.cpp:320
+msgctxt "@label"
+msgid "Publisher"
+msgstr "출판가"
+
+#: src/propertyinfo.cpp:326
+msgctxt "@label"
+msgid "Release Year"
+msgstr "발매 년도"
+
+#: src/propertyinfo.cpp:332
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "샘플 레이트"
+
+#: src/propertyinfo.cpp:338
+msgctxt "@label"
+msgid "Subject"
+msgstr "주제"
+
+#: src/propertyinfo.cpp:345
+msgctxt "@label"
+msgid "Title"
+msgstr "제목"
+
+#: src/propertyinfo.cpp:351
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "트랙 번호"
+
+#: src/propertyinfo.cpp:357
+msgctxt "@label"
+msgid "Width"
+msgstr "너비"
+
+#: src/propertyinfo.cpp:363
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "단어 수"
+
+#: src/propertyinfo.cpp:370
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "총 번역 단위 수"
+
+#: src/propertyinfo.cpp:377
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "번역문 수"
+
+#: src/propertyinfo.cpp:385
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "불분명한 번역문 수"
+
+#: src/propertyinfo.cpp:392
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "번역자"
+
+#: src/propertyinfo.cpp:399
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "마지막 수정"
+
+#: src/propertyinfo.cpp:406
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "템플릿 생성 시간"
+
+#: src/propertyinfo.cpp:413
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr "다운로드한 위치"
+
+#: src/propertyinfo.cpp:420
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr ""
+
+#: src/propertyinfo.cpp:427
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr ""
+
+#: src/propertyinfo.cpp:434
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr ""
+
+#: src/typeinfo.cpp:47
+msgctxt "@label"
+msgid "Archive"
+msgstr "보관"
+
+#: src/typeinfo.cpp:52
+msgctxt "@label"
+msgid "Audio"
+msgstr "오디오"
+
+#: src/typeinfo.cpp:57
+msgctxt "@label"
+msgid "Document"
+msgstr "문서"
+
+#: src/typeinfo.cpp:62
+msgctxt "@label"
+msgid "Image"
+msgstr "그림"
+
+#: src/typeinfo.cpp:67
+msgctxt "@label"
+msgid "Presentation"
+msgstr "프레젠테이션"
+
+#: src/typeinfo.cpp:72
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "스프레드시트"
+
+#: src/typeinfo.cpp:77
+msgctxt "@label"
+msgid "Text"
+msgstr "텍스트"
+
+#: src/typeinfo.cpp:82
+msgctxt "@label"
+msgid "Video"
+msgstr "동영상"
+
+#: src/typeinfo.cpp:87
+msgctxt "@label"
+msgid "Folder"
+msgstr "폴더"
