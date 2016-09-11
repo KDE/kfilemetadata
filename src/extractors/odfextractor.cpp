@@ -2,6 +2,7 @@
     <one line to give the library's name and an idea of what it does.>
     Copyright (C) 2013  Vishesh Handa <me@vhanda.in>
     Copyright (C) 2012  Jörg Ehrichs <joerg.ehrichs@gmx.de>
+    Copyright (C) 2016  Christoph Cullmann <cullmann@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -59,19 +60,18 @@ void OdfExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    const QStringList entries = directory->entries();
-    if (!entries.contains(QStringLiteral("meta.xml"))) {
+    // we need a meta xml file in the archive!
+    const auto metaXml = directory->entry(QStringLiteral("meta.xml"));
+    if (!metaXml || !metaXml->isFile()) {
         qWarning() << "Invalid document structure (meta.xml is missing)";
         return;
     }
 
     QDomDocument metaData(QStringLiteral("metaData"));
-    const KArchiveFile* file = static_cast<const KArchiveFile*>(directory->entry(QStringLiteral("meta.xml")));
-    metaData.setContent(file->data());
+    metaData.setContent(static_cast<const KArchiveFile*>(metaXml)->data());
 
     // parse metadata ...
     QDomElement docElem = metaData.documentElement();
-
     QDomNode n = docElem.firstChild().firstChild(); // <office:document-meta> ... <office:meta> ... content
     while (!n.isNull()) {
         QDomElement e = n.toElement();
@@ -129,9 +129,14 @@ void OdfExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    const KArchiveFile* contentsFile = static_cast<const KArchiveFile*>(directory->entry(QStringLiteral("content.xml")));
-    QXmlStreamReader xml(contentsFile->createDevice());
+    // for content indexing, we need content xml file
+    const auto contentXml = directory->entry(QStringLiteral("content.xml"));
+    if (!contentXml || !contentXml->isFile()) {
+        qWarning() << "Invalid document structure (content.xml is missing)";
+        return;
+    }
 
+    QXmlStreamReader xml(static_cast<const KArchiveFile*>(contentXml)->createDevice());
     while (!xml.atEnd()) {
         xml.readNext();
         if (xml.isCharacters()) {
