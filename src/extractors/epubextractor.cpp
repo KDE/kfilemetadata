@@ -1,5 +1,6 @@
 /*
     Copyright (C) 2013  Vishesh Handa <me@vhanda.in>
+    Copyright (C) 2016  Christoph Cullmann <cullmann@kde.org>
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -46,11 +47,14 @@ namespace
 QString fetchMetadata(struct epub* e, const epub_metadata& type)
 {
     int size = 0;
-
     unsigned char** data = epub_get_metadata(e, type, &size);
     if (data) {
         QStringList strList;
         for (int i = 0; i < size; i++) {
+            // skip nullptr entries, can happen for broken xml files
+            if (!data[i])
+                continue;
+
             strList << QString::fromUtf8((char*)data[i]);
             free(data[i]);
         }
@@ -65,7 +69,8 @@ QString fetchMetadata(struct epub* e, const epub_metadata& type)
 
 void EPubExtractor::extract(ExtractionResult* result)
 {
-    struct epub* ePubDoc = epub_open(result->inputUrl().toUtf8().constData(), 1);
+    // open epub, return on exit, file will be closed again at end of function
+    auto ePubDoc = epub_open(result->inputUrl().toUtf8().constData(), 1);
     if (!ePubDoc) {
         qWarning() << "Invalid document";
         return;
@@ -138,48 +143,48 @@ void EPubExtractor::extract(ExtractionResult* result)
     //
     // Plain Text
     //
-    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
-        return;
-    }
+    if (result->inputFlags() & ExtractionResult::ExtractPlainText) {
+        if (auto iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0)) {
+            do {
+                char* curr = epub_it_get_curr(iter);
+                if (!curr)
+                    continue;
 
-    struct eiterator* iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0);
-    do {
-        char* curr = epub_it_get_curr(iter);
-        if (!curr)
-            continue;
-        QString html = QString::fromUtf8(curr);
-        html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
-
-        result->append(html);
-    } while (epub_it_get_next(iter));
-
-    epub_free_iterator(iter);
-
-    struct titerator* tit;
-
-    tit = epub_get_titerator(ePubDoc, TITERATOR_NAVMAP, 0);
-    if (!tit) {
-        tit = epub_get_titerator(ePubDoc, TITERATOR_GUIDE, 0);
-    }
-
-    if (epub_tit_curr_valid(tit)) {
-        do {
-            char* clink = epub_tit_get_curr_link(tit);
-
-            char* data;
-            int size = epub_get_data(ePubDoc, clink, &data);
-            free(clink);
-
-            // epub_get_data returns -1 on failure
-            if (size > 0 && data) {
-                QString html = QString::fromUtf8(data, size);
-                // strip html tags
+                QString html = QString::fromUtf8(curr);
                 html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
-
                 result->append(html);
-                free(data);
+            } while (epub_it_get_next(iter));
+
+            epub_free_iterator(iter);
+        }
+
+        auto tit = epub_get_titerator(ePubDoc, TITERATOR_NAVMAP, 0);
+        if (!tit) {
+            tit = epub_get_titerator(ePubDoc, TITERATOR_GUIDE, 0);
+        }
+        if (tit) {
+            if (epub_tit_curr_valid(tit)) {
+                do {
+                    // get link, iterator handles freeing of it
+                    char* clink = epub_tit_get_curr_link(tit);
+
+                    // epub_get_data returns -1 on failure
+                    char* data = nullptr;
+                    const int size = epub_get_data(ePubDoc, clink, &data);
+                    if (size >= 0 && data) {
+                        QString html = QString::fromUtf8(data, size);
+                        // strip html tags
+                        html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
+
+                        result->append(html);
+                        free(data);
+                    }
+                } while (epub_tit_next(tit));
             }
-        } while (epub_tit_next(tit));
+            epub_free_titerator(tit);
+        }
     }
-    epub_free_titerator(tit);
+
+    // close epub file again
+    epub_close(ePubDoc);
 }
