@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 
-project(kfilemetadata)
+project(KFileMetaData)
 
 include(FeatureSummary)
 find_package(ECM 5.27.0  NO_MODULE)
