@@ -1,0 +1,451 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2014.
+# Kristóf Kiszel <ulysses@kubuntu.org>, 2014, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-11-19 20:11+0100\n"
+"PO-Revision-Date: 2015-04-15 09:40+0200\n"
+"Last-Translator: Kristóf Kiszel <ulysses@kubuntu.org>\n"
+"Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: src/propertyinfo.cpp:47
+#, kde-format
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Album"
+
+#: src/propertyinfo.cpp:53
+#, kde-format
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Album előadó"
+
+#: src/propertyinfo.cpp:59
+#, kde-format
+msgctxt "@label"
+msgid "Artist"
+msgstr "Előadó"
+
+#: src/propertyinfo.cpp:65
+#, kde-format
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Méretarány"
+
+#: src/propertyinfo.cpp:71
+#, kde-format
+msgctxt "@label"
+msgid "Author"
+msgstr "Szerző"
+
+#: src/propertyinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Bitsebesség"
+
+#: src/propertyinfo.cpp:83
+#, kde-format
+msgctxt "@label"
+msgid "Channels"
+msgstr "Csatornák"
+
+#: src/propertyinfo.cpp:89
+#, kde-format
+msgctxt "@label"
+msgid "Comment"
+msgstr "Megjegyzés"
+
+#: src/propertyinfo.cpp:96
+#, kde-format
+msgctxt "@label"
+msgid "Composer"
+msgstr "Zeneszerző"
+
+#: src/propertyinfo.cpp:103
+#, kde-format
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Szerzői jog"
+
+#: src/propertyinfo.cpp:110
+#, kde-format
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Létrehozás dátuma"
+
+#: src/propertyinfo.cpp:116
+#, kde-format
+msgctxt "@label"
+msgid "Duration"
+msgstr "Időtartam"
+
+#: src/propertyinfo.cpp:127
+#, kde-format
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Képkockaszám"
+
+#: src/propertyinfo.cpp:133
+#, kde-format
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "A dokumentum generálásához használt szoftver"
+
+#: src/propertyinfo.cpp:140
+#, kde-format
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Műfaj"
+
+#: src/propertyinfo.cpp:147
+#, kde-format
+msgctxt "@label"
+msgid "Height"
+msgstr "Magasság"
+
+#: src/propertyinfo.cpp:153
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "Kép dátum és idő"
+
+#: src/propertyinfo.cpp:159
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "Kép készítő"
+
+#: src/propertyinfo.cpp:166
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "Kép modell"
+
+#: src/propertyinfo.cpp:173
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "Kép tájolása"
+
+#: src/propertyinfo.cpp:179
+#, kde-format
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Kulcsszavak"
+
+#: src/propertyinfo.cpp:186
+#, kde-format
+msgctxt "@label"
+msgid "Language"
+msgstr "Nyelv"
+
+#: src/propertyinfo.cpp:193
+#, kde-format
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Sorszám"
+
+#: src/propertyinfo.cpp:199
+#, kde-format
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Lírikus"
+
+#: src/propertyinfo.cpp:206
+#, kde-format
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Oldalszám"
+
+#: src/propertyinfo.cpp:212
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "Fénykép apertúraérték"
+
+#: src/propertyinfo.cpp:218
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "Fénykép eredeti dátum és idő"
+
+#: src/propertyinfo.cpp:224
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "Fénykép expozíció torzítás"
+
+#: src/propertyinfo.cpp:230
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "Fénykép exponálási idő"
+
+#: src/propertyinfo.cpp:236
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "Fénykép vaku"
+
+#: src/propertyinfo.cpp:242
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "Fénykép F-szám"
+
+#: src/propertyinfo.cpp:248
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "Fénykép fókusztávolság"
+
+#: src/propertyinfo.cpp:254
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "Fénykép 35mm fókusztávolság"
+
+#: src/propertyinfo.cpp:260
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "Fénykép GPS szélesség"
+
+#: src/propertyinfo.cpp:266
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "Fénykép GPS hosszúság"
+
+#: src/propertyinfo.cpp:272
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "Fénykép GPS magasság"
+
+#: src/propertyinfo.cpp:278
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "Fénykép ISO-sebesség arány"
+
+#: src/propertyinfo.cpp:284
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "Fénykép mérési mód"
+
+#: src/propertyinfo.cpp:290
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "Fénykép X dimenzió"
+
+#: src/propertyinfo.cpp:296
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "Fénykép Y dimenzió"
+
+#: src/propertyinfo.cpp:302
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "Fénykép telítettség"
+
+#: src/propertyinfo.cpp:308
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "Fénykép élesség"
+
+#: src/propertyinfo.cpp:314
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "Fénykép fehéregyensúly"
+
+#: src/propertyinfo.cpp:320
+#, kde-format
+msgctxt "@label"
+msgid "Publisher"
+msgstr "Kiadó"
+
+#: src/propertyinfo.cpp:326
+#, kde-format
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Kiadás éve"
+
+#: src/propertyinfo.cpp:332
+#, kde-format
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Mintavételezési ráta"
+
+#: src/propertyinfo.cpp:338
+#, kde-format
+msgctxt "@label"
+msgid "Subject"
+msgstr "Tárgy"
+
+#: src/propertyinfo.cpp:345
+#, kde-format
+msgctxt "@label"
+msgid "Title"
+msgstr "Cím"
+
+#: src/propertyinfo.cpp:351
+#, kde-format
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Sorszám"
+
+#: src/propertyinfo.cpp:357
+#, kde-format
+msgctxt "@label"
+msgid "Width"
+msgstr "Szélesség"
+
+#: src/propertyinfo.cpp:363
+#, kde-format
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Szavak száma"
+
+#: src/propertyinfo.cpp:370
+#, kde-format
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Fordítható egységek"
+
+#: src/propertyinfo.cpp:377
+#, kde-format
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Fordítások"
+
+#: src/propertyinfo.cpp:385
+#, kde-format
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Félkész fordítások"
+
+#: src/propertyinfo.cpp:392
+#, kde-format
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Szerző"
+
+#: src/propertyinfo.cpp:399
+#, kde-format
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Utolsó frissítés"
+
+#: src/propertyinfo.cpp:406
+#, kde-format
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Sablon létrehozása"
+
+#: src/propertyinfo.cpp:413
+#, kde-format
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr ""
+
+#: src/propertyinfo.cpp:420
+#, kde-format
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr ""
+
+#: src/propertyinfo.cpp:427
+#, kde-format
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr ""
+
+#: src/propertyinfo.cpp:434
+#, kde-format
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr ""
+
+#: src/typeinfo.cpp:47
+#, kde-format
+msgctxt "@label"
+msgid "Archive"
+msgstr "Archívum"
+
+#: src/typeinfo.cpp:52
+#, kde-format
+msgctxt "@label"
+msgid "Audio"
+msgstr "Hang"
+
+#: src/typeinfo.cpp:57
+#, kde-format
+msgctxt "@label"
+msgid "Document"
+msgstr "Dokumentum"
+
+#: src/typeinfo.cpp:62
+#, kde-format
+msgctxt "@label"
+msgid "Image"
+msgstr "Kép"
+
+#: src/typeinfo.cpp:67
+#, kde-format
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Bemutató"
+
+#: src/typeinfo.cpp:72
+#, kde-format
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Munkafüzet"
+
+#: src/typeinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Text"
+msgstr "Szöveg"
+
+#: src/typeinfo.cpp:82
+#, kde-format
+msgctxt "@label"
+msgid "Video"
+msgstr "Videó"
+
+#: src/typeinfo.cpp:87
+#, kde-format
+msgctxt "@label"
+msgid "Folder"
+msgstr "Mappa"
+
+#~ msgctxt "@label"
+#~ msgid "Creator"
+#~ msgstr "Létrehozó"
+
+#~ msgctxt "@label"
+#~ msgid "Description"
+#~ msgstr "Leírás"
+
+#~ msgctxt "@label"
+#~ msgid "Generator"
+#~ msgstr "Előállító"
