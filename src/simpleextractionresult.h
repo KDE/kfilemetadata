@@ -44,9 +44,9 @@ public:
     SimpleExtractionResult& operator=(const SimpleExtractionResult& rhs);
     bool operator==(const SimpleExtractionResult& rhs) const;
 
-    virtual void add(Property::Property property, const QVariant& value);
-    virtual void addType(Type::Type type);
-    virtual void append(const QString& text);
+    void add(Property::Property property, const QVariant& value) Q_DECL_OVERRIDE;
+    void addType(Type::Type type) Q_DECL_OVERRIDE;
+    void append(const QString& text) Q_DECL_OVERRIDE;
 
     PropertyMap properties() const;
     QString text() const;
