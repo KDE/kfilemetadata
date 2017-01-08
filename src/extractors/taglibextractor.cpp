@@ -29,6 +29,8 @@
 #include <id3v1genres.h>
 #include <mpegfile.h>
 #include <oggfile.h>
+#include <mp4file.h>
+#include <mp4tag.h>
 #include <taglib.h>
 #include <tag.h>
 #include <vorbisfile.h>
@@ -167,6 +169,16 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
     }
 
+    if (mimeType == QStringLiteral("audio/mp4")) {
+        TagLib::MP4::File mp4File(fileUrl.toUtf8().constData(), true);
+        if (mp4File.tag() && !mp4File.tag()->isEmpty()) {
+            albumArtists = mp4File.tag()->item("aART").toStringList().toString(", ");
+
+            TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
+            composers = mp4File.tag()->item(composerAtomName).toStringList().toString(", ");
+        }
+    }
+
     // Handling multiple tags in Ogg containers.
     {
         TagLib::Ogg::FieldListMap lstOgg;
@@ -260,7 +272,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
             }
 
             // Album Artist.
-            itMPC = lstMusepack.find("ALBUMARTIST");
+            itMPC = lstMusepack.find("ALBUM ARTIST");
             if (itMPC != lstMusepack.end()) {
                 if(!albumArtists.isEmpty()) {
                     albumArtists += ", ";
