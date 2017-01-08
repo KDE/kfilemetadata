@@ -1,0 +1,439 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sergiu Bivol <sergiu@cip.md>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-11-19 20:11+0100\n"
+"PO-Revision-Date: 2015-04-26 15:04+0300\n"
+"Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
+"Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: src/propertyinfo.cpp:47
+#, kde-format
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Album"
+
+#: src/propertyinfo.cpp:53
+#, kde-format
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Interpret album"
+
+#: src/propertyinfo.cpp:59
+#, kde-format
+msgctxt "@label"
+msgid "Artist"
+msgstr "Interpret"
+
+#: src/propertyinfo.cpp:65
+#, kde-format
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Raport de aspect"
+
+#: src/propertyinfo.cpp:71
+#, kde-format
+msgctxt "@label"
+msgid "Author"
+msgstr "Autor"
+
+#: src/propertyinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Rată de biți"
+
+#: src/propertyinfo.cpp:83
+#, kde-format
+msgctxt "@label"
+msgid "Channels"
+msgstr "Canale"
+
+#: src/propertyinfo.cpp:89
+#, kde-format
+msgctxt "@label"
+msgid "Comment"
+msgstr "Comentariu"
+
+#: src/propertyinfo.cpp:96
+#, kde-format
+msgctxt "@label"
+msgid "Composer"
+msgstr "Compozitor"
+
+#: src/propertyinfo.cpp:103
+#, kde-format
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Drept de autor"
+
+#: src/propertyinfo.cpp:110
+#, kde-format
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Data creării"
+
+#: src/propertyinfo.cpp:116
+#, kde-format
+msgctxt "@label"
+msgid "Duration"
+msgstr "Durată"
+
+#: src/propertyinfo.cpp:127
+#, kde-format
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Rata de cadre"
+
+#: src/propertyinfo.cpp:133
+#, kde-format
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "Aplicația folosită pentru generarea documentului"
+
+#: src/propertyinfo.cpp:140
+#, kde-format
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Gen"
+
+#: src/propertyinfo.cpp:147
+#, kde-format
+msgctxt "@label"
+msgid "Height"
+msgstr "Înălțime"
+
+#: src/propertyinfo.cpp:153
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr ""
+
+#: src/propertyinfo.cpp:159
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr ""
+
+#: src/propertyinfo.cpp:166
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr ""
+
+#: src/propertyinfo.cpp:173
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr ""
+
+#: src/propertyinfo.cpp:179
+#, kde-format
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Cuvinte-cheie"
+
+#: src/propertyinfo.cpp:186
+#, kde-format
+msgctxt "@label"
+msgid "Language"
+msgstr "Limbă"
+
+#: src/propertyinfo.cpp:193
+#, kde-format
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Număr de linii"
+
+#: src/propertyinfo.cpp:199
+#, kde-format
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Textier"
+
+#: src/propertyinfo.cpp:206
+#, kde-format
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Număr pagini"
+
+#: src/propertyinfo.cpp:212
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr ""
+
+#: src/propertyinfo.cpp:218
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr ""
+
+#: src/propertyinfo.cpp:224
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr ""
+
+#: src/propertyinfo.cpp:230
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr ""
+
+#: src/propertyinfo.cpp:236
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr ""
+
+#: src/propertyinfo.cpp:242
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr ""
+
+#: src/propertyinfo.cpp:248
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr ""
+
+#: src/propertyinfo.cpp:254
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr ""
+
+#: src/propertyinfo.cpp:260
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr ""
+
+#: src/propertyinfo.cpp:266
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr ""
+
+#: src/propertyinfo.cpp:272
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr ""
+
+#: src/propertyinfo.cpp:278
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr ""
+
+#: src/propertyinfo.cpp:284
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr ""
+
+#: src/propertyinfo.cpp:290
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr ""
+
+#: src/propertyinfo.cpp:296
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr ""
+
+#: src/propertyinfo.cpp:302
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr ""
+
+#: src/propertyinfo.cpp:308
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr ""
+
+#: src/propertyinfo.cpp:314
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr ""
+
+#: src/propertyinfo.cpp:320
+#, kde-format
+msgctxt "@label"
+msgid "Publisher"
+msgstr ""
+
+#: src/propertyinfo.cpp:326
+#, kde-format
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Anul lansării"
+
+#: src/propertyinfo.cpp:332
+#, kde-format
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Rată de eșantionare"
+
+#: src/propertyinfo.cpp:338
+#, kde-format
+msgctxt "@label"
+msgid "Subject"
+msgstr "Subiect"
+
+#: src/propertyinfo.cpp:345
+#, kde-format
+msgctxt "@label"
+msgid "Title"
+msgstr "Titlu"
+
+#: src/propertyinfo.cpp:351
+#, kde-format
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Număr pistă"
+
+#: src/propertyinfo.cpp:357
+#, kde-format
+msgctxt "@label"
+msgid "Width"
+msgstr "Lățime"
+
+#: src/propertyinfo.cpp:363
+#, kde-format
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Număr de cuvinte"
+
+#: src/propertyinfo.cpp:370
+#, kde-format
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Unități traductibile"
+
+#: src/propertyinfo.cpp:377
+#, kde-format
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Traduceri"
+
+#: src/propertyinfo.cpp:385
+#, kde-format
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Traduceri pe ciornă"
+
+#: src/propertyinfo.cpp:392
+#, kde-format
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Autor"
+
+#: src/propertyinfo.cpp:399
+#, kde-format
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Ultima actualizare"
+
+#: src/propertyinfo.cpp:406
+#, kde-format
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Creare șablon"
+
+#: src/propertyinfo.cpp:413
+#, kde-format
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr ""
+
+#: src/propertyinfo.cpp:420
+#, kde-format
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr ""
+
+#: src/propertyinfo.cpp:427
+#, kde-format
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr ""
+
+#: src/propertyinfo.cpp:434
+#, kde-format
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr ""
+
+#: src/typeinfo.cpp:47
+#, kde-format
+msgctxt "@label"
+msgid "Archive"
+msgstr "Arhivă"
+
+#: src/typeinfo.cpp:52
+#, kde-format
+msgctxt "@label"
+msgid "Audio"
+msgstr "Audio"
+
+#: src/typeinfo.cpp:57
+#, kde-format
+msgctxt "@label"
+msgid "Document"
+msgstr "Document"
+
+#: src/typeinfo.cpp:62
+#, kde-format
+msgctxt "@label"
+msgid "Image"
+msgstr "Imagine"
+
+#: src/typeinfo.cpp:67
+#, kde-format
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Prezentare"
+
+#: src/typeinfo.cpp:72
+#, kde-format
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Foaie de calcul"
+
+#: src/typeinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Text"
+msgstr "Text"
+
+#: src/typeinfo.cpp:82
+#, kde-format
+msgctxt "@label"
+msgid "Video"
+msgstr "Video"
+
+#: src/typeinfo.cpp:87
+#, kde-format
+msgctxt "@label"
+msgid "Folder"
+msgstr "Dosar"

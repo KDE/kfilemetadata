@@ -1,0 +1,438 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Lasse Liehu <lasse.liehu@gmail.com>, 2014, 2015, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2016-11-19 20:11+0100\n"
+"PO-Revision-Date: 2016-02-29 14:46+0200\n"
+"Last-Translator: Lasse Liehu <lasse.liehu@gmail.com>\n"
+"Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: src/propertyinfo.cpp:47
+#, kde-format
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Albumi"
+
+#: src/propertyinfo.cpp:53
+#, kde-format
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Albumin artisti"
+
+#: src/propertyinfo.cpp:59
+#, kde-format
+msgctxt "@label"
+msgid "Artist"
+msgstr "Artisti"
+
+#: src/propertyinfo.cpp:65
+#, kde-format
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Kuvasuhde"
+
+#: src/propertyinfo.cpp:71
+#, kde-format
+msgctxt "@label"
+msgid "Author"
+msgstr "Tekijä"
+
+#: src/propertyinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Bittinopeus"
+
+#: src/propertyinfo.cpp:83
+#, kde-format
+msgctxt "@label"
+msgid "Channels"
+msgstr "Kanavien määrä"
+
+#: src/propertyinfo.cpp:89
+#, kde-format
+msgctxt "@label"
+msgid "Comment"
+msgstr "Kommentti"
+
+#: src/propertyinfo.cpp:96
+#, kde-format
+msgctxt "@label"
+msgid "Composer"
+msgstr "Säveltäjä"
+
+#: src/propertyinfo.cpp:103
+#, kde-format
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Tekijänoikeus"
+
+#: src/propertyinfo.cpp:110
+#, kde-format
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Luontiaika"
+
+#: src/propertyinfo.cpp:116
+#, kde-format
+msgctxt "@label"
+msgid "Duration"
+msgstr "Kesto"
+
+#: src/propertyinfo.cpp:127
+#, kde-format
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Kuvataajuus"
+
+#: src/propertyinfo.cpp:133
+#, kde-format
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "Tiedoston generointiin käytetty ohjelma"
+
+#: src/propertyinfo.cpp:140
+#, kde-format
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Tyylilaji"
+
+#: src/propertyinfo.cpp:147
+#, kde-format
+msgctxt "@label"
+msgid "Height"
+msgstr "Korkeus"
+
+#: src/propertyinfo.cpp:153
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "Kuvan aika ja päivä"
+
+#: src/propertyinfo.cpp:159
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "Kameran valmistaja"
+
+#: src/propertyinfo.cpp:166
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "Kameran malli"
+
+#: src/propertyinfo.cpp:173
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "Kuvan suunta"
+
+#: src/propertyinfo.cpp:179
+#, kde-format
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Avainsanat"
+
+#: src/propertyinfo.cpp:186
+#, kde-format
+msgctxt "@label"
+msgid "Language"
+msgstr "Kieli"
+
+#: src/propertyinfo.cpp:193
+#, kde-format
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Rivimäärä"
+
+#: src/propertyinfo.cpp:199
+#, kde-format
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Sanoittaja"
+
+#: src/propertyinfo.cpp:206
+#, kde-format
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Sivumäärä"
+
+#: src/propertyinfo.cpp:212
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "Aukon koko"
+
+#: src/propertyinfo.cpp:218
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "Alkuperäisen aika ja päivä"
+
+#: src/propertyinfo.cpp:224
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "Valotuspoikkeama"
+
+#: src/propertyinfo.cpp:230
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "Valotusaika"
+
+#: src/propertyinfo.cpp:236
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "Kameran salama"
+
+#: src/propertyinfo.cpp:242
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "F-luku"
+
+#: src/propertyinfo.cpp:248
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "Polttoväli"
+
+#: src/propertyinfo.cpp:254
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "Polttoväli 35 mm"
+
+#: src/propertyinfo.cpp:260
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "GPS-leveysaste"
+
+#: src/propertyinfo.cpp:266
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "GPS-pituusaste"
+
+#: src/propertyinfo.cpp:272
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "GPS-korkeustieto"
+
+#: src/propertyinfo.cpp:278
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "ISO-nopeuslukemat"
+
+#: src/propertyinfo.cpp:284
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "Mittaustapa"
+
+#: src/propertyinfo.cpp:290
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "X-dimensio"
+
+#: src/propertyinfo.cpp:296
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "Y-dimensio"
+
+#: src/propertyinfo.cpp:302
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "Värikylläisyys"
+
+#: src/propertyinfo.cpp:308
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "Terävyys"
+
+#: src/propertyinfo.cpp:314
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "Valkotasapaino"
+
+#: src/propertyinfo.cpp:320
+#, kde-format
+msgctxt "@label"
+msgid "Publisher"
+msgstr "Julkaisija"
+
+#: src/propertyinfo.cpp:326
+#, kde-format
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Julkaisuvuosi"
+
+#: src/propertyinfo.cpp:332
+#, kde-format
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Näytetaajuus"
+
+#: src/propertyinfo.cpp:338
+#, kde-format
+msgctxt "@label"
+msgid "Subject"
+msgstr "Aihe"
+
+#: src/propertyinfo.cpp:345
+#, kde-format
+msgctxt "@label"
+msgid "Title"
+msgstr "Otsikko"
+
+#: src/propertyinfo.cpp:351
+#, kde-format
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Kappaleen numero"
+
+#: src/propertyinfo.cpp:357
+#, kde-format
+msgctxt "@label"
+msgid "Width"
+msgstr "Leveys"
+
+#: src/propertyinfo.cpp:363
+#, kde-format
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Sanamäärä"
+
+#: src/propertyinfo.cpp:370
+#, kde-format
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Käännösyksiköitä"
+
+#: src/propertyinfo.cpp:377
+#, kde-format
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Käännöksiä"
+
+#: src/propertyinfo.cpp:385
+#, kde-format
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Luonnoskäännöksiä"
+
+#: src/propertyinfo.cpp:392
+#, kde-format
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Tekijä"
+
+#: src/propertyinfo.cpp:399
+#, kde-format
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Päivitetty viimeksi"
+
+#: src/propertyinfo.cpp:406
+#, kde-format
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Mallin luontiaika"
+
+#: src/propertyinfo.cpp:413
+#, kde-format
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr "Ladattu lähteestä"
+
+#: src/propertyinfo.cpp:420
+#, kde-format
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr "Sähköpostiliitteen aihe"
+
+#: src/propertyinfo.cpp:427
+#, kde-format
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr "Sähköpostiliitteen lähettäjä"
+
+#: src/propertyinfo.cpp:434
+#, kde-format
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr "Sähköpostiliitteen viestitunniste"
+
+#: src/typeinfo.cpp:47
+#, kde-format
+msgctxt "@label"
+msgid "Archive"
+msgstr "Arkisto"
+
+#: src/typeinfo.cpp:52
+#, kde-format
+msgctxt "@label"
+msgid "Audio"
+msgstr "Äänitiedosto"
+
+#: src/typeinfo.cpp:57
+#, kde-format
+msgctxt "@label"
+msgid "Document"
+msgstr "Asiakirja"
+
+#: src/typeinfo.cpp:62
+#, kde-format
+msgctxt "@label"
+msgid "Image"
+msgstr "Kuva"
+
+#: src/typeinfo.cpp:67
+#, kde-format
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Esitys"
+
+#: src/typeinfo.cpp:72
+#, kde-format
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Laskentataulukko"
+
+#: src/typeinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Text"
+msgstr "Teksti"
+
+#: src/typeinfo.cpp:82
+#, kde-format
+msgctxt "@label"
+msgid "Video"
+msgstr "Video"
+
+#: src/typeinfo.cpp:87
+#, kde-format
+msgctxt "@label"
+msgid "Folder"
+msgstr "Kansio"
