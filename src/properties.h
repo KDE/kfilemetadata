@@ -27,6 +27,11 @@
 namespace KFileMetaData {
 namespace Property {
 
+/**
+ * @brief The Property enum contains all files property types that KFileMetaData manipulates
+ *
+ * @todo KF6 remove PropertyCount and LastProperty such that one can easily add new properties
+ */
 enum Property {
     FirstProperty = 0,
     Empty = 0,
@@ -260,8 +265,14 @@ enum Property {
      */
     OriginEmailMessageId,
 
+    /**
+     * Represents the disc number in a multi-disc set. Typically maps to the "TPOS" tag for mp3
+     */
+    DiscNumber,
+
     PropertyCount,
-    LastProperty = PropertyCount-1
+    LastProperty = PropertyCount-1,
+
 };
 
 } // namespace Property

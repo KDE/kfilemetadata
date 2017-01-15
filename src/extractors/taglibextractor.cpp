@@ -107,6 +107,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     TagLib::String composers;
     TagLib::String lyricists;
     TagLib::StringList genres;
+    QVariant discNumber;
 
     // Handling multiple tags in mpeg files.
     if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3")) || (mimeType == QLatin1String("audio/x-mpeg"))) {
@@ -166,6 +167,14 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 }
             }
 
+            // Disc number.
+            lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPOS"];
+            if (!lstID3v2.isEmpty()) {
+                for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+                    discNumber = (*it)->toString().toInt();
+                }
+            }
+
         }
     }
 
@@ -173,6 +182,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
         TagLib::MP4::File mp4File(fileUrl.toUtf8().constData(), true);
         if (mp4File.tag() && !mp4File.tag()->isEmpty()) {
             albumArtists = mp4File.tag()->item("aART").toStringList().toString(", ");
+            discNumber = mp4File.tag()->item("disk").toInt();
 
             TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
             composers = mp4File.tag()->item(composerAtomName).toStringList().toString(", ");
@@ -251,6 +261,12 @@ void TagLibExtractor::extract(ExtractionResult* result)
             itOgg = lstOgg.find("GENRE");
             if (itOgg != lstOgg.end()) {
                 genres.append((*itOgg).second);
+            }
+
+            // Disc Number.
+            itOgg = lstOgg.find("DISCNUMBER");
+            if (itOgg != lstOgg.end()) {
+                discNumber = (*itOgg).second.toString("").toInt();
             }
         }
     }
@@ -376,6 +392,10 @@ void TagLibExtractor::extract(ExtractionResult* result)
         if (tags->year()) {
             result->add(Property::ReleaseYear, tags->year());
         }
+    }
+
+    if (discNumber.isValid()) {
+        result->add(Property::DiscNumber, discNumber);
     }
 
     TagLib::AudioProperties* audioProp = file.audioProperties();

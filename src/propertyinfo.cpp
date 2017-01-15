@@ -352,6 +352,12 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Int;
             break;
 
+        case Property::DiscNumber:
+            d->name = QStringLiteral("discNumber");
+            d->displayName = i18nc("@label music disc number", "Disc Number");
+            d->valueType = QVariant::Int;
+            break;
+
         case Property::Width:
             d->name = QStringLiteral("width");
             d->displayName = i18nc("@label", "Width");
@@ -505,6 +511,7 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("genre"), Property::Genre },
         { QStringLiteral("samplerate"), Property::SampleRate },
         { QStringLiteral("tracknumber"), Property::TrackNumber },
+        { QStringLiteral("discnumber"), Property::DiscNumber },
         { QStringLiteral("releaseyear"), Property::ReleaseYear },
         { QStringLiteral("comment"), Property::Comment },
         { QStringLiteral("artist"), Property::Artist },
