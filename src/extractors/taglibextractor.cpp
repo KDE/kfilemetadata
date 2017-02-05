@@ -181,11 +181,24 @@ void TagLibExtractor::extract(ExtractionResult* result)
     if (mimeType == QStringLiteral("audio/mp4")) {
         TagLib::MP4::File mp4File(fileUrl.toUtf8().constData(), true);
         if (mp4File.tag() && !mp4File.tag()->isEmpty()) {
-            albumArtists = mp4File.tag()->item("aART").toStringList().toString(", ");
-            discNumber = mp4File.tag()->item("disk").toInt();
+            TagLib::MP4::ItemListMap allTags = mp4File.tag()->itemListMap();
+
+            TagLib::MP4::ItemListMap::Iterator itAlbumArtists = allTags.find("aART");
+            if (itAlbumArtists != allTags.end()) {
+                albumArtists = itAlbumArtists->second.toStringList().toString(", ");
+            }
+
+            TagLib::MP4::ItemListMap::Iterator itDiscNumber = allTags.find("disk");
+            if (itDiscNumber != allTags.end()) {
+                discNumber = itDiscNumber->second.toInt();
+            }
 
             TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
-            composers = mp4File.tag()->item(composerAtomName).toStringList().toString(", ");
+
+            TagLib::MP4::ItemListMap::Iterator itComposers = allTags.find(composerAtomName);
+            if (itComposers != allTags.end()) {
+                composers = itComposers->second.toStringList().toString(", ");
+            }
         }
     }
 
