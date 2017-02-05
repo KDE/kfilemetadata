@@ -26,6 +26,7 @@
 #include "externalextractor.h"
 
 #include <QDebug>
+#include <QMimeDatabase>
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDir>
@@ -144,10 +145,16 @@ QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) 
 {
     QList<Extractor*> plugins = d->m_extractors.values(mimetype);
     if (plugins.isEmpty()) {
+        QMimeDatabase db;
+        auto type = db.mimeTypeForName(mimetype);
         auto it = d->m_extractors.constBegin();
         for (; it != d->m_extractors.constEnd(); it++) {
-            if (mimetype.startsWith(it.key()))
+            if (plugins.contains(it.value())) {
+                continue;
+            }
+            if (type.inherits(it.key())) {
                 plugins << it.value();
+            }
         }
     }
 
