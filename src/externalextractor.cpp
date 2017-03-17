@@ -30,8 +30,6 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-#include <KLocalizedString>
-
 #include "properties.h"
 #include "propertyinfo.h"
 #include "typeinfo.h"

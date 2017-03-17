@@ -104,6 +104,20 @@ ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
 )
 
+#
+# Collection
+#
+set(extractorcollection_SRCS
+    extractorcollectiontest.cpp
+    ../src/extractorcollection.cpp
+    ../src/externalextractor.cpp
+)
+
+ecm_add_test(${extractorcollection_SRCS}
+        TEST_NAME "extractorcollectiontest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData
+)
+
 ################
 # Writer tests #
 ################

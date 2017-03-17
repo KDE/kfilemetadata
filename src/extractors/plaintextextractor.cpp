@@ -43,7 +43,7 @@ PlainTextExtractor::PlainTextExtractor(QObject* parent)
 
 QStringList PlainTextExtractor::mimetypes() const
 {
-    return QStringList() << QStringLiteral("text/");
+    return QStringList() << QStringLiteral("text/plain");
 }
 
 void PlainTextExtractor::extract(ExtractionResult* result)
