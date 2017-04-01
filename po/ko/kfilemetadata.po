@@ -1,0 +1,446 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Shinjo Park <kde@peremen.name>, 2014, 2015, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2017-02-06 03:57+0100\n"
+"PO-Revision-Date: 2016-10-20 23:15+0100\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde@peremen.name>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: src/propertyinfo.cpp:47
+#, kde-format
+msgctxt "@label music album"
+msgid "Album"
+msgstr "앨범"
+
+#: src/propertyinfo.cpp:53
+#, kde-format
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "앨범 가수"
+
+#: src/propertyinfo.cpp:59
+#, kde-format
+msgctxt "@label"
+msgid "Artist"
+msgstr "가수"
+
+#: src/propertyinfo.cpp:65
+#, kde-format
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "종횡 비율"
+
+#: src/propertyinfo.cpp:71
+#, kde-format
+msgctxt "@label"
+msgid "Author"
+msgstr "작성자"
+
+#: src/propertyinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "비트 전송률"
+
+#: src/propertyinfo.cpp:83
+#, kde-format
+msgctxt "@label"
+msgid "Channels"
+msgstr "채널"
+
+#: src/propertyinfo.cpp:89
+#, kde-format
+msgctxt "@label"
+msgid "Comment"
+msgstr "설명"
+
+#: src/propertyinfo.cpp:96
+#, kde-format
+msgctxt "@label"
+msgid "Composer"
+msgstr "작곡가"
+
+#: src/propertyinfo.cpp:103
+#, kde-format
+msgctxt "@label"
+msgid "Copyright"
+msgstr "저작권"
+
+#: src/propertyinfo.cpp:110
+#, kde-format
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "만든 날짜"
+
+#: src/propertyinfo.cpp:116
+#, kde-format
+msgctxt "@label"
+msgid "Duration"
+msgstr "시간"
+
+#: src/propertyinfo.cpp:127
+#, kde-format
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "초당 프레임 수"
+
+#: src/propertyinfo.cpp:133
+#, kde-format
+msgctxt "@label"
+msgid "Software used to Generate the document"
+msgstr "문서를 생성하는 데 사용된 소프트웨어"
+
+#: src/propertyinfo.cpp:140
+#, kde-format
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "장르"
+
+#: src/propertyinfo.cpp:147
+#, kde-format
+msgctxt "@label"
+msgid "Height"
+msgstr "높이"
+
+#: src/propertyinfo.cpp:153
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "그림 날짜와 시간"
+
+#: src/propertyinfo.cpp:159
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "그림 제조사"
+
+#: src/propertyinfo.cpp:166
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "그림 모델"
+
+#: src/propertyinfo.cpp:173
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "그림 방향"
+
+#: src/propertyinfo.cpp:179
+#, kde-format
+msgctxt "@label"
+msgid "Keywords"
+msgstr "키워드"
+
+#: src/propertyinfo.cpp:186
+#, kde-format
+msgctxt "@label"
+msgid "Language"
+msgstr "언어"
+
+#: src/propertyinfo.cpp:193
+#, kde-format
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "줄 수"
+
+#: src/propertyinfo.cpp:199
+#, kde-format
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "작사자"
+
+#: src/propertyinfo.cpp:206
+#, kde-format
+msgctxt "@label"
+msgid "Page Count"
+msgstr "쪽 수"
+
+#: src/propertyinfo.cpp:212
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "사진 조리개 값"
+
+#: src/propertyinfo.cpp:218
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "사진 원본 날짜와 시간"
+
+#: src/propertyinfo.cpp:224
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "사진 노출 보정"
+
+#: src/propertyinfo.cpp:230
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "사진 노출 시간"
+
+#: src/propertyinfo.cpp:236
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "사진 플래시"
+
+#: src/propertyinfo.cpp:242
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "사진 F 번호"
+
+#: src/propertyinfo.cpp:248
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "사진 초점 거리"
+
+#: src/propertyinfo.cpp:254
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "사진 35mm 환산 초점 거리"
+
+#: src/propertyinfo.cpp:260
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "사진 GPS 위도"
+
+#: src/propertyinfo.cpp:266
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "사진 GPS 경도"
+
+#: src/propertyinfo.cpp:272
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "사진 GPS 고도"
+
+#: src/propertyinfo.cpp:278
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "사진 ISO 감도"
+
+#: src/propertyinfo.cpp:284
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "사진 측량 모드"
+
+#: src/propertyinfo.cpp:290
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "사진 X 크기"
+
+#: src/propertyinfo.cpp:296
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "사진 Y 크기"
+
+#: src/propertyinfo.cpp:302
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "사진 색 농도"
+
+#: src/propertyinfo.cpp:308
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "사진 선명도"
+
+#: src/propertyinfo.cpp:314
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "사진 화이트 밸런스"
+
+#: src/propertyinfo.cpp:320
+#, kde-format
+msgctxt "@label"
+msgid "Publisher"
+msgstr "출판가"
+
+#: src/propertyinfo.cpp:326
+#, kde-format
+msgctxt "@label"
+msgid "Release Year"
+msgstr "발매 년도"
+
+#: src/propertyinfo.cpp:332
+#, kde-format
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "샘플 레이트"
+
+#: src/propertyinfo.cpp:338
+#, kde-format
+msgctxt "@label"
+msgid "Subject"
+msgstr "주제"
+
+#: src/propertyinfo.cpp:345
+#, kde-format
+msgctxt "@label"
+msgid "Title"
+msgstr "제목"
+
+#: src/propertyinfo.cpp:351
+#, kde-format
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "트랙 번호"
+
+#: src/propertyinfo.cpp:357
+#, fuzzy, kde-format
+#| msgctxt "@label music track number"
+#| msgid "Track Number"
+msgctxt "@label music disc number"
+msgid "Disc Number"
+msgstr "트랙 번호"
+
+#: src/propertyinfo.cpp:363
+#, kde-format
+msgctxt "@label"
+msgid "Width"
+msgstr "너비"
+
+#: src/propertyinfo.cpp:369
+#, kde-format
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "단어 수"
+
+#: src/propertyinfo.cpp:376
+#, kde-format
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "총 번역 단위 수"
+
+#: src/propertyinfo.cpp:383
+#, kde-format
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "번역문 수"
+
+#: src/propertyinfo.cpp:391
+#, kde-format
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "불분명한 번역문 수"
+
+#: src/propertyinfo.cpp:398
+#, kde-format
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "번역자"
+
+#: src/propertyinfo.cpp:405
+#, kde-format
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "마지막 수정"
+
+#: src/propertyinfo.cpp:412
+#, kde-format
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "템플릿 생성 시간"
+
+#: src/propertyinfo.cpp:419
+#, kde-format
+msgctxt "@label the URL a file was originally downloded from"
+msgid "Downloaded From"
+msgstr "다운로드한 위치"
+
+#: src/propertyinfo.cpp:426
+#, kde-format
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr "이메일 첨부 제목"
+
+#: src/propertyinfo.cpp:433
+#, kde-format
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr "이메일 첨부 보낸 사람"
+
+#: src/propertyinfo.cpp:440
+#, kde-format
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr "이메일 첨부 메시지 ID"
+
+#: src/typeinfo.cpp:47
+#, kde-format
+msgctxt "@label"
+msgid "Archive"
+msgstr "보관"
+
+#: src/typeinfo.cpp:52
+#, kde-format
+msgctxt "@label"
+msgid "Audio"
+msgstr "오디오"
+
+#: src/typeinfo.cpp:57
+#, kde-format
+msgctxt "@label"
+msgid "Document"
+msgstr "문서"
+
+#: src/typeinfo.cpp:62
+#, kde-format
+msgctxt "@label"
+msgid "Image"
+msgstr "그림"
+
+#: src/typeinfo.cpp:67
+#, kde-format
+msgctxt "@label"
+msgid "Presentation"
+msgstr "프레젠테이션"
+
+#: src/typeinfo.cpp:72
+#, kde-format
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "스프레드시트"
+
+#: src/typeinfo.cpp:77
+#, kde-format
+msgctxt "@label"
+msgid "Text"
+msgstr "텍스트"
+
+#: src/typeinfo.cpp:82
+#, kde-format
+msgctxt "@label"
+msgid "Video"
+msgstr "동영상"
+
+#: src/typeinfo.cpp:87
+#, kde-format
+msgctxt "@label"
+msgid "Folder"
+msgstr "폴더"
