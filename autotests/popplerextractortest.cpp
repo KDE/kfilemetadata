@@ -70,4 +70,4 @@ void PopplerExtractorTest::testMetaDataOnly()
 
 }
 
-QTEST_MAIN(PopplerExtractorTest)
+QTEST_GUILESS_MAIN(PopplerExtractorTest)

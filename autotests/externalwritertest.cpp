@@ -50,4 +50,4 @@ void ExternalWriterTest::test()
     QCOMPARE(QString(file.readAll()), QStringLiteral("{}"));
 }
 
-QTEST_MAIN(ExternalWriterTest)
+QTEST_GUILESS_MAIN(ExternalWriterTest)

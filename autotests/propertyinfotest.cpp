@@ -45,4 +45,4 @@ void PropertyInfoTest::testNameIdMapping()
     }
 }
 
-QTEST_MAIN(PropertyInfoTest)
+QTEST_GUILESS_MAIN(PropertyInfoTest)

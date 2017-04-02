@@ -72,4 +72,4 @@ void EPubExtractorTest::testMetaDataOnly()
 }
 
 
-QTEST_MAIN(EPubExtractorTest)
+QTEST_GUILESS_MAIN(EPubExtractorTest)

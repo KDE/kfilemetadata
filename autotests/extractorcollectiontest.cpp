@@ -40,6 +40,6 @@ private Q_SLOTS:
     }
 };
 
-QTEST_MAIN(ExtractorCollectionTest)
+QTEST_GUILESS_MAIN(ExtractorCollectionTest)
 
 #include "extractorcollectiontest.moc"

@@ -52,4 +52,4 @@ void Exiv2ExtractorTest::test()
     QCOMPARE(result.properties().value(PhotoGpsAltitude), QVariant());
 }
 
-QTEST_MAIN(Exiv2ExtractorTest)
+QTEST_GUILESS_MAIN(Exiv2ExtractorTest)

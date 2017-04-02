@@ -107,4 +107,4 @@ void OdfExtractorTest::testTextMissingContentNoCrash()
     plugin->extract(&result);
 }
 
-QTEST_MAIN(OdfExtractorTest)
+QTEST_GUILESS_MAIN(OdfExtractorTest)

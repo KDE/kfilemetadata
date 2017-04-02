@@ -52,4 +52,4 @@ void ExternalExtractorTest::test()
     QCOMPARE(result.text(), QStringLiteral("Hello "));
 }
 
-QTEST_MAIN(ExternalExtractorTest)
+QTEST_GUILESS_MAIN(ExternalExtractorTest)

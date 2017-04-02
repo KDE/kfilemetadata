@@ -59,4 +59,4 @@ void MobiExtractorTest::test()
     QCOMPARE(result.properties().size(), 5);
 }
 
-QTEST_MAIN(MobiExtractorTest)
+QTEST_GUILESS_MAIN(MobiExtractorTest)

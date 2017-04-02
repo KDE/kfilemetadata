@@ -74,4 +74,4 @@ void Office2007ExtractorTest::testMetaDataOnly()
     QVERIFY(result.text().isEmpty());
 }
 
-QTEST_MAIN(Office2007ExtractorTest)
+QTEST_GUILESS_MAIN(Office2007ExtractorTest)

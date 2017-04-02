@@ -148,4 +148,4 @@ void TagLibExtractorTest::test()
     QCOMPARE(resultMp4.properties().value(Property::DiscNumber).toInt(), 1);
 }
 
-QTEST_MAIN(TagLibExtractorTest)
+QTEST_GUILESS_MAIN(TagLibExtractorTest)

@@ -104,5 +104,5 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
     QCOMPARE(result.properties().size(), 0);
 }
 
-QTEST_MAIN(IndexerExtractorTests)
+QTEST_GUILESS_MAIN(IndexerExtractorTests)
 
