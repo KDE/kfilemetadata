@@ -28,6 +28,20 @@ if(TAGLIB_FOUND)
 
 endif()
 
+if(NOT TAGLIB_FOUND AND Qt5Multimedia_FOUND)
+    add_library(kfilemetadata_qtmultimediaextractor MODULE qtmultimediaextractor.cpp )
+
+    target_link_libraries( kfilemetadata_qtmultimediaextractor
+        KF5::FileMetaData
+        Qt5::Multimedia
+    )
+
+    install(
+    TARGETS kfilemetadata_qtmultimediaextractor
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+
+endif()
+
 if(EXIV2_FOUND)
     include_directories( ${EXIV2_INCLUDE_DIR} )
 
