@@ -107,35 +107,39 @@ DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 # ODF
 #
 
-add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp)
+if(KF5Archive_FOUND)
+    add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp)
 
-target_link_libraries(kfilemetadata_odfextractor
-    KF5::FileMetaData
-    Qt5::Core
-    Qt5::Xml
-    KF5::Archive
-)
+    target_link_libraries(kfilemetadata_odfextractor
+        KF5::FileMetaData
+        Qt5::Core
+        Qt5::Xml
+        KF5::Archive
+    )
 
-install(
-TARGETS kfilemetadata_odfextractor
-DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    install(
+    TARGETS kfilemetadata_odfextractor
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+endif()
 
 #
 # Office 2007
 #
 
-add_library(kfilemetadata_office2007extractor MODULE office2007extractor.cpp)
+if(KF5Archive_FOUND)
+    add_library(kfilemetadata_office2007extractor MODULE office2007extractor.cpp)
 
-target_link_libraries(kfilemetadata_office2007extractor
-    KF5::FileMetaData
-    Qt5::Core
-    Qt5::Xml
-    KF5::Archive
-)
+    target_link_libraries(kfilemetadata_office2007extractor
+        KF5::FileMetaData
+        Qt5::Core
+        Qt5::Xml
+        KF5::Archive
+    )
 
-install(
-TARGETS kfilemetadata_office2007extractor
-DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    install(
+    TARGETS kfilemetadata_office2007extractor
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+endif()
 
 #
 # Office (binary formats)

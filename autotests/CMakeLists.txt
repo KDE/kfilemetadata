@@ -18,15 +18,19 @@ ecm_add_test(${indexerextractor_SRCS}
 #
 # Office
 #
-ecm_add_test(odfextractortest.cpp ../src/extractors/odfextractor.cpp
-    TEST_NAME "odfextractortest"
-    LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData KF5::Archive
-)
+if(KF5Archive_FOUND)
+    ecm_add_test(odfextractortest.cpp ../src/extractors/odfextractor.cpp
+        TEST_NAME "odfextractortest"
+        LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData KF5::Archive
+    )
+endif()
 
-ecm_add_test(office2007extractortest.cpp ../src/extractors/office2007extractor.cpp
-    TEST_NAME "officeextractortest"
-    LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData KF5::Archive
-)
+if(KF5Archive_FOUND)
+    ecm_add_test(office2007extractortest.cpp ../src/extractors/office2007extractor.cpp
+        TEST_NAME "officeextractortest"
+        LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData KF5::Archive
+    )
+endif()
 
 #
 # Poppler

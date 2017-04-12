@@ -29,7 +29,13 @@ ecm_setup_version(PROJECT
 set(REQUIRED_QT_VERSION 5.6.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
-find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n Archive)
+
+find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS Archive)
+set_package_properties(KF5Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Archive Framework"
+                       URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
+                       PURPOSE "Archive is needed to build ODF and OOXML 2007 extractors")
+
+find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
 find_package(Poppler 0.12.1 COMPONENTS Qt5)
 set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
