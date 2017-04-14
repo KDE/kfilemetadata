@@ -109,8 +109,6 @@ ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp
 #
 set(extractorcollection_SRCS
     extractorcollectiontest.cpp
-    ../src/extractorcollection.cpp
-    ../src/externalextractor.cpp
 )
 
 ecm_add_test(${extractorcollection_SRCS}
