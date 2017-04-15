@@ -1,11 +1,9 @@
-if(POPPLER_QT5_FOUND)
-    include_directories(${POPPLER_QT5_INCLUDE_DIR})
-
+if(Poppler_Qt5_FOUND)
     add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp)
 
     target_link_libraries(kfilemetadata_popplerextractor
         KF5::FileMetaData
-        ${POPPLER_QT5_LIBRARIES}
+        Poppler::Qt5
     )
 
     install(

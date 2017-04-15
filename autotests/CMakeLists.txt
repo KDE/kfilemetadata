@@ -31,12 +31,10 @@ ecm_add_test(office2007extractortest.cpp ../src/extractors/office2007extractor.c
 #
 # Poppler
 #
-if(POPPLER_QT5_FOUND)
-    include_directories(${POPPLER_QT5_INCLUDE_DIR})
-
+if(Poppler_Qt5_FOUND)
     ecm_add_test(popplerextractortest.cpp ../src/extractors/popplerextractor.cpp
         TEST_NAME "popplerextractortest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${POPPLER_QT5_LIBRARIES}
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData Poppler::Qt5
     )
 endif()
 

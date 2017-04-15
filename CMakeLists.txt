@@ -31,8 +31,8 @@ set(REQUIRED_QT_VERSION 5.6.0)
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n Archive)
 
-find_package(PopplerQt5 0.12.1)
-set_package_properties(PopplerQt5 PROPERTIES DESCRIPTION "A PDF rendering library"
+find_package(Poppler 0.12.1 COMPONENTS Qt5)
+set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
                        URL "http://poppler.freedesktop.org" TYPE OPTIONAL
                        PURPOSE "Support for PDF files")
 
