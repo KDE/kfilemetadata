@@ -79,7 +79,7 @@ endif()
 #                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
 #                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
 
-add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata\")
+add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
 
 add_subdirectory(src)
 if (BUILD_TESTING)
