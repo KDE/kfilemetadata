@@ -31,7 +31,16 @@
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
 #include <sys/types.h>
 #include <sys/xattr.h>
+
+#if defined(Q_OS_ANDROID)
+// attr/xattr.h is not available in the Android NDK so we are defining ENOATTR ourself
+#ifndef ENOATTR
+# define ENOATTR ENODATA        /* No such attribute */
+#endif
+#else
 #include <attr/xattr.h>
+#endif
+
 #include <errno.h>
 #elif defined(Q_OS_MAC)
 #include <sys/types.h>
