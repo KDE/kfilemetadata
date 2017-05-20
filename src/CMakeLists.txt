@@ -75,6 +75,28 @@ install(FILES
 
 configure_file(config-kfilemetadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kfilemetadata.h)
 
+if(BUILD_QCH)
+    ecm_add_qch(
+        KF5FileMetaData_QCH
+        NAME KFileMetaData
+        BASE_NAME KF5FileMetaData
+        VERSION ${KF5_VERSION}
+        ORG_DOMAIN org.kde
+        SOURCES # using only public headers, to cover only public API
+            ${KF5FileMetaData_HEADERS}
+        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
+        LINK_QCHS
+            Qt5Core_QCH
+        BLANK_MACROS
+            KFILEMETADATA_EXPORT
+            KFILEMETADATA_DEPRECATED
+            KFILEMETADATA_DEPRECATED_EXPORT
+        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
+        COMPONENT Devel
+    )
+endif()
+
 add_subdirectory(extractors)
 
 add_subdirectory(writers)
