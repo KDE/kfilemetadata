@@ -112,7 +112,7 @@ void ExternalExtractor::extract(ExtractionResult* result)
     writeData.setObject(writeRootObject);
 
     QProcess extractorProcess;
-    extractorProcess.start(d->mainPath, QIODevice::ReadWrite);
+    extractorProcess.start(d->mainPath, QStringList(), QIODevice::ReadWrite);
     extractorProcess.write(writeData.toJson());
     extractorProcess.closeWriteChannel();
     extractorProcess.waitForFinished(EXTRACTOR_TIMEOUT_MS);

@@ -117,7 +117,7 @@ void ExternalWriter::write(const WriteData& data)
     writeData.setObject(rootObject);
 
     QProcess writerProcess;
-    writerProcess.start(d->mainPath, QIODevice::ReadWrite);
+    writerProcess.start(d->mainPath, QStringList(), QIODevice::ReadWrite);
     writerProcess.write(writeData.toJson());
     writerProcess.closeWriteChannel();
     writerProcess.waitForFinished(WRITER_TIMEOUT_MS);
