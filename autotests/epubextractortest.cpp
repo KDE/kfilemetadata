@@ -42,7 +42,7 @@ void EPubExtractorTest::test()
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().first(), Type::Document);
+    QCOMPARE(result.types().constFirst(), Type::Document);
 
     // We're doing a contains instead of an exact check cause the epub file contains
     // a ton of css and other garbage.

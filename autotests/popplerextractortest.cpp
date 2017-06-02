@@ -42,7 +42,7 @@ void PopplerExtractorTest::test()
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().first(), Type::Document);
+    QCOMPARE(result.types().constFirst(), Type::Document);
 
     QCOMPARE(result.text(), QStringLiteral("This is a sample PDF file for KFileMetaData. "));
     QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));

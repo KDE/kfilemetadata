@@ -29,9 +29,12 @@ namespace KFileMetaData {
 
 class ExternalWriter : public WriterPlugin
 {
+
+    Q_OBJECT
+
 public:
     explicit ExternalWriter(QObject* parent = 0);
-    ExternalWriter(const QString& pluginPath);
+    explicit ExternalWriter(const QString& pluginPath);
     virtual ~ExternalWriter();
 
     void write(const WriteData& data) Q_DECL_OVERRIDE;
@@ -41,7 +44,7 @@ private:
     bool runtimeInstalled() const;
     bool dependenciesSatisfied() const;
 
-    struct ExternalWriterPrivate;
+    class ExternalWriterPrivate;
     ExternalWriterPrivate *d_ptr;
     Q_DECLARE_PRIVATE(ExternalWriter)
 };

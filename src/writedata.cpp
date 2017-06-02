@@ -27,7 +27,8 @@
 
 using namespace KFileMetaData;
 
-struct WriteData::WriteDataPrivate {
+class WriteData::WriteDataPrivate {
+public:
     QString url;
     QString mimetype;
     PropertyMap properties;
@@ -52,7 +53,6 @@ WriteData::WriteData(const WriteData& rhs)
 
 WriteData& WriteData::operator=(const WriteData& rhs)
 {
-    Q_D(WriteData);
     *d_ptr = *rhs.d_ptr;
     return *this;
 }

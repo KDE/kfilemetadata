@@ -28,8 +28,9 @@ namespace KFileMetaData {
 
 class WriterPlugin;
 
-struct Writer::WriterPrivate
+class Writer::WriterPrivate
 {
+public:
     WriterPlugin *m_plugin;
 };
 

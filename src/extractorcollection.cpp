@@ -39,15 +39,17 @@ class ExtractorCollection::Private {
 public:
     QHash<QString, Extractor*> m_extractors;
 
+    QList<Extractor*> m_allExtractors;
+
     QList<Extractor*> allExtractors() const;
 };
 
 ExtractorCollection::ExtractorCollection()
     : d(new Private)
 {
-    QList<Extractor*> all = d->allExtractors();
+    d->m_allExtractors = d->allExtractors();
 
-    foreach (Extractor* ex, all) {
+    foreach (Extractor* ex, d->m_allExtractors) {
         foreach (const QString& type, ex->mimetypes()) {
             d->m_extractors.insertMulti(type, ex);
         }
@@ -56,7 +58,7 @@ ExtractorCollection::ExtractorCollection()
 
 ExtractorCollection::~ExtractorCollection()
 {
-    qDeleteAll(d->m_extractors.values().toSet());
+    qDeleteAll(d->m_allExtractors.begin(), d->m_allExtractors.end());
     delete d;
 }
 

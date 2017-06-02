@@ -43,7 +43,7 @@ void TagLibExtractorTest::test()
     plugin->extract(&resultOpus);
 
     QCOMPARE(resultOpus.types().size(), 1);
-    QCOMPARE(resultOpus.types().first(), Type::Audio);
+    QCOMPARE(resultOpus.types().constFirst(), Type::Audio);
 
     QCOMPARE(resultOpus.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(resultOpus.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
@@ -61,7 +61,7 @@ void TagLibExtractorTest::test()
     plugin->extract(&resultFlac);
 
     QCOMPARE(resultFlac.types().size(), 1);
-    QCOMPARE(resultFlac.types().first(), Type::Audio);
+    QCOMPARE(resultFlac.types().constFirst(), Type::Audio);
 
     QCOMPARE(resultFlac.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(resultFlac.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
@@ -79,7 +79,7 @@ void TagLibExtractorTest::test()
     plugin->extract(&resultOgg);
 
     QCOMPARE(resultOgg.types().size(), 1);
-    QCOMPARE(resultOgg.types().first(), Type::Audio);
+    QCOMPARE(resultOgg.types().constFirst(), Type::Audio);
 
     QCOMPARE(resultOgg.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(resultOgg.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
@@ -97,7 +97,7 @@ void TagLibExtractorTest::test()
     plugin->extract(&resultMp3);
 
     QCOMPARE(resultMp3.types().size(), 1);
-    QCOMPARE(resultMp3.types().first(), Type::Audio);
+    QCOMPARE(resultMp3.types().constFirst(), Type::Audio);
 
     QCOMPARE(resultMp3.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(resultMp3.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
@@ -115,7 +115,7 @@ void TagLibExtractorTest::test()
     plugin->extract(&resultMpc);
 
     QCOMPARE(resultMpc.types().size(), 1);
-    QCOMPARE(resultMpc.types().first(), Type::Audio);
+    QCOMPARE(resultMpc.types().constFirst(), Type::Audio);
 
     QCOMPARE(resultMpc.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(resultMpc.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
@@ -133,7 +133,7 @@ void TagLibExtractorTest::test()
     plugin->extract(&resultMp4);
 
     QCOMPARE(resultMp4.types().size(), 1);
-    QCOMPARE(resultMp4.types().first(), Type::Audio);
+    QCOMPARE(resultMp4.types().constFirst(), Type::Audio);
 
     QCOMPARE(resultMp4.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(resultMp4.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));

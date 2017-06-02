@@ -38,7 +38,8 @@
 
 using namespace KFileMetaData;
 
-struct ExternalExtractor::ExternalExtractorPrivate {
+class ExternalExtractor::ExternalExtractorPrivate {
+public:
     QString path;
     QStringList writeMimetypes;
     QString mainPath;
@@ -78,7 +79,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     QJsonObject rootObject = manifestDoc.object();
     QJsonArray mimetypesArray = rootObject.value(QStringLiteral("mimetypes")).toArray();
     QStringList mimetypes;
-    Q_FOREACH(QVariant mimetype, mimetypesArray) {
+    Q_FOREACH(const QVariant &mimetype, mimetypesArray) {
         mimetypes << mimetype.toString();
     }
 
@@ -135,7 +136,7 @@ void ExternalExtractor::extract(ExtractionResult* result)
     QJsonObject rootObject = extractorData.object();
     QJsonObject propertiesObject = rootObject[QStringLiteral("properties")].toObject();
 
-    Q_FOREACH(auto key, propertiesObject.keys()) {
+    Q_FOREACH(const auto &key, propertiesObject.keys()) {
         if (key == QStringLiteral("typeInfo")) {
             TypeInfo info = TypeInfo::fromName(propertiesObject.value(key).toString());
             result->addType(info.type());

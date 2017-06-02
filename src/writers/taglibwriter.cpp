@@ -33,7 +33,6 @@ QStringList TagLibWriter::writeMimetypes() const
 void TagLibWriter::write(const WriteData& data)
 {
     const QString fileUrl = data.inputUrl();
-    const QString mimeType = data.inputMimetype();
     const PropertyMap properties = data.getAllProperties();
 
     TagLib::FileRef file(fileUrl.toUtf8().constData(), true);

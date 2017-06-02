@@ -53,7 +53,7 @@ public:
     QMap<Property::Property, QVariant> getAllProperties() const;
 
 private:
-    struct WriteDataPrivate;
+    class WriteDataPrivate;
     WriteDataPrivate* d_ptr;
     Q_DECLARE_PRIVATE(WriteData)
 };

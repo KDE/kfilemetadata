@@ -29,6 +29,9 @@ namespace KFileMetaData {
 
 class ExternalExtractor : public ExtractorPlugin
 {
+
+    Q_OBJECT
+
 public:
     explicit ExternalExtractor(QObject* parent = 0);
     ExternalExtractor(const QString& pluginPath);
@@ -38,7 +41,7 @@ public:
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
 
 private:
-    struct ExternalExtractorPrivate;
+    class ExternalExtractorPrivate;
     ExternalExtractorPrivate *d_ptr;
     Q_DECLARE_PRIVATE(ExternalExtractor)
 };

@@ -42,7 +42,7 @@ void Exiv2ExtractorTest::test()
     plugin->extract(&result);
 
     QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().first(), Type::Image);
+    QCOMPARE(result.types().constFirst(), Type::Image);
 
     using namespace KFileMetaData::Property;
     double lat = 41.4114341666667;

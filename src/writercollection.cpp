@@ -38,7 +38,8 @@
 
 using namespace KFileMetaData;
 
-struct WriterCollection::WriterCollectionPrivate {
+class WriterCollection::WriterCollectionPrivate {
+public:
     QHash<QString, Writer*> m_writers;
 
     QList<Writer*> allWriters() const;
@@ -60,7 +61,7 @@ WriterCollection::WriterCollection()
 WriterCollection::~WriterCollection()
 {
     Q_D(WriterCollection);
-    qDeleteAll(d->m_writers.values().toSet());
+    qDeleteAll(d->m_writers.begin(), d->m_writers.end());
     delete d;
 }
 

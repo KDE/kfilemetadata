@@ -41,7 +41,7 @@ public:
     QList<Writer*> fetchWriters(const QString& mimetype) const;
 
 private:
-    struct WriterCollectionPrivate;
+    class WriterCollectionPrivate;
     WriterCollectionPrivate* d_ptr;
     Q_DECLARE_PRIVATE(WriterCollection)
 };

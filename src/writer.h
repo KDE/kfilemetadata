@@ -47,7 +47,7 @@ private:
 
     void operator =(const Writer&);
 
-    struct WriterPrivate;
+    class WriterPrivate;
     WriterPrivate *d_ptr;
     Q_DECLARE_PRIVATE(Writer)
 
