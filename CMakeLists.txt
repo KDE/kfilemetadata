@@ -33,7 +33,7 @@ set(REQUIRED_QT_VERSION 5.6.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 
-find_package(Qt5 ${REQUIRED_QT_VERSION} NO_MODULE COMPONENTS Multimedia)
+find_package(Qt5Multimedia ${REQUIRED_QT_VERSION})
 set_package_properties(Qt5Multimedia PROPERTIES DESCRIPTION "Qt5 Multimedia Module"
                        URL "https://qt.io" TYPE OPTIONAL
                        PURPOSE "Qt5 Multimedia module is needed to build an extractor for audio files")
