@@ -1,9 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 import sys
-import subprocess
-import os.path
-import os
 import json
 
 extractor_data = json.loads(sys.stdin.read())
