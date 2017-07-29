@@ -1,5 +1,10 @@
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test)
 
+find_package(PythonInterp)
+set_package_properties(PythonInterp PROPERTIES DESCRIPTION "Python Interpreter"
+                       URL "https://www.python.org" TYPE OPTIONAL
+                       PURPOSE "Python interpreter is needed to execute test for external extractors or writers")
+
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 configure_file(indexerextractortestsconfig.h.in
@@ -112,10 +117,15 @@ if(NOT TAGLIB_FOUND AND Qt5Multimedia_FOUND)
 endif()
 
 
-ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp
-        TEST_NAME "externalextractortest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
-)
+if(PYTHONINTERP_FOUND)
+    configure_file(samplefiles/testexternalextractor/main.py samplefiles/testexternalextractor/main.py)
+    configure_file(samplefiles/testexternalextractor/manifest.json samplefiles/testexternalextractor/manifest.json COPYONLY)
+
+    ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp
+            TEST_NAME "externalextractortest"
+            LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
+    )
+endif()
 
 #
 # Collection
@@ -146,7 +156,12 @@ if(TAGLIB_FOUND)
     )
 endif()
 
-ecm_add_test(externalwritertest.cpp ../src/externalwriter.cpp
-        TEST_NAME "externalwritertest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
-)
+if(PYTHONINTERP_FOUND)
+    configure_file(samplefiles/testexternalwriter/main.py samplefiles/testexternalwriter/main.py)
+    configure_file(samplefiles/testexternalwriter/manifest.json samplefiles/testexternalwriter/manifest.json COPYONLY)
+
+    ecm_add_test(externalwritertest.cpp ../src/externalwriter.cpp
+            TEST_NAME "externalwritertest"
+            LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
+    )
+endif()
