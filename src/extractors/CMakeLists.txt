@@ -1,3 +1,5 @@
+
+
 if(Poppler_Qt5_FOUND)
     add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp)
 
@@ -6,6 +8,7 @@ if(Poppler_Qt5_FOUND)
         Poppler::Qt5
     )
 
+    set_target_properties(kfilemetadata_popplerextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_popplerextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -22,6 +25,7 @@ if(TAGLIB_FOUND)
         ${TAGLIB_LIBRARIES}
     )
 
+    set_target_properties(kfilemetadata_taglibextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_taglibextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -36,6 +40,7 @@ if(NOT TAGLIB_FOUND AND Qt5Multimedia_FOUND)
         Qt5::Multimedia
     )
 
+    set_target_properties(kfilemetadata_qtmultimediaextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_qtmultimediaextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -53,6 +58,7 @@ if(EXIV2_FOUND)
         ${EXIV2_LIBRARIES}
     )
 
+    set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_exiv2extractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -69,6 +75,7 @@ if(FFMPEG_FOUND)
         ${FFMPEG_LIBRARIES}
     )
 
+    set_target_properties(kfilemetadata_ffmpegextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_ffmpegextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -86,6 +93,7 @@ if(EPUB_FOUND)
         ${EPUB_LIBRARIES}
     )
 
+    set_target_properties(kfilemetadata_epubextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_epubextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -101,6 +109,7 @@ target_link_libraries( kfilemetadata_plaintextextractor
     KF5::FileMetaData
 )
 
+set_target_properties(kfilemetadata_plaintextextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
 TARGETS kfilemetadata_plaintextextractor
 DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -113,6 +122,7 @@ target_link_libraries( kfilemetadata_poextractor
     KF5::FileMetaData
 )
 
+set_target_properties(kfilemetadata_poextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
 TARGETS kfilemetadata_poextractor
 DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -131,6 +141,7 @@ if(KF5Archive_FOUND)
         KF5::Archive
     )
 
+    set_target_properties(kfilemetadata_odfextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_odfextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -150,6 +161,7 @@ if(KF5Archive_FOUND)
         KF5::Archive
     )
 
+    set_target_properties(kfilemetadata_office2007extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_office2007extractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -165,6 +177,7 @@ target_link_libraries(kfilemetadata_officeextractor
     KF5::FileMetaData
 )
 
+set_target_properties(kfilemetadata_officeextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
 TARGETS kfilemetadata_officeextractor
 DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
@@ -181,6 +194,7 @@ if (QMOBIPOCKET_FOUND)
         ${QMOBIPOCKET_LIBRARIES}
     )
 
+    set_target_properties(kfilemetadata_mobiextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_mobiextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)

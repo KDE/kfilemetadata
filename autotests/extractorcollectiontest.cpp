@@ -34,6 +34,7 @@ class ExtractorCollectionTest : public QObject
 private Q_SLOTS:
     void testFetchExtractors()
     {
+        QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
         ExtractorCollection collection;
         QVERIFY(collection.fetchExtractors("unknown/mimetype").isEmpty());
         QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
