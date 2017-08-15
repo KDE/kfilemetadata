@@ -27,7 +27,8 @@
 
 using namespace KFileMetaData;
 
-class WriteData::WriteDataPrivate {
+class Q_DECL_HIDDEN WriteData::WriteDataPrivate
+{
 public:
     QString url;
     QString mimetype;

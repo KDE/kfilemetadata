@@ -38,7 +38,8 @@
 
 using namespace KFileMetaData;
 
-class WriterCollection::WriterCollectionPrivate {
+class Q_DECL_HIDDEN WriterCollection::WriterCollectionPrivate
+{
 public:
     QHash<QString, Writer*> m_writers;
 

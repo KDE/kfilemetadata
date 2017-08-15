@@ -26,7 +26,8 @@
 
 using namespace KFileMetaData;
 
-class PropertyInfo::Private {
+class Q_DECL_HIDDEN PropertyInfo::Private
+{
 public:
     Property::Property prop;
     QString name;

@@ -25,7 +25,8 @@
 
 using namespace KFileMetaData;
 
-class ExtractionResult::Private {
+class Q_DECL_HIDDEN ExtractionResult::Private
+{
 public:
     QString url;
     QString mimetype;

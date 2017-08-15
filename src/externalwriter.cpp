@@ -37,7 +37,8 @@
 
 using namespace KFileMetaData;
 
-class ExternalWriter::ExternalWriterPrivate {
+class Q_DECL_HIDDEN ExternalWriter::ExternalWriterPrivate
+{
 public:
     QString path;
     QStringList writeMimetypes;

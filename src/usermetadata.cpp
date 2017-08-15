@@ -24,7 +24,8 @@
 
 using namespace KFileMetaData;
 
-class UserMetaData::Private {
+class Q_DECL_HIDDEN UserMetaData::Private
+{
 public:
     QString filePath;
 };

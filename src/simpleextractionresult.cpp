@@ -21,7 +21,8 @@
 
 using namespace KFileMetaData;
 
-class SimpleExtractionResult::Private {
+class Q_DECL_HIDDEN SimpleExtractionResult::Private
+{
 public:
     PropertyMap m_properties;
     QString m_text;

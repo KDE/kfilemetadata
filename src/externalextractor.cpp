@@ -38,7 +38,8 @@
 
 using namespace KFileMetaData;
 
-class ExternalExtractor::ExternalExtractorPrivate {
+class Q_DECL_HIDDEN ExternalExtractor::ExternalExtractorPrivate
+{
 public:
     QString path;
     QStringList writeMimetypes;

@@ -35,7 +35,8 @@
 
 using namespace KFileMetaData;
 
-class ExtractorCollection::Private {
+class Q_DECL_HIDDEN ExtractorCollection::Private
+{
 public:
     QHash<QString, Extractor*> m_extractors;
 

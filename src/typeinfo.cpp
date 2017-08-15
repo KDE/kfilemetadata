@@ -24,7 +24,8 @@
 
 using namespace KFileMetaData;
 
-class TypeInfo::Private {
+class Q_DECL_HIDDEN TypeInfo::Private
+{
 public:
     Type::Type type;
     QString name;

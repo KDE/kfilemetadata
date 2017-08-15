@@ -28,7 +28,7 @@ namespace KFileMetaData {
 
 class WriterPlugin;
 
-class Writer::WriterPrivate
+class Q_DECL_HIDDEN Writer::WriterPrivate
 {
 public:
     WriterPlugin *m_plugin;
