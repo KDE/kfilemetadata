@@ -25,10 +25,14 @@ namespace KFileMetaData {
 
 class ExtractorPlugin;
 
-class ExtractorPrivate
+class Extractor::ExtractorPrivate
 {
 public:
-    ExtractorPlugin *m_plugin;
+
+    ExtractorPlugin *m_plugin = nullptr;
+
+    ExtractorPluginOwnership m_autoDeletePlugin = AutoDeletePlugin;
+
 };
 
 }

@@ -31,7 +31,10 @@ Extractor::Extractor()
 
 Extractor::~Extractor()
 {
-    delete d->m_plugin;
+    if (d->m_autoDeletePlugin == AutoDeletePlugin) {
+        delete d->m_plugin;
+    }
+
     delete d;
 }
 
@@ -43,4 +46,14 @@ void Extractor::extract(ExtractionResult* result)
 QStringList Extractor::mimetypes() const
 {
     return d->m_plugin->mimetypes();
+}
+
+void Extractor::setExtractorPlugin(ExtractorPlugin *extractorPlugin)
+{
+    d->m_plugin = extractorPlugin;
+}
+
+void Extractor::setAutoDeletePlugin(ExtractorPluginOwnership autoDelete)
+{
+    d->m_autoDeletePlugin = autoDelete;
 }

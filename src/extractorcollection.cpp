@@ -22,7 +22,6 @@
 #include "extractor.h"
 #include "extractorplugin.h"
 #include "extractorcollection.h"
-#include "extractor_p.h"
 #include "externalextractor.h"
 
 #include <QDebug>
@@ -120,7 +119,8 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
             ExtractorPlugin* plugin = qobject_cast<ExtractorPlugin*>(obj);
             if (plugin) {
                 Extractor* ex= new Extractor;
-                ex->d->m_plugin = plugin;
+                ex->setExtractorPlugin(plugin);
+                ex->setAutoDeletePlugin(Extractor::DoNotDeletePlugin);
 
                 extractors << ex;
             } else {
@@ -136,7 +136,8 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
     Q_FOREACH (const QString& externalPluginPath, externalPluginPaths) {
         ExternalExtractor *plugin = new ExternalExtractor(externalPluginPath);
         Extractor* extractor = new Extractor;
-        extractor->d->m_plugin = plugin;
+        extractor->setExtractorPlugin(plugin);
+        extractor->setAutoDeletePlugin(Extractor::AutoDeletePlugin);
 
         extractors << extractor;
     }

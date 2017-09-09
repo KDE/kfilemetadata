@@ -39,6 +39,19 @@ private Q_SLOTS:
         QVERIFY(collection.fetchExtractors("unknown/mimetype").isEmpty());
         QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
     }
+
+    void testMultipleExtractorCollections()
+    {
+        QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
+        ExtractorCollection collection;
+        QVERIFY(collection.fetchExtractors("unknown/mimetype").isEmpty());
+        QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
+        ExtractorCollection collection2;
+        QVERIFY(collection.fetchExtractors("unknown/mimetype").isEmpty());
+        QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
+        QVERIFY(collection2.fetchExtractors("unknown/mimetype").isEmpty());
+        QVERIFY(!collection2.fetchExtractors("text/plain").isEmpty());
+    }
 };
 
 QTEST_GUILESS_MAIN(ExtractorCollectionTest)

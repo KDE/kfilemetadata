@@ -28,12 +28,19 @@ namespace KFileMetaData {
 
 class ExtractionResult;
 class ExtractorCollection;
-class ExtractorPrivate;
+class ExtractorPlugin;
 
 class KFILEMETADATA_EXPORT Extractor
 {
+    class ExtractorPrivate;
+
+    enum ExtractorPluginOwnership {
+        AutoDeletePlugin,
+        DoNotDeletePlugin,
+    };
+
 public:
-    virtual ~Extractor();
+    virtual ~Extractor() noexcept;
 
     void extract(ExtractionResult* result);
     QStringList mimetypes() const;
@@ -43,6 +50,10 @@ private:
     Extractor(const Extractor&);
 
     void operator =(const Extractor&);
+
+    void setExtractorPlugin(ExtractorPlugin *extractorPlugin);
+
+    void setAutoDeletePlugin(ExtractorPluginOwnership autoDelete);
 
     ExtractorPrivate *d;
     friend class ExtractorCollection;
