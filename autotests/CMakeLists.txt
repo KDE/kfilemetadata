@@ -110,17 +110,6 @@ if(TAGLIB_FOUND)
     )
 endif()
 
-#
-# QtMultimedia
-#
-if(NOT TAGLIB_FOUND AND Qt5Multimedia_FOUND)
-    kde_enable_exceptions()
-    ecm_add_test(qtmultimediaextractortest.cpp ../src/extractors/qtmultimediaextractor.cpp
-        TEST_NAME "qtmultimediaextractortest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData Qt5::Multimedia
-    )
-endif()
-
 
 if(PYTHONINTERP_FOUND)
     configure_file(samplefiles/testexternalextractor/main.py samplefiles/testexternalextractor/main.py)

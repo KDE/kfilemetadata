@@ -34,11 +34,6 @@ set(REQUIRED_QT_VERSION 5.7.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 
-find_package(Qt5Multimedia ${REQUIRED_QT_VERSION})
-set_package_properties(Qt5Multimedia PROPERTIES DESCRIPTION "Qt5 Multimedia Module"
-                       URL "https://qt.io" TYPE OPTIONAL
-                       PURPOSE "Qt5 Multimedia module is needed to build an extractor for audio files")
-
 find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS Archive)
 set_package_properties(KF5Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Archive Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
