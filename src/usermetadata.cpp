@@ -59,7 +59,12 @@ QString UserMetaData::filePath() const
 
 UserMetaData::Error UserMetaData::setTags(const QStringList& tags)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(QLatin1Char(',')));
+    if (!tags.isEmpty()) {
+        k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(QLatin1Char(',')));
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.xdg.tags"));
+    }
+
     return NoError;
 }
 
@@ -81,7 +86,12 @@ int UserMetaData::rating() const
 
 UserMetaData::Error UserMetaData::setRating(int rating)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.baloo.rating"), QString::number(rating));
+    if (rating > 0) {
+        k_setxattr(d->filePath, QStringLiteral("user.baloo.rating"), QString::number(rating));
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.baloo.rating"));
+    }
+
     return NoError;
 }
 
@@ -95,7 +105,12 @@ QString UserMetaData::userComment() const
 
 UserMetaData::Error UserMetaData::setUserComment(const QString& userComment)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.xdg.comment"), userComment);
+    if (!userComment.isEmpty()) {
+        k_setxattr(d->filePath, QStringLiteral("user.xdg.comment"), userComment);
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.xdg.comment"));
+    }
+
     return NoError;
 }
 
@@ -109,7 +124,12 @@ QUrl UserMetaData::originUrl() const
 
 UserMetaData::Error UserMetaData::setOriginUrl(const QUrl &originUrl)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.url"), originUrl.toString());
+    if (!originUrl.isEmpty()) {
+        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.url"), originUrl.toString());
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.url"));
+    }
+
     return NoError;
 }
 
@@ -122,7 +142,12 @@ QString UserMetaData::originEmailSubject() const
 
 UserMetaData::Error UserMetaData::setOriginEmailSubject(const QString &originEmailSubject)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"), originEmailSubject);
+    if (!originEmailSubject.isEmpty()) {
+        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"), originEmailSubject);
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"));
+    }
+
     return NoError;
 }
 
@@ -135,7 +160,12 @@ QString UserMetaData::originEmailSender() const
 
 UserMetaData::Error UserMetaData::setOriginEmailSender(const QString &originEmailSender)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"), originEmailSender);
+    if (!originEmailSender.isEmpty()) {
+        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"), originEmailSender);
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"));
+    }
+
     return NoError;
 }
 
@@ -148,13 +178,23 @@ QString UserMetaData::originEmailMessageId() const
 
 UserMetaData::Error UserMetaData::setOriginEmailMessageId(const QString &originEmailMessageId)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"), originEmailMessageId);
+    if (!originEmailMessageId.isEmpty()) {
+        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"), originEmailMessageId);
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"));
+    }
+
     return NoError;
 }
 
 UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString& value)
 {
-    k_setxattr(d->filePath, QStringLiteral("user.") + key, value);
+    if (!value.isEmpty()) {
+        k_setxattr(d->filePath, QStringLiteral("user.") + key, value);
+    } else {
+        k_removexattr(d->filePath, QStringLiteral("user.") + key);
+    }
+
     return NoError;
 }
 
