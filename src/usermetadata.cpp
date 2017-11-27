@@ -86,7 +86,7 @@ int UserMetaData::rating() const
 
 UserMetaData::Error UserMetaData::setRating(int rating)
 {
-    if (rating > 0) {
+    if (rating) {
         k_setxattr(d->filePath, QStringLiteral("user.baloo.rating"), QString::number(rating));
     } else {
         k_removexattr(d->filePath, QStringLiteral("user.baloo.rating"));
