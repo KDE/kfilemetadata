@@ -22,8 +22,8 @@
  */
 
 #include "externalextractor.h"
+#include "kfilemetadata_debug.h"
 
-#include <QDebug>
 #include <QDir>
 #include <QProcess>
 #include <QJsonDocument>
@@ -65,7 +65,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     QStringList pluginDirContents = pluginDir.entryList();
 
     if (!pluginDirContents.contains(QStringLiteral("manifest.json"))) {
-        qDebug() << "Path does not seem to contain a valid plugin";
+        qCDebug(KFILEMETADATA_LOG) << "Path does not seem to contain a valid plugin";
         return;
     }
 
@@ -73,7 +73,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     manifest.open(QIODevice::ReadOnly);
     QJsonDocument manifestDoc = QJsonDocument::fromJson(manifest.readAll());
     if (!manifestDoc.isObject()) {
-        qDebug() << "Manifest does not seem to be a valid JSON Object";
+        qCDebug(KFILEMETADATA_LOG) << "Manifest does not seem to be a valid JSON Object";
         return;
     }
 
@@ -123,7 +123,7 @@ void ExternalExtractor::extract(ExtractionResult* result)
     errorOutput = extractorProcess.readAllStandardError();
 
     if (extractorProcess.exitStatus()) {
-        qDebug() << errorOutput;
+        qCDebug(KFILEMETADATA_LOG) << errorOutput;
         return;
     }
 
@@ -158,6 +158,6 @@ void ExternalExtractor::extract(ExtractionResult* result)
     }
 
     if (rootObject[QStringLiteral("status")].toString() != QStringLiteral("OK")) {
-        qDebug() << rootObject[QStringLiteral("error")].toString();
+        qCDebug(KFILEMETADATA_LOG) << rootObject[QStringLiteral("error")].toString();
     }
 }

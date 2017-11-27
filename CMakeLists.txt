@@ -19,6 +19,7 @@ include(GenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
+include(ECMQtDeclareLoggingCategory)
 
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
@@ -127,4 +128,6 @@ install(FILES
   COMPONENT devel
 )
 
+# contains list of debug categories, for kdebugsettings
+install(FILES kfilemetadata.categories DESTINATION ${KDE_INSTALL_CONFDIR})
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

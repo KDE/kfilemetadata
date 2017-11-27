@@ -1,4 +1,4 @@
-add_library(KF5FileMetaData
+set(KF5FileMetaData_SRCS
     extractionresult.cpp
     simpleextractionresult.cpp
     extractor.cpp
@@ -13,6 +13,11 @@ add_library(KF5FileMetaData
     writerplugin.cpp
     writercollection.cpp
     externalwriter.cpp
+    )
+ecm_qt_declare_logging_category(KF5FileMetaData_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
+
+add_library(KF5FileMetaData
+    ${KF5FileMetaData_SRCS}
 )
 
 add_library(KF5::FileMetaData ALIAS KF5FileMetaData)

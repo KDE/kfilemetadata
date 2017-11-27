@@ -19,8 +19,8 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#include "kfilemetadata_debug.h"
 
-#include <QDebug>
 #include <QDir>
 #include <QProcess>
 #include <QJsonDocument>
@@ -68,7 +68,7 @@ ExternalWriter::ExternalWriter(const QString& pluginPath)
     QStringList pluginDirContents = pluginDir.entryList();
 
     if (!pluginDirContents.contains(QStringLiteral("manifest.json"))) {
-        qDebug() << "Path does not seem to contain a valid plugin";
+        qCDebug(KFILEMETADATA_LOG) << "Path does not seem to contain a valid plugin";
         return;
     }
 
@@ -76,7 +76,7 @@ ExternalWriter::ExternalWriter(const QString& pluginPath)
     manifest.open(QIODevice::ReadOnly);
     QJsonDocument manifestDoc = QJsonDocument::fromJson(manifest.readAll());
     if (!manifestDoc.isObject()) {
-        qDebug() << "Manifest does not seem to be a valid JSON Object";
+        qCDebug(KFILEMETADATA_LOG) << "Manifest does not seem to be a valid JSON Object";
         return;
     }
 
@@ -128,8 +128,8 @@ void ExternalWriter::write(const WriteData& data)
     errorOutput = writerProcess.readAllStandardError();
 
     if (writerProcess.exitStatus()) {
-        qDebug() << "Something went wrong while trying to write data";
-        qDebug() << errorOutput;
+        qCDebug(KFILEMETADATA_LOG) << "Something went wrong while trying to write data";
+        qCDebug(KFILEMETADATA_LOG) << errorOutput;
         return;
     }
 
@@ -142,8 +142,8 @@ void ExternalWriter::write(const WriteData& data)
     QJsonObject outputRootObject = writerExitData.object();
 
     if (outputRootObject[QStringLiteral("status")].toString() != QStringLiteral("OK")) {
-        qDebug() << outputRootObject[QStringLiteral("error")].toString();
-        qDebug() << errorOutput;
+        qCDebug(KFILEMETADATA_LOG) << outputRootObject[QStringLiteral("error")].toString();
+        qCDebug(KFILEMETADATA_LOG) << errorOutput;
     }
 
 }

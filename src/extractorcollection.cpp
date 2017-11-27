@@ -23,8 +23,8 @@
 #include "extractorplugin.h"
 #include "extractorcollection.h"
 #include "externalextractor.h"
+#include "kfilemetadata_debug.h"
 
-#include <QDebug>
 #include <QMimeDatabase>
 #include <QCoreApplication>
 #include <QPluginLoader>
@@ -124,12 +124,12 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
 
                 extractors << ex;
             } else {
-                qDebug() << "Plugin could not be converted to an ExtractorPlugin";
-                qDebug() << pluginPath;
+                qCDebug(KFILEMETADATA_LOG) << "Plugin could not be converted to an ExtractorPlugin";
+                qCDebug(KFILEMETADATA_LOG) << pluginPath;
             }
         }
         else {
-            qDebug() << "Plugin could not create instance" << pluginPath;
+            qCDebug(KFILEMETADATA_LOG) << "Plugin could not create instance" << pluginPath;
         }
     }
 

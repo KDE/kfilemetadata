@@ -10,6 +10,11 @@ remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 configure_file(indexerextractortestsconfig.h.in
                ${CMAKE_CURRENT_BINARY_DIR}/indexerextractortestsconfig.h @ONLY)
 
+
+set(KfileMetaDataAutotest_SRCS)
+ecm_qt_declare_logging_category(KfileMetaDataAutotest_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
+
+
 set(indexerextractor_SRCS
   indexerextractortests.cpp
   ../src/extractors/plaintextextractor.cpp
@@ -121,7 +126,7 @@ if(PYTHONINTERP_FOUND)
     configure_file(samplefiles/testexternalextractor/main.py samplefiles/testexternalextractor/main.py)
     configure_file(samplefiles/testexternalextractor/manifest.json samplefiles/testexternalextractor/manifest.json COPYONLY)
 
-    ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp
+    ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp ${KfileMetaDataAutotest_SRCS}
             TEST_NAME "externalextractortest"
             LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
     )
@@ -170,7 +175,7 @@ if(PYTHONINTERP_FOUND)
     configure_file(samplefiles/testexternalwriter/main.py samplefiles/testexternalwriter/main.py)
     configure_file(samplefiles/testexternalwriter/manifest.json samplefiles/testexternalwriter/manifest.json COPYONLY)
 
-    ecm_add_test(externalwritertest.cpp ../src/externalwriter.cpp
+    ecm_add_test(externalwritertest.cpp ../src/externalwriter.cpp ${KfileMetaDataAutotest_SRCS}
             TEST_NAME "externalwritertest"
             LINK_LIBRARIES Qt5::Test KF5::FileMetaData KF5::I18n
     )

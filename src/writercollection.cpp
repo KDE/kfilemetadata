@@ -21,7 +21,8 @@
  *
  */
 
-#include <QDebug>
+#include "kfilemetadata_debug.h"
+
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDir>
@@ -127,12 +128,12 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
 
                 writers << writer;
             } else {
-                qDebug() << "Plugin could not be converted to a WriterPlugin";
-                qDebug() << pluginPath;
+                qCDebug(KFILEMETADATA_LOG) << "Plugin could not be converted to a WriterPlugin";
+                qCDebug(KFILEMETADATA_LOG) << pluginPath;
             }
         }
         else {
-            qDebug() << "Plugin could not create instance" << pluginPath;
+            qCDebug(KFILEMETADATA_LOG) << "Plugin could not create instance" << pluginPath;
         }
     }
 
