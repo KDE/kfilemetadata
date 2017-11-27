@@ -53,56 +53,48 @@ void UserMetaDataWriterTest::test()
     // Tags
     md.setTags(QStringList() << QStringLiteral("this/is/a/test/tag"));
     QCOMPARE(md.tags().at(0), QStringLiteral("this/is/a/test/tag"));
-    QVERIFY(md.hasAttribute(QStringLiteral("xdg.tags")));
     md.setTags(QStringList());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.tags")));
 
     // Rating
     md.setRating(3);
     QCOMPARE(md.rating(), 3);
-    QVERIFY(md.hasAttribute(QStringLiteral("baloo.rating")));
     md.setRating(0);
     QVERIFY(!md.hasAttribute(QStringLiteral("baloo.rating")));
 
     // Comment
     md.setUserComment(QStringLiteral("this is a test comment"));
     QCOMPARE(md.userComment(), QStringLiteral("this is a test comment"));
-    QVERIFY(md.hasAttribute(QStringLiteral("xdg.comment")));
     md.setUserComment(QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.comment")));
 
     // Origin url
     md.setOriginUrl(QUrl("http://this.is.a.test.website.local"));
     QCOMPARE(md.originUrl(), QUrl("http://this.is.a.test.website.local"));
-    QVERIFY(md.hasAttribute(QStringLiteral("xdg.origin.url")));
     md.setOriginUrl(QUrl());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.origin.url")));
 
     // Origin e-mail subject
     md.setOriginEmailSubject(QStringLiteral("this is a test e-mail subject"));
     QCOMPARE(md.originEmailSubject(), QStringLiteral("this is a test e-mail subject"));
-    QVERIFY(md.hasAttribute(QStringLiteral("xdg.origin.email.subject")));
     md.setOriginEmailSubject(QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.origin.email.subject")));
 
     // Origin e-mail sender
     md.setOriginEmailSender(QStringLiteral("Blue Bear"));
     QCOMPARE(md.originEmailSender(), QStringLiteral("Blue Bear"));
-    QVERIFY(md.hasAttribute(QStringLiteral("xdg.origin.email.sender")));
     md.setOriginEmailSender(QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.origin.email.sender")));
 
     // Origin e-mail message id
     md.setOriginEmailMessageId(QStringLiteral("19991231235959.52234.24C26516HHBTF1C4"));
     QCOMPARE(md.originEmailMessageId(), QStringLiteral("19991231235959.52234.24C26516HHBTF1C4"));
-    QVERIFY(md.hasAttribute(QStringLiteral("xdg.origin.email.message-id")));
     md.setOriginEmailMessageId(QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.origin.email.message-id")));
 
     // Attribute
     md.setAttribute(QStringLiteral("test.attribute"), QStringLiteral("attribute"));
     QCOMPARE(md.attribute(QStringLiteral("test.attribute")), QStringLiteral("attribute"));
-    QVERIFY(md.hasAttribute(QStringLiteral("test.attribute")));
     md.setAttribute(QStringLiteral("test.attribute"), QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("test.attribute")));
 }
