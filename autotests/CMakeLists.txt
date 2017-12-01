@@ -152,11 +152,15 @@ ecm_add_test(${extractorcollection_SRCS}
 # UserMetaData
 #
 
-kde_enable_exceptions()
-ecm_add_test(usermetadatawritertest.cpp ../src/usermetadata.cpp
-    TEST_NAME "usermetadatawritertest"
-    LINK_LIBRARIES Qt5::Test KF5::FileMetaData
-)
+if(TAGLIB_FOUND)
+    include_directories(${TAGLIB_INCLUDES})
+
+    kde_enable_exceptions()
+    ecm_add_test(usermetadatawritertest.cpp ../src/usermetadata.cpp
+        TEST_NAME "usermetadatawritertest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData
+    )
+endif()
 
 #
 # TagLib
