@@ -21,8 +21,6 @@
 #include "indexerextractortestsconfig.h"
 #include "usermetadata.h"
 
-#include "fileref.h"
-
 #include <QDebug>
 #include <QTest>
 #include <QDir>
