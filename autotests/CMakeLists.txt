@@ -151,10 +151,7 @@ ecm_add_test(${extractorcollection_SRCS}
 #
 # UserMetaData
 #
-
-if(TAGLIB_FOUND)
-    include_directories(${TAGLIB_INCLUDES})
-
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
     kde_enable_exceptions()
     ecm_add_test(usermetadatawritertest.cpp ../src/usermetadata.cpp
         TEST_NAME "usermetadatawritertest"
