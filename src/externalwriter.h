@@ -33,7 +33,7 @@ class ExternalWriter : public WriterPlugin
     Q_OBJECT
 
 public:
-    explicit ExternalWriter(QObject* parent = 0);
+    explicit ExternalWriter(QObject* parent = nullptr);
     explicit ExternalWriter(const QString& pluginPath);
     virtual ~ExternalWriter();
 

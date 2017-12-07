@@ -136,6 +136,7 @@ QStringList ExtractorPlugin::contactsFromString(const QString& string)
         contactStrings = string.split(QStringLiteral(" feat "), QString::SkipEmptyParts);
 
     QStringList list;
+    list.reserve(contactStrings.count());
     foreach(const QString& contactName, contactStrings) {
         list << contactName.trimmed();
     }

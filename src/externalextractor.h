@@ -33,7 +33,7 @@ class ExternalExtractor : public ExtractorPlugin
     Q_OBJECT
 
 public:
-    explicit ExternalExtractor(QObject* parent = 0);
+    explicit ExternalExtractor(QObject* parent = nullptr);
     ExternalExtractor(const QString& pluginPath);
     virtual ~ExternalExtractor();
 

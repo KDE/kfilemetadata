@@ -47,7 +47,7 @@ class KFILEMETADATA_EXPORT ExtractorPlugin : public QObject
 {
     Q_OBJECT
 public:
-    ExtractorPlugin(QObject* parent);
+    explicit ExtractorPlugin(QObject* parent);
     virtual ~ExtractorPlugin();
 
     /**

@@ -31,7 +31,7 @@ class WriterPlugin;
 class Q_DECL_HIDDEN Writer::WriterPrivate
 {
 public:
-    WriterPlugin *m_plugin;
+    WriterPlugin *m_plugin = nullptr;
 };
 
 }

@@ -78,9 +78,11 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     }
 
     QJsonObject rootObject = manifestDoc.object();
-    QJsonArray mimetypesArray = rootObject.value(QStringLiteral("mimetypes")).toArray();
+    const QJsonArray mimetypesArray = rootObject.value(QStringLiteral("mimetypes")).toArray();
     QStringList mimetypes;
-    Q_FOREACH(const QVariant &mimetype, mimetypesArray) {
+    mimetypes.reserve(mimetypesArray.count());
+
+     for (const QVariant &mimetype : mimetypesArray) {
         mimetypes << mimetype.toString();
     }
 

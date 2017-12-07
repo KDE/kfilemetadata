@@ -79,8 +79,8 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
             continue;
         }
 
-        QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
-        Q_FOREACH (const QString& fileName, entryList) {
+        const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
+        for (const QString& fileName : entryList) {
             // Make sure the same plugin is not loaded twice, even if it is
             // installed in two different locations
             if (plugins.contains(fileName))
@@ -94,8 +94,8 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
 
     QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/externalextractors"));
     // For external plugins, we look into the directories
-    QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    Q_FOREACH (const QString& externalPlugin, externalPluginEntryList) {
+    const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (const QString& externalPlugin : externalPluginEntryList) {
         if (externalPlugins.contains(externalPlugin))
             continue;
 
@@ -152,7 +152,7 @@ QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) 
         QMimeDatabase db;
         auto type = db.mimeTypeForName(mimetype);
         auto it = d->m_extractors.constBegin();
-        for (; it != d->m_extractors.constEnd(); it++) {
+        for (; it != d->m_extractors.constEnd(); ++it) {
             if (plugins.contains(it.value())) {
                 continue;
             }

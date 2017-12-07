@@ -29,7 +29,7 @@ class IndexerExtractorTests : public QObject
 {
     Q_OBJECT
 public:
-    explicit IndexerExtractorTests(QObject* parent = 0);
+    explicit IndexerExtractorTests(QObject* parent = nullptr);
 
 private:
     QString testFilePath(const QString& fileName) const;

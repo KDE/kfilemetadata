@@ -51,7 +51,7 @@ WriterCollection::WriterCollection()
     : d_ptr(new WriterCollectionPrivate)
 {
     Q_D(WriterCollection);
-    QList<Writer*> all = d->allWriters();
+    const QList<Writer*> all = d->allWriters();
 
     foreach (Writer* writer, all) {
         foreach (const QString& type, writer->mimetypes()) {
@@ -75,7 +75,7 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
     QStringList externalPlugins;
     QStringList externalPluginPaths;
 
-    QStringList paths = QCoreApplication::libraryPaths();
+    const QStringList paths = QCoreApplication::libraryPaths();
     Q_FOREACH (const QString& libraryPath, paths) {
         QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata/writers"));
         QDir dir(path);
@@ -84,7 +84,7 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
             continue;
         }
 
-        QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
+        const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
         Q_FOREACH (const QString& fileName, entryList) {
             // Make sure the same plugin is not loaded twice, even if it
             // installed in two different locations
@@ -99,8 +99,8 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
 
     QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/writers/externalwriters"));
     // For external plugins, we look into the directories
-    QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    Q_FOREACH (const QString& externalPlugin, externalPluginEntryList) {
+    const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (const QString& externalPlugin : externalPluginEntryList) {
         if (externalPlugins.contains(externalPlugin))
             continue;
 
@@ -154,7 +154,7 @@ QList<Writer*> WriterCollection::fetchWriters(const QString& mimetype) const
     QList<Writer*> plugins = d->m_writers.values(mimetype);
     if (plugins.isEmpty()) {
         auto it = d->m_writers.constBegin();
-        for (; it != d->m_writers.constEnd(); it++) {
+        for (; it != d->m_writers.constEnd(); ++it) {
             if (mimetype.startsWith(it.key()))
                 plugins << it.value();
         }
