@@ -34,7 +34,7 @@ class Exiv2Extractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    Exiv2Extractor(QObject* parent = nullptr);
+    explicit Exiv2Extractor(QObject* parent = nullptr);
 
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
     QStringList mimetypes() const Q_DECL_OVERRIDE;

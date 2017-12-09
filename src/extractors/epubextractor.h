@@ -32,7 +32,7 @@ class EPubExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    EPubExtractor(QObject* parent = nullptr);
+    explicit EPubExtractor(QObject* parent = nullptr);
 
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
     QStringList mimetypes() const Q_DECL_OVERRIDE;

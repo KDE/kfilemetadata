@@ -33,7 +33,7 @@ class TagLibExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    TagLibExtractor(QObject* parent = nullptr);
+    explicit TagLibExtractor(QObject* parent = nullptr);
 
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
     QStringList mimetypes() const Q_DECL_OVERRIDE;

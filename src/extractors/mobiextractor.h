@@ -33,7 +33,7 @@ class MobiExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    MobiExtractor(QObject* parent = nullptr);
+    explicit MobiExtractor(QObject* parent = nullptr);
 
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
     QStringList mimetypes() const Q_DECL_OVERRIDE;

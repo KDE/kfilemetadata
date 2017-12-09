@@ -37,7 +37,7 @@ class Office2007Extractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    Office2007Extractor(QObject* parent = nullptr);
+    explicit Office2007Extractor(QObject* parent = nullptr);
 
     QStringList mimetypes() const Q_DECL_OVERRIDE;
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;

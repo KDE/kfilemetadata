@@ -34,7 +34,7 @@ class PopplerExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    PopplerExtractor(QObject* parent = nullptr);
+    explicit PopplerExtractor(QObject* parent = nullptr);
 
     QStringList mimetypes() const Q_DECL_OVERRIDE;
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
