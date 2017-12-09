@@ -33,7 +33,7 @@ class OfficeExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    OfficeExtractor(QObject* parent = 0);
+    OfficeExtractor(QObject* parent = nullptr);
 
     QStringList mimetypes() const Q_DECL_OVERRIDE;
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;

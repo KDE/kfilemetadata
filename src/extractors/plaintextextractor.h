@@ -33,7 +33,7 @@ class PlainTextExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    PlainTextExtractor(QObject* parent = 0);
+    PlainTextExtractor(QObject* parent = nullptr);
 
     QStringList mimetypes() const Q_DECL_OVERRIDE;
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;

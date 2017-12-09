@@ -32,7 +32,7 @@ class FFmpegExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    FFmpegExtractor(QObject* parent = 0);
+    FFmpegExtractor(QObject* parent = nullptr);
 
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
     QStringList mimetypes() const Q_DECL_OVERRIDE;

@@ -33,7 +33,7 @@ class OdfExtractor : public ExtractorPlugin
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    OdfExtractor(QObject* parent = 0);
+    OdfExtractor(QObject* parent = nullptr);
 
     QStringList mimetypes() const Q_DECL_OVERRIDE;
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;

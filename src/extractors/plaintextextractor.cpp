@@ -73,7 +73,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 
     QTextCodec* codec = QTextCodec::codecForLocale();
 
-    char* line = 0;
+    char* line = nullptr;
     size_t len = 0;
     int lines = 0;
     int r = 0;
