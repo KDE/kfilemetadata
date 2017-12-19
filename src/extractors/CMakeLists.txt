@@ -16,10 +16,8 @@ if(Poppler_Qt5_FOUND)
 endif()
 
 if(TAGLIB_FOUND)
-    include_directories( ${TAGLIB_INCLUDES} )
-
     add_library(kfilemetadata_taglibextractor MODULE taglibextractor.cpp )
-
+    target_include_directories(kfilemetadata_taglibextractor SYSTEM PRIVATE ${TAGLIB_INCLUDES})
     target_link_libraries( kfilemetadata_taglibextractor
         KF5::FileMetaData
         ${TAGLIB_LIBRARIES}
@@ -29,15 +27,12 @@ if(TAGLIB_FOUND)
     install(
     TARGETS kfilemetadata_taglibextractor
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
-
 endif()
 
 if(EXIV2_FOUND)
-    include_directories( ${EXIV2_INCLUDE_DIR} )
-
-    kde_enable_exceptions()
     add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp)
-
+    target_include_directories(kfilemetadata_exiv2extractor SYSTEM PRIVATE ${EXIV2_INCLUDE_DIR})
+    kde_target_enable_exceptions(kfilemetadata_exiv2extractor PRIVATE)
     target_link_libraries(kfilemetadata_exiv2extractor
         KF5::FileMetaData
         ${EXIV2_LIBRARIES}
@@ -51,10 +46,8 @@ if(EXIV2_FOUND)
 endif()
 
 if(FFMPEG_FOUND)
-    include_directories( ${FFMPEG_INCLUDE_DIRS} )
-
     add_library(kfilemetadata_ffmpegextractor MODULE ffmpegextractor.cpp)
-
+    target_include_directories(kfilemetadata_ffmpegextractor SYSTEM PRIVATE ${FFMPEG_INCLUDE_DIRS})
     target_link_libraries(kfilemetadata_ffmpegextractor
         KF5::FileMetaData
         ${FFMPEG_LIBRARIES}
@@ -69,10 +62,8 @@ endif()
 
 
 if(EPUB_FOUND)
-    include_directories( ${EPUB_INCLUDE_DIR} )
-
     add_library(kfilemetadata_epubextractor MODULE epubextractor.cpp)
-
+    target_include_directories(kfilemetadata_epubextractor SYSTEM PRIVATE ${EPUB_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_epubextractor
         KF5::FileMetaData
         ${EPUB_LIBRARIES}
@@ -172,8 +163,7 @@ DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 #
 if (QMOBIPOCKET_FOUND)
     add_library(kfilemetadata_mobiextractor MODULE mobiextractor.cpp)
-
-    include_directories(${QMOBIPOCKET_INCLUDE_DIR})
+    target_include_directories(kfilemetadata_mobiextractor SYSTEM PRIVATE ${QMOBIPOCKET_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_mobiextractor
         KF5::FileMetaData
         ${QMOBIPOCKET_LIBRARIES}
