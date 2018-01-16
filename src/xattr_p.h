@@ -32,13 +32,11 @@
 #include <sys/types.h>
 #include <sys/xattr.h>
 
-#if defined(Q_OS_ANDROID)
+#if defined(Q_OS_ANDROID) || defined(Q_OS_LINUX)
 // attr/xattr.h is not available in the Android NDK so we are defining ENOATTR ourself
 #ifndef ENOATTR
 # define ENOATTR ENODATA        /* No such attribute */
 #endif
-#else
-#include <attr/xattr.h>
 #endif
 
 #include <errno.h>

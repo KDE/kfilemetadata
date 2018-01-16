@@ -13,7 +13,7 @@ if (XATTR_INCLUDE_DIRS AND XATTR_LIBRARIES)
     set(XATTR_FOUND TRUE)
 else ()
 
-    find_path(XATTR_INCLUDE attr/xattr.h
+    find_path(XATTR_INCLUDE sys/xattr.h
         /usr/include
         /usr/local/include
         ${CMAKE_INCLUDE_PATH}
