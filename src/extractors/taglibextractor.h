@@ -22,6 +22,9 @@
 #define TAGLIBEXTRACTOR_H
 
 #include "extractorplugin.h"
+#include <tstring.h>
+#include <tstringlist.h>
+#include <tfilestream.h>
 
 namespace KFileMetaData
 {
@@ -37,6 +40,20 @@ public:
 
     void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
     QStringList mimetypes() const Q_DECL_OVERRIDE;
+    
+private:
+    struct ExtractedData {
+        TagLib::String artists;
+        TagLib::String albumArtists;
+        TagLib::String composers;
+        TagLib::String lyricists;
+        TagLib::StringList genres;
+        QVariant discNumber;
+    };
+    void extractMP3(TagLib::FileStream& stream, ExtractedData& data);
+    void extractMP4(TagLib::FileStream& stream, ExtractedData& data);
+    void extractMusePack(TagLib::FileStream& stream, ExtractedData& data);
+    void extractOgg(TagLib::FileStream& stream, const QString& mimetype, ExtractedData& data);
 };
 
 }

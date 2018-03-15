@@ -43,7 +43,7 @@
 
 using namespace KFileMetaData;
 
-static QString t2q(const TagLib::String& t)
+static QString convertWCharsToQString(const TagLib::String& t)
 {
     return QString::fromWCharArray((const wchar_t*)t.toCWString(), t.length());
 }
@@ -55,40 +55,241 @@ TagLibExtractor::TagLibExtractor(QObject* parent)
 
 QStringList TagLibExtractor::mimetypes() const
 {
-    QStringList types;
-    // MP3, FLAC, Vorbis, Opus,  MPC, Speex, WavPack TrueAudio, WAV, AIFF, MP4 and ASF files.
-    // MP3
-    types << QStringLiteral("audio/mpeg");
-    types << QStringLiteral("audio/mpeg3"); types << QStringLiteral("audio/x-mpeg");
+    return QStringList{
+        QStringLiteral("audio/mpeg"),
+        QStringLiteral("audio/mpeg3"), 
+        QStringLiteral("audio/x-mpeg"),
+        QStringLiteral("audio/mp4"),
+        QStringLiteral("audio/flac"),
+        QStringLiteral("audio/x-musepack"),
+        QStringLiteral("audio/ogg"), 
+        QStringLiteral("audio/x-vorbis+ogg"),
+        QStringLiteral("audio/opus"), 
+        QStringLiteral("audio/x-opus+ogg"),
+        QStringLiteral("audio/wav"),
+        QStringLiteral("audio/x-aiff"),
+        QStringLiteral("audio/x-ape"),
+        QStringLiteral("audio/x-wavpack")
+    };
+}
 
-    // M4A
-    types << QStringLiteral("audio/mp4");
+void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data)
+{
+    // Handling multiple tags in mpeg files.
+    TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+    if (!mpegFile.ID3v2Tag() || mpegFile.ID3v2Tag()->isEmpty()) {
+        return;
+    }
+    
+    TagLib::ID3v2::FrameList lstID3v2;
 
-    // FLAC
-    types << QStringLiteral("audio/flac");
+    // Artist.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE1"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.artists.isEmpty()) {
+                data.artists += ", ";
+            }
+            data.artists += (*it)->toString();
+        }
+    }
 
-    // MPC
-    types << QStringLiteral("audio/x-musepack");
+    // Album Artist.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE2"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.albumArtists.isEmpty()) {
+                data.albumArtists += ", ";
+            }
+            data.albumArtists += (*it)->toString();
+        }
+    }
 
-    // Vorbis
-    types << QStringLiteral("audio/ogg"); types << QStringLiteral("audio/x-vorbis+ogg");
+    // Composer.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCOM"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.composers.isEmpty()) {
+                data.composers += ", ";
+            }
+            data.composers += (*it)->toString();
+        }
+    }
 
-    // Opus
-    types << QStringLiteral("audio/opus"); types << QStringLiteral("audio/x-opus+ogg");
+    // Lyricist.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TEXT"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.lyricists.isEmpty()) {
+                data.lyricists += ", ";
+            }
+            data.lyricists += (*it)->toString();
+        }
+    }
 
-    // WAV
-    types << QStringLiteral("audio/wav");
+    // Genre.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCON"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            data.genres.append((*it)->toString());
+        }
+    }
 
-    // AIFF
-    types << QStringLiteral("audio/x-aiff");
+    // Disc number.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPOS"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            data.discNumber = (*it)->toString().toInt();
+        }
+    }
+}
 
-    // APE
-    types << QStringLiteral("audio/x-ape");
+void TagLibExtractor::extractMP4(TagLib::FileStream& stream, ExtractedData& data)
+{
+    TagLib::MP4::File mp4File(&stream, true);
+    if (!mp4File.tag() || mp4File.tag()->isEmpty()) {
+        return;
+    }
+    TagLib::MP4::ItemListMap allTags = mp4File.tag()->itemListMap();
 
-    // WV
-    types << QStringLiteral("audio/x-wavpack");
+    TagLib::MP4::ItemListMap::Iterator itAlbumArtists = allTags.find("aART");
+    if (itAlbumArtists != allTags.end()) {
+        data.albumArtists = itAlbumArtists->second.toStringList().toString(", ");
+    }
 
-    return types;
+    TagLib::MP4::ItemListMap::Iterator itDiscNumber = allTags.find("disk");
+    if (itDiscNumber != allTags.end()) {
+        data.discNumber = itDiscNumber->second.toInt();
+    }
+
+    TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
+
+    TagLib::MP4::ItemListMap::Iterator itComposers = allTags.find(composerAtomName);
+    if (itComposers != allTags.end()) {
+        data.composers = itComposers->second.toStringList().toString(", ");
+    }
+}
+
+void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData& data)
+{
+    TagLib::MPC::File mpcFile(&stream, true);
+    if (!mpcFile.tag() || mpcFile.tag()->isEmpty()) {
+        return;
+    }
+    
+    TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();
+    TagLib::APE::ItemListMap::ConstIterator itMPC;
+
+    itMPC = lstMusepack.find("ARTIST");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.artists.isEmpty()) {
+            data.artists += ", ";
+        }
+        data.artists += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("ALBUM ARTIST");
+    if (itMPC != lstMusepack.end()) {
+        if(!data.albumArtists.isEmpty()) {
+            data.albumArtists += ", ";
+        }
+        data.albumArtists += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("COMPOSER");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.composers.isEmpty()) {
+            data.composers += ", ";
+        }
+        data.composers += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("LYRICIST");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.lyricists.isEmpty()) {
+            data.lyricists += ", ";
+        }
+        data.lyricists += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("GENRE");
+    if (itMPC != lstMusepack.end()) {
+        data.genres.append((*itMPC).second.toString());
+    }
+}
+
+void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mimeType, ExtractedData& data)
+{
+    TagLib::Ogg::FieldListMap lstOgg;
+
+    if (mimeType == QStringLiteral("audio/flac")) {
+        TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+        if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
+            lstOgg = flacFile.xiphComment()->fieldListMap();
+        }
+    }
+
+    // Vorbis files.
+    if (mimeType == QStringLiteral("audio/ogg") || mimeType == QStringLiteral("audio/x-vorbis+ogg")) {
+        TagLib::Ogg::Vorbis::File oggFile(&stream, true);
+        if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
+            lstOgg = oggFile.tag()->fieldListMap();
+        }
+    }
+
+    if (mimeType == QStringLiteral("audio/opus") || mimeType == QStringLiteral("audio/x-opus+ogg")) {
+        TagLib::Ogg::Opus::File opusFile(&stream, true);
+        if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
+            lstOgg = opusFile.tag()->fieldListMap();
+        }
+    }
+
+    // Handling OGG container tags.
+    if (!lstOgg.isEmpty()) {
+        TagLib::Ogg::FieldListMap::ConstIterator itOgg;
+
+        itOgg = lstOgg.find("ARTIST");
+        if (itOgg != lstOgg.end()) {
+            if (!data.artists.isEmpty()) {
+                data.artists += ", ";
+            }
+            data.artists += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("ALBUMARTIST");
+        if (itOgg != lstOgg.end()) {
+            if (!data.albumArtists.isEmpty()) {
+                data.albumArtists += ", ";
+            }
+            data.albumArtists += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("COMPOSER");
+        if (itOgg != lstOgg.end()) {
+            if (!data.composers.isEmpty()) {
+                data.composers += ", ";
+            }
+            data.composers += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("LYRICIST");
+        if (itOgg != lstOgg.end()) {
+            if (!data.lyricists.isEmpty()) {
+                data.lyricists += ", ";
+            }
+            data.lyricists += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("GENRE");
+        if (itOgg != lstOgg.end()) {
+            data.genres.append((*itOgg).second);
+        }
+
+        itOgg = lstOgg.find("DISCNUMBER");
+        if (itOgg != lstOgg.end()) {
+            data.discNumber = (*itOgg).second.toString("").toInt();
+        }
+    }
 }
 
 void TagLibExtractor::extract(ExtractionResult* result)
@@ -116,298 +317,75 @@ void TagLibExtractor::extract(ExtractionResult* result)
     TagLib::Tag* tags = file.tag();
     result->addType(Type::Audio);
 
-    TagLib::String artists;
-    TagLib::String albumArtists;
-    TagLib::String composers;
-    TagLib::String lyricists;
-    TagLib::StringList genres;
-    QVariant discNumber;
-
-    // Handling multiple tags in mpeg files.
-    if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3")) || (mimeType == QLatin1String("audio/x-mpeg"))) {
-        TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        if (mpegFile.ID3v2Tag() && !mpegFile.ID3v2Tag()->isEmpty()) {
-            TagLib::ID3v2::FrameList lstID3v2;
-
-            // Artist.
-            lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE1"];
-            if (!lstID3v2.isEmpty()) {
-                for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-                    if (!artists.isEmpty()) {
-                        artists += ", ";
-                    }
-                    artists += (*it)->toString();
-                }
-            }
-
-            // Album Artist.
-            lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE2"];
-            if (!lstID3v2.isEmpty()) {
-                for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-                    if (!albumArtists.isEmpty()) {
-                        albumArtists += ", ";
-                    }
-                    albumArtists += (*it)->toString();
-                }
-            }
-
-            // Composer.
-            lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCOM"];
-            if (!lstID3v2.isEmpty()) {
-                for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-                    if (!composers.isEmpty()) {
-                        composers += ", ";
-                    }
-                    composers += (*it)->toString();
-                }
-            }
-
-            // Lyricist.
-            lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TEXT"];
-            if (!lstID3v2.isEmpty()) {
-                for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-                    if (!lyricists.isEmpty()) {
-                        lyricists += ", ";
-                    }
-                    lyricists += (*it)->toString();
-                }
-            }
-
-            // Genre.
-            lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCON"];
-            if (!lstID3v2.isEmpty()) {
-                for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-                    genres.append((*it)->toString());
-                }
-            }
-
-            // Disc number.
-            lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPOS"];
-            if (!lstID3v2.isEmpty()) {
-                for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-                    discNumber = (*it)->toString().toInt();
-                }
-            }
-
-        }
-    }
-
-    if (mimeType == QStringLiteral("audio/mp4")) {
-        TagLib::MP4::File mp4File(&stream, true);
-        if (mp4File.tag() && !mp4File.tag()->isEmpty()) {
-            TagLib::MP4::ItemListMap allTags = mp4File.tag()->itemListMap();
-
-            TagLib::MP4::ItemListMap::Iterator itAlbumArtists = allTags.find("aART");
-            if (itAlbumArtists != allTags.end()) {
-                albumArtists = itAlbumArtists->second.toStringList().toString(", ");
-            }
-
-            TagLib::MP4::ItemListMap::Iterator itDiscNumber = allTags.find("disk");
-            if (itDiscNumber != allTags.end()) {
-                discNumber = itDiscNumber->second.toInt();
-            }
-
-            TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
-
-            TagLib::MP4::ItemListMap::Iterator itComposers = allTags.find(composerAtomName);
-            if (itComposers != allTags.end()) {
-                composers = itComposers->second.toStringList().toString(", ");
-            }
-        }
-    }
-
-    // Handling multiple tags in Ogg containers.
-    {
-        TagLib::Ogg::FieldListMap lstOgg;
-
-        // FLAC files.
-        if (mimeType == QLatin1String("audio/flac")) {
-            TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-            if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
-                lstOgg = flacFile.xiphComment()->fieldListMap();
-            }
-        }
-
-        // Vorbis files.
-        if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
-            TagLib::Ogg::Vorbis::File oggFile(&stream, true);
-            if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
-                lstOgg = oggFile.tag()->fieldListMap();
-            }
-        }
-
-        // Opus files.
-        if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
-            TagLib::Ogg::Opus::File opusFile(&stream, true);
-            if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
-                lstOgg = opusFile.tag()->fieldListMap();
-            }
-        }
-
-        // Handling OGG container tags.
-        if (!lstOgg.isEmpty()) {
-            TagLib::Ogg::FieldListMap::ConstIterator itOgg;
-
-            // Artist.
-            itOgg = lstOgg.find("ARTIST");
-            if (itOgg != lstOgg.end()) {
-                if (!artists.isEmpty()) {
-                    artists += ", ";
-                }
-                artists += (*itOgg).second.toString(", ");
-            }
-
-            // Album Artist.
-            itOgg = lstOgg.find("ALBUMARTIST");
-            if (itOgg != lstOgg.end()) {
-                if (!albumArtists.isEmpty()) {
-                    albumArtists += ", ";
-                }
-                albumArtists += (*itOgg).second.toString(", ");
-            }
-
-            // Composer.
-            itOgg = lstOgg.find("COMPOSER");
-            if (itOgg != lstOgg.end()) {
-                if (!composers.isEmpty()) {
-                    composers += ", ";
-                }
-                composers += (*itOgg).second.toString(", ");
-            }
-
-            // Lyricist.
-            itOgg = lstOgg.find("LYRICIST");
-            if (itOgg != lstOgg.end()) {
-                if (!lyricists.isEmpty()) {
-                    lyricists += ", ";
-                }
-                lyricists += (*itOgg).second.toString(", ");
-            }
-
-            // Genre.
-            itOgg = lstOgg.find("GENRE");
-            if (itOgg != lstOgg.end()) {
-                genres.append((*itOgg).second);
-            }
-
-            // Disc Number.
-            itOgg = lstOgg.find("DISCNUMBER");
-            if (itOgg != lstOgg.end()) {
-                discNumber = (*itOgg).second.toString("").toInt();
-            }
-        }
-    }
-
-    // Handling multiple tags in Musepack files.
-    if (mimeType == QLatin1String("audio/x-musepack")) {
-        TagLib::MPC::File mpcFile(&stream, true);
-        if (mpcFile.tag() && !mpcFile.tag()->isEmpty()) {
-            TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();
-            TagLib::APE::ItemListMap::ConstIterator itMPC;
-
-            // Artist.
-            itMPC = lstMusepack.find("ARTIST");
-            if (itMPC != lstMusepack.end()) {
-                if (!artists.isEmpty()) {
-                    artists += ", ";
-                }
-                artists += (*itMPC).second.toString();
-            }
-
-            // Album Artist.
-            itMPC = lstMusepack.find("ALBUM ARTIST");
-            if (itMPC != lstMusepack.end()) {
-                if(!albumArtists.isEmpty()) {
-                    albumArtists += ", ";
-                }
-                albumArtists += (*itMPC).second.toString();
-            }
-
-            // Composer.
-            itMPC = lstMusepack.find("COMPOSER");
-            if (itMPC != lstMusepack.end()) {
-                if (!composers.isEmpty()) {
-                    composers += ", ";
-                }
-                composers += (*itMPC).second.toString();
-            }
-
-            // Lyricist.
-            itMPC = lstMusepack.find("LYRICIST");
-            if (itMPC != lstMusepack.end()) {
-                if (!lyricists.isEmpty()) {
-                    lyricists += ", ";
-                }
-                lyricists += (*itMPC).second.toString();
-            }
-
-            // Genre.
-            itMPC = lstMusepack.find("GENRE");
-            if (itMPC != lstMusepack.end()) {
-                genres.append((*itMPC).second.toString());
-            }
-        }
+    ExtractedData data;
+    
+    if ((mimeType == QStringLiteral("audio/mpeg")) 
+        || (mimeType == QStringLiteral("audio/mpeg3")) 
+        || (mimeType == QStringLiteral("audio/x-mpeg"))) {
+        extractMP3(stream, data);
+    } else if (mimeType == QStringLiteral("audio/mp4")) {
+        extractMP4(stream, data);
+    } else if (mimeType == QStringLiteral("audio/x-musepack")) {
+        extractMusePack(stream, data);
+    } else {
+        extractOgg(stream, mimeType, data);
     }
 
     if (!tags->isEmpty()) {
-        QString title = t2q(tags->title());
+        QString title = convertWCharsToQString(tags->title());
         if (!title.isEmpty()) {
             result->add(Property::Title, title);
         }
 
-        QString comment = t2q(tags->comment());
+        QString comment = convertWCharsToQString(tags->comment());
         if (!comment.isEmpty()) {
             result->add(Property::Comment, comment);
         }
 
-        if (genres.isEmpty()) {
-            genres.append(tags->genre());
+        if (data.genres.isEmpty()) {
+            data.genres.append(tags->genre());
         }
 
-        for (uint i = 0; i < genres.size(); i++) {
-            QString genre = t2q(genres[i]).trimmed();
+        for (uint i = 0; i < data.genres.size(); i++) {
+            QString genre = convertWCharsToQString(data.genres[i]).trimmed();
 
             // Convert from int
             bool ok = false;
             int genreNum = genre.toInt(&ok);
             if (ok) {
-                genre = t2q(TagLib::ID3v1::genre(genreNum));
+                genre = convertWCharsToQString(TagLib::ID3v1::genre(genreNum));
             }
 
             result->add(Property::Genre, genre);
         }
 
-        QString artistString;
-        if (artists.isEmpty()) {
-            artistString = t2q(tags->artist());
-        } else {
-            artistString = t2q(artists).trimmed();
-        }
-
-        QStringList artists = contactsFromString(artistString);
-        foreach(const QString& artist, artists) {
+        const auto artistString = data.artists.isEmpty() 
+            ? convertWCharsToQString(tags->artist()) 
+            : convertWCharsToQString(data.artists).trimmed();
+        const auto artists = contactsFromString(artistString);
+        for (auto& artist : artists) {
             result->add(Property::Artist, artist);
         }
 
-        QString composersString = t2q(composers).trimmed();
-        QStringList composers = contactsFromString(composersString);
-        foreach(const QString& comp, composers) {
+        const auto  composersString = convertWCharsToQString(data.composers).trimmed();
+        const auto composers = contactsFromString(composersString);
+        for (auto& comp : composers) {
             result->add(Property::Composer, comp);
         }
 
-        QString lyricistsString = t2q(lyricists).trimmed();
-        QStringList lyricists = contactsFromString(lyricistsString);
-        foreach(const QString& lyr, lyricists) {
+        const auto lyricistsString = convertWCharsToQString(data.lyricists).trimmed();
+        const auto lyricists = contactsFromString(lyricistsString);
+        for (auto& lyr : lyricists) {
             result->add(Property::Lyricist, lyr);
         }
 
-        QString album = t2q(tags->album());
+        const auto album = convertWCharsToQString(tags->album());
         if (!album.isEmpty()) {
             result->add(Property::Album, album);
 
-            QString albumArtistsString = t2q(albumArtists).trimmed();
-            QStringList albumArtists = contactsFromString(albumArtistsString);
-            foreach(const QString& res, albumArtists) {
+            const auto albumArtistsString = convertWCharsToQString(data.albumArtists).trimmed();
+            const auto albumArtists = contactsFromString(albumArtistsString);
+            for (auto& res : albumArtists) {
                 result->add(Property::AlbumArtist, res);
             }
         }
@@ -421,8 +399,8 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
     }
 
-    if (discNumber.isValid()) {
-        result->add(Property::DiscNumber, discNumber);
+    if (data.discNumber.isValid()) {
+        result->add(Property::DiscNumber, data.discNumber);
     }
 
     TagLib::AudioProperties* audioProp = file.audioProperties();
