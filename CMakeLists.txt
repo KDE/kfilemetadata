@@ -30,7 +30,7 @@ ecm_setup_version(PROJECT
                   SOVERSION 3)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 5.7.0)
+set(REQUIRED_QT_VERSION 5.8.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 
