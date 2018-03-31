@@ -322,6 +322,12 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::String;
             break;
 
+        case Property::Label:
+            d->name = QStringLiteral("label");
+            d->displayName = i18nc("@label", "Label");
+            d->valueType = QVariant::String;
+            break;
+
         case Property::ReleaseYear:
             d->name = QStringLiteral("releaseYear");
             d->displayName = i18nc("@label", "Release Year");
@@ -356,6 +362,54 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::DiscNumber:
             d->name = QStringLiteral("discNumber");
             d->displayName = i18nc("@label music disc number", "Disc Number");
+            d->valueType = QVariant::Int;
+            break;
+
+        case Property::Location:
+            d->name = QStringLiteral("location");
+            d->displayName = i18nc("@label", "Location");
+            d->valueType = QVariant::String;
+            break;
+
+        case Property::Performer:
+            d->name = QStringLiteral("performer");
+            d->displayName = i18nc("@label", "Performer");
+            d->valueType = QVariant::StringList;
+            break;
+
+        case Property::Ensemble:
+            d->name = QStringLiteral("ensemble");
+            d->displayName = i18nc("@label", "Ensemble");
+            d->valueType = QVariant::String;
+            break;
+
+        case Property::Arranger:
+            d->name = QStringLiteral("arranger");
+            d->displayName = i18nc("@label", "Arranger");
+            d->valueType = QVariant::StringList;
+            break;
+
+        case Property::Conductor:
+            d->name = QStringLiteral("conductor");
+            d->displayName = i18nc("@label", "Conductor");
+            d->valueType = QVariant::StringList;
+            break;
+
+        case Property::Compilation:
+            d->name = QStringLiteral("compilation");
+            d->displayName = i18nc("@label", "Compilation");
+            d->valueType = QVariant::String;
+            break;
+
+        case Property::License:
+            d->name = QStringLiteral("license");
+            d->displayName = i18nc("@label", "License");
+            d->valueType = QVariant::String;
+            break;
+
+        case Property::Opus:
+            d->name = QStringLiteral("opus");
+            d->displayName = i18nc("@label", "Opus");
             d->valueType = QVariant::Int;
             break;
 
@@ -520,6 +574,12 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("albumartist"), Property::AlbumArtist },
         { QStringLiteral("composer"), Property::Composer },
         { QStringLiteral("lyricist"), Property::Lyricist },
+        { QStringLiteral("location"), Property::Location },
+        { QStringLiteral("performer"), Property::Performer },
+        { QStringLiteral("ensemble"), Property::Ensemble },
+        { QStringLiteral("arranger"), Property::Arranger },
+        { QStringLiteral("conductor"), Property::Conductor },
+        { QStringLiteral("opus"), Property::Opus },
         { QStringLiteral("author"), Property::Author },
         { QStringLiteral("title"), Property::Title },
         { QStringLiteral("subject"), Property::Subject },
@@ -530,6 +590,9 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("language"), Property::Langauge },
         { QStringLiteral("copyright"), Property::Copyright },
         { QStringLiteral("publisher"), Property::Publisher },
+        { QStringLiteral("label"), Property::Label },
+        { QStringLiteral("compilation"), Property::Compilation },
+        { QStringLiteral("license"), Property::License },
         { QStringLiteral("creationdate"), Property::CreationDate },
         { QStringLiteral("keywords"), Property::Keywords },
         { QStringLiteral("width"), Property::Width },

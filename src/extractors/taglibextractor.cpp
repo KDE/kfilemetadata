@@ -57,14 +57,14 @@ QStringList TagLibExtractor::mimetypes() const
 {
     return QStringList{
         QStringLiteral("audio/mpeg"),
-        QStringLiteral("audio/mpeg3"), 
+        QStringLiteral("audio/mpeg3"),
         QStringLiteral("audio/x-mpeg"),
         QStringLiteral("audio/mp4"),
         QStringLiteral("audio/flac"),
         QStringLiteral("audio/x-musepack"),
-        QStringLiteral("audio/ogg"), 
+        QStringLiteral("audio/ogg"),
         QStringLiteral("audio/x-vorbis+ogg"),
-        QStringLiteral("audio/opus"), 
+        QStringLiteral("audio/opus"),
         QStringLiteral("audio/x-opus+ogg"),
         QStringLiteral("audio/wav"),
         QStringLiteral("audio/x-aiff"),
@@ -142,6 +142,73 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
             data.discNumber = (*it)->toString().toInt();
         }
     }
+
+    // Performer.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TMCL"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.performer.isEmpty()) {
+                data.performer += ", ";
+            }
+            data.performer += (*it)->toString();
+        }
+    }
+
+    // Conductor.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE3"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.conductor.isEmpty()) {
+                data.conductor += ", ";
+            }
+            data.conductor += (*it)->toString();
+        }
+    }
+
+    // Publisher.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPUB"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.publisher.isEmpty()) {
+                data.publisher += ", ";
+            }
+            data.publisher += (*it)->toString();
+        }
+    }
+
+    // Copyright.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCOP"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.copyright.isEmpty()) {
+                data.copyright += ", ";
+            }
+            data.copyright += (*it)->toString();
+        }
+    }
+
+    // Language.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TLAN"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.language.isEmpty()) {
+                data.language += ", ";
+            }
+            data.language += (*it)->toString();
+        }
+    }
+
+    // Compilation.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCMP"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.compilation.isEmpty()) {
+                data.compilation += ", ";
+            }
+            data.compilation += (*it)->toString();
+        }
+    }
+    //TODO handle TIPL tag
 }
 
 void TagLibExtractor::extractMP4(TagLib::FileStream& stream, ExtractedData& data)
@@ -162,8 +229,23 @@ void TagLibExtractor::extractMP4(TagLib::FileStream& stream, ExtractedData& data
         data.discNumber = itDiscNumber->second.toInt();
     }
 
-    TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
+    TagLib::MP4::ItemListMap::Iterator itCompilation = allTags.find("cpil");
+    if (itCompilation != allTags.end()) {
+        data.compilation = itCompilation->second.toStringList().toString(", ");
+    }
 
+    TagLib::MP4::ItemListMap::Iterator itCopyright = allTags.find("cprt");
+    if (itCopyright != allTags.end()) {
+        data.copyright = itCopyright->second.toStringList().toString(", ");
+    }
+
+    TagLib::String genreAtomName(TagLib::String("©gen", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
+    TagLib::MP4::ItemListMap::Iterator itGenres = allTags.find(genreAtomName);
+    if (itGenres != allTags.end()) {
+        data.genres = itGenres->second.toStringList().toString(", ");
+    }
+
+    TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
     TagLib::MP4::ItemListMap::Iterator itComposers = allTags.find(composerAtomName);
     if (itComposers != allTags.end()) {
         data.composers = itComposers->second.toStringList().toString(", ");
@@ -215,6 +297,112 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
     itMPC = lstMusepack.find("GENRE");
     if (itMPC != lstMusepack.end()) {
         data.genres.append((*itMPC).second.toString());
+    }
+
+    itMPC = lstMusepack.find("LOCATION");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.location.isEmpty()) {
+            data.location += ", ";
+        }
+        data.location += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("ARRANGER");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.arranger.isEmpty()) {
+            data.arranger += ", ";
+        }
+        data.arranger += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("PERFORMER");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.performer.isEmpty()) {
+            data.performer += ", ";
+        }
+        data.performer += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("CONDUCTOR");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.conductor.isEmpty()) {
+            data.conductor += ", ";
+        }
+        data.conductor += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("ENSEMBLE");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.ensemble.isEmpty()) {
+            data.ensemble += ", ";
+        }
+        data.ensemble += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("PUBLISHER");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.publisher.isEmpty()) {
+            data.publisher += ", ";
+        }
+        data.publisher += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("COPYRIGHT");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.copyright.isEmpty()) {
+            data.copyright += ", ";
+        }
+        data.copyright += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("LABEL");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.label.isEmpty()) {
+            data.label += ", ";
+        }
+        data.label += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("AUTHOR");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.author.isEmpty()) {
+            data.author += ", ";
+        }
+        data.author += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("LICENSE");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.license.isEmpty()) {
+            data.license += ", ";
+        }
+        data.license += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("COMPILATION");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.compilation.isEmpty()) {
+            data.compilation += ", ";
+        }
+        data.compilation += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("LANGUAGE");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.language.isEmpty()) {
+            data.language += ", ";
+        }
+        data.language += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("DISCNUMBER");
+    if (itMPC != lstMusepack.end()) {
+        data.discNumber = (*itMPC).second.toString().toInt();
+    }
+
+    itMPC = lstMusepack.find("OPUS");
+    if (itMPC != lstMusepack.end()) {
+        data.opus = (*itMPC).second.toString().toInt();
     }
 }
 
@@ -280,6 +468,102 @@ void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mime
             data.lyricists += (*itOgg).second.toString(", ");
         }
 
+        itOgg = lstOgg.find("LOCATION");
+        if (itOgg != lstOgg.end()) {
+            if (!data.location.isEmpty()) {
+                data.location += ", ";
+            }
+            data.location += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("ARRANGER");
+        if (itOgg != lstOgg.end()) {
+            if (!data.arranger.isEmpty()) {
+                data.arranger += ", ";
+            }
+            data.arranger += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("PERFORMER");
+        if (itOgg != lstOgg.end()) {
+            if (!data.performer.isEmpty()) {
+                data.performer += ", ";
+            }
+            data.performer += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("CONDUCTOR");
+        if (itOgg != lstOgg.end()) {
+            if (!data.conductor.isEmpty()) {
+                data.conductor += ", ";
+            }
+            data.conductor += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("ENSEMBLE");
+        if (itOgg != lstOgg.end()) {
+            if (!data.ensemble.isEmpty()) {
+                data.ensemble += ", ";
+            }
+            data.ensemble += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("PUBLISHER");
+        if (itOgg != lstOgg.end()) {
+            if (!data.publisher.isEmpty()) {
+                data.publisher += ", ";
+            }
+            data.publisher += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("COPYRIGHT");
+        if (itOgg != lstOgg.end()) {
+            if (!data.copyright.isEmpty()) {
+                data.copyright += ", ";
+            }
+            data.copyright += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("LABEL");
+        if (itOgg != lstOgg.end()) {
+            if (!data.label.isEmpty()) {
+                data.label += ", ";
+            }
+            data.label += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("AUTHOR");
+        if (itOgg != lstOgg.end()) {
+            if (!data.author.isEmpty()) {
+                data.author += ", ";
+            }
+            data.author += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("LICENSE");
+        if (itOgg != lstOgg.end()) {
+            if (!data.license.isEmpty()) {
+                data.license += ", ";
+            }
+            data.license += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("COMPILATION");
+        if (itOgg != lstOgg.end()) {
+            if (!data.compilation.isEmpty()) {
+                data.compilation += ", ";
+            }
+            data.compilation += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("LANGUAGE");
+        if (itOgg != lstOgg.end()) {
+            if (!data.language.isEmpty()) {
+                data.language += ", ";
+            }
+            data.language += (*itOgg).second.toString(", ");
+        }
+
         itOgg = lstOgg.find("GENRE");
         if (itOgg != lstOgg.end()) {
             data.genres.append((*itOgg).second);
@@ -288,6 +572,11 @@ void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mime
         itOgg = lstOgg.find("DISCNUMBER");
         if (itOgg != lstOgg.end()) {
             data.discNumber = (*itOgg).second.toString("").toInt();
+        }
+
+        itOgg = lstOgg.find("OPUS");
+        if (itOgg != lstOgg.end()) {
+            data.opus = (*itOgg).second.toString("").toInt();
         }
     }
 }
@@ -319,9 +608,9 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
     ExtractedData data;
     
-    if ((mimeType == QStringLiteral("audio/mpeg")) 
-        || (mimeType == QStringLiteral("audio/mpeg3")) 
-        || (mimeType == QStringLiteral("audio/x-mpeg"))) {
+    if ((mimeType == QStringLiteral("audio/mpeg"))
+            || (mimeType == QStringLiteral("audio/mpeg3"))
+            || (mimeType == QStringLiteral("audio/x-mpeg"))) {
         extractMP3(stream, data);
     } else if (mimeType == QStringLiteral("audio/mp4")) {
         extractMP4(stream, data);
@@ -359,9 +648,9 @@ void TagLibExtractor::extract(ExtractionResult* result)
             result->add(Property::Genre, genre);
         }
 
-        const auto artistString = data.artists.isEmpty() 
-            ? convertWCharsToQString(tags->artist()) 
-            : convertWCharsToQString(data.artists).trimmed();
+        const auto artistString = data.artists.isEmpty()
+                ? convertWCharsToQString(tags->artist())
+                : convertWCharsToQString(data.artists).trimmed();
         const auto artists = contactsFromString(artistString);
         for (auto& artist : artists) {
             result->add(Property::Artist, artist);
@@ -397,57 +686,132 @@ void TagLibExtractor::extract(ExtractionResult* result)
         if (tags->year()) {
             result->add(Property::ReleaseYear, tags->year());
         }
+
+        QString locationsString = convertWCharsToQString(data.location).trimmed();
+        QStringList locations = contactsFromString(locationsString);
+        foreach(const QString& loc, locations) {
+            result->add(Property::Location, loc);
+        }
+
+        QString performersString = convertWCharsToQString(data.performer).trimmed();
+        QStringList performers = contactsFromString(performersString);
+        foreach(const QString& per, performers) {
+            result->add(Property::Performer, per);
+        }
+
+        QString ensembleString = convertWCharsToQString(data.ensemble).trimmed();
+        QStringList ensembles = contactsFromString(ensembleString);
+        foreach(const QString& ens, ensembles) {
+            result->add(Property::Ensemble, ens);
+        }
+
+        QString arrangerString = convertWCharsToQString(data.arranger).trimmed();
+        QStringList arrangers = contactsFromString(arrangerString);
+        foreach(const QString& arr, arrangers) {
+            result->add(Property::Arranger, arr);
+        }
+
+        QString conductorString = convertWCharsToQString(data.conductor).trimmed();
+        QStringList conductors = contactsFromString(conductorString);
+        foreach(const QString& arr, conductors) {
+            result->add(Property::Conductor, arr);
+        }
+
+        QString publisherString = convertWCharsToQString(data.publisher).trimmed();
+        QStringList publishers = contactsFromString(publisherString);
+        foreach(const QString& arr, publishers) {
+            result->add(Property::Publisher, arr);
+        }
+
+        QString copyrightString = convertWCharsToQString(data.copyright).trimmed();
+        QStringList copyrights = contactsFromString(copyrightString);
+        foreach(const QString& arr, copyrights) {
+            result->add(Property::Copyright, arr);
+        }
+
+        QString labelString = convertWCharsToQString(data.label).trimmed();
+        QStringList labels = contactsFromString(labelString);
+        foreach(const QString& arr, labels) {
+            result->add(Property::Label, arr);
+        }
+
+        QString authorString = convertWCharsToQString(data.author).trimmed();
+        QStringList authors = contactsFromString(authorString);
+        foreach(const QString& arr, authors) {
+            result->add(Property::Author, arr);
+        }
+
+        QString languageString = convertWCharsToQString(data.language).trimmed();
+        QStringList languages = contactsFromString(languageString);
+        foreach(const QString& arr, languages) {
+            result->add(Property::Langauge, arr);
+        }
+
+        QString licenseString = convertWCharsToQString(data.license).trimmed();
+        QStringList licenses = contactsFromString(licenseString);
+        foreach(const QString& arr, licenses) {
+            result->add(Property::License, arr);
+        }
+
+        QString compilationString = convertWCharsToQString(data.compilation).trimmed();
+        QStringList compilations = contactsFromString(compilationString);
+        foreach(const QString& arr, compilations) {
+            result->add(Property::Compilation, arr);
+        }
+
+        if (data.opus.isValid()) {
+            result->add(Property::Opus, data.opus);
+        }
+
+        if (data.discNumber.isValid()) {
+            result->add(Property::DiscNumber, data.discNumber);
+        }
+
+        TagLib::AudioProperties* audioProp = file.audioProperties();
+        if (audioProp) {
+            if (audioProp->length()) {
+                // What about the xml duration?
+                result->add(Property::Duration, audioProp->length());
+            }
+
+            if (audioProp->bitrate()) {
+                result->add(Property::BitRate, audioProp->bitrate() * 1000);
+            }
+
+            if (audioProp->channels()) {
+                result->add(Property::Channels, audioProp->channels());
+            }
+
+            if (audioProp->sampleRate()) {
+                result->add(Property::SampleRate, audioProp->sampleRate());
+            }
+        }
     }
-
-    if (data.discNumber.isValid()) {
-        result->add(Property::DiscNumber, data.discNumber);
-    }
-
-    TagLib::AudioProperties* audioProp = file.audioProperties();
-    if (audioProp) {
-        if (audioProp->length()) {
-            // What about the xml duration?
-            result->add(Property::Duration, audioProp->length());
-        }
-
-        if (audioProp->bitrate()) {
-            result->add(Property::BitRate, audioProp->bitrate() * 1000);
-        }
-
-        if (audioProp->channels()) {
-            result->add(Property::Channels, audioProp->channels());
-        }
-
-        if (audioProp->sampleRate()) {
-            result->add(Property::SampleRate, audioProp->sampleRate());
-        }
-    }
-
-    // TODO: Get more properties based on the file type
-    // - Codec
-    // - Album Artist
-    // - Publisher
-
-    // TAG information (incomplete).
-    // A good reference: http://qoobar.sourceforge.net/en/documentation.htm
-    // -- FLAC/OGG --
-    // Artist:          ARTIST, PERFORMER
-    // Album artist:    ALBUMARTIST
-    // Composer:        COMPOSER
-    // Lyricist:        LYRICIST
-    // Conductor:       CONDUCTOR
-    // Disc number:     DISCNUMBER
-    // Total discs:     TOTALDISCS, DISCTOTAL
-    // Track number:    TRACKNUMBER
-    // Total tracks:    TOTALTRACKS, TRACKTOTAL
-    // Genre: GENRE
-    // -- ID3v2 --
-    // Artist:                          TPE1
-    // Album artist:                    TPE2
-    // Composer:                        TCOM
-    // Lyricist:                        TEXT
-    // Conductor:                       TPE3
-    // Disc number[/total dics]:        TPOS
-    // Track number[/total tracks]:     TRCK
-    // Genre:                           TCON
 }
+
+// TAG information (incomplete).
+// https://xiph.org/vorbis/doc/v-comment.html
+// http://help.mp3tag.de/main_tags.html
+// http://id3.org/
+// https://www.legroom.net/2009/05/09/ogg-vorbis-and-flac-comment-field-recommendations
+// https://kodi.wiki/view/Music_tagging#Tags_Kodi_reads
+// -- FLAC/OGG --
+// Artist:          ARTIST, PERFORMER
+// Album artist:    ALBUMARTIST
+// Composer:        COMPOSER
+// Lyricist:        LYRICIST
+// Conductor:       CONDUCTOR
+// Disc number:     DISCNUMBER
+// Total discs:     TOTALDISCS, DISCTOTAL
+// Track number:    TRACKNUMBER
+// Total tracks:    TOTALTRACKS, TRACKTOTAL
+// Genre: GENRE
+// -- ID3v2 --
+// Artist:                          TPE1
+// Album artist:                    TPE2
+// Composer:                        TCOM
+// Lyricist:                        TEXT
+// Conductor:                       TPE3
+// Disc number[/total dics]:        TPOS
+// Track number[/total tracks]:     TRCK
+// Genre:                           TCON

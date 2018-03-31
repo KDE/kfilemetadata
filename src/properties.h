@@ -165,6 +165,7 @@ enum Property {
      * 'dc:language' tag from DublinCore. We do NOT employ any language
      * detection schemes on the text.
      */
+    //KF6 TODO: fix typo Langauge->Language
     Langauge,
 
     /**
@@ -173,7 +174,7 @@ enum Property {
     Copyright,
 
     /**
-     * The publisher of the content. Represnted as a string.
+     * The publisher of the content. Represented as a string.
      */
     Publisher,
 
@@ -269,6 +270,51 @@ enum Property {
      * Represents the disc number in a multi-disc set. Typically maps to the "TPOS" tag for mp3
      */
     DiscNumber,
+
+    /**
+     * Represents the location where an audio file was recorded.
+     */
+    Location,
+
+    /**
+     * Represents the (lead) performer of an audio file.
+     */
+    Performer,
+
+    /**
+     * Represents the ensemble of an audio file.
+     */
+    Ensemble,
+
+    /**
+     * Represents the arranger of an audio file.
+     */
+    Arranger,
+
+    /**
+     * Represents the conductor of an audio file.
+     */
+    Conductor,
+
+    /**
+     * Represents the opus of an audio file mostly used for classical music.
+     */
+    Opus,
+
+    /**
+     * Represents the label of the content.
+     */
+    Label,
+
+    /**
+     * Containes the name of the compilation of an audio file.
+     */
+    Compilation,
+
+    /**
+     * Contains the license information of the file
+     */
+    License,
 
     PropertyCount,
     LastProperty = PropertyCount-1,
