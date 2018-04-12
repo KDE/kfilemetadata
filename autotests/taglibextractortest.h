@@ -23,6 +23,7 @@
 #define TAGLIBEXTRACTORTEST_H
 
 #include <QObject>
+#include "properties.h"
 
 class TagLibExtractorTest : public QObject
 {
@@ -32,6 +33,12 @@ private:
 
 private Q_SLOTS:
     void test();
+    void testNoMetadata();
+    void testNoMetadata_data();
+
+private:
+    // Convenience function
+    const QStringList propertyEnumNames(const QList<KFileMetaData::Property::Property>& key) const;
 };
 
 #endif // TAGLIBEXTRACTORTEST_H

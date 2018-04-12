@@ -21,6 +21,8 @@
 
 #include "taglibextractortest.h"
 #include "simpleextractionresult.h"
+#include "propertyinfo.h"
+//TODO: use QTESTFINDDATA and remove this
 #include "indexerextractortestsconfig.h"
 #include "extractors/taglibextractor.h"
 
@@ -28,11 +30,22 @@
 #include <QTest>
 #include <QDir>
 
+Q_DECLARE_METATYPE(KFileMetaData::Property::Property)
+
 using namespace KFileMetaData;
 
 QString TagLibExtractorTest::testFilePath(const QString& fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QDir::separator() + fileName;
+}
+
+const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaData::Property::Property>& keys) const
+{
+    QStringList result;
+    for (auto key : keys) {
+        result.append(PropertyInfo(key).name());
+    }
+    return result;
 }
 
 void TagLibExtractorTest::test()
@@ -206,6 +219,82 @@ void TagLibExtractorTest::test()
     QCOMPARE(resultMp4.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMp4.properties().value(Property::Channels).toInt(), 2);
     QCOMPARE(resultMp4.properties().value(Property::DiscNumber).toInt(), 1);
+}
+
+void TagLibExtractorTest::testNoMetadata_data()
+{
+    const auto expectedKeys = QList<Property::Property>{
+        Property::BitRate,
+        Property::Channels,
+        Property::Duration,
+        Property::SampleRate,
+    };
+
+    QTest::addColumn<QString>("path");
+    QTest::addColumn<QString>("mimeType");
+    QTest::addColumn<QList<Property::Property>>("expectedKeys");
+    QTest::addColumn<QString>("failMessage");
+
+    QTest::addRow("mp3")
+        << QFINDTESTDATA("samplefiles/no-meta/test.mp3")
+        << QStringLiteral("audio/mp3")
+        << expectedKeys << QStringLiteral("Excess properties")
+        ;
+
+    QTest::addRow("m4a")
+        << QFINDTESTDATA("samplefiles/no-meta/test.m4a")
+        << QStringLiteral("audio/mp4")
+        << expectedKeys << QString()
+        ;
+
+    QTest::addRow("flac")
+        << QFINDTESTDATA("samplefiles/no-meta/test.flac")
+        << QStringLiteral("audio/flac")
+        << expectedKeys << QString()
+        ;
+
+    QTest::addRow("opus")
+        << QFINDTESTDATA("samplefiles/no-meta/test.opus")
+        << QStringLiteral("audio/opus")
+        << expectedKeys << QString()
+        ;
+
+    QTest::addRow("ogg")
+        << QFINDTESTDATA("samplefiles/no-meta/test.ogg")
+        << QStringLiteral("audio/ogg")
+        << expectedKeys << QString()
+        ;
+
+    QTest::addRow("mpc")
+        << QFINDTESTDATA("samplefiles/no-meta/test.mpc")
+        << QStringLiteral("audio/x-musepack")
+        << expectedKeys << QStringLiteral("Excess properties")
+        ;
+
+}
+
+void  TagLibExtractorTest::testNoMetadata()
+{
+    QFETCH(QString, path);
+    QFETCH(QString, mimeType);
+    QFETCH(QList<Property::Property>, expectedKeys);
+    QFETCH(QString, failMessage);
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult extracted(path, mimeType);
+    plugin.extract(&extracted);
+
+    const auto resultList = extracted.properties();
+    const auto resultKeys = resultList.uniqueKeys();
+
+    if (!failMessage.isEmpty()) {
+        auto excessKeys = resultKeys.toSet() - expectedKeys.toSet();
+        const auto message = QStringLiteral("%1: %2")
+            .arg(failMessage)
+            .arg(propertyEnumNames(excessKeys.toList()).join(QLatin1String(", ")));
+        QEXPECT_FAIL("", qPrintable(message), Continue);
+    }
+    QCOMPARE(resultKeys, expectedKeys);
 }
 
 QTEST_GUILESS_MAIN(TagLibExtractorTest)
