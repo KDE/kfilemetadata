@@ -244,25 +244,25 @@ void TagLibExtractorTest::testNoMetadata_data()
     QTest::addRow("m4a")
         << QFINDTESTDATA("samplefiles/no-meta/test.m4a")
         << QStringLiteral("audio/mp4")
-        << expectedKeys << QString()
+        << expectedKeys << QStringLiteral("Excess properties")
         ;
 
     QTest::addRow("flac")
         << QFINDTESTDATA("samplefiles/no-meta/test.flac")
         << QStringLiteral("audio/flac")
-        << expectedKeys << QString()
+        << expectedKeys << QStringLiteral("Excess properties")
         ;
 
     QTest::addRow("opus")
         << QFINDTESTDATA("samplefiles/no-meta/test.opus")
         << QStringLiteral("audio/opus")
-        << expectedKeys << QString()
+        << expectedKeys << QStringLiteral("Excess properties")
         ;
 
     QTest::addRow("ogg")
         << QFINDTESTDATA("samplefiles/no-meta/test.ogg")
         << QStringLiteral("audio/ogg")
-        << expectedKeys << QString()
+        << expectedKeys << QStringLiteral("Excess properties")
         ;
 
     QTest::addRow("mpc")
@@ -287,6 +287,22 @@ void  TagLibExtractorTest::testNoMetadata()
     const auto resultList = extracted.properties();
     const auto resultKeys = resultList.uniqueKeys();
 
+    const auto excessKeys = resultKeys.toSet() - expectedKeys.toSet();
+    const auto missingKeys = expectedKeys.toSet() - resultKeys.toSet();
+    if (excessKeys.size()) {
+        const auto propNames =  propertyEnumNames(excessKeys.toList()).join(QLatin1String(", "));
+        if (failMessage.isEmpty()) {
+            const auto message = QStringLiteral("Excess properties: %1").arg(propNames);
+            QWARN(qPrintable(message));
+        } else {
+            QEXPECT_FAIL("", qPrintable(QStringLiteral("%1: %2").arg(failMessage).arg(propNames)), Continue);
+        }
+    } else if (missingKeys.size()) {
+        const auto message = QStringLiteral("Missing properties: %1")
+            .arg(propertyEnumNames(missingKeys.toList()).join(QLatin1String(", ")));
+        QWARN(qPrintable(message));
+    }
+    QCOMPARE(resultKeys, expectedKeys);
     if (!failMessage.isEmpty()) {
         auto excessKeys = resultKeys.toSet() - expectedKeys.toSet();
         const auto message = QStringLiteral("%1: %2")
