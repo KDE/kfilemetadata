@@ -36,10 +36,10 @@ QString Exiv2ExtractorTest::testFilePath(const QString& fileName) const
 
 void Exiv2ExtractorTest::test()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new Exiv2Extractor(this));
+    Exiv2Extractor plugin{this};
 
     SimpleExtractionResult result(testFilePath("test.jpg"), "image/jpeg");
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().constFirst(), Type::Image);

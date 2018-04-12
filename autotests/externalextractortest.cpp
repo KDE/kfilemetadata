@@ -42,12 +42,10 @@ void ExternalExtractorTest::test()
     file.open();
     file.write("Hello");
     file.close();
-    QScopedPointer<ExtractorPlugin> plugin(new ExternalExtractor(
-                    testFilePath("testexternalextractor")
-    ));
+    ExternalExtractor plugin{testFilePath("testexternalextractor")};
 
     SimpleExtractionResult result(file.fileName(), "application/text");
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.text(), QStringLiteral("Hello "));
 }

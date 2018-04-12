@@ -38,10 +38,10 @@ QString OdfExtractorTest::testFilePath(const QString& fileName) const
 
 void OdfExtractorTest::testText()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor());
+    OdfExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"));
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().at(0), Type::Document);
@@ -63,10 +63,10 @@ void OdfExtractorTest::testText()
 
 void OdfExtractorTest::testTextMetaDataOnly()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor());
+    OdfExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"), ExtractionResult::ExtractMetaData);
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.properties().size(), 8);
@@ -75,10 +75,10 @@ void OdfExtractorTest::testTextMetaDataOnly()
 
 void OdfExtractorTest::testPresentation()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor());
+    OdfExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test.odp")), QStringLiteral("application/vnd.oasis.opendocument.presentation"));
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 2);
     QCOMPARE(result.types().at(0), Type::Document);
@@ -93,18 +93,18 @@ void OdfExtractorTest::testPresentation()
 
 void OdfExtractorTest::testTextMissingMetaNoCrash()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor());
+    OdfExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test_missing_meta.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"));
-    plugin->extract(&result);
+    plugin.extract(&result);
 }
 
 void OdfExtractorTest::testTextMissingContentNoCrash()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new OdfExtractor());
+    OdfExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test_missing_content.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"));
-    plugin->extract(&result);
+    plugin.extract(&result);
 }
 
 QTEST_GUILESS_MAIN(OdfExtractorTest)

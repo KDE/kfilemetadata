@@ -36,10 +36,10 @@ QString EPubExtractorTest::testFilePath(const QString& fileName) const
 
 void EPubExtractorTest::test()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this));
+    EPubExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip");
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().constFirst(), Type::Document);
@@ -61,10 +61,10 @@ void EPubExtractorTest::test()
 
 void EPubExtractorTest::testMetaDataOnly()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this));
+    EPubExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip", ExtractionResult::ExtractMetaData);
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QVERIFY(!result.types().isEmpty());
     QVERIFY(!result.properties().isEmpty());

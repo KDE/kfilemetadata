@@ -64,10 +64,10 @@ void IndexerExtractorTests::benchMarkPlainTextExtractor()
 
 void IndexerExtractorTests::testPlainTextExtractor()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this));
+    PlainTextExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"));
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QString content;
     QTextStream(&content) << "This is a text file\n"
@@ -87,10 +87,10 @@ void IndexerExtractorTests::testPlainTextExtractor()
 
 void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PlainTextExtractor(this));
+    PlainTextExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"), ExtractionResult::ExtractMetaData);
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QString content;
     QTextStream(&content) << "This is a text file\n"

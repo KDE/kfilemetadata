@@ -36,10 +36,10 @@ QString MobiExtractorTest::testFilePath(const QString& fileName) const
 
 void MobiExtractorTest::test()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new EPubExtractor(this, QVariantList()));
+    EPubExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath("test.mobi"), "application/epub+zip");
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().first(), Type::Document);

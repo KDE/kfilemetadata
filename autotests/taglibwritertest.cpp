@@ -34,12 +34,12 @@ void TagLibWriterTest::initTestCase()
 
 void TagLibWriterTest::test()
 {
-    QScopedPointer<WriterPlugin> writerPlugin(new TagLibWriter(this));
+    TagLibWriter writerPlugin{this};
 
     WriteData data(testFilePath(TEST_FILENAME), "audio/opus");
     data.add(Property::Title, "Title1");
     data.add(Property::Artist, "Artist1");
-    writerPlugin->write(data);
+    writerPlugin.write(data);
 
     TagLib::FileRef file(testFilePath(TEST_FILENAME).toUtf8().constData(), true);
     TagLib::Tag* tags = file.tag();

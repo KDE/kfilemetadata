@@ -36,10 +36,10 @@ QString PopplerExtractorTest::testFilePath(const QString& fileName) const
 
 void PopplerExtractorTest::test()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this));
+    PopplerExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf");
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().constFirst(), Type::Document);
@@ -59,10 +59,10 @@ void PopplerExtractorTest::test()
 
 void PopplerExtractorTest::testMetaDataOnly()
 {
-    QScopedPointer<ExtractorPlugin> plugin(new PopplerExtractor(this));
+    PopplerExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf", ExtractionResult::ExtractMetaData);
-    plugin->extract(&result);
+    plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QVERIFY(result.text().isEmpty());

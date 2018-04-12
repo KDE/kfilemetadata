@@ -39,13 +39,10 @@ QString ExternalWriterTest::testFilePath(const QString& fileName) const
 void ExternalWriterTest::test()
 {
     QTemporaryFile file;
-    QScopedPointer<WriterPlugin> plugin(
-                new ExternalWriter(testFilePath("testexternalwriter")
-    ));
-
+    ExternalWriter plugin{testFilePath("testexternalwriter")};
     file.open();
     WriteData data(file.fileName(), "application/text");
-    plugin->write(data);
+    plugin.write(data);
 
     QCOMPARE(QString(file.readAll()), QStringLiteral("{}"));
 }
