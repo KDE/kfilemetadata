@@ -238,37 +238,37 @@ void TagLibExtractorTest::testNoMetadata_data()
     QTest::addRow("mp3")
         << QFINDTESTDATA("samplefiles/no-meta/test.mp3")
         << QStringLiteral("audio/mp3")
-        << expectedKeys << QStringLiteral("Excess properties")
+        << expectedKeys << QString()
         ;
 
     QTest::addRow("m4a")
         << QFINDTESTDATA("samplefiles/no-meta/test.m4a")
         << QStringLiteral("audio/mp4")
-        << expectedKeys << QStringLiteral("Excess properties")
+        << expectedKeys << QString()
         ;
 
     QTest::addRow("flac")
         << QFINDTESTDATA("samplefiles/no-meta/test.flac")
         << QStringLiteral("audio/flac")
-        << expectedKeys << QStringLiteral("Excess properties")
+        << expectedKeys << QString()
         ;
 
     QTest::addRow("opus")
         << QFINDTESTDATA("samplefiles/no-meta/test.opus")
         << QStringLiteral("audio/opus")
-        << expectedKeys << QStringLiteral("Excess properties")
+        << expectedKeys << QString()
         ;
 
     QTest::addRow("ogg")
         << QFINDTESTDATA("samplefiles/no-meta/test.ogg")
         << QStringLiteral("audio/ogg")
-        << expectedKeys << QStringLiteral("Excess properties")
+        << expectedKeys << QString()
         ;
 
     QTest::addRow("mpc")
         << QFINDTESTDATA("samplefiles/no-meta/test.mpc")
         << QStringLiteral("audio/x-musepack")
-        << expectedKeys << QStringLiteral("Excess properties")
+        << expectedKeys << QString()
         ;
 
 }

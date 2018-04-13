@@ -80,7 +80,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     if (!mpegFile.ID3v2Tag() || mpegFile.ID3v2Tag()->isEmpty()) {
         return;
     }
-    
+
     TagLib::ID3v2::FrameList lstID3v2;
 
     // Artist.
@@ -258,7 +258,7 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
     if (!mpcFile.tag() || mpcFile.tag()->isEmpty()) {
         return;
     }
-    
+
     TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();
     TagLib::APE::ItemListMap::ConstIterator itMPC;
 
@@ -607,7 +607,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     result->addType(Type::Audio);
 
     ExtractedData data;
-    
+
     if ((mimeType == QStringLiteral("audio/mpeg"))
             || (mimeType == QStringLiteral("audio/mpeg3"))
             || (mimeType == QStringLiteral("audio/x-mpeg"))) {
@@ -637,15 +637,15 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         for (uint i = 0; i < data.genres.size(); i++) {
             QString genre = convertWCharsToQString(data.genres[i]).trimmed();
-
-            // Convert from int
-            bool ok = false;
-            int genreNum = genre.toInt(&ok);
-            if (ok) {
-                genre = convertWCharsToQString(TagLib::ID3v1::genre(genreNum));
+            if (!genre.isEmpty()) {
+                // Convert from int
+                bool ok = false;
+                int genreNum = genre.toInt(&ok);
+                if (ok) {
+                    genre = convertWCharsToQString(TagLib::ID3v1::genre(genreNum));
+                }
+                result->add(Property::Genre, genre);
             }
-
-            result->add(Property::Genre, genre);
         }
 
         const auto artistString = data.artists.isEmpty()
