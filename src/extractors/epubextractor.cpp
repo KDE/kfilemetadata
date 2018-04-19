@@ -60,7 +60,7 @@ QString fetchMetadata(struct epub* e, const epub_metadata& type)
         }
         free(data);
 
-        return strList.join(QLatin1Char(';'));
+        return strList.join(QLatin1String(", "));
     }
     return QString();
 }
