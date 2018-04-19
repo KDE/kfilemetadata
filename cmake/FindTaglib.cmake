@@ -35,11 +35,11 @@ if(NOT TAGLIB_MIN_VERSION)
   set(TAGLIB_MIN_VERSION "1.4")
 endif(NOT TAGLIB_MIN_VERSION)
 
-if(NOT WIN32)
+if(NOT WIN32 AND NOT ANDROID)
     find_program(TAGLIBCONFIG_EXECUTABLE NAMES taglib-config PATHS
        ${BIN_INSTALL_DIR}
     )
-endif(NOT WIN32)
+endif()
 
 #reset vars
 set(TAGLIB_LIBRARIES)
