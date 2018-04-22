@@ -30,6 +30,9 @@ class ExtractionResult;
 class ExtractorCollection;
 class ExtractorPlugin;
 
+/**
+ * \class Extractor extractor.h <KFileMetaData/Extractor>
+ */
 class KFILEMETADATA_EXPORT Extractor
 {
     class ExtractorPrivate;

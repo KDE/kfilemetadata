@@ -27,6 +27,8 @@
 namespace KFileMetaData {
 
 /**
+ * \class SimpleExtractionResult simpleextractionresult.h <KFileMetaData/SimpleExtractionResult>
+ *
  * A simple ExtractionResult implementation which stores
  * all the data in memory.
  *

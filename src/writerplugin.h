@@ -32,6 +32,9 @@
 namespace KFileMetaData
 {
 
+/**
+ * \class WriterPlugin writerplugin.h <KFileMetaData/WriterPlugin>
+ */
 class KFILEMETADATA_EXPORT WriterPlugin : public QObject
 {
     Q_OBJECT

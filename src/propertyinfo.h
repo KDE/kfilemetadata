@@ -31,6 +31,8 @@
 namespace KFileMetaData {
 
 /**
+ * \class PropertyInfo propertyinfo.h <KFileMetaData/PropertyInfo>
+ *
  * The PropertyInfo class can be used to obtain extra information
  * about any property. It is commonly used be indexers in order
  * to obtain a translatable name of the property along with

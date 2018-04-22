@@ -27,6 +27,9 @@
 
 namespace KFileMetaData {
 
+/**
+ * \class UserMetaData usermetadata.h <KFileMetaData/UserMetaData>
+ */
 class KFILEMETADATA_EXPORT UserMetaData {
 public:
     UserMetaData(const QString &filePath);

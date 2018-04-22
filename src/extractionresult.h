@@ -32,7 +32,7 @@
 namespace KFileMetaData {
 
 /**
- * \class ExtractionResult extractionresult.h
+ * \class ExtractionResult extractionresult.h <KFileMetaData/ExtractionResult>
  *
  * \brief The ExtractionResult class is where all the data extracted by
  * the indexer is saved. This class acts as a base class which should be

@@ -32,6 +32,9 @@
 namespace KFileMetaData
 {
 
+/**
+ * \class WriterCollection writercollection.h <KFileMetaData/WriterCollection>
+ */
 class KFILEMETADATA_EXPORT WriterCollection
 {
 public:

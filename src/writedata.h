@@ -35,6 +35,9 @@
 
 namespace KFileMetaData {
 
+/**
+ * \class WriteData writedata.h <KFileMetaData/WriteData>
+ */
 class KFILEMETADATA_EXPORT WriteData
 {
 public:

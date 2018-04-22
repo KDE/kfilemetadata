@@ -27,7 +27,7 @@
 namespace KFileMetaData
 {
 /**
- * \class ExtractorCollection extractorcollection.h
+ * \class ExtractorCollection extractorcollection.h <KFileMetaData/ExtractorCollection>
  *
  * \brief The ExtractorCollection is a helper class which internally
  * loads all the extractor plugins. It can be used to fetch a certain

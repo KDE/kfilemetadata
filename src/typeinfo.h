@@ -27,6 +27,9 @@
 
 namespace KFileMetaData {
 
+/**
+ * \class TypeInfo typeinfo.h <KFileMetaData/TypeInfo>
+ */
 class KFILEMETADATA_EXPORT TypeInfo
 {
 public:
