@@ -73,9 +73,10 @@ set_package_properties(CatDoc PROPERTIES DESCRIPTION "catdoc executable"
 
 if ( CMAKE_SYSTEM_NAME MATCHES "Linux" )
     find_package(Xattr)
-    set_package_properties(Xattr PROPERTIES
+    set_package_properties(Xattr PROPERTIES DESCRIPTION "library libattr "
         URL "http://savannah.nongnu.org/projects/attr"
-        TYPE REQUIRED)
+        TYPE REQUIRED
+        PURPOSE "Extended attribute shared library")
 endif()
 
 #find_package(QMobipocket)
