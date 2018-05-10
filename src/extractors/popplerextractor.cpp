@@ -54,17 +54,6 @@ void PopplerExtractor::extract(ExtractionResult* result)
 
     QString title = pdfDoc->info(QStringLiteral("Title")).trimmed();
 
-    // The title extracted from the pdf metadata is in many cases not the real title
-    // of the document. Especially for research papers that are exported to pdf.
-    // As mostly the title of a pdf document is written on the first page in the biggest font
-    // we use this if the pdfDoc title is considered junk
-    if (title.isEmpty() ||
-            !title.contains(QLatin1Char(' ')) ||                        // very unlikely the title of a document does only contain one word.
-            title.contains(QStringLiteral("Microsoft"), Qt::CaseInsensitive)) {  // most research papers i found written with microsoft word
-        // have a garbage title of the pdf creator rather than the real document title
-        title = parseFirstPage(pdfDoc.data(), fileUrl);
-    }
-
     if (!title.isEmpty()) {
         result->add(Property::Title, title);
     }
@@ -102,81 +91,4 @@ void PopplerExtractor::extract(ExtractionResult* result)
         }
         result->append(page->text(QRectF()));
     }
-}
-
-QString PopplerExtractor::parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl)
-{
-    QScopedPointer<Poppler::Page> p(pdfDoc->page(0));
-
-    if (!p) {
-        qWarning() << "Could not read page content from" << fileUrl;
-        return QString();
-    }
-
-    QList<Poppler::TextBox*> tbList = p->textList();
-    QMap<int, QString> possibleTitleMap;
-
-    int currentLargestChar = 0;
-    int skipTextboxes = 0;
-
-    // Iterate over all textboxes. Each textbox can be a single character/word or textblock
-    // Here we combine the etxtboxes back together based on the textsize
-    // Important are the words with the biggest font size
-    foreach(Poppler::TextBox * tb, tbList) {
-
-        // if we added followup words, skip the textboxes here now
-        if (skipTextboxes > 0) {
-            skipTextboxes--;
-            continue;
-        }
-
-        int height = tb->charBoundingBox(0).height();
-
-        // if the following text is smaller than the biggest we found up to now, ignore it
-        if (height >= currentLargestChar) {
-            QString possibleTitle;
-            possibleTitle.append(tb->text());
-            currentLargestChar = height;
-
-            // if the text has follow up words add them to to create the full title
-            Poppler::TextBox* next = tb->nextWord();
-            while (next) {
-                possibleTitle.append(QLatin1Char(' '));
-                possibleTitle.append(next->text());
-                next = next->nextWord();
-                skipTextboxes++;
-            }
-
-            // now combine text for each font size together, very likeley it must be connected
-            QString existingTitlePart = possibleTitleMap.value(currentLargestChar, QString());
-            existingTitlePart.append(QLatin1Char(' '));
-            existingTitlePart.append(possibleTitle);
-            possibleTitleMap.insert(currentLargestChar, existingTitlePart);
-        }
-    }
-
-    qDeleteAll(tbList);
-
-    QList<int> titleSizes = possibleTitleMap.keys();
-    qSort(titleSizes.begin(), titleSizes.end(), qGreater<int>());
-
-    QString newPossibleTitle;
-
-    // find the text with the largest font that is not just 1 character
-    foreach(int i, titleSizes) {
-        QString title = possibleTitleMap.value(i);
-
-        // sometime the biggest part is a single letter
-        // as a starting paragraph letter
-        if (title.size() < 5) {
-            continue;
-        } else {
-            newPossibleTitle = title.trimmed();
-            break;
-        }
-    }
-
-    // Sometimes the titles that are extracted are too large. This is a way of trimming them.
-    newPossibleTitle.truncate(50);
-    return newPossibleTitle;
 }
