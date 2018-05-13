@@ -32,7 +32,12 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
-    void test();
+    void testOpus();
+    void testFlac();
+    void testOgg();
+    void testMpc();
+    void testMp3();
+    void testMp4();
     void testNoMetadata();
     void testNoMetadata_data();
 

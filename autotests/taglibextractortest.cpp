@@ -48,7 +48,7 @@ const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaDa
     return result;
 }
 
-void TagLibExtractorTest::test()
+void TagLibExtractorTest::testOpus()
 {
     TagLibExtractor plugin{this};
 
@@ -83,6 +83,11 @@ void TagLibExtractorTest::test()
     QCOMPARE(resultOpus.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultOpus.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::DiscNumber).toInt(), 1);
+}
+
+void TagLibExtractorTest::testFlac()
+{
+    TagLibExtractor plugin{this};
 
     SimpleExtractionResult resultFlac(testFilePath("test.flac"), "audio/flac");
     plugin.extract(&resultFlac);
@@ -115,6 +120,11 @@ void TagLibExtractorTest::test()
     QCOMPARE(resultFlac.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultFlac.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::DiscNumber).toInt(), 1);
+}
+
+void TagLibExtractorTest::testOgg()
+{
+    TagLibExtractor plugin{this};
 
     SimpleExtractionResult resultOgg(testFilePath("test.ogg"), "audio/ogg");
     plugin.extract(&resultOgg);
@@ -147,6 +157,11 @@ void TagLibExtractorTest::test()
     QCOMPARE(resultOgg.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultOgg.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultOgg.properties().value(Property::DiscNumber).toInt(), 1);
+}
+
+void TagLibExtractorTest::testMp3()
+{
+    TagLibExtractor plugin{this};
 
     SimpleExtractionResult resultMp3(testFilePath("test.mp3"), "audio/mpeg");
     plugin.extract(&resultMp3);
@@ -170,6 +185,11 @@ void TagLibExtractorTest::test()
     QCOMPARE(resultMp3.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMp3.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultMp3.properties().value(Property::DiscNumber).toInt(), 1);
+}
+
+void TagLibExtractorTest::testMpc()
+{
+    TagLibExtractor plugin{this};
 
     SimpleExtractionResult resultMpc(testFilePath("test.mpc"), "audio/x-musepack");
     plugin.extract(&resultMpc);
@@ -200,6 +220,11 @@ void TagLibExtractorTest::test()
     QCOMPARE(resultMpc.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMpc.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultMpc.properties().value(Property::DiscNumber).isValid(), false);
+}
+
+void TagLibExtractorTest::testMp4()
+{
+    TagLibExtractor plugin{this};
 
     SimpleExtractionResult resultMp4(testFilePath("test.m4a"), "audio/mp4");
     plugin.extract(&resultMp4);
