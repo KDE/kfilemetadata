@@ -270,7 +270,10 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
         data.artists += (*itMPC).second.toString();
     }
 
-    itMPC = lstMusepack.find("ALBUM ARTIST");
+    itMPC = lstMusepack.find("ALBUMARTIST");
+    if (itMPC == lstMusepack.end()) {
+        itMPC = lstMusepack.find("ALBUM ARTIST");
+    }
     if (itMPC != lstMusepack.end()) {
         if(!data.albumArtists.isEmpty()) {
             data.albumArtists += ", ";
@@ -445,6 +448,9 @@ void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mime
         }
 
         itOgg = lstOgg.find("ALBUMARTIST");
+        if (itOgg == lstOgg.end())  {
+            itOgg = lstOgg.find("ALBUM ARTIST");
+        }
         if (itOgg != lstOgg.end()) {
             if (!data.albumArtists.isEmpty()) {
                 data.albumArtists += ", ";
