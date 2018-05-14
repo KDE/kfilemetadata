@@ -56,7 +56,7 @@ set_package_properties(Exiv2 PROPERTIES DESCRIPTION "Image Tag reader"
                        URL "http://www.exiv2.org" TYPE OPTIONAL
                        PURPOSE "Support for image metadata")
 
-find_package(FFmpeg 1.0)
+find_package(FFmpeg 3.1)
 set_package_properties(FFmpeg PROPERTIES DESCRIPTION "Video Tag reader"
                        URL "http://ffmpeg.org" TYPE OPTIONAL
                        PURPOSE "Support for video metadata")
