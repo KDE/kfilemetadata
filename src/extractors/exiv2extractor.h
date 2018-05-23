@@ -36,8 +36,8 @@ class Exiv2Extractor : public ExtractorPlugin
 public:
     explicit Exiv2Extractor(QObject* parent = nullptr);
 
-    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
-    QStringList mimetypes() const Q_DECL_OVERRIDE;
+    void extract(ExtractionResult* result) override;
+    QStringList mimetypes() const override;
 
 private:
     void add(ExtractionResult* result, const Exiv2::ExifData& data,

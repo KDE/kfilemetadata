@@ -36,8 +36,8 @@ class PopplerExtractor : public ExtractorPlugin
 public:
     explicit PopplerExtractor(QObject* parent = nullptr);
 
-    QStringList mimetypes() const Q_DECL_OVERRIDE;
-    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
+    QStringList mimetypes() const override;
+    void extract(ExtractionResult* result) override;
 
 private:
     QString parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl);

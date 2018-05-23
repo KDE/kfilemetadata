@@ -38,8 +38,8 @@ class POExtractor : public ExtractorPlugin
 public:
     explicit POExtractor(QObject* parent = nullptr);
 
-    QStringList mimetypes() const Q_DECL_OVERRIDE;
-    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
+    QStringList mimetypes() const override;
+    void extract(ExtractionResult* result) override;
 
 private:
     void endMessage();

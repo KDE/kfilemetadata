@@ -37,8 +37,8 @@ public:
     explicit ExternalWriter(const QString& pluginPath);
     virtual ~ExternalWriter();
 
-    void write(const WriteData& data) Q_DECL_OVERRIDE;
-    QStringList writeMimetypes() const Q_DECL_OVERRIDE;
+    void write(const WriteData& data) override;
+    QStringList writeMimetypes() const override;
 
 private:
     bool runtimeInstalled() const;

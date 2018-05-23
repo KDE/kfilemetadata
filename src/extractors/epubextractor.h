@@ -34,8 +34,8 @@ class EPubExtractor : public ExtractorPlugin
 public:
     explicit EPubExtractor(QObject* parent = nullptr);
 
-    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
-    QStringList mimetypes() const Q_DECL_OVERRIDE;
+    void extract(ExtractionResult* result) override;
+    QStringList mimetypes() const override;
 };
 }
 

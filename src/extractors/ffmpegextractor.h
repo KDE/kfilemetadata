@@ -34,8 +34,8 @@ class FFmpegExtractor : public ExtractorPlugin
 public:
     explicit FFmpegExtractor(QObject* parent = nullptr);
 
-    void extract(ExtractionResult* result) Q_DECL_OVERRIDE;
-    QStringList mimetypes() const Q_DECL_OVERRIDE;
+    void extract(ExtractionResult* result) override;
+    QStringList mimetypes() const override;
 };
 }
 
