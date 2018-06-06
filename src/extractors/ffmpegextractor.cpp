@@ -23,6 +23,8 @@
 
 #include "ffmpegextractor.h"
 
+#include "config-kfilemetadata.h"
+
 #ifdef __cplusplus
 #define __STDC_CONSTANT_MACROS
 #ifdef _STDINT_H
@@ -94,7 +96,11 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     for (uint i = 0; i < fmt_ctx->nb_streams; i++) {
         const AVStream* stream = fmt_ctx->streams[i];
+#if defined HAVE_AVSTREAM_CODECPAR && HAVE_AVSTREAM_CODECPAR
         const AVCodecParameters* codec = stream->codecpar;
+#else
+        const AVCodecContext* codec = stream->codec;
+#endif
 
         if (codec->codec_type == AVMEDIA_TYPE_AUDIO || codec->codec_type == AVMEDIA_TYPE_VIDEO) {
             /*

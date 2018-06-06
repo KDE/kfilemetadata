@@ -20,6 +20,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
+include(CheckStructHasMember)
 
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
@@ -56,10 +57,17 @@ set_package_properties(Exiv2 PROPERTIES DESCRIPTION "Image Tag reader"
                        URL "http://www.exiv2.org" TYPE OPTIONAL
                        PURPOSE "Support for image metadata")
 
-find_package(FFmpeg 3.1)
+find_package(FFmpeg 57.48 COMPONENTS AVCODEC)
+find_package(FFmpeg 57.40 COMPONENTS AVFORMAT)
+find_package(FFmpeg 55.27 COMPONENTS AVUTIL)
 set_package_properties(FFmpeg PROPERTIES DESCRIPTION "Video Tag reader"
                        URL "http://ffmpeg.org" TYPE OPTIONAL
                        PURPOSE "Support for video metadata")
+
+if (FFmpeg_AVFORMAT_FOUND)
+    set(CMAKE_REQUIRED_INCLUDES ${AVCODEC_INCLUDE_DIRS})
+    CHECK_STRUCT_HAS_MEMBER(AVStream codecpar "stdint.h;libavformat/avformat.h" HAVE_AVSTREAM_CODECPAR LANGUAGE CXX)
+endif()
 
 find_package(EPub)
 set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"

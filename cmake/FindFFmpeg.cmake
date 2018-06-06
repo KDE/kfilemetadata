@@ -65,6 +65,7 @@ macro(set_component_found _component )
   if (${_component}_LIBRARIES AND ${_component}_INCLUDE_DIRS)
     # message(STATUS "  - ${_component} found.")
     set(${_component}_FOUND TRUE)
+    set(FFmpeg_${_component}_FOUND TRUE)
   else ()
     # message(STATUS "  - ${_component} not found.")
   endif ()
@@ -76,14 +77,14 @@ endmacro()
 # Checks for the given component by invoking pkgconfig and then looking up the libraries and
 # include directories.
 #
-macro(find_component _component _pkgconfig _library _header)
+macro(find_component _component _pkgconfig _library _header _version)
 
   if (NOT WIN32)
      # use pkg-config to get the directories and then use these values
      # in the FIND_PATH() and FIND_LIBRARY() calls
      find_package(PkgConfig)
      if (PKG_CONFIG_FOUND)
-       pkg_check_modules(PC_${_component} ${_pkgconfig})
+       pkg_check_modules(PC_${_component} ${_pkgconfig}>=${_version})
      endif ()
   endif (NOT WIN32)
 
@@ -114,17 +115,16 @@ macro(find_component _component _pkgconfig _library _header)
 
 endmacro()
 
-
 # Check for cached results. If there are skip the costly part.
 if (NOT FFMPEG_LIBRARIES)
 
   # Check for all possible component.
-  find_component(AVCODEC  libavcodec  avcodec  libavcodec/avcodec.h)
-  find_component(AVFORMAT libavformat avformat libavformat/avformat.h)
-  find_component(AVDEVICE libavdevice avdevice libavdevice/avdevice.h)
-  find_component(AVUTIL   libavutil   avutil   libavutil/avutil.h)
-  find_component(SWSCALE  libswscale  swscale  libswscale/swscale.h)
-  find_component(POSTPROCESS libpostproc postproc libpostproc/postprocess.h)
+  find_component(AVCODEC  libavcodec  avcodec  libavcodec/avcodec.h ${FFmpeg_FIND_VERSION})
+  find_component(AVFORMAT libavformat avformat libavformat/avformat.h ${FFmpeg_FIND_VERSION})
+  find_component(AVDEVICE libavdevice avdevice libavdevice/avdevice.h ${FFmpeg_FIND_VERSION})
+  find_component(AVUTIL   libavutil   avutil   libavutil/avutil.h ${FFmpeg_FIND_VERSION})
+  find_component(SWSCALE  libswscale  swscale  libswscale/swscale.h ${FFmpeg_FIND_VERSION})
+  find_component(POSTPROCESS libpostproc postproc libpostproc/postprocess.h ${FFmpeg_FIND_VERSION})
 
   # Check if the required components were found and add their stuff to the FFMPEG_* vars.
   foreach (_component ${FFmpeg_FIND_COMPONENTS})
@@ -165,5 +165,10 @@ foreach (_component ${FFmpeg_FIND_COMPONENTS})
   list(APPEND _FFmpeg_REQUIRED_VARS ${_component}_LIBRARIES ${_component}_INCLUDE_DIRS)
 endforeach ()
 
+
+
 # Give a nice error message if some of the required vars are missing.
-find_package_handle_standard_args(FFmpeg DEFAULT_MSG ${_FFmpeg_REQUIRED_VARS})
+find_package_handle_standard_args(FFmpeg
+    REQUIRED_VARS ${_FFmpeg_REQUIRED_VARS}
+    HANDLE_COMPONENTS)
+

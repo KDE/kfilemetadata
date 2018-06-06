@@ -47,10 +47,12 @@ endif()
 
 if(FFMPEG_FOUND)
     add_library(kfilemetadata_ffmpegextractor MODULE ffmpegextractor.cpp)
-    target_include_directories(kfilemetadata_ffmpegextractor SYSTEM PRIVATE ${FFMPEG_INCLUDE_DIRS})
+    target_include_directories(kfilemetadata_ffmpegextractor SYSTEM PRIVATE ${AVCODEC_INCLUDE_DIRS} ${AVFORMAT_INCLUDE_DIRS} ${AVUTIL_INCLUDE_DIRS})
     target_link_libraries(kfilemetadata_ffmpegextractor
         KF5::FileMetaData
-        ${FFMPEG_LIBRARIES}
+	${AVCODEC_LIBRARIES}
+	${AVFORMAT_LIBRARIES}
+	${AVUTIL_LIBRARIES}
     )
 
     set_target_properties(kfilemetadata_ffmpegextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
