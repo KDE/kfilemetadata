@@ -38,6 +38,8 @@ private Q_SLOTS:
     void testMpc();
     void testMp3();
     void testMp4();
+    void testMP3Rating_data();
+    void testMP3Rating();
     void testNoMetadata();
     void testNoMetadata_data();
 

@@ -37,7 +37,7 @@
 #include <vorbisfile.h>
 #include <opusfile.h>
 #include <xiphcomment.h>
-
+#include <popularimeterframe.h>
 #include <QDateTime>
 #include <QDebug>
 
@@ -208,6 +208,30 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
             data.compilation += (*it)->toString();
         }
     }
+
+    // Rating.
+    /* There is no standard regarding ratings. Most of the implementations match
+       a 5 stars rating to a range of 0-255 for MP3.
+       Match it to baloo rating with a range of 0 - 10 */
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["POPM"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            TagLib::ID3v2::PopularimeterFrame *ratingFrame = static_cast<TagLib::ID3v2::PopularimeterFrame *>(*it);
+            int rating = ratingFrame->rating();
+            if (rating == 0) {
+                data.rating = 0;
+            } else if (rating == 1) {
+                TagLib::String ratingProvider = ratingFrame->email();
+                if (ratingProvider == "no@email" || ratingProvider == "org.kde.kfilemetadata") {
+                    data.rating = 1;
+                } else {
+                    data.rating = 2;
+                }
+            } else if (rating >= 1 && rating <= 255) {
+                data.rating = static_cast<int>(0.032 * rating + 2);
+            }
+        }
+    }
     //TODO handle TIPL tag
 }
 
@@ -250,6 +274,15 @@ void TagLibExtractor::extractMP4(TagLib::FileStream& stream, ExtractedData& data
     if (itComposers != allTags.end()) {
         data.composers = itComposers->second.toStringList().toString(", ");
     }
+
+    /* There is no standard regarding ratings. Mimic MediaMonkey's behavior
+       with a range of 0 to 100 (stored in steps of 10) and make it compatible
+       with baloo rating with a range from 0 to 10 */
+    TagLib::MP4::ItemListMap::Iterator itRating = allTags.find("rate");
+    if (itRating != allTags.end()) {
+        data.rating = itRating->second.toStringList().toString().toInt() / 10;
+    }
+
 }
 
 void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData& data)
@@ -406,6 +439,15 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
     itMPC = lstMusepack.find("OPUS");
     if (itMPC != lstMusepack.end()) {
         data.opus = (*itMPC).second.toString().toInt();
+    }
+
+    // Rating.
+    itMPC = lstMusepack.find("RATING");
+    if (itMPC != lstMusepack.end()) {
+        /* There is no standard regarding ratings. There is one implementation
+           most seem to follow with a range of 0 to 100 (stored in steps of 10).
+           Make it compatible with baloo rating with a range from 0 to 10 */
+        data.rating = (*itMPC).second.toString().toInt() / 10;
     }
 }
 
@@ -583,6 +625,15 @@ void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mime
         itOgg = lstOgg.find("OPUS");
         if (itOgg != lstOgg.end()) {
             data.opus = (*itOgg).second.toString("").toInt();
+        }
+
+        // Rating.
+        itOgg = lstOgg.find("RATING");
+        if (itOgg != lstOgg.end()) {
+            //there is no standard regarding ratings. There is one implementation
+            //most seem to follow with a range of 0 to 100 (stored in steps of 10).
+            //make it compatible with baloo rating with a range from 0 to 10
+            data.rating = (*itOgg).second.toString("").toInt() / 10;
         }
     }
 }
@@ -771,6 +822,10 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         if (data.discNumber.isValid()) {
             result->add(Property::DiscNumber, data.discNumber);
+        }
+
+        if (data.rating.isValid()) {
+            result->add(Property::Rating, data.rating);
         }
 
         TagLib::AudioProperties* audioProp = file.audioProperties();

@@ -413,6 +413,12 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Int;
             break;
 
+        case Property::Rating:
+            d->name = QStringLiteral("embeddedRating");
+            d->displayName = i18nc("@label", "Rating");
+            d->valueType = QVariant::Int;
+            break;
+
         case Property::Width:
             d->name = QStringLiteral("width");
             d->displayName = i18nc("@label", "Width");
@@ -580,6 +586,7 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("arranger"), Property::Arranger },
         { QStringLiteral("conductor"), Property::Conductor },
         { QStringLiteral("opus"), Property::Opus },
+        { QStringLiteral("embeddedrating"), Property::Rating },
         { QStringLiteral("author"), Property::Author },
         { QStringLiteral("title"), Property::Title },
         { QStringLiteral("subject"), Property::Subject },

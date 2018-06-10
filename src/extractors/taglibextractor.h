@@ -62,6 +62,7 @@ private:
         TagLib::StringList genres;
         QVariant discNumber;
         QVariant opus;
+        QVariant rating;
     };
     void extractMP3(TagLib::FileStream& stream, ExtractedData& data);
     void extractMP4(TagLib::FileStream& stream, ExtractedData& data);

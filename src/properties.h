@@ -316,6 +316,11 @@ enum Property {
      */
     License,
 
+    /**
+     * For ratings stored in Metadata tags
+     */
+    Rating,
+
     PropertyCount,
     LastProperty = PropertyCount-1,
 

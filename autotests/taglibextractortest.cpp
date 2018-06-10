@@ -83,12 +83,12 @@ void TagLibExtractorTest::testOpus()
     QCOMPARE(resultOpus.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultOpus.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(resultOpus.properties().value(Property::Rating).toInt(), 1);
 }
 
 void TagLibExtractorTest::testFlac()
 {
     TagLibExtractor plugin{this};
-
     SimpleExtractionResult resultFlac(testFilePath("test.flac"), "audio/flac");
     plugin.extract(&resultFlac);
 
@@ -120,12 +120,12 @@ void TagLibExtractorTest::testFlac()
     QCOMPARE(resultFlac.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultFlac.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(resultFlac.properties().value(Property::Rating).toInt(), 10);
 }
 
 void TagLibExtractorTest::testOgg()
 {
     TagLibExtractor plugin{this};
-
     SimpleExtractionResult resultOgg(testFilePath("test.ogg"), "audio/ogg");
     plugin.extract(&resultOgg);
 
@@ -157,18 +157,17 @@ void TagLibExtractorTest::testOgg()
     QCOMPARE(resultOgg.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultOgg.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultOgg.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(resultOgg.properties().value(Property::Rating).toInt(), 5);
 }
 
 void TagLibExtractorTest::testMp3()
 {
     TagLibExtractor plugin{this};
-
     SimpleExtractionResult resultMp3(testFilePath("test.mp3"), "audio/mpeg");
     plugin.extract(&resultMp3);
 
     QCOMPARE(resultMp3.types().size(), 1);
     QCOMPARE(resultMp3.types().constFirst(), Type::Audio);
-
     QCOMPARE(resultMp3.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(resultMp3.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
     QCOMPARE(resultMp3.properties().value(Property::Album), QVariant(QStringLiteral("Album")));
@@ -185,12 +184,12 @@ void TagLibExtractorTest::testMp3()
     QCOMPARE(resultMp3.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMp3.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultMp3.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(resultMp3.properties().value(Property::Rating).toInt(), 10);
 }
 
 void TagLibExtractorTest::testMpc()
 {
     TagLibExtractor plugin{this};
-
     SimpleExtractionResult resultMpc(testFilePath("test.mpc"), "audio/x-musepack");
     plugin.extract(&resultMpc);
 
@@ -220,12 +219,12 @@ void TagLibExtractorTest::testMpc()
     QCOMPARE(resultMpc.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMpc.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultMpc.properties().value(Property::DiscNumber).isValid(), false);
+    QCOMPARE(resultMpc.properties().value(Property::Rating).toInt(), 4);
 }
 
 void TagLibExtractorTest::testMp4()
 {
     TagLibExtractor plugin{this};
-
     SimpleExtractionResult resultMp4(testFilePath("test.m4a"), "audio/mp4");
     plugin.extract(&resultMp4);
 
@@ -244,6 +243,77 @@ void TagLibExtractorTest::testMp4()
     QCOMPARE(resultMp4.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMp4.properties().value(Property::Channels).toInt(), 2);
     QCOMPARE(resultMp4.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(resultMp4.properties().value(Property::Rating).toInt(), 8);
+}
+
+void TagLibExtractorTest::testMP3Rating_data()
+{
+    QTest::addColumn<QString>("path");
+    QTest::addColumn<int>("expectedRating");
+
+    QTest::addRow("WMP")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP.mp3")
+        << 0 ;
+    QTest::addRow("WMP1")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP1.mp3")
+        << 2 ;
+    QTest::addRow("WMP2")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP2.mp3")
+        << 4 ;
+    QTest::addRow("WMP3")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP3.mp3")
+        << 6 ;
+    QTest::addRow("WMP4")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP4.mp3")
+        << 8 ;
+    QTest::addRow("WMP5")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP5.mp3")
+        << 10 ;
+    QTest::addRow("MM")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM.mp3")
+        << 0 ;
+    QTest::addRow("MM1")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM1.mp3")
+        << 1 ;
+    QTest::addRow("MM2")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM2.mp3")
+        << 2 ;
+    QTest::addRow("MM3")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM3.mp3")
+        << 3 ;
+    QTest::addRow("MM4")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM4.mp3")
+        << 4 ;
+    QTest::addRow("MM5")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM5.mp3")
+        << 5 ;
+    QTest::addRow("MM6")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM6.mp3")
+        << 6 ;
+    QTest::addRow("MM7")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM7.mp3")
+        << 7 ;
+    QTest::addRow("MM8")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM8.mp3")
+        << 8 ;
+    QTest::addRow("MM9")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM9.mp3")
+        << 9 ;
+    QTest::addRow("MM10")
+        << QFINDTESTDATA("samplefiles/mp3_rating/testMM10.mp3")
+        << 10 ;
+}
+
+void TagLibExtractorTest::testMP3Rating()
+{
+    QFETCH(QString, path);
+    QFETCH(int, expectedRating);
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult resultMp3(path, "audio/mpeg");
+    plugin.extract(&resultMp3);
+
+    QCOMPARE(resultMp3.properties().value(Property::Rating).toInt(), expectedRating);
 }
 
 void TagLibExtractorTest::testNoMetadata_data()
