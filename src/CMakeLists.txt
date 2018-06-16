@@ -16,6 +16,13 @@ set(KF5FileMetaData_SRCS
     )
 ecm_qt_declare_logging_category(KF5FileMetaData_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
 
+if(TAGLIB_FOUND)
+    set(KF5FileMetaData_SRCS
+        ${KF5FileMetaData_SRCS}
+        embeddedimagedata.cpp
+        )
+endif()
+
 add_library(KF5FileMetaData
     ${KF5FileMetaData_SRCS}
 )
@@ -28,6 +35,15 @@ target_link_libraries(KF5FileMetaData
   PRIVATE
     KF5::I18n
 )
+
+if(TAGLIB_FOUND)
+    include_directories(${TAGLIB_INCLUDES})
+
+    target_link_libraries(KF5FileMetaData
+        PUBLIC
+        ${TAGLIB_LIBRARIES}
+    )
+endif()
 
 generate_export_header(KF5FileMetaData BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)
 
@@ -55,6 +71,7 @@ ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     Writer
     WriterPlugin
     WriterCollection
+    EmbeddedImageData
 
     PREFIX kfilemetadata
     REQUIRED_HEADERS KF5FileMetaData_HEADERS
