@@ -87,7 +87,7 @@ void OdfExtractor::extract(ExtractionResult* result)
                 result->add(Property::Title, e.text());
             } else if (tagName == QLatin1String("dc:creator")) {
                 result->add(Property::Author, e.text());
-            } else if (tagName == QLatin1String("dc:langauge")) {
+            } else if (tagName == QLatin1String("dc:language")) {
                 result->add(Property::Langauge, e.text());
             }
 
