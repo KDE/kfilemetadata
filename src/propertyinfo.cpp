@@ -407,6 +407,12 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::String;
             break;
 
+        case Property::Lyrics:
+            d->name = QStringLiteral("lyrics");
+            d->displayName = i18nc("@label", "Lyrics");
+            d->valueType = QVariant::String;
+            break;
+
         case Property::Opus:
             d->name = QStringLiteral("opus");
             d->displayName = i18nc("@label", "Opus");
@@ -600,6 +606,7 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("label"), Property::Label },
         { QStringLiteral("compilation"), Property::Compilation },
         { QStringLiteral("license"), Property::License },
+        { QStringLiteral("lyrics"), Property::Lyrics },
         { QStringLiteral("creationdate"), Property::CreationDate },
         { QStringLiteral("keywords"), Property::Keywords },
         { QStringLiteral("width"), Property::Width },

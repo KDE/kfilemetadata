@@ -58,6 +58,7 @@ private:
         TagLib::String label;
         TagLib::String author;
         TagLib::String license;
+        TagLib::String lyrics;
         TagLib::String compilation;
         TagLib::StringList genres;
         QVariant discNumber;

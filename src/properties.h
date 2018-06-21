@@ -320,6 +320,10 @@ enum Property {
      * For ratings stored in Metadata tags
      */
     Rating,
+    /**
+     * Contains the lyrics of a song embedded in the file
+     */
+    Lyrics,
 
     PropertyCount,
     LastProperty = PropertyCount-1,

@@ -78,6 +78,7 @@ void TagLibExtractorTest::testOpus()
     QCOMPARE(resultOpus.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
     QCOMPARE(resultOpus.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
     QCOMPARE(resultOpus.properties().value(Property::License), QVariant(QStringLiteral("License")));
+    QCOMPARE(resultOpus.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(resultOpus.properties().value(Property::Opus).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::TrackNumber).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::ReleaseYear).toInt(), 2015);
@@ -115,6 +116,7 @@ void TagLibExtractorTest::testFlac()
     QCOMPARE(resultFlac.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
     QCOMPARE(resultFlac.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
     QCOMPARE(resultFlac.properties().value(Property::License), QVariant(QStringLiteral("License")));
+    QCOMPARE(resultFlac.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(resultFlac.properties().value(Property::Opus).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::TrackNumber).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::ReleaseYear).toInt(), 2015);
@@ -152,6 +154,7 @@ void TagLibExtractorTest::testOgg()
     QCOMPARE(resultOgg.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
     QCOMPARE(resultOgg.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
     QCOMPARE(resultOgg.properties().value(Property::License), QVariant(QStringLiteral("License")));
+    QCOMPARE(resultOgg.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(resultOgg.properties().value(Property::Opus).toInt(), 1);
     QCOMPARE(resultOgg.properties().value(Property::TrackNumber).toInt(), 1);
     QCOMPARE(resultOgg.properties().value(Property::ReleaseYear).toInt(), 2015);
@@ -180,6 +183,7 @@ void TagLibExtractorTest::testMp3()
     QCOMPARE(resultMp3.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
     QCOMPARE(resultMp3.properties().value(Property::Langauge), QVariant(QStringLiteral("Language")));
     QCOMPARE(resultMp3.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
+    QCOMPARE(resultMp3.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(resultMp3.properties().value(Property::TrackNumber).toInt(), 1);
     QCOMPARE(resultMp3.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMp3.properties().value(Property::Channels).toInt(), 1);
@@ -215,6 +219,7 @@ void TagLibExtractorTest::testMpc()
     QCOMPARE(resultMpc.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
     QCOMPARE(resultMpc.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
     QCOMPARE(resultMpc.properties().value(Property::License), QVariant(QStringLiteral("License")));
+    QCOMPARE(resultMpc.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(resultMpc.properties().value(Property::TrackNumber).toInt(), 1);
     QCOMPARE(resultMpc.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMpc.properties().value(Property::Channels).toInt(), 1);
@@ -239,6 +244,7 @@ void TagLibExtractorTest::testMp4()
     QCOMPARE(resultMp4.properties().value(Property::Comment), QVariant(QStringLiteral("Comment")));
     QCOMPARE(resultMp4.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
     QCOMPARE(resultMp4.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
+    QCOMPARE(resultMp4.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(resultMp4.properties().value(Property::TrackNumber).toInt(), 1);
     QCOMPARE(resultMp4.properties().value(Property::ReleaseYear).toInt(), 2015);
     QCOMPARE(resultMp4.properties().value(Property::Channels).toInt(), 2);

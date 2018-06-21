@@ -198,6 +198,17 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
         }
     }
 
+    // Lyrics.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["USLT"];
+    if (!lstID3v2.isEmpty()) {
+        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
+            if (!data.lyrics.isEmpty()) {
+                data.lyrics += ", ";
+            }
+            data.lyrics += (*it)->toString();
+        }
+    }
+
     // Compilation.
     lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCMP"];
     if (!lstID3v2.isEmpty()) {
@@ -283,6 +294,11 @@ void TagLibExtractor::extractMP4(TagLib::FileStream& stream, ExtractedData& data
         data.rating = itRating->second.toStringList().toString().toInt() / 10;
     }
 
+    TagLib::String lyricsAtomName(TagLib::String("©lyr", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
+    TagLib::MP4::ItemListMap::Iterator itLyrics = allTags.find(lyricsAtomName);
+    if (itLyrics != allTags.end()) {
+        data.lyrics = itLyrics->second.toStringList().toString(", ");
+    }
 }
 
 void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData& data)
@@ -413,6 +429,14 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
             data.license += ", ";
         }
         data.license += (*itMPC).second.toString();
+    }
+
+    itMPC = lstMusepack.find("LYRICS");
+    if (itMPC != lstMusepack.end()) {
+        if (!data.lyrics.isEmpty()) {
+            data.lyrics += ", ";
+        }
+        data.lyrics += (*itMPC).second.toString();
     }
 
     itMPC = lstMusepack.find("COMPILATION");
@@ -594,6 +618,14 @@ void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mime
                 data.license += ", ";
             }
             data.license += (*itOgg).second.toString(", ");
+        }
+
+        itOgg = lstOgg.find("LYRICS");
+        if (itOgg != lstOgg.end()) {
+            if (!data.lyrics.isEmpty()) {
+                data.lyrics += ", ";
+            }
+            data.lyrics += (*itOgg).second.toString(", ");
         }
 
         itOgg = lstOgg.find("COMPILATION");
@@ -814,6 +846,11 @@ void TagLibExtractor::extract(ExtractionResult* result)
         QStringList compilations = contactsFromString(compilationString);
         foreach(const QString& arr, compilations) {
             result->add(Property::Compilation, arr);
+        }
+
+        QString lyricsString = convertWCharsToQString(data.lyrics).trimmed();
+        if (!lyricsString.isEmpty()) {
+            result->add(Property::Lyrics, lyricsString);
         }
 
         if (data.opus.isValid()) {
