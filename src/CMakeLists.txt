@@ -40,7 +40,7 @@ if(TAGLIB_FOUND)
     include_directories(${TAGLIB_INCLUDES})
 
     target_link_libraries(KF5FileMetaData
-        PUBLIC
+        PRIVATE
         ${TAGLIB_LIBRARIES}
     )
 endif()
