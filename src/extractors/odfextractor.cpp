@@ -28,6 +28,25 @@
 #include <QDomDocument>
 #include <QXmlStreamReader>
 
+namespace {
+
+inline QString dcNS()     { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
+inline QString metaNS()   { return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:meta:1.0"); }
+inline QString officeNS() { return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:office:1.0"); }
+
+QDomElement firstChildElementNS(const QDomNode &node, const QString &nsURI, const QString &localName)
+{
+    for (auto e = node.firstChildElement(); !e.isNull(); e = e.nextSiblingElement()) {
+        if (e.localName() == localName && e.namespaceURI() == nsURI) {
+            return e;
+        }
+    }
+
+    return QDomElement();
+}
+
+}
+
 using namespace KFileMetaData;
 
 OdfExtractor::OdfExtractor(QObject* parent)
@@ -68,50 +87,57 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     QDomDocument metaData(QStringLiteral("metaData"));
-    metaData.setContent(static_cast<const KArchiveFile*>(metaXml)->data());
+    metaData.setContent(static_cast<const KArchiveFile*>(metaXml)->data(), true);
 
     // parse metadata ...
-    QDomElement docElem = metaData.documentElement();
-    QDomNode n = docElem.firstChild().firstChild(); // <office:document-meta> ... <office:meta> ... content
+    QDomElement meta = firstChildElementNS(firstChildElementNS(metaData,
+                                                               officeNS(), QStringLiteral("document-meta")),
+                                                               officeNS(), QStringLiteral("meta"));
+
+    QDomNode n = meta.firstChild();
     while (!n.isNull()) {
         QDomElement e = n.toElement();
         if (!e.isNull()) {
-            const QString tagName = e.tagName();
+            const QString namespaceURI = e.namespaceURI();
+            const QString localName = e.localName();
 
             // Dublin Core
-            if (tagName == QLatin1String("dc:description")) {
-                result->add(Property::Comment, e.text());
-            } else if (tagName == QLatin1String("dc:subject")) {
-                result->add(Property::Subject, e.text());
-            } else if (tagName == QLatin1String("dc:title")) {
-                result->add(Property::Title, e.text());
-            } else if (tagName == QLatin1String("dc:creator")) {
-                result->add(Property::Author, e.text());
-            } else if (tagName == QLatin1String("dc:language")) {
-                result->add(Property::Langauge, e.text());
+            if (namespaceURI == dcNS()) {
+                if (localName == QLatin1String("description")) {
+                    result->add(Property::Comment, e.text());
+                } else if (localName == QLatin1String("subject")) {
+                    result->add(Property::Subject, e.text());
+                } else if (localName == QLatin1String("title")) {
+                    result->add(Property::Title, e.text());
+                } else if (localName == QLatin1String("creator")) {
+                    result->add(Property::Author, e.text());
+                } else if (localName == QLatin1String("language")) {
+                    result->add(Property::Langauge, e.text());
+                }
             }
-
             // Meta Properties
-            else if (tagName == QLatin1String("meta:document-statistic")) {
-                bool ok = false;
-                int pageCount = e.attribute(QStringLiteral("meta:page-count")).toInt(&ok);
-                if (ok) {
-                    result->add(Property::PageCount, pageCount);
-                }
+            else if (namespaceURI == metaNS()) {
+                if (localName == QLatin1String("document-statistic")) {
+                    bool ok = false;
+                    int pageCount = e.attributeNS(metaNS(), QStringLiteral("page-count")).toInt(&ok);
+                    if (ok) {
+                        result->add(Property::PageCount, pageCount);
+                    }
 
-                int wordCount = e.attribute(QStringLiteral("meta:word-count")).toInt(&ok);
-                if (ok) {
-                    result->add(Property::WordCount, wordCount);
-                }
-            } else if (tagName == QLatin1String("meta:keyword")) {
-                QString keywords = e.text();
+                    int wordCount = e.attributeNS(metaNS(), QStringLiteral("word-count")).toInt(&ok);
+                    if (ok) {
+                        result->add(Property::WordCount, wordCount);
+                    }
+                } else if (localName == QLatin1String("keyword")) {
+                    QString keywords = e.text();
                     result->add(Property::Keywords, keywords);
-            } else if (tagName == QLatin1String("meta:generator")) {
-                result->add(Property::Generator, e.text());
-            } else if (tagName == QLatin1String("meta:creation-date")) {
-                QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
-                if (!dt.isNull())
-                    result->add(Property::CreationDate, dt);
+                } else if (localName == QLatin1String("generator")) {
+                    result->add(Property::Generator, e.text());
+                } else if (localName == QLatin1String("creation-date")) {
+                    QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
+                    if (!dt.isNull())
+                        result->add(Property::CreationDate, dt);
+                }
             }
         }
         n = n.nextSibling();
