@@ -24,6 +24,7 @@
 #include "kfilemetadata_export.h"
 #include <QByteArray>
 #include <QFlags>
+#include <QMap>
 #include <memory>
 
 namespace KFileMetaData {
