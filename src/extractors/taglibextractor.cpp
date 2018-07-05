@@ -864,25 +864,25 @@ void TagLibExtractor::extract(ExtractionResult* result)
         if (data.rating.isValid()) {
             result->add(Property::Rating, data.rating);
         }
+    }
 
-        TagLib::AudioProperties* audioProp = file.audioProperties();
-        if (audioProp) {
-            if (audioProp->length()) {
-                // What about the xml duration?
-                result->add(Property::Duration, audioProp->length());
-            }
+    TagLib::AudioProperties* audioProp = file.audioProperties();
+    if (audioProp) {
+        if (audioProp->length()) {
+            // What about the xml duration?
+            result->add(Property::Duration, audioProp->length());
+        }
 
-            if (audioProp->bitrate()) {
-                result->add(Property::BitRate, audioProp->bitrate() * 1000);
-            }
+        if (audioProp->bitrate()) {
+            result->add(Property::BitRate, audioProp->bitrate() * 1000);
+        }
 
-            if (audioProp->channels()) {
-                result->add(Property::Channels, audioProp->channels());
-            }
+        if (audioProp->channels()) {
+            result->add(Property::Channels, audioProp->channels());
+        }
 
-            if (audioProp->sampleRate()) {
-                result->add(Property::SampleRate, audioProp->sampleRate());
-            }
+        if (audioProp->sampleRate()) {
+            result->add(Property::SampleRate, audioProp->sampleRate());
         }
     }
 }
