@@ -44,7 +44,7 @@ QStringList PopplerExtractor::mimetypes() const
 void PopplerExtractor::extract(ExtractionResult* result)
 {
     const QString fileUrl = result->inputUrl();
-    QScopedPointer<Poppler::Document> pdfDoc(Poppler::Document::load(fileUrl, 0, 0));
+    QScopedPointer<Poppler::Document> pdfDoc(Poppler::Document::load(fileUrl, QByteArray(), QByteArray()));
 
     if (!pdfDoc || pdfDoc->isLocked()) {
         return;
