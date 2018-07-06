@@ -101,17 +101,17 @@ endif()
 # TagLib
 #
 if(TAGLIB_FOUND)
-    include_directories(${TAGLIB_INCLUDES})
-
     kde_enable_exceptions()
     ecm_add_test(taglibextractortest.cpp ../src/extractors/taglibextractor.cpp
         TEST_NAME "taglibextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )
+    target_include_directories(taglibextractortest SYSTEM PRIVATE ${TAGLIB_INCLUDES})
     ecm_add_test(embeddedimagedatatest.cpp
         TEST_NAME "embeddedimagedatatest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )
+    target_include_directories(embeddedimagedatatest SYSTEM PRIVATE ${TAGLIB_INCLUDES})
 endif()
 
 
@@ -156,13 +156,12 @@ endif()
 # TagLib
 #
 if(TAGLIB_FOUND)
-    include_directories(${TAGLIB_INCLUDES})
-
     kde_enable_exceptions()
     ecm_add_test(taglibwritertest.cpp ../src/writers/taglibwriter.cpp
         TEST_NAME "taglibwritertest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )
+    target_include_directories(taglibwritertest SYSTEM PRIVATE ${TAGLIB_INCLUDES})
 endif()
 
 if(PYTHONINTERP_FOUND)

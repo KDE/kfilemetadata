@@ -37,7 +37,7 @@ target_link_libraries(KF5FileMetaData
 )
 
 if(TAGLIB_FOUND)
-    include_directories(${TAGLIB_INCLUDES})
+    target_include_directories(KF5FileMetaData SYSTEM PRIVATE ${TAGLIB_INCLUDES})
 
     target_link_libraries(KF5FileMetaData
         PRIVATE

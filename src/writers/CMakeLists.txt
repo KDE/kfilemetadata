@@ -1,7 +1,6 @@
 if(TAGLIB_FOUND)
-    include_directories( ${TAGLIB_INCLUDES} )
-
     add_library(kfilemetadata_taglibwriter MODULE taglibwriter.cpp)
+    target_include_directories(kfilemetadata_taglibwriter SYSTEM PRIVATE ${TAGLIB_INCLUDES})
 
     target_link_libraries( kfilemetadata_taglibwriter
         KF5::FileMetaData
