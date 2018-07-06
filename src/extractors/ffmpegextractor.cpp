@@ -68,19 +68,19 @@ QStringList FFmpegExtractor::mimetypes() const
 
 void FFmpegExtractor::extract(ExtractionResult* result)
 {
-    AVFormatContext* fmt_ctx = NULL;
+    AVFormatContext* fmt_ctx = nullptr;
 
     av_register_all();
 
     QByteArray arr = result->inputUrl().toUtf8();
 
     fmt_ctx = avformat_alloc_context();
-    if (int ret = avformat_open_input(&fmt_ctx, arr.data(), NULL, NULL)) {
+    if (int ret = avformat_open_input(&fmt_ctx, arr.data(), nullptr, nullptr)) {
         qWarning() << "avformat_open_input error: " << ret;
         return;
     }
 
-    int ret = avformat_find_stream_info(fmt_ctx, NULL);
+    int ret = avformat_find_stream_info(fmt_ctx, nullptr);
     if (ret < 0) {
         qWarning() << "avform_find_stream_info error: " << ret;
         return;
@@ -134,38 +134,38 @@ void FFmpegExtractor::extract(ExtractionResult* result)
     AVDictionary* dict = fmt_ctx->metadata;
     AVDictionaryEntry* entry;
 
-    entry = av_dict_get(dict, "title", NULL, 0);
+    entry = av_dict_get(dict, "title", nullptr, 0);
     if (entry) {
         result->add(Property::Title, QString::fromUtf8(entry->value));
     }
 
 
-    entry = av_dict_get(dict, "author", NULL, 0);
+    entry = av_dict_get(dict, "author", nullptr, 0);
     if (entry) {
         result->add(Property::Author, QString::fromUtf8(entry->value));
     }
 
-    entry = av_dict_get(dict, "copyright", NULL, 0);
+    entry = av_dict_get(dict, "copyright", nullptr, 0);
     if (entry) {
         result->add(Property::Copyright, QString::fromUtf8(entry->value));
     }
 
-    entry = av_dict_get(dict, "comment", NULL, 0);
+    entry = av_dict_get(dict, "comment", nullptr, 0);
     if (entry) {
         result->add(Property::Comment, QString::fromUtf8(entry->value));
     }
 
-    entry = av_dict_get(dict, "album", NULL, 0);
+    entry = av_dict_get(dict, "album", nullptr, 0);
     if (entry) {
         result->add(Property::Album, QString::fromUtf8(entry->value));
     }
 
-    entry = av_dict_get(dict, "genre", NULL, 0);
+    entry = av_dict_get(dict, "genre", nullptr, 0);
     if (entry) {
         result->add(Property::Genre, QString::fromUtf8(entry->value));
     }
 
-    entry = av_dict_get(dict, "track", NULL, 0);
+    entry = av_dict_get(dict, "track", nullptr, 0);
     if (entry) {
         QString value = QString::fromUtf8(entry->value);
 
@@ -175,7 +175,7 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             result->add(Property::TrackNumber, track);
     }
 
-    entry = av_dict_get(dict, "year", NULL, 0);
+    entry = av_dict_get(dict, "year", nullptr, 0);
     if (entry) {
         int year = QString::fromUtf8(entry->value).toInt();
         result->add(Property::ReleaseYear, year);
