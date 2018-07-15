@@ -24,6 +24,7 @@
 #include <QMap>
 #include <QVariant>
 
+/** @file properties.h <KFileMetaData/Properties> */
 namespace KFileMetaData {
 namespace Property {
 
