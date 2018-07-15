@@ -833,7 +833,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
         QString languageString = convertWCharsToQString(data.language).trimmed();
         QStringList languages = contactsFromString(languageString);
         foreach(const QString& arr, languages) {
-            result->add(Property::Langauge, arr);
+            result->add(Property::Language, arr);
         }
 
         QString licenseString = convertWCharsToQString(data.license).trimmed();

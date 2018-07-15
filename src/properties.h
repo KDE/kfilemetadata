@@ -162,12 +162,17 @@ enum Property {
     LineCount,
 
     /**
+     * Same as @c Language.
+     * @deprecated Since 5.50, use @c Language instead
+     */
+    Langauge,
+    /**
      * The language the document is written in. This directly maps to the
      * 'dc:language' tag from DublinCore. We do NOT employ any language
      * detection schemes on the text.
+     * @since 5.50
      */
-    //KF6 TODO: fix typo Langauge->Language
-    Langauge,
+    Language = Langauge,
 
     /**
      * The copyright of the file. Represented as a string.

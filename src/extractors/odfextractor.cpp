@@ -112,7 +112,7 @@ void OdfExtractor::extract(ExtractionResult* result)
                 } else if (localName == QLatin1String("creator")) {
                     result->add(Property::Author, e.text());
                 } else if (localName == QLatin1String("language")) {
-                    result->add(Property::Langauge, e.text());
+                    result->add(Property::Language, e.text());
                 }
             }
             // Meta Properties

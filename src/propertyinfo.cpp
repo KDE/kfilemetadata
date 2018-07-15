@@ -182,7 +182,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->shouldBeIndexed = false;
             break;
 
-        case Property::Langauge:
+        case Property::Language:
             d->name = QStringLiteral("language");
             d->displayName = i18nc("@label", "Language");
             d->valueType = QVariant::String;
@@ -600,7 +600,7 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("pagecount"), Property::PageCount },
         { QStringLiteral("wordcount"), Property::WordCount },
         { QStringLiteral("linecount"), Property::LineCount },
-        { QStringLiteral("language"), Property::Langauge },
+        { QStringLiteral("language"), Property::Language },
         { QStringLiteral("copyright"), Property::Copyright },
         { QStringLiteral("publisher"), Property::Publisher },
         { QStringLiteral("label"), Property::Label },

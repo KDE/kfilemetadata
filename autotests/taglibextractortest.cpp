@@ -71,7 +71,7 @@ void TagLibExtractorTest::testOpus()
     QCOMPARE(resultOpus.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
     QCOMPARE(resultOpus.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
     QCOMPARE(resultOpus.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
-    QCOMPARE(resultOpus.properties().value(Property::Langauge), QVariant(QStringLiteral("Language")));
+    QCOMPARE(resultOpus.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
     QCOMPARE(resultOpus.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
     QCOMPARE(resultOpus.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
     QCOMPARE(resultOpus.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
@@ -109,7 +109,7 @@ void TagLibExtractorTest::testFlac()
     QCOMPARE(resultFlac.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
     QCOMPARE(resultFlac.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
     QCOMPARE(resultFlac.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
-    QCOMPARE(resultFlac.properties().value(Property::Langauge), QVariant(QStringLiteral("Language")));
+    QCOMPARE(resultFlac.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
     QCOMPARE(resultFlac.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
     QCOMPARE(resultFlac.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
     QCOMPARE(resultFlac.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
@@ -147,7 +147,7 @@ void TagLibExtractorTest::testOgg()
     QCOMPARE(resultOgg.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
     QCOMPARE(resultOgg.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
     QCOMPARE(resultOgg.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
-    QCOMPARE(resultOgg.properties().value(Property::Langauge), QVariant(QStringLiteral("Language")));
+    QCOMPARE(resultOgg.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
     QCOMPARE(resultOgg.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
     QCOMPARE(resultOgg.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
     QCOMPARE(resultOgg.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
@@ -181,7 +181,7 @@ void TagLibExtractorTest::testMp3()
     QCOMPARE(resultMp3.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
     QCOMPARE(resultMp3.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
     QCOMPARE(resultMp3.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
-    QCOMPARE(resultMp3.properties().value(Property::Langauge), QVariant(QStringLiteral("Language")));
+    QCOMPARE(resultMp3.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
     QCOMPARE(resultMp3.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
     QCOMPARE(resultMp3.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(resultMp3.properties().value(Property::TrackNumber).toInt(), 1);
@@ -212,7 +212,7 @@ void TagLibExtractorTest::testMpc()
     QCOMPARE(resultMpc.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
     QCOMPARE(resultMpc.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
     QCOMPARE(resultMpc.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
-    QCOMPARE(resultMpc.properties().value(Property::Langauge), QVariant(QStringLiteral("Language")));
+    QCOMPARE(resultMpc.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
     QCOMPARE(resultMpc.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
     QCOMPARE(resultMpc.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
     QCOMPARE(resultMpc.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
