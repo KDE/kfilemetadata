@@ -330,6 +330,24 @@ enum Property {
      * Contains the lyrics of a song embedded in the file
      */
     Lyrics,
+    /**
+      * Contains ReplayGain information for audio files
+      */
+    ReplayGainAlbumPeak,
+    /**
+      * Contains ReplayGain information for audio files
+      * The album gain is given in "dB"
+      */
+    ReplayGainAlbumGain,
+    /**
+      * Contains ReplayGain information for audio files
+      */
+    ReplayGainTrackPeak,
+    /**
+      * Contains ReplayGain information for audio files
+      * The track gain is given in "dB"
+      */
+    ReplayGainTrackGain,
 
     PropertyCount,
     LastProperty = PropertyCount-1,

@@ -61,6 +61,10 @@ private:
         TagLib::String lyrics;
         TagLib::String compilation;
         TagLib::StringList genres;
+        QString replayGainAlbumGain;
+        QString replayGainAlbumPeak;
+        QString replayGainTrackGain;
+        QString replayGainTrackPeak;
         QVariant discNumber;
         QVariant opus;
         QVariant rating;

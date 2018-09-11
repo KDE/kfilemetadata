@@ -85,6 +85,10 @@ void TagLibExtractorTest::testOpus()
     QCOMPARE(resultOpus.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::DiscNumber).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::Rating).toInt(), 1);
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumGain), QVariant(10.00));
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.001));
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackGain), QVariant(11.23));
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackPeak), QVariant(1.032));
 }
 
 void TagLibExtractorTest::testFlac()
@@ -123,6 +127,10 @@ void TagLibExtractorTest::testFlac()
     QCOMPARE(resultFlac.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::DiscNumber).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::Rating).toInt(), 10);
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumGain), QVariant(-5.50));
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.203));
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackGain), QVariant(3.02));
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackPeak), QVariant(1.444));
 }
 
 void TagLibExtractorTest::testOgg()
@@ -161,6 +169,10 @@ void TagLibExtractorTest::testOgg()
     QCOMPARE(resultOgg.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultOgg.properties().value(Property::DiscNumber).toInt(), 1);
     QCOMPARE(resultOgg.properties().value(Property::Rating).toInt(), 5);
+    QCOMPARE(resultOgg.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.90));
+    QCOMPARE(resultOgg.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.512));
+    QCOMPARE(resultOgg.properties().value(Property::ReplayGainTrackGain), QVariant(-10.44));
+    QCOMPARE(resultOgg.properties().value(Property::ReplayGainTrackPeak), QVariant(1.301));
 }
 
 void TagLibExtractorTest::testMp3()
@@ -189,6 +201,10 @@ void TagLibExtractorTest::testMp3()
     QCOMPARE(resultMp3.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultMp3.properties().value(Property::DiscNumber).toInt(), 1);
     QCOMPARE(resultMp3.properties().value(Property::Rating).toInt(), 10);
+    QCOMPARE(resultMp3.properties().value(Property::ReplayGainAlbumGain), QVariant(-3.33));
+    QCOMPARE(resultMp3.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.333));
+    QCOMPARE(resultMp3.properties().value(Property::ReplayGainTrackGain), QVariant(3.33));
+    QCOMPARE(resultMp3.properties().value(Property::ReplayGainTrackPeak), QVariant(1.369));
 }
 
 void TagLibExtractorTest::testMpc()
@@ -225,6 +241,10 @@ void TagLibExtractorTest::testMpc()
     QCOMPARE(resultMpc.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultMpc.properties().value(Property::DiscNumber).isValid(), false);
     QCOMPARE(resultMpc.properties().value(Property::Rating).toInt(), 4);
+    QCOMPARE(resultMpc.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.44));
+    QCOMPARE(resultMpc.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.099));
+    QCOMPARE(resultMpc.properties().value(Property::ReplayGainTrackGain), QVariant(-5.23));
+    QCOMPARE(resultMpc.properties().value(Property::ReplayGainTrackPeak), QVariant(1.234));
 }
 
 void TagLibExtractorTest::testMp4()
@@ -325,11 +345,11 @@ void TagLibExtractorTest::testMP3Rating()
 void TagLibExtractorTest::testNoMetadata_data()
 {
     const auto expectedKeys = QList<Property::Property>{
-        Property::BitRate,
-        Property::Channels,
-        Property::Duration,
-        Property::SampleRate,
-    };
+            Property::BitRate,
+            Property::Channels,
+            Property::Duration,
+            Property::SampleRate,
+};
 
     QTest::addColumn<QString>("path");
     QTest::addColumn<QString>("mimeType");
@@ -337,40 +357,40 @@ void TagLibExtractorTest::testNoMetadata_data()
     QTest::addColumn<QString>("failMessage");
 
     QTest::addRow("mp3")
-        << QFINDTESTDATA("samplefiles/no-meta/test.mp3")
-        << QStringLiteral("audio/mp3")
-        << expectedKeys << QString()
-        ;
+            << QFINDTESTDATA("samplefiles/no-meta/test.mp3")
+            << QStringLiteral("audio/mp3")
+            << expectedKeys << QString()
+               ;
 
     QTest::addRow("m4a")
-        << QFINDTESTDATA("samplefiles/no-meta/test.m4a")
-        << QStringLiteral("audio/mp4")
-        << expectedKeys << QString()
-        ;
+            << QFINDTESTDATA("samplefiles/no-meta/test.m4a")
+            << QStringLiteral("audio/mp4")
+            << expectedKeys << QString()
+               ;
 
     QTest::addRow("flac")
-        << QFINDTESTDATA("samplefiles/no-meta/test.flac")
-        << QStringLiteral("audio/flac")
-        << expectedKeys << QString()
-        ;
+            << QFINDTESTDATA("samplefiles/no-meta/test.flac")
+            << QStringLiteral("audio/flac")
+            << expectedKeys << QString()
+               ;
 
     QTest::addRow("opus")
-        << QFINDTESTDATA("samplefiles/no-meta/test.opus")
-        << QStringLiteral("audio/opus")
-        << expectedKeys << QString()
-        ;
+            << QFINDTESTDATA("samplefiles/no-meta/test.opus")
+            << QStringLiteral("audio/opus")
+            << expectedKeys << QString()
+               ;
 
     QTest::addRow("ogg")
-        << QFINDTESTDATA("samplefiles/no-meta/test.ogg")
-        << QStringLiteral("audio/ogg")
-        << expectedKeys << QString()
-        ;
+            << QFINDTESTDATA("samplefiles/no-meta/test.ogg")
+            << QStringLiteral("audio/ogg")
+            << expectedKeys << QString()
+               ;
 
     QTest::addRow("mpc")
-        << QFINDTESTDATA("samplefiles/no-meta/test.mpc")
-        << QStringLiteral("audio/x-musepack")
-        << expectedKeys << QString()
-        ;
+            << QFINDTESTDATA("samplefiles/no-meta/test.mpc")
+            << QStringLiteral("audio/x-musepack")
+            << expectedKeys << QString()
+               ;
 
 }
 
@@ -400,15 +420,15 @@ void  TagLibExtractorTest::testNoMetadata()
         }
     } else if (missingKeys.size()) {
         const auto message = QStringLiteral("Missing properties: %1")
-            .arg(propertyEnumNames(missingKeys.toList()).join(QLatin1String(", ")));
+                .arg(propertyEnumNames(missingKeys.toList()).join(QLatin1String(", ")));
         QWARN(qPrintable(message));
     }
     QCOMPARE(resultKeys, expectedKeys);
     if (!failMessage.isEmpty()) {
         auto excessKeys = resultKeys.toSet() - expectedKeys.toSet();
         const auto message = QStringLiteral("%1: %2")
-            .arg(failMessage)
-            .arg(propertyEnumNames(excessKeys.toList()).join(QLatin1String(", ")));
+                .arg(failMessage)
+                .arg(propertyEnumNames(excessKeys.toList()).join(QLatin1String(", ")));
         QEXPECT_FAIL("", qPrintable(message), Continue);
     }
     QCOMPARE(resultKeys, expectedKeys);

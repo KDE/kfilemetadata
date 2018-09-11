@@ -38,6 +38,8 @@
 #include <opusfile.h>
 #include <xiphcomment.h>
 #include <popularimeterframe.h>
+#include <textidentificationframe.h>
+
 #include <QDateTime>
 #include <QDebug>
 
@@ -241,6 +243,33 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
             } else if (rating >= 1 && rating <= 255) {
                 data.rating = static_cast<int>(0.032 * rating + 2);
             }
+        }
+    }
+
+    // User Text Frame.
+    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TXXX"];
+    if (!lstID3v2.isEmpty()) {
+        // look for ReplayGain tags
+        typedef TagLib::ID3v2::UserTextIdentificationFrame IdFrame;
+
+        auto trackGainFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_track_gain");
+        if (trackGainFrame && !trackGainFrame->fieldList().isEmpty()) {
+            data.replayGainTrackGain = convertWCharsToQString(trackGainFrame->fieldList().back());
+        }
+
+        auto trackPeakFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_track_peak");
+        if (trackPeakFrame && !trackPeakFrame->fieldList().isEmpty()) {
+            data.replayGainTrackPeak = convertWCharsToQString(trackPeakFrame->fieldList().back());
+        }
+
+        auto albumGainFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_album_gain");
+        if (albumGainFrame && !albumGainFrame->fieldList().isEmpty()) {
+            data.replayGainAlbumGain = convertWCharsToQString(albumGainFrame->fieldList().back());
+        }
+
+        auto albumPeakFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_album_peak");
+        if (albumPeakFrame && !albumPeakFrame->fieldList().isEmpty()) {
+            data.replayGainAlbumPeak = convertWCharsToQString(albumPeakFrame->fieldList().back());
         }
     }
     //TODO handle TIPL tag
@@ -473,6 +502,26 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
            Make it compatible with baloo rating with a range from 0 to 10 */
         data.rating = (*itMPC).second.toString().toInt() / 10;
     }
+
+    itMPC = lstMusepack.find("REPLAYGAIN_TRACK_GAIN");
+    if (itMPC != lstMusepack.end()) {
+        data.replayGainTrackGain = convertWCharsToQString((*itMPC).second.toString());
+    }
+
+    itMPC = lstMusepack.find("REPLAYGAIN_TRACK_PEAK");
+    if (itMPC != lstMusepack.end()) {
+        data.replayGainTrackPeak = convertWCharsToQString((*itMPC).second.toString());
+    }
+
+    itMPC = lstMusepack.find("REPLAYGAIN_ALBUM_GAIN");
+    if (itMPC != lstMusepack.end()) {
+        data.replayGainAlbumGain = convertWCharsToQString((*itMPC).second.toString());
+    }
+
+    itMPC = lstMusepack.find("REPLAYGAIN_ALBUM_PEAK");
+    if (itMPC != lstMusepack.end()) {
+        data.replayGainAlbumPeak = convertWCharsToQString((*itMPC).second.toString());
+    }
 }
 
 void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mimeType, ExtractedData& data)
@@ -666,6 +715,26 @@ void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mime
             //most seem to follow with a range of 0 to 100 (stored in steps of 10).
             //make it compatible with baloo rating with a range from 0 to 10
             data.rating = (*itOgg).second.toString("").toInt() / 10;
+        }
+
+        itOgg = lstOgg.find("REPLAYGAIN_TRACK_GAIN");
+        if (itOgg != lstOgg.end()) {
+            data.replayGainTrackGain = convertWCharsToQString((*itOgg).second.toString(""));
+        }
+
+        itOgg = lstOgg.find("REPLAYGAIN_TRACK_PEAK");
+        if (itOgg != lstOgg.end()) {
+            data.replayGainTrackPeak = convertWCharsToQString((*itOgg).second.toString(""));
+        }
+
+        itOgg = lstOgg.find("REPLAYGAIN_ALBUM_GAIN");
+        if (itOgg != lstOgg.end()) {
+            data.replayGainAlbumGain = convertWCharsToQString((*itOgg).second.toString(""));
+        }
+
+        itOgg = lstOgg.find("REPLAYGAIN_ALBUM_PEAK");
+        if (itOgg != lstOgg.end()) {
+            data.replayGainAlbumPeak = convertWCharsToQString((*itOgg).second.toString(""));
         }
     }
 }
@@ -863,6 +932,48 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
         if (data.rating.isValid()) {
             result->add(Property::Rating, data.rating);
+        }
+
+        if (!data.replayGainAlbumGain.isEmpty()) {
+            /* remove " dB" suffix */
+            if (data.replayGainAlbumGain.endsWith(QStringLiteral(" dB"), Qt::CaseInsensitive))
+            {
+                data.replayGainAlbumGain.chop(3);
+            }
+            bool success = false;
+            double replayGainAlbumGain = data.replayGainAlbumGain.toDouble(&success);
+            if (success) {
+                result->add(Property::ReplayGainAlbumGain, replayGainAlbumGain);
+            }
+        }
+
+        if (!data.replayGainAlbumPeak.isEmpty()) {
+            bool success = false;
+            double replayGainAlbumPeak = data.replayGainAlbumPeak.toDouble(&success);
+            if (success) {
+                result->add(Property::ReplayGainAlbumPeak, replayGainAlbumPeak);
+            }
+        }
+
+        if (!data.replayGainTrackGain.isEmpty()) {
+            /* remove " dB" suffix */
+            if (data.replayGainTrackGain.endsWith(QStringLiteral(" dB"), Qt::CaseInsensitive))
+            {
+                data.replayGainTrackGain.chop(3);
+            }
+            bool success = false;
+            double replayGainTrackGain = data.replayGainTrackGain.toDouble(&success);
+            if (success) {
+                result->add(Property::ReplayGainTrackGain, replayGainTrackGain);
+            }
+        }
+
+        if (!data.replayGainTrackPeak.isEmpty()) {
+            bool success = false;
+            double replayGainTrackPeak = data.replayGainTrackPeak.toDouble(&success);
+            if (success) {
+                result->add(Property::ReplayGainTrackPeak, replayGainTrackPeak);
+            }
         }
     }
 

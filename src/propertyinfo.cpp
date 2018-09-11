@@ -425,6 +425,30 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->valueType = QVariant::Int;
             break;
 
+        case Property::ReplayGainAlbumPeak:
+            d->name = QStringLiteral("replayGainAlbumPeak");
+            d->displayName = i18nc("@label", "Replay Gain Album Peak");
+            d->valueType = QVariant::Double;
+            break;
+
+        case Property::ReplayGainAlbumGain:
+            d->name = QStringLiteral("replayGainAlbumGain");
+            d->displayName = i18nc("@label", "Replay Gain Album Gain");
+            d->valueType = QVariant::Double;
+            break;
+
+        case Property::ReplayGainTrackPeak:
+            d->name = QStringLiteral("replayGainTrackPeak");
+            d->displayName = i18nc("@label", "Replay Gain Track Peak");
+            d->valueType = QVariant::Double;
+            break;
+
+        case Property::ReplayGainTrackGain:
+            d->name = QStringLiteral("replayGainTrackGain");
+            d->displayName = i18nc("@label", "Replay Gain Track Gain");
+            d->valueType = QVariant::Double;
+            break;
+
         case Property::Width:
             d->name = QStringLiteral("width");
             d->displayName = i18nc("@label", "Width");
@@ -607,6 +631,10 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("compilation"), Property::Compilation },
         { QStringLiteral("license"), Property::License },
         { QStringLiteral("lyrics"), Property::Lyrics },
+        { QStringLiteral("replaygainalbumpeak"), Property::ReplayGainAlbumPeak },
+        { QStringLiteral("replaygainalbumgain"), Property::ReplayGainAlbumGain },
+        { QStringLiteral("replaygaintrackpeak"), Property::ReplayGainTrackPeak },
+        { QStringLiteral("replaygaintrackgain"), Property::ReplayGainTrackGain },
         { QStringLiteral("creationdate"), Property::CreationDate },
         { QStringLiteral("keywords"), Property::Keywords },
         { QStringLiteral("width"), Property::Width },
