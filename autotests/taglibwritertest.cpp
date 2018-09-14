@@ -39,6 +39,11 @@ void TagLibWriterTest::test()
     WriteData data(testFilePath(TEST_FILENAME), "audio/opus");
     data.add(Property::Title, "Title1");
     data.add(Property::Artist, "Artist1");
+    data.add(Property::Album, "Album1");
+    data.add(Property::TrackNumber, 10);
+    data.add(Property::ReleaseYear, 1999);
+    data.add(Property::Genre, "Genre1");
+    data.add(Property::Comment, "Comment1");
     writerPlugin.write(data);
 
     TagLib::FileRef file(testFilePath(TEST_FILENAME).toUtf8().constData(), true);
@@ -46,9 +51,19 @@ void TagLibWriterTest::test()
 
     QString extractedTitle = t2q(tags->title());
     QString extractedArtist = t2q(tags->artist());
+    QString extractedAlbum = t2q(tags->album());
+    uint extractedTrackNumber = tags->track();
+    uint extractedYear = tags->year();
+    QString extractedGenre = t2q(tags->genre());
+    QString extractedComment = t2q(tags->comment());
 
     QCOMPARE(extractedTitle, QStringLiteral("Title1"));
     QCOMPARE(extractedArtist, QStringLiteral("Artist1"));
+    QCOMPARE(extractedAlbum, QStringLiteral("Album1"));
+    QCOMPARE(extractedTrackNumber, 10u);
+    QCOMPARE(extractedYear, 1999u);
+    QCOMPARE(extractedGenre, QStringLiteral("Genre1"));
+    QCOMPARE(extractedComment, QStringLiteral("Comment1"));
 }
 
 void TagLibWriterTest::cleanupTestCase()

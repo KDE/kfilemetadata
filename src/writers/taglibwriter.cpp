@@ -43,7 +43,10 @@ void TagLibWriter::write(const WriteData& data)
     TagLib::Tag* tags = file.tag();
 
     TagLib::String title;
-    TagLib::String artists;
+    TagLib::String artist;
+    TagLib::String album;
+    TagLib::String genre;
+    TagLib::String comment;
 
     if (properties.contains(Property::Title)) {
         title = q2t(properties.value(Property::Title).toString());
@@ -51,9 +54,41 @@ void TagLibWriter::write(const WriteData& data)
     }
 
     if (properties.contains(Property::Artist)) {
-        artists = q2t(properties.value(Property::Artist).toString());
-        tags->setArtist(artists);
+        artist = q2t(properties.value(Property::Artist).toString());
+        tags->setArtist(artist);
     }
+
+    if (properties.contains(Property::Album)) {
+        album = q2t(properties.value(Property::Album).toString());
+        tags->setAlbum(album);
+    }
+
+    if (properties.contains(Property::TrackNumber)) {
+        int trackNumber = properties.value(Property::TrackNumber).toInt();
+        //taglib requires uint
+        if (trackNumber >= 0) {
+            tags->setTrack(trackNumber);
+        }
+    }
+
+    if (properties.contains(Property::ReleaseYear)) {
+        int year = properties.value(Property::ReleaseYear).toInt();
+        //taglib requires uint
+        if (year >= 0) {
+            tags->setYear(year);
+        }
+    }
+
+    if (properties.contains(Property::Genre)) {
+        genre = q2t(properties.value(Property::Genre).toString());
+        tags->setGenre(genre);
+    }
+
+    if (properties.contains(Property::Comment)) {
+        comment = q2t(properties.value(Property::Comment).toString());
+        tags->setComment(comment);
+    }
+
 
     file.save();
 }
