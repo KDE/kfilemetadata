@@ -45,11 +45,6 @@
 
 using namespace KFileMetaData;
 
-static QString convertWCharsToQString(const TagLib::String& t)
-{
-    return QString::fromWCharArray((const wchar_t*)t.toCWString(), t.length());
-}
-
 TagLibExtractor::TagLibExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
@@ -254,22 +249,22 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
 
         auto trackGainFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_track_gain");
         if (trackGainFrame && !trackGainFrame->fieldList().isEmpty()) {
-            data.replayGainTrackGain = convertWCharsToQString(trackGainFrame->fieldList().back());
+            data.replayGainTrackGain = TStringToQString(trackGainFrame->fieldList().back());
         }
 
         auto trackPeakFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_track_peak");
         if (trackPeakFrame && !trackPeakFrame->fieldList().isEmpty()) {
-            data.replayGainTrackPeak = convertWCharsToQString(trackPeakFrame->fieldList().back());
+            data.replayGainTrackPeak = TStringToQString(trackPeakFrame->fieldList().back());
         }
 
         auto albumGainFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_album_gain");
         if (albumGainFrame && !albumGainFrame->fieldList().isEmpty()) {
-            data.replayGainAlbumGain = convertWCharsToQString(albumGainFrame->fieldList().back());
+            data.replayGainAlbumGain = TStringToQString(albumGainFrame->fieldList().back());
         }
 
         auto albumPeakFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_album_peak");
         if (albumPeakFrame && !albumPeakFrame->fieldList().isEmpty()) {
-            data.replayGainAlbumPeak = convertWCharsToQString(albumPeakFrame->fieldList().back());
+            data.replayGainAlbumPeak = TStringToQString(albumPeakFrame->fieldList().back());
         }
     }
     //TODO handle TIPL tag
@@ -505,22 +500,22 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
 
     itMPC = lstMusepack.find("REPLAYGAIN_TRACK_GAIN");
     if (itMPC != lstMusepack.end()) {
-        data.replayGainTrackGain = convertWCharsToQString((*itMPC).second.toString());
+        data.replayGainTrackGain = TStringToQString((*itMPC).second.toString());
     }
 
     itMPC = lstMusepack.find("REPLAYGAIN_TRACK_PEAK");
     if (itMPC != lstMusepack.end()) {
-        data.replayGainTrackPeak = convertWCharsToQString((*itMPC).second.toString());
+        data.replayGainTrackPeak = TStringToQString((*itMPC).second.toString());
     }
 
     itMPC = lstMusepack.find("REPLAYGAIN_ALBUM_GAIN");
     if (itMPC != lstMusepack.end()) {
-        data.replayGainAlbumGain = convertWCharsToQString((*itMPC).second.toString());
+        data.replayGainAlbumGain = TStringToQString((*itMPC).second.toString());
     }
 
     itMPC = lstMusepack.find("REPLAYGAIN_ALBUM_PEAK");
     if (itMPC != lstMusepack.end()) {
-        data.replayGainAlbumPeak = convertWCharsToQString((*itMPC).second.toString());
+        data.replayGainAlbumPeak = TStringToQString((*itMPC).second.toString());
     }
 }
 
@@ -719,22 +714,22 @@ void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mime
 
         itOgg = lstOgg.find("REPLAYGAIN_TRACK_GAIN");
         if (itOgg != lstOgg.end()) {
-            data.replayGainTrackGain = convertWCharsToQString((*itOgg).second.toString(""));
+            data.replayGainTrackGain = TStringToQString((*itOgg).second.toString(""));
         }
 
         itOgg = lstOgg.find("REPLAYGAIN_TRACK_PEAK");
         if (itOgg != lstOgg.end()) {
-            data.replayGainTrackPeak = convertWCharsToQString((*itOgg).second.toString(""));
+            data.replayGainTrackPeak = TStringToQString((*itOgg).second.toString(""));
         }
 
         itOgg = lstOgg.find("REPLAYGAIN_ALBUM_GAIN");
         if (itOgg != lstOgg.end()) {
-            data.replayGainAlbumGain = convertWCharsToQString((*itOgg).second.toString(""));
+            data.replayGainAlbumGain = TStringToQString((*itOgg).second.toString(""));
         }
 
         itOgg = lstOgg.find("REPLAYGAIN_ALBUM_PEAK");
         if (itOgg != lstOgg.end()) {
-            data.replayGainAlbumPeak = convertWCharsToQString((*itOgg).second.toString(""));
+            data.replayGainAlbumPeak = TStringToQString((*itOgg).second.toString(""));
         }
     }
 }
@@ -779,12 +774,12 @@ void TagLibExtractor::extract(ExtractionResult* result)
     }
 
     if (!tags->isEmpty()) {
-        QString title = convertWCharsToQString(tags->title());
+        QString title = TStringToQString(tags->title());
         if (!title.isEmpty()) {
             result->add(Property::Title, title);
         }
 
-        QString comment = convertWCharsToQString(tags->comment());
+        QString comment = TStringToQString(tags->comment());
         if (!comment.isEmpty()) {
             result->add(Property::Comment, comment);
         }
@@ -794,43 +789,43 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
 
         for (uint i = 0; i < data.genres.size(); i++) {
-            QString genre = convertWCharsToQString(data.genres[i]).trimmed();
+            QString genre = TStringToQString(data.genres[i]).trimmed();
             if (!genre.isEmpty()) {
                 // Convert from int
                 bool ok = false;
                 int genreNum = genre.toInt(&ok);
                 if (ok) {
-                    genre = convertWCharsToQString(TagLib::ID3v1::genre(genreNum));
+                    genre = TStringToQString(TagLib::ID3v1::genre(genreNum));
                 }
                 result->add(Property::Genre, genre);
             }
         }
 
         const auto artistString = data.artists.isEmpty()
-                ? convertWCharsToQString(tags->artist())
-                : convertWCharsToQString(data.artists).trimmed();
+                ? TStringToQString(tags->artist())
+                : TStringToQString(data.artists).trimmed();
         const auto artists = contactsFromString(artistString);
         for (auto& artist : artists) {
             result->add(Property::Artist, artist);
         }
 
-        const auto  composersString = convertWCharsToQString(data.composers).trimmed();
+        const auto  composersString = TStringToQString(data.composers).trimmed();
         const auto composers = contactsFromString(composersString);
         for (auto& comp : composers) {
             result->add(Property::Composer, comp);
         }
 
-        const auto lyricistsString = convertWCharsToQString(data.lyricists).trimmed();
+        const auto lyricistsString = TStringToQString(data.lyricists).trimmed();
         const auto lyricists = contactsFromString(lyricistsString);
         for (auto& lyr : lyricists) {
             result->add(Property::Lyricist, lyr);
         }
 
-        const auto album = convertWCharsToQString(tags->album());
+        const auto album = TStringToQString(tags->album());
         if (!album.isEmpty()) {
             result->add(Property::Album, album);
 
-            const auto albumArtistsString = convertWCharsToQString(data.albumArtists).trimmed();
+            const auto albumArtistsString = TStringToQString(data.albumArtists).trimmed();
             const auto albumArtists = contactsFromString(albumArtistsString);
             for (auto& res : albumArtists) {
                 result->add(Property::AlbumArtist, res);
@@ -845,79 +840,79 @@ void TagLibExtractor::extract(ExtractionResult* result)
             result->add(Property::ReleaseYear, tags->year());
         }
 
-        QString locationsString = convertWCharsToQString(data.location).trimmed();
+        QString locationsString = TStringToQString(data.location).trimmed();
         QStringList locations = contactsFromString(locationsString);
         foreach(const QString& loc, locations) {
             result->add(Property::Location, loc);
         }
 
-        QString performersString = convertWCharsToQString(data.performer).trimmed();
+        QString performersString = TStringToQString(data.performer).trimmed();
         QStringList performers = contactsFromString(performersString);
         foreach(const QString& per, performers) {
             result->add(Property::Performer, per);
         }
 
-        QString ensembleString = convertWCharsToQString(data.ensemble).trimmed();
+        QString ensembleString = TStringToQString(data.ensemble).trimmed();
         QStringList ensembles = contactsFromString(ensembleString);
         foreach(const QString& ens, ensembles) {
             result->add(Property::Ensemble, ens);
         }
 
-        QString arrangerString = convertWCharsToQString(data.arranger).trimmed();
+        QString arrangerString = TStringToQString(data.arranger).trimmed();
         QStringList arrangers = contactsFromString(arrangerString);
         foreach(const QString& arr, arrangers) {
             result->add(Property::Arranger, arr);
         }
 
-        QString conductorString = convertWCharsToQString(data.conductor).trimmed();
+        QString conductorString = TStringToQString(data.conductor).trimmed();
         QStringList conductors = contactsFromString(conductorString);
         foreach(const QString& arr, conductors) {
             result->add(Property::Conductor, arr);
         }
 
-        QString publisherString = convertWCharsToQString(data.publisher).trimmed();
+        QString publisherString = TStringToQString(data.publisher).trimmed();
         QStringList publishers = contactsFromString(publisherString);
         foreach(const QString& arr, publishers) {
             result->add(Property::Publisher, arr);
         }
 
-        QString copyrightString = convertWCharsToQString(data.copyright).trimmed();
+        QString copyrightString = TStringToQString(data.copyright).trimmed();
         QStringList copyrights = contactsFromString(copyrightString);
         foreach(const QString& arr, copyrights) {
             result->add(Property::Copyright, arr);
         }
 
-        QString labelString = convertWCharsToQString(data.label).trimmed();
+        QString labelString = TStringToQString(data.label).trimmed();
         QStringList labels = contactsFromString(labelString);
         foreach(const QString& arr, labels) {
             result->add(Property::Label, arr);
         }
 
-        QString authorString = convertWCharsToQString(data.author).trimmed();
+        QString authorString = TStringToQString(data.author).trimmed();
         QStringList authors = contactsFromString(authorString);
         foreach(const QString& arr, authors) {
             result->add(Property::Author, arr);
         }
 
-        QString languageString = convertWCharsToQString(data.language).trimmed();
+        QString languageString = TStringToQString(data.language).trimmed();
         QStringList languages = contactsFromString(languageString);
         foreach(const QString& arr, languages) {
             result->add(Property::Language, arr);
         }
 
-        QString licenseString = convertWCharsToQString(data.license).trimmed();
+        QString licenseString = TStringToQString(data.license).trimmed();
         QStringList licenses = contactsFromString(licenseString);
         foreach(const QString& arr, licenses) {
             result->add(Property::License, arr);
         }
 
-        QString compilationString = convertWCharsToQString(data.compilation).trimmed();
+        QString compilationString = TStringToQString(data.compilation).trimmed();
         QStringList compilations = contactsFromString(compilationString);
         foreach(const QString& arr, compilations) {
             result->add(Property::Compilation, arr);
         }
 
-        QString lyricsString = convertWCharsToQString(data.lyrics).trimmed();
+        QString lyricsString = TStringToQString(data.lyrics).trimmed();
         if (!lyricsString.isEmpty()) {
             result->add(Property::Lyrics, lyricsString);
         }
