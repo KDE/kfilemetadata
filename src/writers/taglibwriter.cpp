@@ -12,11 +12,6 @@ TagLibWriter::TagLibWriter(QObject* parent)
 {
 }
 
-TagLib::String q2t(const QString& q)
-{
-    return TagLib::String(q.toStdWString());
-}
-
 QStringList TagLibWriter::writeMimetypes() const
 {
     QStringList types = {
@@ -54,17 +49,17 @@ void TagLibWriter::write(const WriteData& data)
     TagLib::String comment;
 
     if (properties.contains(Property::Title)) {
-        title = q2t(properties.value(Property::Title).toString());
+        title = QStringToTString(properties.value(Property::Title).toString());
         tags->setTitle(title);
     }
 
     if (properties.contains(Property::Artist)) {
-        artist = q2t(properties.value(Property::Artist).toString());
+        artist = QStringToTString(properties.value(Property::Artist).toString());
         tags->setArtist(artist);
     }
 
     if (properties.contains(Property::Album)) {
-        album = q2t(properties.value(Property::Album).toString());
+        album = QStringToTString(properties.value(Property::Album).toString());
         tags->setAlbum(album);
     }
 
@@ -85,12 +80,12 @@ void TagLibWriter::write(const WriteData& data)
     }
 
     if (properties.contains(Property::Genre)) {
-        genre = q2t(properties.value(Property::Genre).toString());
+        genre = QStringToTString(properties.value(Property::Genre).toString());
         tags->setGenre(genre);
     }
 
     if (properties.contains(Property::Comment)) {
-        comment = q2t(properties.value(Property::Comment).toString());
+        comment = QStringToTString(properties.value(Property::Comment).toString());
         tags->setComment(comment);
     }
 
