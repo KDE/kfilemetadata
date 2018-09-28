@@ -32,6 +32,8 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
+    void testCommonData();
+    void testCommonData_data();
     void testOpus();
     void testFlac();
     void testOgg();
