@@ -20,11 +20,16 @@ TagLib::String q2t(const QString& q)
 QStringList TagLibWriter::writeMimetypes() const
 {
     QStringList types = {
+        QStringLiteral("audio/flac"),
+        QStringLiteral("audio/mp4"),
         QStringLiteral("audio/mpeg"),
         QStringLiteral("audio/mpeg3"),
-        QStringLiteral("audio/x-mpeg"),
+        QStringLiteral("audio/ogg"),
         QStringLiteral("audio/opus"),
-        QStringLiteral("audio/x-opus+ogg")
+        QStringLiteral("audio/x-mpeg"),
+        QStringLiteral("audio/x-musepack"),
+        QStringLiteral("audio/x-opus+ogg"),
+        QStringLiteral("audio/x-vorbis+ogg"),
     };
 
     return types;

@@ -11,8 +11,6 @@
 #include <QDir>
 #include <QFile>
 
-#define TEST_FILENAME "writertest.opus"
-
 using namespace KFileMetaData;
 
 static QString t2q(const TagLib::String& t)
@@ -25,18 +23,18 @@ QString TagLibWriterTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QDir::separator() + fileName;
 }
 
-void TagLibWriterTest::initTestCase()
+void TagLibWriterTest::testCommonData()
 {
-    QFile testFile(testFilePath("test.opus"));
-    QFile writerTestFile(testFilePath(TEST_FILENAME));
-    QFile::copy(testFilePath("test.opus"), testFilePath(TEST_FILENAME));
-}
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
 
-void TagLibWriterTest::test()
-{
+    QString temporaryFileName = QStringLiteral("writertest.") + fileType;
+
+    QFile::copy(testFilePath("test." + fileType), testFilePath(temporaryFileName));
     TagLibWriter writerPlugin{this};
+    QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
 
-    WriteData data(testFilePath(TEST_FILENAME), "audio/opus");
+    WriteData data(testFilePath(temporaryFileName), mimeType);
     data.add(Property::Title, "Title1");
     data.add(Property::Artist, "Artist1");
     data.add(Property::Album, "Album1");
@@ -46,7 +44,7 @@ void TagLibWriterTest::test()
     data.add(Property::Comment, "Comment1");
     writerPlugin.write(data);
 
-    TagLib::FileRef file(testFilePath(TEST_FILENAME).toUtf8().constData(), true);
+    TagLib::FileRef file(testFilePath(temporaryFileName).toUtf8().constData(), true);
     TagLib::Tag* tags = file.tag();
 
     QString extractedTitle = t2q(tags->title());
@@ -64,11 +62,44 @@ void TagLibWriterTest::test()
     QCOMPARE(extractedYear, 1999u);
     QCOMPARE(extractedGenre, QStringLiteral("Genre1"));
     QCOMPARE(extractedComment, QStringLiteral("Comment1"));
+
+    QFile::remove(testFilePath(temporaryFileName));
 }
 
-void TagLibWriterTest::cleanupTestCase()
+void TagLibWriterTest::testCommonData_data()
 {
-    QFile::remove(testFilePath(TEST_FILENAME));
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("flac")
+        << QStringLiteral("flac")
+        << QStringLiteral("audio/flac")
+        ;
+
+    QTest::addRow("m4a")
+        << QStringLiteral("m4a")
+        << QStringLiteral("audio/mp4")
+        ;
+
+    QTest::addRow("mp3")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        ;
+
+    QTest::addRow("mpc")
+        << QStringLiteral("mpc")
+        << QStringLiteral("audio/x-musepack")
+        ;
+
+    QTest::addRow("ogg")
+        << QStringLiteral("ogg")
+        << QStringLiteral("audio/ogg")
+        ;
+
+    QTest::addRow("opus")
+        << QStringLiteral("opus")
+        << QStringLiteral("audio/opus")
+        ;
 }
 
 QTEST_GUILESS_MAIN(TagLibWriterTest)

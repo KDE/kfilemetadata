@@ -10,9 +10,8 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
-    void initTestCase();
-    void test();
-    void cleanupTestCase();
+    void testCommonData();
+    void testCommonData_data();
 };
 
 #endif // TAGLIBWRITERTEST_H
