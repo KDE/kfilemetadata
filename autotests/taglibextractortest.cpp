@@ -79,6 +79,16 @@ void TagLibExtractorTest::testCommonData_data()
     QTest::addColumn<QString>("fileType");
     QTest::addColumn<QString>("mimeType");
 
+    QTest::addRow("aiff")
+        << QStringLiteral("aif")
+        << QStringLiteral("audio/x-aiff")
+        ;
+
+    QTest::addRow("ape")
+        << QStringLiteral("ape")
+        << QStringLiteral("audio/x-ape")
+        ;
+
     QTest::addRow("flac")
         << QStringLiteral("flac")
         << QStringLiteral("audio/flac")
@@ -107,6 +117,16 @@ void TagLibExtractorTest::testCommonData_data()
     QTest::addRow("opus")
         << QStringLiteral("opus")
         << QStringLiteral("audio/opus")
+        ;
+
+    QTest::addRow("wav")
+        << QStringLiteral("wav")
+        << QStringLiteral("audio/wav")
+        ;
+
+    QTest::addRow("wavpack")
+        << QStringLiteral("wv")
+        << QStringLiteral("audio/x-wavpack")
         ;
 }
 
