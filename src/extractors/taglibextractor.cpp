@@ -746,11 +746,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
         return;
     }
 
-#if (TAGLIB_MAJOR_VERSION > 1) || (TAGLIB_MAJOR_VERSION == 1 && TAGLIB_MINOR_VERSION >= 11)
     TagLib::FileRef file(&stream, true);
-#else
-    TagLib::FileRef file(stream.name());
-#endif
     if (file.isNull()) {
         qWarning() << "Unable to open file: " << fileUrl;
         return;
