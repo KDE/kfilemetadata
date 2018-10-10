@@ -124,7 +124,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         elem = docElem.firstChildElement(QStringLiteral("dcterms:created"));
         if (!elem.isNull()) {
             QString str = elem.text();
-            QDateTime dt = dateTimeFromString(elem.text());
+            QDateTime dt = dateTimeFromString(str);
             if (!dt.isNull()) {
                 result->add(Property::CreationDate, dt);
             }
