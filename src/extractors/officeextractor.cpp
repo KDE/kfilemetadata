@@ -53,7 +53,6 @@ QStringList OfficeExtractor::mimetypes() const
 
 void OfficeExtractor::extract(ExtractionResult* result)
 {
-    QVariantMap metadata;
     QStringList args;
     QString contents;
 
