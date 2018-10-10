@@ -2,7 +2,9 @@
 #include "indexerextractortestsconfig.h"
 #include "writers/taglibwriter.h"
 #include "writedata.h"
-
+#include <kfilemetadata/ExtractorCollection>
+#include <kfilemetadata/Extractor>
+#include <kfilemetadata/SimpleExtractionResult>
 #include "taglib.h"
 #include "fileref.h"
 
@@ -12,11 +14,6 @@
 #include <QFile>
 
 using namespace KFileMetaData;
-
-static QString t2q(const TagLib::String& t)
-{
-    return QString::fromWCharArray((const wchar_t*)t.toCWString(), t.length());
-}
 
 QString TagLibWriterTest::testFilePath(const QString& fileName) const
 {
@@ -46,24 +43,20 @@ void TagLibWriterTest::testCommonData()
     data.add(Property::Comment, QString(QStringLiteral("Comment1") + stringSuffix));
     writerPlugin.write(data);
 
-    TagLib::FileRef file(testFilePath(temporaryFileName).toUtf8().constData(), true);
-    TagLib::Tag* tags = file.tag();
+    KFileMetaData::ExtractorCollection extractors;
+    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
+    KFileMetaData::Extractor* ex = extractorList.first();
+    KFileMetaData::SimpleExtractionResult result(testFilePath(temporaryFileName), mimeType,
+                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
 
-    QString extractedTitle = t2q(tags->title());
-    QString extractedArtist = t2q(tags->artist());
-    QString extractedAlbum = t2q(tags->album());
-    uint extractedTrackNumber = tags->track();
-    uint extractedYear = tags->year();
-    QString extractedGenre = t2q(tags->genre());
-    QString extractedComment = t2q(tags->comment());
-
-    QCOMPARE(extractedTitle, QString(QStringLiteral("Title1") + stringSuffix));
-    QCOMPARE(extractedArtist, QString(QStringLiteral("Artist1") + stringSuffix));
-    QCOMPARE(extractedAlbum, QString(QStringLiteral("Album1") + stringSuffix));
-    QCOMPARE(extractedTrackNumber, 10u);
-    QCOMPARE(extractedYear, 1999u);
-    QCOMPARE(extractedGenre, QString(QStringLiteral("Genre1") + stringSuffix));
-    QCOMPARE(extractedComment, QString(QStringLiteral("Comment1") + stringSuffix));
+    ex->extract(&result);
+    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("Title1") + stringSuffix));
+    QCOMPARE(result.properties().value(Property::Artist), QVariant(QStringLiteral("Artist1") + stringSuffix));
+    QCOMPARE(result.properties().value(Property::Album), QVariant(QStringLiteral("Album1") + stringSuffix));
+    QCOMPARE(result.properties().value(Property::TrackNumber).toInt(), 10);
+    QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 1999);
+    QCOMPARE(result.properties().value(Property::Genre), QVariant(QStringLiteral("Genre1") + stringSuffix));
+    QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("Comment1") + stringSuffix));
 
     QFile::remove(testFilePath(temporaryFileName));
 }
