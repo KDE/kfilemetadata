@@ -128,6 +128,11 @@ void TagLibExtractorTest::testCommonData_data()
         << QStringLiteral("wv")
         << QStringLiteral("audio/x-wavpack")
         ;
+
+    QTest::addRow("wma")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        ;
 }
 
 void TagLibExtractorTest::testOpus()

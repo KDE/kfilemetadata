@@ -66,7 +66,8 @@ QStringList TagLibExtractor::mimetypes() const
         QStringLiteral("audio/wav"),
         QStringLiteral("audio/x-aiff"),
         QStringLiteral("audio/x-ape"),
-        QStringLiteral("audio/x-wavpack")
+        QStringLiteral("audio/x-wavpack"),
+        QStringLiteral("audio/x-ms-wma")
     };
 }
 
