@@ -71,18 +71,12 @@ QStringList TagLibExtractor::mimetypes() const
     };
 }
 
-void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data)
+void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractedData& data)
 {
-    // Handling multiple tags in mpeg files.
-    TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-    if (!mpegFile.ID3v2Tag() || mpegFile.ID3v2Tag()->isEmpty()) {
-        return;
-    }
-
     TagLib::ID3v2::FrameList lstID3v2;
 
     // Artist.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE1"];
+    lstID3v2 = Id3Tags->frameListMap()["TPE1"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.artists.isEmpty()) {
@@ -93,7 +87,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Album Artist.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE2"];
+    lstID3v2 = Id3Tags->frameListMap()["TPE2"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.albumArtists.isEmpty()) {
@@ -104,7 +98,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Composer.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCOM"];
+    lstID3v2 = Id3Tags->frameListMap()["TCOM"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.composers.isEmpty()) {
@@ -115,7 +109,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Lyricist.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TEXT"];
+    lstID3v2 = Id3Tags->frameListMap()["TEXT"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.lyricists.isEmpty()) {
@@ -126,7 +120,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Genre.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCON"];
+    lstID3v2 = Id3Tags->frameListMap()["TCON"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             data.genres.append((*it)->toString());
@@ -134,7 +128,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Disc number.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPOS"];
+    lstID3v2 = Id3Tags->frameListMap()["TPOS"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             data.discNumber = (*it)->toString().toInt();
@@ -142,7 +136,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Performer.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TMCL"];
+    lstID3v2 = Id3Tags->frameListMap()["TMCL"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.performer.isEmpty()) {
@@ -153,7 +147,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Conductor.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPE3"];
+    lstID3v2 = Id3Tags->frameListMap()["TPE3"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.conductor.isEmpty()) {
@@ -164,7 +158,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Publisher.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TPUB"];
+    lstID3v2 = Id3Tags->frameListMap()["TPUB"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.publisher.isEmpty()) {
@@ -175,7 +169,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Copyright.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCOP"];
+    lstID3v2 = Id3Tags->frameListMap()["TCOP"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.copyright.isEmpty()) {
@@ -186,7 +180,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Language.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TLAN"];
+    lstID3v2 = Id3Tags->frameListMap()["TLAN"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.language.isEmpty()) {
@@ -197,7 +191,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Lyrics.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["USLT"];
+    lstID3v2 = Id3Tags->frameListMap()["USLT"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.lyrics.isEmpty()) {
@@ -208,7 +202,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // Compilation.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TCMP"];
+    lstID3v2 = Id3Tags->frameListMap()["TCMP"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             if (!data.compilation.isEmpty()) {
@@ -222,7 +216,7 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     /* There is no standard regarding ratings. Most of the implementations match
        a 5 stars rating to a range of 0-255 for MP3.
        Match it to baloo rating with a range of 0 - 10 */
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["POPM"];
+    lstID3v2 = Id3Tags->frameListMap()["POPM"];
     if (!lstID3v2.isEmpty()) {
         for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
             TagLib::ID3v2::PopularimeterFrame *ratingFrame = static_cast<TagLib::ID3v2::PopularimeterFrame *>(*it);
@@ -243,27 +237,27 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     }
 
     // User Text Frame.
-    lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["TXXX"];
+    lstID3v2 = Id3Tags->frameListMap()["TXXX"];
     if (!lstID3v2.isEmpty()) {
         // look for ReplayGain tags
         typedef TagLib::ID3v2::UserTextIdentificationFrame IdFrame;
 
-        auto trackGainFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_track_gain");
+        auto trackGainFrame = IdFrame::find(Id3Tags, "replaygain_track_gain");
         if (trackGainFrame && !trackGainFrame->fieldList().isEmpty()) {
             data.replayGainTrackGain = TStringToQString(trackGainFrame->fieldList().back());
         }
 
-        auto trackPeakFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_track_peak");
+        auto trackPeakFrame = IdFrame::find(Id3Tags, "replaygain_track_peak");
         if (trackPeakFrame && !trackPeakFrame->fieldList().isEmpty()) {
             data.replayGainTrackPeak = TStringToQString(trackPeakFrame->fieldList().back());
         }
 
-        auto albumGainFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_album_gain");
+        auto albumGainFrame = IdFrame::find(Id3Tags, "replaygain_album_gain");
         if (albumGainFrame && !albumGainFrame->fieldList().isEmpty()) {
             data.replayGainAlbumGain = TStringToQString(albumGainFrame->fieldList().back());
         }
 
-        auto albumPeakFrame = IdFrame::find(mpegFile.ID3v2Tag(), "replaygain_album_peak");
+        auto albumPeakFrame = IdFrame::find(Id3Tags, "replaygain_album_peak");
         if (albumPeakFrame && !albumPeakFrame->fieldList().isEmpty()) {
             data.replayGainAlbumPeak = TStringToQString(albumPeakFrame->fieldList().back());
         }
@@ -271,13 +265,12 @@ void TagLibExtractor::extractMP3(TagLib::FileStream& stream, ExtractedData& data
     //TODO handle TIPL tag
 }
 
-void TagLibExtractor::extractMP4(TagLib::FileStream& stream, ExtractedData& data)
+void TagLibExtractor::extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractedData& data)
 {
-    TagLib::MP4::File mp4File(&stream, true);
-    if (!mp4File.tag() || mp4File.tag()->isEmpty()) {
+    TagLib::MP4::ItemListMap allTags = mp4Tags->itemListMap();
+    if (allTags.isEmpty()) {
         return;
     }
-    TagLib::MP4::ItemListMap allTags = mp4File.tag()->itemListMap();
 
     TagLib::MP4::ItemListMap::Iterator itAlbumArtists = allTags.find("aART");
     if (itAlbumArtists != allTags.end()) {
@@ -326,14 +319,12 @@ void TagLibExtractor::extractMP4(TagLib::FileStream& stream, ExtractedData& data
     }
 }
 
-void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData& data)
+void TagLibExtractor::extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& data)
 {
-    TagLib::MPC::File mpcFile(&stream, true);
-    if (!mpcFile.tag() || mpcFile.tag()->isEmpty()) {
+    TagLib::APE::ItemListMap lstMusepack = apeTags->itemListMap();
+    if (lstMusepack.isEmpty()) {
         return;
     }
-
-    TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();
     TagLib::APE::ItemListMap::ConstIterator itMPC;
 
     itMPC = lstMusepack.find("ARTIST");
@@ -520,218 +511,194 @@ void TagLibExtractor::extractMusePack(TagLib::FileStream& stream, ExtractedData&
     }
 }
 
-void TagLibExtractor::extractOgg(TagLib::FileStream& stream, const QString& mimeType, ExtractedData& data)
+void TagLibExtractor::extractVorbisTags(TagLib::Ogg::XiphComment* vorbisTags, ExtractedData& data)
 {
-    TagLib::Ogg::FieldListMap lstOgg;
+    TagLib::Ogg::FieldListMap lstOgg = vorbisTags->fieldListMap();
+    if (lstOgg.isEmpty()) {
+        return;
+    }
+    TagLib::Ogg::FieldListMap::ConstIterator itOgg;
 
-    if (mimeType == QStringLiteral("audio/flac")) {
-        TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
-            lstOgg = flacFile.xiphComment()->fieldListMap();
+    itOgg = lstOgg.find("ARTIST");
+    if (itOgg != lstOgg.end()) {
+        if (!data.artists.isEmpty()) {
+            data.artists += ", ";
         }
+        data.artists += (*itOgg).second.toString(", ");
     }
 
-    // Vorbis files.
-    if (mimeType == QStringLiteral("audio/ogg") || mimeType == QStringLiteral("audio/x-vorbis+ogg")) {
-        TagLib::Ogg::Vorbis::File oggFile(&stream, true);
-        if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
-            lstOgg = oggFile.tag()->fieldListMap();
+    itOgg = lstOgg.find("ALBUMARTIST");
+    if (itOgg == lstOgg.end())  {
+        itOgg = lstOgg.find("ALBUM ARTIST");
+    }
+    if (itOgg != lstOgg.end()) {
+        if (!data.albumArtists.isEmpty()) {
+            data.albumArtists += ", ";
         }
+        data.albumArtists += (*itOgg).second.toString(", ");
     }
 
-    if (mimeType == QStringLiteral("audio/opus") || mimeType == QStringLiteral("audio/x-opus+ogg")) {
-        TagLib::Ogg::Opus::File opusFile(&stream, true);
-        if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
-            lstOgg = opusFile.tag()->fieldListMap();
+    itOgg = lstOgg.find("COMPOSER");
+    if (itOgg != lstOgg.end()) {
+        if (!data.composers.isEmpty()) {
+            data.composers += ", ";
         }
+        data.composers += (*itOgg).second.toString(", ");
     }
 
-    // Handling OGG container tags.
-    if (!lstOgg.isEmpty()) {
-        TagLib::Ogg::FieldListMap::ConstIterator itOgg;
+    itOgg = lstOgg.find("LYRICIST");
+    if (itOgg != lstOgg.end()) {
+        if (!data.lyricists.isEmpty()) {
+            data.lyricists += ", ";
+        }
+        data.lyricists += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("ARTIST");
-        if (itOgg != lstOgg.end()) {
-            if (!data.artists.isEmpty()) {
-                data.artists += ", ";
-            }
-            data.artists += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("LOCATION");
+    if (itOgg != lstOgg.end()) {
+        if (!data.location.isEmpty()) {
+            data.location += ", ";
         }
+        data.location += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("ALBUMARTIST");
-        if (itOgg == lstOgg.end())  {
-            itOgg = lstOgg.find("ALBUM ARTIST");
+    itOgg = lstOgg.find("ARRANGER");
+    if (itOgg != lstOgg.end()) {
+        if (!data.arranger.isEmpty()) {
+            data.arranger += ", ";
         }
-        if (itOgg != lstOgg.end()) {
-            if (!data.albumArtists.isEmpty()) {
-                data.albumArtists += ", ";
-            }
-            data.albumArtists += (*itOgg).second.toString(", ");
-        }
+        data.arranger += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("COMPOSER");
-        if (itOgg != lstOgg.end()) {
-            if (!data.composers.isEmpty()) {
-                data.composers += ", ";
-            }
-            data.composers += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("PERFORMER");
+    if (itOgg != lstOgg.end()) {
+        if (!data.performer.isEmpty()) {
+            data.performer += ", ";
         }
+        data.performer += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("LYRICIST");
-        if (itOgg != lstOgg.end()) {
-            if (!data.lyricists.isEmpty()) {
-                data.lyricists += ", ";
-            }
-            data.lyricists += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("CONDUCTOR");
+    if (itOgg != lstOgg.end()) {
+        if (!data.conductor.isEmpty()) {
+            data.conductor += ", ";
         }
+        data.conductor += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("LOCATION");
-        if (itOgg != lstOgg.end()) {
-            if (!data.location.isEmpty()) {
-                data.location += ", ";
-            }
-            data.location += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("ENSEMBLE");
+    if (itOgg != lstOgg.end()) {
+        if (!data.ensemble.isEmpty()) {
+            data.ensemble += ", ";
         }
+        data.ensemble += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("ARRANGER");
-        if (itOgg != lstOgg.end()) {
-            if (!data.arranger.isEmpty()) {
-                data.arranger += ", ";
-            }
-            data.arranger += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("PUBLISHER");
+    if (itOgg != lstOgg.end()) {
+        if (!data.publisher.isEmpty()) {
+            data.publisher += ", ";
         }
+        data.publisher += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("PERFORMER");
-        if (itOgg != lstOgg.end()) {
-            if (!data.performer.isEmpty()) {
-                data.performer += ", ";
-            }
-            data.performer += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("COPYRIGHT");
+    if (itOgg != lstOgg.end()) {
+        if (!data.copyright.isEmpty()) {
+            data.copyright += ", ";
         }
+        data.copyright += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("CONDUCTOR");
-        if (itOgg != lstOgg.end()) {
-            if (!data.conductor.isEmpty()) {
-                data.conductor += ", ";
-            }
-            data.conductor += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("LABEL");
+    if (itOgg != lstOgg.end()) {
+        if (!data.label.isEmpty()) {
+            data.label += ", ";
         }
+        data.label += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("ENSEMBLE");
-        if (itOgg != lstOgg.end()) {
-            if (!data.ensemble.isEmpty()) {
-                data.ensemble += ", ";
-            }
-            data.ensemble += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("AUTHOR");
+    if (itOgg != lstOgg.end()) {
+        if (!data.author.isEmpty()) {
+            data.author += ", ";
         }
+        data.author += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("PUBLISHER");
-        if (itOgg != lstOgg.end()) {
-            if (!data.publisher.isEmpty()) {
-                data.publisher += ", ";
-            }
-            data.publisher += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("LICENSE");
+    if (itOgg != lstOgg.end()) {
+        if (!data.license.isEmpty()) {
+            data.license += ", ";
         }
+        data.license += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("COPYRIGHT");
-        if (itOgg != lstOgg.end()) {
-            if (!data.copyright.isEmpty()) {
-                data.copyright += ", ";
-            }
-            data.copyright += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("LYRICS");
+    if (itOgg != lstOgg.end()) {
+        if (!data.lyrics.isEmpty()) {
+            data.lyrics += ", ";
         }
+        data.lyrics += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("LABEL");
-        if (itOgg != lstOgg.end()) {
-            if (!data.label.isEmpty()) {
-                data.label += ", ";
-            }
-            data.label += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("COMPILATION");
+    if (itOgg != lstOgg.end()) {
+        if (!data.compilation.isEmpty()) {
+            data.compilation += ", ";
         }
+        data.compilation += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("AUTHOR");
-        if (itOgg != lstOgg.end()) {
-            if (!data.author.isEmpty()) {
-                data.author += ", ";
-            }
-            data.author += (*itOgg).second.toString(", ");
+    itOgg = lstOgg.find("LANGUAGE");
+    if (itOgg != lstOgg.end()) {
+        if (!data.language.isEmpty()) {
+            data.language += ", ";
         }
+        data.language += (*itOgg).second.toString(", ");
+    }
 
-        itOgg = lstOgg.find("LICENSE");
-        if (itOgg != lstOgg.end()) {
-            if (!data.license.isEmpty()) {
-                data.license += ", ";
-            }
-            data.license += (*itOgg).second.toString(", ");
-        }
+    itOgg = lstOgg.find("GENRE");
+    if (itOgg != lstOgg.end()) {
+        data.genres.append((*itOgg).second);
+    }
 
-        itOgg = lstOgg.find("LYRICS");
-        if (itOgg != lstOgg.end()) {
-            if (!data.lyrics.isEmpty()) {
-                data.lyrics += ", ";
-            }
-            data.lyrics += (*itOgg).second.toString(", ");
-        }
+    itOgg = lstOgg.find("DISCNUMBER");
+    if (itOgg != lstOgg.end()) {
+        data.discNumber = (*itOgg).second.toString("").toInt();
+    }
 
-        itOgg = lstOgg.find("COMPILATION");
-        if (itOgg != lstOgg.end()) {
-            if (!data.compilation.isEmpty()) {
-                data.compilation += ", ";
-            }
-            data.compilation += (*itOgg).second.toString(", ");
-        }
+    itOgg = lstOgg.find("OPUS");
+    if (itOgg != lstOgg.end()) {
+        data.opus = (*itOgg).second.toString("").toInt();
+    }
 
-        itOgg = lstOgg.find("LANGUAGE");
-        if (itOgg != lstOgg.end()) {
-            if (!data.language.isEmpty()) {
-                data.language += ", ";
-            }
-            data.language += (*itOgg).second.toString(", ");
-        }
+    itOgg = lstOgg.find("RATING");
+    if (itOgg != lstOgg.end()) {
+        //there is no standard regarding ratings. There is one implementation
+        //most seem to follow with a range of 0 to 100 (stored in steps of 10).
+        //make it compatible with baloo rating with a range from 0 to 10
+        data.rating = (*itOgg).second.toString("").toInt() / 10;
+    }
 
-        itOgg = lstOgg.find("GENRE");
-        if (itOgg != lstOgg.end()) {
-            data.genres.append((*itOgg).second);
-        }
+    itOgg = lstOgg.find("REPLAYGAIN_TRACK_GAIN");
+    if (itOgg != lstOgg.end()) {
+        data.replayGainTrackGain = TStringToQString((*itOgg).second.toString(""));
+    }
 
-        itOgg = lstOgg.find("DISCNUMBER");
-        if (itOgg != lstOgg.end()) {
-            data.discNumber = (*itOgg).second.toString("").toInt();
-        }
+    itOgg = lstOgg.find("REPLAYGAIN_TRACK_PEAK");
+    if (itOgg != lstOgg.end()) {
+        data.replayGainTrackPeak = TStringToQString((*itOgg).second.toString(""));
+    }
 
-        itOgg = lstOgg.find("OPUS");
-        if (itOgg != lstOgg.end()) {
-            data.opus = (*itOgg).second.toString("").toInt();
-        }
+    itOgg = lstOgg.find("REPLAYGAIN_ALBUM_GAIN");
+    if (itOgg != lstOgg.end()) {
+        data.replayGainAlbumGain = TStringToQString((*itOgg).second.toString(""));
+    }
 
-        // Rating.
-        itOgg = lstOgg.find("RATING");
-        if (itOgg != lstOgg.end()) {
-            //there is no standard regarding ratings. There is one implementation
-            //most seem to follow with a range of 0 to 100 (stored in steps of 10).
-            //make it compatible with baloo rating with a range from 0 to 10
-            data.rating = (*itOgg).second.toString("").toInt() / 10;
-        }
-
-        itOgg = lstOgg.find("REPLAYGAIN_TRACK_GAIN");
-        if (itOgg != lstOgg.end()) {
-            data.replayGainTrackGain = TStringToQString((*itOgg).second.toString(""));
-        }
-
-        itOgg = lstOgg.find("REPLAYGAIN_TRACK_PEAK");
-        if (itOgg != lstOgg.end()) {
-            data.replayGainTrackPeak = TStringToQString((*itOgg).second.toString(""));
-        }
-
-        itOgg = lstOgg.find("REPLAYGAIN_ALBUM_GAIN");
-        if (itOgg != lstOgg.end()) {
-            data.replayGainAlbumGain = TStringToQString((*itOgg).second.toString(""));
-        }
-
-        itOgg = lstOgg.find("REPLAYGAIN_ALBUM_PEAK");
-        if (itOgg != lstOgg.end()) {
-            data.replayGainAlbumPeak = TStringToQString((*itOgg).second.toString(""));
-        }
+    itOgg = lstOgg.find("REPLAYGAIN_ALBUM_PEAK");
+    if (itOgg != lstOgg.end()) {
+        data.replayGainAlbumPeak = TStringToQString((*itOgg).second.toString(""));
     }
 }
 
@@ -758,16 +725,37 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
     ExtractedData data;
 
-    if ((mimeType == QStringLiteral("audio/mpeg"))
-            || (mimeType == QStringLiteral("audio/mpeg3"))
+    if ((mimeType == QStringLiteral("audio/mpeg")) || (mimeType == QStringLiteral("audio/mpeg3"))
             || (mimeType == QStringLiteral("audio/x-mpeg"))) {
-        extractMP3(stream, data);
+        TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+        if (mpegFile.ID3v2Tag() || !mpegFile.ID3v2Tag()->isEmpty()) {
+            extractId3Tags(mpegFile.ID3v2Tag(), data);
+        }
     } else if (mimeType == QStringLiteral("audio/mp4")) {
-        extractMP4(stream, data);
+        TagLib::MP4::File mp4File(&stream, true);
+        if (mp4File.tag() || !mp4File.tag()->isEmpty()) {
+            extractMp4Tags(mp4File.tag(), data);
+        }
     } else if (mimeType == QStringLiteral("audio/x-musepack")) {
-        extractMusePack(stream, data);
-    } else {
-        extractOgg(stream, mimeType, data);
+        TagLib::MPC::File mpcFile(&stream, true);
+        if (mpcFile.APETag() || !mpcFile.APETag()->isEmpty()) {
+            extractApeTags(mpcFile.APETag(), data);
+        }
+    } else if (mimeType == QStringLiteral("audio/flac")) {
+        TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+        if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
+            extractVorbisTags(flacFile.xiphComment(), data);
+        }
+    } else if (mimeType == QStringLiteral("audio/ogg") || mimeType == QStringLiteral("audio/x-vorbis+ogg")) {
+        TagLib::Ogg::Vorbis::File oggFile(&stream, true);
+        if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
+            extractVorbisTags(oggFile.tag(), data);
+        }
+    } else if (mimeType == QStringLiteral("audio/opus") || mimeType == QStringLiteral("audio/x-opus+ogg")) {
+        TagLib::Ogg::Opus::File opusFile(&stream, true);
+        if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
+            extractVorbisTags(opusFile.tag(), data);
+        }
     }
 
     if (!tags->isEmpty()) {

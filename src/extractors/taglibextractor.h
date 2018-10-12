@@ -26,6 +26,22 @@
 #include <tstringlist.h>
 #include <tfilestream.h>
 
+namespace TagLib
+{
+    namespace ID3v2 {
+        class Tag;
+    }
+    namespace MP4 {
+        class Tag;
+    }
+    namespace APE {
+        class Tag;
+    }
+    namespace Ogg {
+        class XiphComment;
+    }
+}
+
 namespace KFileMetaData
 {
 
@@ -69,10 +85,10 @@ private:
         QVariant opus;
         QVariant rating;
     };
-    void extractMP3(TagLib::FileStream& stream, ExtractedData& data);
-    void extractMP4(TagLib::FileStream& stream, ExtractedData& data);
-    void extractMusePack(TagLib::FileStream& stream, ExtractedData& data);
-    void extractOgg(TagLib::FileStream& stream, const QString& mimetype, ExtractedData& data);
+    void extractId3Tags(TagLib::ID3v2::Tag* id3Tags, ExtractedData& data);
+    void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractedData& data);
+    void extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& data);
+    void extractVorbisTags(TagLib::Ogg::XiphComment* vorbisTags, ExtractedData& data);
 };
 
 }
