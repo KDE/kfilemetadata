@@ -117,6 +117,9 @@ QVariant toVariantString(const Exiv2::Value& value)
 }
 
 QVariant toVariant(const Exiv2::Value& value, QVariant::Type type) {
+    if (value.count() == 0) {
+        return QVariant();
+    }
     switch (type) {
     case QVariant::Int:
         return toVariantLong(value);
