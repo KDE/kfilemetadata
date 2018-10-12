@@ -161,11 +161,11 @@ void TagLibExtractorTest::testOpus()
     QCOMPARE(resultOpus.properties().value(Property::Opus).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultOpus.properties().value(Property::DiscNumber).toInt(), 1);
-    QCOMPARE(resultOpus.properties().value(Property::Rating).toInt(), 1);
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumGain), QVariant(10.00));
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.001));
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackGain), QVariant(11.23));
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackPeak), QVariant(1.032));
+    QCOMPARE(resultOpus.properties().value(Property::Rating).toInt(), 5);
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.90));
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.512));
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackGain), QVariant(-10.44));
+    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackPeak), QVariant(1.301));
 }
 
 void TagLibExtractorTest::testFlac()
@@ -193,11 +193,11 @@ void TagLibExtractorTest::testFlac()
     QCOMPARE(resultFlac.properties().value(Property::Opus).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::Channels).toInt(), 1);
     QCOMPARE(resultFlac.properties().value(Property::DiscNumber).toInt(), 1);
-    QCOMPARE(resultFlac.properties().value(Property::Rating).toInt(), 10);
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumGain), QVariant(-5.50));
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.203));
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackGain), QVariant(3.02));
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackPeak), QVariant(1.444));
+    QCOMPARE(resultFlac.properties().value(Property::Rating).toInt(), 5);
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.90));
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.512));
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackGain), QVariant(-10.44));
+    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackPeak), QVariant(1.301));
 }
 
 void TagLibExtractorTest::testOgg()
