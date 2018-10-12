@@ -135,130 +135,112 @@ void TagLibExtractorTest::testCommonData_data()
         ;
 }
 
-void TagLibExtractorTest::testOpus()
+void TagLibExtractorTest::testVorbisComment()
 {
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+
+    QString fileName = QStringLiteral("test.") + fileType;
+
     TagLibExtractor plugin{this};
+    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    plugin.extract(&result);
 
-    SimpleExtractionResult resultOpus(testFilePath("test.opus"), "audio/opus");
-    plugin.extract(&resultOpus);
-
-    QCOMPARE(resultOpus.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
-    QCOMPARE(resultOpus.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
-    QCOMPARE(resultOpus.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
-    QCOMPARE(resultOpus.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
-    QCOMPARE(resultOpus.properties().value(Property::Arranger), QVariant(QStringLiteral("Arranger")));
-    QCOMPARE(resultOpus.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
-    QCOMPARE(resultOpus.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
-    QCOMPARE(resultOpus.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
-    QCOMPARE(resultOpus.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
-    QCOMPARE(resultOpus.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
-    QCOMPARE(resultOpus.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
-    QCOMPARE(resultOpus.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
-    QCOMPARE(resultOpus.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
-    QCOMPARE(resultOpus.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
-    QCOMPARE(resultOpus.properties().value(Property::License), QVariant(QStringLiteral("License")));
-    QCOMPARE(resultOpus.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
-    QCOMPARE(resultOpus.properties().value(Property::Opus).toInt(), 1);
-    QCOMPARE(resultOpus.properties().value(Property::Channels).toInt(), 1);
-    QCOMPARE(resultOpus.properties().value(Property::DiscNumber).toInt(), 1);
-    QCOMPARE(resultOpus.properties().value(Property::Rating).toInt(), 5);
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.90));
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.512));
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackGain), QVariant(-10.44));
-    QCOMPARE(resultOpus.properties().value(Property::ReplayGainTrackPeak), QVariant(1.301));
+    QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
+    QCOMPARE(result.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
+    QCOMPARE(result.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
+    QCOMPARE(result.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
+    QCOMPARE(result.properties().value(Property::Arranger), QVariant(QStringLiteral("Arranger")));
+    QCOMPARE(result.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
+    QCOMPARE(result.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
+    QCOMPARE(result.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
+    QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
+    QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
+    QCOMPARE(result.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
+    QCOMPARE(result.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
+    QCOMPARE(result.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
+    QCOMPARE(result.properties().value(Property::License), QVariant(QStringLiteral("License")));
+    QCOMPARE(result.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
+    QCOMPARE(result.properties().value(Property::Opus).toInt(), 1);
+    QCOMPARE(result.properties().value(Property::Channels).toInt(), 1);
+    QCOMPARE(result.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(result.properties().value(Property::Rating).toInt(), 5);
+    QCOMPARE(result.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.90));
+    QCOMPARE(result.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.512));
+    QCOMPARE(result.properties().value(Property::ReplayGainTrackGain), QVariant(-10.44));
+    QCOMPARE(result.properties().value(Property::ReplayGainTrackPeak), QVariant(1.301));
 }
 
-void TagLibExtractorTest::testFlac()
+void TagLibExtractorTest::testVorbisComment_data()
 {
-    TagLibExtractor plugin{this};
-    SimpleExtractionResult resultFlac(testFilePath("test.flac"), "audio/flac");
-    plugin.extract(&resultFlac);
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
 
-    QCOMPARE(resultFlac.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
-    QCOMPARE(resultFlac.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
-    QCOMPARE(resultFlac.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
-    QCOMPARE(resultFlac.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
-    QCOMPARE(resultFlac.properties().value(Property::Arranger), QVariant(QStringLiteral("Arranger")));
-    QCOMPARE(resultFlac.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
-    QCOMPARE(resultFlac.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
-    QCOMPARE(resultFlac.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
-    QCOMPARE(resultFlac.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
-    QCOMPARE(resultFlac.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
-    QCOMPARE(resultFlac.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
-    QCOMPARE(resultFlac.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
-    QCOMPARE(resultFlac.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
-    QCOMPARE(resultFlac.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
-    QCOMPARE(resultFlac.properties().value(Property::License), QVariant(QStringLiteral("License")));
-    QCOMPARE(resultFlac.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
-    QCOMPARE(resultFlac.properties().value(Property::Opus).toInt(), 1);
-    QCOMPARE(resultFlac.properties().value(Property::Channels).toInt(), 1);
-    QCOMPARE(resultFlac.properties().value(Property::DiscNumber).toInt(), 1);
-    QCOMPARE(resultFlac.properties().value(Property::Rating).toInt(), 5);
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.90));
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.512));
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackGain), QVariant(-10.44));
-    QCOMPARE(resultFlac.properties().value(Property::ReplayGainTrackPeak), QVariant(1.301));
+    QTest::addRow("flac")
+        << QStringLiteral("flac")
+        << QStringLiteral("audio/flac")
+        ;
+
+    QTest::addRow("ogg")
+        << QStringLiteral("ogg")
+        << QStringLiteral("audio/ogg")
+        ;
+
+    QTest::addRow("opus")
+        << QStringLiteral("opus")
+        << QStringLiteral("audio/opus")
+        ;
 }
 
-void TagLibExtractorTest::testOgg()
+void TagLibExtractorTest::testId3()
 {
-    TagLibExtractor plugin{this};
-    SimpleExtractionResult resultOgg(testFilePath("test.ogg"), "audio/ogg");
-    plugin.extract(&resultOgg);
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
 
-    QCOMPARE(resultOgg.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
-    QCOMPARE(resultOgg.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
-    QCOMPARE(resultOgg.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
-    QCOMPARE(resultOgg.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
-    QCOMPARE(resultOgg.properties().value(Property::Arranger), QVariant(QStringLiteral("Arranger")));
-    QCOMPARE(resultOgg.properties().value(Property::Ensemble), QVariant(QStringLiteral("Ensemble")));
-    QCOMPARE(resultOgg.properties().value(Property::Location), QVariant(QStringLiteral("Location")));
-    QCOMPARE(resultOgg.properties().value(Property::Performer), QVariant(QStringLiteral("Performer")));
-    QCOMPARE(resultOgg.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
-    QCOMPARE(resultOgg.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
-    QCOMPARE(resultOgg.properties().value(Property::Label), QVariant(QStringLiteral("Label")));
-    QCOMPARE(resultOgg.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
-    QCOMPARE(resultOgg.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
-    QCOMPARE(resultOgg.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
-    QCOMPARE(resultOgg.properties().value(Property::License), QVariant(QStringLiteral("License")));
-    QCOMPARE(resultOgg.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
-    QCOMPARE(resultOgg.properties().value(Property::Opus).toInt(), 1);
-    QCOMPARE(resultOgg.properties().value(Property::Channels).toInt(), 1);
-    QCOMPARE(resultOgg.properties().value(Property::DiscNumber).toInt(), 1);
-    QCOMPARE(resultOgg.properties().value(Property::Rating).toInt(), 5);
-    QCOMPARE(resultOgg.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.90));
-    QCOMPARE(resultOgg.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.512));
-    QCOMPARE(resultOgg.properties().value(Property::ReplayGainTrackGain), QVariant(-10.44));
-    QCOMPARE(resultOgg.properties().value(Property::ReplayGainTrackPeak), QVariant(1.301));
+    QString fileName = QStringLiteral("test.") + fileType;
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
+    QCOMPARE(result.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
+    QCOMPARE(result.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
+    QCOMPARE(result.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
+    QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
+    QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
+    QCOMPARE(result.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
+    QCOMPARE(result.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
+    QCOMPARE(result.properties().value(Property::Channels).toInt(), 1);
+    QCOMPARE(result.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(result.properties().value(Property::Rating).toInt(), 10);
+    QCOMPARE(result.properties().value(Property::ReplayGainAlbumGain), QVariant(-3.33));
+    QCOMPARE(result.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.333));
+    QCOMPARE(result.properties().value(Property::ReplayGainTrackGain), QVariant(3.33));
+    QCOMPARE(result.properties().value(Property::ReplayGainTrackPeak), QVariant(1.369));
 }
 
-void TagLibExtractorTest::testMp3()
+void TagLibExtractorTest::testId3_data()
 {
-    TagLibExtractor plugin{this};
-    SimpleExtractionResult resultMp3(testFilePath("test.mp3"), "audio/mpeg");
-    plugin.extract(&resultMp3);
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
 
-    QCOMPARE(resultMp3.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
-    QCOMPARE(resultMp3.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
-    QCOMPARE(resultMp3.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
-    QCOMPARE(resultMp3.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
-    QCOMPARE(resultMp3.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
-    QCOMPARE(resultMp3.properties().value(Property::Language), QVariant(QStringLiteral("Language")));
-    QCOMPARE(resultMp3.properties().value(Property::Compilation), QVariant(QStringLiteral("Compilation")));
-    QCOMPARE(resultMp3.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
-    QCOMPARE(resultMp3.properties().value(Property::Channels).toInt(), 1);
-    QCOMPARE(resultMp3.properties().value(Property::DiscNumber).toInt(), 1);
-    QCOMPARE(resultMp3.properties().value(Property::Rating).toInt(), 10);
-    QCOMPARE(resultMp3.properties().value(Property::ReplayGainAlbumGain), QVariant(-3.33));
-    QCOMPARE(resultMp3.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.333));
-    QCOMPARE(resultMp3.properties().value(Property::ReplayGainTrackGain), QVariant(3.33));
-    QCOMPARE(resultMp3.properties().value(Property::ReplayGainTrackPeak), QVariant(1.369));
+    QTest::addRow("mp3")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg")
+        ;
 }
 
-void TagLibExtractorTest::testMpc()
+void TagLibExtractorTest::testApe()
 {
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+
+    QString fileName = QStringLiteral("test.") + fileType;
+
     TagLibExtractor plugin{this};
-    SimpleExtractionResult resultMpc(testFilePath("test.mpc"), "audio/x-musepack");
+    SimpleExtractionResult resultMpc(testFilePath(fileName), mimeType);
     plugin.extract(&resultMpc);
 
     QCOMPARE(resultMpc.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
@@ -285,10 +267,26 @@ void TagLibExtractorTest::testMpc()
     QCOMPARE(resultMpc.properties().value(Property::ReplayGainTrackPeak), QVariant(1.234));
 }
 
+void TagLibExtractorTest::testApe_data()
+{
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("musepack")
+        << QStringLiteral("mpc")
+        << QStringLiteral("audio/x-musepack")
+        ;
+}
+
 void TagLibExtractorTest::testMp4()
 {
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+
+    QString fileName = QStringLiteral("test.") + fileType;
+
     TagLibExtractor plugin{this};
-    SimpleExtractionResult resultMp4(testFilePath("test.m4a"), "audio/mp4");
+    SimpleExtractionResult resultMp4(testFilePath(fileName), mimeType);
     plugin.extract(&resultMp4);
 
     QCOMPARE(resultMp4.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
@@ -300,7 +298,18 @@ void TagLibExtractorTest::testMp4()
     QCOMPARE(resultMp4.properties().value(Property::Rating).toInt(), 8);
 }
 
-void TagLibExtractorTest::testMP3Rating_data()
+void TagLibExtractorTest::testMp4_data()
+{
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("mp4")
+        << QStringLiteral("m4a")
+        << QStringLiteral("audio/mp4")
+        ;
+}
+
+void TagLibExtractorTest::testId3Rating_data()
 {
     QTest::addColumn<QString>("path");
     QTest::addColumn<int>("expectedRating");
@@ -358,16 +367,16 @@ void TagLibExtractorTest::testMP3Rating_data()
         << 10 ;
 }
 
-void TagLibExtractorTest::testMP3Rating()
+void TagLibExtractorTest::testId3Rating()
 {
     QFETCH(QString, path);
     QFETCH(int, expectedRating);
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult resultMp3(path, "audio/mpeg");
-    plugin.extract(&resultMp3);
+    SimpleExtractionResult result(path, "audio/mpeg");
+    plugin.extract(&result);
 
-    QCOMPARE(resultMp3.properties().value(Property::Rating).toInt(), expectedRating);
+    QCOMPARE(result.properties().value(Property::Rating).toInt(), expectedRating);
 }
 
 void TagLibExtractorTest::testNoMetadata_data()
@@ -386,7 +395,7 @@ void TagLibExtractorTest::testNoMetadata_data()
 
     QTest::addRow("mp3")
             << QFINDTESTDATA("samplefiles/no-meta/test.mp3")
-            << QStringLiteral("audio/mp3")
+            << QStringLiteral("audio/mpeg")
             << expectedKeys << QString()
                ;
 

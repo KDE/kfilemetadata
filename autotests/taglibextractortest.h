@@ -34,14 +34,16 @@ private:
 private Q_SLOTS:
     void testCommonData();
     void testCommonData_data();
-    void testOpus();
-    void testFlac();
-    void testOgg();
-    void testMpc();
-    void testMp3();
+    void testVorbisComment();
+    void testVorbisComment_data();
+    void testId3();
+    void testId3_data();
+    void testApe();
+    void testApe_data();
     void testMp4();
-    void testMP3Rating_data();
-    void testMP3Rating();
+    void testMp4_data();
+    void testId3Rating_data();
+    void testId3Rating();
     void testNoMetadata();
     void testNoMetadata_data();
 
