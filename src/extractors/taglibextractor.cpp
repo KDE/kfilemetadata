@@ -24,6 +24,7 @@
 #include <fileref.h>
 #include <tfilestream.h>
 #include <flacfile.h>
+#include <apefile.h>
 #include <apetag.h>
 #include <mpcfile.h>
 #include <id3v2tag.h>
@@ -39,6 +40,7 @@
 #include <xiphcomment.h>
 #include <popularimeterframe.h>
 #include <textidentificationframe.h>
+#include <wavpackfile.h>
 
 #include <QDateTime>
 #include <QDebug>
@@ -743,6 +745,16 @@ void TagLibExtractor::extract(ExtractionResult* result)
         TagLib::MPC::File mpcFile(&stream, true);
         if (mpcFile.hasAPETag()) {
             extractApeTags(mpcFile.APETag(), data);
+        }
+    } else if (mimeType == QLatin1String("audio/x-ape")) {
+        TagLib::APE::File apeFile(&stream, true);
+        if (apeFile.hasAPETag()) {
+            extractApeTags(apeFile.APETag(), data);
+        }
+    } else if (mimeType == QLatin1String("audio/x-wavpack")) {
+        TagLib::WavPack::File wavpackFile(&stream, true);
+        if (wavpackFile.hasAPETag()) {
+            extractApeTags(wavpackFile.APETag(), data);
         }
     } else if (mimeType == QLatin1String("audio/flac")) {
         TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
