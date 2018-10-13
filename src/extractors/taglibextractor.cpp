@@ -73,6 +73,9 @@ QStringList TagLibExtractor::mimetypes() const
 
 void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractedData& data)
 {
+    if (Id3Tags->isEmpty()) {
+        return;
+    }
     TagLib::ID3v2::FrameList lstID3v2;
 
     // Artist.
@@ -267,10 +270,10 @@ void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractedData&
 
 void TagLibExtractor::extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractedData& data)
 {
-    TagLib::MP4::ItemListMap allTags = mp4Tags->itemListMap();
-    if (allTags.isEmpty()) {
+    if (mp4Tags->isEmpty()) {
         return;
     }
+    TagLib::MP4::ItemListMap allTags = mp4Tags->itemListMap();
 
     TagLib::MP4::ItemListMap::Iterator itAlbumArtists = allTags.find("aART");
     if (itAlbumArtists != allTags.end()) {
@@ -321,10 +324,10 @@ void TagLibExtractor::extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractedData& d
 
 void TagLibExtractor::extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& data)
 {
-    TagLib::APE::ItemListMap lstMusepack = apeTags->itemListMap();
-    if (lstMusepack.isEmpty()) {
+    if (apeTags->isEmpty()) {
         return;
     }
+    TagLib::APE::ItemListMap lstMusepack = apeTags->itemListMap();
     TagLib::APE::ItemListMap::ConstIterator itMPC;
 
     itMPC = lstMusepack.find("ARTIST");
@@ -513,10 +516,10 @@ void TagLibExtractor::extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& d
 
 void TagLibExtractor::extractVorbisTags(TagLib::Ogg::XiphComment* vorbisTags, ExtractedData& data)
 {
-    TagLib::Ogg::FieldListMap lstOgg = vorbisTags->fieldListMap();
-    if (lstOgg.isEmpty()) {
+    if (vorbisTags->isEmpty()) {
         return;
     }
+    TagLib::Ogg::FieldListMap lstOgg = vorbisTags->fieldListMap();
     TagLib::Ogg::FieldListMap::ConstIterator itOgg;
 
     itOgg = lstOgg.find("ARTIST");
@@ -725,35 +728,35 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
     ExtractedData data;
 
-    if ((mimeType == QStringLiteral("audio/mpeg")) || (mimeType == QStringLiteral("audio/mpeg3"))
-            || (mimeType == QStringLiteral("audio/x-mpeg"))) {
+    if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3"))
+            || (mimeType == QLatin1String("audio/x-mpeg"))) {
         TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        if (mpegFile.ID3v2Tag() || !mpegFile.ID3v2Tag()->isEmpty()) {
+        if (mpegFile.hasID3v2Tag()) {
             extractId3Tags(mpegFile.ID3v2Tag(), data);
         }
-    } else if (mimeType == QStringLiteral("audio/mp4")) {
+    } else if (mimeType == QLatin1String("audio/mp4")) {
         TagLib::MP4::File mp4File(&stream, true);
-        if (mp4File.tag() || !mp4File.tag()->isEmpty()) {
+        if (mp4File.hasMP4Tag()) {
             extractMp4Tags(mp4File.tag(), data);
         }
-    } else if (mimeType == QStringLiteral("audio/x-musepack")) {
+    } else if (mimeType == QLatin1String("audio/x-musepack")) {
         TagLib::MPC::File mpcFile(&stream, true);
-        if (mpcFile.APETag() || !mpcFile.APETag()->isEmpty()) {
+        if (mpcFile.hasAPETag()) {
             extractApeTags(mpcFile.APETag(), data);
         }
-    } else if (mimeType == QStringLiteral("audio/flac")) {
+    } else if (mimeType == QLatin1String("audio/flac")) {
         TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        if (flacFile.xiphComment() && !flacFile.xiphComment()->isEmpty()) {
+        if (flacFile.hasXiphComment()) {
             extractVorbisTags(flacFile.xiphComment(), data);
         }
-    } else if (mimeType == QStringLiteral("audio/ogg") || mimeType == QStringLiteral("audio/x-vorbis+ogg")) {
+    } else if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
         TagLib::Ogg::Vorbis::File oggFile(&stream, true);
-        if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
+        if (oggFile.tag()) {
             extractVorbisTags(oggFile.tag(), data);
         }
-    } else if (mimeType == QStringLiteral("audio/opus") || mimeType == QStringLiteral("audio/x-opus+ogg")) {
+    } else if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
         TagLib::Ogg::Opus::File opusFile(&stream, true);
-        if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
+        if (opusFile.tag()) {
             extractVorbisTags(opusFile.tag(), data);
         }
     }
