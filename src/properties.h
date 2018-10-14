@@ -82,8 +82,8 @@ enum Property {
     ReleaseYear,
 
     /**
-     * Represents the Comment or Description stored in the file. This can map
-     * to the 'dc:description' tag from DublinCore or the "COMM" field from IDv3
+     * Represents a comment stored in the file. This can map
+     * to e.g. the "COMM" field from IDv3
      */
     Comment,
 
@@ -348,6 +348,12 @@ enum Property {
       * The track gain is given in "dB"
       */
     ReplayGainTrackGain,
+
+    /**
+     * Represents the description stored in the file. This maps
+     * to the 'dc:description' tag from DublinCore
+     */
+    Description,
 
     PropertyCount,
     LastProperty = PropertyCount-1,

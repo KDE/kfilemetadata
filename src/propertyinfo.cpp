@@ -92,6 +92,13 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->shouldBeIndexed = false;
             break;
 
+        case Property::Description:
+            d->name = QStringLiteral("description");
+            d->displayName = i18nc("@label", "Description");
+            d->valueType = QVariant::String;
+            d->shouldBeIndexed = false;
+            break;
+
         case Property::Composer:
             d->name = QStringLiteral("composer");
             d->displayName = i18nc("@label", "Composer");
@@ -605,6 +612,7 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("discnumber"), Property::DiscNumber },
         { QStringLiteral("releaseyear"), Property::ReleaseYear },
         { QStringLiteral("comment"), Property::Comment },
+        { QStringLiteral("description"), Property::Description },
         { QStringLiteral("artist"), Property::Artist },
         { QStringLiteral("album"), Property::Album },
         { QStringLiteral("albumartist"), Property::AlbumArtist },
