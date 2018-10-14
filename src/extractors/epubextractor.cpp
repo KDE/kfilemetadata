@@ -136,8 +136,10 @@ void EPubExtractor::extract(ExtractionResult* result)
             value = value.mid(ind + QByteArray("publication:").size()).simplified();
         }
         QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
-        if (!dt.isNull())
+        if (!dt.isNull()) {
             result->add(Property::CreationDate, dt);
+            result->add(Property::ReleaseYear, dt.date().year());
+        }
     }
 
     //
