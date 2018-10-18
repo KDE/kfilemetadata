@@ -51,6 +51,7 @@ void EPubExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Happy Publisher")));
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Baloo KFileMetaData")));
+    QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("Honey")));
 
     QDateTime dt(QDate(2014, 1, 1), QTime(1, 1, 1));
     dt.setTimeSpec(Qt::UTC);
