@@ -40,7 +40,7 @@ void EmbeddedImageDataTest::test()
     EmbeddedImageData imageData;
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
     QByteArray originalFrontCoverImage;
-    QFile testFile(testFilePath("test.jpg"));
+    QFile testFile(testFilePath("cover.jpg"));
     testFile.open(QIODevice::ReadOnly);
     originalFrontCoverImage = testFile.readAll();
 
