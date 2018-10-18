@@ -55,6 +55,13 @@ public:
      */
     QMap<ImageType, QByteArray> imageData(const QString &fileUrl, const EmbeddedImageData::ImageTypes types = FrontCover) const;
 
+    /**
+     * Provides a list of mimetypes which are supported for reading
+     * of embedded images in e.g. audio files.
+     * @since 5.52
+     */
+    QStringList mimeTypes() const;
+
 private:
     class Private;
     std::unique_ptr<Private> d;

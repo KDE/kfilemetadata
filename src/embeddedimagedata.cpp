@@ -45,7 +45,21 @@ class Q_DECL_HIDDEN EmbeddedImageData::Private
 public:
     QMimeDatabase mMimeDatabase;
     QByteArray getFrontCover(const QString &fileUrl, const QString &mimeType) const;
+    static const QStringList mMimetypes;
+};
 
+const QStringList EmbeddedImageData::Private::mMimetypes =
+{
+    QStringLiteral("audio/flac"),
+    QStringLiteral("audio/mp4"),
+    QStringLiteral("audio/mpeg"),
+    QStringLiteral("audio/mpeg3"),
+    QStringLiteral("audio/ogg"),
+    QStringLiteral("audio/opus"),
+    QStringLiteral("audio/x-mpeg"),
+    QStringLiteral("audio/x-musepack"),
+    QStringLiteral("audio/x-opus+ogg"),
+    QStringLiteral("audio/x-vorbis+ogg"),
 };
 
 EmbeddedImageData::EmbeddedImageData()
@@ -55,6 +69,11 @@ EmbeddedImageData::EmbeddedImageData()
 
 EmbeddedImageData::~EmbeddedImageData()
 = default;
+
+QStringList EmbeddedImageData::mimeTypes() const
+{
+    return d->mMimetypes;
+}
 
 QMap<EmbeddedImageData::ImageType, QByteArray>
 EmbeddedImageData::imageData(const QString &fileUrl,
