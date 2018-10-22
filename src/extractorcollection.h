@@ -31,7 +31,7 @@ namespace KFileMetaData
  *
  * \brief The ExtractorCollection is a helper class which internally
  * loads all the extractor plugins. It can be used to fetch a certain
- * subset of thse pulgins based on a given mimetype.
+ * subset of these plugins based on a given mimetype.
  *
  * Once the appropriate plugins have been fetched, an ExtractionResult
  * should be created and passed to the plugin's extract function.

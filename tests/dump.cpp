@@ -42,7 +42,7 @@ int main(int argc, char** argv)
     parser.process(app);
 
     if (parser.positionalArguments().size() != 1) {
-        qDebug() << "Only one arugment is accepted";
+        qDebug() << "Only one argument is accepted";
         parser.showHelp(1);
     }
 

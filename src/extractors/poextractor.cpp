@@ -113,7 +113,7 @@ void POExtractor::handleLine(const char* data, quint32 length)
 #if 0
     if (messages > 1 || state != MSGSTR) return;
 
-    // handle special values in the first messsage
+    // handle special values in the first message
     // assumption is that value takes up only one line
     if (strncmp("\"POT-Creation-Date: ", data, 20) == 0) {
         result->add(Property::TranslationTemplateDate, QByteArray(data + 20, length - 21));
@@ -157,7 +157,7 @@ void POExtractor::extract(ExtractionResult* result)
         
         if (messages <= 1 && state == MSGSTR)
         {
-            // handle special values in the first messsage
+            // handle special values in the first message
             // assumption is that value takes up only one line
             if (strncmp("\"POT-Creation-Date: ", line.c_str(), 20) == 0) {
                 result->add(Property::TranslationTemplateDate, QByteArray(line.c_str() + 20, line.size() - 21));

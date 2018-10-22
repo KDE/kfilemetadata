@@ -36,9 +36,9 @@ namespace KFileMetaData {
  *
  * \brief The ExtractionResult class is where all the data extracted by
  * the indexer is saved. This class acts as a base class which should be
- * dervied from and then passed to the relevant plugins.
+ * derived from and then passed to the relevant plugins.
  *
- * The dervied class needs to implement 3 pure virtual functions through
+ * The derived class needs to implement 3 pure virtual functions through
  * which it receives the extracted data.
  *
  * \author Vishesh Handa <me@vhanda.in>
@@ -57,7 +57,7 @@ public:
     /**
      * Create an ExtractionResult which can be passed be to Extractors. The
      * extractors use the \p url, \p mimetype and \p flags in order to determine
-     * which file the data should be extracted from and and which all should
+     * which file the data should be extracted from and which data should
      * be extracted.
      */
     ExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = ExtractEverything);

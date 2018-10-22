@@ -70,7 +70,7 @@ enum Property {
     SampleRate,
 
     /**
-     * Represnts the track number in a set. Typically maps to the "TRCK" tag
+     * Represents the track number in a set. Typically maps to the "TRCK" tag
      * in IDv3
      */
     TrackNumber,
@@ -95,25 +95,25 @@ enum Property {
     Artist,
 
     /**
-     * Represnts the album of a media file. This generally corresponds
+     * Represents the album of a media file. This generally corresponds
      * to the IDv1 ALBUM tag.
      */
     Album,
 
     /**
-     * Represnts the album artist of a media file. This generally corresponds
+     * Represents the album artist of a media file. This generally corresponds
      * to the IDv3 TPE2 ("Band/Orchestra/Accompaniment") tag.
      */
     AlbumArtist,
 
     /**
-     * Represnts the Composer of a media file. This generally corresponds
+     * Represents the Composer of a media file. This generally corresponds
      * to the IDv2 COMPOSER tag.
      */
     Composer,
 
     /**
-     * Represnts the Lyricist of a media file. This generally corresponds
+     * Represents the Lyricist of a media file. This generally corresponds
      * to the IDv2 "Lyricist/text writer" tag.
      */
     Lyricist,
@@ -313,7 +313,7 @@ enum Property {
     Label,
 
     /**
-     * Containes the name of the compilation of an audio file.
+     * Contains the name of the compilation of an audio file.
      */
     Compilation,
 

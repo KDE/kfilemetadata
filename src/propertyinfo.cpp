@@ -507,7 +507,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::OriginUrl:
             d->name = QStringLiteral("originUrl");
-            d->displayName = i18nc("@label the URL a file was originally downloded from", "Downloaded From");
+            d->displayName = i18nc("@label the URL a file was originally downloaded from", "Downloaded From");
             d->valueType = QVariant::Url;
             d->shouldBeIndexed = false;
             break;

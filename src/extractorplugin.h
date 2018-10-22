@@ -85,7 +85,7 @@ public:
     static QDateTime dateTimeFromString(const QString& dateString);
 
     /**
-     * Tries to split the string into names. It cleans up any superflous words
+     * Tries to split the string into names. It cleans up any superfluous words
      * and removes extra junk such as curly braces
      */
     static QStringList contactsFromString(const QString& string);
