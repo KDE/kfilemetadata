@@ -18,8 +18,8 @@
 */
 
 
-#ifndef _KFILEMETADATA_EXTRACTOR_H
-#define _KFILEMETADATA_EXTRACTOR_H
+#ifndef _KFILEMETADATA_EXTRACTOR_PLUGIN_H
+#define _KFILEMETADATA_EXTRACTOR_PLUGIN_H
 
 #include <QStringList>
 #include <QDateTime>
@@ -98,4 +98,4 @@ private:
 
 Q_DECLARE_INTERFACE(KFileMetaData::ExtractorPlugin, "org.kde.kf5.kfilemetadata.ExtractorPlugin")
 
-#endif // _KFILEMETADATA_EXTRACTOR_H
+#endif // _KFILEMETADATA_EXTRACTOR_PLUGIN_H
