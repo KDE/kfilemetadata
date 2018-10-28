@@ -137,6 +137,21 @@ ecm_add_test(${extractorcollection_SRCS}
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData
 )
 
+#
+# XML
+#
+set(xmlextractor_SRCS
+    xmlextractortest.cpp
+    ../src/extractors/xmlextractor.cpp
+    ../src/extractors/dublincoreextractor.cpp
+    ../src/kfilemetadata_debug.cpp
+)
+
+ecm_add_test(${xmlextractor_SRCS}
+        TEST_NAME "xmlextractortest"
+        LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData
+)
+
 ################
 # Writer tests #
 ################
