@@ -58,7 +58,7 @@ void EPubExtractorTest::test()
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2014));
 
-    QCOMPARE(result.properties().size(), 6);
+    QCOMPARE(result.properties().size(), 7);
 }
 
 void EPubExtractorTest::testMetaDataOnly()
