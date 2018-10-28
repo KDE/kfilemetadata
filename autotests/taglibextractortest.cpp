@@ -226,9 +226,19 @@ void TagLibExtractorTest::testId3_data()
     QTest::addColumn<QString>("fileType");
     QTest::addColumn<QString>("mimeType");
 
+    QTest::addRow("aiff")
+        << QStringLiteral("aif")
+        << QStringLiteral("audio/x-aiff")
+        ;
+
     QTest::addRow("mp3")
         << QStringLiteral("mp3")
         << QStringLiteral("audio/mpeg")
+        ;
+
+    QTest::addRow("wav")
+        << QStringLiteral("wav")
+        << QStringLiteral("audio/wav")
         ;
 }
 

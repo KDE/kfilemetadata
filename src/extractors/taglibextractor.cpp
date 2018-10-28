@@ -816,6 +816,13 @@ void TagLibExtractor::extract(ExtractionResult* result)
         if (mpegFile.hasID3v2Tag()) {
             extractId3Tags(mpegFile.ID3v2Tag(), data);
         }
+    } else if ((mimeType == QLatin1String("audio/x-aiff")) || (mimeType == QLatin1String("audio/wav"))) {
+        /* For some reason, TagLib::RIFF::AIFF::File and TagLib::RIFF::WAV::File tag() return
+         * only an invalid pointer. Use the dynamic_cast instead. */
+        TagLib::ID3v2::Tag* ID3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tags);
+        if (ID3v2Tag) {
+            extractId3Tags(ID3v2Tag, data);
+        }
     } else if (mimeType == QLatin1String("audio/mp4")) {
         TagLib::MP4::File mp4File(&stream, true);
         if (mp4File.hasMP4Tag()) {
