@@ -106,6 +106,26 @@ TARGETS kfilemetadata_poextractor
 DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 #
+# XML
+#
+add_library(kfilemetadata_xmlextractor MODULE
+   dublincoreextractor.cpp
+   xmlextractor.cpp
+   ../kfilemetadata_debug.cpp
+)
+target_link_libraries( kfilemetadata_xmlextractor
+    KF5::FileMetaData
+    Qt5::Core
+    Qt5::Xml
+)
+
+set_target_properties(kfilemetadata_xmlextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
+install(
+    TARGETS kfilemetadata_xmlextractor
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata
+)
+
+#
 # ODF
 #
 
