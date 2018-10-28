@@ -319,6 +319,39 @@ void TagLibExtractorTest::testMp4_data()
         ;
 }
 
+void TagLibExtractorTest::testAsf()
+{
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+
+    QString fileName = QStringLiteral("test.") + fileType;
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
+    QCOMPARE(result.properties().value(Property::Rating).toInt(), 6);
+    QCOMPARE(result.properties().value(Property::DiscNumber).toInt(), 1);
+    QCOMPARE(result.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor")));
+    QCOMPARE(result.properties().value(Property::Composer), QVariant(QStringLiteral("Composer")));
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
+    QCOMPARE(result.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist")));
+    QCOMPARE(result.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright")));
+    QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Publisher")));
+}
+
+void TagLibExtractorTest::testAsf_data()
+{
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("asf")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        ;
+}
+
 void TagLibExtractorTest::testId3Rating_data()
 {
     QTest::addColumn<QString>("path");
@@ -387,6 +420,43 @@ void TagLibExtractorTest::testId3Rating()
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(Property::Rating).toInt(), expectedRating);
+}
+
+void TagLibExtractorTest::testWmaRating()
+{
+    QFETCH(QString, path);
+    QFETCH(int, expectedRating);
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult result(path, "audio/x-ms-wma");
+    plugin.extract(&result);
+
+    QCOMPARE(result.properties().value(Property::Rating).toUInt(), expectedRating);
+}
+
+void TagLibExtractorTest::testWmaRating_data()
+{
+    QTest::addColumn<QString>("path");
+    QTest::addColumn<int>("expectedRating");
+
+    QTest::addRow("WMP0")
+        << QFINDTESTDATA("samplefiles/wma_rating/test0.wma")
+        << 0 ;
+    QTest::addRow("WMP1")
+        << QFINDTESTDATA("samplefiles/wma_rating/test1.wma")
+        << 2 ;
+    QTest::addRow("WMP2")
+        << QFINDTESTDATA("samplefiles/wma_rating/test2.wma")
+        << 4 ;
+    QTest::addRow("WMP3")
+        << QFINDTESTDATA("samplefiles/wma_rating/test3.wma")
+        << 6 ;
+    QTest::addRow("WMP4")
+        << QFINDTESTDATA("samplefiles/wma_rating/test4.wma")
+        << 8 ;
+    QTest::addRow("WMP5")
+        << QFINDTESTDATA("samplefiles/wma_rating/test5.wma")
+        << 10 ;
 }
 
 void TagLibExtractorTest::testNoMetadata_data()

@@ -28,6 +28,9 @@
 
 namespace TagLib
 {
+    namespace ASF {
+        class Tag;
+    }
     namespace ID3v2 {
         class Tag;
     }
@@ -89,6 +92,7 @@ private:
     void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractedData& data);
     void extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& data);
     void extractVorbisTags(TagLib::Ogg::XiphComment* vorbisTags, ExtractedData& data);
+    void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractedData& data);
 };
 
 }

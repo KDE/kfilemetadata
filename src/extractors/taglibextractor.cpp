@@ -25,6 +25,8 @@
 #include <tfilestream.h>
 #include <flacfile.h>
 #include <apefile.h>
+#include <asftag.h>
+#include <asfattribute.h>
 #include <apetag.h>
 #include <mpcfile.h>
 #include <id3v2tag.h>
@@ -707,6 +709,84 @@ void TagLibExtractor::extractVorbisTags(TagLib::Ogg::XiphComment* vorbisTags, Ex
     }
 }
 
+void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractedData& data)
+{
+    if (asfTags->isEmpty()) {
+        return;
+    }
+
+    if (!asfTags->copyright().isEmpty()) {
+        data.copyright = asfTags->copyright();
+    }
+
+    TagLib::ASF::AttributeList lstASF = asfTags->attribute("WM/SharedUserRating");
+    if (!lstASF.isEmpty()) {
+        int rating = lstASF.front().toString().toInt();
+        //map the rating values of WMP to Baloo rating
+        //0->0, 1->2, 25->4, 50->6, 75->8, 99->10
+        if (rating == 0) {
+            data.rating = 0;
+        } else if (rating == 1) {
+            data.rating = 2;
+        } else {
+            data.rating = static_cast<uint>(0.09 * rating + 2);
+        }
+    }
+
+    lstASF = asfTags->attribute("WM/PartOfSet");
+    if (!lstASF.isEmpty()) {
+        data.discNumber = lstASF.front().toString().toInt();
+    }
+
+    lstASF = asfTags->attribute("WM/AlbumArtist");
+    for (const auto& attribute : qAsConst(lstASF)) {
+        if (!data.albumArtists.isEmpty()) {
+            data.albumArtists += ", ";
+        }
+        data.albumArtists += attribute.toString();
+    }
+
+    lstASF = asfTags->attribute("WM/Composer");
+    for (const auto& attribute : qAsConst(lstASF)) {
+        if (!data.composers.isEmpty()) {
+            data.composers += ", ";
+        }
+        data.composers += attribute.toString();
+    }
+
+    lstASF = asfTags->attribute("WM/Conductor");
+    for (const auto& attribute : qAsConst(lstASF)) {
+        if (!data.conductor.isEmpty()) {
+            data.conductor += ", ";
+        }
+        data.conductor += attribute.toString();
+    }
+
+    lstASF = asfTags->attribute("WM/Writer");
+    for (const auto& attribute : qAsConst(lstASF)) {
+        if (!data.lyricists.isEmpty()) {
+            data.lyricists += ", ";
+        }
+        data.lyricists += attribute.toString();
+    }
+
+    lstASF = asfTags->attribute("WM/Publisher");
+    for (const auto& attribute : qAsConst(lstASF)) {
+        if (!data.publisher.isEmpty()) {
+            data.publisher += ", ";
+        }
+        data.publisher += attribute.toString();
+    }
+
+    lstASF = asfTags->attribute("Author");
+    for (const auto& attribute : qAsConst(lstASF)) {
+        if (!data.author.isEmpty()) {
+            data.author += ", ";
+        }
+        data.author += attribute.toString();
+    }
+}
+
 void TagLibExtractor::extract(ExtractionResult* result)
 {
     const QString fileUrl = result->inputUrl();
@@ -770,6 +850,13 @@ void TagLibExtractor::extract(ExtractionResult* result)
         TagLib::Ogg::Opus::File opusFile(&stream, true);
         if (opusFile.tag()) {
             extractVorbisTags(opusFile.tag(), data);
+        }
+    } else if (mimeType == QLatin1String("audio/x-ms-wma")) {
+        /* For some reason, TagLib::ASF::File tag() returns only an invalid pointer.
+         * Use the dynamic_cast instead. */
+        TagLib::ASF::Tag* asfTags = dynamic_cast<TagLib::ASF::Tag*>(tags);
+        if (asfTags) {
+            extractAsfTags(asfTags, data);
         }
     }
 
