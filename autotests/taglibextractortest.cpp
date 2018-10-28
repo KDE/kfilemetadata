@@ -431,7 +431,7 @@ void TagLibExtractorTest::testWmaRating()
     SimpleExtractionResult result(path, "audio/x-ms-wma");
     plugin.extract(&result);
 
-    QCOMPARE(result.properties().value(Property::Rating).toUInt(), expectedRating);
+    QCOMPARE(result.properties().value(Property::Rating).toInt(), expectedRating);
 }
 
 void TagLibExtractorTest::testWmaRating_data()
