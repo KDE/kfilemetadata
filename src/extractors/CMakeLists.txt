@@ -126,6 +126,24 @@ install(
 )
 
 #
+# Postscript DSC
+#
+add_library(kfilemetadata_postscriptdscextractor MODULE
+   postscriptdscextractor.cpp
+   ../kfilemetadata_debug.cpp
+)
+target_link_libraries( kfilemetadata_postscriptdscextractor
+    KF5::FileMetaData
+    Qt5::Core
+)
+
+set_target_properties(kfilemetadata_postscriptdscextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
+install(
+    TARGETS kfilemetadata_postscriptdscextractor
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata
+)
+
+#
 # ODF
 #
 

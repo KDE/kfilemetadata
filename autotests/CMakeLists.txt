@@ -152,6 +152,20 @@ ecm_add_test(${xmlextractor_SRCS}
         LINK_LIBRARIES Qt5::Test Qt5::Xml KF5::FileMetaData
 )
 
+#
+# Postscript DSC
+#
+set(postscriptdscextractor_SRCS
+    postscriptdscextractortest.cpp
+    ../src/extractors/postscriptdscextractor.cpp
+    ../src/kfilemetadata_debug.cpp
+)
+
+ecm_add_test(${postscriptdscextractor_SRCS}
+        TEST_NAME "postscriptdscextractortest"
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData
+)
+
 ################
 # Writer tests #
 ################
