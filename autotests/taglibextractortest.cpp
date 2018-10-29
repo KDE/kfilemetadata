@@ -36,7 +36,7 @@ using namespace KFileMetaData;
 
 QString TagLibExtractorTest::testFilePath(const QString& fileName) const
 {
-    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QDir::separator() + fileName;
+    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
 const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaData::Property::Property>& keys) const

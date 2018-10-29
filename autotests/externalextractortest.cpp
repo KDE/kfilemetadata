@@ -33,7 +33,7 @@ using namespace KFileMetaData;
 
 QString ExternalExtractorTest::testFilePath(const QString& fileName) const
 {
-    return QLatin1String(INDEXER_TESTS_SAMPLE_CONFIGURED_FILES_PATH) + QDir::separator() + fileName;
+    return QLatin1String(INDEXER_TESTS_SAMPLE_CONFIGURED_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
 void ExternalExtractorTest::test()
