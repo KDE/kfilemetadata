@@ -24,6 +24,7 @@
 #include <QDebug>
 #include <QDomDocument>
 #include <QFile>
+#include <QXmlStreamReader>
 
 namespace {
 
@@ -80,14 +81,13 @@ void XmlExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    QDomDocument doc;
-    const bool processNamespaces = true;
-    doc.setContent(&file, processNamespaces);
-
     if ((result->inputMimetype() == QLatin1String("image/svg")) ||
         (result->inputMimetype() == QLatin1String("image/svg+xml"))) {
         result->addType(Type::Image);
 
+        QDomDocument doc;
+        const bool processNamespaces = true;
+        doc.setContent(&file, processNamespaces);
         QDomElement svg = doc.firstChildElement();
 
         if (!svg.isNull()
@@ -126,8 +126,17 @@ void XmlExtractor::extract(ExtractionResult* result)
         result->addType(Type::Text);
 
         if (flags & ExtractionResult::ExtractPlainText) {
-            QDomElement n = doc.firstChildElement();
-            result->append(n.text());
+            QXmlStreamReader stream(&file);
+            while (!stream.atEnd()) {
+                QXmlStreamReader::TokenType token = stream.readNext();
+
+                if (token == QXmlStreamReader::Characters) {
+                    QString text = stream.text().trimmed().toString();
+                    if (!text.isEmpty()) {
+                        result->append(text);
+                    }
+                }
+            }
         }
     }
 }
