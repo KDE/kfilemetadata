@@ -84,139 +84,113 @@ void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractedData&
 
     // Artist.
     lstID3v2 = Id3Tags->frameListMap()["TPE1"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.artists.isEmpty()) {
-                data.artists += ", ";
-            }
-            data.artists += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.artists.isEmpty()) {
+            data.artists += ", ";
         }
+        data.artists += frame->toString();
     }
 
     // Album Artist.
     lstID3v2 = Id3Tags->frameListMap()["TPE2"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.albumArtists.isEmpty()) {
-                data.albumArtists += ", ";
-            }
-            data.albumArtists += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.albumArtists.isEmpty()) {
+            data.albumArtists += ", ";
         }
+        data.albumArtists += frame->toString();
     }
 
     // Composer.
     lstID3v2 = Id3Tags->frameListMap()["TCOM"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.composers.isEmpty()) {
-                data.composers += ", ";
-            }
-            data.composers += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.composers.isEmpty()) {
+            data.composers += ", ";
         }
+        data.composers += frame->toString();
     }
 
     // Lyricist.
     lstID3v2 = Id3Tags->frameListMap()["TEXT"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.lyricists.isEmpty()) {
-                data.lyricists += ", ";
-            }
-            data.lyricists += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.lyricists.isEmpty()) {
+            data.lyricists += ", ";
         }
+        data.lyricists += frame->toString();
     }
 
     // Genre.
     lstID3v2 = Id3Tags->frameListMap()["TCON"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            data.genres.append((*it)->toString());
-        }
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        data.genres.append(frame->toString());
     }
 
     // Disc number.
     lstID3v2 = Id3Tags->frameListMap()["TPOS"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            data.discNumber = (*it)->toString().toInt();
-        }
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        data.discNumber = frame->toString().toInt();
     }
 
     // Performer.
     lstID3v2 = Id3Tags->frameListMap()["TMCL"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.performer.isEmpty()) {
-                data.performer += ", ";
-            }
-            data.performer += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.performer.isEmpty()) {
+            data.performer += ", ";
         }
+        data.performer += frame->toString();
     }
 
     // Conductor.
     lstID3v2 = Id3Tags->frameListMap()["TPE3"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.conductor.isEmpty()) {
-                data.conductor += ", ";
-            }
-            data.conductor += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.conductor.isEmpty()) {
+            data.conductor += ", ";
         }
+        data.conductor += frame->toString();
     }
 
     // Publisher.
     lstID3v2 = Id3Tags->frameListMap()["TPUB"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.publisher.isEmpty()) {
-                data.publisher += ", ";
-            }
-            data.publisher += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.publisher.isEmpty()) {
+            data.publisher += ", ";
         }
+        data.publisher += frame->toString();
     }
 
     // Copyright.
     lstID3v2 = Id3Tags->frameListMap()["TCOP"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.copyright.isEmpty()) {
-                data.copyright += ", ";
-            }
-            data.copyright += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.copyright.isEmpty()) {
+            data.copyright += ", ";
         }
+        data.copyright += frame->toString();
     }
 
     // Language.
     lstID3v2 = Id3Tags->frameListMap()["TLAN"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.language.isEmpty()) {
-                data.language += ", ";
-            }
-            data.language += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.language.isEmpty()) {
+            data.language += ", ";
         }
+        data.language += frame->toString();
     }
 
     // Lyrics.
     lstID3v2 = Id3Tags->frameListMap()["USLT"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.lyrics.isEmpty()) {
-                data.lyrics += ", ";
-            }
-            data.lyrics += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.lyrics.isEmpty()) {
+            data.lyrics += ", ";
         }
+        data.lyrics += frame->toString();
     }
 
     // Compilation.
     lstID3v2 = Id3Tags->frameListMap()["TCMP"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            if (!data.compilation.isEmpty()) {
-                data.compilation += ", ";
-            }
-            data.compilation += (*it)->toString();
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        if (!data.compilation.isEmpty()) {
+            data.compilation += ", ";
         }
+        data.compilation += frame->toString();
     }
 
     // Rating.
@@ -224,22 +198,20 @@ void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractedData&
        a 5 stars rating to a range of 0-255 for MP3.
        Match it to baloo rating with a range of 0 - 10 */
     lstID3v2 = Id3Tags->frameListMap()["POPM"];
-    if (!lstID3v2.isEmpty()) {
-        for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-            TagLib::ID3v2::PopularimeterFrame *ratingFrame = static_cast<TagLib::ID3v2::PopularimeterFrame *>(*it);
-            int rating = ratingFrame->rating();
-            if (rating == 0) {
-                data.rating = 0;
-            } else if (rating == 1) {
-                TagLib::String ratingProvider = ratingFrame->email();
-                if (ratingProvider == "no@email" || ratingProvider == "org.kde.kfilemetadata") {
-                    data.rating = 1;
-                } else {
-                    data.rating = 2;
-                }
-            } else if (rating >= 1 && rating <= 255) {
-                data.rating = static_cast<int>(0.032 * rating + 2);
+    for (const auto& frame : qAsConst(lstID3v2)) {
+        TagLib::ID3v2::PopularimeterFrame *ratingFrame = static_cast<TagLib::ID3v2::PopularimeterFrame *>(frame);
+        int rating = ratingFrame->rating();
+        if (rating == 0) {
+            data.rating = 0;
+        } else if (rating == 1) {
+            TagLib::String ratingProvider = ratingFrame->email();
+            if (ratingProvider == "no@email" || ratingProvider == "org.kde.kfilemetadata") {
+                data.rating = 1;
+            } else {
+                data.rating = 2;
             }
+        } else if (rating >= 1 && rating <= 255) {
+            data.rating = static_cast<int>(0.032 * rating + 2);
         }
     }
 
