@@ -24,7 +24,6 @@
 #include <QDebug>
 
 #include "extractorcollection.h"
-#include "extractors/plaintextextractor.h"
 
 using namespace KFileMetaData;
 
@@ -51,6 +50,23 @@ private Q_SLOTS:
         QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
         QVERIFY(collection2.fetchExtractors("unknown/mimetype").isEmpty());
         QVERIFY(!collection2.fetchExtractors("text/plain").isEmpty());
+    }
+
+    void testMimeInheritance()
+    {
+        QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
+        ExtractorCollection collection;
+
+        auto textExtractors = collection.fetchExtractors("text/plain");
+        QVERIFY(!textExtractors.isEmpty());
+
+        auto xmlExtractors = collection.fetchExtractors("application/xml");
+        QVERIFY(!xmlExtractors.isEmpty());
+
+        // Verify the generic "text/plain" extractor is not used for "application/xml"
+        for (auto extractor : textExtractors) {
+            QVERIFY(!xmlExtractors.contains(extractor));
+        }
     }
 };
 
