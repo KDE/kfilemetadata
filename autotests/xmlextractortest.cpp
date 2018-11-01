@@ -89,7 +89,7 @@ void XmlExtractorTests::testXmlExtractor()
     QCOMPARE(result.types().at(0), Type::Image);
 
     QCOMPARE(result.properties().size(), 1);
-    QCOMPARE(result.properties().value(Property::Title), QStringLiteral("Document Title"));
+    QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Document Title"));
 
     content.replace(QLatin1Char('\n'), QLatin1Char(' '));
     QCOMPARE(result.text(), content);
@@ -108,7 +108,7 @@ void XmlExtractorTests::testXmlExtractorNoContent()
     QCOMPARE(result.types().at(0), Type::Image);
 
     QCOMPARE(result.properties().size(), 1);
-    QCOMPARE(result.properties().value(Property::Title), QStringLiteral("Document Title"));
+    QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Document Title"));
 
     QVERIFY(result.text().isEmpty());
 }
