@@ -45,6 +45,7 @@ private:
              const char* name, QVariant::Type type);
 
     double fetchGpsDouble(const Exiv2::ExifData& data, const char* name);
+    double fetchGpsAltitude(const Exiv2::ExifData& data);
     QByteArray fetchByteArray(const Exiv2::ExifData& data, const char* name);
 };
 }

@@ -45,11 +45,11 @@ void Exiv2ExtractorTest::test()
     QCOMPARE(result.types().constFirst(), Type::Image);
 
     using namespace KFileMetaData::Property;
-    double lat = 41.4114341666667;
-    double lon = 2.1736409444444;
-    QCOMPARE(result.properties().value(PhotoGpsLatitude).toDouble(), lat);
-    QCOMPARE(result.properties().value(PhotoGpsLongitude).toDouble(), lon);
-    QCOMPARE(result.properties().value(PhotoGpsAltitude), QVariant());
+
+    QCOMPARE(result.properties().value(PhotoGpsLatitude).toDouble(), 41.411);
+    QCOMPARE(result.properties().value(PhotoGpsLongitude).toDouble(), 2.173);
+    QVERIFY(qAbs(result.properties().value(PhotoGpsAltitude).toDouble() - 12.2) <  0.0001);
+
 }
 
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)

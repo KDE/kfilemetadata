@@ -196,7 +196,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     double latitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLatitude");
     double longitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLongitude");
-    double altitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSAltitude");
+    double altitude = fetchGpsAltitude(data);
 
     QByteArray latRef = fetchByteArray(data, "Exif.GPSInfo.GPSLatitudeRef");
     if (!latRef.isEmpty() && latRef[0] == 'S')
@@ -275,6 +275,23 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
     }
 
     return 0.0;
+}
+
+double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
+{
+    double alt = 0.0;
+    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitude"));
+    if (it != data.end()) {
+        alt = it->value().toFloat();
+        it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitudeRef"));
+        if (it != data.end()) {
+            auto altRef = it->value().toLong();
+            if (altRef) {
+                alt = alt * -1;
+            }
+        }
+    }
+    return alt;
 }
 
 QByteArray Exiv2Extractor::fetchByteArray(const Exiv2::ExifData& data, const char* name)
