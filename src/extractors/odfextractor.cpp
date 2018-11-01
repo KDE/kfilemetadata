@@ -45,6 +45,12 @@ QDomElement firstChildElementNS(const QDomNode &node, const QString &nsURI, cons
     return QDomElement();
 }
 
+const QStringList supportedMimeTypes = {
+    QStringLiteral("application/vnd.oasis.opendocument.text"),
+    QStringLiteral("application/vnd.oasis.opendocument.presentation"),
+    QStringLiteral("application/vnd.oasis.opendocument.spreadsheet"),
+};
+
 }
 
 using namespace KFileMetaData;
@@ -57,12 +63,7 @@ OdfExtractor::OdfExtractor(QObject* parent)
 
 QStringList OdfExtractor::mimetypes() const
 {
-    QStringList list;
-    list << QStringLiteral("application/vnd.oasis.opendocument.text")
-         << QStringLiteral("application/vnd.oasis.opendocument.presentation")
-         << QStringLiteral("application/vnd.oasis.opendocument.spreadsheet");
-
-    return list;
+    return supportedMimeTypes;
 }
 
 void OdfExtractor::extract(ExtractionResult* result)

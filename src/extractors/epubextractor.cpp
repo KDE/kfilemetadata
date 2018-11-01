@@ -34,16 +34,12 @@ EPubExtractor::EPubExtractor(QObject* parent)
 
 }
 
-QStringList EPubExtractor::mimetypes() const
-{
-    QStringList types;
-    types << QStringLiteral("application/epub+zip");
-
-    return types;
-}
-
 namespace
 {
+static const QStringList supportedMimeTypes = {
+    QStringLiteral("application/epub+zip"),
+};
+
 QString fetchMetadata(struct epub* e, const epub_metadata& type)
 {
     int size = 0;
@@ -66,6 +62,10 @@ QString fetchMetadata(struct epub* e, const epub_metadata& type)
 }
 }
 
+QStringList EPubExtractor::mimetypes() const
+{
+    return supportedMimeTypes;
+}
 
 void EPubExtractor::extract(ExtractionResult* result)
 {

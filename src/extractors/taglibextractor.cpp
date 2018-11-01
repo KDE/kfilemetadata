@@ -54,25 +54,27 @@ TagLibExtractor::TagLibExtractor(QObject* parent)
 {
 }
 
+const QStringList supportedMimeTypes = {
+    QStringLiteral("audio/flac"),
+    QStringLiteral("audio/mp4"),
+    QStringLiteral("audio/mpeg"),
+    QStringLiteral("audio/mpeg3"),
+    QStringLiteral("audio/ogg"),
+    QStringLiteral("audio/opus"),
+    QStringLiteral("audio/x-aiff"),
+    QStringLiteral("audio/x-ape"),
+    QStringLiteral("audio/x-mpeg"),
+    QStringLiteral("audio/x-ms-wma"),
+    QStringLiteral("audio/x-musepack"),
+    QStringLiteral("audio/x-opus+ogg"),
+    QStringLiteral("audio/x-vorbis+ogg"),
+    QStringLiteral("audio/wav"),
+    QStringLiteral("audio/x-wavpack"),
+};
+
 QStringList TagLibExtractor::mimetypes() const
 {
-    return QStringList{
-        QStringLiteral("audio/mpeg"),
-        QStringLiteral("audio/mpeg3"),
-        QStringLiteral("audio/x-mpeg"),
-        QStringLiteral("audio/mp4"),
-        QStringLiteral("audio/flac"),
-        QStringLiteral("audio/x-musepack"),
-        QStringLiteral("audio/ogg"),
-        QStringLiteral("audio/x-vorbis+ogg"),
-        QStringLiteral("audio/opus"),
-        QStringLiteral("audio/x-opus+ogg"),
-        QStringLiteral("audio/wav"),
-        QStringLiteral("audio/x-aiff"),
-        QStringLiteral("audio/x-ape"),
-        QStringLiteral("audio/x-wavpack"),
-        QStringLiteral("audio/x-ms-wma")
-    };
+    return supportedMimeTypes;
 }
 
 void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractedData& data)

@@ -34,15 +34,15 @@ Office2007Extractor::Office2007Extractor(QObject* parent)
 
 }
 
+const QStringList supportedMimeTypes = {
+    QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+    QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+    QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+};
 
 QStringList Office2007Extractor::mimetypes() const
 {
-    QStringList list;
-    list << QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-         << QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.presentation")
-         << QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-
-    return list;
+    return supportedMimeTypes;
 }
 
 void Office2007Extractor::extract(ExtractionResult* result)

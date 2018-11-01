@@ -29,32 +29,27 @@ Exiv2Extractor::Exiv2Extractor(QObject* parent)
 {
 }
 
-QStringList Exiv2Extractor::mimetypes() const
-{
-    QStringList types;
-
-    types << QStringLiteral("image/jp2")
-          << QStringLiteral("image/jpeg")
-          << QStringLiteral("image/pgf")
-          << QStringLiteral("image/png")
-          << QStringLiteral("image/tiff")
-          << QStringLiteral("image/x-exv")
-          << QStringLiteral("image/x-canon-cr2")
-          << QStringLiteral("image/x-canon-crw")
-          << QStringLiteral("image/x-fuji-raf")
-          << QStringLiteral("image/x-minolta-mrw")
-          << QStringLiteral("image/x-nikon-nef")
-          << QStringLiteral("image/x-olympus-orf")
-          << QStringLiteral("image/x-panasonic-rw2")
-          << QStringLiteral("image/x-pentax-pef")
-          << QStringLiteral("image/x-photoshop")
-          << QStringLiteral("image/x-samsung-srw");
-
-    return types;
-}
-
 namespace
 {
+static const QStringList supportedMimeTypes = {
+    QStringLiteral("image/jp2"),
+    QStringLiteral("image/jpeg"),
+    QStringLiteral("image/pgf"),
+    QStringLiteral("image/png"),
+    QStringLiteral("image/tiff"),
+    QStringLiteral("image/x-exv"),
+    QStringLiteral("image/x-canon-cr2"),
+    QStringLiteral("image/x-canon-crw"),
+    QStringLiteral("image/x-fuji-raf"),
+    QStringLiteral("image/x-minolta-mrw"),
+    QStringLiteral("image/x-nikon-nef"),
+    QStringLiteral("image/x-olympus-orf"),
+    QStringLiteral("image/x-panasonic-rw2"),
+    QStringLiteral("image/x-pentax-pef"),
+    QStringLiteral("image/x-photoshop"),
+    QStringLiteral("image/x-samsung-srw"),
+};
+
 QString toString(const Exiv2::Value& value)
 {
     const std::string str = value.toString();
@@ -135,6 +130,11 @@ QVariant toVariant(const Exiv2::Value& value, QVariant::Type type) {
         return toVariantString(value);
     }
 }
+}
+
+QStringList Exiv2Extractor::mimetypes() const
+{
+    return supportedMimeTypes;
 }
 
 void Exiv2Extractor::extract(ExtractionResult* result)

@@ -32,22 +32,22 @@ TagLibWriter::TagLibWriter(QObject* parent)
 {
 }
 
+const QStringList supportedMimeTypes = {
+    QStringLiteral("audio/flac"),
+    QStringLiteral("audio/mp4"),
+    QStringLiteral("audio/mpeg"),
+    QStringLiteral("audio/mpeg3"),
+    QStringLiteral("audio/ogg"),
+    QStringLiteral("audio/opus"),
+    QStringLiteral("audio/x-mpeg"),
+    QStringLiteral("audio/x-musepack"),
+    QStringLiteral("audio/x-opus+ogg"),
+    QStringLiteral("audio/x-vorbis+ogg"),
+};
+
 QStringList TagLibWriter::writeMimetypes() const
 {
-    QStringList types = {
-        QStringLiteral("audio/flac"),
-        QStringLiteral("audio/mp4"),
-        QStringLiteral("audio/mpeg"),
-        QStringLiteral("audio/mpeg3"),
-        QStringLiteral("audio/ogg"),
-        QStringLiteral("audio/opus"),
-        QStringLiteral("audio/x-mpeg"),
-        QStringLiteral("audio/x-musepack"),
-        QStringLiteral("audio/x-opus+ogg"),
-        QStringLiteral("audio/x-vorbis+ogg"),
-    };
-
-    return types;
+    return supportedMimeTypes;
 }
 
 void TagLibWriter::write(const WriteData& data)

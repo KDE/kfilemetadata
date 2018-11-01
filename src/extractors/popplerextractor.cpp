@@ -32,14 +32,14 @@ PopplerExtractor::PopplerExtractor(QObject* parent)
 
 }
 
+const QStringList supportedMimeTypes = {
+    QStringLiteral("application/pdf"),
+};
+
 QStringList PopplerExtractor::mimetypes() const
 {
-    QStringList list;
-    list << QStringLiteral("application/pdf");
-
-    return list;
+    return supportedMimeTypes;
 }
-
 
 void PopplerExtractor::extract(ExtractionResult* result)
 {

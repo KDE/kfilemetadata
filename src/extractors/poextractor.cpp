@@ -33,9 +33,13 @@ POExtractor::POExtractor(QObject* parent)
 
 }
 
+const QStringList supportedMimeTypes = {
+    QStringLiteral("text/x-gettext-translation"),
+};
+
 QStringList POExtractor::mimetypes() const
 {
-    return QStringList() << QStringLiteral("text/x-gettext-translation");
+    return supportedMimeTypes;
 }
 
 void POExtractor::endMessage()
