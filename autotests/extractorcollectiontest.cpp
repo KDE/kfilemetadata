@@ -68,6 +68,22 @@ private Q_SLOTS:
             QVERIFY(!xmlExtractors.contains(extractor));
         }
     }
+
+    void testBestMatching()
+    {
+        QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
+        ExtractorCollection collection;
+
+        auto textExtractors = collection.fetchExtractors("text/plain");
+        auto xmlSubtypeExtractors = collection.fetchExtractors("application/x-kvtml");
+        QVERIFY(!xmlSubtypeExtractors.isEmpty());
+
+        // Verify the generic "text/plain" extractor is also not used for
+        // types inherited from "application/xml"
+        for (auto extractor : textExtractors) {
+            QVERIFY(!xmlSubtypeExtractors.contains(extractor));
+        }
+    }
 };
 
 QTEST_GUILESS_MAIN(ExtractorCollectionTest)

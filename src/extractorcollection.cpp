@@ -148,17 +148,20 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
 QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) const
 {
     QList<Extractor*> plugins = d->m_extractors.values(mimetype);
-    if (plugins.isEmpty()) {
-        QMimeDatabase db;
-        auto type = db.mimeTypeForName(mimetype);
-        auto it = d->m_extractors.constBegin();
-        for (; it != d->m_extractors.constEnd(); ++it) {
-            if (plugins.contains(it.value())) {
-                continue;
-            }
-            if (type.inherits(it.key())) {
-                plugins << it.value();
-            }
+    if (!plugins.isEmpty()) {
+        return plugins;
+    }
+
+    // try to find the best matching more generic extractor by mimetype inheritance
+    QMimeDatabase db;
+    auto type = db.mimeTypeForName(mimetype);
+    const QStringList ancestors = type.allAncestors();
+
+    for (auto ancestor : ancestors) {
+        QList<Extractor*> plugins = d->m_extractors.values(ancestor);
+        if (!plugins.isEmpty()) {
+            qCDebug(KFILEMETADATA_LOG) << "Using inherited mimetype" << ancestor <<  "for" << mimetype;
+            return plugins;
         }
     }
 

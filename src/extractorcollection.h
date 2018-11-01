@@ -48,8 +48,10 @@ public:
      * Fetch the extractors which can be used to extract
      * data for the respective file with the given mimetype.
      *
-     * If no match is found then all the plugins whose mimetype list
-     * starts with \p mimetype are returned.
+     * If no match is found then the best matching plugins
+     * are returned, determined by mimetype inheritance.
+     *
+     * \sa QMimeType::allAncestors
      */
     QList<Extractor*> fetchExtractors(const QString& mimetype) const;
 
