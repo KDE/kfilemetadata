@@ -82,7 +82,7 @@ EmbeddedImageData::imageData(const QString &fileUrl,
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData;
 
     const auto &fileMimeType = d->mMimeDatabase.mimeTypeForFile(fileUrl);
-    if (fileMimeType.name().startsWith(QStringLiteral("audio/"))) {
+    if (fileMimeType.name().startsWith(QLatin1String("audio/"))) {
         if (types & EmbeddedImageData::FrontCover) {
             imageData.insert(EmbeddedImageData::FrontCover, d->getFrontCover(fileUrl, fileMimeType.name()));
         }
@@ -100,9 +100,9 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
         qWarning() << "Unable to open file readonly: " << fileUrl;
         return QByteArray();
     }
-    if ((mimeType == QStringLiteral("audio/mpeg"))
-            || (mimeType == QStringLiteral("audio/mpeg3"))
-            || (mimeType == QStringLiteral("audio/x-mpeg"))) {
+    if ((mimeType == QLatin1String("audio/mpeg"))
+            || (mimeType == QLatin1String("audio/mpeg3"))
+            || (mimeType == QLatin1String("audio/x-mpeg"))) {
 
         // Handling multiple tags in mpeg files.
         TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
@@ -122,7 +122,7 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
             }
         }
 
-    } else if (mimeType == QStringLiteral("audio/mp4")) {
+    } else if (mimeType == QLatin1String("audio/mp4")) {
 
         TagLib::MP4::File mp4File(&stream, true);
         if (!mp4File.tag() || mp4File.tag()->isEmpty()) {
@@ -136,7 +136,7 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
             return QByteArray(frontCover.data().data(), frontCover.data().size());
         }
 
-    } else if (mimeType == QStringLiteral("audio/x-musepack")) {
+    } else if (mimeType == QLatin1String("audio/x-musepack")) {
 
         TagLib::MPC::File mpcFile(&stream, true);
         if (!mpcFile.tag() || mpcFile.tag()->isEmpty()) {
@@ -155,7 +155,7 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
             return QByteArray(pictureData.data() + dataPosition, pictureData.size() - dataPosition);
         }
 
-    } else if (mimeType == QStringLiteral("audio/flac")) {
+    } else if (mimeType == QLatin1String("audio/flac")) {
 
         TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
         TagLib::List<TagLib::FLAC::Picture *> lstPic = flacFile.pictureList();
@@ -172,13 +172,15 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
     } else {
 
         TagLib::List<TagLib::FLAC::Picture *> lstPic;
-        if (mimeType == QStringLiteral("audio/ogg") || mimeType == QStringLiteral("audio/x-vorbis+ogg")) {
+        if ((mimeType == QLatin1String("audio/ogg"))
+             || (mimeType == QLatin1String("audio/x-vorbis+ogg"))) {
             TagLib::Ogg::Vorbis::File oggFile(&stream, true);
             if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
                 lstPic = oggFile.tag()->pictureList();
             }
         }
-        if (mimeType == QStringLiteral("audio/opus") || mimeType == QStringLiteral("audio/x-opus+ogg")) {
+        if ((mimeType == QLatin1String("audio/opus"))
+                || (mimeType == QLatin1String("audio/x-opus+ogg"))) {
             TagLib::Ogg::Opus::File opusFile(&stream, true);
             if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
                 lstPic = opusFile.tag()->pictureList();
