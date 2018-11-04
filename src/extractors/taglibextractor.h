@@ -24,7 +24,6 @@
 #include "extractorplugin.h"
 #include <tstring.h>
 #include <tstringlist.h>
-#include <tfilestream.h>
 
 namespace TagLib
 {
