@@ -61,6 +61,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
     QStringLiteral("audio/opus"),
+    QStringLiteral("audio/wav"),
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-ape"),
     QStringLiteral("audio/x-mpeg"),
@@ -68,7 +69,6 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
     QStringLiteral("audio/x-vorbis+ogg"),
-    QStringLiteral("audio/wav"),
     QStringLiteral("audio/x-wavpack"),
 };
 
