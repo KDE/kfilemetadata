@@ -33,7 +33,7 @@ class TagLibWriter : public WriterPlugin
     Q_INTERFACES(KFileMetaData::WriterPlugin)
 
 public:
-    TagLibWriter(QObject* parent = nullptr);
+    explicit TagLibWriter(QObject* parent = nullptr);
 
     void write(const WriteData& data) override;
     QStringList writeMimetypes() const override;
