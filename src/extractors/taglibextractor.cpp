@@ -1067,6 +1067,8 @@ void TagLibExtractor::extract(ExtractionResult* result)
 // http://id3.org/
 // https://www.legroom.net/2009/05/09/ogg-vorbis-and-flac-comment-field-recommendations
 // https://kodi.wiki/view/Music_tagging#Tags_Kodi_reads
+// https://wiki.hydrogenaud.io/index.php?title=Tag_Mapping
+// https://picard.musicbrainz.org/docs/mappings/
 // -- FLAC/OGG --
 // Artist:          ARTIST, PERFORMER
 // Album artist:    ALBUMARTIST
