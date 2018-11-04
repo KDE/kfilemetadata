@@ -23,6 +23,7 @@
 
 #include "kfilemetadata_export.h"
 #include <QStringList>
+#include <QVariantMap>
 
 namespace KFileMetaData {
 
@@ -47,6 +48,7 @@ public:
 
     void extract(ExtractionResult* result);
     QStringList mimetypes() const;
+    QVariantMap extractorProperties() const;
 
 private:
     Extractor();
@@ -57,6 +59,8 @@ private:
     void setExtractorPlugin(ExtractorPlugin *extractorPlugin);
 
     void setAutoDeletePlugin(ExtractorPluginOwnership autoDelete);
+
+    void setMetaData(const QVariantMap &metaData);
 
     ExtractorPrivate *d;
     friend class ExtractorCollection;

@@ -25,7 +25,7 @@
 
 #include "extractorcollection.h"
 
-using namespace KFileMetaData;
+namespace KFileMetaData {
 
 class ExtractorCollectionTest : public QObject
 {
@@ -86,8 +86,63 @@ private Q_SLOTS:
             QVERIFY(!xmlSubtypeExtractors.contains(extractor));
         }
     }
+
+    void testExtractorMetadata()
+    {
+        QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
+        ExtractorCollection collection;
+
+        auto allExtractors = collection.allExtractors();
+
+        for (auto extractor : allExtractors) {
+            auto exProperties = extractor->extractorProperties();
+            if (exProperties.isEmpty()) {
+                qWarning() << "Extractor has no property data, please add it! - (Extractor mimetypes:"
+                           << extractor->mimetypes().join(", ") + ")";
+                continue;
+            }
+
+            // Verify properties for every supported mimetype
+            auto propMimetypesJson = exProperties["MimeTypes"];
+            QSet<QString> propMimetypes = propMimetypesJson.toMap().keys().toSet();
+            QSet<QString> supportedMimetypes = extractor->mimetypes().toSet();
+
+            QVERIFY2(!exProperties["Name"].toString().isEmpty(), "Missing \"Name\" property");
+            QVERIFY2(!exProperties["Id"].toString().isEmpty(),   "Missing \"Id\" property");
+
+            if (propMimetypes == supportedMimetypes) {
+                continue;
+            }
+
+            auto diff = propMimetypes - supportedMimetypes;
+            if (!diff.isEmpty()) {
+                for (auto mimetype : diff.toList()) {
+                    auto mimetypeProp = propMimetypesJson.toMap()[mimetype];
+                    auto runtimedep = mimetypeProp.toMap()["HasRuntimeDependency"];
+                    if (runtimedep.isValid() && runtimedep.toInt()) {
+                        diff.remove(mimetype);
+                    }
+                }
+
+                if (!diff.isEmpty()) {
+                    qWarning() << exProperties["Name"].toString()
+                               << exProperties["Id"].toString()
+                               << "has extraneous properties for these mimetypes:" << diff.toList().join(", ");
+                }
+            }
+
+            diff = supportedMimetypes - propMimetypes;
+            if (!diff.isEmpty()) {
+                qWarning() << exProperties["Name"].toString()
+                           << exProperties["Id"].toString()
+                           << "has no properties for these mimetypes:" + diff.toList().join(", ");
+            }
+        }
+    }
 };
 
-QTEST_GUILESS_MAIN(ExtractorCollectionTest)
+}
+
+QTEST_GUILESS_MAIN(KFileMetaData::ExtractorCollectionTest)
 
 #include "extractorcollectiontest.moc"

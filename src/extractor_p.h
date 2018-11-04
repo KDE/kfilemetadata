@@ -33,6 +33,7 @@ public:
 
     ExtractorPluginOwnership m_autoDeletePlugin = AutoDeletePlugin;
 
+    QVariantMap m_metaData;
 };
 
 }

@@ -93,6 +93,7 @@ if(LibExiv2_FOUND)
         TEST_NAME "exiv2extractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData LibExiv2::LibExiv2
     )
+    target_include_directories(exiv2extractortest PRIVATE ${CMAKE_BINARY_DIR}/src/extractors)
 endif()
 
 #

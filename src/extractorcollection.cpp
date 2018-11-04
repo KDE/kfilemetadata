@@ -1,5 +1,4 @@
 /*
- * <one line to give the library's name and an idea of what it does.>
  * Copyright (C) 2012  Vishesh Handa <me@vhanda.in>
  * Copyright (C) 2016  Varun Joshi <varunj.1011@gmail.com>
  *
@@ -63,6 +62,11 @@ ExtractorCollection::~ExtractorCollection()
 }
 
 
+QList<Extractor*> ExtractorCollection::allExtractors() const
+{
+    return d->m_allExtractors;
+}
+
 QList<Extractor*> ExtractorCollection::Private::allExtractors() const
 {
     QStringList plugins;
@@ -121,6 +125,11 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
                 Extractor* ex= new Extractor;
                 ex->setExtractorPlugin(plugin);
                 ex->setAutoDeletePlugin(Extractor::DoNotDeletePlugin);
+                auto metadata = loader.metaData().value(QLatin1String("MetaData"));
+                if (metadata.type() == QJsonValue::Object) {
+                    qCDebug(KFILEMETADATA_LOG) << "Created Plugin with metadata:" << metadata;
+                    ex->setMetaData(metadata.toObject().toVariantMap());
+                }
 
                 extractors << ex;
             } else {

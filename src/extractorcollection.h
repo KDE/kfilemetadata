@@ -1,5 +1,4 @@
 /*
- * <one line to give the library's name and an idea of what it does.>
  * Copyright (C) 2012  Vishesh Handa <me@vhanda.in>
  *
  * This library is free software; you can redistribute it and/or
@@ -58,6 +57,9 @@ public:
 private:
     class Private;
     Private* d;
+
+    friend class ExtractorCollectionTest;
+    QList<Extractor*> allExtractors() const;
 };
 }
 

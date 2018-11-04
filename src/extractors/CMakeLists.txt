@@ -38,7 +38,9 @@ if(LibExiv2_FOUND)
     )
     if(NOT ${LibExiv2_VERSION} VERSION_LESS 0.26)
         target_compile_definitions(kfilemetadata_exiv2extractor PRIVATE "-DHAVE_WEBP_SUPPORT")
+        set(EXIV2_HAVE_WEBP_SUPPORT "1")
     endif()
+    configure_file(exiv2extractor.json.in exiv2extractor.json)
 
     set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(

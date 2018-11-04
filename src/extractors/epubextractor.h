@@ -28,7 +28,8 @@ namespace KFileMetaData
 class EPubExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
+                      FILE "epubextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:

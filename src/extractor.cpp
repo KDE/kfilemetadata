@@ -48,6 +48,11 @@ QStringList Extractor::mimetypes() const
     return d->m_plugin->mimetypes();
 }
 
+QVariantMap Extractor::extractorProperties() const
+{
+    return d->m_metaData;
+}
+
 void Extractor::setExtractorPlugin(ExtractorPlugin *extractorPlugin)
 {
     d->m_plugin = extractorPlugin;
@@ -56,4 +61,9 @@ void Extractor::setExtractorPlugin(ExtractorPlugin *extractorPlugin)
 void Extractor::setAutoDeletePlugin(ExtractorPluginOwnership autoDelete)
 {
     d->m_autoDeletePlugin = autoDelete;
+}
+
+void Extractor::setMetaData(const QVariantMap &metaData)
+{
+    d->m_metaData = metaData;
 }
