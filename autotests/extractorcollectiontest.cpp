@@ -75,7 +75,9 @@ private Q_SLOTS:
         ExtractorCollection collection;
 
         auto textExtractors = collection.fetchExtractors("text/plain");
-        auto xmlSubtypeExtractors = collection.fetchExtractors("application/x-kvtml");
+        // "application/mathml+xml" is "sub-class-of" "application/xml" (i.e. inherits it),
+        // according to the shared-mime-info database
+        auto xmlSubtypeExtractors = collection.fetchExtractors("application/mathml+xml");
         QVERIFY(!xmlSubtypeExtractors.isEmpty());
 
         // Verify the generic "text/plain" extractor is also not used for
