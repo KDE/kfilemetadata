@@ -39,6 +39,7 @@
 #include <tag.h>
 #include <vorbisfile.h>
 #include <opusfile.h>
+#include <speexfile.h>
 #include <xiphcomment.h>
 #include <popularimeterframe.h>
 #include <textidentificationframe.h>
@@ -61,6 +62,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
     QStringLiteral("audio/opus"),
+    QStringLiteral("audio/speex"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-ape"),
@@ -68,6 +70,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-ms-wma"),
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
+    QStringLiteral("audio/x-speex"),
     QStringLiteral("audio/x-vorbis+ogg"),
     QStringLiteral("audio/x-wavpack"),
 };
@@ -831,6 +834,11 @@ void TagLibExtractor::extract(ExtractionResult* result)
         TagLib::Ogg::Opus::File opusFile(&stream, true);
         if (opusFile.tag()) {
             extractVorbisTags(opusFile.tag(), data);
+        }
+    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
+        TagLib::Ogg::Speex::File speexFile(&stream, true);
+        if (speexFile.tag()) {
+            extractVorbisTags(speexFile.tag(), data);
         }
     } else if (mimeType == QLatin1String("audio/x-ms-wma")) {
         /* For some reason, TagLib::ASF::File tag() returns only an invalid pointer.

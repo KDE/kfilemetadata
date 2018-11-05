@@ -119,6 +119,11 @@ void TagLibExtractorTest::testCommonData_data()
         << QStringLiteral("audio/opus")
         ;
 
+    QTest::addRow("speex")
+        << QStringLiteral("spx")
+        << QStringLiteral("audio/speex")
+        ;
+
     QTest::addRow("wav")
         << QStringLiteral("wav")
         << QStringLiteral("audio/wav")
@@ -190,6 +195,11 @@ void TagLibExtractorTest::testVorbisComment_data()
     QTest::addRow("opus")
         << QStringLiteral("opus")
         << QStringLiteral("audio/opus")
+        ;
+
+    QTest::addRow("speex")
+        << QStringLiteral("spx")
+        << QStringLiteral("audio/speex")
         ;
 }
 
