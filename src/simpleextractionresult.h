@@ -41,7 +41,7 @@ class KFILEMETADATA_EXPORT SimpleExtractionResult : public ExtractionResult
 public:
     SimpleExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = ExtractEverything);
     SimpleExtractionResult(const SimpleExtractionResult& rhs);
-    virtual ~SimpleExtractionResult();
+    ~SimpleExtractionResult() override;
 
     SimpleExtractionResult& operator=(const SimpleExtractionResult& rhs);
     bool operator==(const SimpleExtractionResult& rhs) const;

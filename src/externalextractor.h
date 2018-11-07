@@ -35,7 +35,7 @@ class ExternalExtractor : public ExtractorPlugin
 public:
     explicit ExternalExtractor(QObject* parent = nullptr);
     explicit ExternalExtractor(const QString& pluginPath);
-    virtual ~ExternalExtractor();
+    ~ExternalExtractor() override;
 
     QStringList mimetypes() const override;
     void extract(ExtractionResult* result) override;

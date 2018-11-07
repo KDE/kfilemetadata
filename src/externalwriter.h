@@ -35,7 +35,7 @@ class ExternalWriter : public WriterPlugin
 public:
     explicit ExternalWriter(QObject* parent = nullptr);
     explicit ExternalWriter(const QString& pluginPath);
-    virtual ~ExternalWriter();
+    ~ExternalWriter() override;
 
     void write(const WriteData& data) override;
     QStringList writeMimetypes() const override;
