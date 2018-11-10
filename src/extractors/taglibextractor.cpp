@@ -308,189 +308,189 @@ void TagLibExtractor::extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& d
     if (apeTags->isEmpty()) {
         return;
     }
-    TagLib::APE::ItemListMap lstMusepack = apeTags->itemListMap();
-    TagLib::APE::ItemListMap::ConstIterator itMPC;
+    TagLib::APE::ItemListMap lstApe = apeTags->itemListMap();
+    TagLib::APE::ItemListMap::ConstIterator itApe;
 
-    itMPC = lstMusepack.find("ARTIST");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("ARTIST");
+    if (itApe != lstApe.end()) {
         if (!data.artists.isEmpty()) {
             data.artists += ", ";
         }
-        data.artists += (*itMPC).second.toString();
+        data.artists += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("ALBUMARTIST");
-    if (itMPC == lstMusepack.end()) {
-        itMPC = lstMusepack.find("ALBUM ARTIST");
+    itApe = lstApe.find("ALBUMARTIST");
+    if (itApe == lstApe.end()) {
+        itApe = lstApe.find("ALBUM ARTIST");
     }
-    if (itMPC != lstMusepack.end()) {
+    if (itApe != lstApe.end()) {
         if(!data.albumArtists.isEmpty()) {
             data.albumArtists += ", ";
         }
-        data.albumArtists += (*itMPC).second.toString();
+        data.albumArtists += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("COMPOSER");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("COMPOSER");
+    if (itApe != lstApe.end()) {
         if (!data.composers.isEmpty()) {
             data.composers += ", ";
         }
-        data.composers += (*itMPC).second.toString();
+        data.composers += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("LYRICIST");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("LYRICIST");
+    if (itApe != lstApe.end()) {
         if (!data.lyricists.isEmpty()) {
             data.lyricists += ", ";
         }
-        data.lyricists += (*itMPC).second.toString();
+        data.lyricists += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("GENRE");
-    if (itMPC != lstMusepack.end()) {
-        data.genres.append((*itMPC).second.toString());
+    itApe = lstApe.find("GENRE");
+    if (itApe != lstApe.end()) {
+        data.genres.append((*itApe).second.toString());
     }
 
-    itMPC = lstMusepack.find("LOCATION");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("LOCATION");
+    if (itApe != lstApe.end()) {
         if (!data.location.isEmpty()) {
             data.location += ", ";
         }
-        data.location += (*itMPC).second.toString();
+        data.location += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("ARRANGER");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("ARRANGER");
+    if (itApe != lstApe.end()) {
         if (!data.arranger.isEmpty()) {
             data.arranger += ", ";
         }
-        data.arranger += (*itMPC).second.toString();
+        data.arranger += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("PERFORMER");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("PERFORMER");
+    if (itApe != lstApe.end()) {
         if (!data.performer.isEmpty()) {
             data.performer += ", ";
         }
-        data.performer += (*itMPC).second.toString();
+        data.performer += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("CONDUCTOR");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("CONDUCTOR");
+    if (itApe != lstApe.end()) {
         if (!data.conductor.isEmpty()) {
             data.conductor += ", ";
         }
-        data.conductor += (*itMPC).second.toString();
+        data.conductor += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("ENSEMBLE");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("ENSEMBLE");
+    if (itApe != lstApe.end()) {
         if (!data.ensemble.isEmpty()) {
             data.ensemble += ", ";
         }
-        data.ensemble += (*itMPC).second.toString();
+        data.ensemble += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("PUBLISHER");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("PUBLISHER");
+    if (itApe != lstApe.end()) {
         if (!data.publisher.isEmpty()) {
             data.publisher += ", ";
         }
-        data.publisher += (*itMPC).second.toString();
+        data.publisher += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("COPYRIGHT");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("COPYRIGHT");
+    if (itApe != lstApe.end()) {
         if (!data.copyright.isEmpty()) {
             data.copyright += ", ";
         }
-        data.copyright += (*itMPC).second.toString();
+        data.copyright += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("LABEL");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("LABEL");
+    if (itApe != lstApe.end()) {
         if (!data.label.isEmpty()) {
             data.label += ", ";
         }
-        data.label += (*itMPC).second.toString();
+        data.label += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("AUTHOR");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("AUTHOR");
+    if (itApe != lstApe.end()) {
         if (!data.author.isEmpty()) {
             data.author += ", ";
         }
-        data.author += (*itMPC).second.toString();
+        data.author += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("LICENSE");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("LICENSE");
+    if (itApe != lstApe.end()) {
         if (!data.license.isEmpty()) {
             data.license += ", ";
         }
-        data.license += (*itMPC).second.toString();
+        data.license += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("LYRICS");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("LYRICS");
+    if (itApe != lstApe.end()) {
         if (!data.lyrics.isEmpty()) {
             data.lyrics += ", ";
         }
-        data.lyrics += (*itMPC).second.toString();
+        data.lyrics += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("COMPILATION");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("COMPILATION");
+    if (itApe != lstApe.end()) {
         if (!data.compilation.isEmpty()) {
             data.compilation += ", ";
         }
-        data.compilation += (*itMPC).second.toString();
+        data.compilation += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("LANGUAGE");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("LANGUAGE");
+    if (itApe != lstApe.end()) {
         if (!data.language.isEmpty()) {
             data.language += ", ";
         }
-        data.language += (*itMPC).second.toString();
+        data.language += (*itApe).second.toString();
     }
 
-    itMPC = lstMusepack.find("DISCNUMBER");
-    if (itMPC != lstMusepack.end()) {
-        data.discNumber = (*itMPC).second.toString().toInt();
+    itApe = lstApe.find("DISCNUMBER");
+    if (itApe != lstApe.end()) {
+        data.discNumber = (*itApe).second.toString().toInt();
     }
 
-    itMPC = lstMusepack.find("OPUS");
-    if (itMPC != lstMusepack.end()) {
-        data.opus = (*itMPC).second.toString().toInt();
+    itApe = lstApe.find("OPUS");
+    if (itApe != lstApe.end()) {
+        data.opus = (*itApe).second.toString().toInt();
     }
 
-    itMPC = lstMusepack.find("RATING");
-    if (itMPC != lstMusepack.end()) {
+    itApe = lstApe.find("RATING");
+    if (itApe != lstApe.end()) {
         /* There is no standard regarding ratings. There is one implementation
            most seem to follow with a range of 0 to 100 (stored in steps of 10).
            Make it compatible with baloo rating with a range from 0 to 10 */
-        data.rating = (*itMPC).second.toString().toInt() / 10;
+        data.rating = (*itApe).second.toString().toInt() / 10;
     }
 
-    itMPC = lstMusepack.find("REPLAYGAIN_TRACK_GAIN");
-    if (itMPC != lstMusepack.end()) {
-        data.replayGainTrackGain = TStringToQString((*itMPC).second.toString());
+    itApe = lstApe.find("REPLAYGAIN_TRACK_GAIN");
+    if (itApe != lstApe.end()) {
+        data.replayGainTrackGain = TStringToQString((*itApe).second.toString());
     }
 
-    itMPC = lstMusepack.find("REPLAYGAIN_TRACK_PEAK");
-    if (itMPC != lstMusepack.end()) {
-        data.replayGainTrackPeak = TStringToQString((*itMPC).second.toString());
+    itApe = lstApe.find("REPLAYGAIN_TRACK_PEAK");
+    if (itApe != lstApe.end()) {
+        data.replayGainTrackPeak = TStringToQString((*itApe).second.toString());
     }
 
-    itMPC = lstMusepack.find("REPLAYGAIN_ALBUM_GAIN");
-    if (itMPC != lstMusepack.end()) {
-        data.replayGainAlbumGain = TStringToQString((*itMPC).second.toString());
+    itApe = lstApe.find("REPLAYGAIN_ALBUM_GAIN");
+    if (itApe != lstApe.end()) {
+        data.replayGainAlbumGain = TStringToQString((*itApe).second.toString());
     }
 
-    itMPC = lstMusepack.find("REPLAYGAIN_ALBUM_PEAK");
-    if (itMPC != lstMusepack.end()) {
-        data.replayGainAlbumPeak = TStringToQString((*itMPC).second.toString());
+    itApe = lstApe.find("REPLAYGAIN_ALBUM_PEAK");
+    if (itApe != lstApe.end()) {
+        data.replayGainAlbumPeak = TStringToQString((*itApe).second.toString());
     }
 }
 
