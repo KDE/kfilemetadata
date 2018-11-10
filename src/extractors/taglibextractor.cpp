@@ -465,7 +465,6 @@ void TagLibExtractor::extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& d
         data.opus = (*itMPC).second.toString().toInt();
     }
 
-    // Rating.
     itMPC = lstMusepack.find("RATING");
     if (itMPC != lstMusepack.end()) {
         /* There is no standard regarding ratings. There is one implementation
