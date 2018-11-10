@@ -33,6 +33,7 @@ private:
 
 private Q_SLOTS:
     void test();
+    void test_data();
 };
 
 #endif // EMBEDDEDIMAGEDATATEST_H

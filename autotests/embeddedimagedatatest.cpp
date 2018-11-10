@@ -35,6 +35,7 @@ QString EmbeddedImageDataTest::testFilePath(const QString& fileName) const
 
 void EmbeddedImageDataTest::test()
 {
+    QFETCH(QString, fileName);
     QMimeDatabase mimeDb;
     QString testAudioFile;
     EmbeddedImageData imageData;
@@ -44,35 +45,40 @@ void EmbeddedImageDataTest::test()
     testFile.open(QIODevice::ReadOnly);
     originalFrontCoverImage = testFile.readAll();
 
-    testAudioFile = testFilePath("test.opus");
+    testAudioFile = testFilePath(fileName);
     QVERIFY(imageData.mimeTypes().contains(mimeDb.mimeTypeForFile(testAudioFile).name()));
     images = imageData.imageData(testAudioFile);
     QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
+}
 
-    testAudioFile = testFilePath("test.ogg");
-    QVERIFY(imageData.mimeTypes().contains(mimeDb.mimeTypeForFile(testAudioFile).name()));
-    images = imageData.imageData(testAudioFile);
-    QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
+void EmbeddedImageDataTest::test_data()
+{
+    QTest::addColumn<QString>("fileName");
 
-    testAudioFile = testFilePath("test.flac");
-    QVERIFY(imageData.mimeTypes().contains(mimeDb.mimeTypeForFile(testAudioFile).name()));
-    images = imageData.imageData(testAudioFile);
-    QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
+    QTest::addRow("opus")
+            << QStringLiteral("test.opus")
+            ;
 
-    testAudioFile = testFilePath("test.mp3");
-    QVERIFY(imageData.mimeTypes().contains(mimeDb.mimeTypeForFile(testAudioFile).name()));
-    images = imageData.imageData(testAudioFile);
-    QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
+    QTest::addRow("ogg")
+            << QStringLiteral("test.ogg")
+            ;
 
-    testAudioFile = testFilePath("test.m4a");
-    QVERIFY(imageData.mimeTypes().contains(mimeDb.mimeTypeForFile(testAudioFile).name()));
-    images = imageData.imageData(testAudioFile);
-    QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
+    QTest::addRow("flac")
+            << QStringLiteral("test.flac")
+            ;
 
-    testAudioFile = testFilePath("test.mpc");
-    QVERIFY(imageData.mimeTypes().contains(mimeDb.mimeTypeForFile(testAudioFile).name()));
-    images = imageData.imageData(testAudioFile);
-    QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
+    QTest::addRow("mp3")
+            << QStringLiteral("test.mp3")
+            ;
+
+    QTest::addRow("m4a")
+            << QStringLiteral("test.m4a")
+            ;
+
+    QTest::addRow("mpc")
+            << QStringLiteral("test.mpc")
+            ;
+
 }
 
 QTEST_GUILESS_MAIN(EmbeddedImageDataTest)
