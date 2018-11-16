@@ -176,6 +176,10 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     add(result, data, Property::ImageMake, "Exif.Image.Make", QVariant::String);
     add(result, data, Property::ImageModel, "Exif.Image.Model", QVariant::String);
+    add(result, data, Property::Description, "Exif.Image.ImageDescription", QVariant::String);
+    add(result, data, Property::Artist, "Exif.Image.Artist", QVariant::String);
+    add(result, data, Property::Copyright, "Exif.Image.Copyright", QVariant::String);
+    add(result, data, Property::Generator, "Exif.Image.Software", QVariant::String);
     add(result, data, Property::ImageDateTime, "Exif.Image.DateTime", QVariant::DateTime);
     add(result, data, Property::ImageOrientation, "Exif.Image.Orientation", QVariant::Int);
     add(result, data, Property::PhotoFlash, "Exif.Photo.Flash", QVariant::Int);

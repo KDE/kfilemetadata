@@ -49,7 +49,10 @@ void Exiv2ExtractorTest::test()
     QCOMPARE(result.properties().value(PhotoGpsLatitude).toDouble(), 41.411);
     QCOMPARE(result.properties().value(PhotoGpsLongitude).toDouble(), 2.173);
     QVERIFY(qAbs(result.properties().value(PhotoGpsAltitude).toDouble() - 12.2) <  0.0001);
-
+    QCOMPARE(result.properties().value(Artist).toString(), QStringLiteral("Artist"));
+    QCOMPARE(result.properties().value(Description).toString(), QStringLiteral("Description"));
+    QCOMPARE(result.properties().value(Copyright).toString(), QStringLiteral("Copyright"));
+    QCOMPARE(result.properties().value(Generator).toString(), QStringLiteral("digiKam-5.9.0"));
 }
 
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)
