@@ -105,7 +105,7 @@ void OdfExtractor::extract(ExtractionResult* result)
             // Dublin Core
             if (namespaceURI == dcNS()) {
                 if (localName == QLatin1String("description")) {
-                    result->add(Property::Comment, e.text());
+                    result->add(Property::Description, e.text());
                 } else if (localName == QLatin1String("subject")) {
                     result->add(Property::Subject, e.text());
                 } else if (localName == QLatin1String("title")) {

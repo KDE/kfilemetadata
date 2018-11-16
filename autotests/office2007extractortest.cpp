@@ -47,7 +47,7 @@ void Office2007ExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("KFileMetaData Title")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("KFileMetaData Subject")));
     QCOMPARE(result.properties().value(Property::Keywords), QVariant(QStringLiteral("KFileMetaData keyword")));
-    QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("KFileMetaData comment")));
+    QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("KFileMetaData comment")));
     QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("en-US")));
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
 

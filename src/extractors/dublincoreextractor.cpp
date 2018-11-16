@@ -45,7 +45,7 @@ void DublinCoreExtractor::extract(ExtractionResult* result, const QDomNode& frag
         // used in the legacy DCES or DCMI-TERMS variant
         if (namespaceURI == dcNS() || namespaceURI == dctermsNS()) {
             if (localName == QLatin1String("description")) {
-                result->add(Property::Comment, e.text());
+                result->add(Property::Description, e.text());
             } else if (localName == QLatin1String("subject")) {
                 result->add(Property::Subject, e.text());
             } else if (localName == QLatin1String("title")) {
