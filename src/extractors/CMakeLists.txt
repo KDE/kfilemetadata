@@ -29,12 +29,12 @@ if(TAGLIB_FOUND)
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 endif()
 
-if(Exiv2_FOUND)
+if(LibExiv2_FOUND)
     add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp)
     kde_target_enable_exceptions(kfilemetadata_exiv2extractor PRIVATE)
     target_link_libraries(kfilemetadata_exiv2extractor
         KF5::FileMetaData
-        Exiv2::Exiv2
+        LibExiv2::LibExiv2
     )
 
     set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")

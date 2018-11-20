@@ -52,8 +52,8 @@ set_package_properties(Taglib PROPERTIES DESCRIPTION "Id3 tag reader"
                        URL "http://developer.kde.org/~wheeler/taglib.html" TYPE OPTIONAL
                        PURPOSE "Support for music metadata")
 
-find_package(Exiv2 0.21)
-set_package_properties(Exiv2 PROPERTIES
+find_package(LibExiv2 0.21)
+set_package_properties(LibExiv2 PROPERTIES
                        TYPE OPTIONAL
                        PURPOSE "Support for image metadata")
 
