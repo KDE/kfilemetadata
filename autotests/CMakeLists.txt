@@ -87,13 +87,11 @@ ecm_add_test(propertyinfotest.cpp
 #
 # Exiv2
 #
-if(EXIV2_FOUND)
-    include_directories(${EXIV2_INCLUDE_DIR})
-
+if(Exiv2_FOUND)
     kde_enable_exceptions()
     ecm_add_test(exiv2extractortest.cpp ../src/extractors/exiv2extractor.cpp
         TEST_NAME "exiv2extractortest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${EXIV2_LIBRARIES}
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData Exiv2::Exiv2
     )
 endif()
 

@@ -5,7 +5,7 @@ set(KF5_DEP_VERSION "5.52.0") # handled by release scripts
 project(KFileMetaData VERSION ${KF5_VERSION})
 
 include(FeatureSummary)
-find_package(ECM 5.52.0  NO_MODULE)
+find_package(ECM 5.53.0  NO_MODULE)
 set_package_properties(ECM PROPERTIES TYPE REQUIRED DESCRIPTION "Extra CMake Modules." URL "https://projects.kde.org/projects/kdesupport/extra-cmake-modules")
 feature_summary(WHAT REQUIRED_PACKAGES_NOT_FOUND FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
@@ -53,8 +53,8 @@ set_package_properties(Taglib PROPERTIES DESCRIPTION "Id3 tag reader"
                        PURPOSE "Support for music metadata")
 
 find_package(Exiv2 0.21)
-set_package_properties(Exiv2 PROPERTIES DESCRIPTION "Image Tag reader"
-                       URL "http://www.exiv2.org" TYPE OPTIONAL
+set_package_properties(Exiv2 PROPERTIES
+                       TYPE OPTIONAL
                        PURPOSE "Support for image metadata")
 
 find_package(FFmpeg 57.48 COMPONENTS AVCODEC)
