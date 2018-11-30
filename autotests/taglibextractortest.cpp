@@ -547,7 +547,7 @@ void  TagLibExtractorTest::testNoMetadata()
 
     const auto excessKeys = resultKeys.toSet() - expectedKeys.toSet();
     const auto missingKeys = expectedKeys.toSet() - resultKeys.toSet();
-    if (excessKeys.size()) {
+    if (!excessKeys.isEmpty()) {
         const auto propNames =  propertyEnumNames(excessKeys.toList()).join(QLatin1String(", "));
         if (failMessage.isEmpty()) {
             const auto message = QStringLiteral("Excess properties: %1").arg(propNames);
@@ -555,7 +555,7 @@ void  TagLibExtractorTest::testNoMetadata()
         } else {
             QEXPECT_FAIL("", qPrintable(QStringLiteral("%1: %2").arg(failMessage).arg(propNames)), Continue);
         }
-    } else if (missingKeys.size()) {
+    } else if (!missingKeys.isEmpty()) {
         const auto message = QStringLiteral("Missing properties: %1")
                 .arg(propertyEnumNames(missingKeys.toList()).join(QLatin1String(", ")));
         QWARN(qPrintable(message));
