@@ -34,6 +34,12 @@
 #include <attachedpictureframe.h>
 #include <mp4tag.h>
 #include <xiphcomment.h>
+#include <apefile.h>
+#include <apetag.h>
+#include <wavpackfile.h>
+#include <speexfile.h>
+#include <wavfile.h>
+#include <aifffile.h>
 
 #include <QMimeDatabase>
 #include <QDebug>
@@ -60,10 +66,17 @@ const QStringList EmbeddedImageData::Private::mMimetypes =
     QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
     QStringLiteral("audio/opus"),
+    QStringLiteral("audio/speex"),
+    QStringLiteral("audio/wav"),
+    QStringLiteral("audio/x-aiff"),
+    QStringLiteral("audio/x-ape"),
     QStringLiteral("audio/x-mpeg"),
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
+    QStringLiteral("audio/x-speex"),
     QStringLiteral("audio/x-vorbis+ogg"),
+    QStringLiteral("audio/x-wav"),
+    QStringLiteral("audio/x-wavpack"),
 };
 
 EmbeddedImageData::EmbeddedImageData()
@@ -114,6 +127,21 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
             return getFrontCoverFromID3(mpegFile.ID3v2Tag());
         }
 
+    } else if (mimeType == QLatin1String("audio/x-aiff")) {
+
+        TagLib::RIFF::AIFF::File aiffFile(&stream, true);
+        if (aiffFile.hasID3v2Tag()) {
+            return getFrontCoverFromID3(aiffFile.tag());
+        }
+
+    } else if ((mimeType == QLatin1String("audio/wav"))
+               || (mimeType == QLatin1String("audio/x-wav"))) {
+
+        TagLib::RIFF::WAV::File wavFile(&stream, true);
+        if (wavFile.hasID3v2Tag()) {
+            return getFrontCoverFromID3(wavFile.ID3v2Tag());
+        }
+
     } else if (mimeType == QLatin1String("audio/mp4")) {
 
         TagLib::MP4::File mp4File(&stream, true);
@@ -128,6 +156,20 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
             return getFrontCoverFromApe(mpcFile.APETag());
         }
 
+    } else if (mimeType == QLatin1String("audio/x-ape")) {
+
+        TagLib::APE::File apeFile(&stream, true);
+        if (apeFile.hasAPETag()) {
+            return getFrontCoverFromApe(apeFile.APETag());
+        }
+
+    } else if (mimeType == QLatin1String("audio/x-wavpack")) {
+
+        TagLib::WavPack::File wavpackFile(&stream, true);
+        if (wavpackFile.hasAPETag()) {
+            return getFrontCoverFromApe(wavpackFile.APETag());
+        }
+
     } else if (mimeType == QLatin1String("audio/flac")) {
 
         TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
@@ -140,6 +182,7 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
         if (oggFile.tag()) {
             return getFrontCoverFromFlacPicture(oggFile.tag()->pictureList());
         }
+
     }
     else if ((mimeType == QLatin1String("audio/opus"))
              || (mimeType == QLatin1String("audio/x-opus+ogg"))) {
@@ -148,6 +191,14 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
         if (opusFile.tag()) {
             return getFrontCoverFromFlacPicture(opusFile.tag()->pictureList());
         }
+
+    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
+
+        TagLib::Ogg::Speex::File speexFile(&stream, true);
+        if (speexFile.tag()) {
+            return getFrontCoverFromFlacPicture(speexFile.tag()->pictureList());
+        }
+
     }
     return QByteArray();
 }

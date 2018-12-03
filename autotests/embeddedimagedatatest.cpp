@@ -55,6 +55,14 @@ void EmbeddedImageDataTest::test_data()
 {
     QTest::addColumn<QString>("fileName");
 
+    QTest::addRow("aiff")
+            << QStringLiteral("test.aif")
+            ;
+
+    QTest::addRow("ape")
+            << QStringLiteral("test.ape")
+            ;
+
     QTest::addRow("opus")
             << QStringLiteral("test.opus")
             ;
@@ -79,6 +87,17 @@ void EmbeddedImageDataTest::test_data()
             << QStringLiteral("test.mpc")
             ;
 
+    QTest::addRow("speex")
+            << QStringLiteral("test.spx")
+            ;
+
+    QTest::addRow("wav")
+            << QStringLiteral("test.wav")
+            ;
+
+    QTest::addRow("wavpack")
+            << QStringLiteral("test.wv")
+            ;
 }
 
 QTEST_GUILESS_MAIN(EmbeddedImageDataTest)
