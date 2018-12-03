@@ -39,7 +39,8 @@ void extractSvgText(KFileMetaData::ExtractionResult* result, const QDomElement &
         return;
     }
 
-    if (node.localName() == QLatin1String("g")) {
+    if ((node.localName() == QLatin1String("g")) ||
+        (node.localName() == QLatin1String("a"))) {
         QDomElement e = node.firstChildElement();
         for (; !e.isNull(); e = e.nextSiblingElement()) {
             extractSvgText(result, e);

@@ -113,5 +113,25 @@ void XmlExtractorTests::testXmlExtractorNoContent()
     QVERIFY(result.text().isEmpty());
 }
 
+void XmlExtractorTests::testXmlExtractorContainer()
+{
+    XmlExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_with_container.svg")),
+            QStringLiteral("image/svg"),
+            ExtractionResult::ExtractEverything);
+    plugin.extract(&result);
+
+    QString content = QStringLiteral("Some text below <a>\n");
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Image);
+
+    QCOMPARE(result.properties().size(), 0);
+
+    content.replace(QLatin1Char('\n'), QLatin1Char(' '));
+    QCOMPARE(result.text(), content);
+}
+
 QTEST_GUILESS_MAIN(XmlExtractorTests)
 
