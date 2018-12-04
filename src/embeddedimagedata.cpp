@@ -40,6 +40,9 @@
 #include <speexfile.h>
 #include <wavfile.h>
 #include <aifffile.h>
+#include <asffile.h>
+#include <asfattribute.h>
+#include <asfpicture.h>
 
 #include <QMimeDatabase>
 #include <QDebug>
@@ -55,6 +58,7 @@ public:
     QByteArray getFrontCoverFromFlacPicture(TagLib::List<TagLib::FLAC::Picture *> lstPic) const;
     QByteArray getFrontCoverFromMp4(TagLib::MP4::Tag* mp4Tags) const;
     QByteArray getFrontCoverFromApe(TagLib::APE::Tag* apeTags) const;
+    QByteArray getFrontCoverFromAsf(TagLib::ASF::Tag* asfTags) const;
     static const QStringList mMimetypes;
 };
 
@@ -71,6 +75,7 @@ const QStringList EmbeddedImageData::Private::mMimetypes =
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-ape"),
     QStringLiteral("audio/x-mpeg"),
+    QStringLiteral("audio/x-ms-wma"),
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
     QStringLiteral("audio/x-speex"),
@@ -170,6 +175,14 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
             return getFrontCoverFromApe(wavpackFile.APETag());
         }
 
+    } else if (mimeType == QLatin1String("audio/x-ms-wma")) {
+
+        TagLib::ASF::File asfFile(&stream, true);
+        TagLib::ASF::Tag* asfTags = dynamic_cast<TagLib::ASF::Tag*>(asfFile.tag());
+        if (asfTags) {
+            return getFrontCoverFromAsf(asfTags);
+        }
+
     } else if (mimeType == QLatin1String("audio/flac")) {
 
         TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
@@ -258,6 +271,19 @@ EmbeddedImageData::Private::getFrontCoverFromApe(TagLib::APE::Tag* apeTags) cons
         if (position >= 0) {
             position += 1;
             return QByteArray(pictureData.data() + position, pictureData.size() - position);
+        }
+    }
+    return QByteArray();
+}
+QByteArray
+EmbeddedImageData::Private::getFrontCoverFromAsf(TagLib::ASF::Tag* asfTags) const
+{
+    TagLib::ASF::AttributeList lstASF = asfTags->attribute("WM/Picture");
+    for (const auto& attribute : qAsConst(lstASF)) {
+        TagLib::ASF::Picture picture = attribute.toPicture();
+        if (picture.type() == TagLib::ASF::Picture::FrontCover) {
+            TagLib::ByteVector pictureData = picture.picture();
+            return QByteArray(pictureData.data(), pictureData.size());
         }
     }
     return QByteArray();

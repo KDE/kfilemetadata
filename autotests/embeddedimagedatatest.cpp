@@ -98,6 +98,10 @@ void EmbeddedImageDataTest::test_data()
     QTest::addRow("wavpack")
             << QStringLiteral("test.wv")
             ;
+
+    QTest::addRow("wma")
+            << QStringLiteral("test.wma")
+            ;
 }
 
 QTEST_GUILESS_MAIN(EmbeddedImageDataTest)
