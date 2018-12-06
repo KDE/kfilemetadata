@@ -456,7 +456,11 @@ void TagLibExtractor::extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& d
         data.language += (*itApe).second.toString();
     }
 
-    itApe = lstApe.find("DISCNUMBER");
+
+    itApe = lstApe.find("DISC");
+    if (itApe == lstApe.end()) {
+        itApe = lstApe.find("DISCNUMBER");
+    }
     if (itApe != lstApe.end()) {
         data.discNumber = (*itApe).second.toString().toInt();
     }

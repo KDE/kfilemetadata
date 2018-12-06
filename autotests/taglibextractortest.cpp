@@ -279,7 +279,7 @@ void TagLibExtractorTest::testApe()
     QCOMPARE(result.properties().value(Property::License), QVariant(QStringLiteral("License")));
     QCOMPARE(result.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics")));
     QCOMPARE(result.properties().value(Property::Channels).toInt(), 1);
-    QCOMPARE(result.properties().value(Property::DiscNumber).isValid(), false);
+    QCOMPARE(result.properties().value(Property::DiscNumber).toInt(), 1);
     QCOMPARE(result.properties().value(Property::Rating).toInt(), 4);
     QCOMPARE(result.properties().value(Property::ReplayGainAlbumGain), QVariant(-9.44));
     QCOMPARE(result.properties().value(Property::ReplayGainAlbumPeak), QVariant(1.099));
