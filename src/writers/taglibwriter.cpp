@@ -39,10 +39,18 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
     QStringLiteral("audio/opus"),
+    QStringLiteral("audio/speex"),
+    QStringLiteral("audio/wav"),
+    QStringLiteral("audio/x-aiff"),
+    QStringLiteral("audio/x-ape"),
     QStringLiteral("audio/x-mpeg"),
+    QStringLiteral("audio/x-ms-wma"),
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
+    QStringLiteral("audio/x-speex"),
     QStringLiteral("audio/x-vorbis+ogg"),
+    QStringLiteral("audio/x-wav"),
+    QStringLiteral("audio/x-wavpack"),
 };
 
 QStringList TagLibWriter::writeMimetypes() const

@@ -95,6 +95,30 @@ void TagLibWriterTest::testCommonData_data()
     QTest::addColumn<QString>("stringSuffix");
 
 
+    QTest::addRow("aiff")
+        << QStringLiteral("aif")
+        << QStringLiteral("audio/x-aiff")
+        << QString()
+        ;
+
+    QTest::addRow("aiff_unicode")
+        << QStringLiteral("aif")
+        << QStringLiteral("audio/x-aiff")
+        << unicodeTestStringSuffix
+        ;
+
+    QTest::addRow("ape")
+        << QStringLiteral("ape")
+        << QStringLiteral("audio/x-ape")
+        << QString()
+        ;
+
+    QTest::addRow("ape_unicode")
+        << QStringLiteral("ape")
+        << QStringLiteral("audio/x-ape")
+        << unicodeTestStringSuffix
+        ;
+
     QTest::addRow("flac")
         << QStringLiteral("flac")
         << QStringLiteral("audio/flac")
@@ -164,6 +188,54 @@ void TagLibWriterTest::testCommonData_data()
     QTest::addRow("opus_unicode")
         << QStringLiteral("opus")
         << QStringLiteral("audio/opus")
+        << unicodeTestStringSuffix
+        ;
+
+    QTest::addRow("speex")
+        << QStringLiteral("spx")
+        << QStringLiteral("audio/speex")
+        << QString()
+        ;
+
+    QTest::addRow("speex_unicode")
+        << QStringLiteral("spx")
+        << QStringLiteral("audio/speex")
+        << unicodeTestStringSuffix
+        ;
+
+    QTest::addRow("wav")
+        << QStringLiteral("wav")
+        << QStringLiteral("audio/wav")
+        << QString()
+        ;
+
+    QTest::addRow("wav_unicode")
+        << QStringLiteral("wav")
+        << QStringLiteral("audio/wav")
+        << unicodeTestStringSuffix
+        ;
+
+    QTest::addRow("wavpack")
+        << QStringLiteral("wv")
+        << QStringLiteral("audio/x-wavpack")
+        << QString()
+        ;
+
+    QTest::addRow("wavpack_unicode")
+        << QStringLiteral("wv")
+        << QStringLiteral("audio/x-wavpack")
+        << unicodeTestStringSuffix
+        ;
+
+    QTest::addRow("wma")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << QString()
+        ;
+
+    QTest::addRow("wma_unicode")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
         << unicodeTestStringSuffix
         ;
 }
