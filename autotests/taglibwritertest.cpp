@@ -65,6 +65,8 @@ void TagLibWriterTest::testCommonData()
 
     KFileMetaData::ExtractorCollection extractors;
     QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
+    if (extractorList.isEmpty())
+        QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
     KFileMetaData::Extractor* ex = extractorList.first();
     KFileMetaData::SimpleExtractionResult result(testFilePath(temporaryFileName), mimeType,
                                                  KFileMetaData::ExtractionResult::ExtractMetaData);
