@@ -45,6 +45,10 @@ class Q_DECL_HIDDEN EmbeddedImageData::Private
 public:
     QMimeDatabase mMimeDatabase;
     QByteArray getFrontCover(const QString &fileUrl, const QString &mimeType) const;
+    QByteArray getFrontCoverFromID3(TagLib::ID3v2::Tag* Id3Tags) const;
+    QByteArray getFrontCoverFromFlacPicture(TagLib::List<TagLib::FLAC::Picture *> lstPic) const;
+    QByteArray getFrontCoverFromMp4(TagLib::MP4::Tag* mp4Tags) const;
+    QByteArray getFrontCoverFromApe(TagLib::APE::Tag* apeTags) const;
     static const QStringList mMimetypes;
 };
 
@@ -106,93 +110,103 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
 
         // Handling multiple tags in mpeg files.
         TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        if (!mpegFile.ID3v2Tag() || mpegFile.ID3v2Tag()->isEmpty()) {
-            return QByteArray();
-        }
-
-        TagLib::ID3v2::FrameList lstID3v2;
-        // Attached Front Picture.
-        lstID3v2 = mpegFile.ID3v2Tag()->frameListMap()["APIC"];
-        if (!lstID3v2.isEmpty()) {
-            for (TagLib::ID3v2::FrameList::ConstIterator it = lstID3v2.begin(); it != lstID3v2.end(); ++it) {
-                auto *frontCoverFrame = static_cast<TagLib::ID3v2::AttachedPictureFrame *>(*it);
-                if (frontCoverFrame->type() == frontCoverFrame->FrontCover) {
-                    return QByteArray(frontCoverFrame->picture().data(), frontCoverFrame->picture().size());
-                }
-            }
+        if (mpegFile.ID3v2Tag()) {
+            return getFrontCoverFromID3(mpegFile.ID3v2Tag());
         }
 
     } else if (mimeType == QLatin1String("audio/mp4")) {
 
         TagLib::MP4::File mp4File(&stream, true);
-        if (!mp4File.tag() || mp4File.tag()->isEmpty()) {
-            return QByteArray();
-        }
-        TagLib::MP4::Item coverArtItem = mp4File.tag()->item("covr");
-        if (coverArtItem.isValid())
-        {
-            TagLib::MP4::CoverArtList coverArtList = coverArtItem.toCoverArtList();
-            TagLib::MP4::CoverArt& frontCover = coverArtList.front();
-            return QByteArray(frontCover.data().data(), frontCover.data().size());
+        if (mp4File.tag()) {
+            return getFrontCoverFromMp4(mp4File.tag());
         }
 
     } else if (mimeType == QLatin1String("audio/x-musepack")) {
 
         TagLib::MPC::File mpcFile(&stream, true);
-        if (!mpcFile.tag() || mpcFile.tag()->isEmpty()) {
-            return QByteArray();
-        }
-
-        TagLib::APE::ItemListMap lstMusepack = mpcFile.APETag()->itemListMap();
-        TagLib::APE::ItemListMap::ConstIterator itMPC;
-
-        /* The cover art tag for APEv2 tags starts with the filename as string
-         * with zero termination followed by the actual picture data */
-        itMPC = lstMusepack.find("COVER ART (FRONT)");
-        if (itMPC != lstMusepack.end()) {
-            TagLib::ByteVector pictureData = (*itMPC).second.binaryData();
-            int dataPosition = pictureData.find('\0') + 1;
-            return QByteArray(pictureData.data() + dataPosition, pictureData.size() - dataPosition);
+        if (mpcFile.APETag()) {
+            return getFrontCoverFromApe(mpcFile.APETag());
         }
 
     } else if (mimeType == QLatin1String("audio/flac")) {
 
         TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        TagLib::List<TagLib::FLAC::Picture *> lstPic = flacFile.pictureList();
+        return getFrontCoverFromFlacPicture(flacFile.pictureList());
 
-        if (!lstPic.isEmpty()) {
-            for (TagLib::List<TagLib::FLAC::Picture *>::Iterator it = lstPic.begin(); it != lstPic.end(); ++it) {
-                TagLib::FLAC::Picture *picture = *it;
-                if (picture->type() == picture->FrontCover) {
-                    return QByteArray(picture->data().data(), picture->data().size());
-                }
-            }
-        }
+    } else if ((mimeType == QLatin1String("audio/ogg"))
+               || (mimeType == QLatin1String("audio/x-vorbis+ogg"))) {
 
-    } else {
+        TagLib::Ogg::Vorbis::File oggFile(&stream, true);
+        if (oggFile.tag()) {
+            return getFrontCoverFromFlacPicture(oggFile.tag()->pictureList());
+        }
+    }
+    else if ((mimeType == QLatin1String("audio/opus"))
+             || (mimeType == QLatin1String("audio/x-opus+ogg"))) {
 
-        TagLib::List<TagLib::FLAC::Picture *> lstPic;
-        if ((mimeType == QLatin1String("audio/ogg"))
-             || (mimeType == QLatin1String("audio/x-vorbis+ogg"))) {
-            TagLib::Ogg::Vorbis::File oggFile(&stream, true);
-            if (oggFile.tag() && !oggFile.tag()->isEmpty()) {
-                lstPic = oggFile.tag()->pictureList();
-            }
+        TagLib::Ogg::Opus::File opusFile(&stream, true);
+        if (opusFile.tag()) {
+            return getFrontCoverFromFlacPicture(opusFile.tag()->pictureList());
         }
-        if ((mimeType == QLatin1String("audio/opus"))
-                || (mimeType == QLatin1String("audio/x-opus+ogg"))) {
-            TagLib::Ogg::Opus::File opusFile(&stream, true);
-            if (opusFile.tag() && !opusFile.tag()->isEmpty()) {
-                lstPic = opusFile.tag()->pictureList();
-            }
+    }
+    return QByteArray();
+}
+
+QByteArray
+EmbeddedImageData::Private::getFrontCoverFromID3(TagLib::ID3v2::Tag* Id3Tags) const
+{
+    TagLib::ID3v2::FrameList lstID3v2;
+    // Attached Front Picture.
+    lstID3v2 = Id3Tags->frameListMap()["APIC"];
+    for (const auto& frame : qAsConst(lstID3v2))
+    {
+        const auto *frontCoverFrame = static_cast<TagLib::ID3v2::AttachedPictureFrame *>(frame);
+        if (frontCoverFrame->type() == frontCoverFrame->FrontCover) {
+            return QByteArray(frontCoverFrame->picture().data(), frontCoverFrame->picture().size());
         }
-        if (!lstPic.isEmpty()) {
-            for (TagLib::List<TagLib::FLAC::Picture *>::Iterator it = lstPic.begin(); it != lstPic.end(); ++it) {
-                TagLib::FLAC::Picture *picture = *it;
-                if (picture->type() == picture->FrontCover) {
-                    return QByteArray(picture->data().data(), picture->data().size());
-                }
-            }
+    }
+    return QByteArray();
+}
+
+QByteArray
+EmbeddedImageData::Private::getFrontCoverFromFlacPicture(TagLib::List<TagLib::FLAC::Picture *> lstPic) const
+{
+    for (const auto &picture : qAsConst(lstPic)) {
+        if (picture->type() == picture->FrontCover) {
+            return QByteArray(picture->data().data(), picture->data().size());
+        }
+    }
+    return QByteArray();
+}
+
+QByteArray
+EmbeddedImageData::Private::getFrontCoverFromMp4(TagLib::MP4::Tag* mp4Tags) const
+{
+    TagLib::MP4::Item coverArtItem = mp4Tags->item("covr");
+    if (coverArtItem.isValid())
+    {
+        TagLib::MP4::CoverArtList coverArtList = coverArtItem.toCoverArtList();
+        TagLib::MP4::CoverArt& frontCover = coverArtList.front();
+        return QByteArray(frontCover.data().data(), frontCover.data().size());
+    }
+    return QByteArray();
+}
+
+QByteArray
+EmbeddedImageData::Private::getFrontCoverFromApe(TagLib::APE::Tag* apeTags) const
+{
+    TagLib::APE::ItemListMap lstApe = apeTags->itemListMap();
+    TagLib::APE::ItemListMap::ConstIterator itApe;
+
+    /* The cover art tag for APEv2 tags starts with the filename as string
+     * with zero termination followed by the actual picture data */
+    itApe = lstApe.find("COVER ART (FRONT)");
+    if (itApe != lstApe.end()) {
+        TagLib::ByteVector pictureData = (*itApe).second.binaryData();
+        int position = pictureData.find('\0');
+        if (position >= 0) {
+            position += 1;
+            return QByteArray(pictureData.data() + position, pictureData.size() - position);
         }
     }
     return QByteArray();
