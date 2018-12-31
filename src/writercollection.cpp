@@ -85,7 +85,7 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
         }
 
         const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
-        Q_FOREACH (const QString& fileName, entryList) {
+        for (const QString& fileName : entryList) {
             // Make sure the same plugin is not loaded twice, even if it
             // installed in two different locations
             if (plugins.contains(fileName))
@@ -114,8 +114,8 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
         QPluginLoader loader(pluginPath);
 
         if (!loader.load()) {
-            qWarning() << "Could not create Writer: " << pluginPath;
-            qWarning() << loader.errorString();
+            qCWarning(KFILEMETADATA_LOG) << "Could not create Writer: " << pluginPath;
+            qCWarning(KFILEMETADATA_LOG) << loader.errorString();
             continue;
         }
 

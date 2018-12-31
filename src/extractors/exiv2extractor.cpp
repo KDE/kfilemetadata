@@ -210,15 +210,15 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     if (!longRef.isEmpty() && longRef[0] == 'W')
         longitude *= -1;
 
-    if (latitude) {
+    if (latitude != 0.0) {
         result->add(Property::PhotoGpsLatitude, latitude);
     }
 
-    if (longitude) {
+    if (longitude != 0.0) {
         result->add(Property::PhotoGpsLongitude, longitude);
     }
 
-    if (altitude) {
+    if (altitude != 0.0) {
         result->add(Property::PhotoGpsAltitude, altitude);
     }
 }
@@ -245,7 +245,7 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
         n = (*it).toRational(0).first;
         d = (*it).toRational(0).second;
 
-        if (d == 0) {
+        if (d == 0.0) {
             return 0.0;
         }
 
@@ -254,7 +254,7 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
         n = (*it).toRational(1).first;
         d = (*it).toRational(1).second;
 
-        if (d == 0) {
+        if (d == 0.0) {
             return deg;
         }
 
@@ -266,7 +266,7 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
         n = (*it).toRational(2).first;
         d = (*it).toRational(2).second;
 
-        if (d == 0) {
+        if (d == 0.0) {
             return deg;
         }
 
