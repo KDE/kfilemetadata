@@ -44,12 +44,12 @@ find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
 find_package(Poppler 0.12.1 COMPONENTS Qt5)
 set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
-                       URL "http://poppler.freedesktop.org" TYPE OPTIONAL
+                       URL "https://poppler.freedesktop.org/" TYPE OPTIONAL
                        PURPOSE "Support for PDF files")
 
 find_package(Taglib 1.11.1)
 set_package_properties(Taglib PROPERTIES DESCRIPTION "Id3 tag reader"
-                       URL "http://developer.kde.org/~wheeler/taglib.html" TYPE OPTIONAL
+                       URL "https://taglib.org/" TYPE OPTIONAL
                        PURPOSE "Support for music metadata")
 
 find_package(LibExiv2 0.21)
@@ -61,7 +61,7 @@ find_package(FFmpeg 57.48 COMPONENTS AVCODEC)
 find_package(FFmpeg 57.40 COMPONENTS AVFORMAT)
 find_package(FFmpeg 55.27 COMPONENTS AVUTIL)
 set_package_properties(FFmpeg PROPERTIES DESCRIPTION "Video Tag reader"
-                       URL "http://ffmpeg.org" TYPE OPTIONAL
+                       URL "https://ffmpeg.org/" TYPE OPTIONAL
                        PURPOSE "Support for video metadata")
 
 if (FFmpeg_AVFORMAT_FOUND)
@@ -71,18 +71,18 @@ endif()
 
 find_package(EPub)
 set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
-                       URL "http://sourceforge.net/projects/ebook-tools" TYPE OPTIONAL
+                       URL "https://sourceforge.net/projects/ebook-tools/" TYPE OPTIONAL
                        PURPOSE "Support for epub metadata")
 
 find_package(CatDoc)
 set_package_properties(CatDoc PROPERTIES DESCRIPTION "catdoc executable"
-                       URL "http://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE RUNTIME
+                       URL "https://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE RUNTIME
                        PURPOSE "Extract text from office 98 files - RUNTIME dependency")
 
 if ( CMAKE_SYSTEM_NAME MATCHES "Linux" )
     find_package(Xattr)
     set_package_properties(Xattr PROPERTIES DESCRIPTION "library libattr "
-        URL "http://savannah.nongnu.org/projects/attr"
+        URL "https://savannah.nongnu.org/projects/attr"
         TYPE REQUIRED
         PURPOSE "Extended attribute shared library")
 endif()

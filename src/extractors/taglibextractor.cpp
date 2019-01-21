@@ -1076,7 +1076,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
 
 // TAG information (incomplete).
 // https://xiph.org/vorbis/doc/v-comment.html
-// http://help.mp3tag.de/main_tags.html
+// https://help.mp3tag.de/main_tags.html
 // http://id3.org/
 // https://www.legroom.net/2009/05/09/ogg-vorbis-and-flac-comment-field-recommendations
 // https://kodi.wiki/view/Music_tagging#Tags_Kodi_reads
