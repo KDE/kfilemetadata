@@ -33,11 +33,16 @@ Exiv2Extractor::Exiv2Extractor(QObject* parent)
 namespace
 {
 static const QStringList supportedMimeTypes = {
+    QStringLiteral("image/bmp"),
+    QStringLiteral("image/gif"),
     QStringLiteral("image/jp2"),
     QStringLiteral("image/jpeg"),
     QStringLiteral("image/pgf"),
     QStringLiteral("image/png"),
     QStringLiteral("image/tiff"),
+#ifdef HAVE_WEBP_SUPPORT
+    QStringLiteral("image/webp"),
+#endif
     QStringLiteral("image/x-exv"),
     QStringLiteral("image/x-canon-cr2"),
     QStringLiteral("image/x-canon-crw"),
@@ -49,6 +54,7 @@ static const QStringList supportedMimeTypes = {
     QStringLiteral("image/x-pentax-pef"),
     QStringLiteral("image/x-photoshop"),
     QStringLiteral("image/x-samsung-srw"),
+    QStringLiteral("image/x-tga"),
 };
 
 QString toString(const Exiv2::Value& value)

@@ -36,6 +36,9 @@ if(LibExiv2_FOUND)
         KF5::FileMetaData
         LibExiv2::LibExiv2
     )
+    if(${LibExiv2_VERSION} VERSION_GREATER_EQUAL 0.26)
+        target_compile_definitions(kfilemetadata_exiv2extractor PRIVATE "-DHAVE_WEBP_SUPPORT")
+    endif()
 
     set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
