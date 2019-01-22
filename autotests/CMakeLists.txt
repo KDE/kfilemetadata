@@ -176,6 +176,22 @@ ecm_add_test(${postscriptdscextractor_SRCS}
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData
 )
 
+#
+# AppImage
+#
+if(libappimage_FOUND AND KF5Config_FOUND AND Qt5Gui_FOUND)
+    ecm_add_test(appimageextractortest.cpp ../src/extractors/appimageextractor.cpp
+        TEST_NAME "appimageextractortest"
+        LINK_LIBRARIES
+            Qt5::Test
+            KF5::FileMetaData
+            KF5::ConfigCore
+            Qt5::Xml
+            Qt5::Gui
+            libappimage
+    )
+endif()
+
 ################
 # Writer tests #
 ################

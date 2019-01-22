@@ -217,3 +217,19 @@ if (QMOBIPOCKET_FOUND)
     DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 
 endif()
+
+if(libappimage_FOUND AND KF5Config_FOUND AND Qt5Gui_FOUND)
+    add_library(kfilemetadata_appimageextractor MODULE appimageextractor.cpp )
+    target_link_libraries( kfilemetadata_appimageextractor
+        KF5::FileMetaData
+        KF5::ConfigCore
+        Qt5::Xml
+        Qt5::Gui
+        libappimage
+    )
+
+    set_target_properties(kfilemetadata_appimageextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
+    install(
+    TARGETS kfilemetadata_appimageextractor
+    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+endif()

@@ -33,6 +33,11 @@ ecm_setup_version(PROJECT
 # Dependencies
 set(REQUIRED_QT_VERSION 5.10.0)
 
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Gui)
+set_package_properties(Qt5Gui PROPERTIES DESCRIPTION "Qt 5: Gui component"
+                       TYPE OPTIONAL
+                       PURPOSE "Qt5::Gui is needed to build the AppImage extractor")
+
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 
 find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS Archive)
@@ -44,6 +49,11 @@ find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS CoreAddons)
 set_package_properties(KF5CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks 5: Core Addons Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE REQUIRED
                        PURPOSE "Needed for the formatting of properties for display purposes")
+
+find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS Config)
+set_package_properties(KF5Config PROPERTIES DESCRIPTION "KDE Frameworks 5: Config Framework"
+                       URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
+                       PURPOSE "Config is needed to build the AppImage extractor")
 
 find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
@@ -96,6 +106,13 @@ endif()
 #set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
 #                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
 #                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
+
+find_package(libappimage 0.1.10 CONFIG)
+set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the AppImage project"
+                       URL "https://github.com/AppImage/libappimage"
+                       TYPE OPTIONAL
+                       PURPOSE "Needed to build the AppImage extractor"
+                       )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
 
