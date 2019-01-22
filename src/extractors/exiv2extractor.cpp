@@ -19,6 +19,7 @@
 
 
 #include "exiv2extractor.h"
+#include <cmath>
 #include <QDebug>
 
 using namespace KFileMetaData;
@@ -210,15 +211,15 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     if (!longRef.isEmpty() && longRef[0] == 'W')
         longitude *= -1;
 
-    if (latitude != 0.0) {
+    if (!std::isnan(latitude)) {
         result->add(Property::PhotoGpsLatitude, latitude);
     }
 
-    if (longitude != 0.0) {
+    if (!std::isnan(longitude)) {
         result->add(Property::PhotoGpsLongitude, longitude);
     }
 
-    if (altitude != 0.0) {
+    if (!std::isnan(altitude)) {
         result->add(Property::PhotoGpsAltitude, altitude);
     }
 }
@@ -246,7 +247,7 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
         d = (*it).toRational(0).second;
 
         if (d == 0.0) {
-            return 0.0;
+            return std::numeric_limits<double>::quiet_NaN();
         }
 
         double deg = n / d;
@@ -278,20 +279,22 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
         return deg;
     }
 
-    return 0.0;
+    return std::numeric_limits<double>::quiet_NaN();
 }
 
 double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
 {
-    double alt = 0.0;
+    double alt = std::numeric_limits<double>::quiet_NaN();
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitude"));
     if (it != data.end()) {
-        alt = it->value().toFloat();
+        auto ratio = it->value().toRational();
         it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitudeRef"));
-        if (it != data.end()) {
+        if ((ratio.second != 0) && (it != data.end())) {
             auto altRef = it->value().toLong();
             if (altRef) {
-                alt = alt * -1;
+                alt = -1.0 * ratio.first / ratio.second;
+            } else {
+                alt = 1.0 * ratio.first / ratio.second;
             }
         }
     }
