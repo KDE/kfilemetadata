@@ -31,6 +31,7 @@ private:
 
 private Q_SLOTS:
     void test();
+    void testGPS();
 };
 
 #endif // EXIV2EXTRACTORTEST_H
