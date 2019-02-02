@@ -32,6 +32,8 @@ private:
 private Q_SLOTS:
     void testCommonData();
     void testCommonData_data();
+    void testExtendedData();
+    void testExtendedData_data();
 };
 
 #endif // TAGLIBWRITERTEST_H

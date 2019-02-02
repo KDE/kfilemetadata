@@ -57,10 +57,15 @@ void TagLibWriterTest::testCommonData()
     data.add(Property::Title, QString(QStringLiteral("Title1") + stringSuffix));
     data.add(Property::Artist, QString(QStringLiteral("Artist1") + stringSuffix));
     data.add(Property::Album, QString(QStringLiteral("Album1") + stringSuffix));
+    data.add(Property::AlbumArtist, QString(QStringLiteral("AlbumArtist1") + stringSuffix));
+    data.add(Property::Composer, QString(QStringLiteral("Composer1") + stringSuffix));
     data.add(Property::TrackNumber, 10);
+    data.add(Property::DiscNumber, 2);
     data.add(Property::ReleaseYear, 1999);
     data.add(Property::Genre, QString(QStringLiteral("Genre1") + stringSuffix));
     data.add(Property::Comment, QString(QStringLiteral("Comment1") + stringSuffix));
+    data.add(Property::Copyright, QString(QStringLiteral("Copyright1") + stringSuffix));
+
     writerPlugin.write(data);
 
     KFileMetaData::ExtractorCollection extractors;
@@ -75,10 +80,14 @@ void TagLibWriterTest::testCommonData()
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("Title1") + stringSuffix));
     QCOMPARE(result.properties().value(Property::Artist), QVariant(QStringLiteral("Artist1") + stringSuffix));
     QCOMPARE(result.properties().value(Property::Album), QVariant(QStringLiteral("Album1") + stringSuffix));
+    QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("AlbumArtist1") + stringSuffix));
+    QCOMPARE(result.properties().value(Property::Composer), QVariant(QStringLiteral("Composer1") + stringSuffix));
     QCOMPARE(result.properties().value(Property::TrackNumber).toInt(), 10);
+    QCOMPARE(result.properties().value(Property::DiscNumber).toInt(), 2);
     QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 1999);
     QCOMPARE(result.properties().value(Property::Genre), QVariant(QStringLiteral("Genre1") + stringSuffix));
     QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("Comment1") + stringSuffix));
+    QCOMPARE(result.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright1") + stringSuffix));
 
     QFile::remove(testFilePath(temporaryFileName));
 }
@@ -237,6 +246,100 @@ void TagLibWriterTest::testCommonData_data()
         << QStringLiteral("wma")
         << QStringLiteral("audio/x-ms-wma")
         << unicodeTestStringSuffix
+        ;
+}
+
+void TagLibWriterTest::testExtendedData()
+{
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+
+    QString temporaryFileName = QStringLiteral("writertest.") + fileType;
+
+    QFile::copy(testFilePath("test." + fileType), testFilePath(temporaryFileName));
+    TagLibWriter writerPlugin{this};
+
+    WriteData data(testFilePath(temporaryFileName), mimeType);
+
+    data.add(Property::Composer, QStringLiteral("Composer1"));
+    data.add(Property::Lyricist, QStringLiteral("Lyricist1"));
+    data.add(Property::Conductor, QStringLiteral("Conductor1"));
+    data.add(Property::Lyrics, QStringLiteral("Lyrics1"));
+    data.add(Property::Language, QStringLiteral("Language1"));
+
+    writerPlugin.write(data);
+
+    KFileMetaData::ExtractorCollection extractors;
+    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
+    if (extractorList.isEmpty())
+        QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
+    KFileMetaData::Extractor* ex = extractorList.first();
+    KFileMetaData::SimpleExtractionResult result(testFilePath(temporaryFileName), mimeType,
+                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+
+    ex->extract(&result);
+    QCOMPARE(result.properties().value(Property::Composer), QVariant(QStringLiteral("Composer1")));
+    QCOMPARE(result.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist1")));
+    QCOMPARE(result.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor1")));
+    QCOMPARE(result.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics1")));
+    QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("Language1")));
+
+    QFile::remove(testFilePath(temporaryFileName));
+}
+
+void TagLibWriterTest::testExtendedData_data()
+{
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("aiff")
+        << QStringLiteral("aif")
+        << QStringLiteral("audio/x-aiff")
+        ;
+
+    QTest::addRow("ape")
+        << QStringLiteral("ape")
+        << QStringLiteral("audio/x-ape")
+        ;
+
+    QTest::addRow("flac")
+        << QStringLiteral("flac")
+        << QStringLiteral("audio/flac")
+        ;
+
+    QTest::addRow("mp3")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        ;
+
+    QTest::addRow("mpc")
+        << QStringLiteral("mpc")
+        << QStringLiteral("audio/x-musepack")
+        ;
+
+    QTest::addRow("ogg")
+        << QStringLiteral("ogg")
+        << QStringLiteral("audio/ogg")
+        ;
+
+    QTest::addRow("opus")
+        << QStringLiteral("opus")
+        << QStringLiteral("audio/opus")
+        ;
+
+    QTest::addRow("speex")
+        << QStringLiteral("spx")
+        << QStringLiteral("audio/speex")
+        ;
+
+    QTest::addRow("wav")
+        << QStringLiteral("wav")
+        << QStringLiteral("audio/wav")
+        ;
+
+    QTest::addRow("wavpack")
+        << QStringLiteral("wv")
+        << QStringLiteral("audio/x-wavpack")
         ;
 }
 

@@ -77,6 +77,10 @@ void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMa
         oldProperties.replace("ARTIST", QStringToTString(newProperties.value(Property::Artist).toString()));
     }
 
+    if (newProperties.contains(Property::AlbumArtist)) {
+        oldProperties.replace("ALBUMARTIST", QStringToTString(newProperties.value(Property::AlbumArtist).toString()));
+    }
+
     if (newProperties.contains(Property::Album)) {
         oldProperties.replace("ALBUM", QStringToTString(newProperties.value(Property::Album).toString()));
     }
@@ -86,6 +90,14 @@ void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMa
         //taglib requires uint
         if (trackNumber >= 0) {
             oldProperties.replace("TRACKNUMBER", QStringToTString(newProperties.value(Property::TrackNumber).toString()));
+        }
+    }
+
+    if (newProperties.contains(Property::DiscNumber)) {
+        int discNumber = newProperties.value(Property::DiscNumber).toInt();
+        //taglib requires uint
+        if (discNumber >= 0) {
+            oldProperties.replace("DISCNUMBER", QStringToTString(newProperties.value(Property::DiscNumber).toString()));
         }
     }
 
@@ -103,6 +115,30 @@ void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMa
 
     if (newProperties.contains(Property::Comment)) {
         oldProperties.replace("COMMENT", QStringToTString(newProperties.value(Property::Comment).toString()));
+    }
+
+    if (newProperties.contains(Property::Composer)) {
+        oldProperties.replace("COMPOSER", QStringToTString(newProperties.value(Property::Composer).toString()));
+    }
+
+    if (newProperties.contains(Property::Lyricist)) {
+        oldProperties.replace("LYRICIST", QStringToTString(newProperties.value(Property::Lyricist).toString()));
+    }
+
+    if (newProperties.contains(Property::Conductor)) {
+        oldProperties.replace("CONDUCTOR", QStringToTString(newProperties.value(Property::Conductor).toString()));
+    }
+
+    if (newProperties.contains(Property::Copyright)) {
+        oldProperties.replace("COPYRIGHT", QStringToTString(newProperties.value(Property::Copyright).toString()));
+    }
+
+    if (newProperties.contains(Property::Lyrics)) {
+        oldProperties.replace("LYRICS", QStringToTString(newProperties.value(Property::Lyrics).toString()));
+    }
+
+    if (newProperties.contains(Property::Language)) {
+        oldProperties.replace("LANGUAGE", QStringToTString(newProperties.value(Property::Language).toString()));
     }
 }
 
