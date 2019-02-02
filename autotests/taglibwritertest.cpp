@@ -24,6 +24,7 @@
 #include "writedata.h"
 #include <kfilemetadata/ExtractorCollection>
 #include <kfilemetadata/Extractor>
+#include <kfilemetadata/ExtractionResult>
 #include <kfilemetadata/SimpleExtractionResult>
 #include "taglib.h"
 #include "fileref.h"
@@ -40,19 +41,33 @@ QString TagLibWriterTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void TagLibWriterTest::extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result)
+{
+    KFileMetaData::ExtractorCollection extractors;
+    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
+    if (extractorList.isEmpty()) {
+        QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
+    }
+    if (extractorList.size() > 1) {
+        QWARN("Multiple extractors are available.");
+    }
+    KFileMetaData::Extractor* ex = extractorList.first();
+    ex->extract(&result);
+}
+
 void TagLibWriterTest::testCommonData()
 {
     QFETCH(QString, fileType);
     QFETCH(QString, mimeType);
     QFETCH(QString, stringSuffix);
 
-    QString temporaryFileName = QStringLiteral("writertest.") + fileType;
+    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileType);
 
-    QFile::copy(testFilePath("test." + fileType), testFilePath(temporaryFileName));
+    QFile::copy(testFilePath("test." + fileType), temporaryFileName);
     TagLibWriter writerPlugin{this};
     QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
 
-    WriteData data(testFilePath(temporaryFileName), mimeType);
+    WriteData data(temporaryFileName, mimeType);
 
     data.add(Property::Title, QString(QStringLiteral("Title1") + stringSuffix));
     data.add(Property::Artist, QString(QStringLiteral("Artist1") + stringSuffix));
@@ -68,15 +83,9 @@ void TagLibWriterTest::testCommonData()
 
     writerPlugin.write(data);
 
-    KFileMetaData::ExtractorCollection extractors;
-    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
-    if (extractorList.isEmpty())
-        QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
-    KFileMetaData::Extractor* ex = extractorList.first();
-    KFileMetaData::SimpleExtractionResult result(testFilePath(temporaryFileName), mimeType,
-                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+    KFileMetaData::SimpleExtractionResult result(temporaryFileName, mimeType, KFileMetaData::ExtractionResult::ExtractMetaData);
+    extractResult(mimeType, result);
 
-    ex->extract(&result);
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("Title1") + stringSuffix));
     QCOMPARE(result.properties().value(Property::Artist), QVariant(QStringLiteral("Artist1") + stringSuffix));
     QCOMPARE(result.properties().value(Property::Album), QVariant(QStringLiteral("Album1") + stringSuffix));
@@ -89,7 +98,7 @@ void TagLibWriterTest::testCommonData()
     QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("Comment1") + stringSuffix));
     QCOMPARE(result.properties().value(Property::Copyright), QVariant(QStringLiteral("Copyright1") + stringSuffix));
 
-    QFile::remove(testFilePath(temporaryFileName));
+    QFile::remove(temporaryFileName);
 }
 
 void TagLibWriterTest::testCommonData_data()
@@ -254,12 +263,12 @@ void TagLibWriterTest::testExtendedData()
     QFETCH(QString, fileType);
     QFETCH(QString, mimeType);
 
-    QString temporaryFileName = QStringLiteral("writertest.") + fileType;
+    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileType);
 
-    QFile::copy(testFilePath("test." + fileType), testFilePath(temporaryFileName));
+    QFile::copy(testFilePath("test." + fileType), temporaryFileName);
     TagLibWriter writerPlugin{this};
 
-    WriteData data(testFilePath(temporaryFileName), mimeType);
+    WriteData data(temporaryFileName, mimeType);
 
     data.add(Property::Composer, QStringLiteral("Composer1"));
     data.add(Property::Lyricist, QStringLiteral("Lyricist1"));
@@ -269,22 +278,16 @@ void TagLibWriterTest::testExtendedData()
 
     writerPlugin.write(data);
 
-    KFileMetaData::ExtractorCollection extractors;
-    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
-    if (extractorList.isEmpty())
-        QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
-    KFileMetaData::Extractor* ex = extractorList.first();
-    KFileMetaData::SimpleExtractionResult result(testFilePath(temporaryFileName), mimeType,
-                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+    KFileMetaData::SimpleExtractionResult result(temporaryFileName, mimeType, KFileMetaData::ExtractionResult::ExtractMetaData);
+    extractResult(mimeType, result);
 
-    ex->extract(&result);
     QCOMPARE(result.properties().value(Property::Composer), QVariant(QStringLiteral("Composer1")));
     QCOMPARE(result.properties().value(Property::Lyricist), QVariant(QStringLiteral("Lyricist1")));
     QCOMPARE(result.properties().value(Property::Conductor), QVariant(QStringLiteral("Conductor1")));
     QCOMPARE(result.properties().value(Property::Lyrics), QVariant(QStringLiteral("Lyrics1")));
     QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("Language1")));
 
-    QFile::remove(testFilePath(temporaryFileName));
+    QFile::remove(temporaryFileName);
 }
 
 void TagLibWriterTest::testExtendedData_data()
@@ -349,29 +352,23 @@ void TagLibWriterTest::testRating()
     QFETCH(QString, mimeType);
     QFETCH(int, rating);
 
-    QString temporaryFileName = QStringLiteral("writertest.") + fileType;
+    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileType);
 
-    QFile::copy(testFilePath("test.") + fileType, testFilePath(temporaryFileName));
+    QFile::copy(testFilePath("test.") + fileType, temporaryFileName);
     TagLibWriter writerPlugin{this};
     QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
 
-    WriteData data(testFilePath(temporaryFileName), mimeType);
+    WriteData data(temporaryFileName, mimeType);
 
     data.add(Property::Rating, rating);
     writerPlugin.write(data);
 
-    KFileMetaData::ExtractorCollection extractors;
-    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
-    if (extractorList.isEmpty())
-        QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
-    KFileMetaData::Extractor* ex = extractorList.first();
-    KFileMetaData::SimpleExtractionResult result(testFilePath(temporaryFileName), mimeType,
-                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+    KFileMetaData::SimpleExtractionResult result(temporaryFileName, mimeType, KFileMetaData::ExtractionResult::ExtractMetaData);
+    extractResult(mimeType, result);
 
-    ex->extract(&result);
     QCOMPARE(result.properties().value(Property::Rating).toInt(), rating);
 
-    QFile::remove(testFilePath(temporaryFileName));
+    QFile::remove(temporaryFileName);
 }
 
 void TagLibWriterTest::testRating_data()
