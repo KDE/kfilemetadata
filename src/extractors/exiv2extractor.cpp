@@ -292,10 +292,10 @@ double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
 {
     double alt = std::numeric_limits<double>::quiet_NaN();
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitude"));
-    if (it != data.end()) {
+    if (it != data.end() && (it->value().typeId() == Exiv2::unsignedRational || it->value().typeId() == Exiv2::signedRational)) {
         auto ratio = it->value().toRational();
         it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitudeRef"));
-        if ((ratio.second != 0) && (it != data.end())) {
+        if ((ratio.second != 0) && (it != data.end()) && (it->value().typeId() == Exiv2::unsignedByte || it->value().typeId() == Exiv2::signedByte)) {
             auto altRef = it->value().toLong();
             if (altRef) {
                 alt = -1.0 * ratio.first / ratio.second;
