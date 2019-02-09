@@ -45,4 +45,33 @@ void PropertyInfoTest::testNameIdMapping()
     }
 }
 
+void PropertyInfoTest::testFormatAsDisplayString()
+{
+    auto emptyProperty = PropertyInfo::fromName(QStringLiteral("no valid property name"));
+    QCOMPARE(emptyProperty.formatAsDisplayString(QVariant("empty")), QStringLiteral("empty"));
+
+    PropertyInfo year(Property::DiscNumber);
+    QCOMPARE(year.formatAsDisplayString(QVariant(2018)), QStringLiteral("2018"));
+
+    QStringList artistList = {"Artist1", "Artist2"};
+    PropertyInfo artist(Property::Artist);
+    QCOMPARE(artist.formatAsDisplayString(QVariant(artistList)), QStringLiteral("Artist1, Artist2"));
+
+    QStringList authorList = {"Author1"};
+    PropertyInfo author(Property::Author);
+    QCOMPARE(artist.formatAsDisplayString(QVariant(authorList)), QStringLiteral("Author1"));
+
+    PropertyInfo duration(Property::Duration);
+    QCOMPARE(duration.formatAsDisplayString(QVariant(1800)), QStringLiteral("0:30:00"));
+
+    PropertyInfo sampleRate(Property::SampleRate);
+    QCOMPARE(sampleRate.formatAsDisplayString(QVariant(44100)), QString(QLocale().toString(44.1) + QStringLiteral(" kHz")));
+
+    PropertyInfo bitRate(Property::BitRate);
+    QCOMPARE(bitRate.formatAsDisplayString(QVariant(128000)), QStringLiteral("128 kB/s"));
+
+    PropertyInfo orientation(Property::ImageOrientation);
+    QCOMPARE(orientation.formatAsDisplayString(QVariant(5)), QStringLiteral("Transposed"));
+}
+
 QTEST_GUILESS_MAIN(PropertyInfoTest)

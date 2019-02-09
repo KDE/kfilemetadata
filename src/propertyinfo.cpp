@@ -24,6 +24,8 @@
 
 #include <KLocalizedString>
 
+#include "formatstrings_p.h"
+
 using namespace KFileMetaData;
 
 class Q_DECL_HIDDEN PropertyInfo::Private
@@ -34,6 +36,7 @@ public:
     QString displayName;
     QVariant::Type valueType;
     bool shouldBeIndexed;
+    QString (*formatAsString)(const QVariant& value) = nullptr;
 };
 
 PropertyInfo::PropertyInfo(Property::Property property)
@@ -41,6 +44,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
 {
     d->prop = property;
     d->shouldBeIndexed = true;
+    d->formatAsString = &FormatStrings::toStringFunction;
 
     switch (property) {
         case Property::Album:
@@ -53,12 +57,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("albumArtist");
             d->displayName = i18nc("@label", "Album Artist");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             break;
 
         case Property::Artist:
             d->name = QStringLiteral("artist");
             d->displayName = i18nc("@label", "Artist");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             break;
 
         case Property::AspectRatio:
@@ -71,12 +77,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("author");
             d->displayName = i18nc("@label", "Author");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             break;
 
         case Property::BitRate:
             d->name = QStringLiteral("bitRate");
             d->displayName = i18nc("@label", "Bitrate");
             d->valueType = QVariant::Int;
+            d->formatAsString = &FormatStrings::formatBitRate;
             break;
 
         case Property::Channels:
@@ -117,12 +125,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("creationDate");
             d->displayName = i18nc("@label", "Creation Date");
             d->valueType = QVariant::String;
+            d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::Duration:
             d->name = QStringLiteral("duration");
             d->displayName = i18nc("@label", "Duration");
             d->valueType = QVariant::Int;
+            d->formatAsString = &FormatStrings::formatDuration;
             break;
 
         case Property::Empty:
@@ -147,6 +157,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("genre");
             d->displayName = i18nc("@label music genre", "Genre");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             d->shouldBeIndexed = false;
             break;
 
@@ -160,6 +171,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("imageDateTime");
             d->displayName = i18nc("@label EXIF", "Image Date Time");
             d->valueType = QVariant::DateTime;
+            d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::ImageMake:
@@ -180,12 +192,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("imageOrientation");
             d->displayName = i18nc("@label EXIF", "Image Orientation");
             d->valueType = QVariant::Int;
+            d->formatAsString = &FormatStrings::formatOrientationValue;
             break;
 
         case Property::Keywords:
             d->name = QStringLiteral("keywords");
             d->displayName = i18nc("@label", "Keywords");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             d->shouldBeIndexed = false;
             break;
 
@@ -206,6 +220,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("lyricist");
             d->displayName = i18nc("@label", "Lyricist");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             d->shouldBeIndexed = false;
             break;
 
@@ -225,6 +240,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoDateTimeOriginal");
             d->displayName = i18nc("@label EXIF", "Photo Original Date Time");
             d->valueType = QVariant::DateTime;
+            d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::PhotoExposureBiasValue:
@@ -345,6 +361,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("sampleRate");
             d->displayName = i18nc("@label", "Sample Rate");
             d->valueType = QVariant::Int;
+            d->formatAsString = &FormatStrings::formatSampleRate;
             break;
 
         case Property::Subject:
@@ -382,6 +399,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("performer");
             d->displayName = i18nc("@label", "Performer");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             break;
 
         case Property::Ensemble:
@@ -394,12 +412,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("arranger");
             d->displayName = i18nc("@label", "Arranger");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             break;
 
         case Property::Conductor:
             d->name = QStringLiteral("conductor");
             d->displayName = i18nc("@label", "Conductor");
             d->valueType = QVariant::StringList;
+            d->formatAsString = &FormatStrings::joinStringListFunction;
             break;
 
         case Property::Compilation:
@@ -503,6 +523,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->displayName = i18nc("@label translations last update", "Last Update");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
+            d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::TranslationTemplateDate:
@@ -510,6 +531,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->displayName = i18nc("@label date of template creation8", "Template Creation");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
+            d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::OriginUrl:
@@ -598,6 +620,11 @@ QVariant::Type PropertyInfo::valueType() const
 bool PropertyInfo::shouldBeIndexed() const
 {
     return d->shouldBeIndexed;
+}
+
+QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
+{
+    return (d->formatAsString)(value);
 }
 
 PropertyInfo PropertyInfo::fromName(const QString& name)

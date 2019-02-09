@@ -13,6 +13,7 @@ set(KF5FileMetaData_SRCS
     writerplugin.cpp
     writercollection.cpp
     externalwriter.cpp
+    formatstrings.cpp
     )
 ecm_qt_declare_logging_category(KF5FileMetaData_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
 
@@ -34,6 +35,7 @@ target_link_libraries(KF5FileMetaData
     Qt5::Core
   PRIVATE
     KF5::I18n
+    KF5::CoreAddons
 )
 
 if(TAGLIB_FOUND)

@@ -85,6 +85,13 @@ public:
      */
     static PropertyInfo fromName(const QString& name);
 
+    /**
+     * Returns the value of the property as a QString with added formatting,
+     * added units if needed, and translated enums.
+     * @since 5.56
+     */
+    QString formatAsDisplayString(const QVariant& value) const;
+
 private:
     class Private;
     Private* d;

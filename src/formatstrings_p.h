@@ -1,6 +1,5 @@
 /*
- * This file is part of the KDE KFileMetaData project
- * Copyright (C) 2014  Vishesh Handa <me@vhanda.in>
+ * Copyright (C) 2018  Alexander Stippich <a.stippich@gmx.net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,21 +17,34 @@
  *
  */
 
-#ifndef PROPERTYINFOTEST_H
-#define PROPERTYINFOTEST_H
+#ifndef KFILEMETADATA_FORMATSTRINGS_P_H
+#define KFILEMETADATA_FORMATSTRINGS_P_H
 
-#include <QObject>
+#include <QString>
+#include <QVariant>
+#include <KFormat>
 
 namespace KFileMetaData {
 
-class PropertyInfoTest : public QObject
+class Q_DECL_HIDDEN FormatStrings
 {
-    Q_OBJECT
-private Q_SLOTS:
-    void testNameIdMapping();
-    void testFormatAsDisplayString();
+public:
+    static QString toStringFunction(const QVariant& value);
+
+    static QString joinStringListFunction(const QVariant& value);
+
+    static QString formatDate(const QVariant& value);
+
+    static QString formatDuration(const QVariant& value);
+
+    static QString formatBitRate(const QVariant& value);
+
+    static QString formatSampleRate(const QVariant& value);
+
+    static QString formatOrientationValue(const QVariant& value);
+
 };
 
 }
 
-#endif // PROPERTYINFOTEST_H
+#endif

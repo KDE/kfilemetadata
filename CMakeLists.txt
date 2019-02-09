@@ -40,6 +40,11 @@ set_package_properties(KF5Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Arch
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
                        PURPOSE "Archive is needed to build ODF and OOXML 2007 extractors")
 
+find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS CoreAddons)
+set_package_properties(KF5CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks 5: Core Addons Framework"
+                       URL "https://download.kde.org/stable/frameworks/" TYPE REQUIRED
+                       PURPOSE "Needed for the formatting of properties for display purposes")
+
 find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
 find_package(Poppler 0.12.1 COMPONENTS Qt5)
