@@ -19,10 +19,20 @@
 
 #include "formatstrings_p.h"
 
+#include <math.h>
 #include <QDateTime>
 #include <KLocalizedString>
 
 using namespace KFileMetaData;
+
+int significantDigits(int value)
+{
+    if (value == 0) {
+        return 0;
+    }
+    int before_decimal_point = static_cast<int>(log10(value > 0 ? value : -value)) % 3;
+    return 2 - before_decimal_point;
+}
 
 QString FormatStrings::toStringFunction(const QVariant& value)
 {
@@ -58,12 +68,14 @@ QString FormatStrings::formatDuration(const QVariant& value)
 QString FormatStrings::formatBitRate(const QVariant& value)
 {
     KFormat form;
-    return i18nc("@label bitrate (per second)", "%1/s", form.formatByteSize(value.toInt(), 0, KFormat::MetricBinaryDialect));
+    return i18nc("@label bitrate (per second)", "%1/s", form.formatValue(value.toInt(),
+         KFormat::Unit::Bit, significantDigits(value.toInt()), KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect));
 }
 
 QString FormatStrings::formatSampleRate(const QVariant& value)
 {
-    return i18nc("@label samplerate in kilohertz", "%1 kHz", QLocale().toString(value.toDouble() / 1000));
+    KFormat form;
+    return form.formatValue(value.toInt(), KFormat::Unit::Hertz, significantDigits(value.toInt()), KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect);
 }
 
 QString FormatStrings::formatOrientationValue(const QVariant& value)

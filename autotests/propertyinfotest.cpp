@@ -68,7 +68,9 @@ void PropertyInfoTest::testFormatAsDisplayString()
     QCOMPARE(sampleRate.formatAsDisplayString(QVariant(44100)), QString(QLocale().toString(44.1) + QStringLiteral(" kHz")));
 
     PropertyInfo bitRate(Property::BitRate);
-    QCOMPARE(bitRate.formatAsDisplayString(QVariant(128000)), QStringLiteral("128 kB/s"));
+    QCOMPARE(bitRate.formatAsDisplayString(QVariant(128000)), QStringLiteral("128 kbit/s"));
+    QCOMPARE(bitRate.formatAsDisplayString(QVariant(1350000)), QString(QLocale().toString(1.35)  + QStringLiteral(" Mbit/s")));
+    QCOMPARE(bitRate.formatAsDisplayString(QVariant(14700000)), QString(QLocale().toString(14.7)  + QStringLiteral(" Mbit/s")));
 
     PropertyInfo orientation(Property::ImageOrientation);
     QCOMPARE(orientation.formatAsDisplayString(QVariant(5)), QStringLiteral("Transposed"));
