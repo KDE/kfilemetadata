@@ -69,20 +69,21 @@ void PropertyInfoTest::testFormatAsDisplayString()
 
     PropertyInfo bitRate(Property::BitRate);
     QCOMPARE(bitRate.formatAsDisplayString(QVariant(128000)), QStringLiteral("128 kbit/s"));
-    QCOMPARE(bitRate.formatAsDisplayString(QVariant(1350000)), QString(QLocale().toString(1.35)  + QStringLiteral(" Mbit/s")));
-    QCOMPARE(bitRate.formatAsDisplayString(QVariant(14700000)), QString(QLocale().toString(14.7)  + QStringLiteral(" Mbit/s")));
+    QCOMPARE(bitRate.formatAsDisplayString(QVariant(1350000)), QString(QLocale().toString(1.35) + QStringLiteral(" Mbit/s")));
+    QCOMPARE(bitRate.formatAsDisplayString(QVariant(14700000)), QString(QLocale().toString(14.7) + QStringLiteral(" Mbit/s")));
 
     PropertyInfo orientation(Property::ImageOrientation);
     QCOMPARE(orientation.formatAsDisplayString(QVariant(5)), QStringLiteral("Transposed"));
 
     PropertyInfo altitude(Property::PhotoGpsAltitude);
-    QCOMPARE(altitude.formatAsDisplayString(QVariant(1.1)), QString(QLocale().toString(1.1)  + QStringLiteral(" m")));
+    QCOMPARE(altitude.formatAsDisplayString(QVariant(1.1)), QString(QLocale().toString(1.1) + QStringLiteral(" m")));
 
     PropertyInfo latitude(Property::PhotoGpsLatitude);
-    QCOMPARE(latitude.formatAsDisplayString(QVariant(25)), QString(QLocale().toString(25)  + QStringLiteral("°")));
+    // make tests on windows happy: QChar(0x00B0) = "°"
+    QCOMPARE(latitude.formatAsDisplayString(QVariant(25)), QString(QLocale().toString(25) + QChar(0x00B0)));
 
     PropertyInfo longitude(Property::PhotoGpsLongitude);
-    QCOMPARE(longitude.formatAsDisplayString(QVariant(13.5)), QString(QLocale().toString(13.5)  + QStringLiteral("°")));
+    QCOMPARE(longitude.formatAsDisplayString(QVariant(13.5)), QString(QLocale().toString(13.5) + QChar(0x00B0)));
 
     PropertyInfo framerate(Property::FrameRate);
     QCOMPARE(framerate.formatAsDisplayString(QVariant(23)), QStringLiteral("23 fps"));
