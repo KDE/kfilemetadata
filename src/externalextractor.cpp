@@ -54,7 +54,7 @@ ExternalExtractor::ExternalExtractor(QObject* parent)
 }
 
 ExternalExtractor::ExternalExtractor(const QString& pluginPath)
-    : ExtractorPlugin(new QObject()),
+    : ExtractorPlugin(nullptr),
       d_ptr(new ExternalExtractorPrivate)
 {
     Q_D(ExternalExtractor);
