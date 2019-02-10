@@ -84,3 +84,18 @@ QString FormatStrings::formatOrientationValue(const QVariant& value)
     return string;
 }
 
+QString FormatStrings::formatAsDegree(const QVariant& value)
+{
+    return QString(QLocale().toString(value.toDouble()) + i18nc("Symbol of degree, no space", "°"));
+}
+
+QString FormatStrings::formatAsMeter(const QVariant& value)
+{
+    KFormat form;
+    return form.formatValue(value.toDouble(), KFormat::Unit::Meter, 1, KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect);
+}
+
+QString FormatStrings::formatAsFrameRate(const QVariant& value)
+{
+    return QString(value.toString() + i18nc("Symbol of frames per second, with space", " fps"));
+}

@@ -43,6 +43,12 @@ public:
 
     static QString formatOrientationValue(const QVariant& value);
 
+    static QString formatAsDegree(const QVariant& value);
+
+    static QString formatAsMeter(const QVariant& value);
+
+    static QString formatAsFrameRate(const QVariant& value);
+
 };
 
 }

@@ -144,6 +144,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("frameRate");
             d->displayName = i18nc("@label", "Frame Rate");
             d->valueType = QVariant::Int;
+            d->formatAsString = &FormatStrings::formatAsFrameRate;
             break;
 
         case Property::Generator:
@@ -283,18 +284,21 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoGpsLatitude");
             d->displayName = i18nc("@label EXIF", "Photo GPS Latitude");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatAsDegree;
             break;
 
         case Property::PhotoGpsLongitude:
             d->name = QStringLiteral("photoGpsLongitude");
             d->displayName = i18nc("@label EXIF", "Photo GPS Longitude");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatAsDegree;
             break;
 
         case Property::PhotoGpsAltitude:
             d->name = QStringLiteral("photoGpsAltitude");
             d->displayName = i18nc("@label EXIF", "Photo GPS Altitude");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatAsMeter;
             break;
 
         case Property::PhotoISOSpeedRatings:

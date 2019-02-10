@@ -72,6 +72,18 @@ void PropertyInfoTest::testFormatAsDisplayString()
 
     PropertyInfo orientation(Property::ImageOrientation);
     QCOMPARE(orientation.formatAsDisplayString(QVariant(5)), QStringLiteral("Transposed"));
+
+    PropertyInfo altitude(Property::PhotoGpsAltitude);
+    QCOMPARE(altitude.formatAsDisplayString(QVariant(1.1)), QString(QLocale().toString(1.1)  + QStringLiteral(" m")));
+
+    PropertyInfo latitude(Property::PhotoGpsLatitude);
+    QCOMPARE(latitude.formatAsDisplayString(QVariant(25)), QString(QLocale().toString(25)  + QStringLiteral("°")));
+
+    PropertyInfo longitude(Property::PhotoGpsLongitude);
+    QCOMPARE(longitude.formatAsDisplayString(QVariant(13.5)), QString(QLocale().toString(13.5)  + QStringLiteral("°")));
+
+    PropertyInfo framerate(Property::FrameRate);
+    QCOMPARE(framerate.formatAsDisplayString(QVariant(23)), QStringLiteral("23 fps"));
 }
 
 QTEST_GUILESS_MAIN(PropertyInfoTest)
