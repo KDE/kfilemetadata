@@ -82,10 +82,12 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     const ssize_t size = 0;
 #endif
 
+    if (!value) {
+        return size;
+    }
+
     if (size <= 0) {
-        if (value) {
-            value->clear();
-        }
+        value->clear();
         return size;
     }
 
@@ -106,7 +108,7 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     const ssize_t r = 0;
 #endif
 
-    if(value) *value = QString::fromUtf8(data);
+    *value = QString::fromUtf8(data);
     return r;
 }
 
@@ -218,17 +220,16 @@ inline bool k_hasAttribute(const QString& path, const QString& name)
     CloseHandle(hFile);
     return false;
 #else
-    k_getxattr(path, name, nullptr);
-    return (errno != ENOATTR);
+    auto ret = k_getxattr(path, name, nullptr);
+    return (ret >= 0);
 #endif
 }
 
 inline bool k_isSupported(const QString& path)
 {
-    QString value;
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC) || defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-    k_getxattr(path, QStringLiteral("user.test"), &value);
-    return (errno != ENOTSUP);
+    auto ret = k_getxattr(path, QStringLiteral("user.test"), nullptr);
+    return (ret >= 0) || (errno != ENOTSUP);
 #elif defined(Q_OS_WIN)
     QFileInfo f(path);
     const QString drive = QString(f.absolutePath().left(2)) + QStringLiteral("\\");

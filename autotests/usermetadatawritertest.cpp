@@ -95,6 +95,13 @@ void UserMetaDataWriterTest::test()
     QCOMPARE(md.attribute(QStringLiteral("test.attribute")), QStringLiteral("attribute"));
     md.setAttribute(QStringLiteral("test.attribute"), QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("test.attribute")));
+
+    // Check for side effects of calling sequence
+    QVERIFY(!md.hasAttribute(QStringLiteral("test.check_contains")));
+    md.setAttribute(QStringLiteral("test.check_contains"), QStringLiteral("dummy"));
+    QVERIFY(md.hasAttribute(QStringLiteral("test.check_contains")));
+    md.setAttribute(QStringLiteral("test.check_contains"), QString());
+    QVERIFY(!md.hasAttribute(QStringLiteral("test.check_contains")));
 }
 
 void UserMetaDataWriterTest::cleanupTestCase()
