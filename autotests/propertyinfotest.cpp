@@ -75,6 +75,10 @@ void PropertyInfoTest::testFormatAsDisplayString()
     PropertyInfo orientation(Property::ImageOrientation);
     QCOMPARE(orientation.formatAsDisplayString(QVariant(5)), QStringLiteral("Transposed"));
 
+    PropertyInfo flash(Property::PhotoFlash);
+    QCOMPARE(flash.formatAsDisplayString(QVariant(0x00)), QStringLiteral("No flash"));
+    QCOMPARE(flash.formatAsDisplayString(QVariant(0x50)), QStringLiteral("No, red-eye reduction"));
+
     PropertyInfo altitude(Property::PhotoGpsAltitude);
     QCOMPARE(altitude.formatAsDisplayString(QVariant(1.1)), QString(QLocale().toString(1.1) + QStringLiteral(" m")));
 

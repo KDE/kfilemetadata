@@ -260,6 +260,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoFlash");
             d->displayName = i18nc("@label EXIF", "Photo Flash");
             d->valueType = QVariant::Int;
+            d->formatAsString = &FormatStrings::formatPhotoFlashValue;
             break;
 
         case Property::PhotoFNumber:

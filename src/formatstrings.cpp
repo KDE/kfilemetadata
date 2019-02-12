@@ -96,6 +96,46 @@ QString FormatStrings::formatOrientationValue(const QVariant& value)
     return string;
 }
 
+QString FormatStrings::formatPhotoFlashValue(const QVariant& value)
+{
+    // copied from exiv2 tags_int.cpp
+    const QMap<int, QString> flashTranslation = {
+        { 0x00, i18nc("Description of photo flash", "No flash")                                                      },
+        { 0x01, i18nc("Description of photo flash", "Fired")                                                         },
+        { 0x05, i18nc("Description of photo flash", "Fired, return light not detected")                              },
+        { 0x07, i18nc("Description of photo flash", "Fired, return light detected")                                  },
+        { 0x08, i18nc("Description of photo flash", "Yes, did not fire")                                             },
+        { 0x09, i18nc("Description of photo flash", "Yes, compulsory")                                               },
+        { 0x0d, i18nc("Description of photo flash", "Yes, compulsory, return light not detected")                    },
+        { 0x0f, i18nc("Description of photo flash", "Yes, compulsory, return light detected")                        },
+        { 0x10, i18nc("Description of photo flash", "No, compulsory")                                                },
+        { 0x14, i18nc("Description of photo flash", "No, did not fire, return light not detected")                   },
+        { 0x18, i18nc("Description of photo flash", "No, auto")                                                      },
+        { 0x19, i18nc("Description of photo flash", "Yes, auto")                                                     },
+        { 0x1d, i18nc("Description of photo flash", "Yes, auto, return light not detected")                          },
+        { 0x1f, i18nc("Description of photo flash", "Yes, auto, return light detected")                              },
+        { 0x20, i18nc("Description of photo flash", "No flash function")                                             },
+        { 0x30, i18nc("Description of photo flash", "No, no flash function")                                         },
+        { 0x41, i18nc("Description of photo flash", "Yes, red-eye reduction")                                        },
+        { 0x45, i18nc("Description of photo flash", "Yes, red-eye reduction, return light not detected")             },
+        { 0x47, i18nc("Description of photo flash", "Yes, red-eye reduction, return light detected")                 },
+        { 0x49, i18nc("Description of photo flash", "Yes, compulsory, red-eye reduction")                            },
+        { 0x4d, i18nc("Description of photo flash", "Yes, compulsory, red-eye reduction, return light not detected") },
+        { 0x4f, i18nc("Description of photo flash", "Yes, compulsory, red-eye reduction, return light detected")     },
+        { 0x50, i18nc("Description of photo flash", "No, red-eye reduction")                                         },
+        { 0x58, i18nc("Description of photo flash", "No, auto, red-eye reduction")                                   },
+        { 0x59, i18nc("Description of photo flash", "Yes, auto, red-eye reduction")                                  },
+        { 0x5d, i18nc("Description of photo flash", "Yes, auto, red-eye reduction, return light not detected")       },
+        { 0x5f, i18nc("Description of photo flash", "Yes, auto, red-eye reduction, return light detected")           }
+    };
+    if (flashTranslation.contains(value.toInt())) {
+        return flashTranslation.value(value.toInt());
+    } else {
+        return i18n("Unkown");
+    }
+
+}
+
 QString FormatStrings::formatAsDegree(const QVariant& value)
 {
     return QString(QLocale().toString(value.toDouble()) + i18nc("Symbol of degree, no space", "°"));
