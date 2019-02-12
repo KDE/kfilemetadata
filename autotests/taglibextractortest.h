@@ -32,6 +32,7 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
+    void testPropertyTypes();
     void testCommonData();
     void testCommonData_data();
     void testVorbisComment();

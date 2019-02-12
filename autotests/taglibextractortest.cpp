@@ -48,6 +48,61 @@ const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaDa
     return result;
 }
 
+void TagLibExtractorTest::testPropertyTypes()
+{
+    TagLibExtractor plugin{this};
+
+    SimpleExtractionResult resultOpus(testFilePath("test.opus"), "audio/opus");
+    plugin.extract(&resultOpus);
+
+    auto testForType = [](SimpleExtractionResult &result, Property::Property prop) {
+            QCOMPARE(result.properties().value(prop).type(), PropertyInfo(prop).valueType());
+    };
+
+    QCOMPARE(resultOpus.types().size(), 1);
+    QCOMPARE(resultOpus.types().constFirst(), Type::Audio);
+    testForType(resultOpus, Property::Title);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::Artist);
+    testForType(resultOpus, Property::Album);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::AlbumArtist);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::Genre);
+    testForType(resultOpus, Property::Comment);
+    testForType(resultOpus, Property::Composer);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::Lyricist);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::Conductor);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::Arranger);
+    testForType(resultOpus, Property::Ensemble);
+    testForType(resultOpus, Property::Location);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::Performer);
+    testForType(resultOpus, Property::Langauge);
+    testForType(resultOpus, Property::Publisher);
+    testForType(resultOpus, Property::Label);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::Author);
+    testForType(resultOpus, Property::Copyright);
+    testForType(resultOpus, Property::Compilation);
+    testForType(resultOpus, Property::License);
+    testForType(resultOpus, Property::Opus);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::TrackNumber);
+    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
+    testForType(resultOpus, Property::ReleaseYear);
+    testForType(resultOpus, Property::Channels);
+    testForType(resultOpus, Property::DiscNumber);
+    testForType(resultOpus, Property::Rating);
+    testForType(resultOpus, Property::ReplayGainAlbumGain);
+    testForType(resultOpus, Property::ReplayGainAlbumPeak);
+    testForType(resultOpus, Property::ReplayGainTrackGain);
+    testForType(resultOpus, Property::ReplayGainTrackPeak);
+}
+
 void TagLibExtractorTest::testCommonData()
 {
     QFETCH(QString, fileType);
