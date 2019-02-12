@@ -36,7 +36,7 @@ if(LibExiv2_FOUND)
         KF5::FileMetaData
         LibExiv2::LibExiv2
     )
-    if(${LibExiv2_VERSION} VERSION_GREATER_EQUAL 0.26)
+    if(NOT ${LibExiv2_VERSION} VERSION_LESS 0.26)
         target_compile_definitions(kfilemetadata_exiv2extractor PRIVATE "-DHAVE_WEBP_SUPPORT")
     endif()
 
