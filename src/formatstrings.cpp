@@ -131,7 +131,7 @@ QString FormatStrings::formatPhotoFlashValue(const QVariant& value)
     if (flashTranslation.contains(value.toInt())) {
         return flashTranslation.value(value.toInt());
     } else {
-        return i18n("Unkown");
+        return i18n("Unknown");
     }
 
 }
