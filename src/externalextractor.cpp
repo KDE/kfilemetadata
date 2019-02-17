@@ -62,10 +62,10 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     d->path = pluginPath;
 
     QDir pluginDir(pluginPath);
-    QStringList pluginDirContents = pluginDir.entryList();
+    QStringList pluginDirContents = pluginDir.entryList(QDir::Files | QDir::NoDotAndDotDot);
 
     if (!pluginDirContents.contains(QStringLiteral("manifest.json"))) {
-        qCDebug(KFILEMETADATA_LOG) << "Path does not seem to contain a valid plugin";
+        qCDebug(KFILEMETADATA_LOG) << pluginPath << "does not seem to contain a valid plugin";
         return;
     }
 
@@ -117,6 +117,13 @@ void ExternalExtractor::extract(ExtractionResult* result)
 
     QProcess extractorProcess;
     extractorProcess.start(d->mainPath, QStringList(), QIODevice::ReadWrite);
+    bool started = extractorProcess.waitForStarted();
+    if (!started) {
+        qCWarning(KFILEMETADATA_LOG) << "External extractor" << d->mainPath
+            << "failed to start:" << extractorProcess.errorString();
+        return;
+    }
+
     extractorProcess.write(writeData.toJson());
     extractorProcess.closeWriteChannel();
     extractorProcess.waitForFinished(EXTRACTOR_TIMEOUT_MS);
@@ -125,7 +132,8 @@ void ExternalExtractor::extract(ExtractionResult* result)
     errorOutput = extractorProcess.readAllStandardError();
 
     if (extractorProcess.exitStatus()) {
-        qCDebug(KFILEMETADATA_LOG) << errorOutput;
+        qCWarning(KFILEMETADATA_LOG) << "External extractor" << d->mainPath
+            << "failed to index" << result->inputUrl() << "-" << errorOutput;
         return;
     }
 
