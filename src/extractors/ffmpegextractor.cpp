@@ -45,7 +45,7 @@ extern "C" {
 using namespace KFileMetaData;
 
 FFmpegExtractor::FFmpegExtractor(QObject* parent)
-: ExtractorPlugin(parent)
+    : ExtractorPlugin(parent)
 {
 }
 
@@ -102,32 +102,21 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         const AVCodecContext* codec = stream->codec;
 #endif
 
-        if (codec->codec_type == AVMEDIA_TYPE_AUDIO || codec->codec_type == AVMEDIA_TYPE_VIDEO) {
-            /*
-            if( codec->codec_type == AVMEDIA_TYPE_AUDIO ) {
-                subRes.addType( NFO::Audio() );
-                subRes.addProperty( NFO::sampleRate(), codec->sample_rate );
-                subRes.addProperty( NFO::channels(), codec->channels );
+        if (codec->codec_type == AVMEDIA_TYPE_VIDEO) {
+            result->add(Property::Width, codec->width);
+            result->add(Property::Height, codec->height);
 
-                //TODO: Fetch Sample Format
-            }*/
+            int aspectRatio = codec->sample_aspect_ratio.num;
+            if (codec->sample_aspect_ratio.den)
+                aspectRatio /= codec->sample_aspect_ratio.den;
+            if (aspectRatio)
+                result->add(Property::AspectRatio, aspectRatio);
 
-            if (codec->codec_type == AVMEDIA_TYPE_VIDEO) {
-                int aspectRatio = codec->sample_aspect_ratio.num;
-                int frameRate = stream->avg_frame_rate.num;
-
-                if (codec->sample_aspect_ratio.den)
-                    aspectRatio /= codec->sample_aspect_ratio.den;
-                if (stream->avg_frame_rate.den)
-                    frameRate /= stream->avg_frame_rate.den;
-
-                result->add(Property::Width, codec->width);
-                result->add(Property::Height, codec->height);
-                if (aspectRatio)
-                    result->add(Property::AspectRatio, aspectRatio);
-                if (frameRate)
-                    result->add(Property::FrameRate, frameRate);
-            }
+            int frameRate = stream->avg_frame_rate.num;
+            if (stream->avg_frame_rate.den)
+                frameRate /= stream->avg_frame_rate.den;
+            if (frameRate)
+                result->add(Property::FrameRate, frameRate);
         }
     }
 
