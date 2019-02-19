@@ -104,6 +104,7 @@ if(FFMPEG_FOUND)
         TEST_NAME "ffmpegextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${AVCODEC_LIBRARIES} ${AVFORMAT_LIBRARIES} ${AVUTIL_LIBRARIES}
     )
+    target_include_directories(ffmpegextractortest SYSTEM PRIVATE ${AVCODEC_INCLUDE_DIRS} ${AVFORMAT_INCLUDE_DIRS} ${AVUTIL_INCLUDE_DIRS})
 endif()
 
 #
