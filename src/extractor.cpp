@@ -31,11 +31,13 @@ Extractor::Extractor()
 
 Extractor::~Extractor()
 {
-    if (d->m_autoDeletePlugin == AutoDeletePlugin) {
-        delete d->m_plugin;
-    }
-
     delete d;
+}
+
+Extractor::Extractor(Extractor&& other)
+{
+    d = other.d;
+    other.d = nullptr;
 }
 
 void Extractor::extract(ExtractionResult* result)

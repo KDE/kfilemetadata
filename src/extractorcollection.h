@@ -59,7 +59,7 @@ private:
     Private* d;
 
     friend class ExtractorCollectionTest;
-    QList<Extractor*> allExtractors() const;
+    QList<Extractor*> allExtractors();
 };
 }
 

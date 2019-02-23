@@ -44,6 +44,7 @@ class KFILEMETADATA_EXPORT Extractor
     };
 
 public:
+    Extractor(Extractor&&);
     virtual ~Extractor() noexcept;
 
     void extract(ExtractionResult* result);
