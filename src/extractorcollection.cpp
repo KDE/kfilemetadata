@@ -48,8 +48,9 @@ ExtractorCollection::ExtractorCollection()
 {
     d->m_allExtractors = d->allExtractors();
 
-    foreach (Extractor* ex, d->m_allExtractors) {
-        foreach (const QString& type, ex->mimetypes()) {
+    for (Extractor* ex : qAsConst(d->m_allExtractors)) {
+        const QStringList lstMimetypes = ex->mimetypes();
+        for (const QString& type : lstMimetypes) {
             d->m_extractors.insertMulti(type, ex);
         }
     }
@@ -74,8 +75,8 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
     QStringList externalPlugins;
     QStringList externalPluginPaths;
 
-    QStringList paths = QCoreApplication::libraryPaths();
-    Q_FOREACH (const QString& libraryPath, paths) {
+    const QStringList paths = QCoreApplication::libraryPaths();
+    for (const QString& libraryPath : paths) {
         QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata"));
         QDir dir(path);
 
@@ -109,7 +110,7 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
     externalPlugins.clear();
 
     QList<Extractor*> extractors;
-    Q_FOREACH (const QString& pluginPath, pluginPaths) {
+    for (const QString& pluginPath : qAsConst(pluginPaths)) {
         QPluginLoader loader(pluginPath);
 
         if (!loader.load()) {
@@ -142,7 +143,7 @@ QList<Extractor*> ExtractorCollection::Private::allExtractors() const
         }
     }
 
-    Q_FOREACH (const QString& externalPluginPath, externalPluginPaths) {
+    for (const QString& externalPluginPath : qAsConst(externalPluginPaths)) {
         ExternalExtractor *plugin = new ExternalExtractor(externalPluginPath);
         Extractor* extractor = new Extractor;
         extractor->setExtractorPlugin(plugin);

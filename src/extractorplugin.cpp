@@ -137,7 +137,7 @@ QStringList ExtractorPlugin::contactsFromString(const QString& string)
 
     QStringList list;
     list.reserve(contactStrings.count());
-    foreach(const QString& contactName, contactStrings) {
+    for(const QString& contactName : qAsConst(contactStrings)) {
         list << contactName.trimmed();
     }
 

@@ -147,7 +147,8 @@ void ExternalExtractor::extract(ExtractionResult* result)
     QJsonObject rootObject = extractorData.object();
     QJsonObject propertiesObject = rootObject[QStringLiteral("properties")].toObject();
 
-    Q_FOREACH(const auto &key, propertiesObject.keys()) {
+    const auto lstKeys = propertiesObject.keys();
+    for(const auto &key : lstKeys) {
         if (key == QStringLiteral("typeInfo")) {
             TypeInfo info = TypeInfo::fromName(propertiesObject.value(key).toString());
             result->addType(info.type());
