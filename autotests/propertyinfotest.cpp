@@ -48,18 +48,21 @@ void PropertyInfoTest::testNameIdMapping()
 void PropertyInfoTest::testFormatAsDisplayString()
 {
     auto emptyProperty = PropertyInfo::fromName(QStringLiteral("no valid property name"));
-    QCOMPARE(emptyProperty.formatAsDisplayString(QVariant("empty")), QStringLiteral("empty"));
+    QCOMPARE(emptyProperty.formatAsDisplayString(QVariant(QStringLiteral("empty"))), QStringLiteral("empty"));
 
     PropertyInfo year(Property::DiscNumber);
     QCOMPARE(year.formatAsDisplayString(QVariant(2018)), QStringLiteral("2018"));
 
-    QStringList artistList = {"Artist1", "Artist2"};
+    PropertyInfo title(Property::Title);
+    QCOMPARE(title.formatAsDisplayString(QVariant(QStringLiteral("Title"))), QStringLiteral("Title"));
+
+    QStringList artistList = {QStringLiteral("Artist1"), QStringLiteral("Artist2")};
     PropertyInfo artist(Property::Artist);
     QCOMPARE(artist.formatAsDisplayString(QVariant(artistList)), QStringLiteral("Artist1, Artist2"));
 
-    QStringList authorList = {"Author1"};
+    QStringList authorList = {QStringLiteral("Author1")};
     PropertyInfo author(Property::Author);
-    QCOMPARE(artist.formatAsDisplayString(QVariant(authorList)), QStringLiteral("Author1"));
+    QCOMPARE(author.formatAsDisplayString(QVariant(authorList)), QStringLiteral("Author1"));
 
     PropertyInfo duration(Property::Duration);
     QCOMPARE(duration.formatAsDisplayString(QVariant(1800)), QStringLiteral("0:30:00"));
