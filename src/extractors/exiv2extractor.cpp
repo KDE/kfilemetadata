@@ -191,7 +191,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     add(result, data, Property::ImageOrientation, "Exif.Image.Orientation", QVariant::Int);
     add(result, data, Property::PhotoFlash, "Exif.Photo.Flash", QVariant::Int);
     add(result, data, Property::PhotoPixelXDimension, "Exif.Photo.PixelXDimension", QVariant::Int);
-    add(result, data, Property::PhotoPixelXDimension, "Exif.Photo.PixelYDimension", QVariant::Int);
+    add(result, data, Property::PhotoPixelYDimension, "Exif.Photo.PixelYDimension", QVariant::Int);
     add(result, data, Property::PhotoDateTimeOriginal, "Exif.Photo.DateTimeOriginal", QVariant::DateTime);
     add(result, data, Property::PhotoFocalLength, "Exif.Photo.FocalLength", QVariant::Double);
     add(result, data, Property::PhotoFocalLengthIn35mmFilm, "Exif.Photo.FocalLengthIn35mmFilm", QVariant::Double);
