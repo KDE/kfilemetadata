@@ -138,7 +138,7 @@ QString FormatStrings::formatPhotoFlashValue(const QVariant& value)
 
 QString FormatStrings::formatAsDegree(const QVariant& value)
 {
-    return QString(QLocale().toString(value.toDouble()) + i18nc("Symbol of degree, no space", "°"));
+    return i18nc("Symbol of degree, no space", "%1°", value.toDouble());
 }
 
 QString FormatStrings::formatAsMeter(const QVariant& value)
