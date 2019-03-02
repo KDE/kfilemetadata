@@ -51,6 +51,8 @@ public:
 
     static QString formatAsFrameRate(const QVariant& value);
 
+    static QString formatAspectRatio(const QVariant& value);
+
 };
 
 }

@@ -106,11 +106,17 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             result->add(Property::Width, codec->width);
             result->add(Property::Height, codec->height);
 
-            int aspectRatio = codec->sample_aspect_ratio.num;
-            if (codec->sample_aspect_ratio.den)
-                aspectRatio /= codec->sample_aspect_ratio.den;
-            if (aspectRatio)
-                result->add(Property::AspectRatio, aspectRatio);
+            AVRational avSampleAspectRatio = av_guess_sample_aspect_ratio(fmt_ctx, stream, NULL);
+            AVRational avDisplayAspectRatio;
+            av_reduce(&avDisplayAspectRatio.num, &avDisplayAspectRatio.den,
+                      codec->width  * avSampleAspectRatio.num,
+                      codec->height * avSampleAspectRatio.den,
+                      1024*1024);
+            double displayAspectRatio = avDisplayAspectRatio.num;
+            if (avDisplayAspectRatio.den)
+                displayAspectRatio /= avDisplayAspectRatio.den;
+            if (displayAspectRatio)
+                result->add(Property::AspectRatio, displayAspectRatio);
 
             AVRational avFrameRate = av_guess_frame_rate(fmt_ctx, stream, NULL);
             double frameRate = avFrameRate.num;

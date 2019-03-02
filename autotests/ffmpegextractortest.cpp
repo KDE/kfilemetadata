@@ -49,6 +49,7 @@ void ffmpegExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Width).toInt(), 1280);
     QCOMPARE(result.properties().value(Property::Height).toInt(), 720);
     QCOMPARE(result.properties().value(Property::FrameRate).toDouble(), 24.0/1.001);
+    QCOMPARE(result.properties().value(Property::AspectRatio).toDouble(), 16.0/9);
 }
 
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)

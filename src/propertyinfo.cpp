@@ -70,7 +70,8 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::AspectRatio:
             d->name = QStringLiteral("aspectRatio");
             d->displayName = i18nc("@label", "Aspect Ratio");
-            d->valueType = QVariant::Int;
+            d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatAspectRatio;
             break;
 
         case Property::Author:
