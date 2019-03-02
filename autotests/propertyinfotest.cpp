@@ -94,6 +94,7 @@ void PropertyInfoTest::testFormatAsDisplayString()
 
     PropertyInfo framerate(Property::FrameRate);
     QCOMPARE(framerate.formatAsDisplayString(QVariant(23)), QStringLiteral("23 fps"));
+    QCOMPARE(framerate.formatAsDisplayString(QVariant(23.976)), QStringLiteral("23.98 fps"));
 }
 
 QTEST_GUILESS_MAIN(PropertyInfoTest)

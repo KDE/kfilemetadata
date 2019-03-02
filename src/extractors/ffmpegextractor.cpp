@@ -95,7 +95,7 @@ void FFmpegExtractor::extract(ExtractionResult* result)
     result->add(Property::BitRate, bitrate);
 
     for (uint i = 0; i < fmt_ctx->nb_streams; i++) {
-        const AVStream* stream = fmt_ctx->streams[i];
+        AVStream* stream = fmt_ctx->streams[i];
 #if defined HAVE_AVSTREAM_CODECPAR && HAVE_AVSTREAM_CODECPAR
         const AVCodecParameters* codec = stream->codecpar;
 #else
@@ -112,9 +112,10 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             if (aspectRatio)
                 result->add(Property::AspectRatio, aspectRatio);
 
-            int frameRate = stream->avg_frame_rate.num;
-            if (stream->avg_frame_rate.den)
-                frameRate /= stream->avg_frame_rate.den;
+            AVRational avFrameRate = av_guess_frame_rate(fmt_ctx, stream, NULL);
+            double frameRate = avFrameRate.num;
+            if (avFrameRate.den)
+                frameRate /= avFrameRate.den;
             if (frameRate)
                 result->add(Property::FrameRate, frameRate);
         }

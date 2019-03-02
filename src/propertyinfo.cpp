@@ -143,7 +143,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::FrameRate:
             d->name = QStringLiteral("frameRate");
             d->displayName = i18nc("@label", "Frame Rate");
-            d->valueType = QVariant::Int;
+            d->valueType = QVariant::Double;
             d->formatAsString = &FormatStrings::formatAsFrameRate;
             break;
 

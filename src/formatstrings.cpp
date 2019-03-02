@@ -149,5 +149,5 @@ QString FormatStrings::formatAsMeter(const QVariant& value)
 
 QString FormatStrings::formatAsFrameRate(const QVariant& value)
 {
-    return QString(value.toString() + i18nc("Symbol of frames per second, with space", " fps"));
+    return i18nc("Symbol of frames per second, with space", "%1 fps", round(value.toDouble() * 100) / 100);
 }
