@@ -22,6 +22,7 @@
 #include <math.h>
 #include <QDateTime>
 #include <KLocalizedString>
+#include <KFormat>
 
 using namespace KFileMetaData;
 
