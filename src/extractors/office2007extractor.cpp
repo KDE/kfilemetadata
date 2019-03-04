@@ -258,7 +258,7 @@ void Office2007Extractor::extractAllText(QIODevice* device, ExtractionResult* re
 void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveDir, ExtractionResult* result)
 {
     const QStringList entries = archiveDir->entries();
-    for (const QString & entryName : entries) {
+    foreach(const QString & entryName, entries) {
         const KArchiveEntry* entry = archiveDir->entry(entryName);
         if (entry->isDirectory()) {
             const KArchiveDirectory* subDir = dynamic_cast<const KArchiveDirectory*>(entry);

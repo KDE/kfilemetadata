@@ -115,7 +115,7 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
                        )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
-add_definitions(-DQT_NO_FOREACH)
+
 add_subdirectory(src)
 if (BUILD_TESTING)
   add_subdirectory(autotests)

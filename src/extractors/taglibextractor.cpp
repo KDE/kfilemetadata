@@ -922,74 +922,74 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
 
         QString locationsString = TStringToQString(data.location).trimmed();
-        const QStringList locations = contactsFromString(locationsString);
-        for (const QString& loc : locations) {
+        QStringList locations = contactsFromString(locationsString);
+        foreach(const QString& loc, locations) {
             result->add(Property::Location, loc);
         }
 
         QString performersString = TStringToQString(data.performer).trimmed();
-        const QStringList performers = contactsFromString(performersString);
-        for (const QString& per : performers) {
+        QStringList performers = contactsFromString(performersString);
+        foreach(const QString& per, performers) {
             result->add(Property::Performer, per);
         }
 
         QString ensembleString = TStringToQString(data.ensemble).trimmed();
-        const QStringList ensembles = contactsFromString(ensembleString);
-        for (const QString& ens : ensembles) {
+        QStringList ensembles = contactsFromString(ensembleString);
+        foreach(const QString& ens, ensembles) {
             result->add(Property::Ensemble, ens);
         }
 
         QString arrangerString = TStringToQString(data.arranger).trimmed();
-        const QStringList arrangers = contactsFromString(arrangerString);
-        for (const QString& arr : arrangers) {
+        QStringList arrangers = contactsFromString(arrangerString);
+        foreach(const QString& arr, arrangers) {
             result->add(Property::Arranger, arr);
         }
 
         QString conductorString = TStringToQString(data.conductor).trimmed();
-        const QStringList conductors = contactsFromString(conductorString);
-        for (const QString& arr : conductors) {
+        QStringList conductors = contactsFromString(conductorString);
+        foreach(const QString& arr, conductors) {
             result->add(Property::Conductor, arr);
         }
 
         QString publisherString = TStringToQString(data.publisher).trimmed();
-        const QStringList publishers = contactsFromString(publisherString);
-        for (const QString& arr : publishers) {
+        QStringList publishers = contactsFromString(publisherString);
+        foreach(const QString& arr, publishers) {
             result->add(Property::Publisher, arr);
         }
 
         QString copyrightString = TStringToQString(data.copyright).trimmed();
-        const QStringList copyrights = contactsFromString(copyrightString);
-        for (const QString& arr : copyrights) {
+        QStringList copyrights = contactsFromString(copyrightString);
+        foreach(const QString& arr, copyrights) {
             result->add(Property::Copyright, arr);
         }
 
         QString labelString = TStringToQString(data.label).trimmed();
-        const QStringList labels = contactsFromString(labelString);
-        for (const QString& arr : labels) {
+        QStringList labels = contactsFromString(labelString);
+        foreach(const QString& arr, labels) {
             result->add(Property::Label, arr);
         }
 
         QString authorString = TStringToQString(data.author).trimmed();
-        const QStringList authors = contactsFromString(authorString);
-        for (const QString& arr : authors) {
+        QStringList authors = contactsFromString(authorString);
+        foreach(const QString& arr, authors) {
             result->add(Property::Author, arr);
         }
 
         QString languageString = TStringToQString(data.language).trimmed();
-        const QStringList languages = contactsFromString(languageString);
-        for (const QString& arr : languages) {
+        QStringList languages = contactsFromString(languageString);
+        foreach(const QString& arr, languages) {
             result->add(Property::Language, arr);
         }
 
         QString licenseString = TStringToQString(data.license).trimmed();
-        const QStringList licenses = contactsFromString(licenseString);
-        for (const QString& arr : licenses) {
+        QStringList licenses = contactsFromString(licenseString);
+        foreach(const QString& arr, licenses) {
             result->add(Property::License, arr);
         }
 
         QString compilationString = TStringToQString(data.compilation).trimmed();
-        const QStringList compilations = contactsFromString(compilationString);
-        for (const QString& arr : compilations) {
+        QStringList compilations = contactsFromString(compilationString);
+        foreach(const QString& arr, compilations) {
             result->add(Property::Compilation, arr);
         }
 

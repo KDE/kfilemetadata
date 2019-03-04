@@ -53,9 +53,8 @@ WriterCollection::WriterCollection()
     Q_D(WriterCollection);
     const QList<Writer*> all = d->allWriters();
 
-    for (Writer* writer : all) {
-        const QStringList lst = writer->mimetypes();
-        for (const QString& type : lst) {
+    foreach (Writer* writer, all) {
+        foreach (const QString& type, writer->mimetypes()) {
             d->m_writers.insertMulti(type, writer);
         }
     }
@@ -77,7 +76,7 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
     QStringList externalPluginPaths;
 
     const QStringList paths = QCoreApplication::libraryPaths();
-    for (const QString& libraryPath : paths) {
+    Q_FOREACH (const QString& libraryPath, paths) {
         QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata/writers"));
         QDir dir(path);
 
@@ -111,7 +110,7 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
     externalPlugins.clear();
 
     QList<Writer*> writers;
-    for (const QString& pluginPath : qAsConst(pluginPaths)) {
+    Q_FOREACH (const QString& pluginPath, pluginPaths) {
         QPluginLoader loader(pluginPath);
 
         if (!loader.load()) {
@@ -138,7 +137,7 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
         }
     }
 
-    for (const QString& externalPluginPath : qAsConst(externalPluginPaths)) {
+    Q_FOREACH (const QString& externalPluginPath, externalPluginPaths) {
         ExternalWriter *plugin = new ExternalWriter(externalPluginPath);
         Writer* writer = new Writer;
         writer->d_ptr->m_plugin = plugin;
