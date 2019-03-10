@@ -147,24 +147,26 @@ void ExternalExtractor::extract(ExtractionResult* result)
     QJsonObject rootObject = extractorData.object();
     QJsonObject propertiesObject = rootObject[QStringLiteral("properties")].toObject();
 
-    Q_FOREACH(const auto &key, propertiesObject.keys()) {
-        if (key == QStringLiteral("typeInfo")) {
-            TypeInfo info = TypeInfo::fromName(propertiesObject.value(key).toString());
+    const auto propertiesObjectEnd = propertiesObject.constEnd();
+    auto i = propertiesObject.constBegin();
+    for (; i != propertiesObjectEnd; ++i) {
+        if (i.key() == QStringLiteral("typeInfo")) {
+            TypeInfo info = TypeInfo::fromName(propertiesObject.value(i.key()).toString());
             result->addType(info.type());
             continue;
         }
 
         // for plaintext extraction
-        if (key == QStringLiteral("text")) {
-            result->append(propertiesObject.value(key).toString(QStringLiteral("")));
+        if (i.key() == QStringLiteral("text")) {
+            result->append(propertiesObject.value(i.key()).toString(QStringLiteral("")));
             continue;
         }
 
-        PropertyInfo info = PropertyInfo::fromName(key);
-        if (info.name() != key) {
+        PropertyInfo info = PropertyInfo::fromName(i.key());
+        if (info.name() != i.key()) {
             continue;
         }
-        result->add(info.property(), propertiesObject.value(key).toVariant());
+        result->add(info.property(), i.value().toVariant());
     }
 
     if (rootObject[QStringLiteral("status")].toString() != QStringLiteral("OK")) {

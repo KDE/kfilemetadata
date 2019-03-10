@@ -81,9 +81,9 @@ ExternalWriter::ExternalWriter(const QString& pluginPath)
     }
 
     QJsonObject rootObject = manifestDoc.object();
-    QJsonArray mimetypesArray = rootObject.value(QStringLiteral("mimetypes")).toArray();
+    const QJsonArray mimetypesArray = rootObject.value(QStringLiteral("mimetypes")).toArray();
     QStringList mimetypes;
-    Q_FOREACH(const QVariant &mimetype, mimetypesArray) {
+    for (const QVariant &mimetype : mimetypesArray) {
         mimetypes << mimetype.toString();
     }
 
@@ -106,12 +106,12 @@ void ExternalWriter::write(const WriteData& data)
     QByteArray output;
     QByteArray errorOutput;
 
-    QMap<Property::Property, QVariant> properties = data.getAllProperties();
-    const auto &propertiesKeys = properties.keys();
+    const QMap<Property::Property, QVariant> properties = data.getAllProperties();
 
-    Q_FOREACH(const Property::Property &property, propertiesKeys) {
-        PropertyInfo propertyInfo(property);
-        propertiesObject[propertyInfo.name()] = QJsonValue::fromVariant(properties[property]);
+    QMap<Property::Property, QVariant>::const_iterator i = properties.constBegin();
+    while (i != properties.constEnd()) {
+        PropertyInfo propertyInfo(i.key());
+        propertiesObject[propertyInfo.name()] = QJsonValue::fromVariant(properties[i.key()]);
     }
 
     rootObject[QStringLiteral("path")] = QJsonValue(data.inputUrl());
