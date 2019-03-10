@@ -21,29 +21,28 @@
 #include "taglibextractor.h"
 
 // Taglib includes
-#include <fileref.h>
-#include <tfilestream.h>
-#include <flacfile.h>
-#include <apefile.h>
-#include <asftag.h>
-#include <asfattribute.h>
-#include <apetag.h>
-#include <mpcfile.h>
-#include <id3v2tag.h>
-#include <id3v1genres.h>
-#include <mpegfile.h>
-#include <oggfile.h>
-#include <mp4file.h>
-#include <mp4tag.h>
 #include <taglib.h>
 #include <tag.h>
-#include <vorbisfile.h>
+#include <tfilestream.h>
+#include <tpropertymap.h>
+#include <aifffile.h>
+#include <apefile.h>
+#include <asffile.h>
+#include <flacfile.h>
+#include <mp4file.h>
+#include <mpcfile.h>
+#include <mpegfile.h>
+#include <oggfile.h>
 #include <opusfile.h>
 #include <speexfile.h>
-#include <xiphcomment.h>
-#include <popularimeterframe.h>
-#include <textidentificationframe.h>
+#include <vorbisfile.h>
+#include <wavfile.h>
 #include <wavpackfile.h>
+#include <asftag.h>
+#include <asfattribute.h>
+#include <id3v2tag.h>
+#include <mp4tag.h>
+#include <popularimeterframe.h>
 
 #include <QDateTime>
 #include <QDebug>
@@ -81,979 +80,9 @@ QStringList TagLibExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractedData& data)
+void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
 {
-    if (Id3Tags->isEmpty()) {
-        return;
-    }
-    TagLib::ID3v2::FrameList lstID3v2;
-
-    // Artist.
-    lstID3v2 = Id3Tags->frameListMap()["TPE1"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.artists.isEmpty()) {
-            data.artists += ", ";
-        }
-        data.artists += frame->toString();
-    }
-
-    // Album Artist.
-    lstID3v2 = Id3Tags->frameListMap()["TPE2"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.albumArtists.isEmpty()) {
-            data.albumArtists += ", ";
-        }
-        data.albumArtists += frame->toString();
-    }
-
-    // Composer.
-    lstID3v2 = Id3Tags->frameListMap()["TCOM"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.composers.isEmpty()) {
-            data.composers += ", ";
-        }
-        data.composers += frame->toString();
-    }
-
-    // Lyricist.
-    lstID3v2 = Id3Tags->frameListMap()["TEXT"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.lyricists.isEmpty()) {
-            data.lyricists += ", ";
-        }
-        data.lyricists += frame->toString();
-    }
-
-    // Genre.
-    lstID3v2 = Id3Tags->frameListMap()["TCON"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        data.genres.append(frame->toString());
-    }
-
-    // Disc number.
-    lstID3v2 = Id3Tags->frameListMap()["TPOS"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        data.discNumber = frame->toString().toInt();
-    }
-
-    // Performer.
-    lstID3v2 = Id3Tags->frameListMap()["TMCL"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.performer.isEmpty()) {
-            data.performer += ", ";
-        }
-        data.performer += frame->toString();
-    }
-
-    // Conductor.
-    lstID3v2 = Id3Tags->frameListMap()["TPE3"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.conductor.isEmpty()) {
-            data.conductor += ", ";
-        }
-        data.conductor += frame->toString();
-    }
-
-    // Publisher.
-    lstID3v2 = Id3Tags->frameListMap()["TPUB"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.publisher.isEmpty()) {
-            data.publisher += ", ";
-        }
-        data.publisher += frame->toString();
-    }
-
-    // Copyright.
-    lstID3v2 = Id3Tags->frameListMap()["TCOP"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.copyright.isEmpty()) {
-            data.copyright += ", ";
-        }
-        data.copyright += frame->toString();
-    }
-
-    // Language.
-    lstID3v2 = Id3Tags->frameListMap()["TLAN"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.language.isEmpty()) {
-            data.language += ", ";
-        }
-        data.language += frame->toString();
-    }
-
-    // Lyrics.
-    lstID3v2 = Id3Tags->frameListMap()["USLT"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.lyrics.isEmpty()) {
-            data.lyrics += ", ";
-        }
-        data.lyrics += frame->toString();
-    }
-
-    // Compilation.
-    lstID3v2 = Id3Tags->frameListMap()["TCMP"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        if (!data.compilation.isEmpty()) {
-            data.compilation += ", ";
-        }
-        data.compilation += frame->toString();
-    }
-
-    // Rating.
-    /* There is no standard regarding ratings. Most of the implementations match
-       a 5 stars rating to a range of 0-255 for MP3.
-       Match it to baloo rating with a range of 0 - 10 */
-    lstID3v2 = Id3Tags->frameListMap()["POPM"];
-    for (const auto& frame : qAsConst(lstID3v2)) {
-        TagLib::ID3v2::PopularimeterFrame *ratingFrame = static_cast<TagLib::ID3v2::PopularimeterFrame *>(frame);
-        int rating = ratingFrame->rating();
-        if (rating == 0) {
-            data.rating = 0;
-        } else if (rating == 1) {
-            TagLib::String ratingProvider = ratingFrame->email();
-            if (ratingProvider == "no@email" || ratingProvider == "org.kde.kfilemetadata") {
-                data.rating = 1;
-            } else {
-                data.rating = 2;
-            }
-        } else if (rating >= 1 && rating <= 255) {
-            data.rating = static_cast<int>(0.032 * rating + 2);
-        }
-    }
-
-    // User Text Frame.
-    lstID3v2 = Id3Tags->frameListMap()["TXXX"];
-    if (!lstID3v2.isEmpty()) {
-        // look for ReplayGain tags
-        typedef TagLib::ID3v2::UserTextIdentificationFrame IdFrame;
-
-        auto trackGainFrame = IdFrame::find(Id3Tags, "replaygain_track_gain");
-        if (trackGainFrame && !trackGainFrame->fieldList().isEmpty()) {
-            data.replayGainTrackGain = TStringToQString(trackGainFrame->fieldList().back());
-        }
-
-        auto trackPeakFrame = IdFrame::find(Id3Tags, "replaygain_track_peak");
-        if (trackPeakFrame && !trackPeakFrame->fieldList().isEmpty()) {
-            data.replayGainTrackPeak = TStringToQString(trackPeakFrame->fieldList().back());
-        }
-
-        auto albumGainFrame = IdFrame::find(Id3Tags, "replaygain_album_gain");
-        if (albumGainFrame && !albumGainFrame->fieldList().isEmpty()) {
-            data.replayGainAlbumGain = TStringToQString(albumGainFrame->fieldList().back());
-        }
-
-        auto albumPeakFrame = IdFrame::find(Id3Tags, "replaygain_album_peak");
-        if (albumPeakFrame && !albumPeakFrame->fieldList().isEmpty()) {
-            data.replayGainAlbumPeak = TStringToQString(albumPeakFrame->fieldList().back());
-        }
-    }
-    //TODO handle TIPL tag
-}
-
-void TagLibExtractor::extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractedData& data)
-{
-    if (mp4Tags->isEmpty()) {
-        return;
-    }
-    TagLib::MP4::ItemListMap allTags = mp4Tags->itemListMap();
-
-    TagLib::MP4::ItemListMap::Iterator itAlbumArtists = allTags.find("aART");
-    if (itAlbumArtists != allTags.end()) {
-        data.albumArtists = itAlbumArtists->second.toStringList().toString(", ");
-    }
-
-    TagLib::MP4::ItemListMap::Iterator itDiscNumber = allTags.find("disk");
-    if (itDiscNumber != allTags.end()) {
-        data.discNumber = itDiscNumber->second.toInt();
-    }
-
-    TagLib::MP4::ItemListMap::Iterator itCompilation = allTags.find("cpil");
-    if (itCompilation != allTags.end()) {
-        data.compilation = itCompilation->second.toStringList().toString(", ");
-    }
-
-    TagLib::MP4::ItemListMap::Iterator itCopyright = allTags.find("cprt");
-    if (itCopyright != allTags.end()) {
-        data.copyright = itCopyright->second.toStringList().toString(", ");
-    }
-
-    TagLib::String genreAtomName(TagLib::String("©gen", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
-    TagLib::MP4::ItemListMap::Iterator itGenres = allTags.find(genreAtomName);
-    if (itGenres != allTags.end()) {
-        data.genres = itGenres->second.toStringList().toString(", ");
-    }
-
-    TagLib::String composerAtomName(TagLib::String("©wrt", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
-    TagLib::MP4::ItemListMap::Iterator itComposers = allTags.find(composerAtomName);
-    if (itComposers != allTags.end()) {
-        data.composers = itComposers->second.toStringList().toString(", ");
-    }
-
-    /* There is no standard regarding ratings. Mimic MediaMonkey's behavior
-       with a range of 0 to 100 (stored in steps of 10) and make it compatible
-       with baloo rating with a range from 0 to 10 */
-    TagLib::MP4::ItemListMap::Iterator itRating = allTags.find("rate");
-    if (itRating != allTags.end()) {
-        data.rating = itRating->second.toStringList().toString().toInt() / 10;
-    }
-
-    TagLib::String lyricsAtomName(TagLib::String("©lyr", TagLib::String::UTF8).to8Bit(), TagLib::String::Latin1);
-    TagLib::MP4::ItemListMap::Iterator itLyrics = allTags.find(lyricsAtomName);
-    if (itLyrics != allTags.end()) {
-        data.lyrics = itLyrics->second.toStringList().toString(", ");
-    }
-}
-
-void TagLibExtractor::extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& data)
-{
-    if (apeTags->isEmpty()) {
-        return;
-    }
-    TagLib::APE::ItemListMap lstApe = apeTags->itemListMap();
-    TagLib::APE::ItemListMap::ConstIterator itApe;
-
-    itApe = lstApe.find("ARTIST");
-    if (itApe != lstApe.end()) {
-        if (!data.artists.isEmpty()) {
-            data.artists += ", ";
-        }
-        data.artists += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("ALBUMARTIST");
-    if (itApe == lstApe.end()) {
-        itApe = lstApe.find("ALBUM ARTIST");
-    }
-    if (itApe != lstApe.end()) {
-        if(!data.albumArtists.isEmpty()) {
-            data.albumArtists += ", ";
-        }
-        data.albumArtists += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("COMPOSER");
-    if (itApe != lstApe.end()) {
-        if (!data.composers.isEmpty()) {
-            data.composers += ", ";
-        }
-        data.composers += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("LYRICIST");
-    if (itApe != lstApe.end()) {
-        if (!data.lyricists.isEmpty()) {
-            data.lyricists += ", ";
-        }
-        data.lyricists += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("GENRE");
-    if (itApe != lstApe.end()) {
-        data.genres.append((*itApe).second.toString());
-    }
-
-    itApe = lstApe.find("LOCATION");
-    if (itApe != lstApe.end()) {
-        if (!data.location.isEmpty()) {
-            data.location += ", ";
-        }
-        data.location += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("ARRANGER");
-    if (itApe != lstApe.end()) {
-        if (!data.arranger.isEmpty()) {
-            data.arranger += ", ";
-        }
-        data.arranger += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("PERFORMER");
-    if (itApe != lstApe.end()) {
-        if (!data.performer.isEmpty()) {
-            data.performer += ", ";
-        }
-        data.performer += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("CONDUCTOR");
-    if (itApe != lstApe.end()) {
-        if (!data.conductor.isEmpty()) {
-            data.conductor += ", ";
-        }
-        data.conductor += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("ENSEMBLE");
-    if (itApe != lstApe.end()) {
-        if (!data.ensemble.isEmpty()) {
-            data.ensemble += ", ";
-        }
-        data.ensemble += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("PUBLISHER");
-    if (itApe != lstApe.end()) {
-        if (!data.publisher.isEmpty()) {
-            data.publisher += ", ";
-        }
-        data.publisher += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("COPYRIGHT");
-    if (itApe != lstApe.end()) {
-        if (!data.copyright.isEmpty()) {
-            data.copyright += ", ";
-        }
-        data.copyright += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("LABEL");
-    if (itApe != lstApe.end()) {
-        if (!data.label.isEmpty()) {
-            data.label += ", ";
-        }
-        data.label += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("AUTHOR");
-    if (itApe != lstApe.end()) {
-        if (!data.author.isEmpty()) {
-            data.author += ", ";
-        }
-        data.author += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("LICENSE");
-    if (itApe != lstApe.end()) {
-        if (!data.license.isEmpty()) {
-            data.license += ", ";
-        }
-        data.license += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("LYRICS");
-    if (itApe != lstApe.end()) {
-        if (!data.lyrics.isEmpty()) {
-            data.lyrics += ", ";
-        }
-        data.lyrics += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("COMPILATION");
-    if (itApe != lstApe.end()) {
-        if (!data.compilation.isEmpty()) {
-            data.compilation += ", ";
-        }
-        data.compilation += (*itApe).second.toString();
-    }
-
-    itApe = lstApe.find("LANGUAGE");
-    if (itApe != lstApe.end()) {
-        if (!data.language.isEmpty()) {
-            data.language += ", ";
-        }
-        data.language += (*itApe).second.toString();
-    }
-
-
-    itApe = lstApe.find("DISC");
-    if (itApe == lstApe.end()) {
-        itApe = lstApe.find("DISCNUMBER");
-    }
-    if (itApe != lstApe.end()) {
-        data.discNumber = (*itApe).second.toString().toInt();
-    }
-
-    itApe = lstApe.find("OPUS");
-    if (itApe != lstApe.end()) {
-        data.opus = (*itApe).second.toString().toInt();
-    }
-
-    itApe = lstApe.find("RATING");
-    if (itApe != lstApe.end()) {
-        /* There is no standard regarding ratings. There is one implementation
-           most seem to follow with a range of 0 to 100 (stored in steps of 10).
-           Make it compatible with baloo rating with a range from 0 to 10 */
-        data.rating = (*itApe).second.toString().toInt() / 10;
-    }
-
-    itApe = lstApe.find("REPLAYGAIN_TRACK_GAIN");
-    if (itApe != lstApe.end()) {
-        data.replayGainTrackGain = TStringToQString((*itApe).second.toString());
-    }
-
-    itApe = lstApe.find("REPLAYGAIN_TRACK_PEAK");
-    if (itApe != lstApe.end()) {
-        data.replayGainTrackPeak = TStringToQString((*itApe).second.toString());
-    }
-
-    itApe = lstApe.find("REPLAYGAIN_ALBUM_GAIN");
-    if (itApe != lstApe.end()) {
-        data.replayGainAlbumGain = TStringToQString((*itApe).second.toString());
-    }
-
-    itApe = lstApe.find("REPLAYGAIN_ALBUM_PEAK");
-    if (itApe != lstApe.end()) {
-        data.replayGainAlbumPeak = TStringToQString((*itApe).second.toString());
-    }
-}
-
-void TagLibExtractor::extractVorbisTags(TagLib::Ogg::XiphComment* vorbisTags, ExtractedData& data)
-{
-    if (vorbisTags->isEmpty()) {
-        return;
-    }
-    TagLib::Ogg::FieldListMap lstOgg = vorbisTags->fieldListMap();
-    TagLib::Ogg::FieldListMap::ConstIterator itOgg;
-
-    itOgg = lstOgg.find("ARTIST");
-    if (itOgg != lstOgg.end()) {
-        if (!data.artists.isEmpty()) {
-            data.artists += ", ";
-        }
-        data.artists += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("ALBUMARTIST");
-    if (itOgg == lstOgg.end())  {
-        itOgg = lstOgg.find("ALBUM ARTIST");
-    }
-    if (itOgg != lstOgg.end()) {
-        if (!data.albumArtists.isEmpty()) {
-            data.albumArtists += ", ";
-        }
-        data.albumArtists += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("COMPOSER");
-    if (itOgg != lstOgg.end()) {
-        if (!data.composers.isEmpty()) {
-            data.composers += ", ";
-        }
-        data.composers += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("LYRICIST");
-    if (itOgg != lstOgg.end()) {
-        if (!data.lyricists.isEmpty()) {
-            data.lyricists += ", ";
-        }
-        data.lyricists += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("LOCATION");
-    if (itOgg != lstOgg.end()) {
-        if (!data.location.isEmpty()) {
-            data.location += ", ";
-        }
-        data.location += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("ARRANGER");
-    if (itOgg != lstOgg.end()) {
-        if (!data.arranger.isEmpty()) {
-            data.arranger += ", ";
-        }
-        data.arranger += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("PERFORMER");
-    if (itOgg != lstOgg.end()) {
-        if (!data.performer.isEmpty()) {
-            data.performer += ", ";
-        }
-        data.performer += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("CONDUCTOR");
-    if (itOgg != lstOgg.end()) {
-        if (!data.conductor.isEmpty()) {
-            data.conductor += ", ";
-        }
-        data.conductor += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("ENSEMBLE");
-    if (itOgg != lstOgg.end()) {
-        if (!data.ensemble.isEmpty()) {
-            data.ensemble += ", ";
-        }
-        data.ensemble += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("PUBLISHER");
-    if (itOgg != lstOgg.end()) {
-        if (!data.publisher.isEmpty()) {
-            data.publisher += ", ";
-        }
-        data.publisher += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("COPYRIGHT");
-    if (itOgg != lstOgg.end()) {
-        if (!data.copyright.isEmpty()) {
-            data.copyright += ", ";
-        }
-        data.copyright += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("LABEL");
-    if (itOgg != lstOgg.end()) {
-        if (!data.label.isEmpty()) {
-            data.label += ", ";
-        }
-        data.label += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("AUTHOR");
-    if (itOgg != lstOgg.end()) {
-        if (!data.author.isEmpty()) {
-            data.author += ", ";
-        }
-        data.author += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("LICENSE");
-    if (itOgg != lstOgg.end()) {
-        if (!data.license.isEmpty()) {
-            data.license += ", ";
-        }
-        data.license += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("LYRICS");
-    if (itOgg != lstOgg.end()) {
-        if (!data.lyrics.isEmpty()) {
-            data.lyrics += ", ";
-        }
-        data.lyrics += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("COMPILATION");
-    if (itOgg != lstOgg.end()) {
-        if (!data.compilation.isEmpty()) {
-            data.compilation += ", ";
-        }
-        data.compilation += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("LANGUAGE");
-    if (itOgg != lstOgg.end()) {
-        if (!data.language.isEmpty()) {
-            data.language += ", ";
-        }
-        data.language += (*itOgg).second.toString(", ");
-    }
-
-    itOgg = lstOgg.find("GENRE");
-    if (itOgg != lstOgg.end()) {
-        data.genres.append((*itOgg).second);
-    }
-
-    itOgg = lstOgg.find("DISCNUMBER");
-    if (itOgg != lstOgg.end()) {
-        data.discNumber = (*itOgg).second.toString("").toInt();
-    }
-
-    itOgg = lstOgg.find("OPUS");
-    if (itOgg != lstOgg.end()) {
-        data.opus = (*itOgg).second.toString("").toInt();
-    }
-
-    itOgg = lstOgg.find("RATING");
-    if (itOgg != lstOgg.end()) {
-        //there is no standard regarding ratings. There is one implementation
-        //most seem to follow with a range of 0 to 100 (stored in steps of 10).
-        //make it compatible with baloo rating with a range from 0 to 10
-        data.rating = (*itOgg).second.toString("").toInt() / 10;
-    }
-
-    itOgg = lstOgg.find("REPLAYGAIN_TRACK_GAIN");
-    if (itOgg != lstOgg.end()) {
-        data.replayGainTrackGain = TStringToQString((*itOgg).second.toString(""));
-    }
-
-    itOgg = lstOgg.find("REPLAYGAIN_TRACK_PEAK");
-    if (itOgg != lstOgg.end()) {
-        data.replayGainTrackPeak = TStringToQString((*itOgg).second.toString(""));
-    }
-
-    itOgg = lstOgg.find("REPLAYGAIN_ALBUM_GAIN");
-    if (itOgg != lstOgg.end()) {
-        data.replayGainAlbumGain = TStringToQString((*itOgg).second.toString(""));
-    }
-
-    itOgg = lstOgg.find("REPLAYGAIN_ALBUM_PEAK");
-    if (itOgg != lstOgg.end()) {
-        data.replayGainAlbumPeak = TStringToQString((*itOgg).second.toString(""));
-    }
-}
-
-void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractedData& data)
-{
-    if (asfTags->isEmpty()) {
-        return;
-    }
-
-    if (!asfTags->copyright().isEmpty()) {
-        data.copyright = asfTags->copyright();
-    }
-
-    TagLib::ASF::AttributeList lstASF = asfTags->attribute("WM/SharedUserRating");
-    if (!lstASF.isEmpty()) {
-        int rating = lstASF.front().toString().toInt();
-        //map the rating values of WMP to Baloo rating
-        //0->0, 1->2, 25->4, 50->6, 75->8, 99->10
-        if (rating == 0) {
-            data.rating = 0;
-        } else if (rating == 1) {
-            data.rating = 2;
-        } else {
-            data.rating = static_cast<uint>(0.09 * rating + 2);
-        }
-    }
-
-    lstASF = asfTags->attribute("WM/PartOfSet");
-    if (!lstASF.isEmpty()) {
-        data.discNumber = lstASF.front().toString().toInt();
-    }
-
-    lstASF = asfTags->attribute("WM/AlbumArtist");
-    for (const auto& attribute : qAsConst(lstASF)) {
-        if (!data.albumArtists.isEmpty()) {
-            data.albumArtists += ", ";
-        }
-        data.albumArtists += attribute.toString();
-    }
-
-    lstASF = asfTags->attribute("WM/Composer");
-    for (const auto& attribute : qAsConst(lstASF)) {
-        if (!data.composers.isEmpty()) {
-            data.composers += ", ";
-        }
-        data.composers += attribute.toString();
-    }
-
-    lstASF = asfTags->attribute("WM/Conductor");
-    for (const auto& attribute : qAsConst(lstASF)) {
-        if (!data.conductor.isEmpty()) {
-            data.conductor += ", ";
-        }
-        data.conductor += attribute.toString();
-    }
-
-    lstASF = asfTags->attribute("WM/Writer");
-    for (const auto& attribute : qAsConst(lstASF)) {
-        if (!data.lyricists.isEmpty()) {
-            data.lyricists += ", ";
-        }
-        data.lyricists += attribute.toString();
-    }
-
-    lstASF = asfTags->attribute("WM/Publisher");
-    for (const auto& attribute : qAsConst(lstASF)) {
-        if (!data.publisher.isEmpty()) {
-            data.publisher += ", ";
-        }
-        data.publisher += attribute.toString();
-    }
-
-    lstASF = asfTags->attribute("Author");
-    for (const auto& attribute : qAsConst(lstASF)) {
-        if (!data.author.isEmpty()) {
-            data.author += ", ";
-        }
-        data.author += attribute.toString();
-    }
-}
-
-void TagLibExtractor::extract(ExtractionResult* result)
-{
-    const QString fileUrl = result->inputUrl();
-    const QString mimeType = result->inputMimetype();
-
-    // Open the file readonly. Important if we're sandboxed.
-    TagLib::FileStream stream(fileUrl.toUtf8().constData(), true);
-    if (!stream.isOpen()) {
-        qWarning() << "Unable to open file readonly: " << fileUrl;
-        return;
-    }
-
-    TagLib::FileRef file(&stream, true);
-    if (file.isNull()) {
-        qWarning() << "Unable to open file: " << fileUrl;
-        return;
-    }
-
-    TagLib::Tag* tags = file.tag();
-    result->addType(Type::Audio);
-
-    ExtractedData data;
-
-    if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3"))
-            || (mimeType == QLatin1String("audio/x-mpeg"))) {
-        TagLib::MPEG::File mpegFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        if (mpegFile.hasID3v2Tag()) {
-            extractId3Tags(mpegFile.ID3v2Tag(), data);
-        }
-    } else if ((mimeType == QLatin1String("audio/x-aiff")) || (mimeType == QLatin1String("audio/wav"))
-               || (mimeType == QLatin1String("audio/x-wav"))) {
-        /* For some reason, TagLib::RIFF::AIFF::File and TagLib::RIFF::WAV::File tag() return
-         * only an invalid pointer. Use the dynamic_cast instead. */
-        TagLib::ID3v2::Tag* ID3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tags);
-        if (ID3v2Tag) {
-            extractId3Tags(ID3v2Tag, data);
-        }
-    } else if (mimeType == QLatin1String("audio/mp4")) {
-        TagLib::MP4::File mp4File(&stream, true);
-        if (mp4File.hasMP4Tag()) {
-            extractMp4Tags(mp4File.tag(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/x-musepack")) {
-        TagLib::MPC::File mpcFile(&stream, true);
-        if (mpcFile.hasAPETag()) {
-            extractApeTags(mpcFile.APETag(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/x-ape")) {
-        TagLib::APE::File apeFile(&stream, true);
-        if (apeFile.hasAPETag()) {
-            extractApeTags(apeFile.APETag(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/x-wavpack")) {
-        TagLib::WavPack::File wavpackFile(&stream, true);
-        if (wavpackFile.hasAPETag()) {
-            extractApeTags(wavpackFile.APETag(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/flac")) {
-        TagLib::FLAC::File flacFile(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        if (flacFile.hasXiphComment()) {
-            extractVorbisTags(flacFile.xiphComment(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
-        TagLib::Ogg::Vorbis::File oggFile(&stream, true);
-        if (oggFile.tag()) {
-            extractVorbisTags(oggFile.tag(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
-        TagLib::Ogg::Opus::File opusFile(&stream, true);
-        if (opusFile.tag()) {
-            extractVorbisTags(opusFile.tag(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
-        TagLib::Ogg::Speex::File speexFile(&stream, true);
-        if (speexFile.tag()) {
-            extractVorbisTags(speexFile.tag(), data);
-        }
-    } else if (mimeType == QLatin1String("audio/x-ms-wma")) {
-        /* For some reason, TagLib::ASF::File tag() returns only an invalid pointer.
-         * Use the dynamic_cast instead. */
-        TagLib::ASF::Tag* asfTags = dynamic_cast<TagLib::ASF::Tag*>(tags);
-        if (asfTags) {
-            extractAsfTags(asfTags, data);
-        }
-    }
-
-    if (!tags->isEmpty()) {
-        QString title = TStringToQString(tags->title());
-        if (!title.isEmpty()) {
-            result->add(Property::Title, title);
-        }
-
-        QString comment = TStringToQString(tags->comment());
-        if (!comment.isEmpty()) {
-            result->add(Property::Comment, comment);
-        }
-
-        if (data.genres.isEmpty()) {
-            data.genres.append(tags->genre());
-        }
-
-        for (uint i = 0; i < data.genres.size(); i++) {
-            QString genre = TStringToQString(data.genres[i]).trimmed();
-            if (!genre.isEmpty()) {
-                // Convert from int
-                bool ok = false;
-                int genreNum = genre.toInt(&ok);
-                if (ok) {
-                    genre = TStringToQString(TagLib::ID3v1::genre(genreNum));
-                }
-                result->add(Property::Genre, genre);
-            }
-        }
-
-        const auto artistString = data.artists.isEmpty()
-                ? TStringToQString(tags->artist())
-                : TStringToQString(data.artists).trimmed();
-        const auto artists = contactsFromString(artistString);
-        for (auto& artist : artists) {
-            result->add(Property::Artist, artist);
-        }
-
-        const auto  composersString = TStringToQString(data.composers).trimmed();
-        const auto composers = contactsFromString(composersString);
-        for (auto& comp : composers) {
-            result->add(Property::Composer, comp);
-        }
-
-        const auto lyricistsString = TStringToQString(data.lyricists).trimmed();
-        const auto lyricists = contactsFromString(lyricistsString);
-        for (auto& lyr : lyricists) {
-            result->add(Property::Lyricist, lyr);
-        }
-
-        const auto album = TStringToQString(tags->album());
-        if (!album.isEmpty()) {
-            result->add(Property::Album, album);
-
-            const auto albumArtistsString = TStringToQString(data.albumArtists).trimmed();
-            const auto albumArtists = contactsFromString(albumArtistsString);
-            for (auto& res : albumArtists) {
-                result->add(Property::AlbumArtist, res);
-            }
-        }
-
-        if (tags->track()) {
-            result->add(Property::TrackNumber, tags->track());
-        }
-
-        if (tags->year()) {
-            result->add(Property::ReleaseYear, tags->year());
-        }
-
-        QString locationsString = TStringToQString(data.location).trimmed();
-        QStringList locations = contactsFromString(locationsString);
-        foreach(const QString& loc, locations) {
-            result->add(Property::Location, loc);
-        }
-
-        QString performersString = TStringToQString(data.performer).trimmed();
-        QStringList performers = contactsFromString(performersString);
-        foreach(const QString& per, performers) {
-            result->add(Property::Performer, per);
-        }
-
-        QString ensembleString = TStringToQString(data.ensemble).trimmed();
-        QStringList ensembles = contactsFromString(ensembleString);
-        foreach(const QString& ens, ensembles) {
-            result->add(Property::Ensemble, ens);
-        }
-
-        QString arrangerString = TStringToQString(data.arranger).trimmed();
-        QStringList arrangers = contactsFromString(arrangerString);
-        foreach(const QString& arr, arrangers) {
-            result->add(Property::Arranger, arr);
-        }
-
-        QString conductorString = TStringToQString(data.conductor).trimmed();
-        QStringList conductors = contactsFromString(conductorString);
-        foreach(const QString& arr, conductors) {
-            result->add(Property::Conductor, arr);
-        }
-
-        QString publisherString = TStringToQString(data.publisher).trimmed();
-        QStringList publishers = contactsFromString(publisherString);
-        foreach(const QString& arr, publishers) {
-            result->add(Property::Publisher, arr);
-        }
-
-        QString copyrightString = TStringToQString(data.copyright).trimmed();
-        QStringList copyrights = contactsFromString(copyrightString);
-        foreach(const QString& arr, copyrights) {
-            result->add(Property::Copyright, arr);
-        }
-
-        QString labelString = TStringToQString(data.label).trimmed();
-        QStringList labels = contactsFromString(labelString);
-        foreach(const QString& arr, labels) {
-            result->add(Property::Label, arr);
-        }
-
-        QString authorString = TStringToQString(data.author).trimmed();
-        QStringList authors = contactsFromString(authorString);
-        foreach(const QString& arr, authors) {
-            result->add(Property::Author, arr);
-        }
-
-        QString languageString = TStringToQString(data.language).trimmed();
-        QStringList languages = contactsFromString(languageString);
-        foreach(const QString& arr, languages) {
-            result->add(Property::Language, arr);
-        }
-
-        QString licenseString = TStringToQString(data.license).trimmed();
-        QStringList licenses = contactsFromString(licenseString);
-        foreach(const QString& arr, licenses) {
-            result->add(Property::License, arr);
-        }
-
-        QString compilationString = TStringToQString(data.compilation).trimmed();
-        QStringList compilations = contactsFromString(compilationString);
-        foreach(const QString& arr, compilations) {
-            result->add(Property::Compilation, arr);
-        }
-
-        QString lyricsString = TStringToQString(data.lyrics).trimmed();
-        if (!lyricsString.isEmpty()) {
-            result->add(Property::Lyrics, lyricsString);
-        }
-
-        if (data.opus.isValid()) {
-            result->add(Property::Opus, data.opus);
-        }
-
-        if (data.discNumber.isValid()) {
-            result->add(Property::DiscNumber, data.discNumber);
-        }
-
-        if (data.rating.isValid()) {
-            result->add(Property::Rating, data.rating);
-        }
-
-        if (!data.replayGainAlbumGain.isEmpty()) {
-            /* remove " dB" suffix */
-            if (data.replayGainAlbumGain.endsWith(QStringLiteral(" dB"), Qt::CaseInsensitive))
-            {
-                data.replayGainAlbumGain.chop(3);
-            }
-            bool success = false;
-            double replayGainAlbumGain = data.replayGainAlbumGain.toDouble(&success);
-            if (success) {
-                result->add(Property::ReplayGainAlbumGain, replayGainAlbumGain);
-            }
-        }
-
-        if (!data.replayGainAlbumPeak.isEmpty()) {
-            bool success = false;
-            double replayGainAlbumPeak = data.replayGainAlbumPeak.toDouble(&success);
-            if (success) {
-                result->add(Property::ReplayGainAlbumPeak, replayGainAlbumPeak);
-            }
-        }
-
-        if (!data.replayGainTrackGain.isEmpty()) {
-            /* remove " dB" suffix */
-            if (data.replayGainTrackGain.endsWith(QStringLiteral(" dB"), Qt::CaseInsensitive))
-            {
-                data.replayGainTrackGain.chop(3);
-            }
-            bool success = false;
-            double replayGainTrackGain = data.replayGainTrackGain.toDouble(&success);
-            if (success) {
-                result->add(Property::ReplayGainTrackGain, replayGainTrackGain);
-            }
-        }
-
-        if (!data.replayGainTrackPeak.isEmpty()) {
-            bool success = false;
-            double replayGainTrackPeak = data.replayGainTrackPeak.toDouble(&success);
-            if (success) {
-                result->add(Property::ReplayGainTrackPeak, replayGainTrackPeak);
-            }
-        }
-    }
-
-    TagLib::AudioProperties* audioProp = file.audioProperties();
+    TagLib::AudioProperties* audioProp = file->audioProperties();
     if (audioProp) {
         if (audioProp->length()) {
             // What about the xml duration?
@@ -1072,6 +101,370 @@ void TagLibExtractor::extract(ExtractionResult* result)
             result->add(Property::SampleRate, audioProp->sampleRate());
         }
     }
+}
+
+void TagLibExtractor::readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult* result)
+{
+    if (savedProperties.isEmpty()) {
+        return;
+    }
+    if (savedProperties.contains("TITLE")) {
+        result->add(Property::Title, TStringToQString(savedProperties["TITLE"].toString()).trimmed());
+    }
+    if (savedProperties.contains("ALBUM")) {
+        result->add(Property::Album, TStringToQString(savedProperties["ALBUM"].toString()).trimmed());
+    }
+    if (savedProperties.contains("COMMENT")) {
+        result->add(Property::Comment, TStringToQString(savedProperties["COMMENT"].toString()).trimmed());
+    }
+    if (savedProperties.contains("TRACKNUMBER")) {
+        result->add(Property::TrackNumber, savedProperties["TRACKNUMBER"].toString().toInt());
+    }
+    if (savedProperties.contains("DATE")) {
+        result->add(Property::ReleaseYear, savedProperties["DATE"].toString().toInt());
+    }
+    if (savedProperties.contains("OPUS")) {
+        result->add(Property::Opus, savedProperties["OPUS"].toString().toInt());
+    }
+    if (savedProperties.contains("DISCNUMBER")) {
+        result->add(Property::DiscNumber, savedProperties["DISCNUMBER"].toString().toInt());
+    }
+    if (savedProperties.contains("RATING")) {
+        /*
+         * There is no standard regarding ratings. Mimic MediaMonkey's behavior
+         * with a range of 0 to 100 (stored in steps of 10) and make it compatible
+         * with baloo rating with a range from 0 to 10
+         */
+        result->add(Property::Rating, savedProperties["RATING"].toString().toInt() / 10);
+    }
+    if (savedProperties.contains("LOCATION")) {
+        result->add(Property::Location, TStringToQString(savedProperties["LOCATION"].toString()).trimmed());
+    }
+    if (savedProperties.contains("LANGUAGE")) {
+        result->add(Property::Language, TStringToQString(savedProperties["LANGUAGE"].toString()).trimmed());
+    }
+    if (savedProperties.contains("LICENSE")) {
+        result->add(Property::License, TStringToQString(savedProperties["LICENSE"].toString()).trimmed());
+    }
+    if (savedProperties.contains("PUBLISHER")) {
+        result->add(Property::Publisher, TStringToQString(savedProperties["PUBLISHER"].toString()).trimmed());
+    }
+    if (savedProperties.contains("COPYRIGHT")) {
+        result->add(Property::Copyright, TStringToQString(savedProperties["COPYRIGHT"].toString()).trimmed());
+    }
+    if (savedProperties.contains("LABEL")) {
+        result->add(Property::Label, TStringToQString(savedProperties["LABEL"].toString()).trimmed());
+    }
+    if (savedProperties.contains("ENSEMBLE")) {
+        result->add(Property::Ensemble, TStringToQString(savedProperties["ENSEMBLE"].toString()).trimmed());
+    }
+    if (savedProperties.contains("COMPILATION")) {
+        result->add(Property::Compilation, TStringToQString(savedProperties["COMPILATION"].toString()).trimmed());
+    }
+    if (savedProperties.contains("LYRICS")) {
+        result->add(Property::Lyrics, TStringToQString(savedProperties["LYRICS"].toString()).trimmed());
+    }
+    if (savedProperties.contains("ARTIST")) {
+        const auto artistString = TStringToQString(savedProperties["ARTIST"].toString(";")).trimmed();
+        const auto artists = contactsFromString(artistString);
+        for (const auto& artist : artists) {
+            result->add(Property::Artist, artist);
+        }
+    }
+    if (savedProperties.contains("GENRE")) {
+        const auto genreString = TStringToQString(savedProperties["GENRE"].toString(";")).trimmed();
+        const auto genres = contactsFromString(genreString);
+        for (const auto& genre : genres) {
+            result->add(Property::Genre, genre);
+        }
+    }
+    if (savedProperties.contains("ALBUMARTIST")) {
+        const auto albumArtistsString = TStringToQString(savedProperties["ALBUMARTIST"].toString(";")).trimmed();
+        const auto albumArtists = contactsFromString(albumArtistsString);
+        for (const auto& res : albumArtists) {
+            result->add(Property::AlbumArtist, res);
+        }
+    }
+    if (savedProperties.contains("COMPOSER")) {
+        const auto composersString = TStringToQString(savedProperties["COMPOSER"].toString(";")).trimmed();
+        const auto composers = contactsFromString(composersString);
+        for (const auto& comp : composers) {
+            result->add(Property::Composer, comp);
+        }
+    }
+    if (savedProperties.contains("LYRICIST")) {
+        const auto lyricistsString = TStringToQString(savedProperties["LYRICIST"].toString(";")).trimmed();
+        const auto lyricists = contactsFromString(lyricistsString);
+        for (const auto& lyr : lyricists) {
+            result->add(Property::Lyricist, lyr);
+        }
+    }
+    if (savedProperties.contains("CONDUCTOR")) {
+        const auto conductorString = TStringToQString(savedProperties["CONDUCTOR"].toString(";")).trimmed();
+        const auto conductors = contactsFromString(conductorString);
+        for (const auto& con: conductors) {
+            result->add(Property::Conductor, con);
+        }
+    }
+    if (savedProperties.contains("ARRANGER")) {
+        const auto arrangerString = TStringToQString(savedProperties["ARRANGER"].toString(";")).trimmed();
+        const auto arrangers = contactsFromString(arrangerString);
+        for (const auto& arr: arrangers) {
+            result->add(Property::Arranger, arr);
+        }
+    }
+    if (savedProperties.contains("PERFORMER")) {
+        const auto performersString = TStringToQString(savedProperties["PERFORMER"].toString(";")).trimmed();
+        const auto performers = contactsFromString(performersString);
+        for (const auto& per: performers) {
+            result->add(Property::Performer, per);
+        }
+    }
+    if (savedProperties.contains("AUTHOR")) {
+        const auto authorString = TStringToQString(savedProperties["AUTHOR"].toString(";")).trimmed();
+        const auto authors = contactsFromString(authorString);
+        for (const auto& aut: authors) {
+            result->add(Property::Author, aut);
+        }
+    }
+
+    if (savedProperties.contains("REPLAYGAIN_TRACK_GAIN")) {
+        auto trackGainString = TStringToQString(savedProperties["REPLAYGAIN_TRACK_GAIN"].toString(";")).trimmed();
+        // remove " dB" suffix
+        if (trackGainString.endsWith(QStringLiteral(" dB"), Qt::CaseInsensitive)) {
+            trackGainString.chop(3);
+        }
+        bool success = false;
+        double replayGainTrackGain = trackGainString.toDouble(&success);
+        if (success) {
+            result->add(Property::ReplayGainTrackGain, replayGainTrackGain);
+        }
+    }
+    if (savedProperties.contains("REPLAYGAIN_ALBUM_GAIN")) {
+        auto albumGainString = TStringToQString(savedProperties["REPLAYGAIN_ALBUM_GAIN"].toString(";")).trimmed();
+        // remove " dB" suffix
+        if (albumGainString.endsWith(QStringLiteral(" dB"), Qt::CaseInsensitive)) {
+            albumGainString.chop(3);
+        }
+        bool success = false;
+        double replayGainAlbumGain = albumGainString.toDouble(&success);
+        if (success) {
+            result->add(Property::ReplayGainAlbumGain, replayGainAlbumGain);
+        }
+    }
+    if (savedProperties.contains("REPLAYGAIN_TRACK_PEAK")) {
+        auto trackPeakString = TStringToQString(savedProperties["REPLAYGAIN_TRACK_PEAK"].toString(";")).trimmed();
+        bool success = false;
+        double replayGainTrackPeak = trackPeakString.toDouble(&success);
+        if (success) {
+            result->add(Property::ReplayGainTrackPeak, replayGainTrackPeak);
+        }
+    }
+    if (savedProperties.contains("REPLAYGAIN_ALBUM_PEAK")) {
+        auto albumPeakString = TStringToQString(savedProperties["REPLAYGAIN_ALBUM_PEAK"].toString(";")).trimmed();
+        bool success = false;
+        double replayGainAlbumPeak = albumPeakString.toDouble(&success);
+        if (success) {
+            result->add(Property::ReplayGainAlbumPeak, replayGainAlbumPeak);
+        }
+    }
+}
+
+void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result)
+{
+    if (Id3Tags->isEmpty()) {
+        return;
+    }
+    TagLib::ID3v2::FrameList lstID3v2;
+
+    /*
+     * Publisher.
+     * Special handling because TagLib::PropertyMap maps "TPUB" to "LABEL"
+     * Insert manually for Publisher.
+     */
+    lstID3v2 = Id3Tags->frameListMap()["TPUB"];
+    if (!lstID3v2.isEmpty()) {
+        result->add(Property::Publisher, TStringToQString(lstID3v2.front()->toString()));
+    }
+
+    // Compilation.
+    lstID3v2 = Id3Tags->frameListMap()["TCMP"];
+    if (!lstID3v2.isEmpty()) {
+        result->add(Property::Compilation, TStringToQString(lstID3v2.front()->toString()));
+    }
+
+    /*
+     * Rating.
+     * There is no standard regarding ratings. Most of the implementations match
+     * a 5 stars rating to a range of 0-255 for MP3.
+     * Map it to baloo rating with a range of 0 - 10.
+     */
+    lstID3v2 = Id3Tags->frameListMap()["POPM"];
+    if (!lstID3v2.isEmpty()) {
+        TagLib::ID3v2::PopularimeterFrame *ratingFrame = static_cast<TagLib::ID3v2::PopularimeterFrame *>(lstID3v2.front());
+        int rating = ratingFrame->rating();
+        if (rating == 0) {
+            rating = 0;
+        } else if (rating == 1) {
+            TagLib::String ratingProvider = ratingFrame->email();
+            if (ratingProvider == "no@email" || ratingProvider == "org.kde.kfilemetadata") {
+                rating = 1;
+            } else {
+                rating = 2;
+            }
+        } else if (rating >= 1 && rating <= 255) {
+            rating = static_cast<int>(0.032 * rating + 2);
+        }
+        result->add(Property::Rating, rating);
+    }
+}
+
+void TagLibExtractor::extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
+{
+    if (mp4Tags->isEmpty()) {
+        return;
+    }
+    TagLib::MP4::ItemListMap allTags = mp4Tags->itemListMap();
+
+    /*
+     * There is no standard regarding ratings. Mimic MediaMonkey's behavior
+     * with a range of 0 to 100 (stored in steps of 10) and make it compatible
+     * with baloo rating with a range from 0 to 10.
+     */
+    TagLib::MP4::ItemListMap::Iterator itRating = allTags.find("rate");
+    if (itRating != allTags.end()) {
+        result->add(Property::Rating, itRating->second.toStringList().toString().toInt() / 10);
+    }
+}
+
+void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result)
+{
+    if (asfTags->isEmpty()) {
+        return;
+    }
+
+    TagLib::ASF::AttributeList lstASF = asfTags->attribute("WM/SharedUserRating");
+    if (!lstASF.isEmpty()) {
+        int rating = lstASF.front().toString().toInt();
+        /*
+         * Map the rating values of WMP to Baloo rating.
+         * 0->0, 1->2, 25->4, 50->6, 75->8, 99->10
+         */
+        if (rating == 0) {
+            rating = 0;
+        } else if (rating == 1) {
+            rating = 2;
+        } else {
+            rating = static_cast<uint>(0.09 * rating + 2);
+        }
+        result->add(Property::Rating, rating);
+    }
+
+    lstASF = asfTags->attribute("Author");
+    if (!lstASF.isEmpty()) {
+        const auto attribute = lstASF.front();
+        const auto authors = contactsFromString(TStringToQString(attribute.toString()).trimmed());
+        for (const auto& aut: authors) {
+            result->add(Property::Author, aut);
+        }
+    }
+
+    // Lyricist is called "WRITER" for wma/asf files
+    lstASF = asfTags->attribute("WM/Writer");
+    if (!lstASF.isEmpty()) {
+        const auto attribute = lstASF.front();
+        const auto lyricists = contactsFromString(TStringToQString(attribute.toString()).trimmed());
+        for (const auto& lyr : lyricists) {
+            result->add(Property::Lyricist, lyr);
+        }
+    }
+
+    /*
+     * TagLib exports "WM/PUBLISHER" as "LABEL" in the PropertyMap,
+     * add it manually to Publisher.
+     */
+    lstASF = asfTags->attribute("WM/Publisher");
+    if (!lstASF.isEmpty()) {
+        const auto attribute = lstASF.front();
+        result->add(Property::Publisher, TStringToQString(attribute.toString()).trimmed());
+    }
+}
+
+void TagLibExtractor::extract(ExtractionResult* result)
+{
+    const QString fileUrl = result->inputUrl();
+    const QString mimeType = result->inputMimetype();
+
+    // Open the file readonly. Important if we're sandboxed.
+    TagLib::FileStream stream(fileUrl.toUtf8().constData(), true);
+    if (!stream.isOpen()) {
+        qWarning() << "Unable to open file readonly: " << fileUrl;
+        return;
+    }
+
+    if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3"))
+            || (mimeType == QLatin1String("audio/x-mpeg"))) {
+        TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+        if (file.hasID3v2Tag()) {
+            extractId3Tags(file.ID3v2Tag(), result);
+        }
+    } else if (mimeType == QLatin1String("audio/x-aiff")) {
+        TagLib::RIFF::AIFF::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+        if (file.hasID3v2Tag()) {
+            extractId3Tags(file.tag(), result);
+        }
+    } else if ((mimeType == QLatin1String("audio/wav")) || (mimeType == QLatin1String("audio/x-wav"))) {
+        TagLib::RIFF::WAV::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+        if (file.hasID3v2Tag()) {
+            extractId3Tags(file.tag(), result);
+        }
+    } else if (mimeType == QLatin1String("audio/x-musepack")) {
+        TagLib::MPC::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+    } else if (mimeType == QLatin1String("audio/x-ape")) {
+        TagLib::APE::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+    } else if (mimeType == QLatin1String("audio/x-wavpack")) {
+        TagLib::WavPack::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+    } else if (mimeType == QLatin1String("audio/mp4")) {
+        TagLib::MP4::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+        extractMp4Tags(file.tag(), result);
+    } else if (mimeType == QLatin1String("audio/flac")) {
+        TagLib::FLAC::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+    } else if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
+        TagLib::Ogg::Vorbis::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+    } else if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
+        TagLib::Ogg::Opus::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
+        TagLib::Ogg::Speex::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+    } else if (mimeType == QLatin1String("audio/x-ms-wma")) {
+        TagLib::ASF::File file(&stream, true);
+        extractAudioProperties(&file, result);
+        readGenericProperties(file.properties(), result);
+        extractAsfTags(file.tag(), result);
+    }
+
+    result->addType(Type::Audio);
 }
 
 // TAG information (incomplete).

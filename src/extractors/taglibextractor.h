@@ -22,8 +22,6 @@
 #define TAGLIBEXTRACTOR_H
 
 #include "extractorplugin.h"
-#include <tstring.h>
-#include <tstringlist.h>
 
 namespace TagLib
 {
@@ -36,12 +34,7 @@ namespace TagLib
     namespace MP4 {
         class Tag;
     }
-    namespace APE {
-        class Tag;
-    }
-    namespace Ogg {
-        class XiphComment;
-    }
+    class PropertyMap;
 }
 
 namespace KFileMetaData
@@ -61,38 +54,11 @@ public:
     QStringList mimetypes() const override;
     
 private:
-    struct ExtractedData {
-        TagLib::String artists;
-        TagLib::String albumArtists;
-        TagLib::String composers;
-        TagLib::String lyricists;
-        TagLib::String location;
-        TagLib::String performer;
-        TagLib::String conductor;
-        TagLib::String copyright;
-        TagLib::String ensemble;
-        TagLib::String arranger;
-        TagLib::String language;
-        TagLib::String publisher;
-        TagLib::String label;
-        TagLib::String author;
-        TagLib::String license;
-        TagLib::String lyrics;
-        TagLib::String compilation;
-        TagLib::StringList genres;
-        QString replayGainAlbumGain;
-        QString replayGainAlbumPeak;
-        QString replayGainTrackGain;
-        QString replayGainTrackPeak;
-        QVariant discNumber;
-        QVariant opus;
-        QVariant rating;
-    };
-    void extractId3Tags(TagLib::ID3v2::Tag* id3Tags, ExtractedData& data);
-    void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractedData& data);
-    void extractApeTags(TagLib::APE::Tag* apeTags, ExtractedData& data);
-    void extractVorbisTags(TagLib::Ogg::XiphComment* vorbisTags, ExtractedData& data);
-    void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractedData& data);
+
+    void extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result);
+    void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result);
+    void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result);
+    void readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult* result);
 };
 
 }

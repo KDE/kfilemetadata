@@ -90,9 +90,7 @@ void TagLibExtractorTest::testPropertyTypes()
     testForType(resultOpus, Property::Compilation);
     testForType(resultOpus, Property::License);
     testForType(resultOpus, Property::Opus);
-    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
     testForType(resultOpus, Property::TrackNumber);
-    QEXPECT_FAIL("", "Will be fixed in a following release", Continue);
     testForType(resultOpus, Property::ReleaseYear);
     testForType(resultOpus, Property::Channels);
     testForType(resultOpus, Property::DiscNumber);
