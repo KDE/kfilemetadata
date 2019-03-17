@@ -41,9 +41,13 @@ void ffmpegExtractorTest::videoTest_data()
     QTest::addColumn<QString>("fileType");
     QTest::addColumn<QString>("mimeType");
 
-    QTest::addRow("webm")
+    QTest::addRow("WebM")
         << QStringLiteral("webm")
         << QStringLiteral("video/webm");
+
+    QTest::addRow("Matroska Video")
+        << QStringLiteral("mkv")
+        << QStringLiteral("video/x-matroska");
 }
 
 void ffmpegExtractorTest::videoTest()
