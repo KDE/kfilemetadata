@@ -26,16 +26,34 @@
 
 using namespace KFileMetaData;
 
-QString ffmpegExtractorTest::testFilePath(const QString& fileName) const
+namespace {
+
+QString testFilePath(const QString& baseName, const QString& extension)
 {
-    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
+    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH)
+        + QLatin1Char('/') + baseName + QLatin1Char('.') + extension;
 }
 
-void ffmpegExtractorTest::test()
+} // namespace
+
+void ffmpegExtractorTest::videoTest_data()
 {
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("webm")
+        << QStringLiteral("webm")
+        << QStringLiteral("video/webm");
+}
+
+void ffmpegExtractorTest::videoTest()
+{
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+
     FFmpegExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.webm"), QStringLiteral("video/webm"));
+    SimpleExtractionResult result(testFilePath(QLatin1String("test"), fileType), mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

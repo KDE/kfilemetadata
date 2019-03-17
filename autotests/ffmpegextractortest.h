@@ -25,11 +25,10 @@
 class ffmpegExtractorTest : public QObject
 {
     Q_OBJECT
-private:
-    QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
-    void test();
+    void videoTest();
+    void videoTest_data();
 };
 
 #endif // FFMPEGEXTRACTORTEST_H
