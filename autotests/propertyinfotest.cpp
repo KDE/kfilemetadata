@@ -56,9 +56,9 @@ void PropertyInfoTest::testFormatAsDisplayString()
     PropertyInfo title(Property::Title);
     QCOMPARE(title.formatAsDisplayString(QVariant(QStringLiteral("Title"))), QStringLiteral("Title"));
 
-    QStringList artistList = {QStringLiteral("Artist1"), QStringLiteral("Artist2")};
+    QStringList artistList = {QStringLiteral("Artist1"), QStringLiteral("Artist2"), QStringLiteral("Artist3")};
     PropertyInfo artist(Property::Artist);
-    QCOMPARE(artist.formatAsDisplayString(QVariant(artistList)), QStringLiteral("Artist1, Artist2"));
+    QCOMPARE(artist.formatAsDisplayString(QVariant(artistList)), QStringLiteral("Artist1, Artist2, and Artist3"));
 
     QStringList authorList = {QStringLiteral("Author1")};
     PropertyInfo author(Property::Author);

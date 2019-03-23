@@ -42,7 +42,7 @@ QString FormatStrings::toStringFunction(const QVariant& value)
 
 QString FormatStrings::joinStringListFunction(const QVariant& value)
 {
-    return value.toStringList().join(i18nc("Separation between multiple entries in a list", ", "));
+    return QLocale().createSeparatedList(value.toStringList());
 }
 
 QString FormatStrings::formatDate(const QVariant& value)
