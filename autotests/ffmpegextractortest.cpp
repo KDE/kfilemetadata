@@ -36,7 +36,7 @@ QString testFilePath(const QString& baseName, const QString& extension)
 
 } // namespace
 
-void ffmpegExtractorTest::videoTest_data()
+void ffmpegExtractorTest::testVideoProperties_data()
 {
     QTest::addColumn<QString>("fileType");
     QTest::addColumn<QString>("mimeType");
@@ -50,7 +50,8 @@ void ffmpegExtractorTest::videoTest_data()
         << QStringLiteral("video/x-matroska");
 }
 
-void ffmpegExtractorTest::videoTest()
+// only for testing of intrinsic video properties
+void ffmpegExtractorTest::testVideoProperties()
 {
     QFETCH(QString, fileType);
     QFETCH(QString, mimeType);
@@ -63,15 +64,39 @@ void ffmpegExtractorTest::videoTest()
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().constFirst(), Type::Video);
 
-    QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Title"));
-    QCOMPARE(result.properties().value(Property::Copyright).toString(), QStringLiteral("Copyright"));
-    QCOMPARE(result.properties().value(Property::Author).toString(), QStringLiteral("Author"));
-    QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 2019);
-
     QCOMPARE(result.properties().value(Property::Width).toInt(), 1280);
     QCOMPARE(result.properties().value(Property::Height).toInt(), 720);
     QCOMPARE(result.properties().value(Property::FrameRate).toDouble(), 24.0/1.001);
     QCOMPARE(result.properties().value(Property::AspectRatio).toDouble(), 16.0/9);
 }
 
+void ffmpegExtractorTest::testMetaData_data()
+{
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("WebM")
+        << QStringLiteral("webm")
+        << QStringLiteral("video/webm");
+
+    QTest::addRow("Matroska Video")
+        << QStringLiteral("mkv")
+        << QStringLiteral("video/x-matroska");
+}
+
+void ffmpegExtractorTest::testMetaData()
+{
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+
+    FFmpegExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(QLatin1String("test"), fileType), mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Title"));
+    QCOMPARE(result.properties().value(Property::Copyright).toString(), QStringLiteral("Copyright"));
+    QCOMPARE(result.properties().value(Property::Author).toString(), QStringLiteral("Author"));
+    QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 2019);
+}
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)
