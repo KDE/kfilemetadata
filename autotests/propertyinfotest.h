@@ -31,6 +31,7 @@ class PropertyInfoTest : public QObject
 private Q_SLOTS:
     void testNameIdMapping();
     void testFormatAsDisplayString();
+    void testFormatAsDisplayString_data();
 };
 
 }

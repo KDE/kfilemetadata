@@ -45,59 +45,61 @@ void PropertyInfoTest::testNameIdMapping()
     }
 }
 
-void PropertyInfoTest::testFormatAsDisplayString()
+void PropertyInfoTest::testFormatAsDisplayString() {
+    QFETCH(KFileMetaData::PropertyInfo, propertyInfo);
+    QFETCH(QVariant, value);
+    QFETCH(QString, expected);
+    QFETCH(bool, maybeLocalized);
+
+    QCOMPARE(propertyInfo.formatAsDisplayString(value), expected);
+}
+
+void PropertyInfoTest::testFormatAsDisplayString_data()
 {
+    QTest::addColumn<KFileMetaData::PropertyInfo>("propertyInfo");
+    QTest::addColumn<QVariant>("value");
+    QTest::addColumn<QString>("expected");
+    QTest::addColumn<bool>("maybeLocalized");
+
     auto emptyProperty = PropertyInfo::fromName(QStringLiteral("no valid property name"));
-    QCOMPARE(emptyProperty.formatAsDisplayString(QVariant(QStringLiteral("empty"))), QStringLiteral("empty"));
-
-    PropertyInfo year(Property::DiscNumber);
-    QCOMPARE(year.formatAsDisplayString(QVariant(2018)), QStringLiteral("2018"));
-
-    PropertyInfo title(Property::Title);
-    QCOMPARE(title.formatAsDisplayString(QVariant(QStringLiteral("Title"))), QStringLiteral("Title"));
+    QTest::addRow("<invalid>")
+        << emptyProperty << QVariant(QStringLiteral("empty")) << QStringLiteral("empty") << true;
 
     QStringList artistList = {QStringLiteral("Artist1"), QStringLiteral("Artist2"), QStringLiteral("Artist3")};
-    PropertyInfo artist(Property::Artist);
-    QCOMPARE(artist.formatAsDisplayString(QVariant(artistList)), QStringLiteral("Artist1, Artist2, and Artist3"));
-
     QStringList authorList = {QStringLiteral("Author1")};
-    PropertyInfo author(Property::Author);
-    QCOMPARE(author.formatAsDisplayString(QVariant(authorList)), QStringLiteral("Author1"));
 
-    PropertyInfo duration(Property::Duration);
-    QCOMPARE(duration.formatAsDisplayString(QVariant(1800)), QStringLiteral("0:30:00"));
+    struct {
+        KFileMetaData::Property::Property property;
+        bool maybeLocalized;
+        QVariant value;
+        QString expected;
+    } rows[] = {
+        { Property::DiscNumber,        true,  2018,                    QStringLiteral("2018")},
+        { Property::Title,             false, QStringLiteral("Title"), QStringLiteral("Title")},
+        { Property::Artist,            true,  artistList,              QStringLiteral("Artist1, Artist2, and Artist3")},
+        { Property::Author,            true,  authorList,              QStringLiteral("Author1")},
+        { Property::Duration,          true,  1800,                    QStringLiteral("0:30:00")},
+        { Property::SampleRate,        true,  44100,                   QStringLiteral("44.1 kHz")},
+        { Property::BitRate,           true,  128000,                  QStringLiteral("128 kbit/s")},
+        { Property::BitRate,           true,  1350000,                 QStringLiteral("1.35 Mbit/s")},
+        { Property::BitRate,           true,  14700000,                QStringLiteral("14.7 Mbit/s")},
+        { Property::ImageOrientation,  true,  5,                       QStringLiteral("Transposed")},
+        { Property::PhotoFlash,        true,  0x00,                    QStringLiteral("No flash")},
+        { Property::PhotoFlash,        true,  0x50,                    QStringLiteral("No, red-eye reduction")},
+        { Property::PhotoGpsAltitude,  true,  1.1,                     QStringLiteral("1.1 m")},
+        // make VisualStudio compiler happy: QChar(0x00B0) = "°"
+        { Property::PhotoGpsLatitude,  true,  25,                      QStringLiteral("25") + QChar(0x00B0)},
+        { Property::PhotoGpsLongitude, true,  13.5,                    QStringLiteral("13.5") + QChar(0x00B0)},
+        { Property::FrameRate,         true,  23,                      QStringLiteral("23 fps")},
+        { Property::FrameRate,         true,  23.976,                  QStringLiteral("23.98 fps")},
+        { Property::AspectRatio,       true,  1.77778,                 QStringLiteral("1.78:1")},
+    };
 
-    PropertyInfo sampleRate(Property::SampleRate);
-    QCOMPARE(sampleRate.formatAsDisplayString(QVariant(44100)), QString(QLocale().toString(44.1) + QStringLiteral(" kHz")));
-
-    PropertyInfo bitRate(Property::BitRate);
-    QCOMPARE(bitRate.formatAsDisplayString(QVariant(128000)), QStringLiteral("128 kbit/s"));
-    QCOMPARE(bitRate.formatAsDisplayString(QVariant(1350000)), QString(QLocale().toString(1.35) + QStringLiteral(" Mbit/s")));
-    QCOMPARE(bitRate.formatAsDisplayString(QVariant(14700000)), QString(QLocale().toString(14.7) + QStringLiteral(" Mbit/s")));
-
-    PropertyInfo orientation(Property::ImageOrientation);
-    QCOMPARE(orientation.formatAsDisplayString(QVariant(5)), QStringLiteral("Transposed"));
-
-    PropertyInfo flash(Property::PhotoFlash);
-    QCOMPARE(flash.formatAsDisplayString(QVariant(0x00)), QStringLiteral("No flash"));
-    QCOMPARE(flash.formatAsDisplayString(QVariant(0x50)), QStringLiteral("No, red-eye reduction"));
-
-    PropertyInfo altitude(Property::PhotoGpsAltitude);
-    QCOMPARE(altitude.formatAsDisplayString(QVariant(1.1)), QString(QLocale().toString(1.1) + QStringLiteral(" m")));
-
-    PropertyInfo latitude(Property::PhotoGpsLatitude);
-    // make tests on windows happy: QChar(0x00B0) = "°"
-    QCOMPARE(latitude.formatAsDisplayString(QVariant(25)), QString(QLocale().toString(25) + QChar(0x00B0)));
-
-    PropertyInfo longitude(Property::PhotoGpsLongitude);
-    QCOMPARE(longitude.formatAsDisplayString(QVariant(13.5)), QString(QLocale().toString(13.5) + QChar(0x00B0)));
-
-    PropertyInfo framerate(Property::FrameRate);
-    QCOMPARE(framerate.formatAsDisplayString(QVariant(23)), QStringLiteral("23 fps"));
-    QCOMPARE(framerate.formatAsDisplayString(QVariant(23.976)), QStringLiteral("23.98 fps"));
-
-    PropertyInfo aspectRatio(Property::AspectRatio);
-    QCOMPARE(aspectRatio.formatAsDisplayString(QVariant(1.77778)), QStringLiteral("1.78:1"));
+    for (auto row : rows) {
+        PropertyInfo info(row.property);
+        QTest::addRow("%s", info.displayName().toUtf8().constData())
+            << info << row.value << row.expected << row.maybeLocalized;
+    }
 }
 
 QTEST_GUILESS_MAIN(PropertyInfoTest)
