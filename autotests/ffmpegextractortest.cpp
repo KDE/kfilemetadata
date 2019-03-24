@@ -48,6 +48,14 @@ void ffmpegExtractorTest::testVideoProperties_data()
     QTest::addRow("Matroska Video")
         << QStringLiteral("mkv")
         << QStringLiteral("video/x-matroska");
+
+    QTest::addRow("Vorbis Video")
+        << QStringLiteral("ogv")
+        << QStringLiteral("video/ogg");
+
+    QTest::addRow("MPEG Transport")
+        << QStringLiteral("ts")
+        << QStringLiteral("video/mp2t");
 }
 
 // only for testing of intrinsic video properties
@@ -82,6 +90,10 @@ void ffmpegExtractorTest::testMetaData_data()
     QTest::addRow("Matroska Video")
         << QStringLiteral("mkv")
         << QStringLiteral("video/x-matroska");
+
+    QTest::addRow("Vorbis Video")
+        << QStringLiteral("ogv")
+        << QStringLiteral("video/ogg");
 }
 
 void ffmpegExtractorTest::testMetaData()
@@ -94,6 +106,7 @@ void ffmpegExtractorTest::testMetaData()
     SimpleExtractionResult result(testFilePath(QLatin1String("test"), fileType), mimeType);
     plugin.extract(&result);
 
+    QEXPECT_FAIL("Vorbis Video", "Not yet supported", Abort);
     QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Title"));
     QCOMPARE(result.properties().value(Property::Copyright).toString(), QStringLiteral("Copyright"));
     QCOMPARE(result.properties().value(Property::Author).toString(), QStringLiteral("Author"));

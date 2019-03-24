@@ -54,6 +54,8 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("video/mpeg"),
     QStringLiteral("video/quicktime"),
     QStringLiteral("video/webm"),
+    QStringLiteral("video/ogg"),
+    QStringLiteral("video/mp2t"),
     QStringLiteral("video/x-flv"),
     QStringLiteral("video/x-matroska"),
     QStringLiteral("video/x-ms-wmv"),
