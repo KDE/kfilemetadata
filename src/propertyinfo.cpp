@@ -39,6 +39,16 @@ public:
     QString (*formatAsString)(const QVariant& value) = nullptr;
 };
 
+PropertyInfo::PropertyInfo()
+    : d(new Private)
+{
+    d->prop = Property::Empty;
+    d->name = QStringLiteral("empty");
+    d->valueType = QVariant::Invalid;
+    d->shouldBeIndexed = false;
+    d->formatAsString = &FormatStrings::toStringFunction;
+}
+
 PropertyInfo::PropertyInfo(Property::Property property)
     : d(new Private)
 {

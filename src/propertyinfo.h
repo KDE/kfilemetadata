@@ -41,6 +41,7 @@ namespace KFileMetaData {
 class KFILEMETADATA_EXPORT PropertyInfo
 {
 public:
+    PropertyInfo();
     PropertyInfo(Property::Property property);
     PropertyInfo(const PropertyInfo& pi);
     ~PropertyInfo();
@@ -97,5 +98,8 @@ private:
     Private* d;
 };
 
-}
+} // namespace
+Q_DECLARE_METATYPE(KFileMetaData::PropertyInfo)
+
+
 #endif // _KFILEMETADATA_PROPERTYINFO_H
