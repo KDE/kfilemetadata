@@ -15,6 +15,9 @@ set(KfileMetaDataAutotest_SRCS)
 ecm_qt_declare_logging_category(KfileMetaDataAutotest_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
 
 
+#
+# Full text extraction test
+#
 set(indexerextractor_SRCS
   indexerextractortests.cpp
   ../src/extractors/plaintextextractor.cpp
