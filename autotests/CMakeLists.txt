@@ -16,6 +16,18 @@ ecm_qt_declare_logging_category(KfileMetaDataAutotest_SRCS HEADER kfilemetadata_
 
 
 #
+# Test case coverage
+#
+set(extractorcoverage_SRCS
+  extractorcoveragetest.cpp
+)
+
+ecm_add_test(${extractorcoverage_SRCS}
+    TEST_NAME "extractorcoveragetest"
+    LINK_LIBRARIES Qt5::Test KF5::FileMetaData
+)
+
+#
 # Full text extraction test
 #
 set(indexerextractor_SRCS
