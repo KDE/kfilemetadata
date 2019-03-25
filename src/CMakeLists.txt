@@ -14,6 +14,7 @@ set(KF5FileMetaData_SRCS
     writercollection.cpp
     externalwriter.cpp
     formatstrings.cpp
+    mimeutils.cpp
     )
 ecm_qt_declare_logging_category(KF5FileMetaData_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
 
