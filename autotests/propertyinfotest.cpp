@@ -25,6 +25,33 @@
 
 using namespace KFileMetaData;
 
+//QTEST_GUILESS_MAIN(PropertyInfoTest)
+int main(int argc, char *argv[])
+{
+    QCoreApplication app(argc, argv);
+    PropertyInfoTest tc;
+
+    auto arguments = app.arguments();
+    if (arguments.contains(QStringLiteral("--localized"))) {
+        arguments.removeAll(QStringLiteral("--localized"));
+        tc.setLocalized(true);
+    }
+
+    return QTest::qExec(&tc, arguments);
+}
+
+void PropertyInfoTest::setLocalized(bool localized)
+{
+    m_useLocalization = localized;
+}
+
+void PropertyInfoTest::init()
+{
+    if (!m_useLocalization) {
+        QLocale().setDefault(QLocale::c());
+    }
+}
+
 void PropertyInfoTest::testNameIdMapping()
 {
     // The +1 is to avoid the Empty Property
@@ -51,6 +78,12 @@ void PropertyInfoTest::testFormatAsDisplayString() {
     QFETCH(QString, expected);
     QFETCH(bool, maybeLocalized);
 
+    if (m_useLocalization && maybeLocalized) {
+        qDebug() << "Expected:" << expected << ", formatted/localized:" << propertyInfo.formatAsDisplayString(value);
+        if (expected != propertyInfo.formatAsDisplayString(value)) {
+            QEXPECT_FAIL("", "Expected value not localized", Continue);
+        }
+    }
     QCOMPARE(propertyInfo.formatAsDisplayString(value), expected);
 }
 
@@ -101,5 +134,3 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
             << info << row.value << row.expected << row.maybeLocalized;
     }
 }
-
-QTEST_GUILESS_MAIN(PropertyInfoTest)

@@ -94,10 +94,15 @@ endif()
 #
 # Property Info
 #
-ecm_add_test(propertyinfotest.cpp
-    TEST_NAME "propertyinfotest"
-    LINK_LIBRARIES Qt5::Test KF5::FileMetaData
+add_executable(propertyinfotest_bin propertyinfotest.cpp)
+target_link_libraries(propertyinfotest_bin
+    Qt5::Test
+    KF5::FileMetaData
 )
+ecm_mark_as_test(propertyinfotest_bin)
+ecm_mark_nongui_executable(propertyinfotest_bin)
+add_test(NAME propertyinfotest_en COMMAND propertyinfotest_bin)
+add_test(NAME propertyinfotest_localized COMMAND propertyinfotest_bin "--localized")
 
 #
 # Exiv2

@@ -28,10 +28,16 @@ namespace KFileMetaData {
 class PropertyInfoTest : public QObject
 {
     Q_OBJECT
+public:
+    void setLocalized(bool);
+
 private Q_SLOTS:
+    void init();
     void testNameIdMapping();
     void testFormatAsDisplayString();
     void testFormatAsDisplayString_data();
+private:
+    bool m_useLocalization = false;
 };
 
 }
