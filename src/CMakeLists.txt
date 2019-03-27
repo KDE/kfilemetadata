@@ -75,6 +75,7 @@ ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     WriterPlugin
     WriterCollection
     EmbeddedImageData
+    MimeUtils
 
     PREFIX kfilemetadata
     REQUIRED_HEADERS KF5FileMetaData_HEADERS
