@@ -139,7 +139,7 @@ QString FormatStrings::formatPhotoFlashValue(const QVariant& value)
 
 QString FormatStrings::formatAsDegree(const QVariant& value)
 {
-    return i18nc("Symbol of degree, no space", "%1°", value.toDouble());
+    return i18nc("Symbol of degree, no space", "%1°", QLocale().toString(value.toDouble()));
 }
 
 QString FormatStrings::formatAsMeter(const QVariant& value)
@@ -150,10 +150,10 @@ QString FormatStrings::formatAsMeter(const QVariant& value)
 
 QString FormatStrings::formatAsFrameRate(const QVariant& value)
 {
-    return i18nc("Symbol of frames per second, with space", "%1 fps", round(value.toDouble() * 100) / 100);
+    return i18nc("Symbol of frames per second, with space", "%1 fps", QLocale().toString(round(value.toDouble() * 100) / 100));
 }
 
 QString FormatStrings::formatAspectRatio(const QVariant& value)
 {
-    return i18nc("Aspect ratio, normalized to one", "%1:1", round(value.toDouble() * 100) / 100);
+    return i18nc("Aspect ratio, normalized to one", "%1:1", QLocale().toString(round(value.toDouble() * 100) / 100));
 }
