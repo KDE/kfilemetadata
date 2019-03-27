@@ -405,63 +405,87 @@ void TagLibExtractor::extract(ExtractionResult* result)
     if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3"))
             || (mimeType == QLatin1String("audio/x-mpeg"))) {
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
-        if (file.hasID3v2Tag()) {
-            extractId3Tags(file.ID3v2Tag(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+            if (file.hasID3v2Tag()) {
+                extractId3Tags(file.ID3v2Tag(), result);
+            }
         }
     } else if (mimeType == QLatin1String("audio/x-aiff")) {
         TagLib::RIFF::AIFF::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
-        if (file.hasID3v2Tag()) {
-            extractId3Tags(file.tag(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+            if (file.hasID3v2Tag()) {
+                extractId3Tags(file.tag(), result);
+            }
         }
     } else if ((mimeType == QLatin1String("audio/wav")) || (mimeType == QLatin1String("audio/x-wav"))) {
         TagLib::RIFF::WAV::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
-        if (file.hasID3v2Tag()) {
-            extractId3Tags(file.tag(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+            if (file.hasID3v2Tag()) {
+                extractId3Tags(file.tag(), result);
+            }
         }
     } else if (mimeType == QLatin1String("audio/x-musepack")) {
         TagLib::MPC::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
     } else if (mimeType == QLatin1String("audio/x-ape")) {
         TagLib::APE::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
     } else if (mimeType == QLatin1String("audio/x-wavpack")) {
         TagLib::WavPack::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
     } else if (mimeType == QLatin1String("audio/mp4")) {
         TagLib::MP4::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
-        extractMp4Tags(file.tag(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+            extractMp4Tags(file.tag(), result);
+        }
     } else if (mimeType == QLatin1String("audio/flac")) {
         TagLib::FLAC::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
     } else if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
         TagLib::Ogg::Vorbis::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
     } else if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
         TagLib::Ogg::Opus::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
     } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
         TagLib::Ogg::Speex::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
     } else if (mimeType == QLatin1String("audio/x-ms-wma")) {
         TagLib::ASF::File file(&stream, true);
-        extractAudioProperties(&file, result);
-        readGenericProperties(file.properties(), result);
-        extractAsfTags(file.tag(), result);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+            extractAsfTags(file.tag(), result);
+        }
     }
 
     result->addType(Type::Audio);
