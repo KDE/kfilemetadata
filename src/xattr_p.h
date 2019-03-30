@@ -82,16 +82,29 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
 
     QByteArray data(size, Qt::Uninitialized);
 
+    while (true) {
 #if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_getxattr))
-    const ssize_t r = getxattr(encodedPath, attributeName, data.data(), size);
+        const ssize_t r = getxattr(encodedPath, attributeName, data.data(), data.size());
 #elif defined(Q_OS_MAC)
-    const ssize_t r = getxattr(encodedPath, attributeName, data.data(), size, 0, 0);
+        const ssize_t r = getxattr(encodedPath, attributeName, data.data(), data.size(), 0, 0);
 #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-    const ssize_t r = extattr_get_file(encodedPath, EXTATTR_NAMESPACE_USER, attributeName, data.data(), size);
+        const ssize_t r = extattr_get_file(encodedPath, EXTATTR_NAMESPACE_USER, attributeName, data.data(), data.size());
 #endif
 
-    *value = QString::fromUtf8(data);
-    return r;
+        if (r < 0 && errno != ERANGE) {
+            value->clear();
+            return r;
+        }
+
+        if (r >= 0) {
+            data.resize(r);
+            *value = QString::fromUtf8(data);
+            return size;
+        } else {
+            // ERANGE
+            data.resize(data.size() * 2);
+        }
+    }
 }
 
 inline int k_setxattr(const QString& path, const QString& name, const QString& value)
