@@ -37,6 +37,8 @@ private Q_SLOTS:
     void testCommonData_data();
     void testVorbisComment();
     void testVorbisComment_data();
+    void testVorbisCommentMultivalue();
+    void testVorbisCommentMultivalue_data();
     void testId3();
     void testId3_data();
     void testApe();

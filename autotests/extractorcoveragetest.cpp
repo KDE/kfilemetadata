@@ -67,6 +67,7 @@ private Q_SLOTS:
             { "test.odp",                      "application/vnd.oasis.opendocument.presentation"},
             { "test.odt",                      "application/vnd.oasis.opendocument.text"},
             { "test.ogg",                      "audio/x-vorbis+ogg"},
+            { "test_multivalue.ogg",           "audio/x-vorbis+ogg"},
             { "test.ogv",                      "video/x-theora+ogg"},
             { "test.opus",                     "audio/x-opus+ogg"},
             { "test.pdf",                      "application/pdf"},
