@@ -53,6 +53,7 @@
 #define ssize_t SSIZE_T
 #endif
 
+#if defined(Q_OS_LINUX) || defined(Q_OS_MAC) || defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
 inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
 {
     const QByteArray p = QFile::encodeName(path);
@@ -68,18 +69,6 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     const ssize_t size = getxattr(encodedPath, attributeName, NULL, 0, 0, 0);
 #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const ssize_t size = extattr_get_file(encodedPath, EXTATTR_NAMESPACE_USER, attributeName, NULL, 0);
-#elif defined(Q_OS_WIN)
-    const QString fullADSName = path + QLatin1Char(':') + name;
-    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
-             OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
-
-    if(!hFile) return 0;
-
-    LARGE_INTEGER lsize;
-    lsize.LowPart = GetFileSize(hFile, (DWORD*)&lsize.HighPart);
-    ssize_t size = (qint64)lsize.QuadPart;
-#else
-    const ssize_t size = 0;
 #endif
 
     if (!value) {
@@ -99,13 +88,6 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     const ssize_t r = getxattr(encodedPath, attributeName, data.data(), size, 0, 0);
 #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const ssize_t r = extattr_get_file(encodedPath, EXTATTR_NAMESPACE_USER, attributeName, data.data(), size);
-#elif defined(Q_OS_WIN)
-    ssize_t r = 0;
-    // should we care about attributes longer than 2GiB? - unix xattr are restricted to much lower values
-    ::ReadFile(hFile, data.data(), size, (DWORD*)&r, NULL);
-    CloseHandle(hFile);
-#else
-    const ssize_t r = 0;
 #endif
 
     *value = QString::fromUtf8(data);
@@ -132,34 +114,6 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
 #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const ssize_t count = extattr_set_file(encodedPath, EXTATTR_NAMESPACE_USER, attributeName, attributeValue, valueSize);
     return count == -1 ? -1 : 0;
-#elif defined(Q_OS_WIN)
-    const QString fullADSName = path + QLatin1Char(':') + name;
-    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_WRITE, FILE_SHARE_READ, NULL,
-             CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
-
-    if(!hFile) return -1;
-
-    DWORD count = 0;
-
-    if(!::WriteFile(hFile, attributeValue, valueSize, &count, NULL)) {
-        DWORD dw = GetLastError();
-        TCHAR msg[1024];
-        FormatMessage(
-            FORMAT_MESSAGE_ALLOCATE_BUFFER |
-            FORMAT_MESSAGE_FROM_SYSTEM |
-            FORMAT_MESSAGE_IGNORE_INSERTS,
-            NULL,
-            dw,
-            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-            (LPTSTR) &msg,
-            0, NULL );
-        qWarning() << "failed to write to ADS:" << msg;
-    }
-
-    CloseHandle(hFile);
-    return count;
-#else
-    return -1;
 #endif
 }
 
@@ -178,19 +132,84 @@ inline int k_removexattr(const QString& path, const QString& name)
         return removexattr(encodedPath, attributeName, XATTR_NOFOLLOW );
     #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
         return extattr_delete_file (encodedPath, EXTATTR_NAMESPACE_USER, attributeName);
-    #elif defined(Q_OS_WIN)
-        const QString fullADSName = path + QLatin1Char(':') + name;
-        int ret = (DeleteFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()))) ? 0 : -1;
-        return ret;
-    #else
-        return -1;
     #endif
-
 }
 
 inline bool k_hasAttribute(const QString& path, const QString& name)
 {
-#if defined(Q_OS_WIN)
+    auto ret = k_getxattr(path, name, nullptr);
+    return (ret >= 0);
+}
+
+inline bool k_isSupported(const QString& path)
+{
+    auto ret = k_getxattr(path, QStringLiteral("user.test"), nullptr);
+    return (ret >= 0) || (errno != ENOTSUP);
+}
+
+#elif  defined(Q_OS_WIN)
+
+inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
+{
+    const QString fullADSName = path + QLatin1Char(':') + name;
+    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
+             OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+
+    if(!hFile) return 0;
+
+    LARGE_INTEGER lsize;
+    lsize.LowPart = GetFileSize(hFile, (DWORD*)&lsize.HighPart);
+
+    if (size <= 0) {
+        CloseHandle(hFile);
+        value->clear();
+        return size;
+    }
+
+    ssize_t r = 0;
+    // should we care about attributes longer than 2GiB? - unix xattr are restricted to much lower values
+    ::ReadFile(hFile, data.data(), size, (DWORD*)&r, NULL);
+    CloseHandle(hFile);
+
+    *value = QString::fromUtf8(data);
+    return r;
+}
+
+inline int k_setxattr(const QString& path, const QString& name, const QString& value)
+{
+    const QByteArray v = value.toUtf8();
+
+    const QString fullADSName = path + QLatin1Char(':') + name;
+    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_WRITE, FILE_SHARE_READ, NULL,
+             CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+
+    if(!hFile) return -1;
+
+    DWORD count = 0;
+
+    if(!::WriteFile(hFile, v.constData(), v.size(), &count, NULL)) {
+        DWORD dw = GetLastError();
+        TCHAR msg[1024];
+        FormatMessage(
+            FORMAT_MESSAGE_ALLOCATE_BUFFER |
+            FORMAT_MESSAGE_FROM_SYSTEM |
+            FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL,
+            dw,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPTSTR) &msg,
+            0, NULL );
+        qWarning() << "failed to write to ADS:" << msg;
+        CloseHandle(hFile);
+        return -1;
+    }
+
+    CloseHandle(hFile);
+    return count;
+}
+
+inline bool k_hasAttribute(const QString& path, const QString& name)
+{
     // enumerate all streams:
     const QString streamName = QStringLiteral(":") + name + QStringLiteral(":$DATA");
     HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(path.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
@@ -219,26 +238,50 @@ inline bool k_hasAttribute(const QString& path, const QString& name)
     delete[] fi;
     CloseHandle(hFile);
     return false;
-#else
-    auto ret = k_getxattr(path, name, nullptr);
-    return (ret >= 0);
-#endif
+}
+
+inline int k_removexattr(const QString& path, const QString& name)
+{
+    const QString fullADSName = path + QLatin1Char(':') + name;
+    int ret = (DeleteFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()))) ? 0 : -1;
+    return ret;
 }
 
 inline bool k_isSupported(const QString& path)
 {
-#if defined(Q_OS_LINUX) || defined(Q_OS_MAC) || defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-    auto ret = k_getxattr(path, QStringLiteral("user.test"), nullptr);
-    return (ret >= 0) || (errno != ENOTSUP);
-#elif defined(Q_OS_WIN)
     QFileInfo f(path);
     const QString drive = QString(f.absolutePath().left(2)) + QStringLiteral("\\");
     WCHAR szFSName[MAX_PATH];
     DWORD dwVolFlags;
     ::GetVolumeInformationW(reinterpret_cast<const WCHAR*>(drive.utf16()), NULL, 0, NULL, NULL, &dwVolFlags, szFSName, MAX_PATH);
     return ((dwVolFlags & FILE_NAMED_STREAMS) && _wcsicmp(szFSName, L"NTFS") == 0);
-#else
-    return false;
-#endif
 }
+
+#else
+inline ssize_t k_getxattr(const QString&, const QString&, QString*)
+{
+    return 0;
+}
+
+inline int k_setxattr(const QString&, const QString&, const QString&)
+{
+    return -1;
+}
+
+inline int k_removexattr(const QString&, const QString&)
+{
+    return -1;
+}
+
+inline bool k_hasAttribute(const QString&, const QString&)
+{
+    return false
+}
+
+inline bool k_isSupported(const QString&)
+{
+    return false;
+}
+#endif
+
 #endif // KFILEMETADATA_XATTR_P_H
