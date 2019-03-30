@@ -64,12 +64,13 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/speex"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/x-aiff"),
+    QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
     QStringLiteral("audio/x-mpeg"),
     QStringLiteral("audio/x-ms-wma"),
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
-    QStringLiteral("audio/x-speex"),
+    QStringLiteral("audio/x-speex+ogg"),
     QStringLiteral("audio/x-vorbis+ogg"),
     QStringLiteral("audio/x-wav"),
     QStringLiteral("audio/x-wavpack"),
@@ -412,7 +413,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 extractId3Tags(file.ID3v2Tag(), result);
             }
         }
-    } else if (mimeType == QLatin1String("audio/x-aiff")) {
+    } else if (mimeType == QLatin1String("audio/x-aiff") || mimeType == QLatin1String("audio/x-aifc")) {
         TagLib::RIFF::AIFF::File file(&stream, true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);
@@ -473,7 +474,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
         }
-    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
+    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex+ogg")) {
         TagLib::Ogg::Speex::File file(&stream, true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);

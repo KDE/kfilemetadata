@@ -25,6 +25,7 @@
 //TODO: use QTESTFINDDATA and remove this
 #include "indexerextractortestsconfig.h"
 #include "extractors/taglibextractor.h"
+#include "mimeutils.h"
 
 #include <QDebug>
 #include <QTest>
@@ -104,15 +105,14 @@ void TagLibExtractorTest::testPropertyTypes()
 void TagLibExtractorTest::testCommonData()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
 
-    QString fileName = QStringLiteral("test.") + fileType;
-
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
     TagLibExtractor plugin{this};
 
-    QCOMPARE(plugin.mimetypes().contains(mimeType), true);
+    QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -130,78 +130,65 @@ void TagLibExtractorTest::testCommonData()
 void TagLibExtractorTest::testCommonData_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("aiff")
         << QStringLiteral("aif")
-        << QStringLiteral("audio/x-aiff")
         ;
 
     QTest::addRow("ape")
         << QStringLiteral("ape")
-        << QStringLiteral("audio/x-ape")
         ;
 
     QTest::addRow("flac")
         << QStringLiteral("flac")
-        << QStringLiteral("audio/flac")
         ;
 
     QTest::addRow("m4a")
         << QStringLiteral("m4a")
-        << QStringLiteral("audio/mp4")
         ;
 
     QTest::addRow("mp3")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
         ;
 
     QTest::addRow("mpc")
         << QStringLiteral("mpc")
-        << QStringLiteral("audio/x-musepack")
         ;
 
     QTest::addRow("ogg")
         << QStringLiteral("ogg")
-        << QStringLiteral("audio/ogg")
         ;
 
     QTest::addRow("opus")
         << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
         ;
 
     QTest::addRow("speex")
         << QStringLiteral("spx")
-        << QStringLiteral("audio/speex")
         ;
 
     QTest::addRow("wav")
         << QStringLiteral("wav")
-        << QStringLiteral("audio/wav")
         ;
 
     QTest::addRow("wavpack")
         << QStringLiteral("wv")
-        << QStringLiteral("audio/x-wavpack")
         ;
 
     QTest::addRow("wma")
         << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
         ;
 }
 
 void TagLibExtractorTest::testVorbisComment()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
 
-    QString fileName = QStringLiteral("test.") + fileType;
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
@@ -233,26 +220,21 @@ void TagLibExtractorTest::testVorbisComment()
 void TagLibExtractorTest::testVorbisComment_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("flac")
         << QStringLiteral("flac")
-        << QStringLiteral("audio/flac")
         ;
 
     QTest::addRow("ogg")
         << QStringLiteral("ogg")
-        << QStringLiteral("audio/ogg")
         ;
 
     QTest::addRow("opus")
         << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
         ;
 
     QTest::addRow("speex")
         << QStringLiteral("spx")
-        << QStringLiteral("audio/speex")
         ;
 }
 
@@ -283,12 +265,12 @@ void TagLibExtractorTest::testVorbisCommentMultivalue_data()
 void TagLibExtractorTest::testId3()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
 
-    QString fileName = QStringLiteral("test.") + fileType;
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
@@ -311,33 +293,29 @@ void TagLibExtractorTest::testId3()
 void TagLibExtractorTest::testId3_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("aiff")
         << QStringLiteral("aif")
-        << QStringLiteral("audio/x-aiff")
         ;
 
     QTest::addRow("mp3")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg")
         ;
 
     QTest::addRow("wav")
         << QStringLiteral("wav")
-        << QStringLiteral("audio/wav")
         ;
 }
 
 void TagLibExtractorTest::testApe()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
 
-    QString fileName = QStringLiteral("test.") + fileType;
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
@@ -367,33 +345,29 @@ void TagLibExtractorTest::testApe()
 void TagLibExtractorTest::testApe_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("ape")
         << QStringLiteral("ape")
-        << QStringLiteral("audio/x-ape")
         ;
 
     QTest::addRow("musepack")
         << QStringLiteral("mpc")
-        << QStringLiteral("audio/x-musepack")
         ;
 
     QTest::addRow("wavpack")
         << QStringLiteral("wv")
-        << QStringLiteral("audio/x-wavpack")
         ;
 }
 
 void TagLibExtractorTest::testMp4()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
 
-    QString fileName = QStringLiteral("test.") + fileType;
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult resultMp4(testFilePath(fileName), mimeType);
+    SimpleExtractionResult resultMp4(fileName, mimeType);
     plugin.extract(&resultMp4);
 
     QCOMPARE(resultMp4.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
@@ -408,23 +382,21 @@ void TagLibExtractorTest::testMp4()
 void TagLibExtractorTest::testMp4_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("mp4")
         << QStringLiteral("m4a")
-        << QStringLiteral("audio/mp4")
         ;
 }
 
 void TagLibExtractorTest::testAsf()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
 
-    QString fileName = QStringLiteral("test.") + fileType;
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
@@ -441,11 +413,9 @@ void TagLibExtractorTest::testAsf()
 void TagLibExtractorTest::testAsf_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("asf")
         << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
         ;
 }
 

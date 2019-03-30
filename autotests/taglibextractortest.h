@@ -23,6 +23,7 @@
 #define TAGLIBEXTRACTORTEST_H
 
 #include <QObject>
+#include <QMimeDatabase>
 #include "properties.h"
 
 class TagLibExtractorTest : public QObject
@@ -57,6 +58,7 @@ private Q_SLOTS:
 private:
     // Convenience function
     const QStringList propertyEnumNames(const QList<KFileMetaData::Property::Property>& key) const;
+    QMimeDatabase mimeDb;
 };
 
 #endif // TAGLIBEXTRACTORTEST_H
