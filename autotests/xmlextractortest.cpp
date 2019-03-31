@@ -133,5 +133,26 @@ void XmlExtractorTests::testXmlExtractorContainer()
     QCOMPARE(result.text(), content);
 }
 
+void XmlExtractorTests::testXmlExtractorMathML()
+{
+    XmlExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.mml")),
+            QStringLiteral("application/mathml+xml"),
+            ExtractionResult::ExtractEverything);
+    plugin.extract(&result);
+
+    QString content = QStringLiteral("1 + 1 = 2\n");
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Text);
+
+    QCOMPARE(result.properties().size(), 0);
+
+    content.replace(QLatin1Char('\n'), QLatin1Char(' '));
+    QCOMPARE(result.text(), content);
+}
+
+
 QTEST_GUILESS_MAIN(XmlExtractorTests)
 

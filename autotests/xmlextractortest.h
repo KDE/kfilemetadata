@@ -38,6 +38,7 @@ private Q_SLOTS:
     void testXmlExtractor();
     void testXmlExtractorNoContent();
     void testXmlExtractorContainer();
+    void testXmlExtractorMathML();
 };
 
 #endif // XMLEXTRACTORTESTS_H
