@@ -393,7 +393,7 @@ void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult
 void TagLibExtractor::extract(ExtractionResult* result)
 {
     const QString fileUrl = result->inputUrl();
-    const QString mimeType = result->inputMimetype();
+    const QString mimeType = getSupportedMimeType(result->inputMimetype());
 
     // Open the file readonly. Important if we're sandboxed.
     TagLib::FileStream stream(fileUrl.toUtf8().constData(), true);
