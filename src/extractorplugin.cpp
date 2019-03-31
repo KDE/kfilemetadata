@@ -21,6 +21,7 @@
 
 #include "extractorplugin.h"
 
+#include <QMimeDatabase>
 #include <QDebug>
 
 using namespace KFileMetaData;
@@ -142,4 +143,23 @@ QStringList ExtractorPlugin::contactsFromString(const QString& string)
     }
 
     return list;
+}
+
+QString ExtractorPlugin::getSupportedMimeType(const QString& mimetype) const
+{
+    const QStringList allTypes = mimetypes();
+    if (allTypes.contains(mimetype)) {
+        return mimetype;
+    }
+
+    QMimeDatabase db;
+    auto type = db.mimeTypeForName(mimetype);
+    const QStringList ancestors = type.allAncestors();
+    for (auto ancestor : ancestors) {
+        if (allTypes.contains(ancestor)) {
+            return ancestor;
+        }
+    }
+
+    return QString();
 }

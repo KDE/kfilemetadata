@@ -72,7 +72,10 @@ public:
     /**
      * The input mimetype. This mimetype should correspond with the
      * mimetypes supported with the relevant plugin when it is being
-     * passed to the Extractor
+     * passed to the Extractor, or be a subtype thereof.
+     *
+     * \sa ExtractorCollection::fetchExtractors
+     * \sa ExtractorPlugin::supportedMimeType
      */
     QString inputMimetype() const;
 
@@ -105,7 +108,7 @@ public:
      * This function is called by the plugins.
      * A type is a higher level classification of the file. A file can
      * have multiple types, but mostly when it does, those types are related.
-     * Eg - Document and Presenentation.
+     * Eg - Document and Presentation.
      *
      * Please choose one type from the list of available types
      */

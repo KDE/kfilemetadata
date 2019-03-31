@@ -90,6 +90,23 @@ public:
      */
     static QStringList contactsFromString(const QString& string);
 
+protected:
+    /**
+     * Return the inherited mimetype which the extractor directly supports.
+     *
+     * The returned type is one of the types from \c mimetypes(),
+     * and is one of the ancestors of the the input \p mimetype
+     * (including \p mimetype itself).
+     *
+     * In case the mimetype is not a subtype of the supported types,
+     * an empty QString() is returned.
+     *
+     * \sa ExtractorCollection::fetchExtractors
+     * \sa QMimeType::allAncestors
+     * @since 5.57
+     */
+    QString getSupportedMimeType(const QString& mimetype) const;
+
 private:
     class Private;
     Private* d;
