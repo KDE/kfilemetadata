@@ -343,4 +343,205 @@ void TagLibWriterTest::testExtendedData_data()
         ;
 }
 
+void TagLibWriterTest::testRating()
+{
+    QFETCH(QString, fileType);
+    QFETCH(QString, mimeType);
+    QFETCH(int, rating);
+
+    QString temporaryFileName = QStringLiteral("writertest.") + fileType;
+
+    QFile::copy(testFilePath("test.") + fileType, testFilePath(temporaryFileName));
+    TagLibWriter writerPlugin{this};
+    QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
+
+    WriteData data(testFilePath(temporaryFileName), mimeType);
+
+    data.add(Property::Rating, rating);
+    writerPlugin.write(data);
+
+    KFileMetaData::ExtractorCollection extractors;
+    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
+    if (extractorList.isEmpty())
+        QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
+    KFileMetaData::Extractor* ex = extractorList.first();
+    KFileMetaData::SimpleExtractionResult result(testFilePath(temporaryFileName), mimeType,
+                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
+
+    ex->extract(&result);
+    QCOMPARE(result.properties().value(Property::Rating).toInt(), rating);
+
+    QFile::remove(testFilePath(temporaryFileName));
+}
+
+void TagLibWriterTest::testRating_data()
+{
+
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QString>("mimeType");
+    QTest::addColumn<int>("rating");
+
+    QTest::addRow("aiff")
+        << QStringLiteral("aif")
+        << QStringLiteral("audio/x-aiff")
+        << 3
+        ;
+
+    QTest::addRow("ape")
+        << QStringLiteral("ape")
+        << QStringLiteral("audio/x-ape")
+        << 1
+        ;
+
+    QTest::addRow("flac")
+        << QStringLiteral("flac")
+        << QStringLiteral("audio/flac")
+        << 3
+        ;
+
+    QTest::addRow("m4a")
+        << QStringLiteral("m4a")
+        << QStringLiteral("audio/mp4")
+        << 5
+        ;
+
+    QTest::addRow("mp3_0")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 0
+        ;
+
+    QTest::addRow("mp3_1")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 1
+        ;
+
+    QTest::addRow("mp3_2")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 2
+        ;
+
+    QTest::addRow("mp3_3")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 3
+        ;
+
+    QTest::addRow("mp3_4")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 4
+        ;
+
+    QTest::addRow("mp3_5")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 5
+        ;
+
+    QTest::addRow("mp3_6")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 6
+        ;
+
+    QTest::addRow("mp3_7")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 7
+        ;
+
+    QTest::addRow("mp3_8")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 8
+        ;
+
+    QTest::addRow("mp3_9")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 9
+        ;
+
+    QTest::addRow("mp3_10")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        << 10
+        ;
+
+    QTest::addRow("mpc")
+        << QStringLiteral("mpc")
+        << QStringLiteral("audio/x-musepack")
+        << 7
+        ;
+
+    QTest::addRow("opus")
+        << QStringLiteral("opus")
+        << QStringLiteral("audio/opus")
+        << 6
+        ;
+
+    QTest::addRow("speex")
+        << QStringLiteral("spx")
+        << QStringLiteral("audio/speex")
+        << 8
+        ;
+
+    QTest::addRow("wav")
+        << QStringLiteral("wav")
+        << QStringLiteral("audio/wav")
+        << 4
+        ;
+
+    QTest::addRow("wavpack")
+        << QStringLiteral("wv")
+        << QStringLiteral("audio/x-wavpack")
+        << 9
+        ;
+
+    QTest::addRow("wma_0")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << 0
+        ;
+
+    QTest::addRow("wma_2")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << 2
+        ;
+
+    QTest::addRow("wma_4")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << 4
+        ;
+
+    QTest::addRow("wma_5")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << 5
+        ;
+
+    QTest::addRow("wma_6")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << 6
+        ;
+
+    QTest::addRow("wma_8")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << 8
+        ;
+
+    QTest::addRow("wma_10")
+        << QStringLiteral("wma")
+        << QStringLiteral("audio/x-ms-wma")
+        << 10
+        ;
+}
+
 QTEST_GUILESS_MAIN(TagLibWriterTest)

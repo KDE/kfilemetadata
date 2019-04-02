@@ -27,16 +27,20 @@
 #include <aifffile.h>
 #include <apefile.h>
 #include <asffile.h>
+#include <asftag.h>
 #include <flacfile.h>
 #include <mp4file.h>
+#include <mp4tag.h>
 #include <mpcfile.h>
 #include <mpegfile.h>
+#include <id3v2tag.h>
 #include <oggfile.h>
 #include <opusfile.h>
 #include <vorbisfile.h>
 #include <speexfile.h>
 #include <wavpackfile.h>
 #include <wavfile.h>
+#include <popularimeterframe.h>
 
 #include <QDebug>
 
@@ -63,9 +67,68 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-wavpack"),
 };
 
-}
+int id3v2RatingTranslation[11] = {
+    0, 1, 13, 54, 64, 118, 128, 186, 196, 242, 255
+};
+
 
 using namespace KFileMetaData;
+
+void writeID3v2Tags(TagLib::ID3v2::Tag *id3Tags, const PropertyMap &newProperties)
+{
+    if (newProperties.contains(Property::Rating)) {
+        int rating = newProperties.value(Property::Rating).toInt();
+        if (rating >= 0 && rating <= 10) {
+            id3Tags->removeFrames("POPM");
+            auto ratingFrame = new TagLib::ID3v2::PopularimeterFrame;
+            ratingFrame->setEmail("org.kde.kfilemetadata");
+            ratingFrame->setRating(id3v2RatingTranslation[rating]);
+            id3Tags->addFrame(ratingFrame);
+        }
+    }
+}
+
+void writeApeTags(TagLib::PropertyMap &oldProperties, const PropertyMap &newProperties)
+{
+    if (newProperties.contains(Property::Rating)) {
+        oldProperties.replace("RATING", TagLib::String::number(newProperties.value(Property::Rating).toInt() * 10));
+    }
+}
+
+void writeVorbisTags(TagLib::PropertyMap &oldProperties, const PropertyMap &newProperties)
+{
+    if (newProperties.contains(Property::Rating)) {
+        oldProperties.replace("RATING", TagLib::String::number(newProperties.value(Property::Rating).toInt() * 10));
+    }
+}
+
+void writeAsfTags(TagLib::ASF::Tag *asfTags, const PropertyMap &properties)
+{
+    if (properties.contains(Property::Rating)) {
+        //map the rating values of WMP to Baloo rating
+        //0->0, 1->2, 4->25, 6->50, 8->75, 10->99
+        int rating = properties.value(Property::Rating).toInt();
+        if (rating == 0) {
+            rating = 0;
+        } else if (rating <= 2) {
+            rating = 1;
+        } else if (rating == 10){
+            rating = 99;
+        } else {
+            rating = 12.5 * rating - 25;
+        }
+        asfTags->setAttribute("WM/SharedUserRating", TagLib::String::number(rating));
+    }
+}
+
+void writeMp4Tags(TagLib::MP4::Tag *mp4Tags, const PropertyMap &newProperties)
+{
+    if (newProperties.contains(Property::Rating)) {
+        mp4Tags->setItem("rate", TagLib::StringList(TagLib::String::number(newProperties.value(Property::Rating).toInt() * 10)));
+    }
+}
+
+} // anonymous namespace
 
 void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMap &newProperties)
 {
@@ -171,6 +234,9 @@ void TagLibWriter::write(const WriteData& data)
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
+            if (file.hasID3v2Tag()) {
+                writeID3v2Tags(file.ID3v2Tag(), properties);
+            }
             file.save();
         }
     } else if (mimeType == QLatin1String("audio/x-aiff")) {
@@ -179,6 +245,10 @@ void TagLibWriter::write(const WriteData& data)
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
+            auto id3Tags = dynamic_cast<TagLib::ID3v2::Tag*>(file.tag());
+            if (id3Tags) {
+                writeID3v2Tags(id3Tags, properties);
+            }
             file.save();
         }
     } else if ((mimeType == QLatin1String("audio/wav")) || (mimeType == QLatin1String("audio/x-wav"))) {
@@ -187,6 +257,10 @@ void TagLibWriter::write(const WriteData& data)
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
+            auto id3Tags = dynamic_cast<TagLib::ID3v2::Tag*>(file.tag());
+            if (id3Tags) {
+                writeID3v2Tags(id3Tags, properties);
+            }
             file.save();
         }
     } else if (mimeType == QLatin1String("audio/x-musepack")) {
@@ -194,6 +268,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            writeApeTags(savedProperties, properties);
             file.setProperties(savedProperties);
             file.save();
         }
@@ -202,6 +277,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            writeApeTags(savedProperties, properties);
             file.setProperties(savedProperties);
             file.save();
         }
@@ -210,6 +286,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            writeApeTags(savedProperties, properties);
             file.setProperties(savedProperties);
             file.save();
         }
@@ -218,6 +295,10 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            auto mp4Tags = dynamic_cast<TagLib::MP4::Tag*>(file.tag());
+            if (mp4Tags) {
+                writeMp4Tags(mp4Tags, properties);
+            }
             file.setProperties(savedProperties);
             file.save();
         }
@@ -226,6 +307,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            writeVorbisTags(savedProperties, properties);
             file.setProperties(savedProperties);
             file.save();
         }
@@ -234,6 +316,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            writeVorbisTags(savedProperties, properties);
             file.setProperties(savedProperties);
             file.save();
         }
@@ -242,6 +325,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            writeVorbisTags(savedProperties, properties);
             file.setProperties(savedProperties);
             file.save();
         }
@@ -250,6 +334,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
+            writeVorbisTags(savedProperties, properties);
             file.setProperties(savedProperties);
             file.save();
         }
@@ -259,6 +344,10 @@ void TagLibWriter::write(const WriteData& data)
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
+            auto asfTags = dynamic_cast<TagLib::ASF::Tag*>(file.tag());
+            if (asfTags){
+                writeAsfTags(asfTags, properties);
+            }
             file.save();
         }
     }
