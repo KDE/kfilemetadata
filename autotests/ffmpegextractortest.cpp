@@ -21,6 +21,7 @@
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/ffmpegextractor.h"
+#include "mimeutils.h"
 
 #include <QTest>
 
@@ -39,34 +40,33 @@ QString testFilePath(const QString& baseName, const QString& extension)
 void ffmpegExtractorTest::testVideoProperties_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("WebM")
-        << QStringLiteral("webm")
-        << QStringLiteral("video/webm");
+        << QStringLiteral("webm");
 
     QTest::addRow("Matroska Video")
-        << QStringLiteral("mkv")
-        << QStringLiteral("video/x-matroska");
+        << QStringLiteral("mkv");
 
     QTest::addRow("Vorbis Video")
-        << QStringLiteral("ogv")
-        << QStringLiteral("video/ogg");
+        << QStringLiteral("ogv");
 
     QTest::addRow("MPEG Transport")
-        << QStringLiteral("ts")
-        << QStringLiteral("video/mp2t");
+        << QStringLiteral("ts");
 }
 
 // only for testing of intrinsic video properties
 void ffmpegExtractorTest::testVideoProperties()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
+
+    QString fileName = testFilePath(QStringLiteral("test"), fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
 
     FFmpegExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QLatin1String("test"), fileType), mimeType);
+    QVERIFY(plugin.mimetypes().contains(plugin.getSupportedMimeType(mimeType)));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -81,29 +81,27 @@ void ffmpegExtractorTest::testVideoProperties()
 void ffmpegExtractorTest::testMetaData_data()
 {
     QTest::addColumn<QString>("fileType");
-    QTest::addColumn<QString>("mimeType");
 
     QTest::addRow("WebM")
-        << QStringLiteral("webm")
-        << QStringLiteral("video/webm");
+        << QStringLiteral("webm");
 
     QTest::addRow("Matroska Video")
-        << QStringLiteral("mkv")
-        << QStringLiteral("video/x-matroska");
+        << QStringLiteral("mkv");
 
     QTest::addRow("Vorbis Video")
-        << QStringLiteral("ogv")
-        << QStringLiteral("video/ogg");
+        << QStringLiteral("ogv");
 }
 
 void ffmpegExtractorTest::testMetaData()
 {
     QFETCH(QString, fileType);
-    QFETCH(QString, mimeType);
+
+    QString fileName = testFilePath(QStringLiteral("test"), fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
 
     FFmpegExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QLatin1String("test"), fileType), mimeType);
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QEXPECT_FAIL("Vorbis Video", "Not yet supported", Abort);

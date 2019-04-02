@@ -21,6 +21,9 @@
 #define FFMPEGEXTRACTORTEST_H
 
 #include <QObject>
+#include <QMimeDatabase>
+
+namespace KFileMetaData {
 
 class ffmpegExtractorTest : public QObject
 {
@@ -31,6 +34,10 @@ private Q_SLOTS:
     void testVideoProperties_data();
     void testMetaData();
     void testMetaData_data();
+
+private:
+    QMimeDatabase mimeDb;
 };
+} // namespace KFileMetaData
 
 #endif // FFMPEGEXTRACTORTEST_H

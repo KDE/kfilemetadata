@@ -37,6 +37,8 @@ public:
 
     void extract(ExtractionResult* result) override;
     QStringList mimetypes() const override;
+
+    friend class ffmpegExtractorTest;
 };
 }
 
