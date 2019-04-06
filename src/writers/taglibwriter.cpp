@@ -115,7 +115,7 @@ void writeAsfTags(TagLib::ASF::Tag *asfTags, const PropertyMap &properties)
         } else if (rating == 10){
             rating = 99;
         } else {
-            rating = 12.5 * rating - 25;
+            rating = static_cast<int>(12.5 * rating - 25);
         }
         asfTags->setAttribute("WM/SharedUserRating", TagLib::String::number(rating));
     }

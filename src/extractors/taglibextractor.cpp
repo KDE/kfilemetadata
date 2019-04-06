@@ -356,7 +356,7 @@ void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult
         } else if (rating == 1) {
             rating = 2;
         } else {
-            rating = static_cast<uint>(0.09 * rating + 2);
+            rating = static_cast<int>(0.09 * rating + 2);
         }
         result->add(Property::Rating, rating);
     }
