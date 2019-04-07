@@ -1,0 +1,784 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Vincent PINON <vpinon@kde.org>, 2014, 2016, 2017.
+# Sebastien Renard <renard@kde.org>, 2014, 2015.
+# Simon Depiets <sdepiets@gmail.com>, 2017, 2018, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2019-04-03 03:17+0200\n"
+"PO-Revision-Date: 2019-03-18 17:49+0800\n"
+"Last-Translator: Simon Depiets <sdepiets@gmail.com>\n"
+"Language-Team: French <kde-francophone@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 19.03.70\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#: src/formatstrings.cpp:72
+#, kde-format
+msgctxt "@label bitrate (per second)"
+msgid "%1/s"
+msgstr "%1/s"
+
+#: src/formatstrings.cpp:86
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Unchanged"
+msgstr "Inchangé"
+
+#: src/formatstrings.cpp:87
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Horizontally flipped"
+msgstr "Retournement horizontal"
+
+#: src/formatstrings.cpp:88
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "180° rotated"
+msgstr "Rotation de 180°"
+
+#: src/formatstrings.cpp:89
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Vertically flipped"
+msgstr "Retournement vertical"
+
+#: src/formatstrings.cpp:90
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Transposed"
+msgstr "Transposée"
+
+#: src/formatstrings.cpp:91
+#, kde-format
+msgctxt "Description of image orientation, counter clock-wise rotated"
+msgid "90° rotated CCW "
+msgstr "Rotation antihoraire de 90°"
+
+#: src/formatstrings.cpp:92
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Transversed"
+msgstr "Diagonale"
+
+#: src/formatstrings.cpp:93
+#, kde-format
+msgctxt "Description of image orientation, counter clock-wise rotated"
+msgid "270° rotated CCW"
+msgstr "Rotation antihoraire de 270°"
+
+#: src/formatstrings.cpp:104
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No flash"
+msgstr "Pas de flash"
+
+#: src/formatstrings.cpp:105
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Fired"
+msgstr "Déclenché"
+
+#: src/formatstrings.cpp:106
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Fired, return light not detected"
+msgstr "Déclenché, lumière réfléchie non détectée"
+
+#: src/formatstrings.cpp:107
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Fired, return light detected"
+msgstr "Déclenché, lumière réfléchie détectée"
+
+#: src/formatstrings.cpp:108
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, did not fire"
+msgstr "Oui, non déclenché"
+
+#: src/formatstrings.cpp:109
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory"
+msgstr "Oui, forcé"
+
+#: src/formatstrings.cpp:110
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, return light not detected"
+msgstr "Oui, forcé, lumière réfléchie non détectée"
+
+#: src/formatstrings.cpp:111
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, return light detected"
+msgstr "Oui, forcé, lumière réfléchie détectée"
+
+#: src/formatstrings.cpp:112
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, compulsory"
+msgstr "Non, forcé"
+
+#: src/formatstrings.cpp:113
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, did not fire, return light not detected"
+msgstr "Non, non déclenché, lumière réfléchie non détectée"
+
+#: src/formatstrings.cpp:114
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, auto"
+msgstr "Non, automatique"
+
+#: src/formatstrings.cpp:115
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto"
+msgstr "Oui, automatique"
+
+#: src/formatstrings.cpp:116
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, return light not detected"
+msgstr "Oui, automatique, lumière réfléchie non détectée"
+
+#: src/formatstrings.cpp:117
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, return light detected"
+msgstr "Oui, automatique, lumière réfléchie détectée"
+
+#: src/formatstrings.cpp:118
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No flash function"
+msgstr "Pas de fonction flash"
+
+#: src/formatstrings.cpp:119
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, no flash function"
+msgstr "Non, pas de fonction flash"
+
+#: src/formatstrings.cpp:120
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, red-eye reduction"
+msgstr "Oui, anti yeux rouges"
+
+#: src/formatstrings.cpp:121
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, red-eye reduction, return light not detected"
+msgstr "Oui, anti yeux rouges, lumière réfléchie non détectée"
+
+#: src/formatstrings.cpp:122
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, red-eye reduction, return light detected"
+msgstr "Oui, anti yeux rouges, lumière réfléchie détectée"
+
+#: src/formatstrings.cpp:123
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, red-eye reduction"
+msgstr "Oui, forcé, anti yeux rouges"
+
+#: src/formatstrings.cpp:124
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, red-eye reduction, return light not detected"
+msgstr "Oui, forcé, anti yeux rouges, lumière réfléchie non détectée"
+
+#: src/formatstrings.cpp:125
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, red-eye reduction, return light detected"
+msgstr "Oui, forcé, anti yeux rouges, lumière réfléchie détectée"
+
+#: src/formatstrings.cpp:126
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, red-eye reduction"
+msgstr "Non, anti yeux rouges"
+
+#: src/formatstrings.cpp:127
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, auto, red-eye reduction"
+msgstr "Oui, automatique, anti yeux rouges"
+
+#: src/formatstrings.cpp:128
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, red-eye reduction"
+msgstr "Oui, automatique, anti yeux rouges"
+
+#: src/formatstrings.cpp:129
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, red-eye reduction, return light not detected"
+msgstr "Oui, automatique, anti yeux rouges, lumière réfléchie non détectée"
+
+#: src/formatstrings.cpp:130
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, red-eye reduction, return light detected"
+msgstr "Oui, automatique, anti yeux rouges, lumière réfléchie détectée"
+
+#: src/formatstrings.cpp:135
+#, kde-format
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: src/formatstrings.cpp:142
+#, kde-format
+msgctxt "Symbol of degree, no space"
+msgid "%1°"
+msgstr "%1°"
+
+#: src/formatstrings.cpp:153
+#, kde-format
+msgctxt "Symbol of frames per second, with space"
+msgid "%1 fps"
+msgstr "%1 ips"
+
+#: src/formatstrings.cpp:158
+#, kde-format
+msgctxt "Aspect ratio, normalized to one"
+msgid "%1:1"
+msgstr "%1:1"
+
+#: src/propertyinfo.cpp:62
+#, kde-format
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Album"
+
+#: src/propertyinfo.cpp:68
+#, kde-format
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Artiste de l'album"
+
+#: src/propertyinfo.cpp:75
+#, kde-format
+msgctxt "@label"
+msgid "Artist"
+msgstr "Artiste"
+
+#: src/propertyinfo.cpp:82
+#, kde-format
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Rapport d'affichage"
+
+#: src/propertyinfo.cpp:89
+#, kde-format
+msgctxt "@label"
+msgid "Author"
+msgstr "Auteur"
+
+#: src/propertyinfo.cpp:96
+#, kde-format
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Débit"
+
+#: src/propertyinfo.cpp:103
+#, kde-format
+msgctxt "@label"
+msgid "Channels"
+msgstr "Canaux"
+
+#: src/propertyinfo.cpp:109
+#, kde-format
+msgctxt "@label"
+msgid "Comment"
+msgstr "Commentaire"
+
+#: src/propertyinfo.cpp:116
+#, kde-format
+msgctxt "@label"
+msgid "Description"
+msgstr "Description"
+
+#: src/propertyinfo.cpp:123
+#, kde-format
+msgctxt "@label"
+msgid "Composer"
+msgstr "Compositeur"
+
+#: src/propertyinfo.cpp:130
+#, kde-format
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Copyright"
+
+#: src/propertyinfo.cpp:137
+#, kde-format
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Date de création"
+
+#: src/propertyinfo.cpp:144
+#, kde-format
+msgctxt "@label"
+msgid "Duration"
+msgstr "Durée"
+
+#: src/propertyinfo.cpp:156
+#, kde-format
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Fréquence d'image"
+
+#: src/propertyinfo.cpp:163
+#, kde-format
+msgctxt "@label"
+msgid "Document Generated By"
+msgstr "Document généré par"
+
+#: src/propertyinfo.cpp:170
+#, kde-format
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Genre"
+
+#: src/propertyinfo.cpp:178
+#, kde-format
+msgctxt "@label"
+msgid "Height"
+msgstr "Hauteur"
+
+#: src/propertyinfo.cpp:184
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "Date et heure de l'image"
+
+#: src/propertyinfo.cpp:191
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "Marque de l'image"
+
+#: src/propertyinfo.cpp:198
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "Modèle de l'image"
+
+#: src/propertyinfo.cpp:205
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "Orientation de l'image"
+
+#: src/propertyinfo.cpp:212
+#, kde-format
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Mots clés"
+
+#: src/propertyinfo.cpp:220
+#, kde-format
+msgctxt "@label"
+msgid "Language"
+msgstr "Langue"
+
+#: src/propertyinfo.cpp:227
+#, kde-format
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Nombre de lignes"
+
+#: src/propertyinfo.cpp:233
+#, kde-format
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Parolier"
+
+#: src/propertyinfo.cpp:241
+#, kde-format
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Nombre de pages"
+
+#: src/propertyinfo.cpp:247
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "Valeur d'ouverture"
+
+#: src/propertyinfo.cpp:253
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "Date et heure originales"
+
+#: src/propertyinfo.cpp:260
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "Valeur de correction d'exposition"
+
+#: src/propertyinfo.cpp:266
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "Temps d'exposition"
+
+#: src/propertyinfo.cpp:272
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "Flash"
+
+#: src/propertyinfo.cpp:279
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "Numéro F"
+
+#: src/propertyinfo.cpp:285
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "Longueur focale"
+
+#: src/propertyinfo.cpp:291
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "Longueur focale équivalente 35mm"
+
+#: src/propertyinfo.cpp:297
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "Latitude GPS de la photo"
+
+#: src/propertyinfo.cpp:304
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "Longitude GPS de la photo"
+
+#: src/propertyinfo.cpp:311
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "Altitude GPS de la photo"
+
+#: src/propertyinfo.cpp:318
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "Vitesse ISO "
+
+#: src/propertyinfo.cpp:324
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "Mode de mesure"
+
+#: src/propertyinfo.cpp:330
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "Dimension X"
+
+#: src/propertyinfo.cpp:336
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "Dimension Y"
+
+#: src/propertyinfo.cpp:342
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "Saturation"
+
+#: src/propertyinfo.cpp:348
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "Netteté"
+
+#: src/propertyinfo.cpp:354
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "Balance des blancs"
+
+#: src/propertyinfo.cpp:360
+#, kde-format
+msgctxt "@label"
+msgid "Publisher"
+msgstr "Éditeur"
+
+#: src/propertyinfo.cpp:366
+#, kde-format
+msgctxt "@label"
+msgid "Label"
+msgstr "Label"
+
+#: src/propertyinfo.cpp:372
+#, kde-format
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Année de publication"
+
+#: src/propertyinfo.cpp:378
+#, kde-format
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Taux d'échantillonnage"
+
+#: src/propertyinfo.cpp:385
+#, kde-format
+msgctxt "@label"
+msgid "Subject"
+msgstr "Sujet"
+
+#: src/propertyinfo.cpp:392
+#, kde-format
+msgctxt "@label"
+msgid "Title"
+msgstr "Titre"
+
+#: src/propertyinfo.cpp:398
+#, kde-format
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Numéro de piste"
+
+#: src/propertyinfo.cpp:404
+#, kde-format
+msgctxt "@label music disc number"
+msgid "Disc Number"
+msgstr "Numéro du disque"
+
+#: src/propertyinfo.cpp:410
+#, kde-format
+msgctxt "@label"
+msgid "Location"
+msgstr "Lieu"
+
+#: src/propertyinfo.cpp:416
+#, kde-format
+msgctxt "@label"
+msgid "Performer"
+msgstr "Auteur"
+
+#: src/propertyinfo.cpp:423
+#, kde-format
+msgctxt "@label"
+msgid "Ensemble"
+msgstr "Ensemble"
+
+#: src/propertyinfo.cpp:429
+#, kde-format
+msgctxt "@label"
+msgid "Arranger"
+msgstr "Arrangeur"
+
+#: src/propertyinfo.cpp:436
+#, kde-format
+msgctxt "@label"
+msgid "Conductor"
+msgstr "Chef d'orchestre"
+
+#: src/propertyinfo.cpp:443
+#, kde-format
+msgctxt "@label"
+msgid "Compilation"
+msgstr "Compilation"
+
+#: src/propertyinfo.cpp:449
+#, kde-format
+msgctxt "@label"
+msgid "License"
+msgstr "Licence"
+
+#: src/propertyinfo.cpp:455
+#, kde-format
+msgctxt "@label"
+msgid "Lyrics"
+msgstr "Paroles"
+
+#: src/propertyinfo.cpp:461
+#, kde-format
+msgctxt "@label"
+msgid "Opus"
+msgstr "Opus"
+
+#: src/propertyinfo.cpp:467
+#, kde-format
+msgctxt "@label"
+msgid "Rating"
+msgstr "Note"
+
+#: src/propertyinfo.cpp:473
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Album Peak"
+msgstr "Pic « Replay Gain » de l'album"
+
+#: src/propertyinfo.cpp:479
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Album Gain"
+msgstr "Gain « Replay Gain » de l'album"
+
+#: src/propertyinfo.cpp:485
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Track Peak"
+msgstr "Pic « Replay Gain » de la piste"
+
+#: src/propertyinfo.cpp:491
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Track Gain"
+msgstr "Gain « Replay Gain » de la piste"
+
+#: src/propertyinfo.cpp:497
+#, kde-format
+msgctxt "@label"
+msgid "Width"
+msgstr "Largeur"
+
+#: src/propertyinfo.cpp:503
+#, kde-format
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Nombre de mots"
+
+#: src/propertyinfo.cpp:510
+#, kde-format
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Unités qui peuvent être traduites"
+
+#: src/propertyinfo.cpp:517
+#, kde-format
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Traductions"
+
+#: src/propertyinfo.cpp:525
+#, kde-format
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Traductions brouillons"
+
+#: src/propertyinfo.cpp:532
+#, kde-format
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Auteur"
+
+#: src/propertyinfo.cpp:539
+#, kde-format
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Dernière mise à jour"
+
+#: src/propertyinfo.cpp:547
+#, kde-format
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Modèle de création"
+
+#: src/propertyinfo.cpp:555
+#, kde-format
+msgctxt "@label the URL a file was originally downloaded from"
+msgid "Downloaded From"
+msgstr "Téléchargé depuis"
+
+#: src/propertyinfo.cpp:562
+#, kde-format
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr "Sujet du courriel de la pièce jointe"
+
+#: src/propertyinfo.cpp:569
+#, kde-format
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr "Expéditeur du courriel de la pièce jointe"
+
+#: src/propertyinfo.cpp:576
+#, kde-format
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr "Identifiant de message du courriel de la pièce jointe"
+
+#: src/typeinfo.cpp:48
+#, kde-format
+msgctxt "@label"
+msgid "Archive"
+msgstr "Archive"
+
+#: src/typeinfo.cpp:53
+#, kde-format
+msgctxt "@label"
+msgid "Audio"
+msgstr "Audio"
+
+#: src/typeinfo.cpp:58
+#, kde-format
+msgctxt "@label"
+msgid "Document"
+msgstr "Document"
+
+#: src/typeinfo.cpp:63
+#, kde-format
+msgctxt "@label"
+msgid "Image"
+msgstr "Image"
+
+#: src/typeinfo.cpp:68
+#, kde-format
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Présentation"
+
+#: src/typeinfo.cpp:73
+#, kde-format
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Tableur"
+
+#: src/typeinfo.cpp:78
+#, kde-format
+msgctxt "@label"
+msgid "Text"
+msgstr "Texte"
+
+#: src/typeinfo.cpp:83
+#, kde-format
+msgctxt "@label"
+msgid "Video"
+msgstr "Vidéo"
+
+#: src/typeinfo.cpp:88
+#, kde-format
+msgctxt "@label"
+msgid "Folder"
+msgstr "Dossier"
