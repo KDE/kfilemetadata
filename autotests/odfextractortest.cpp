@@ -28,6 +28,7 @@
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/odfextractor.h"
+#include "mimeutils.h"
 
 using namespace KFileMetaData;
 
@@ -40,7 +41,11 @@ void OdfExtractorTest::testText()
 {
     OdfExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("test.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"));
+    QString fileName = testFilePath(QStringLiteral("test.odt"));
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -77,7 +82,11 @@ void OdfExtractorTest::testPresentation()
 {
     OdfExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("test.odp")), QStringLiteral("application/vnd.oasis.opendocument.presentation"));
+    QString fileName = testFilePath(QStringLiteral("test.odp"));
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 2);

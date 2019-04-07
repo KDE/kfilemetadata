@@ -22,10 +22,12 @@
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/popplerextractor.h"
+#include "mimeutils.h"
 
 #include <QDebug>
 #include <QTest>
 #include <QDir>
+#include <QMimeDatabase>
 
 using namespace KFileMetaData;
 
@@ -38,7 +40,12 @@ void PopplerExtractorTest::test()
 {
     PopplerExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf");
+    QString fileName = testFilePath(QStringLiteral("test.pdf"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

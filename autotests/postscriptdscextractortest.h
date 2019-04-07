@@ -21,6 +21,7 @@
 #define POSTSCRIPTDSCEXTRACTORTEST_H
 
 #include <QObject>
+#include <QMimeDatabase>
 
 class PostscriptDscExtractorTest : public QObject
 {
@@ -31,6 +32,8 @@ private:
 private Q_SLOTS:
     void testPS();
     void testEPS();
+private:
+    QMimeDatabase mimeDb;
 };
 
 #endif // POSTSCRIPTDSCEXTRACTORTEST_H

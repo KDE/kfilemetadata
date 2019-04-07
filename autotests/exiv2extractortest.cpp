@@ -22,10 +22,12 @@
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/exiv2extractor.h"
+#include "mimeutils.h"
 
 #include <QDebug>
 #include <QTest>
 #include <QDir>
+#include <QMimeDatabase>
 
 using namespace KFileMetaData;
 using namespace KFileMetaData::Property;
@@ -39,7 +41,12 @@ void Exiv2ExtractorTest::test()
 {
     Exiv2Extractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.jpg"), "image/jpeg");
+    QString fileName = testFilePath(QStringLiteral("test.jpg"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

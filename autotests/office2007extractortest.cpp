@@ -22,10 +22,12 @@
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/office2007extractor.h"
+#include "mimeutils.h"
 
 #include <QDebug>
 #include <QTest>
 #include <QDir>
+#include <QMimeDatabase>
 
 using namespace KFileMetaData;
 
@@ -38,7 +40,12 @@ void Office2007ExtractorTest::test()
 {
     Office2007Extractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("test_libreoffice.docx")), QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
+    QString fileName = testFilePath(QStringLiteral("test_libreoffice.docx"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

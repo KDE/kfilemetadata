@@ -22,10 +22,12 @@
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/epubextractor.h"
+#include "mimeutils.h"
 
 #include <QDebug>
 #include <QTest>
 #include <QDir>
+#include <QMimeDatabase>
 
 using namespace KFileMetaData;
 
@@ -38,7 +40,12 @@ void EPubExtractorTest::test()
 {
     EPubExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip");
+    QString fileName = testFilePath(QStringLiteral("test.epub"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

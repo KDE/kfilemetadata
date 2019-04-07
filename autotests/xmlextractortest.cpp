@@ -21,10 +21,12 @@
 #include "xmlextractortest.h"
 
 #include <QtTest>
+#include <QMimeDatabase>
 
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/xmlextractor.h"
+#include "mimeutils.h"
 
 using namespace KFileMetaData;
 
@@ -78,8 +80,12 @@ void XmlExtractorTests::testXmlExtractor()
 {
     XmlExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("test_with_metadata.svg")),
-            QStringLiteral("image/svg"),
+    QString fileName = testFilePath(QStringLiteral("test_with_metadata.svg"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType,
             ExtractionResult::ExtractEverything);
     plugin.extract(&result);
 

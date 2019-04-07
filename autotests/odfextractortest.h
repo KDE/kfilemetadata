@@ -23,6 +23,7 @@
 #define ODFEXTRACTORTEST_H
 
 #include <QObject>
+#include <QMimeDatabase>
 
 class OdfExtractorTest : public QObject
 {
@@ -38,6 +39,9 @@ private Q_SLOTS:
 
     void testTextMissingMetaNoCrash();
     void testTextMissingContentNoCrash();
+
+private:
+    QMimeDatabase mimeDb;
 };
 
 #endif // ODFEXTRACTORTEST_H

@@ -21,6 +21,7 @@
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/postscriptdscextractor.h"
+#include "mimeutils.h"
 
 #include <QTest>
 
@@ -35,7 +36,11 @@ void PostscriptDscExtractorTest::testPS()
 {
     DscExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.ps"), "application/postscript");
+    QString fileName = testFilePath(QStringLiteral("test.ps"));
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -55,7 +60,11 @@ void PostscriptDscExtractorTest::testEPS()
 {
     DscExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.eps"), "image/x-eps");
+    QString fileName = testFilePath(QStringLiteral("test.eps"));
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
