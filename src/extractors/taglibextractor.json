@@ -17,7 +17,7 @@
         "audio/x-ms-wma"     : { "Version" : "0.0" },
         "audio/x-musepack"   : { "Version" : "0.0" },
         "audio/x-opus+ogg"   : { "Version" : "0.0" },
-        "audio/x-speex+ogg   : { "Version" : "0.0" },
+        "audio/x-speex+ogg"  : { "Version" : "0.0" },
         "audio/x-vorbis+ogg" : { "Version" : "0.0" },
         "audio/x-wav"        : { "Version" : "0.0" },
         "audio/x-wavpack"    : { "Version" : "0.0" }
