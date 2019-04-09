@@ -403,8 +403,8 @@ void TagLibExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3"))
-            || (mimeType == QLatin1String("audio/x-mpeg"))) {
+    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3")
+            || mimeType == QLatin1String("audio/x-mpeg")) {
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);
@@ -422,7 +422,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 extractId3Tags(file.tag(), result);
             }
         }
-    } else if ((mimeType == QLatin1String("audio/wav")) || (mimeType == QLatin1String("audio/x-wav"))) {
+    } else if (mimeType == QLatin1String("audio/wav") || mimeType == QLatin1String("audio/x-wav")) {
         TagLib::RIFF::WAV::File file(&stream, true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);

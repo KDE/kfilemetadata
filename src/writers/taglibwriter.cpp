@@ -228,8 +228,8 @@ void TagLibWriter::write(const WriteData& data)
         return;
     }
 
-    if ((mimeType == QLatin1String("audio/mpeg")) || (mimeType == QLatin1String("audio/mpeg3"))
-            || (mimeType == QLatin1String("audio/x-mpeg"))) {
+    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3")
+            || mimeType == QLatin1String("audio/x-mpeg")) {
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), false);
         if (file.isValid()) {
             auto savedProperties = file.properties();
@@ -252,7 +252,7 @@ void TagLibWriter::write(const WriteData& data)
             }
             file.save();
         }
-    } else if (mimeType == QLatin1String("audio/wav") || (mimeType == QLatin1String("audio/x-wav"))) {
+    } else if (mimeType == QLatin1String("audio/wav") || mimeType == QLatin1String("audio/x-wav")) {
         TagLib::RIFF::WAV::File file(&stream, false);
         if (file.isValid()) {
             auto savedProperties = file.properties();
