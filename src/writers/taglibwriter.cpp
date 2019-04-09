@@ -56,6 +56,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/speex"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/x-aiff"),
+    QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
     QStringLiteral("audio/x-mpeg"),
     QStringLiteral("audio/x-ms-wma"),
@@ -239,7 +240,7 @@ void TagLibWriter::write(const WriteData& data)
             }
             file.save();
         }
-    } else if (mimeType == QLatin1String("audio/x-aiff")) {
+    } else if (mimeType == QLatin1String("audio/x-aiff") || mimeType == QLatin1String("audio/x-aifc"))  {
         TagLib::RIFF::AIFF::File file(&stream, false);
         if (file.isValid()) {
             auto savedProperties = file.properties();
@@ -251,7 +252,7 @@ void TagLibWriter::write(const WriteData& data)
             }
             file.save();
         }
-    } else if ((mimeType == QLatin1String("audio/wav")) || (mimeType == QLatin1String("audio/x-wav"))) {
+    } else if (mimeType == QLatin1String("audio/wav") || (mimeType == QLatin1String("audio/x-wav"))) {
         TagLib::RIFF::WAV::File file(&stream, false);
         if (file.isValid()) {
             auto savedProperties = file.properties();
