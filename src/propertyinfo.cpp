@@ -640,7 +640,20 @@ bool PropertyInfo::shouldBeIndexed() const
 
 QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
 {
-    return (d->formatAsString)(value);
+    if (value.type() == QVariant::List) {
+        if (d->valueType == QVariant::StringList || d->valueType == QVariant::String) {
+            return QLocale().createSeparatedList(value.toStringList());
+        } else {
+            QStringList displayList;
+            const auto valueList = value.toList();
+            for (const auto& entry : valueList) {
+                displayList << d->formatAsString(entry);
+            }
+            return QLocale().createSeparatedList(displayList);
+        }
+    } else {
+        return (d->formatAsString)(value);
+    }
 }
 
 PropertyInfo PropertyInfo::fromName(const QString& name)

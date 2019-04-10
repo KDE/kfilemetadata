@@ -101,6 +101,9 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
 
     QStringList artistList = {QStringLiteral("Artist1"), QStringLiteral("Artist2"), QStringLiteral("Artist3")};
     QStringList authorList = {QStringLiteral("Author1")};
+    QVariantList arrangerList = {QStringLiteral("Arranger1"), QStringLiteral("Arranger2")};
+    QVariantList bitRateList = {128000, 130000};
+    QVariantList titleList = {QStringLiteral("Title1"), QStringLiteral("Title2")};
 
     struct {
         KFileMetaData::Property::Property property;
@@ -110,13 +113,16 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
     } rows[] = {
         { Property::DiscNumber,        true,  2018,                    QStringLiteral("2018")},
         { Property::Title,             false, QStringLiteral("Title"), QStringLiteral("Title")},
+        { Property::Title,             false, titleList,               QStringLiteral("Title1 and Title2")},
         { Property::Artist,            true,  artistList,              QStringLiteral("Artist1, Artist2, and Artist3")},
         { Property::Author,            true,  authorList,              QStringLiteral("Author1")},
+        { Property::Arranger,          true,  arrangerList,            QStringLiteral("Arranger1 and Arranger2")},
         { Property::Duration,          true,  1800,                    QStringLiteral("0:30:00")},
         { Property::SampleRate,        true,  44100,                   QStringLiteral("44.1 kHz")},
         { Property::BitRate,           true,  128000,                  QStringLiteral("128 kbit/s")},
         { Property::BitRate,           true,  1350000,                 QStringLiteral("1.35 Mbit/s")},
         { Property::BitRate,           true,  14700000,                QStringLiteral("14.7 Mbit/s")},
+        { Property::BitRate,           true,  bitRateList,             QStringLiteral("128 kbit/s and 130 kbit/s")},
         { Property::ImageOrientation,  true,  5,                       QStringLiteral("Transposed")},
         { Property::PhotoFlash,        true,  0x00,                    QStringLiteral("No flash")},
         { Property::PhotoFlash,        true,  0x50,                    QStringLiteral("No, red-eye reduction")},
