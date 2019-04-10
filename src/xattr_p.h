@@ -173,14 +173,14 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     LARGE_INTEGER lsize;
     BOOL ret = GetFileSizeEx(hFile, &lsize);
 
-    if (ret || lsize > 0x7fffffff || lsize == 0) {
+    if (ret || lsize.QuadPart > 0x7fffffff || lsize.QuadPart == 0) {
         CloseHandle(hFile);
         value->clear();
-        return lsize == 0 ? 0 : -1;
+        return lsize.QuadPart == 0 ? 0 : -1;
     }
 
     DWORD r = 0;
-    QByteArray data(lsize, Qt::Uninitialized);
+    QByteArray data(lsize.QuadPart, Qt::Uninitialized);
     // should we care about attributes longer than 2GiB? - unix xattr are restricted to much lower values
     ret = ::ReadFile(hFile, data.data(), data.size(), &r, NULL);
     CloseHandle(hFile);
