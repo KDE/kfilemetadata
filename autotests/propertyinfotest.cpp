@@ -48,7 +48,7 @@ void PropertyInfoTest::setLocalized(bool localized)
 void PropertyInfoTest::init()
 {
     if (!m_useLocalization) {
-        QLocale().setDefault(QLocale::c());
+        QLocale().setDefault(QLocale(QLocale::English, QLocale::UnitedStates));
     }
 }
 
@@ -91,6 +91,7 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
 {
     QTest::addColumn<KFileMetaData::PropertyInfo>("propertyInfo");
     QTest::addColumn<QVariant>("value");
+    // expected values for an en_US locale
     QTest::addColumn<QString>("expected");
     QTest::addColumn<bool>("maybeLocalized");
 
