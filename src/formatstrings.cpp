@@ -40,11 +40,6 @@ QString FormatStrings::toStringFunction(const QVariant& value)
     return value.toString();
 }
 
-QString FormatStrings::joinStringListFunction(const QVariant& value)
-{
-    return QLocale().createSeparatedList(value.toStringList());
-}
-
 QString FormatStrings::formatDate(const QVariant& value)
 {
     KFormat form;

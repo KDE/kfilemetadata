@@ -66,15 +66,13 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::AlbumArtist:
             d->name = QStringLiteral("albumArtist");
             d->displayName = i18nc("@label", "Album Artist");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
+            d->valueType = QVariant::String;
             break;
 
         case Property::Artist:
             d->name = QStringLiteral("artist");
             d->displayName = i18nc("@label", "Artist");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
+            d->valueType = QVariant::String;
             break;
 
         case Property::AspectRatio:
@@ -87,8 +85,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::Author:
             d->name = QStringLiteral("author");
             d->displayName = i18nc("@label", "Author");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
+            d->valueType = QVariant::String;
             break;
 
         case Property::BitRate:
@@ -122,7 +119,6 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("composer");
             d->displayName = i18nc("@label", "Composer");
             d->valueType = QVariant::String;
-            d->shouldBeIndexed = false;
             break;
 
         case Property::Copyright:
@@ -135,7 +131,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::CreationDate:
             d->name = QStringLiteral("creationDate");
             d->displayName = i18nc("@label", "Creation Date");
-            d->valueType = QVariant::String;
+            d->valueType = QVariant::DateTime;
             d->formatAsString = &FormatStrings::formatDate;
             break;
 
@@ -168,9 +164,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::Genre:
             d->name = QStringLiteral("genre");
             d->displayName = i18nc("@label music genre", "Genre");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
-            d->shouldBeIndexed = false;
+            d->valueType = QVariant::String;
             break;
 
         case Property::Height:
@@ -210,8 +204,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::Keywords:
             d->name = QStringLiteral("keywords");
             d->displayName = i18nc("@label", "Keywords");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
+            d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
@@ -231,9 +224,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::Lyricist:
             d->name = QStringLiteral("lyricist");
             d->displayName = i18nc("@label", "Lyricist");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
-            d->shouldBeIndexed = false;
+            d->valueType = QVariant::String;
             break;
 
         case Property::PageCount:
@@ -414,8 +405,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::Performer:
             d->name = QStringLiteral("performer");
             d->displayName = i18nc("@label", "Performer");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
+            d->valueType = QVariant::String;
             break;
 
         case Property::Ensemble:
@@ -427,15 +417,13 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::Arranger:
             d->name = QStringLiteral("arranger");
             d->displayName = i18nc("@label", "Arranger");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
+            d->valueType = QVariant::String;
             break;
 
         case Property::Conductor:
             d->name = QStringLiteral("conductor");
             d->displayName = i18nc("@label", "Conductor");
-            d->valueType = QVariant::StringList;
-            d->formatAsString = &FormatStrings::joinStringListFunction;
+            d->valueType = QVariant::String;
             break;
 
         case Property::Compilation:
@@ -640,8 +628,8 @@ bool PropertyInfo::shouldBeIndexed() const
 
 QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
 {
-    if (value.type() == QVariant::List) {
-        if (d->valueType == QVariant::StringList || d->valueType == QVariant::String) {
+    if (value.type() == QVariant::List || value.type() == QVariant::StringList) {
+        if (d->valueType == QVariant::String) {
             return QLocale().createSeparatedList(value.toStringList());
         } else {
             QStringList displayList;
@@ -652,7 +640,7 @@ QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
             return QLocale().createSeparatedList(displayList);
         }
     } else {
-        return (d->formatAsString)(value);
+        return d->formatAsString(value);
     }
 }
 
