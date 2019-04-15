@@ -388,4 +388,6 @@ inline PropertyMap toPropertyMap(const QVariantMap& varMap) {
 
 } // namespace KFileMetaData
 
+Q_DECLARE_METATYPE(KFileMetaData::Property::Property)
+
 #endif

@@ -31,8 +31,6 @@
 #include <QTest>
 #include <QDir>
 
-Q_DECLARE_METATYPE(KFileMetaData::Property::Property)
-
 using namespace KFileMetaData;
 
 QString TagLibExtractorTest::testFilePath(const QString& fileName) const
