@@ -28,7 +28,6 @@
 #include <flacfile.h>
 #include <vorbisfile.h>
 #include <opusfile.h>
-#include <apetag.h>
 #include <mpcfile.h>
 #include <id3v2tag.h>
 #include <attachedpictureframe.h>

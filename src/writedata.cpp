@@ -21,9 +21,9 @@
  *
  */
 
-#include <QMimeDatabase>
-
 #include "writedata.h"
+
+#include <QMimeDatabase>
 
 using namespace KFileMetaData;
 

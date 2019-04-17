@@ -21,21 +21,18 @@
  *
  */
 
+#include "writercollection.h"
+#include "writer.h"
+#include "writer_p.h"
+#include "writerplugin.h"
+#include "externalwriter.h"
 #include "kfilemetadata_debug.h"
+#include "config-kfilemetadata.h"
 
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDir>
-
 #include <KLocalizedString>
-
-#include "writer.h"
-#include "writer_p.h"
-#include "writerplugin.h"
-#include "writercollection.h"
-#include "externalwriter.h"
-
-#include "config-kfilemetadata.h"
 
 using namespace KFileMetaData;
 

@@ -19,6 +19,10 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+#include "externalwriter.h"
+#include "properties.h"
+#include "propertyinfo.h"
 #include "kfilemetadata_debug.h"
 
 #include <QDir>
@@ -26,12 +30,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-
 #include <KLocalizedString>
-
-#include "externalwriter.h"
-#include "properties.h"
-#include "propertyinfo.h"
 
 #define WRITER_TIMEOUT_MS 30000
 

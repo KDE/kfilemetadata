@@ -23,16 +23,15 @@
 
 #include "externalextractor.h"
 #include "kfilemetadata_debug.h"
+#include "properties.h"
+#include "propertyinfo.h"
+#include "typeinfo.h"
 
 #include <QDir>
 #include <QProcess>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-
-#include "properties.h"
-#include "propertyinfo.h"
-#include "typeinfo.h"
 
 #define EXTRACTOR_TIMEOUT_MS 30000
 

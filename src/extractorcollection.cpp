@@ -18,20 +18,19 @@
  *
  */
 
+#include "extractorcollection.h"
 #include "extractor.h"
 #include "extractor_p.h"
 #include "extractorplugin.h"
-#include "extractorcollection.h"
 #include "externalextractor.h"
 #include "kfilemetadata_debug.h"
+#include "config-kfilemetadata.h"
 
 #include <QMimeDatabase>
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDir>
 #include <vector>
-
-#include "config-kfilemetadata.h"
 
 using namespace KFileMetaData;
 
