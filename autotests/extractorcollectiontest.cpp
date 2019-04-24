@@ -98,7 +98,7 @@ private Q_SLOTS:
             auto exProperties = extractor->extractorProperties();
             if (exProperties.isEmpty()) {
                 qWarning() << "Extractor has no property data, please add it! - (Extractor mimetypes:"
-                           << extractor->mimetypes().join(", ") + ")";
+                           << extractor->mimetypes().join(", ") + ')';
                 continue;
             }
 

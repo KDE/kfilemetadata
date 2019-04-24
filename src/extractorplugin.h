@@ -95,7 +95,7 @@ protected:
      * Return the inherited mimetype which the extractor directly supports.
      *
      * The returned type is one of the types from \c mimetypes(),
-     * and is one of the ancestors of the the input \p mimetype
+     * and is one of the ancestors of the input \p mimetype
      * (including \p mimetype itself).
      *
      * In case the mimetype is not a subtype of the supported types,

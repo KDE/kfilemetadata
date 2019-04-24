@@ -73,7 +73,7 @@ void TagLibExtractorTest::testPropertyTypes()
     testForType(resultOpus, Property::Ensemble);
     testForType(resultOpus, Property::Location);
     testForType(resultOpus, Property::Performer);
-    testForType(resultOpus, Property::Langauge);
+    testForType(resultOpus, Property::Language);
     testForType(resultOpus, Property::Publisher);
     testForType(resultOpus, Property::Label);
     testForType(resultOpus, Property::Author);
