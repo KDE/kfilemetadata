@@ -608,4 +608,24 @@ void  TagLibExtractorTest::testNoMetadata()
     QCOMPARE(resultKeys, expectedKeys);
 }
 
+void TagLibExtractorTest::testRobustness_data()
+{
+    QTest::addColumn<QString>("path");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("ArcGIS GeoData spx")
+            << QFINDTESTDATA("samplefiles/misdetected/test_arcgis_geodata.spx")
+            << QStringLiteral("audio/speex");
+}
+
+void TagLibExtractorTest::testRobustness()
+{
+    QFETCH(QString, path);
+    QFETCH(QString, mimeType);
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult extracted(path, mimeType);
+    plugin.extract(&extracted);
+}
+
 QTEST_GUILESS_MAIN(TagLibExtractorTest)

@@ -54,6 +54,8 @@ private Q_SLOTS:
     void testWmaRating();
     void testNoMetadata();
     void testNoMetadata_data();
+    void testRobustness();
+    void testRobustness_data();
 
 private:
     // Convenience function
