@@ -476,7 +476,9 @@ void TagLibExtractor::extract(ExtractionResult* result)
         }
     } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex+ogg")) {
         TagLib::Ogg::Speex::File file(&stream, true);
-        if (file.isValid()) {
+        // Workaround for buggy taglib:
+        // isValid() returns true for invalid files, but XiphComment* tag() returns a nullptr
+        if (file.isValid() && file.tag()) {
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
         }
