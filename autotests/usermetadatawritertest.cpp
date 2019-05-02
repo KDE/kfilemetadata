@@ -51,14 +51,23 @@ void UserMetaDataWriterTest::test()
     // Tags
     md.setTags(QStringList() << QStringLiteral("this/is/a/test/tag"));
     QCOMPARE(md.tags().at(0), QStringLiteral("this/is/a/test/tag"));
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::Any) & UserMetaData::Attribute::Tags);
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) & UserMetaData::Attribute::Tags);
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::Tags) & UserMetaData::Attribute::Tags);
+    QVERIFY(!(md.queryAttributes(UserMetaData::Attribute::Rating) & UserMetaData::Attribute::Tags));
     md.setTags(QStringList());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.tags")));
+    QVERIFY(!(md.queryAttributes(UserMetaData::Attribute::Tags) & UserMetaData::Attribute::Tags));
 
     // Rating
     md.setRating(3);
     QCOMPARE(md.rating(), 3);
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) & UserMetaData::Attribute::Rating);
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::Rating) & UserMetaData::Attribute::Rating);
     md.setRating(0);
     QVERIFY(!md.hasAttribute(QStringLiteral("baloo.rating")));
+    QVERIFY(!(md.queryAttributes(UserMetaData::Attribute::All) & UserMetaData::Attribute::Rating));
+    QVERIFY(!(md.queryAttributes(UserMetaData::Attribute::Rating) & UserMetaData::Attribute::Rating));
 
     // Comment
     md.setUserComment(QStringLiteral("this is a test comment"));
@@ -93,8 +102,16 @@ void UserMetaDataWriterTest::test()
     // Attribute
     md.setAttribute(QStringLiteral("test.attribute"), QStringLiteral("attribute"));
     QCOMPARE(md.attribute(QStringLiteral("test.attribute")), QStringLiteral("attribute"));
+    md.setAttribute(QStringLiteral("test.attribute2"), QStringLiteral("attribute2"));
+    QCOMPARE(md.attribute(QStringLiteral("test.attribute2")), QStringLiteral("attribute2"));
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) & UserMetaData::Attribute::Other);
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::Other) & UserMetaData::Attribute::Other);
     md.setAttribute(QStringLiteral("test.attribute"), QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("test.attribute")));
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) & UserMetaData::Attribute::Other);
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::Other) & UserMetaData::Attribute::Other);
+    md.setAttribute(QStringLiteral("test.attribute2"), QString());
+    QVERIFY(!md.hasAttribute(QStringLiteral("test.attribute2")));
 
     // Check for side effects of calling sequence
     QVERIFY(!md.hasAttribute(QStringLiteral("test.check_contains")));

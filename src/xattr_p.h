@@ -160,6 +160,133 @@ inline bool k_isSupported(const QString& path)
     return (ret >= 0) || (errno != ENOTSUP);
 }
 
+
+static KFileMetaData::UserMetaData::Attribute _mapAttribute(const QByteArray& key)
+{
+    using KFileMetaData::UserMetaData;
+    if (key == "user.xdg.tags") {
+        return UserMetaData::Attribute::Tags;
+    }
+    if (key == "user.baloo.rating") {
+        return UserMetaData::Attribute::Rating;
+    }
+    if (key == "user.xdg.comment") {
+        return UserMetaData::Attribute::Comment;
+    }
+    if (key == "user.xdg.origin.url") {
+        return UserMetaData::Attribute::OriginUrl;
+    }
+    if (key == "user.xdg.origin.email.subject") {
+        return UserMetaData::Attribute::OriginEmailSubject;
+    }
+    if (key == "user.xdg.origin.email.sender") {
+        return UserMetaData::Attribute::OriginEmailSender;
+    }
+    if (key == "user.xdg.origin.email.message-id") {
+        return UserMetaData::Attribute::OriginEmailMessageId;
+    }
+    return UserMetaData::Attribute::Other;
+}
+
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+static QList<QByteArray> _split_length_value(QByteArray data)
+{
+    int pos = 0;
+    QList<QByteArray> entries;
+
+    while (pos < data.size()) {
+        unsigned char len = data[pos];
+        if (pos + 1 + len <= data.size()) {
+            auto value = data.mid(pos + 1, len);
+            entries.append(value);
+        }
+        pos += 1 + len;
+    }
+    return entries;
+}
+#endif
+
+KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
+    KFileMetaData::UserMetaData::Attributes attributes)
+{
+    using KFileMetaData::UserMetaData;
+
+    const QByteArray p = QFile::encodeName(path);
+    const char* encodedPath = p.constData();
+
+    #if defined(Q_OS_LINUX)
+    const ssize_t size = listxattr(encodedPath, nullptr, 0);
+    #elif defined(Q_OS_MAC)
+    const ssize_t size = listxattr(encodedPath, nullptr, 0, 0);
+    #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+    const ssize_t size = extattr_list_file(encodedPath, EXTATTR_NAMESPACE_USER, nullptr, 0);
+    #endif
+
+    if (size == 0) {
+        return UserMetaData::Attribute::None;
+    }
+
+    if (size == -1 && errno == ENOTSUP) {
+        return UserMetaData::Attribute::None;
+    }
+
+    if (size == -1 && errno == E2BIG) {
+        return UserMetaData::Attribute::All;
+    }
+
+    if (size > 0 && attributes == UserMetaData::Attribute::Any) {
+        return UserMetaData::Attribute::All;
+    }
+
+    QByteArray data(size, Qt::Uninitialized);
+
+    while (true) {
+    #if defined(Q_OS_LINUX)
+        const ssize_t r = listxattr(encodedPath, data.data(), data.size());
+    #elif defined(Q_OS_MAC)
+        const ssize_t r = listxattr(encodedPath, data.data(), data.size(), 0);
+    #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+        const ssize_t r = extattr_list_file(encodedPath, EXTATTR_NAMESPACE_USER, data.data(), data.size());
+    #endif
+
+        if (r == 0) {
+            return UserMetaData::Attribute::None;
+        }
+
+        if (r < 0 && errno != ERANGE) {
+            return UserMetaData::Attribute::None;
+        }
+
+        if (r > 0) {
+            data.resize(r);
+            break;
+        } else {
+            data.resize(data.size() * 2);
+        }
+    }
+
+    UserMetaData::Attributes fileAttributes = UserMetaData::Attribute::None;
+    QByteArray prefix = QByteArray::fromRawData("user.", 5);
+    #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+    const auto entries = _split_length_value(data);
+    #else
+    const auto entries = data.split('\0');
+    #endif
+    for (const auto entry : entries) {
+        if (!entry.startsWith(prefix)) {
+            continue;
+        }
+        fileAttributes |= _mapAttribute(entry);
+        fileAttributes &= attributes;
+
+        if (fileAttributes == attributes) {
+            break;
+        }
+    }
+
+    return fileAttributes;
+}
+
 #elif  defined(Q_OS_WIN)
 
 inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
@@ -278,6 +405,20 @@ inline bool k_isSupported(const QString& path)
     return ((dwVolFlags & FILE_NAMED_STREAMS) && _wcsicmp(szFSName, L"NTFS") == 0);
 }
 
+KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
+    KFileMetaData::UserMetaData::Attributes attributes)
+{
+    if (!k_isSupported(path)) {
+        return UserMetaData::Attribute::None;
+    }
+
+    // TODO - this is mostly a stub, streams should be enumerated, see k_hasAttribute above
+    if (attributes == UserMetaData::Attribute::Any) {
+        return UserMetaData::Attribute::All;
+    }
+    return attributes;
+}
+
 #else
 inline ssize_t k_getxattr(const QString&, const QString&, QString*)
 {
@@ -303,6 +444,13 @@ inline bool k_isSupported(const QString&)
 {
     return false;
 }
+
+KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString&,
+    KFileMetaData::UserMetaData::Attributes attributes)
+{
+    return UserMetaData::Attribute::None;
+}
+
 #endif
 
 #endif // KFILEMETADATA_XATTR_P_H

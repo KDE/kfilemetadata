@@ -22,6 +22,7 @@
 #define KFILEMETADATA_USERMETADATA_H
 
 #include "kfilemetadata_export.h"
+#include <QFlags>
 #include <QStringList>
 #include <QUrl>
 
@@ -39,6 +40,22 @@ public:
     enum Error {
         NoError = 0
     };
+
+    enum Attribute : uint32_t {
+        None                 = 0x0,
+        Any                  = None,
+        Tags                 = 0x1,
+        Rating               = 0x2,
+        Comment              = 0x4,
+        OriginUrl            = 0x8,
+        OriginEmailSubject   = 0x10,
+        OriginEmailSender    = 0x20,
+        OriginEmailMessageId = 0x40,
+        Other                = 0xffffff80,
+        All                  = 0xffffffff,
+    };
+    Q_DECLARE_FLAGS(Attributes, Attribute)
+
     const UserMetaData& operator =(const UserMetaData& rhs);
 
     QString filePath() const;
@@ -68,11 +85,28 @@ public:
     QString attribute(const QString& name);
     Error setAttribute(const QString& name, const QString& value);
     bool hasAttribute(const QString& name);
+
+    /**
+      * Query list of available attributes
+      *
+      * Checks for the availability of the given \p attributes. May return
+      * a superset of the input value when the file has attributes set
+      * beyond the requested ones.
+      *
+      * If the input attribute mask is Attribute::Any, either Attribute::None
+      * (the file has no user attributes) or Attribute::All (the file has at
+      * least one attribute set) is returned.
+      *
+      * \since 5.60
+      */
+    Attributes queryAttributes(Attributes attributes = Attribute::Any) const;
+
 private:
     class Private;
     Private *d;
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(UserMetaData::Attributes)
 }
 
 #endif // KFILEMETADATA_USERMETADATA_H

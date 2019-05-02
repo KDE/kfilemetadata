@@ -215,3 +215,8 @@ bool UserMetaData::isSupported() const
 {
     return k_isSupported(d->filePath);
 }
+
+UserMetaData::Attributes UserMetaData::queryAttributes(UserMetaData::Attributes attributes) const
+{
+    return k_queryAttributes(d->filePath, attributes);
+}
