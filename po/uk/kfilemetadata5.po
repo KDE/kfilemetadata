@@ -1,0 +1,783 @@
+# Translation of kfilemetadata5.po to Ukrainian
+# Copyright (C) 2018-2019 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2014, 2015, 2016, 2017, 2018, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: kfilemetadata5\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2019-04-17 03:14+0200\n"
+"PO-Revision-Date: 2019-03-03 08:25+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 19.03.70\n"
+
+#: src/formatstrings.cpp:67
+#, kde-format
+msgctxt "@label bitrate (per second)"
+msgid "%1/s"
+msgstr "%1/с"
+
+#: src/formatstrings.cpp:81
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Unchanged"
+msgstr "Без змін"
+
+#: src/formatstrings.cpp:82
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Horizontally flipped"
+msgstr "Перевернути горизонтально"
+
+#: src/formatstrings.cpp:83
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "180° rotated"
+msgstr "Повернути на 180°"
+
+#: src/formatstrings.cpp:84
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Vertically flipped"
+msgstr "Перевернути вертикально"
+
+#: src/formatstrings.cpp:85
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Transposed"
+msgstr "Обернути навколо діагоналі"
+
+#: src/formatstrings.cpp:86
+#, kde-format
+msgctxt "Description of image orientation, counter clock-wise rotated"
+msgid "90° rotated CCW "
+msgstr "Обернуте на 90° проти год. стрілки"
+
+#: src/formatstrings.cpp:87
+#, kde-format
+msgctxt "Description of image orientation"
+msgid "Transversed"
+msgstr "Обернути навколо бічної діагоналі"
+
+#: src/formatstrings.cpp:88
+#, kde-format
+msgctxt "Description of image orientation, counter clock-wise rotated"
+msgid "270° rotated CCW"
+msgstr "Обернуте на 270° проти год. стрілки"
+
+#: src/formatstrings.cpp:99
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No flash"
+msgstr "Без спалаху"
+
+#: src/formatstrings.cpp:100
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Fired"
+msgstr "Використано"
+
+#: src/formatstrings.cpp:101
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Fired, return light not detected"
+msgstr "Спрацював, не виявлено відбите світло"
+
+#: src/formatstrings.cpp:102
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Fired, return light detected"
+msgstr "Спрацював, виявлено відбите світло"
+
+#: src/formatstrings.cpp:103
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, did not fire"
+msgstr "Так, не спрацював"
+
+#: src/formatstrings.cpp:104
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory"
+msgstr "Так, примусовий"
+
+#: src/formatstrings.cpp:105
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, return light not detected"
+msgstr "Так, примусовий, не виявлено відбите світло"
+
+#: src/formatstrings.cpp:106
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, return light detected"
+msgstr "Так, примусовий, виявлено відбите світло"
+
+#: src/formatstrings.cpp:107
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, compulsory"
+msgstr "Ні, примусовий"
+
+#: src/formatstrings.cpp:108
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, did not fire, return light not detected"
+msgstr "Ні, не спрацював, не виявлено відбите світло"
+
+#: src/formatstrings.cpp:109
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, auto"
+msgstr "Ні, автоматично"
+
+#: src/formatstrings.cpp:110
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto"
+msgstr "Так, автоматично"
+
+#: src/formatstrings.cpp:111
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, return light not detected"
+msgstr "Так, авто, не виявлено відбите світло"
+
+#: src/formatstrings.cpp:112
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, return light detected"
+msgstr "Так, авто, виявлено відбите світло"
+
+#: src/formatstrings.cpp:113
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No flash function"
+msgstr "Без функції спалаху"
+
+#: src/formatstrings.cpp:114
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, no flash function"
+msgstr "Ні, без функції спалаху"
+
+#: src/formatstrings.cpp:115
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, red-eye reduction"
+msgstr "Так, придушення ефекту «червоних очей»"
+
+#: src/formatstrings.cpp:116
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, red-eye reduction, return light not detected"
+msgstr "Так, придушення «червоних очей», не виявлено відбите світло"
+
+#: src/formatstrings.cpp:117
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, red-eye reduction, return light detected"
+msgstr "Так, придушення «червоних очей», виявлено відбите світло"
+
+#: src/formatstrings.cpp:118
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, red-eye reduction"
+msgstr "Так, примусовий, придушення «червоних очей»"
+
+#: src/formatstrings.cpp:119
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, red-eye reduction, return light not detected"
+msgstr ""
+"Так, примусовий, придушення «червоних очей», не виявлено відбите світло"
+
+#: src/formatstrings.cpp:120
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, compulsory, red-eye reduction, return light detected"
+msgstr "Так, примусовий, придушення «червоних очей», виявлено відбите світло"
+
+#: src/formatstrings.cpp:121
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, red-eye reduction"
+msgstr "Ні, придушення ефекту «червоних очей»"
+
+#: src/formatstrings.cpp:122
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "No, auto, red-eye reduction"
+msgstr "Ні, авто, зменшення червоності очей"
+
+#: src/formatstrings.cpp:123
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, red-eye reduction"
+msgstr "Так, авто, зменшення червоності очей"
+
+#: src/formatstrings.cpp:124
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, red-eye reduction, return light not detected"
+msgstr "Так, авто, придушення «червоних очей», не виявлено відбите світло"
+
+#: src/formatstrings.cpp:125
+#, kde-format
+msgctxt "Description of photo flash"
+msgid "Yes, auto, red-eye reduction, return light detected"
+msgstr "Так, авто, придушення «червоних очей», виявлено відбите світло"
+
+#: src/formatstrings.cpp:130
+#, kde-format
+msgid "Unknown"
+msgstr "Невідомо"
+
+#: src/formatstrings.cpp:137
+#, kde-format
+msgctxt "Symbol of degree, no space"
+msgid "%1°"
+msgstr "%1°"
+
+#: src/formatstrings.cpp:148
+#, kde-format
+msgctxt "Symbol of frames per second, with space"
+msgid "%1 fps"
+msgstr "%1 кд/с"
+
+#: src/formatstrings.cpp:153
+#, kde-format
+msgctxt "Aspect ratio, normalized to one"
+msgid "%1:1"
+msgstr "%1:1"
+
+#: src/propertyinfo.cpp:62
+#, kde-format
+msgctxt "@label music album"
+msgid "Album"
+msgstr "Альбом"
+
+#: src/propertyinfo.cpp:68
+#, kde-format
+msgctxt "@label"
+msgid "Album Artist"
+msgstr "Виконавець альбому"
+
+#: src/propertyinfo.cpp:74
+#, kde-format
+msgctxt "@label"
+msgid "Artist"
+msgstr "Виконавець"
+
+#: src/propertyinfo.cpp:80
+#, kde-format
+msgctxt "@label"
+msgid "Aspect Ratio"
+msgstr "Співвідношення розмірів"
+
+#: src/propertyinfo.cpp:87
+#, kde-format
+msgctxt "@label"
+msgid "Author"
+msgstr "Автор"
+
+#: src/propertyinfo.cpp:93
+#, kde-format
+msgctxt "@label"
+msgid "Bitrate"
+msgstr "Бітова швидкість"
+
+#: src/propertyinfo.cpp:100
+#, kde-format
+msgctxt "@label"
+msgid "Channels"
+msgstr "Канали"
+
+#: src/propertyinfo.cpp:106
+#, kde-format
+msgctxt "@label"
+msgid "Comment"
+msgstr "Коментар"
+
+#: src/propertyinfo.cpp:113
+#, kde-format
+msgctxt "@label"
+msgid "Description"
+msgstr "Опис"
+
+#: src/propertyinfo.cpp:120
+#, kde-format
+msgctxt "@label"
+msgid "Composer"
+msgstr "Композитор"
+
+#: src/propertyinfo.cpp:126
+#, kde-format
+msgctxt "@label"
+msgid "Copyright"
+msgstr "Авторські права"
+
+#: src/propertyinfo.cpp:133
+#, kde-format
+msgctxt "@label"
+msgid "Creation Date"
+msgstr "Дата створення"
+
+#: src/propertyinfo.cpp:140
+#, kde-format
+msgctxt "@label"
+msgid "Duration"
+msgstr "Тривалість"
+
+#: src/propertyinfo.cpp:152
+#, kde-format
+msgctxt "@label"
+msgid "Frame Rate"
+msgstr "Частота кадрів"
+
+#: src/propertyinfo.cpp:159
+#, kde-format
+msgctxt "@label"
+msgid "Document Generated By"
+msgstr "Документ створено за допомогою"
+
+#: src/propertyinfo.cpp:166
+#, kde-format
+msgctxt "@label music genre"
+msgid "Genre"
+msgstr "Жанр"
+
+#: src/propertyinfo.cpp:172
+#, kde-format
+msgctxt "@label"
+msgid "Height"
+msgstr "Висота"
+
+#: src/propertyinfo.cpp:178
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Date Time"
+msgstr "Дата і час зйомки"
+
+#: src/propertyinfo.cpp:185
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Make"
+msgstr "Виробник засобу створення зображення"
+
+#: src/propertyinfo.cpp:192
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Model"
+msgstr "Модель засобу створення зображення"
+
+#: src/propertyinfo.cpp:199
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Image Orientation"
+msgstr "Орієнтація зображення"
+
+#: src/propertyinfo.cpp:206
+#, kde-format
+msgctxt "@label"
+msgid "Keywords"
+msgstr "Ключові слова"
+
+#: src/propertyinfo.cpp:213
+#, kde-format
+msgctxt "@label"
+msgid "Language"
+msgstr "Мова"
+
+#: src/propertyinfo.cpp:220
+#, kde-format
+msgctxt "@label number of lines"
+msgid "Line Count"
+msgstr "Кількість рядків"
+
+#: src/propertyinfo.cpp:226
+#, kde-format
+msgctxt "@label"
+msgid "Lyricist"
+msgstr "Автор тексту"
+
+#: src/propertyinfo.cpp:232
+#, kde-format
+msgctxt "@label"
+msgid "Page Count"
+msgstr "Кількість сторінок"
+
+#: src/propertyinfo.cpp:238
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Aperture Value"
+msgstr "Значення розміру діафрагми"
+
+#: src/propertyinfo.cpp:244
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Original Date Time"
+msgstr "Дата і час створення оригіналу фотографії"
+
+#: src/propertyinfo.cpp:251
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Bias"
+msgstr "Ухил експозиції фотографії"
+
+#: src/propertyinfo.cpp:257
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Exposure Time"
+msgstr "Час експонування фотографії"
+
+#: src/propertyinfo.cpp:263
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Flash"
+msgstr "Фотоспалах"
+
+#: src/propertyinfo.cpp:270
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo F Number"
+msgstr "Діафрагмове число фотографії"
+
+#: src/propertyinfo.cpp:276
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length"
+msgstr "Фокусна відстань фотографії"
+
+#: src/propertyinfo.cpp:282
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Focal Length 35mm"
+msgstr "Фокусна відстань 35 мм"
+
+#: src/propertyinfo.cpp:288
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Latitude"
+msgstr "Широта фотографії за GPS"
+
+#: src/propertyinfo.cpp:295
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Longitude"
+msgstr "Довгота фотографії за GPS"
+
+#: src/propertyinfo.cpp:302
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo GPS Altitude"
+msgstr "Висота фотографії за GPS"
+
+#: src/propertyinfo.cpp:309
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo ISO Speed Rating"
+msgstr "Рейтинг швидкості ISO фотографії"
+
+#: src/propertyinfo.cpp:315
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Metering Mode"
+msgstr "Режим вимірювання фотографії"
+
+#: src/propertyinfo.cpp:321
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo X Dimension"
+msgstr "Розмірність фотографії за X"
+
+#: src/propertyinfo.cpp:327
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Y Dimension"
+msgstr "Розмірність фотографії за Y"
+
+#: src/propertyinfo.cpp:333
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Saturation"
+msgstr "Насиченість фотографії"
+
+#: src/propertyinfo.cpp:339
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo Sharpness"
+msgstr "Різкість фотографії"
+
+#: src/propertyinfo.cpp:345
+#, kde-format
+msgctxt "@label EXIF"
+msgid "Photo White Balance"
+msgstr "Баланс білого фотографії"
+
+#: src/propertyinfo.cpp:351
+#, kde-format
+msgctxt "@label"
+msgid "Publisher"
+msgstr "Видавець"
+
+#: src/propertyinfo.cpp:357
+#, kde-format
+msgctxt "@label"
+msgid "Label"
+msgstr "Лейбл"
+
+#: src/propertyinfo.cpp:363
+#, kde-format
+msgctxt "@label"
+msgid "Release Year"
+msgstr "Рік випуску"
+
+#: src/propertyinfo.cpp:369
+#, kde-format
+msgctxt "@label"
+msgid "Sample Rate"
+msgstr "Частота дискретизації"
+
+#: src/propertyinfo.cpp:376
+#, kde-format
+msgctxt "@label"
+msgid "Subject"
+msgstr "Тема"
+
+#: src/propertyinfo.cpp:383
+#, kde-format
+msgctxt "@label"
+msgid "Title"
+msgstr "Заголовок"
+
+#: src/propertyinfo.cpp:389
+#, kde-format
+msgctxt "@label music track number"
+msgid "Track Number"
+msgstr "Номер композиції"
+
+#: src/propertyinfo.cpp:395
+#, kde-format
+msgctxt "@label music disc number"
+msgid "Disc Number"
+msgstr "Номер диска"
+
+#: src/propertyinfo.cpp:401
+#, kde-format
+msgctxt "@label"
+msgid "Location"
+msgstr "Місце"
+
+#: src/propertyinfo.cpp:407
+#, kde-format
+msgctxt "@label"
+msgid "Performer"
+msgstr "Виконавець"
+
+#: src/propertyinfo.cpp:413
+#, kde-format
+msgctxt "@label"
+msgid "Ensemble"
+msgstr "Ансамбль"
+
+#: src/propertyinfo.cpp:419
+#, kde-format
+msgctxt "@label"
+msgid "Arranger"
+msgstr "Аранжувальник"
+
+#: src/propertyinfo.cpp:425
+#, kde-format
+msgctxt "@label"
+msgid "Conductor"
+msgstr "Диригент"
+
+#: src/propertyinfo.cpp:431
+#, kde-format
+msgctxt "@label"
+msgid "Compilation"
+msgstr "Компіляція"
+
+#: src/propertyinfo.cpp:437
+#, kde-format
+msgctxt "@label"
+msgid "License"
+msgstr "Ліцензування"
+
+#: src/propertyinfo.cpp:443
+#, kde-format
+msgctxt "@label"
+msgid "Lyrics"
+msgstr "Текст пісні"
+
+#: src/propertyinfo.cpp:449
+#, kde-format
+msgctxt "@label"
+msgid "Opus"
+msgstr "Опус"
+
+#: src/propertyinfo.cpp:455
+#, kde-format
+msgctxt "@label"
+msgid "Rating"
+msgstr "Оцінка"
+
+#: src/propertyinfo.cpp:461
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Album Peak"
+msgstr "Пікова гучність альбому при вирівнюванні гучності"
+
+#: src/propertyinfo.cpp:467
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Album Gain"
+msgstr "Збільшення гучності альбому при вирівнюванні гучності"
+
+#: src/propertyinfo.cpp:473
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Track Peak"
+msgstr "Пікова гучність композиції при вирівнюванні гучності"
+
+#: src/propertyinfo.cpp:479
+#, kde-format
+msgctxt "@label"
+msgid "Replay Gain Track Gain"
+msgstr "Збільшення гучності композиції при вирівнюванні гучності"
+
+#: src/propertyinfo.cpp:485
+#, kde-format
+msgctxt "@label"
+msgid "Width"
+msgstr "Ширина"
+
+#: src/propertyinfo.cpp:491
+#, kde-format
+msgctxt "@label number of words"
+msgid "Word Count"
+msgstr "Кількість слів"
+
+#: src/propertyinfo.cpp:498
+#, kde-format
+msgctxt "@label number of translatable strings"
+msgid "Translatable Units"
+msgstr "Придатні до перекладу модулі"
+
+#: src/propertyinfo.cpp:505
+#, kde-format
+msgctxt "@label number of translated strings"
+msgid "Translations"
+msgstr "Переклади"
+
+#: src/propertyinfo.cpp:513
+#, kde-format
+msgctxt "@label number of fuzzy translated strings"
+msgid "Draft Translations"
+msgstr "Чернетки перекладів"
+
+#: src/propertyinfo.cpp:520
+#, kde-format
+msgctxt "@label translation author"
+msgid "Author"
+msgstr "Автор"
+
+#: src/propertyinfo.cpp:527
+#, kde-format
+msgctxt "@label translations last update"
+msgid "Last Update"
+msgstr "Останнє оновлення"
+
+#: src/propertyinfo.cpp:535
+#, kde-format
+msgctxt "@label date of template creation8"
+msgid "Template Creation"
+msgstr "Час створення шаблона"
+
+#: src/propertyinfo.cpp:543
+#, kde-format
+msgctxt "@label the URL a file was originally downloaded from"
+msgid "Downloaded From"
+msgstr "Отримано з"
+
+#: src/propertyinfo.cpp:550
+#, kde-format
+msgctxt "@label the subject of an email this file was attached to"
+msgid "E-Mail Attachment Subject"
+msgstr "Тема долучення електронної пошти"
+
+#: src/propertyinfo.cpp:557
+#, kde-format
+msgctxt "@label the sender of an email this file was attached to"
+msgid "E-Mail Attachment Sender"
+msgstr "Відправник долучення електронної пошти"
+
+#: src/propertyinfo.cpp:564
+#, kde-format
+msgctxt "@label the message ID of an email this file was attached to"
+msgid "E-Mail Attachment Message ID"
+msgstr "Ідентифікатор повідомлення долучення електронної пошти"
+
+#: src/typeinfo.cpp:48
+#, kde-format
+msgctxt "@label"
+msgid "Archive"
+msgstr "Архів"
+
+#: src/typeinfo.cpp:53
+#, kde-format
+msgctxt "@label"
+msgid "Audio"
+msgstr "Звук"
+
+#: src/typeinfo.cpp:58
+#, kde-format
+msgctxt "@label"
+msgid "Document"
+msgstr "Документ"
+
+#: src/typeinfo.cpp:63
+#, kde-format
+msgctxt "@label"
+msgid "Image"
+msgstr "Зображення"
+
+#: src/typeinfo.cpp:68
+#, kde-format
+msgctxt "@label"
+msgid "Presentation"
+msgstr "Презентація"
+
+#: src/typeinfo.cpp:73
+#, kde-format
+msgctxt "@label"
+msgid "Spreadsheet"
+msgstr "Електронні таблиці"
+
+#: src/typeinfo.cpp:78
+#, kde-format
+msgctxt "@label"
+msgid "Text"
+msgstr "Текст"
+
+#: src/typeinfo.cpp:83
+#, kde-format
+msgctxt "@label"
+msgid "Video"
+msgstr "Відео"
+
+#: src/typeinfo.cpp:88
+#, kde-format
+msgctxt "@label"
+msgid "Folder"
+msgstr "Тека"
