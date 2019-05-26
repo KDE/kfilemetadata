@@ -26,7 +26,12 @@
 
 using namespace KFileMetaData;
 
-int significantDigits(int value)
+/*
+ * Calculates and returns the number of digits after the
+ * comma to always show three significant digits for use
+ * with KFormat::formatValue.
+ */
+int threeSignificantDigits(int value)
 {
     if (value == 0) {
         return 0;
@@ -65,13 +70,13 @@ QString FormatStrings::formatBitRate(const QVariant& value)
 {
     KFormat form;
     return i18nc("@label bitrate (per second)", "%1/s", form.formatValue(value.toInt(),
-         KFormat::Unit::Bit, significantDigits(value.toInt()), KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect));
+         KFormat::Unit::Bit, threeSignificantDigits(value.toInt()), KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect));
 }
 
 QString FormatStrings::formatSampleRate(const QVariant& value)
 {
     KFormat form;
-    return form.formatValue(value.toInt(), KFormat::Unit::Hertz, significantDigits(value.toInt()), KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect);
+    return form.formatValue(value.toInt(), KFormat::Unit::Hertz, threeSignificantDigits(value.toInt()), KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect);
 }
 
 QString FormatStrings::formatOrientationValue(const QVariant& value)
