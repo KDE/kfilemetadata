@@ -45,6 +45,11 @@ QString FormatStrings::toStringFunction(const QVariant& value)
     return value.toString();
 }
 
+QString FormatStrings::formatDouble(const QVariant& value)
+{
+    return QLocale().toString(value.toDouble(),'g',3);
+}
+
 QString FormatStrings::formatDate(const QVariant& value)
 {
     KFormat form;

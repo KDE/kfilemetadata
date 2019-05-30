@@ -237,6 +237,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoApertureValue");
             d->displayName = i18nc("@label EXIF", "Photo Aperture Value");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::PhotoDateTimeOriginal:
@@ -250,12 +251,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoExposureBiasValue");
             d->displayName = i18nc("@label EXIF", "Photo Exposure Bias");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::PhotoExposureTime:
             d->name = QStringLiteral("photoExposureTime");
             d->displayName = i18nc("@label EXIF", "Photo Exposure Time");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::PhotoFlash:
@@ -275,12 +278,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoFocalLength");
             d->displayName = i18nc("@label EXIF", "Photo Focal Length");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::PhotoFocalLengthIn35mmFilm:
             d->name = QStringLiteral("photoFocalLengthIn35mmFilm");
             d->displayName = i18nc("@label EXIF", "Photo Focal Length 35mm");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::PhotoGpsLatitude:
@@ -460,24 +465,28 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("replayGainAlbumPeak");
             d->displayName = i18nc("@label", "Replay Gain Album Peak");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainAlbumGain:
             d->name = QStringLiteral("replayGainAlbumGain");
             d->displayName = i18nc("@label", "Replay Gain Album Gain");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainTrackPeak:
             d->name = QStringLiteral("replayGainTrackPeak");
             d->displayName = i18nc("@label", "Replay Gain Track Peak");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainTrackGain:
             d->name = QStringLiteral("replayGainTrackGain");
             d->displayName = i18nc("@label", "Replay Gain Track Gain");
             d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::Width:

@@ -31,6 +31,8 @@ class Q_DECL_HIDDEN FormatStrings
 public:
     static QString toStringFunction(const QVariant& value);
 
+    static QString formatDouble(const QVariant& value);
+
     static QString formatDate(const QVariant& value);
 
     static QString formatDuration(const QVariant& value);
