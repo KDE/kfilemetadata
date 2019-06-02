@@ -162,3 +162,8 @@ QString FormatStrings::formatAspectRatio(const QVariant& value)
 {
     return i18nc("Aspect ratio, normalized to one", "%1:1", QLocale().toString(round(value.toDouble() * 100) / 100));
 }
+
+QString FormatStrings::formatAsFNumber(const QVariant& value)
+{
+    return i18nc("F number for photographs", "f/%1", QLocale().toString(value.toDouble(), 'g', 2));
+}

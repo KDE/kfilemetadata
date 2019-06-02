@@ -237,7 +237,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoApertureValue");
             d->displayName = i18nc("@label EXIF", "Photo Aperture Value");
             d->valueType = QVariant::Double;
-            d->formatAsString = &FormatStrings::formatDouble;
+            d->formatAsString = &FormatStrings::formatAsFNumber;
             break;
 
         case Property::PhotoDateTimeOriginal:
@@ -271,7 +271,8 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::PhotoFNumber:
             d->name = QStringLiteral("photoFNumber");
             d->displayName = i18nc("@label EXIF", "Photo F Number");
-            d->valueType = QVariant::Int;
+            d->valueType = QVariant::Double;
+            d->formatAsString = &FormatStrings::formatAsFNumber;
             break;
 
         case Property::PhotoFocalLength:

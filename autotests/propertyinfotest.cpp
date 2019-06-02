@@ -132,6 +132,8 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
         { Property::PhotoGpsLongitude,      true,  13.5,                    QStringLiteral("13.5") + QChar(0x00B0)},
         { Property::PhotoExposureTime,      true,  0.0015625,               QStringLiteral("0.00156")},
         { Property::PhotoExposureBiasValue, true,  0.3333333,               QStringLiteral("0.333")},
+        { Property::PhotoFNumber,           true,  4.0,                     QStringLiteral("f/4")},
+        { Property::PhotoFNumber,           true,  2.8,                     QStringLiteral("f/2.8")},
         { Property::ReplayGainAlbumGain,    true,  -9.90,                   QStringLiteral("-9.9")},
         { Property::ReplayGainAlbumPeak,    true,  1.512,                   QStringLiteral("1.51")},
         { Property::ReplayGainAlbumGain,    true,  10.44,                   QStringLiteral("10.4")},

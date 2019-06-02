@@ -53,6 +53,8 @@ public:
 
     static QString formatAspectRatio(const QVariant& value);
 
+    static QString formatAsFNumber(const QVariant& value);
+
 };
 
 }
