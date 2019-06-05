@@ -130,8 +130,9 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
         // make VisualStudio compiler happy: QChar(0x00B0) = "°"
         { Property::PhotoGpsLatitude,       true,  25,                      QStringLiteral("25") + QChar(0x00B0)},
         { Property::PhotoGpsLongitude,      true,  13.5,                    QStringLiteral("13.5") + QChar(0x00B0)},
-        { Property::PhotoExposureTime,      true,  0.0015625,               QStringLiteral("0.00156")},
-        { Property::PhotoExposureBiasValue, true,  0.3333333,               QStringLiteral("0.333")},
+        { Property::PhotoExposureTime,      true,  0.0015625,               QStringLiteral("1/640 s")},
+        { Property::PhotoExposureTime,      true,  0.5,                     QStringLiteral("0.5 s")},
+        { Property::PhotoExposureTime,      true,  0.15,                    QStringLiteral("0.15 s")},
         { Property::PhotoFNumber,           true,  4.0,                     QStringLiteral("f/4")},
         { Property::PhotoFNumber,           true,  2.8,                     QStringLiteral("f/2.8")},
         { Property::ReplayGainAlbumGain,    true,  -9.90,                   QStringLiteral("-9.9")},

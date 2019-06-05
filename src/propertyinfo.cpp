@@ -258,7 +258,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoExposureTime");
             d->displayName = i18nc("@label EXIF", "Photo Exposure Time");
             d->valueType = QVariant::Double;
-            d->formatAsString = &FormatStrings::formatDouble;
+            d->formatAsString = &FormatStrings::formatPhotoTime;
             break;
 
         case Property::PhotoFlash:

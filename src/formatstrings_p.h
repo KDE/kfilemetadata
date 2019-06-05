@@ -51,6 +51,8 @@ public:
 
     static QString formatAsFrameRate(const QVariant& value);
 
+    static QString formatPhotoTime(const QVariant& value);
+
     static QString formatAspectRatio(const QVariant& value);
 
     static QString formatAsFNumber(const QVariant& value);

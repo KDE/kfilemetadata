@@ -158,6 +158,19 @@ QString FormatStrings::formatAsFrameRate(const QVariant& value)
     return i18nc("Symbol of frames per second, with space", "%1 fps", QLocale().toString(round(value.toDouble() * 100) / 100));
 }
 
+QString FormatStrings::formatPhotoTime(const QVariant& value)
+{
+    auto val = value.toDouble();
+    if (val < 0.3 && !qFuzzyIsNull(val)) {
+        auto reciprocal = 1.0/val;
+        auto roundedReciprocal = round(reciprocal);
+        if (abs(reciprocal - roundedReciprocal) < 1e-3) {
+            return i18nc("Time period given in seconds as rational number, denominator is given", "1/%1 s", roundedReciprocal);
+        }
+    }
+    return i18nc("Time period given in seconds", "%1 s", QLocale().toString(value.toDouble(), 'g', 3));
+}
+
 QString FormatStrings::formatAspectRatio(const QVariant& value)
 {
     return i18nc("Aspect ratio, normalized to one", "%1:1", QLocale().toString(round(value.toDouble() * 100) / 100));
