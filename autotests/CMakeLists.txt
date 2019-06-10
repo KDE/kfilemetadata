@@ -220,7 +220,7 @@ endif()
 #
 # UserMetaData
 #
-if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+if(UNIX)
     kde_enable_exceptions()
     ecm_add_test(usermetadatawritertest.cpp ../src/usermetadata.cpp
         TEST_NAME "usermetadatawritertest"
