@@ -142,6 +142,8 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
         { Property::FrameRate,              true,  23,                      QStringLiteral("23 fps")},
         { Property::FrameRate,              true,  23.976,                  QStringLiteral("23.98 fps")},
         { Property::AspectRatio,            true,  1.77778,                 QStringLiteral("1.78:1")},
+        { Property::PhotoFocalLength,       true,  2.0,                     QStringLiteral("2 mm")},
+        { Property::PhotoFocalLength,       true,  2.4,                     QStringLiteral("2.4 mm")},
     };
 
     for (auto row : rows) {

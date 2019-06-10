@@ -279,14 +279,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoFocalLength");
             d->displayName = i18nc("@label EXIF", "Photo Focal Length");
             d->valueType = QVariant::Double;
-            d->formatAsString = &FormatStrings::formatDouble;
+            d->formatAsString = &FormatStrings::formatAsMilliMeter;
             break;
 
         case Property::PhotoFocalLengthIn35mmFilm:
             d->name = QStringLiteral("photoFocalLengthIn35mmFilm");
             d->displayName = i18nc("@label EXIF", "Photo Focal Length 35mm");
             d->valueType = QVariant::Double;
-            d->formatAsString = &FormatStrings::formatDouble;
+            d->formatAsString = &FormatStrings::formatAsMilliMeter;
             break;
 
         case Property::PhotoGpsLatitude:

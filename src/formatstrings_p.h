@@ -49,6 +49,8 @@ public:
 
     static QString formatAsMeter(const QVariant& value);
 
+    static QString formatAsMilliMeter(const QVariant& value);
+
     static QString formatAsFrameRate(const QVariant& value);
 
     static QString formatPhotoTime(const QVariant& value);

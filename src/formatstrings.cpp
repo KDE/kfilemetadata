@@ -153,6 +153,11 @@ QString FormatStrings::formatAsMeter(const QVariant& value)
     return form.formatValue(value.toDouble(), KFormat::Unit::Meter, 1, KFormat::UnitPrefix::AutoAdjust, KFormat::MetricBinaryDialect);
 }
 
+QString FormatStrings::formatAsMilliMeter(const QVariant& value)
+{
+    return i18nc("Focal length given in mm", "%1 mm", QLocale().toString(value.toDouble(), 'g', 3));
+}
+
 QString FormatStrings::formatAsFrameRate(const QVariant& value)
 {
     return i18nc("Symbol of frames per second, with space", "%1 fps", QLocale().toString(round(value.toDouble() * 100) / 100));
