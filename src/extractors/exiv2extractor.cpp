@@ -185,8 +185,8 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     const Exiv2::ExifData& data = image->exifData();
 
-    add(result, data, Property::ImageMake, "Exif.Image.Make", QVariant::String);
-    add(result, data, Property::ImageModel, "Exif.Image.Model", QVariant::String);
+    add(result, data, Property::Manufacturer, "Exif.Image.Make", QVariant::String);
+    add(result, data, Property::Model, "Exif.Image.Model", QVariant::String);
     add(result, data, Property::Description, "Exif.Image.ImageDescription", QVariant::String);
     add(result, data, Property::Artist, "Exif.Image.Artist", QVariant::String);
     add(result, data, Property::Copyright, "Exif.Image.Copyright", QVariant::String);

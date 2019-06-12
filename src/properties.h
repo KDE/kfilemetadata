@@ -221,9 +221,30 @@ enum Property {
      */
     FrameRate,
 
-    // Images
+    /**
+     * Same as @c EquipmentManufacturer.
+     * @deprecated Since 5.60, use @c Manufacturer instead
+     */
     ImageMake,
+    /**
+     * The manufacturer of the equipment used for generating the file
+     * and metadata. Typically maps to the 'Exif.Image.Make' tag.
+     * @since 5.60
+     */
+    Manufacturer = ImageMake,
+
+    /**
+     * Same as @c EquipmentModel.
+     * @deprecated Since 5.60, use @c Model instead
+     */
     ImageModel,
+    /**
+     * The model name of the equipment used for generating the file
+     * and metadata. Typically maps to the 'Exif.Image.Model' tag.
+     * @since 5.60
+     */
+    Model = ImageModel,
+
     ImageDateTime,
     ImageOrientation,
     PhotoFlash,

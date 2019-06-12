@@ -180,16 +180,16 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->formatAsString = &FormatStrings::formatDate;
             break;
 
-        case Property::ImageMake:
-            d->name = QStringLiteral("imageMake");
-            d->displayName = i18nc("@label EXIF", "Image Make");
+        case Property::Manufacturer:
+            d->name = QStringLiteral("Manufacturer");
+            d->displayName = i18nc("@label EXIF", "Manufacturer");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
-        case Property::ImageModel:
-            d->name = QStringLiteral("imageModel");
-            d->displayName = i18nc("@label EXIF", "Image Model");
+        case Property::Model:
+            d->name = QStringLiteral("Model");
+            d->displayName = i18nc("@label EXIF", "Model");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
@@ -703,8 +703,8 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("height"), Property::Height },
         { QStringLiteral("aspectratio"), Property::AspectRatio },
         { QStringLiteral("framerate"), Property::FrameRate },
-        { QStringLiteral("imagemake"), Property::ImageMake },
-        { QStringLiteral("imagemodel"), Property::ImageModel },
+        { QStringLiteral("manufacturer"), Property::Manufacturer },
+        { QStringLiteral("model"), Property::Model },
         { QStringLiteral("imagedatetime"), Property::ImageDateTime },
         { QStringLiteral("imageorientation"), Property::ImageOrientation },
         { QStringLiteral("photoflash"), Property::PhotoFlash },
