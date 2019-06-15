@@ -176,6 +176,39 @@ QString FormatStrings::formatPhotoTime(const QVariant& value)
     return i18nc("Time period given in seconds", "%1 s", QLocale().toString(value.toDouble(), 'g', 3));
 }
 
+QString FormatStrings::formatPhotoExposureBias(const QVariant& value)
+{
+    QLocale locale;
+    auto val = value.toDouble();
+    /*
+     * Exposure values are mostly in steps of one half or third.
+     * Try to construct a rational number from it.
+     * Output as double when it is not possible.
+     */
+    auto sixthParts = val * 6;
+    int roundedSixthParts = static_cast<int>(round(sixthParts));
+    int fractional = roundedSixthParts % 6;
+    if (fractional == 0 || abs(sixthParts - roundedSixthParts) > 1e-3) {
+        return i18nc("Exposure bias/compensation in exposure value (EV)", "%1 EV", locale.toString(val, 'g', 3));
+    }
+    int integral = roundedSixthParts / 6;
+    int nominator = fractional;
+    int denominator = 6;
+    if (nominator % 2 == 0) {
+        nominator = nominator / 2;
+        denominator = denominator / 2;
+    } else if (nominator % 3 == 0) {
+        nominator = nominator / 3;
+        denominator = denominator / 3;
+    }
+    if (integral != 0) {
+        return i18nc("Exposure compensation given as integral with fraction, in exposure value (EV)",
+                     "%1 %2/%3 EV", locale.toString(integral), locale.toString(abs(nominator)), locale.toString(denominator));
+    }
+    return i18nc("Exposure compensation given as rational, in exposure value (EV)",
+                 "%1/%2 EV",  locale.toString(nominator), locale.toString(denominator));
+}
+
 QString FormatStrings::formatAspectRatio(const QVariant& value)
 {
     return i18nc("Aspect ratio, normalized to one", "%1:1", QLocale().toString(round(value.toDouble() * 100) / 100));

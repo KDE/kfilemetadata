@@ -55,6 +55,8 @@ public:
 
     static QString formatPhotoTime(const QVariant& value);
 
+    static QString formatPhotoExposureBias(const QVariant& value);
+
     static QString formatAspectRatio(const QVariant& value);
 
     static QString formatAsFNumber(const QVariant& value);

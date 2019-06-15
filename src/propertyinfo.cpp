@@ -251,7 +251,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("photoExposureBiasValue");
             d->displayName = i18nc("@label EXIF", "Exposure Bias");
             d->valueType = QVariant::Double;
-            d->formatAsString = &FormatStrings::formatDouble;
+            d->formatAsString = &FormatStrings::formatPhotoExposureBias;
             break;
 
         case Property::PhotoExposureTime:
