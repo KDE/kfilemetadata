@@ -181,14 +181,14 @@ PropertyInfo::PropertyInfo(Property::Property property)
             break;
 
         case Property::Manufacturer:
-            d->name = QStringLiteral("Manufacturer");
+            d->name = QStringLiteral("manufacturer");
             d->displayName = i18nc("@label EXIF", "Manufacturer");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Model:
-            d->name = QStringLiteral("Model");
+            d->name = QStringLiteral("model");
             d->displayName = i18nc("@label EXIF", "Model");
             d->valueType = QVariant::String;
             d->shouldBeIndexed = false;
