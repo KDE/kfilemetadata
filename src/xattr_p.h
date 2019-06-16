@@ -408,6 +408,8 @@ inline bool k_isSupported(const QString& path)
 KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
     KFileMetaData::UserMetaData::Attributes attributes)
 {
+    using KFileMetaData::UserMetaData;
+
     if (!k_isSupported(path)) {
         return UserMetaData::Attribute::None;
     }
@@ -448,7 +450,7 @@ inline bool k_isSupported(const QString&)
 KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString&,
     KFileMetaData::UserMetaData::Attributes attributes)
 {
-    return UserMetaData::Attribute::None;
+    return KFileMetaData::UserMetaData::Attribute::None;
 }
 
 #endif
