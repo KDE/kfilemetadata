@@ -164,66 +164,57 @@ void TagLibExtractor::readGenericProperties(const TagLib::PropertyMap &savedProp
         result->add(Property::Lyrics, TStringToQString(savedProperties["LYRICS"].toString()).trimmed());
     }
     if (savedProperties.contains("ARTIST")) {
-        const auto artistString = TStringToQString(savedProperties["ARTIST"].toString(";")).trimmed();
-        const auto artists = contactsFromString(artistString);
+        const auto artists = savedProperties["ARTIST"];
         for (const auto& artist : artists) {
-            result->add(Property::Artist, artist);
+            result->add(Property::Artist, TStringToQString(artist).trimmed());
         }
     }
     if (savedProperties.contains("GENRE")) {
-        const auto genreString = TStringToQString(savedProperties["GENRE"].toString(";")).trimmed();
-        const auto genres = contactsFromString(genreString);
+        const auto genres = savedProperties["GENRE"];
         for (const auto& genre : genres) {
-            result->add(Property::Genre, genre);
+            result->add(Property::Genre, TStringToQString(genre).trimmed());
         }
     }
     if (savedProperties.contains("ALBUMARTIST")) {
-        const auto albumArtistsString = TStringToQString(savedProperties["ALBUMARTIST"].toString(";")).trimmed();
-        const auto albumArtists = contactsFromString(albumArtistsString);
-        for (const auto& res : albumArtists) {
-            result->add(Property::AlbumArtist, res);
+        const auto albumArtists = savedProperties["ALBUMARTIST"];
+        for (const auto& albumArtist : albumArtists) {
+            result->add(Property::AlbumArtist, TStringToQString(albumArtist).trimmed());
         }
     }
     if (savedProperties.contains("COMPOSER")) {
-        const auto composersString = TStringToQString(savedProperties["COMPOSER"].toString(";")).trimmed();
-        const auto composers = contactsFromString(composersString);
-        for (const auto& comp : composers) {
-            result->add(Property::Composer, comp);
+        const auto composers = savedProperties["COMPOSER"];
+        for (const auto& composer : composers) {
+            result->add(Property::Composer, TStringToQString(composer).trimmed());
         }
     }
     if (savedProperties.contains("LYRICIST")) {
-        const auto lyricistsString = TStringToQString(savedProperties["LYRICIST"].toString(";")).trimmed();
-        const auto lyricists = contactsFromString(lyricistsString);
-        for (const auto& lyr : lyricists) {
-            result->add(Property::Lyricist, lyr);
+        const auto lyricists = savedProperties["LYRICIST"];
+        for (const auto& lyricist : lyricists) {
+            result->add(Property::Lyricist, TStringToQString(lyricist).trimmed());
         }
     }
     if (savedProperties.contains("CONDUCTOR")) {
-        const auto conductorString = TStringToQString(savedProperties["CONDUCTOR"].toString(";")).trimmed();
-        const auto conductors = contactsFromString(conductorString);
-        for (const auto& con: conductors) {
-            result->add(Property::Conductor, con);
+        const auto conductors = savedProperties["CONDUCTOR"];
+        for (const auto& conductor : conductors) {
+            result->add(Property::Conductor, TStringToQString(conductor).trimmed());
         }
     }
     if (savedProperties.contains("ARRANGER")) {
-        const auto arrangerString = TStringToQString(savedProperties["ARRANGER"].toString(";")).trimmed();
-        const auto arrangers = contactsFromString(arrangerString);
-        for (const auto& arr: arrangers) {
-            result->add(Property::Arranger, arr);
+        const auto arrangers = savedProperties["ARRANGER"];
+        for (const auto& arranger : arrangers) {
+            result->add(Property::Arranger, TStringToQString(arranger).trimmed());
         }
     }
     if (savedProperties.contains("PERFORMER")) {
-        const auto performersString = TStringToQString(savedProperties["PERFORMER"].toString(";")).trimmed();
-        const auto performers = contactsFromString(performersString);
-        for (const auto& per: performers) {
-            result->add(Property::Performer, per);
+        const auto performers = savedProperties["PERFORMER"];
+        for (const auto& performer : performers) {
+            result->add(Property::Performer, TStringToQString(performer).trimmed());
         }
     }
     if (savedProperties.contains("AUTHOR")) {
-        const auto authorString = TStringToQString(savedProperties["AUTHOR"].toString(";")).trimmed();
-        const auto authors = contactsFromString(authorString);
-        for (const auto& aut: authors) {
-            result->add(Property::Author, aut);
+        const auto authors = savedProperties["AUTHOR"];
+        for (const auto& author: authors) {
+            result->add(Property::Author, TStringToQString(author).trimmed());
         }
     }
 
@@ -362,20 +353,14 @@ void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult
     lstASF = asfTags->attribute("Author");
     if (!lstASF.isEmpty()) {
         const auto attribute = lstASF.front();
-        const auto authors = contactsFromString(TStringToQString(attribute.toString()).trimmed());
-        for (const auto& aut: authors) {
-            result->add(Property::Author, aut);
-        }
+        result->add(Property::Author, TStringToQString(attribute.toString()).trimmed());
     }
 
     // Lyricist is called "WRITER" for wma/asf files
     lstASF = asfTags->attribute("WM/Writer");
     if (!lstASF.isEmpty()) {
         const auto attribute = lstASF.front();
-        const auto lyricists = contactsFromString(TStringToQString(attribute.toString()).trimmed());
-        for (const auto& lyr : lyricists) {
-            result->add(Property::Lyricist, lyr);
-        }
+        result->add(Property::Lyricist, TStringToQString(attribute.toString()).trimmed());
     }
 
     /*

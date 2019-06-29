@@ -33,6 +33,7 @@
 #include <QTest>
 #include <QDir>
 #include <QFile>
+#include <QMap>
 
 using namespace KFileMetaData;
 
@@ -538,6 +539,99 @@ void TagLibWriterTest::testRating_data()
         << QStringLiteral("wma")
         << QStringLiteral("audio/x-ms-wma")
         << 10
+        ;
+}
+
+void TagLibWriterTest::testComplexContactData()
+{
+    QFETCH(QString, fileExtension);
+    QFETCH(QString, mimeType);
+
+    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileExtension);
+
+    QFile::copy(testFilePath("test." + fileExtension), temporaryFileName);
+    TagLibWriter writerPlugin{this};
+
+    WriteData data(temporaryFileName, mimeType);
+
+    const QMap<Property::Property, QString> properties = {
+        { Property::Artist, QStringLiteral("Artist1 feat Artist2") },
+        { Property::AlbumArtist, QStringLiteral("Artist1 feat. Artist2") },
+        { Property::Composer, QStringLiteral("Composer1; Composer2") },
+        { Property::Lyricist, QStringLiteral("Lyricist1 ft Lyricist2") },
+        { Property::Genre, QStringLiteral("Genre1; Genre2") },
+    };
+
+    QMap<Property::Property, QString>::const_iterator it;
+    for (it = properties.begin(); it != properties.end(); ++it) {
+        data.add(it.key(), it.value());
+    }
+
+    writerPlugin.write(data);
+
+    KFileMetaData::SimpleExtractionResult result(temporaryFileName, mimeType, KFileMetaData::ExtractionResult::ExtractMetaData);
+    extractResult(mimeType, result);
+
+    for (it = properties.begin(); it != properties.end(); ++it) {
+         QCOMPARE(result.properties().value(it.key()), it.value());
+    }
+
+    QFile::remove(temporaryFileName);
+}
+
+void TagLibWriterTest::testComplexContactData_data()
+{
+    QTest::addColumn<QString>("fileExtension");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("aiff")
+        << QStringLiteral("aif")
+        << QStringLiteral("audio/x-aiff")
+        ;
+
+    QTest::addRow("ape")
+        << QStringLiteral("ape")
+        << QStringLiteral("audio/x-ape")
+        ;
+
+    QTest::addRow("flac")
+        << QStringLiteral("flac")
+        << QStringLiteral("audio/flac")
+        ;
+
+    QTest::addRow("mp3")
+        << QStringLiteral("mp3")
+        << QStringLiteral("audio/mpeg3")
+        ;
+
+    QTest::addRow("mpc")
+        << QStringLiteral("mpc")
+        << QStringLiteral("audio/x-musepack")
+        ;
+
+    QTest::addRow("ogg")
+        << QStringLiteral("ogg")
+        << QStringLiteral("audio/ogg")
+        ;
+
+    QTest::addRow("opus")
+        << QStringLiteral("opus")
+        << QStringLiteral("audio/opus")
+        ;
+
+    QTest::addRow("speex")
+        << QStringLiteral("spx")
+        << QStringLiteral("audio/speex")
+        ;
+
+    QTest::addRow("wav")
+        << QStringLiteral("wav")
+        << QStringLiteral("audio/wav")
+        ;
+
+    QTest::addRow("wavpack")
+        << QStringLiteral("wv")
+        << QStringLiteral("audio/x-wavpack")
         ;
 }
 
