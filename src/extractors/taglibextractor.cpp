@@ -19,6 +19,7 @@
 
 
 #include "taglibextractor.h"
+#include "kfilemetadata_debug.h"
 
 // Taglib includes
 #include <taglib.h>
@@ -43,9 +44,6 @@
 #include <id3v2tag.h>
 #include <mp4tag.h>
 #include <popularimeterframe.h>
-
-#include <QDateTime>
-#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -399,7 +397,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
     // Open the file readonly. Important if we're sandboxed.
     TagLib::FileStream stream(fileUrl.toUtf8().constData(), true);
     if (!stream.isOpen()) {
-        qWarning() << "Unable to open file readonly: " << fileUrl;
+        qCWarning(KFILEMETADATA_LOG) << "Unable to open file readonly: " << fileUrl;
         return;
     }
 

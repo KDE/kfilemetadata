@@ -1,5 +1,5 @@
 if(TAGLIB_FOUND)
-    add_library(kfilemetadata_taglibwriter MODULE taglibwriter.cpp)
+    add_library(kfilemetadata_taglibwriter MODULE taglibwriter.cpp ${debug_SRCS})
     target_include_directories(kfilemetadata_taglibwriter SYSTEM PRIVATE ${TAGLIB_INCLUDES})
 
     target_link_libraries( kfilemetadata_taglibwriter

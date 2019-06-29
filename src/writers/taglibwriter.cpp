@@ -19,6 +19,7 @@
  */
 
 #include "taglibwriter.h"
+#include "kfilemetadata_debug.h"
 
 #include <taglib.h>
 #include <tfilestream.h>
@@ -41,8 +42,6 @@
 #include <wavpackfile.h>
 #include <wavfile.h>
 #include <popularimeterframe.h>
-
-#include <QDebug>
 
 namespace {
 
@@ -224,7 +223,7 @@ void TagLibWriter::write(const WriteData& data)
 
     TagLib::FileStream stream(fileUrl.toUtf8().constData(), false);
     if (!stream.isOpen()) {
-        qWarning() << "Unable to open file in write mode: " << fileUrl;
+        qCWarning(KFILEMETADATA_LOG) << "Unable to open file in write mode: " << fileUrl;
         return;
     }
 

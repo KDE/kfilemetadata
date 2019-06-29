@@ -1,3 +1,5 @@
+ecm_qt_declare_logging_category(debug_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
+
 set(KF5FileMetaData_SRCS
     extractionresult.cpp
     simpleextractionresult.cpp
@@ -15,8 +17,9 @@ set(KF5FileMetaData_SRCS
     externalwriter.cpp
     formatstrings.cpp
     mimeutils.cpp
+    ${debug_SRCS}
     )
-ecm_qt_declare_logging_category(KF5FileMetaData_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
+
 
 if(TAGLIB_FOUND)
     set(KF5FileMetaData_SRCS

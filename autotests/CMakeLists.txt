@@ -133,7 +133,7 @@ endif()
 #
 if(TAGLIB_FOUND)
     kde_enable_exceptions()
-    ecm_add_test(taglibextractortest.cpp ../src/extractors/taglibextractor.cpp
+    ecm_add_test(taglibextractortest.cpp ../src/extractors/taglibextractor.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "taglibextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )
@@ -233,7 +233,7 @@ endif()
 #
 if(TAGLIB_FOUND)
     kde_enable_exceptions()
-    ecm_add_test(taglibwritertest.cpp ../src/writers/taglibwriter.cpp
+    ecm_add_test(taglibwritertest.cpp ../src/writers/taglibwriter.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "taglibwritertest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
     )

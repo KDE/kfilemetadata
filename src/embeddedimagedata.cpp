@@ -18,6 +18,7 @@
  */
 
 #include "embeddedimagedata.h"
+#include "kfilemetadata_debug.h"
 // Taglib includes
 #include <taglib.h>
 #include <tag.h>
@@ -44,7 +45,6 @@
 #include <asfpicture.h>
 
 #include <QMimeDatabase>
-#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -118,7 +118,7 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
 {
     TagLib::FileStream stream(fileUrl.toUtf8().constData(), true);
     if (!stream.isOpen()) {
-        qWarning() << "Unable to open file readonly: " << fileUrl;
+        qCWarning(KFILEMETADATA_LOG) << "Unable to open file readonly: " << fileUrl;
         return QByteArray();
     }
     if ((mimeType == QLatin1String("audio/mpeg"))

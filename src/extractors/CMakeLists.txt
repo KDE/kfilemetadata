@@ -16,7 +16,7 @@ if(Poppler_Qt5_FOUND)
 endif()
 
 if(TAGLIB_FOUND)
-    add_library(kfilemetadata_taglibextractor MODULE taglibextractor.cpp )
+    add_library(kfilemetadata_taglibextractor MODULE taglibextractor.cpp ${debug_SRCS})
     target_include_directories(kfilemetadata_taglibextractor SYSTEM PRIVATE ${TAGLIB_INCLUDES})
     target_link_libraries( kfilemetadata_taglibextractor
         KF5::FileMetaData
