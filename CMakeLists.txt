@@ -31,7 +31,7 @@ ecm_setup_version(PROJECT
                   SOVERSION 3)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 5.10.0)
+set(REQUIRED_QT_VERSION 5.11.0)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Gui)
 set_package_properties(Qt5Gui PROPERTIES DESCRIPTION "Qt 5: Gui component"
