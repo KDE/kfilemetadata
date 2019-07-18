@@ -27,6 +27,7 @@
 #include "extractors/taglibextractor.h"
 #include "mimeutils.h"
 
+#include <QSet>
 #include <QTest>
 
 using namespace KFileMetaData;
