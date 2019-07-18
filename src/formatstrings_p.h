@@ -22,7 +22,6 @@
 
 #include <QString>
 #include <QVariant>
-#include <KFormat>
 
 namespace KFileMetaData {
 

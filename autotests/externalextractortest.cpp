@@ -24,9 +24,7 @@
 #include "externalextractor.h"
 #include "config-kfilemetadata.h"
 
-#include <QDebug>
 #include <QTest>
-#include <QDir>
 #include <QTemporaryFile>
 
 using namespace KFileMetaData;

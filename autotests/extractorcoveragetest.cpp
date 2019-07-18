@@ -21,7 +21,6 @@
 
 #include <QObject>
 #include <QtTest>
-#include <QDebug>
 #include <QMimeDatabase>
 
 #include "mimeutils.h"

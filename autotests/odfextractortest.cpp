@@ -22,8 +22,6 @@
 #include "odfextractortest.h"
 
 #include <QTest>
-#include <QDir>
-#include <QDebug>
 
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"

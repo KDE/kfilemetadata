@@ -26,7 +26,6 @@
 #include <QString>
 #include <QDebug>
 #include <QFileInfo>
-#include <QDir>
 
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
 #include <sys/types.h>

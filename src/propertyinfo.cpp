@@ -26,6 +26,8 @@
 
 #include "formatstrings_p.h"
 
+#include <QLocale>
+
 using namespace KFileMetaData;
 
 class Q_DECL_HIDDEN PropertyInfo::Private

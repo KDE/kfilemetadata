@@ -39,7 +39,6 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 }
 
-#include <QDateTime>
 #include <QDebug>
 
 using namespace KFileMetaData;

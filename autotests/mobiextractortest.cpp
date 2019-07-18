@@ -23,9 +23,7 @@
 #include "indexerextractortestsconfig.h"
 #include "extractors/epubextractor.h"
 
-#include <QDebug>
 #include <QTest>
-#include <QDir>
 
 using namespace KFileMetaData;
 

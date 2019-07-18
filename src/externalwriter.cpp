@@ -30,7 +30,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <KLocalizedString>
 
 #define WRITER_TIMEOUT_MS 30000
 

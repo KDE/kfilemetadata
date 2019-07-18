@@ -32,7 +32,6 @@
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDir>
-#include <KLocalizedString>
 
 using namespace KFileMetaData;
 

@@ -21,7 +21,6 @@
 #include "kfilemetadata_debug.h"
 #include "dublincoreextractor.h"
 
-#include <QDebug>
 #include <QDomDocument>
 #include <QFile>
 #include <QXmlStreamReader>

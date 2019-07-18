@@ -24,9 +24,7 @@
 #include "extractors/epubextractor.h"
 #include "mimeutils.h"
 
-#include <QDebug>
 #include <QTest>
-#include <QDir>
 #include <QMimeDatabase>
 
 using namespace KFileMetaData;

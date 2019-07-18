@@ -21,7 +21,6 @@
 
 // Qt
 #include <QTest>
-#include <QDebug>
 
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"

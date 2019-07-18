@@ -20,7 +20,6 @@
 
 #include "exiv2extractor.h"
 #include <cmath>
-#include <QDebug>
 
 using namespace KFileMetaData;
 

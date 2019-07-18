@@ -22,7 +22,6 @@
 #define KFILEMETADATA_USERMETADATA_H
 
 #include "kfilemetadata_export.h"
-#include <QFlags>
 #include <QStringList>
 #include <QUrl>
 

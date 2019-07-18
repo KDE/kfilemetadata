@@ -21,9 +21,7 @@
 #include "indexerextractortestsconfig.h"
 #include "usermetadata.h"
 
-#include <QDebug>
 #include <QTest>
-#include <QDir>
 #include <QFile>
 
 #define TEST_FILENAME "writertest.txt"

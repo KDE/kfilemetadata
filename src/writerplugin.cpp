@@ -23,7 +23,6 @@
 
 #include "writerplugin.h"
 
-#include <QDebug>
 
 using namespace KFileMetaData;
 

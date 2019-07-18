@@ -21,7 +21,6 @@
 
 #include <QStandardPaths>
 
-#include <QFile>
 #include <QProcess>
 
 using namespace KFileMetaData;

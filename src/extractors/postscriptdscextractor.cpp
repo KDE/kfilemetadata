@@ -20,7 +20,6 @@
 #include "postscriptdscextractor.h"
 #include "kfilemetadata_debug.h"
 
-#include <QDebug>
 #include <QFile>
 
 namespace KFileMetaData

@@ -25,7 +25,6 @@
 #include <QDomDocument>
 #include <QTemporaryFile>
 #include <QLocale>
-#include <QDebug>
 // libappimage
 #include <appimage/appimage.h>
 
