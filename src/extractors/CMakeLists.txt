@@ -205,12 +205,11 @@ DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
 #
 # Mobipocket
 #
-if (QMOBIPOCKET_FOUND)
+if (QMobipocket_FOUND)
     add_library(kfilemetadata_mobiextractor MODULE mobiextractor.cpp)
-    target_include_directories(kfilemetadata_mobiextractor SYSTEM PRIVATE ${QMOBIPOCKET_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_mobiextractor
         KF5::FileMetaData
-        ${QMOBIPOCKET_LIBRARIES}
+        qmobipocket
     )
 
     set_target_properties(kfilemetadata_mobiextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")

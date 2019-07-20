@@ -82,12 +82,10 @@ endif()
 #
 # Mobi
 #
-if (QMOBIPOCKET_FOUND)
-    include_directories(${QMOBIPOCKET_INCLUDE_DIR})
-
+if (QMobipocket_FOUND)
     ecm_add_test(mobiextractortest.cpp ../src/extractors/mobiextractor.cpp
         TEST_NAME "mobiextractortest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${QMOBIPOCKET_LIBRARIES}
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData qmobipocket
     )
 endif()
 

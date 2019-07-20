@@ -21,9 +21,12 @@
 #include "mobiextractortest.h"
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
-#include "extractors/epubextractor.h"
+#include "extractors/mobiextractor.h"
+#include "mimeutils.h"
 
 #include <QTest>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 using namespace KFileMetaData;
 
@@ -34,25 +37,24 @@ QString MobiExtractorTest::testFilePath(const QString& fileName) const
 
 void MobiExtractorTest::test()
 {
-    EPubExtractor plugin{this};
+    MobiExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.mobi"), "application/epub+zip");
+    QString fileName = testFilePath("test.mobi");
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().first(), Type::Document);
 
-    // We're doing a contains instead of an exact check cause the epub file contains
-    // a ton of css and other garbage.
-    QVERIFY(result.text().contains(QStringLiteral("This is a sample PDF file for KFileMetaData.")));
     QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));
-    QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Happy Publisher")));
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Baloo KFileMetaData")));
-
-    QDateTime dt(QDate(2014, 1, 1), QTime(1, 1, 1));
-    dt.setTimeSpec(Qt::UTC);
-    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
+    QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
+    QCOMPARE(result.properties().value(Property::Copyright), QVariant(QStringLiteral("License")));
 
     QCOMPARE(result.properties().size(), 5);
 }

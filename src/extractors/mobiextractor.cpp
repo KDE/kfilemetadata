@@ -25,7 +25,6 @@
 #include <qmobipocket/mobipocket.h>
 
 #include <QFile>
-#include <QTextDocument>
 
 using namespace KFileMetaData;
 
@@ -35,10 +34,10 @@ public:
     QFileStream(const QString& name) : d(name) {
         d.open(QIODevice::ReadOnly);
     }
-    int read(char* buf, int size) {
+    int read(char* buf, int size) override {
         return d.read(buf, size);
     }
-    bool seek(int pos) {
+    bool seek(int pos) override {
         return d.seek(pos);
     }
 private:
@@ -51,12 +50,14 @@ MobiExtractor::MobiExtractor(QObject* parent)
 
 }
 
+static const QStringList supportedMimeTypes =
+{
+    QStringLiteral("application/x-mobipocket-ebook"),
+};
+
 QStringList MobiExtractor::mimetypes() const
 {
-    QStringList types;
-    types << QStringLiteral("application/x-mobipocket-ebook");
-
-    return types;
+    return supportedMimeTypes;
 }
 
 void MobiExtractor::extract(ExtractionResult* result)
@@ -65,6 +66,8 @@ void MobiExtractor::extract(ExtractionResult* result)
     Mobipocket::Document doc(&stream);
     if (!doc.isValid())
         return;
+
+    result->addType(Type::Document);
 
     QMapIterator<Mobipocket::Document::MetaKey, QString> it(doc.metadata());
     while (it.hasNext()) {
@@ -104,5 +107,4 @@ void MobiExtractor::extract(ExtractionResult* result)
         result->append(document.toPlainText());
     }
 
-    result->addType(Type::Document);
 }

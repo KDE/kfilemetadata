@@ -102,9 +102,9 @@ if ( CMAKE_SYSTEM_NAME MATCHES "Linux" )
         PURPOSE "Extended attribute shared library")
 endif()
 
-#find_package(QMobipocket)
+#find_package(QMobipocket 2.0)
 #set_package_properties(QMobipocket PROPERTIES DESCRIPTION "Mobipocket epub reader"
-#                       URL "https://projects.kde.org/projects/kde/kdegraphics/kdegraphics-mobipocket"
+#                       URL "https://cgit.kde.org/kdegraphics-mobipocket.git"
 #                       TYPE OPTIONAL PURPOSE "Support for mobi metadata")
 
 find_package(libappimage 0.1.10 CONFIG)
