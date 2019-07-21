@@ -438,7 +438,7 @@ inline int k_removexattr(const QString&, const QString&)
 
 inline bool k_hasAttribute(const QString&, const QString&)
 {
-    return false
+    return false;
 }
 
 inline bool k_isSupported(const QString&)
