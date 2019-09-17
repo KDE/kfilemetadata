@@ -114,6 +114,7 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
                        PURPOSE "Needed to build the AppImage extractor"
                        )
 
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
 add_definitions(-DQT_NO_FOREACH)
 add_subdirectory(src)
