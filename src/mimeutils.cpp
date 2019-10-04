@@ -35,7 +35,7 @@ QMimeType strictMimeType(const QString& filePath, const QMimeDatabase& db)
         return contentMime;
     }
 
-    for (auto mime : extensionMimes) {
+    for (const auto &mime : extensionMimes) {
         // check if the content is generic and the extension is more specific, e.g.:
         // *.mkv -> [ video/matroska ]
         // content -> application/matroska

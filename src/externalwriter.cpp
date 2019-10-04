@@ -81,7 +81,7 @@ ExternalWriter::ExternalWriter(const QString& pluginPath)
     QJsonObject rootObject = manifestDoc.object();
     const QJsonArray mimetypesArray = rootObject.value(QStringLiteral("mimetypes")).toArray();
     QStringList mimetypes;
-    for (const QVariant &mimetype : mimetypesArray) {
+    for (const QJsonValue &mimetype : mimetypesArray) {
         mimetypes << mimetype.toString();
     }
 

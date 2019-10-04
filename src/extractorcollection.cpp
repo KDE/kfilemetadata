@@ -148,12 +148,12 @@ void ExtractorCollection::Private::findExtractors()
         if (!pluginProperties.isEmpty()) {
             auto mimetypeProperties = pluginProperties[QLatin1String("MimeTypes")];
             const auto mimetypes = mimetypeProperties.toMap().keys();
-            for (QString mimetype : mimetypes) {
+            for (const QString &mimetype : mimetypes) {
                 m_mimeExtractors.insertMulti(mimetype, &extractor);
             }
         } else if (extractor.d->m_plugin) {
             const auto mimetypes = extractor.mimetypes();
-            for (QString mimetype : mimetypes) {
+            for (const QString &mimetype : mimetypes) {
                 m_mimeExtractors.insertMulti(mimetype, &extractor);
             }
         }
@@ -205,7 +205,7 @@ QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) 
     auto type = db.mimeTypeForName(mimetype);
     const QStringList ancestors = type.allAncestors();
 
-    for (auto ancestor : ancestors) {
+    for (const auto &ancestor : ancestors) {
         if (ancestor == QLatin1String("application/octet-stream")) {
             continue;
         }

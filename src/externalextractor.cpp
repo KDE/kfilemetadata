@@ -81,7 +81,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     QStringList mimetypes;
     mimetypes.reserve(mimetypesArray.count());
 
-     for (const QVariant &mimetype : mimetypesArray) {
+     for (const QJsonValue &mimetype : mimetypesArray) {
         mimetypes << mimetype.toString();
     }
 
