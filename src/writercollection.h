@@ -45,8 +45,7 @@ public:
 
 private:
     class WriterCollectionPrivate;
-    WriterCollectionPrivate* d_ptr;
-    Q_DECLARE_PRIVATE(WriterCollection)
+    WriterCollectionPrivate* d;
 };
 }
 

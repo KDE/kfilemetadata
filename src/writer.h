@@ -38,7 +38,15 @@ class WriterCollection;
  */
 class KFILEMETADATA_EXPORT Writer
 {
+    class WriterPrivate;
+
+    enum WriterPluginOwnership {
+        AutoDeletePlugin,
+        DoNotDeletePlugin,
+    };
+
 public:
+    Writer(Writer&&);
     virtual ~Writer();
 
     void write(const WriteData& data);
@@ -50,10 +58,9 @@ private:
 
     void operator =(const Writer&);
 
-    class WriterPrivate;
-    WriterPrivate *d_ptr;
-    Q_DECLARE_PRIVATE(Writer)
+    void setAutoDeletePlugin(WriterPluginOwnership autoDelete);
 
+    WriterPrivate *d;
     friend class WriterCollection;
 };
 }

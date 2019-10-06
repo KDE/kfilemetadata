@@ -32,6 +32,8 @@
 #include <QCoreApplication>
 #include <QPluginLoader>
 #include <QDir>
+#include <QMimeDatabase>
+#include <vector>
 
 using namespace KFileMetaData;
 
@@ -40,32 +42,23 @@ class Q_DECL_HIDDEN WriterCollection::WriterCollectionPrivate
 public:
     QHash<QString, Writer*> m_writers;
 
-    QList<Writer*> allWriters() const;
+    std::vector<Writer> m_allWriters;
+
+    void findWriters();
 };
 
 WriterCollection::WriterCollection()
-    : d_ptr(new WriterCollectionPrivate)
+    : d(new WriterCollectionPrivate)
 {
-    Q_D(WriterCollection);
-    const QList<Writer*> all = d->allWriters();
-
-    for (Writer* writer : all) {
-        const QStringList lst = writer->mimetypes();
-        for (const QString& type : lst) {
-            d->m_writers.insertMulti(type, writer);
-        }
-    }
+    d->findWriters();
 }
 
 WriterCollection::~WriterCollection()
 {
-    Q_D(WriterCollection);
-    qDeleteAll(d->m_writers.begin(), d->m_writers.end());
     delete d;
 }
 
-
-QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
+void WriterCollection::WriterCollectionPrivate::findWriters()
 {
     QStringList plugins;
     QStringList pluginPaths;
@@ -106,7 +99,6 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
     }
     externalPlugins.clear();
 
-    QList<Writer*> writers;
     for (const QString& pluginPath : qAsConst(pluginPaths)) {
         QPluginLoader loader(pluginPath);
 
@@ -120,10 +112,11 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
         if (obj) {
             WriterPlugin* plugin = qobject_cast<WriterPlugin*>(obj);
             if (plugin) {
-                Writer* writer = new Writer;
-                writer->d_ptr->m_plugin = plugin;
+                Writer writer;
+                writer.d->m_plugin = plugin;
+                writer.setAutoDeletePlugin(Writer::DoNotDeletePlugin);
 
-                writers << writer;
+                m_allWriters.push_back(std::move(writer));
             } else {
                 qCDebug(KFILEMETADATA_LOG) << "Plugin could not be converted to a WriterPlugin";
                 qCDebug(KFILEMETADATA_LOG) << pluginPath;
@@ -136,24 +129,41 @@ QList<Writer*> WriterCollection::WriterCollectionPrivate::allWriters() const
 
     for (const QString& externalPluginPath : qAsConst(externalPluginPaths)) {
         ExternalWriter *plugin = new ExternalWriter(externalPluginPath);
-        Writer* writer = new Writer;
-        writer->d_ptr->m_plugin = plugin;
+        Writer writer;
+        writer.d->m_plugin = plugin;
+        writer.setAutoDeletePlugin(Writer::AutoDeletePlugin);
 
-        writers << writer;
+        m_allWriters.push_back(std::move(writer));
     }
 
-    return writers;
+    for (Writer& writer : m_allWriters) {
+        const QStringList lst = writer.mimetypes();
+        for (const QString& type : lst) {
+            m_writers.insertMulti(type, &writer);
+        }
+    }
 }
 
 QList<Writer*> WriterCollection::fetchWriters(const QString& mimetype) const
 {
-    Q_D(const WriterCollection);
     QList<Writer*> plugins = d->m_writers.values(mimetype);
-    if (plugins.isEmpty()) {
-        auto it = d->m_writers.constBegin();
-        for (; it != d->m_writers.constEnd(); ++it) {
-            if (mimetype.startsWith(it.key()))
-                plugins << it.value();
+    if (!plugins.isEmpty()) {
+        return plugins;
+    }
+
+    // try to find the best matching more generic writer by mimetype inheritance
+    QMimeDatabase db;
+    auto type = db.mimeTypeForName(mimetype);
+    const QStringList ancestors = type.allAncestors();
+
+    for (const auto &ancestor : ancestors) {
+        if (ancestor == QLatin1String("application/octet-stream")) {
+            continue;
+        }
+        QList<Writer*> plugins = d->m_writers.values(ancestor);
+        if (!plugins.isEmpty()) {
+            qCDebug(KFILEMETADATA_LOG) << "Using inherited mimetype" << ancestor <<  "for" << mimetype;
+            return plugins;
         }
     }
 

@@ -28,25 +28,33 @@
 using namespace KFileMetaData;
 
 Writer::Writer()
-    : d_ptr(new WriterPrivate)
+    : d(new WriterPrivate)
 {
 }
 
 Writer::~Writer()
 {
-    Q_D(Writer);
-    delete d->m_plugin;
-    delete d_ptr;
+    delete d;
 }
+
+Writer::Writer(Writer&& other)
+{
+    d = other.d;
+    other.d = nullptr;
+}
+
 
 void Writer::write(const WriteData& data)
 {
-    Q_D(Writer);
     d->m_plugin->write(data);
 }
 
 QStringList Writer::mimetypes() const
 {
-    Q_D(const Writer);
     return d->m_plugin->writeMimetypes();
+}
+
+void Writer::setAutoDeletePlugin(WriterPluginOwnership autoDelete)
+{
+    d->m_autoDeletePlugin = autoDelete;
 }

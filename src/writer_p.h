@@ -24,14 +24,24 @@
 #ifndef KFILEMETADATA_WRITER_P_H
 #define KFILEMETADATA_WRITER_P_H
 
+#include "writerplugin.h"
+
 namespace KFileMetaData {
 
 class WriterPlugin;
 
-class Q_DECL_HIDDEN Writer::WriterPrivate
+class Writer::WriterPrivate
 {
 public:
+    ~WriterPrivate() {
+        if (m_autoDeletePlugin == AutoDeletePlugin) {
+            delete m_plugin;
+        }
+    }
+
     WriterPlugin *m_plugin = nullptr;
+
+    WriterPluginOwnership m_autoDeletePlugin = AutoDeletePlugin;
 };
 
 }
