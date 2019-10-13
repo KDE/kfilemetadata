@@ -21,6 +21,8 @@
 #ifndef KFILEMETADATA_PROPERTIES
 #define KFILEMETADATA_PROPERTIES
 
+#include "kfilemetadata_export.h"
+
 #include <QMap>
 #include <QVariant>
 
@@ -162,17 +164,20 @@ enum Property {
     LineCount,
 
     /**
-     * Same as @c Language.
-     * @deprecated Since 5.50, use @c Language instead
-     */
-    Langauge,
-    /**
      * The language the document is written in. This directly maps to the
      * 'dc:language' tag from DublinCore. We do NOT employ any language
      * detection schemes on the text.
      * @since 5.50
      */
-    Language = Langauge,
+    Language,
+
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 50)
+    /**
+     * Same as @c Language.
+     * @deprecated Since 5.50, use @c Language instead
+     */
+    Langauge = Language,
+#endif
 
     /**
      * The copyright of the file. Represented as a string.
@@ -222,28 +227,34 @@ enum Property {
     FrameRate,
 
     /**
-     * Same as @c EquipmentManufacturer.
-     * @deprecated Since 5.60, use @c Manufacturer instead
-     */
-    ImageMake,
-    /**
      * The manufacturer of the equipment used for generating the file
      * and metadata. Typically maps to the 'Exif.Image.Make' tag.
      * @since 5.60
      */
-    Manufacturer = ImageMake,
+    Manufacturer,
 
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 60)
     /**
-     * Same as @c EquipmentModel.
-     * @deprecated Since 5.60, use @c Model instead
+     * Same as @c Manufacturer.
+     * @deprecated Since 5.60, use @c Manufacturer instead
      */
-    ImageModel,
+    ImageMake = Manufacturer,
+#endif
+
     /**
      * The model name of the equipment used for generating the file
      * and metadata. Typically maps to the 'Exif.Image.Model' tag.
      * @since 5.60
      */
-    Model = ImageModel,
+    Model,
+
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 60)
+    /**
+     * Same as @c Model.
+     * @deprecated Since 5.60, use @c Model instead
+     */
+    ImageModel = Model,
+#endif
 
     ImageDateTime,
     ImageOrientation,

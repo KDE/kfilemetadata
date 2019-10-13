@@ -51,7 +51,15 @@ if(TAGLIB_FOUND)
     )
 endif()
 
-generate_export_header(KF5FileMetaData BASE_NAME KFileMetaData EXPORT_FILE_NAME kfilemetadata_export.h)
+ecm_generate_export_header(KF5FileMetaData
+    EXPORT_FILE_NAME kfilemetadata_export.h
+    BASE_NAME KFileMetaData
+    # GROUP_BASE_NAME KF <- enable once all of KF modules use ecm_generate_export_header
+    VERSION ${KF5_VERSION}
+    DEPRECATED_BASE_VERSION 0
+    DEPRECATION_VERSIONS 5.50 5.60
+    EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
+)
 
 set_target_properties(KF5FileMetaData PROPERTIES
     VERSION ${KFILEMETADATA_VERSION_STRING}
