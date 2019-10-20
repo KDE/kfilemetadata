@@ -54,7 +54,7 @@ endif()
 ecm_generate_export_header(KF5FileMetaData
     EXPORT_FILE_NAME kfilemetadata_export.h
     BASE_NAME KFileMetaData
-    # GROUP_BASE_NAME KF <- enable once all of KF modules use ecm_generate_export_header
+    GROUP_BASE_NAME KF
     VERSION ${KF5_VERSION}
     DEPRECATED_BASE_VERSION 0
     DEPRECATION_VERSIONS 5.50 5.60
