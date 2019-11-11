@@ -166,14 +166,16 @@ ecm_add_test(${extractorcollection_SRCS}
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData
 )
 
-set(writercollection_SRCS
-    writercollectiontest.cpp
-)
+if(TAGLIB_FOUND)
+    set(writercollection_SRCS
+        writercollectiontest.cpp
+    )
 
-ecm_add_test(${writercollection_SRCS}
-        TEST_NAME "writercollectiontest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData
-)
+    ecm_add_test(${writercollection_SRCS}
+            TEST_NAME "writercollectiontest"
+            LINK_LIBRARIES Qt5::Test KF5::FileMetaData
+    )
+endif()
 
 #
 # XML
