@@ -47,10 +47,7 @@
 
 using namespace KFileMetaData;
 
-TagLibExtractor::TagLibExtractor(QObject* parent)
-    : ExtractorPlugin(parent)
-{
-}
+namespace {
 
 const QStringList supportedMimeTypes = {
     QStringLiteral("audio/flac"),
@@ -73,11 +70,6 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-wav"),
     QStringLiteral("audio/x-wavpack"),
 };
-
-QStringList TagLibExtractor::mimetypes() const
-{
-    return supportedMimeTypes;
-}
 
 void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
 {
@@ -102,7 +94,7 @@ void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
     }
 }
 
-void TagLibExtractor::readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult* result)
+void readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult* result)
 {
     if (savedProperties.isEmpty()) {
         return;
@@ -260,7 +252,7 @@ void TagLibExtractor::readGenericProperties(const TagLib::PropertyMap &savedProp
     }
 }
 
-void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result)
+void extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result)
 {
     if (Id3Tags->isEmpty()) {
         return;
@@ -309,7 +301,7 @@ void TagLibExtractor::extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResu
     }
 }
 
-void TagLibExtractor::extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
+void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
 {
     if (mp4Tags->isEmpty()) {
         return;
@@ -327,7 +319,7 @@ void TagLibExtractor::extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult
     }
 }
 
-void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result)
+void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result)
 {
     if (asfTags->isEmpty()) {
         return;
@@ -372,6 +364,18 @@ void TagLibExtractor::extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult
         const auto attribute = lstASF.front();
         result->add(Property::Publisher, TStringToQString(attribute.toString()).trimmed());
     }
+}
+
+} // anonymous namespace
+
+TagLibExtractor::TagLibExtractor(QObject* parent)
+    : ExtractorPlugin(parent)
+{
+}
+
+QStringList TagLibExtractor::mimetypes() const
+{
+    return supportedMimeTypes;
 }
 
 void TagLibExtractor::extract(ExtractionResult* result)

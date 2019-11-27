@@ -23,20 +23,6 @@
 
 #include "extractorplugin.h"
 
-namespace TagLib
-{
-    namespace ASF {
-        class Tag;
-    }
-    namespace ID3v2 {
-        class Tag;
-    }
-    namespace MP4 {
-        class Tag;
-    }
-    class PropertyMap;
-}
-
 namespace KFileMetaData
 {
 
@@ -52,13 +38,7 @@ public:
 
     void extract(ExtractionResult* result) override;
     QStringList mimetypes() const override;
-    
-private:
 
-    void extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result);
-    void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result);
-    void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result);
-    void readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult* result);
 };
 
 }
