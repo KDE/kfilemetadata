@@ -380,7 +380,11 @@ void TagLibExtractor::extract(ExtractionResult* result)
     const QString mimeType = getSupportedMimeType(result->inputMimetype());
 
     // Open the file readonly. Important if we're sandboxed.
+#if defined Q_OS_WINDOWS
+    TagLib::FileStream stream(fileUrl.toLocal8Bit().constData(), true);
+#else
     TagLib::FileStream stream(fileUrl.toUtf8().constData(), true);
+#endif
     if (!stream.isOpen()) {
         qCWarning(KFILEMETADATA_LOG) << "Unable to open file readonly: " << fileUrl;
         return;
