@@ -225,15 +225,15 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
         return UserMetaData::Attribute::None;
     }
 
-    if (size == -1 && errno == ENOTSUP) {
+    if (size < 0) {
+        if (errno == E2BIG) {
+            return UserMetaData::Attribute::All;
+        }
+
         return UserMetaData::Attribute::None;
     }
 
-    if (size == -1 && errno == E2BIG) {
-        return UserMetaData::Attribute::All;
-    }
-
-    if (size > 0 && attributes == UserMetaData::Attribute::Any) {
+    if (attributes == UserMetaData::Attribute::Any) {
         return UserMetaData::Attribute::All;
     }
 
