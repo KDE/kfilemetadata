@@ -25,6 +25,7 @@
 #include <QFile>
 
 #define TEST_FILENAME "writertest.txt"
+#define TEST_SYMLINK "dangling_symlink"
 
 using namespace KFileMetaData;
 
@@ -38,6 +39,8 @@ void UserMetaDataWriterTest::initTestCase()
     QFile testFile(testFilePath("plain_text_file.txt"));
     QFile writerTestFile(testFilePath(TEST_FILENAME));
     QFile::copy(testFilePath("plain_text_file.txt"), testFilePath(TEST_FILENAME));
+
+    QFile::link(testFilePath("invalid_target"), testFilePath(TEST_SYMLINK));
 }
 
 void UserMetaDataWriterTest::test()
@@ -119,9 +122,17 @@ void UserMetaDataWriterTest::test()
     QVERIFY(!md.hasAttribute(QStringLiteral("test.check_contains")));
 }
 
+
+void UserMetaDataWriterTest::testDanglingSymlink()
+{
+    KFileMetaData::UserMetaData md(testFilePath(TEST_SYMLINK));
+    QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) == UserMetaData::Attribute::None);
+}
+
 void UserMetaDataWriterTest::cleanupTestCase()
 {
     QFile::remove(testFilePath(TEST_FILENAME));
+    QFile::remove(testFilePath(TEST_SYMLINK));
 }
 
 QTEST_GUILESS_MAIN(UserMetaDataWriterTest)
