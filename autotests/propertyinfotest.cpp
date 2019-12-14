@@ -21,7 +21,7 @@
 #include "propertyinfotest.h"
 #include "propertyinfo.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace KFileMetaData;
 

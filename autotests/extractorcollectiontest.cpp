@@ -20,7 +20,7 @@
  */
 
 #include <QObject>
-#include <QtTest>
+#include <QTest>
 #include <QDebug>
 
 #include "extractorcollection.h"

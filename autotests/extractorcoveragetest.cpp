@@ -20,7 +20,8 @@
  */
 
 #include <QObject>
-#include <QtTest>
+#include <QTest>
+#include <QDirIterator>
 #include <QMimeDatabase>
 
 #include "mimeutils.h"

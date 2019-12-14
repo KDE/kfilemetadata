@@ -21,7 +21,7 @@
  */
 
 #include <QObject>
-#include <QtTest>
+#include <QTest>
 #include <QDebug>
 
 #include "writercollection.h"

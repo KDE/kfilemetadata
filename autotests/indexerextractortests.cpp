@@ -22,7 +22,8 @@
 
 #include "indexerextractortests.h"
 
-#include <QtTest>
+#include <QTest>
+#include <QTemporaryFile>
 
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"

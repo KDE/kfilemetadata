@@ -20,7 +20,8 @@
 
 #include "xmlextractortest.h"
 
-#include <QtTest>
+#include <QTest>
+#include <QTemporaryFile>
 #include <QMimeDatabase>
 
 #include "simpleextractionresult.h"
