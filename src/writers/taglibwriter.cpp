@@ -221,7 +221,11 @@ void TagLibWriter::write(const WriteData& data)
     const PropertyMap properties = data.getAllProperties();
     const QString mimeType = data.inputMimetype();
 
+#if defined Q_OS_WINDOWS
+    TagLib::FileStream stream(fileUrl.toLocal8Bit().constData(), true);
+#else
     TagLib::FileStream stream(fileUrl.toUtf8().constData(), false);
+#endif
     if (!stream.isOpen()) {
         qCWarning(KFILEMETADATA_LOG) << "Unable to open file in write mode: " << fileUrl;
         return;
