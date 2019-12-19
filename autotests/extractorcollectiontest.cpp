@@ -116,7 +116,7 @@ private Q_SLOTS:
 
             auto diff = propMimetypes - supportedMimetypes;
             if (!diff.isEmpty()) {
-                for (auto mimetype : diff.toList()) {
+                for (auto mimetype : diff.values()) {
                     auto mimetypeProp = propMimetypesJson.toMap()[mimetype];
                     auto runtimedep = mimetypeProp.toMap()["HasRuntimeDependency"];
                     if (runtimedep.isValid() && runtimedep.toInt()) {
@@ -127,7 +127,7 @@ private Q_SLOTS:
                 if (!diff.isEmpty()) {
                     qWarning() << exProperties["Name"].toString()
                                << exProperties["Id"].toString()
-                               << "has extraneous properties for these mimetypes:" << diff.toList().join(", ");
+                               << "has extraneous properties for these mimetypes:" << diff.values().join(", ");
                 }
             }
 
@@ -135,7 +135,7 @@ private Q_SLOTS:
             if (!diff.isEmpty()) {
                 qWarning() << exProperties["Name"].toString()
                            << exProperties["Id"].toString()
-                           << "has no properties for these mimetypes:" + diff.toList().join(", ");
+                           << "has no properties for these mimetypes:" + diff.values().join(", ");
             }
         }
     }
