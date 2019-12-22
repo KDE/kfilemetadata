@@ -19,6 +19,7 @@
 
 #include "officeextractor.h"
 
+#include <QRegularExpression>
 #include <QStandardPaths>
 
 #include <QProcess>
@@ -69,7 +70,7 @@ void OfficeExtractor::extract(ExtractionResult* result)
         // Now that we have the plain text content, count words, lines and characters
         // (original code from plaintextextractor.cpp, authored by Vishesh Handa)
         int lines = contents.count(QLatin1Char('\n'));
-        int words = contents.count(QRegExp(QStringLiteral("\\b\\w+\\b")));
+        int words = contents.count(QRegularExpression(QStringLiteral("\\b\\w+\\b")));
 
         result->add(Property::WordCount, words);
         result->add(Property::LineCount, lines);
