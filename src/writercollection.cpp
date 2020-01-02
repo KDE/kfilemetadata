@@ -40,7 +40,7 @@ using namespace KFileMetaData;
 class Q_DECL_HIDDEN WriterCollection::WriterCollectionPrivate
 {
 public:
-    QHash<QString, Writer*> m_writers;
+    QMultiHash<QString, Writer*> m_writers;
 
     std::vector<Writer> m_allWriters;
 
@@ -139,7 +139,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
     for (Writer& writer : m_allWriters) {
         const QStringList lst = writer.mimetypes();
         for (const QString& type : lst) {
-            m_writers.insertMulti(type, &writer);
+            m_writers.insert(type, &writer);
         }
     }
 }

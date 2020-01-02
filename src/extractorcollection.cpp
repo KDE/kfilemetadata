@@ -37,7 +37,7 @@ using namespace KFileMetaData;
 class Q_DECL_HIDDEN ExtractorCollection::Private
 {
 public:
-    QHash<QString, Extractor*> m_mimeExtractors;
+    QMultiHash<QString, Extractor*> m_mimeExtractors;
 
     std::vector<Extractor> m_allExtractors;
 
@@ -149,12 +149,12 @@ void ExtractorCollection::Private::findExtractors()
             auto mimetypeProperties = pluginProperties[QLatin1String("MimeTypes")];
             const auto mimetypes = mimetypeProperties.toMap().keys();
             for (const QString &mimetype : mimetypes) {
-                m_mimeExtractors.insertMulti(mimetype, &extractor);
+                m_mimeExtractors.insert(mimetype, &extractor);
             }
         } else if (extractor.d->m_plugin) {
             const auto mimetypes = extractor.mimetypes();
             for (const QString &mimetype : mimetypes) {
-                m_mimeExtractors.insertMulti(mimetype, &extractor);
+                m_mimeExtractors.insert(mimetype, &extractor);
             }
         }
     }
