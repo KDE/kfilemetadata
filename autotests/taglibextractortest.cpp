@@ -581,8 +581,17 @@ void  TagLibExtractorTest::testNoMetadata()
     const auto resultList = extracted.properties();
     const auto resultKeys = resultList.uniqueKeys();
 
-    const auto excessKeys = resultKeys.toSet() - expectedKeys.toSet();
-    const auto missingKeys = expectedKeys.toSet() - resultKeys.toSet();
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+    const QSet<KFileMetaData::Property::Property> resultKeySet = resultKeys.toSet();
+    const QSet<KFileMetaData::Property::Property> expectedKeySet = expectedKeys.toSet();
+#else
+    const QSet<KFileMetaData::Property::Property> resultKeySet(resultKeys.begin(), resultKeys.end());
+    const QSet<KFileMetaData::Property::Property> expectedKeySet(expectedKeys.begin(), expectedKeys.end());
+#endif
+
+    const auto excessKeys = resultKeySet - expectedKeySet;
+    const auto missingKeys = expectedKeySet - resultKeySet;
+
     if (!excessKeys.isEmpty()) {
         const auto propNames =  propertyEnumNames(excessKeys.values()).join(QLatin1String(", "));
         if (failMessage.isEmpty()) {
@@ -598,7 +607,6 @@ void  TagLibExtractorTest::testNoMetadata()
     }
     QCOMPARE(resultKeys, expectedKeys);
     if (!failMessage.isEmpty()) {
-        auto excessKeys = resultKeys.toSet() - expectedKeys.toSet();
         const auto message = QStringLiteral("%1: %2")
                 .arg(failMessage)
                 .arg(propertyEnumNames(excessKeys.values()).join(QLatin1String(", ")));
