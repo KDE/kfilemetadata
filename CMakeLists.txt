@@ -117,7 +117,7 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
                        )
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054200)
+add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x054300)
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
 add_definitions(-DQT_NO_FOREACH)
 add_subdirectory(src)
