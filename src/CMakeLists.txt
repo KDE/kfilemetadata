@@ -1,4 +1,10 @@
-ecm_qt_declare_logging_category(debug_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
+ecm_qt_declare_logging_category(debug_SRCS
+    HEADER kfilemetadata_debug.h
+    IDENTIFIER KFILEMETADATA_LOG
+    CATEGORY_NAME kf5.kfilemetadata
+    DESCRIPTION "KFileMetaData"
+    EXPORT KFILEMETADATA
+)
 
 set(KF5FileMetaData_SRCS
     extractionresult.cpp
@@ -151,3 +157,8 @@ add_subdirectory(extractors)
 
 add_subdirectory(writers)
 
+ecm_qt_install_logging_categories(
+    EXPORT KFILEMETADATA
+    FILE kfilemetadata.categories
+    DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+)

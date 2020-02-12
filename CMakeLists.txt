@@ -158,6 +158,4 @@ install(FILES
   COMPONENT devel
 )
 
-# contains list of debug categories, for kdebugsettings
-install(FILES kfilemetadata.categories  DESTINATION  ${KDE_INSTALL_LOGGINGCATEGORIESDIR})
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
