@@ -46,12 +46,18 @@ namespace KFileMetaData {
 class KFILEMETADATA_EXPORT ExtractionResult
 {
 public:
+    /**
+     * @see Flags
+     */
     enum Flag {
         ExtractNothing = 0,
         ExtractMetaData = 1,
         ExtractPlainText = 2,
         ExtractEverything = (ExtractMetaData | ExtractPlainText)
     };
+    /**
+     * Stores a combination of #Flag values.
+     */
     Q_DECLARE_FLAGS(Flags, Flag)
 
     /**

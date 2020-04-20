@@ -40,6 +40,9 @@ public:
         NoError = 0
     };
 
+    /**
+     * @see Attributes
+     */
     enum Attribute : uint32_t {
         None                 = 0x0,
         Any                  = None,
@@ -53,6 +56,9 @@ public:
         Other                = 0xffffff80,
         All                  = 0xffffffff,
     };
+    /**
+     * Stores a combination of #Attribute values.
+     */
     Q_DECLARE_FLAGS(Attributes, Attribute)
 
     const UserMetaData& operator =(const UserMetaData& rhs);

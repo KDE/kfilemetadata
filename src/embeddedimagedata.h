@@ -43,10 +43,16 @@ class KFILEMETADATA_EXPORT EmbeddedImageData {
 public:
     EmbeddedImageData();
     virtual ~EmbeddedImageData();
+    /**
+     * @see ImageTypes
+     */
     enum ImageType {
         FrontCover = 0x01,
         AllImages = FrontCover
     };
+    /**
+     * Stores a combination of #ImageType values.
+     */
     Q_DECLARE_FLAGS(ImageTypes, ImageType)
 
     /**
