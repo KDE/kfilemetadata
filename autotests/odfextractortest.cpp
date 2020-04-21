@@ -35,6 +35,22 @@ QString OdfExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void OdfExtractorTest::testNoExtraction()
+{
+    OdfExtractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test.odt"));
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Document);
+    QCOMPARE(result.properties().size(),0);
+}
+
 void OdfExtractorTest::testText()
 {
     OdfExtractor plugin{this};

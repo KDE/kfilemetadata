@@ -35,6 +35,23 @@ QString Exiv2ExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void Exiv2ExtractorTest::testNoExtraction()
+{
+    Exiv2Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test.jpg"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Image);
+    QCOMPARE(result.properties().size(), 0);
+}
+
 void Exiv2ExtractorTest::test()
 {
     Exiv2Extractor plugin{this};

@@ -46,6 +46,18 @@ const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaDa
     return result;
 }
 
+void TagLibExtractorTest::testNoExtraction()
+{
+    TagLibExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath("test.opus"), QStringLiteral("audio/opus"), ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Audio);
+    QCOMPARE(result.properties().size(), 0);
+}
+
 void TagLibExtractorTest::testPropertyTypes()
 {
     TagLibExtractor plugin{this};

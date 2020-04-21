@@ -32,6 +32,22 @@ QString PostscriptDscExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void PostscriptDscExtractorTest::testNoExtraction()
+{
+    DscExtractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test.ps"));
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Document);
+    QCOMPARE(result.properties().size(), 0);
+}
+
 void PostscriptDscExtractorTest::testPS()
 {
     DscExtractor plugin{this};

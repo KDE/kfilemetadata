@@ -34,6 +34,23 @@ QString Office2007ExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void Office2007ExtractorTest::testNoExtraction()
+{
+    Office2007Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test_libreoffice.docx"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Document);
+    QCOMPARE(result.properties().size(), 0);
+}
+
 void Office2007ExtractorTest::test()
 {
     Office2007Extractor plugin{this};

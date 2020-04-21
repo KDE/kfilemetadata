@@ -63,6 +63,20 @@ void IndexerExtractorTests::benchMarkPlainTextExtractor()
     }
 }
 
+void IndexerExtractorTests::testNoExtraction()
+{
+    PlainTextExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"), ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Text);
+
+    QCOMPARE(result.properties().size(), 0);
+}
+
 void IndexerExtractorTests::testPlainTextExtractor()
 {
     PlainTextExtractor plugin{this};

@@ -34,6 +34,23 @@ QString PopplerExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void PopplerExtractorTest::testNoExtraction()
+{
+    PopplerExtractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test.pdf"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Document);
+    QCOMPARE(result.properties().size(), 0);
+}
+
 void PopplerExtractorTest::test()
 {
     PopplerExtractor plugin{this};

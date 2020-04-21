@@ -37,6 +37,24 @@ QString testFilePath(const QString& baseName, const QString& extension)
 
 } // namespace
 
+void ffmpegExtractorTest::testNoExtraction()
+{
+    QString fileName = testFilePath(QStringLiteral("test"), QStringLiteral("webm"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+
+    FFmpegExtractor plugin{this};
+    QVERIFY(plugin.mimetypes().contains(plugin.getSupportedMimeType(mimeType)));
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Video);
+    QCOMPARE(result.properties().size(), 0);
+}
+
+
 void ffmpegExtractorTest::testVideoProperties_data()
 {
     QTest::addColumn<QString>("fileType");

@@ -30,6 +30,7 @@ class ffmpegExtractorTest : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
+    void testNoExtraction();
     void testVideoProperties();
     void testVideoProperties_data();
     void testMetaData();

@@ -34,6 +34,23 @@ QString EPubExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void EPubExtractorTest::testNoExtraction()
+{
+    EPubExtractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test.epub"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Document);
+    QCOMPARE(result.properties().size(), 0);
+}
+
 void EPubExtractorTest::test()
 {
     EPubExtractor plugin{this};

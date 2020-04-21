@@ -30,6 +30,7 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
+    void testNoExtraction();
     void test();
     void testGPS();
 };
