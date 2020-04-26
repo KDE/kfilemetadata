@@ -169,6 +169,10 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     }
     result->addType(Type::Image);
 
+    if (!(result->inputFlags() & ExtractionResult::ExtractMetaData)) {
+        return;
+    }
+
     if (image->pixelHeight()) {
         result->add(Property::Height, image->pixelHeight());
     }

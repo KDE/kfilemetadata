@@ -78,34 +78,36 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Document);
 
-    QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
-    if (!value.isEmpty()) {
-        result->add(Property::Title, value);
-    }
+    if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
 
-    value = fetchMetadata(ePubDoc, EPUB_SUBJECT);
-    if (!value.isEmpty()) {
-        result->add(Property::Subject, value);
-    }
-
-    value = fetchMetadata(ePubDoc, EPUB_CREATOR);
-    if (!value.isEmpty()) {
-        if (value.startsWith(QLatin1String("aut:"), Qt::CaseInsensitive)) {
-            value = value.mid(4).simplified();
-        } else if (value.startsWith(QLatin1String("author:"), Qt::CaseInsensitive)) {
-            value = value.mid(7).simplified();
+        QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
+        if (!value.isEmpty()) {
+            result->add(Property::Title, value);
         }
 
-        // A lot of authors have their name written in () again. We discard that part
-        int index = value.indexOf(QLatin1Char('('));
-        if (index)
-            value = value.mid(0, index);
+        value = fetchMetadata(ePubDoc, EPUB_SUBJECT);
+        if (!value.isEmpty()) {
+            result->add(Property::Subject, value);
+        }
 
-        result->add(Property::Author, value);
-    }
+        value = fetchMetadata(ePubDoc, EPUB_CREATOR);
+        if (!value.isEmpty()) {
+            if (value.startsWith(QLatin1String("aut:"), Qt::CaseInsensitive)) {
+                value = value.mid(4).simplified();
+            } else if (value.startsWith(QLatin1String("author:"), Qt::CaseInsensitive)) {
+                value = value.mid(7).simplified();
+            }
 
-    // The Contributor just seems to be mostly Calibre aka the Generator
-    /*
+            // A lot of authors have their name written in () again. We discard that part
+            int index = value.indexOf(QLatin1Char('('));
+            if (index)
+                value = value.mid(0, index);
+
+            result->add(Property::Author, value);
+        }
+
+        // The Contributor just seems to be mostly Calibre aka the Generator
+        /*
     value = fetchMetadata(ePubDoc, EPUB_CONTRIB);
     if( !value.isEmpty() ) {
         SimpleResource con;
@@ -116,29 +118,30 @@ void EPubExtractor::extract(ExtractionResult* result)
         graph << con;
     }*/
 
-    value = fetchMetadata(ePubDoc, EPUB_PUBLISHER);
-    if (!value.isEmpty()) {
-        result->add(Property::Publisher, value);
-    }
-
-    value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
-    if (!value.isEmpty()) {
-        result->add(Property::Description, value);
-    }
-
-    value = fetchMetadata(ePubDoc, EPUB_DATE);
-    if (!value.isEmpty()) {
-        if (value.startsWith(QLatin1String("Unspecified:"), Qt::CaseInsensitive)) {
-            value = value.mid(QByteArray("Unspecified:").size()).simplified();
+        value = fetchMetadata(ePubDoc, EPUB_PUBLISHER);
+        if (!value.isEmpty()) {
+            result->add(Property::Publisher, value);
         }
-        int ind = value.indexOf(QLatin1String("publication:"), Qt::CaseInsensitive);
-        if (ind != -1) {
-            value = value.mid(ind + QByteArray("publication:").size()).simplified();
+
+        value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
+        if (!value.isEmpty()) {
+            result->add(Property::Description, value);
         }
-        QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
-        if (!dt.isNull()) {
-            result->add(Property::CreationDate, dt);
-            result->add(Property::ReleaseYear, dt.date().year());
+
+        value = fetchMetadata(ePubDoc, EPUB_DATE);
+        if (!value.isEmpty()) {
+            if (value.startsWith(QLatin1String("Unspecified:"), Qt::CaseInsensitive)) {
+                value = value.mid(QByteArray("Unspecified:").size()).simplified();
+            }
+            int ind = value.indexOf(QLatin1String("publication:"), Qt::CaseInsensitive);
+            if (ind != -1) {
+                value = value.mid(ind + QByteArray("publication:").size()).simplified();
+            }
+            QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
+            if (!dt.isNull()) {
+                result->add(Property::CreationDate, dt);
+                result->add(Property::ReleaseYear, dt.date().year());
+            }
         }
     }
 

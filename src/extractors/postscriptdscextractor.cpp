@@ -42,11 +42,6 @@ QStringList DscExtractor::mimetypes() const
 
 void DscExtractor::extract(ExtractionResult* result)
 {
-    auto flags = result->inputFlags();
-    if (!(flags & ExtractionResult::ExtractMetaData)) {
-        return;
-    }
-
     QFile file(result->inputUrl());
     if (!file.open(QIODevice::ReadOnly)) {
         qCWarning(KFILEMETADATA_LOG) << "Document is not a valid file";
@@ -60,6 +55,9 @@ void DscExtractor::extract(ExtractionResult* result)
         result->addType(Type::Image);
     }
 
+    if (!(result->inputFlags() & ExtractionResult::ExtractMetaData)) {
+        return;
+    }
     // Try to find some DSC (PostScript Language Document Structuring Conventions) conforming data
     QTextStream stream(&file);
     QString line;

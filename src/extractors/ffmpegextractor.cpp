@@ -89,93 +89,95 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Video);
 
-    int totalSecs = fmt_ctx->duration / AV_TIME_BASE;
-    int bitrate = fmt_ctx->bit_rate;
+    if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
+        int totalSecs = fmt_ctx->duration / AV_TIME_BASE;
+        int bitrate = fmt_ctx->bit_rate;
 
-    result->add(Property::Duration, totalSecs);
-    result->add(Property::BitRate, bitrate);
+        result->add(Property::Duration, totalSecs);
+        result->add(Property::BitRate, bitrate);
 
-    for (uint i = 0; i < fmt_ctx->nb_streams; i++) {
-        AVStream* stream = fmt_ctx->streams[i];
+        for (uint i = 0; i < fmt_ctx->nb_streams; i++) {
+            AVStream* stream = fmt_ctx->streams[i];
 #if defined HAVE_AVSTREAM_CODECPAR && HAVE_AVSTREAM_CODECPAR
-        const AVCodecParameters* codec = stream->codecpar;
+            const AVCodecParameters* codec = stream->codecpar;
 #else
-        const AVCodecContext* codec = stream->codec;
+            const AVCodecContext* codec = stream->codec;
 #endif
 
-        if (codec->codec_type == AVMEDIA_TYPE_VIDEO) {
-            result->add(Property::Width, codec->width);
-            result->add(Property::Height, codec->height);
+            if (codec->codec_type == AVMEDIA_TYPE_VIDEO) {
+                result->add(Property::Width, codec->width);
+                result->add(Property::Height, codec->height);
 
-            AVRational avSampleAspectRatio = av_guess_sample_aspect_ratio(fmt_ctx, stream, nullptr);
-            AVRational avDisplayAspectRatio;
-            av_reduce(&avDisplayAspectRatio.num, &avDisplayAspectRatio.den,
-                      codec->width  * avSampleAspectRatio.num,
-                      codec->height * avSampleAspectRatio.den,
-                      1024*1024);
-            double displayAspectRatio = avDisplayAspectRatio.num;
-            if (avDisplayAspectRatio.den)
-                displayAspectRatio /= avDisplayAspectRatio.den;
-            if (displayAspectRatio)
-                result->add(Property::AspectRatio, displayAspectRatio);
+                AVRational avSampleAspectRatio = av_guess_sample_aspect_ratio(fmt_ctx, stream, nullptr);
+                AVRational avDisplayAspectRatio;
+                av_reduce(&avDisplayAspectRatio.num, &avDisplayAspectRatio.den,
+                          codec->width  * avSampleAspectRatio.num,
+                          codec->height * avSampleAspectRatio.den,
+                          1024*1024);
+                double displayAspectRatio = avDisplayAspectRatio.num;
+                if (avDisplayAspectRatio.den)
+                    displayAspectRatio /= avDisplayAspectRatio.den;
+                if (displayAspectRatio)
+                    result->add(Property::AspectRatio, displayAspectRatio);
 
-            AVRational avFrameRate = av_guess_frame_rate(fmt_ctx, stream, nullptr);
-            double frameRate = avFrameRate.num;
-            if (avFrameRate.den)
-                frameRate /= avFrameRate.den;
-            if (frameRate)
-                result->add(Property::FrameRate, frameRate);
+                AVRational avFrameRate = av_guess_frame_rate(fmt_ctx, stream, nullptr);
+                double frameRate = avFrameRate.num;
+                if (avFrameRate.den)
+                    frameRate /= avFrameRate.den;
+                if (frameRate)
+                    result->add(Property::FrameRate, frameRate);
+            }
         }
-    }
 
-    AVDictionary* dict = fmt_ctx->metadata;
-    AVDictionaryEntry* entry;
+        AVDictionary* dict = fmt_ctx->metadata;
+        AVDictionaryEntry* entry;
 
-    entry = av_dict_get(dict, "title", nullptr, 0);
-    if (entry) {
-        result->add(Property::Title, QString::fromUtf8(entry->value));
-    }
+        entry = av_dict_get(dict, "title", nullptr, 0);
+        if (entry) {
+            result->add(Property::Title, QString::fromUtf8(entry->value));
+        }
 
 
-    entry = av_dict_get(dict, "author", nullptr, 0);
-    if (entry) {
-        result->add(Property::Author, QString::fromUtf8(entry->value));
-    }
+        entry = av_dict_get(dict, "author", nullptr, 0);
+        if (entry) {
+            result->add(Property::Author, QString::fromUtf8(entry->value));
+        }
 
-    entry = av_dict_get(dict, "copyright", nullptr, 0);
-    if (entry) {
-        result->add(Property::Copyright, QString::fromUtf8(entry->value));
-    }
+        entry = av_dict_get(dict, "copyright", nullptr, 0);
+        if (entry) {
+            result->add(Property::Copyright, QString::fromUtf8(entry->value));
+        }
 
-    entry = av_dict_get(dict, "comment", nullptr, 0);
-    if (entry) {
-        result->add(Property::Comment, QString::fromUtf8(entry->value));
-    }
+        entry = av_dict_get(dict, "comment", nullptr, 0);
+        if (entry) {
+            result->add(Property::Comment, QString::fromUtf8(entry->value));
+        }
 
-    entry = av_dict_get(dict, "album", nullptr, 0);
-    if (entry) {
-        result->add(Property::Album, QString::fromUtf8(entry->value));
-    }
+        entry = av_dict_get(dict, "album", nullptr, 0);
+        if (entry) {
+            result->add(Property::Album, QString::fromUtf8(entry->value));
+        }
 
-    entry = av_dict_get(dict, "genre", nullptr, 0);
-    if (entry) {
-        result->add(Property::Genre, QString::fromUtf8(entry->value));
-    }
+        entry = av_dict_get(dict, "genre", nullptr, 0);
+        if (entry) {
+            result->add(Property::Genre, QString::fromUtf8(entry->value));
+        }
 
-    entry = av_dict_get(dict, "track", nullptr, 0);
-    if (entry) {
-        QString value = QString::fromUtf8(entry->value);
+        entry = av_dict_get(dict, "track", nullptr, 0);
+        if (entry) {
+            QString value = QString::fromUtf8(entry->value);
 
-        bool ok = false;
-        int track = value.toInt(&ok);
-        if (ok && track)
-            result->add(Property::TrackNumber, track);
-    }
+            bool ok = false;
+            int track = value.toInt(&ok);
+            if (ok && track)
+                result->add(Property::TrackNumber, track);
+        }
 
-    entry = av_dict_get(dict, "year", nullptr, 0);
-    if (entry) {
-        int year = QString::fromUtf8(entry->value).toInt();
-        result->add(Property::ReleaseYear, year);
+        entry = av_dict_get(dict, "year", nullptr, 0);
+        if (entry) {
+            int year = QString::fromUtf8(entry->value).toInt();
+            result->add(Property::ReleaseYear, year);
+        }
     }
 
     avformat_close_input(&fmt_ctx);

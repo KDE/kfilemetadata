@@ -74,7 +74,7 @@ const QStringList supportedMimeTypes = {
 void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
 {
     TagLib::AudioProperties* audioProp = file->audioProperties();
-    if (audioProp) {
+    if (audioProp && (result->inputFlags() & ExtractionResult::ExtractMetaData)) {
         if (audioProp->length()) {
             // What about the xml duration?
             result->add(Property::Duration, audioProp->length());
@@ -96,9 +96,10 @@ void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
 
 void readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult* result)
 {
-    if (savedProperties.isEmpty()) {
+    if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || savedProperties.isEmpty()) {
         return;
     }
+
     if (savedProperties.contains("TITLE")) {
         result->add(Property::Title, TStringToQString(savedProperties["TITLE"].toString()).trimmed());
     }
@@ -254,9 +255,10 @@ void readGenericProperties(const TagLib::PropertyMap &savedProperties, Extractio
 
 void extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result)
 {
-    if (Id3Tags->isEmpty()) {
+    if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || Id3Tags->isEmpty()) {
         return;
     }
+
     TagLib::ID3v2::FrameList lstID3v2;
 
     /*
@@ -303,9 +305,10 @@ void extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result)
 
 void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
 {
-    if (mp4Tags->isEmpty()) {
+    if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || mp4Tags->isEmpty()) {
         return;
     }
+
     TagLib::MP4::ItemListMap allTags = mp4Tags->itemListMap();
 
     /*
@@ -321,7 +324,7 @@ void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
 
 void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result)
 {
-    if (asfTags->isEmpty()) {
+    if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || asfTags->isEmpty()) {
         return;
     }
 

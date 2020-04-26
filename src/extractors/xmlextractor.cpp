@@ -101,6 +101,10 @@ void XmlExtractor::extract(ExtractionResult* result)
                 }
 
                 if (e.localName() == QLatin1String("metadata")) {
+                    if (!(flags & ExtractionResult::ExtractMetaData)) {
+                        continue;
+                    }
+
                     auto rdf = e.firstChildElement(QLatin1String("RDF"));
                     if (rdf.isNull() || rdf.namespaceURI() != rdfNS()) {
                         continue;

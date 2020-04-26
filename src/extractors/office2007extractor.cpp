@@ -74,7 +74,9 @@ void Office2007Extractor::extract(ExtractionResult* result)
     const KArchiveDirectory* docPropDirectory = dynamic_cast<const KArchiveDirectory*>(docPropEntry);
     const QStringList docPropsEntries = docPropDirectory->entries();
 
-    if (docPropsEntries.contains(QStringLiteral("core.xml"))) {
+    const bool extractMetaData = result->inputFlags() & ExtractionResult::ExtractMetaData;
+
+    if (extractMetaData && docPropsEntries.contains(QStringLiteral("core.xml"))) {
         QDomDocument coreDoc(QStringLiteral("core"));
         const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QStringLiteral("core.xml")));
         coreDoc.setContent(file->data());
@@ -139,7 +141,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         }
     }
 
-    if (docPropsEntries.contains(QStringLiteral("app.xml"))) {
+    if (extractMetaData && docPropsEntries.contains(QStringLiteral("app.xml"))) {
         QDomDocument appDoc(QStringLiteral("app"));
         const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QStringLiteral("app.xml")));
         appDoc.setContent(file->data());

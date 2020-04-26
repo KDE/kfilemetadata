@@ -98,8 +98,9 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 
         lines += 1;
     }
-
-    result->add(Property::LineCount, lines);
+    if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
+        result->add(Property::LineCount, lines);
+    }
 
     free(line);
     close(fd);

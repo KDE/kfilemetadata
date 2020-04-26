@@ -52,31 +52,33 @@ void PopplerExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Document);
 
-    QString title = pdfDoc->info(QStringLiteral("Title")).trimmed();
+    if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
+        QString title = pdfDoc->info(QStringLiteral("Title")).trimmed();
 
-    if (!title.isEmpty()) {
-        result->add(Property::Title, title);
-    }
+        if (!title.isEmpty()) {
+            result->add(Property::Title, title);
+        }
 
-    QString subject = pdfDoc->info(QStringLiteral("Subject"));
-    if (!subject.isEmpty()) {
-        result->add(Property::Subject, subject);
-    }
+        QString subject = pdfDoc->info(QStringLiteral("Subject"));
+        if (!subject.isEmpty()) {
+            result->add(Property::Subject, subject);
+        }
 
-    QString author = pdfDoc->info(QStringLiteral("Author"));
-    if (!author.isEmpty()) {
-        result->add(Property::Author, author);
-    }
+        QString author = pdfDoc->info(QStringLiteral("Author"));
+        if (!author.isEmpty()) {
+            result->add(Property::Author, author);
+        }
 
-    QString generator = pdfDoc->info(QStringLiteral("Producer"));
-    if (!generator.isEmpty()) {
-        result->add(Property::Generator, generator);
-    }
+        QString generator = pdfDoc->info(QStringLiteral("Producer"));
+        if (!generator.isEmpty()) {
+            result->add(Property::Generator, generator);
+        }
 
-    QString creationDate = pdfDoc->info(QStringLiteral("CreationDate"));
-    if (!creationDate.isEmpty()) {
-        QByteArray utf8 = creationDate.toUtf8();
-        result->add(Property::CreationDate, Poppler::convertDate(utf8.data()));
+        QString creationDate = pdfDoc->info(QStringLiteral("CreationDate"));
+        if (!creationDate.isEmpty()) {
+            QByteArray utf8 = creationDate.toUtf8();
+            result->add(Property::CreationDate, Poppler::convertDate(utf8.data()));
+        }
     }
 
     if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
