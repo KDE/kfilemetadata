@@ -389,6 +389,34 @@ void TagLibExtractorTest::testMp4_data()
         ;
 }
 
+void TagLibExtractorTest::testAax()
+{
+    QFETCH(QString, fileType);
+
+    QString fileName = testFilePath(QStringLiteral("nocoverage_test.") + fileType);
+    QString mimeType = QStringLiteral("audio/vnd.audible.aax");
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult resultAax(fileName, mimeType);
+    plugin.extract(&resultAax);
+
+    QCOMPARE(resultAax.properties().value(Property::AlbumArtist), QVariant(QStringLiteral("Album Artist")));
+    QCOMPARE(resultAax.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
+    QCOMPARE(resultAax.properties().value(Property::Genre), QVariant(QStringLiteral("Hörbuch")));
+    QCOMPARE(resultAax.properties().value(Property::Copyright), QVariant(QStringLiteral("CopyrightHolder")));
+    QCOMPARE(resultAax.properties().value(Property::Title), QVariant(QStringLiteral("TrackTitle")));
+    QCOMPARE(resultAax.properties().value(Property::Channels).toInt(), 2);
+}
+
+void TagLibExtractorTest::testAax_data()
+{
+    QTest::addColumn<QString>("fileType");
+
+    QTest::addRow("aax")
+        << QStringLiteral("aax")
+        ;
+}
+
 void TagLibExtractorTest::testAsf()
 {
     QFETCH(QString, fileType);
@@ -574,6 +602,12 @@ void TagLibExtractorTest::testNoMetadata_data()
     QTest::addRow("mpc")
             << QFINDTESTDATA("samplefiles/no-meta/test.mpc")
             << QStringLiteral("audio/x-musepack")
+            << expectedKeys << QString()
+               ;
+
+    QTest::addRow("aax")
+            << QFINDTESTDATA("samplefiles/no-meta/test.aax")
+            << QStringLiteral("audio/vnd.audible.aax")
             << expectedKeys << QString()
                ;
 

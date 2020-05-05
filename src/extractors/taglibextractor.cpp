@@ -58,6 +58,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/opus"),
     QStringLiteral("audio/speex"),
     QStringLiteral("audio/wav"),
+    QStringLiteral("audio/vnd.audible.aax"),
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
@@ -443,7 +444,8 @@ void TagLibExtractor::extract(ExtractionResult* result)
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
         }
-    } else if (mimeType == QLatin1String("audio/mp4")) {
+    } else if ((mimeType == QLatin1String("audio/mp4")) ||
+               (mimeType == QLatin1String("audio/vnd.audible.aax"))) {
         TagLib::MP4::File file(&stream, true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);

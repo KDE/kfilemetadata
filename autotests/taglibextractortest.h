@@ -47,6 +47,8 @@ private Q_SLOTS:
     void testApe_data();
     void testMp4();
     void testMp4_data();
+    void testAax();
+    void testAax_data();
     void testAsf();
     void testAsf_data();
     void testId3Rating_data();
