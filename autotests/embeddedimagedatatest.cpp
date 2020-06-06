@@ -47,7 +47,11 @@ void EmbeddedImageDataTest::test()
     originalFrontCoverImage = testFile.readAll();
 
     testAudioFile = testFilePath(fileName);
-    QVERIFY(imageData.mimeTypes().contains(mimeDb.mimeTypeForFile(testAudioFile).name()));
+    const QString mimeType = mimeDb.mimeTypeForFile(testAudioFile).name();
+    if (!imageData.mimeTypes().contains(mimeType)) {
+        qWarning() << "mimeType" << mimeType << "not in imageData.mimeTypes()" << imageData.mimeTypes();
+    }
+    QVERIFY(imageData.mimeTypes().contains(mimeType));
     images = imageData.imageData(testAudioFile);
     QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
 }
