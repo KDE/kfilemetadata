@@ -73,6 +73,7 @@ const QStringList EmbeddedImageData::Private::mMimetypes =
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
     QStringLiteral("audio/x-speex"),
+    QStringLiteral("audio/x-speex+ogg"),
     QStringLiteral("audio/x-vorbis+ogg"),
     QStringLiteral("audio/x-wav"),
     QStringLiteral("audio/x-wavpack"),
@@ -212,7 +213,7 @@ EmbeddedImageData::Private::getFrontCover(const QString &fileUrl,
             return getFrontCoverFromFlacPicture(opusFile.tag()->pictureList());
         }
 
-    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
+    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex") || mimeType == QLatin1String("audio/x-speex+ogg")) {
 
         TagLib::Ogg::Speex::File speexFile(&stream, true);
         if (speexFile.tag()) {
@@ -316,7 +317,7 @@ EmbeddedImageData::Private::writeFrontCover(const QString &fileUrl,
             writeFrontCoverToFlacPicture(opusFile.tag()->pictureList(), pictureData);
         }
         opusFile.save();
-    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex")) {
+    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex") || mimeType == QLatin1String("audio/x-speex+ogg")) {
 
         TagLib::Ogg::Speex::File speexFile(&stream, false);
         if (speexFile.tag()) {
