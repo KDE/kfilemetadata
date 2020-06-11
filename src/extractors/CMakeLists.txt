@@ -15,12 +15,11 @@ if(Poppler_Qt5_FOUND)
 
 endif()
 
-if(TAGLIB_FOUND)
+if(Taglib_FOUND)
     add_library(kfilemetadata_taglibextractor MODULE taglibextractor.cpp ${debug_SRCS})
-    target_include_directories(kfilemetadata_taglibextractor SYSTEM PRIVATE ${TAGLIB_INCLUDES})
     target_link_libraries( kfilemetadata_taglibextractor
         KF5::FileMetaData
-        ${TAGLIB_LIBRARIES}
+        Taglib::Taglib
     )
 
     set_target_properties(kfilemetadata_taglibextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")

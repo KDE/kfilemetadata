@@ -28,7 +28,7 @@ set(KF5FileMetaData_SRCS
     )
 
 
-if(TAGLIB_FOUND)
+if(Taglib_FOUND)
     set(KF5FileMetaData_SRCS
         ${KF5FileMetaData_SRCS}
         embeddedimagedata.cpp
@@ -49,12 +49,10 @@ target_link_libraries(KF5FileMetaData
     KF5::CoreAddons
 )
 
-if(TAGLIB_FOUND)
-    target_include_directories(KF5FileMetaData SYSTEM PRIVATE ${TAGLIB_INCLUDES})
-
+if(Taglib_FOUND)
     target_link_libraries(KF5FileMetaData
         PRIVATE
-        ${TAGLIB_LIBRARIES}
+        Taglib::Taglib
     )
 endif()
 

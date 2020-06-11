@@ -65,8 +65,8 @@ set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
                        PURPOSE "Support for PDF files")
 
 find_package(Taglib 1.11.1)
-set_package_properties(Taglib PROPERTIES DESCRIPTION "Id3 tag reader"
-                       URL "https://taglib.org/" TYPE OPTIONAL
+set_package_properties(Taglib PROPERTIES
+                       TYPE OPTIONAL
                        PURPOSE "Support for music metadata")
 
 find_package(LibExiv2 0.21)

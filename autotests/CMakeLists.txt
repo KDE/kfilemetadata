@@ -133,18 +133,16 @@ endif()
 #
 # TagLib
 #
-if(TAGLIB_FOUND)
+if(Taglib_FOUND)
     kde_enable_exceptions()
     ecm_add_test(taglibextractortest.cpp ../src/extractors/taglibextractor.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "taglibextractortest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData Taglib::Taglib
     )
-    target_include_directories(taglibextractortest SYSTEM PRIVATE ${TAGLIB_INCLUDES})
     ecm_add_test(embeddedimagedatatest.cpp
         TEST_NAME "embeddedimagedatatest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData Taglib::Taglib
     )
-    target_include_directories(embeddedimagedatatest SYSTEM PRIVATE ${TAGLIB_INCLUDES})
 endif()
 
 
@@ -170,7 +168,7 @@ ecm_add_test(${extractorcollection_SRCS}
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData
 )
 
-if(TAGLIB_FOUND)
+if(Taglib_FOUND)
     set(writercollection_SRCS
         writercollectiontest.cpp
     )
@@ -244,13 +242,12 @@ endif()
 #
 # TagLib
 #
-if(TAGLIB_FOUND)
+if(Taglib_FOUND)
     kde_enable_exceptions()
     ecm_add_test(taglibwritertest.cpp ../src/writers/taglibwriter.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "taglibwritertest"
-        LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${TAGLIB_LIBRARIES}
+        LINK_LIBRARIES Qt5::Test KF5::FileMetaData Taglib::Taglib
     )
-    target_include_directories(taglibwritertest SYSTEM PRIVATE ${TAGLIB_INCLUDES})
 endif()
 
 if(PYTHONINTERP_FOUND)
