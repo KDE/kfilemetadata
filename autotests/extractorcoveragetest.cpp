@@ -37,7 +37,7 @@ private Q_SLOTS:
             { "test.aif",                      "audio/x-aifc"},
             { "test.ape",                      "audio/x-ape"},
             { "test.AppImage",                 "application/vnd.appimage"},
-            { "test_apple_systemprofiler.spx", "application/xml"},
+            { "test_apple_systemprofiler.spx", "application/x-apple-systemprofiler+xml"},  // s-m-i < 2.0 would give "application/xml"
             { "test.dot",                      "text/vnd.graphviz"},
             { "test.eps",                      "image/x-eps"},
             { "test.epub",                     "application/epub+zip"},
@@ -109,6 +109,10 @@ private Q_SLOTS:
         auto fileMime = MimeUtils::strictMimeType(url, db);
 
         QVERIFY(fileMime.isValid());
+        if (fileMime.name() == "application/xml" && mimeType == "application/x-apple-systemprofiler+xml") {
+            // s-m-i < 2.0 didn't have application/x-apple-systemprofiler+xml yet, it's all fine
+            return;
+        }
         QCOMPARE(fileMime.name(), mimeType);
     }
 
