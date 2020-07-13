@@ -12,7 +12,11 @@ configure_file(indexerextractortestsconfig.h.in
 
 
 set(KfileMetaDataAutotest_SRCS)
-ecm_qt_declare_logging_category(KfileMetaDataAutotest_SRCS HEADER kfilemetadata_debug.h IDENTIFIER KFILEMETADATA_LOG CATEGORY_NAME kf5.kfilemetadata)
+ecm_qt_declare_logging_category(KfileMetaDataAutotest_SRCS
+    HEADER kfilemetadata_debug.h
+    IDENTIFIER KFILEMETADATA_LOG
+    CATEGORY_NAME kf.filemetadata
+)
 
 
 #

@@ -1,7 +1,8 @@
 ecm_qt_declare_logging_category(debug_SRCS
     HEADER kfilemetadata_debug.h
     IDENTIFIER KFILEMETADATA_LOG
-    CATEGORY_NAME kf5.kfilemetadata
+    CATEGORY_NAME kf.filemetadata
+    OLD_CATEGORY_NAMES kf5.kfilemetadata
     DESCRIPTION "KFileMetaData"
     EXPORT KFILEMETADATA
 )
