@@ -142,7 +142,7 @@ void readGenericProperties(const TagLib::PropertyMap &savedProperties, Extractio
         result->add(Property::Compilation, TStringToQString(savedProperties["COMPILATION"].toString()).trimmed());
     }
     if (savedProperties.contains("LYRICS")) {
-        result->add(Property::Lyrics, TStringToQString(savedProperties["LYRICS"].toString()).trimmed());
+        result->add(Property::Lyrics, TStringToQString(savedProperties["LYRICS"].toString()).trimmed().replace(QLatin1Char('\r'), QLatin1Char('\n'))); // Convert old Mac line endings
     }
     if (savedProperties.contains("ARTIST")) {
         const auto artists = savedProperties["ARTIST"];
