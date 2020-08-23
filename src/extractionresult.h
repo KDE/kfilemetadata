@@ -110,8 +110,8 @@ private:
     Private* d;
 };
 
-}
+Q_DECLARE_OPERATORS_FOR_FLAGS(ExtractionResult::Flags)
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(KFileMetaData::ExtractionResult::Flags)
+}
 
 #endif // _KFILEMETADATA_EXTRACTIONRESULT_H
