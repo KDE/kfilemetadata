@@ -34,6 +34,8 @@
 #include <sys/types.h>
 #include <sys/extattr.h>
 #include <errno.h>
+#elif defined(Q_OS_OPENBSD)
+#include <errno.h>
 #elif defined(Q_OS_WIN)
 #include <windows.h>
 #define ssize_t SSIZE_T
