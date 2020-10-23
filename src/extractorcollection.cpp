@@ -6,7 +6,6 @@
 */
 
 #include "extractorcollection.h"
-#include "extractor.h"
 #include "extractor_p.h"
 #include "extractorplugin.h"
 #include "externalextractor.h"

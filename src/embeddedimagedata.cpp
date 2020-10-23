@@ -31,7 +31,6 @@
 #include <asfattribute.h>
 #include <asfpicture.h>
 
-#include <QByteArray>
 #include <QMimeDatabase>
 
 using namespace KFileMetaData;

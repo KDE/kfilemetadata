@@ -7,7 +7,6 @@
 */
 
 #include "writercollection.h"
-#include "writer.h"
 #include "writer_p.h"
 #include "writerplugin.h"
 #include "externalwriter.h"
