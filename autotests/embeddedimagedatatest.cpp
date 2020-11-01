@@ -172,5 +172,68 @@ void EmbeddedImageDataTest::testWrite_data()
             << QStringLiteral("test.wma")
             ;
 }
+void EmbeddedImageDataTest::testDelete()
+{
+    QFETCH(QString, fileName);
+    EmbeddedImageData imageData;
+
+    QString testFileName = testFilePath(QStringLiteral("writer_del_") + fileName);
+
+    QFile::copy(testFilePath(fileName), testFileName);
+
+    QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
+    QMap<EmbeddedImageData::ImageType, QByteArray> readImages;
+
+    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, QByteArray());
+    imageData.writeImageData(testFileName, writeImages);
+    readImages = imageData.imageData(testFileName);
+
+    QVERIFY(!readImages.contains(EmbeddedImageData::FrontCover));
+
+    QFile::remove(testFileName);
+}
+
+void EmbeddedImageDataTest::testDelete_data()
+{
+    testWrite_data();
+}
+
+void EmbeddedImageDataTest::testDeleteInsert()
+{
+    QFETCH(QString, fileName);
+    EmbeddedImageData imageData;
+
+    QString testFileName = testFilePath(QStringLiteral("writer_delinsert_") + fileName);
+
+    QFile::copy(testFilePath(fileName), testFileName);
+
+    QFile imgFile(testFilePath("test.jpg"));
+    imgFile.open(QIODevice::ReadOnly);
+
+    QMap<EmbeddedImageData::ImageType, QByteArray> delImages;
+    QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
+    QMap<EmbeddedImageData::ImageType, QByteArray> readImages;
+
+    delImages.insert(EmbeddedImageData::ImageType::FrontCover, QByteArray());
+    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, imgFile.readAll());
+
+    imageData.writeImageData(testFileName, delImages);
+    readImages = imageData.imageData(testFileName);
+
+    QVERIFY(!readImages.contains(EmbeddedImageData::FrontCover));
+
+    imageData.writeImageData(testFileName, writeImages);
+    readImages = imageData.imageData(testFileName);
+
+    QCOMPARE(readImages.value(EmbeddedImageData::FrontCover), writeImages.value(EmbeddedImageData::FrontCover));
+
+    QFile::remove(testFileName);
+}
+
+void EmbeddedImageDataTest::testDeleteInsert_data()
+{
+    testWrite_data();
+}
+
 
 QTEST_GUILESS_MAIN(EmbeddedImageDataTest)
