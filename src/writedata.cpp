@@ -18,6 +18,7 @@ public:
     QString url;
     QString mimetype;
     PropertyMap properties;
+    QMap<EmbeddedImageData::ImageType, QByteArray> images;
 };
 
 WriteData::WriteData(const QString& url, const QString& mimetype)
@@ -53,6 +54,18 @@ void WriteData::add(Property::Property property, const QVariant& value)
 {
     Q_D(WriteData);
     d->properties.insertMulti(property, value);
+}
+
+void WriteData::addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray>& images)
+{
+    Q_D(WriteData);
+    d->images = images;
+}
+
+QMap<EmbeddedImageData::ImageType, QByteArray> WriteData::imageData() const
+{
+    Q_D(const WriteData);
+    return d->images;
 }
 
 WriteData::~WriteData()

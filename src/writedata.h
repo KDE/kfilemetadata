@@ -15,6 +15,7 @@
 #include <QMap>
 #include <QVariant>
 
+#include "embeddedimagedata.h"
 #include "properties.h"
 #include "types.h"
 
@@ -37,8 +38,10 @@ public:
     QString inputMimetype() const;
 
     void add(Property::Property property, const QVariant& value);
+    void addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray>& images);
 
     QMap<Property::Property, QVariant> getAllProperties() const;
+    QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:
     class WriteDataPrivate;

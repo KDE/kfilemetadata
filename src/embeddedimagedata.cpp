@@ -7,6 +7,8 @@
 #include "embeddedimagedata.h"
 #include "extractorcollection.h"
 #include "simpleextractionresult.h"
+#include "writedata.h"
+#include "writercollection.h"
 #include "kfilemetadata_debug.h"
 // Taglib includes
 #include <taglib.h>
@@ -106,12 +108,14 @@ void
 EmbeddedImageData::writeImageData(const QString &fileUrl,
                              QMap<EmbeddedImageData::ImageType, QByteArray> &imageData)
 {
-    const auto fileMimeType = d->mMimeDatabase.mimeTypeForFile(fileUrl);
-    QMap<EmbeddedImageData::ImageType, QByteArray>::iterator frontCover = imageData.find(EmbeddedImageData::FrontCover);
-    if (fileMimeType.name().startsWith(QLatin1String("audio/"))) {
-        if (frontCover != imageData.end()) {
-            d->writeFrontCover(fileUrl, fileMimeType.name(), frontCover.value());
-        }
+    const auto fileMimeType = d->mMimeDatabase.mimeTypeForFile(fileUrl).name();
+    KFileMetaData::WriterCollection wc;
+    KFileMetaData::WriteData data(fileUrl, fileMimeType);
+    data.addImageData(imageData);
+
+    auto writers = wc.fetchWriters(fileMimeType);
+    for (const auto& w : writers) {
+	w->write(data);
     }
 }
 
