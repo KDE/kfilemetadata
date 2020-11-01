@@ -16,6 +16,7 @@ public:
     QString url;
     QString mimetype;
     ExtractionResult::Flags flags;
+    QMap<EmbeddedImageData::ImageType, QByteArray> images;
 };
 
 ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
@@ -52,5 +53,16 @@ QString ExtractionResult::inputMimetype() const
 ExtractionResult::Flags ExtractionResult::inputFlags() const
 {
     return d->flags;
+}
+
+void ExtractionResult::addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images)
+{
+    d->images = images;
+}
+
+QMap<EmbeddedImageData::ImageType, QByteArray>
+ExtractionResult::imageData() const
+{
+    return d->images;
 }
 

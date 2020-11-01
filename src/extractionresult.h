@@ -11,6 +11,7 @@
 #include <QVariant>
 
 #include "kfilemetadata_export.h"
+#include "embeddedimagedata.h"
 #include "properties.h"
 #include "types.h"
 
@@ -38,6 +39,7 @@ public:
         ExtractNothing = 0,
         ExtractMetaData = 1,
         ExtractPlainText = 2,
+        ExtractImageData = 4, /// @since 5.75
         ExtractEverything = (ExtractMetaData | ExtractPlainText)
     };
     /**
@@ -104,6 +106,23 @@ public:
      * Please choose one type from the list of available types
      */
     virtual void addType(Type::Type type) = 0;
+
+    /**
+     * This function is called by the plugins.
+     *
+     * \p images The images to add
+     * \sa EmbeddedImageData
+     * @since 5.75
+     */
+    virtual void addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images);
+
+    /**
+     * Return embedded image data
+     *
+     * \sa Flags::ExtractImageData
+     * @since 5.75
+     */
+    virtual QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:
     class Private;

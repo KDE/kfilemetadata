@@ -5,6 +5,8 @@
 */
 
 #include "embeddedimagedata.h"
+#include "extractorcollection.h"
+#include "simpleextractionresult.h"
 #include "kfilemetadata_debug.h"
 // Taglib includes
 #include <taglib.h>
@@ -95,16 +97,15 @@ QMap<EmbeddedImageData::ImageType, QByteArray>
 EmbeddedImageData::imageData(const QString &fileUrl,
                              const EmbeddedImageData::ImageTypes types) const
 {
-    QMap<EmbeddedImageData::ImageType, QByteArray> imageData;
+    const auto fileMimeType = d->mMimeDatabase.mimeTypeForFile(fileUrl).name();
+    KFileMetaData::ExtractorCollection ec;
+    KFileMetaData::SimpleExtractionResult result(fileUrl, fileMimeType, ExtractionResult::ExtractImageData);
 
-    const auto fileMimeType = d->mMimeDatabase.mimeTypeForFile(fileUrl);
-    if (fileMimeType.name().startsWith(QLatin1String("audio/"))) {
-        if (types & EmbeddedImageData::FrontCover) {
-            imageData.insert(EmbeddedImageData::FrontCover, d->getFrontCover(fileUrl, fileMimeType.name()));
-        }
+    auto extractors = ec.fetchExtractors(fileMimeType);
+    for (const auto& ex : extractors) {
+	ex->extract(&result);
     }
-
-    return imageData;
+    return result.imageData();
 }
 
 void
