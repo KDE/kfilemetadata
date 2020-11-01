@@ -10,6 +10,7 @@ ecm_qt_declare_logging_category(debug_SRCS
 set(KF5FileMetaData_SRCS
     extractionresult.cpp
     simpleextractionresult.cpp
+    embeddedimagedata.cpp
     extractor.cpp
     extractorplugin.cpp
     extractorcollection.cpp
@@ -27,14 +28,6 @@ set(KF5FileMetaData_SRCS
     ${debug_SRCS}
     )
 
-
-if(Taglib_FOUND)
-    set(KF5FileMetaData_SRCS
-        ${KF5FileMetaData_SRCS}
-        embeddedimagedata.cpp
-        )
-endif()
-
 add_library(KF5FileMetaData
     ${KF5FileMetaData_SRCS}
 )
@@ -48,13 +41,6 @@ target_link_libraries(KF5FileMetaData
     KF5::I18n
     KF5::CoreAddons
 )
-
-if(Taglib_FOUND)
-    target_link_libraries(KF5FileMetaData
-        PRIVATE
-        Taglib::Taglib
-    )
-endif()
 
 ecm_generate_export_header(KF5FileMetaData
     EXPORT_FILE_NAME kfilemetadata_export.h
