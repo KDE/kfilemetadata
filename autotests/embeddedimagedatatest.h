@@ -29,6 +29,8 @@ private Q_SLOTS:
     void testDelete_data();
     void testDeleteInsert();
     void testDeleteInsert_data();
+    void testMultiImage();
+    void testMultiImage_data();
 };
 
 #endif // EMBEDDEDIMAGEDATATEST_H

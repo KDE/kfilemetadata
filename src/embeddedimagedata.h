@@ -12,6 +12,7 @@
 #include <QByteArray>
 #include <QFlags>
 #include <QMap>
+#include <QMetaType>
 #include <memory>
 
 namespace KFileMetaData {
@@ -91,5 +92,8 @@ private:
 };
 
 }
+
+Q_DECLARE_METATYPE(KFileMetaData::EmbeddedImageData::ImageType)
+Q_DECLARE_METATYPE(KFileMetaData::EmbeddedImageData::ImageTypes);
 
 #endif // KFILEMETADATA_EMBEDDEDIMAGEDATA_H

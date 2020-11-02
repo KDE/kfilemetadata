@@ -235,5 +235,55 @@ void EmbeddedImageDataTest::testDeleteInsert_data()
     testWrite_data();
 }
 
+void EmbeddedImageDataTest::testMultiImage()
+{
+    QFETCH(QString, fileName);
+    QFETCH(EmbeddedImageData::ImageTypes, imageTypes);
+    EmbeddedImageData imageData;
+
+    QString testFileName = testFilePath(QStringLiteral("writer_multiimage_") + fileName);
+
+    QFile::copy(testFilePath(fileName), testFileName);
+
+    QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
+
+    auto readImages = imageData.imageData(testFileName);
+    QVERIFY(readImages.contains(EmbeddedImageData::FrontCover));
+
+    using Image = EmbeddedImageData::ImageType;
+    for (auto type : { Image::Other, Image::BackCover }) {
+	if (type & imageTypes) {
+	    writeImages.insert(type, m_coverImage);
+	}
+    }
+    imageData.writeImageData(testFileName, writeImages);
+
+    readImages = imageData.imageData(testFileName);
+    // Test if FrontCover still exists
+    QVERIFY(readImages.contains(EmbeddedImageData::FrontCover));
+
+    for (auto type : { Image::FrontCover, Image::Other, Image::BackCover }) {
+	if (type & imageTypes) {
+	    QVERIFY2(readImages.contains(type), qPrintable(QString("has imagetype %1").arg(type)));
+	    QCOMPARE(readImages.value(type), m_coverImage);
+	}
+    }
+
+    QFile::remove(testFileName);
+}
+
+void EmbeddedImageDataTest::testMultiImage_data()
+{
+    using ImageTypes = EmbeddedImageData::ImageTypes;
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<ImageTypes>("imageTypes");
+
+    using Image = EmbeddedImageData::ImageType;
+    QTest::addRow("aiff") << QStringLiteral("test.aif") << ImageTypes{ Image::Other, Image::Artist };
+    QTest::addRow("opus") << QStringLiteral("test.opus") << ImageTypes{ Image::Other, Image::BackCover };
+    QTest::addRow("flac") << QStringLiteral("test.flac") << ImageTypes{ Image::Other, Image::Composer };
+    QTest::addRow("wma")  << QStringLiteral("test.wma") << ImageTypes{ Image::Other, Image::Band };
+}
+
 
 QTEST_GUILESS_MAIN(EmbeddedImageDataTest)
