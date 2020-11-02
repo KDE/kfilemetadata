@@ -39,8 +39,11 @@ public:
         ExtractNothing = 0,
         ExtractMetaData = 1,
         ExtractPlainText = 2,
-        ExtractImageData = 4, /// @since 5.75
+        ExtractImageData = 4, ///< @since 5.76
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 76)
+	/// @deprecated since 5.76, specify explicitly
         ExtractEverything = (ExtractMetaData | ExtractPlainText)
+#endif
     };
     /**
      * Stores a combination of #Flag values.
@@ -53,7 +56,7 @@ public:
      * which file the data should be extracted from and which data should
      * be extracted.
      */
-    ExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = ExtractEverything);
+    ExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = Flags{ExtractPlainText | ExtractMetaData});
     ExtractionResult(const ExtractionResult& rhs);
     virtual ~ExtractionResult();
 
@@ -112,7 +115,7 @@ public:
      *
      * \p images The images to add
      * \sa EmbeddedImageData
-     * @since 5.75
+     * @since 5.76
      */
     virtual void addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images);
 
@@ -120,7 +123,7 @@ public:
      * Return embedded image data
      *
      * \sa Flags::ExtractImageData
-     * @since 5.75
+     * @since 5.76
      */
     virtual QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
