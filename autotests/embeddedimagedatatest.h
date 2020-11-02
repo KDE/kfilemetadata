@@ -17,8 +17,10 @@ class EmbeddedImageDataTest : public QObject
     Q_OBJECT
 private:
     QString testFilePath(const QString& fileName) const;
+    QByteArray m_coverImage;
 
 private Q_SLOTS:
+    void initTestCase();
     void test();
     void test_data();
     void testWrite();

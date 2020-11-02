@@ -21,6 +21,13 @@ QString EmbeddedImageDataTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void EmbeddedImageDataTest::initTestCase()
+{
+    QFile imgFile(testFilePath("cover.jpg"));
+    imgFile.open(QIODevice::ReadOnly);
+    m_coverImage = imgFile.readAll();
+}
+
 void EmbeddedImageDataTest::test()
 {
     QFETCH(QString, fileName);
@@ -28,10 +35,6 @@ void EmbeddedImageDataTest::test()
     QString testAudioFile;
     EmbeddedImageData imageData;
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
-    QByteArray originalFrontCoverImage;
-    QFile testFile(testFilePath("cover.jpg"));
-    testFile.open(QIODevice::ReadOnly);
-    originalFrontCoverImage = testFile.readAll();
 
     testAudioFile = testFilePath(fileName);
     const QString mimeType = mimeDb.mimeTypeForFile(testAudioFile).name();
@@ -40,7 +43,7 @@ void EmbeddedImageDataTest::test()
     }
     QVERIFY(imageData.mimeTypes().contains(mimeType));
     images = imageData.imageData(testAudioFile);
-    QCOMPARE(images.value(EmbeddedImageData::FrontCover), originalFrontCoverImage);
+    QCOMPARE(images.value(EmbeddedImageData::FrontCover), m_coverImage);
 }
 
 void EmbeddedImageDataTest::test_data()
@@ -105,13 +108,10 @@ void EmbeddedImageDataTest::testWrite()
 
     QFile::copy(testFilePath(fileName), testFileName);
 
-    QFile testFile(testFilePath("test.jpg"));
-    testFile.open(QIODevice::ReadOnly);
-
     QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
     QMap<EmbeddedImageData::ImageType, QByteArray> readImages;
 
-    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, testFile.readAll());
+    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, m_coverImage);
     imageData.writeImageData(testFileName, writeImages);
     readImages = imageData.imageData(testFileName);
 
@@ -215,7 +215,7 @@ void EmbeddedImageDataTest::testDeleteInsert()
     QMap<EmbeddedImageData::ImageType, QByteArray> readImages;
 
     delImages.insert(EmbeddedImageData::ImageType::FrontCover, QByteArray());
-    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, imgFile.readAll());
+    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, m_coverImage);
 
     imageData.writeImageData(testFileName, delImages);
     readImages = imageData.imageData(testFileName);
