@@ -9,6 +9,8 @@
 #include "embeddedimagedata.h"
 #include "kfilemetadata_debug.h"
 
+#include <array>
+
 #include <taglib.h>
 #include <tfilestream.h>
 #include <tpropertymap.h>
@@ -114,7 +116,7 @@ EmbeddedImageData::ImageType mapTaglibType(const ImageType type)
 }
 
 template<typename ImageType>
-static const typename ImageType::Type allImageTypes[] = {
+static const std::array<typename ImageType::Type, 21> allImageTypes = {
     ImageType::FrontCover,
     ImageType::Other,
     ImageType::FileIcon,
