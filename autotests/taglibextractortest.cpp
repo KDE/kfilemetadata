@@ -655,7 +655,7 @@ void TagLibExtractorTest::testRobustness_data()
 
     QTest::addRow("ArcGIS GeoData spx")
             << QFINDTESTDATA("samplefiles/misdetected/test_arcgis_geodata.spx")
-            << QStringLiteral("audio/speex");
+            << QStringLiteral("audio/x-speex+ogg");
 }
 
 void TagLibExtractorTest::testRobustness()

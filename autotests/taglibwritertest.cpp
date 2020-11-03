@@ -197,13 +197,13 @@ void TagLibWriterTest::testCommonData_data()
 
     QTest::addRow("speex")
         << QStringLiteral("spx")
-        << QStringLiteral("audio/speex")
+        << QStringLiteral("audio/x-speex+ogg")
         << QString()
         ;
 
     QTest::addRow("speex_unicode")
         << QStringLiteral("spx")
-        << QStringLiteral("audio/speex")
+        << QStringLiteral("audio/x-speex+ogg")
         << unicodeTestStringSuffix
         ;
 
@@ -318,7 +318,7 @@ void TagLibWriterTest::testExtendedData_data()
 
     QTest::addRow("speex")
         << QStringLiteral("spx")
-        << QStringLiteral("audio/speex")
+        << QStringLiteral("audio/x-speex+ogg")
         ;
 
     QTest::addRow("wav")
@@ -468,7 +468,7 @@ void TagLibWriterTest::testRating_data()
 
     QTest::addRow("speex")
         << QStringLiteral("spx")
-        << QStringLiteral("audio/speex")
+        << QStringLiteral("audio/x-speex+ogg")
         << 8
         ;
 
@@ -606,7 +606,7 @@ void TagLibWriterTest::testComplexContactData_data()
 
     QTest::addRow("speex")
         << QStringLiteral("spx")
-        << QStringLiteral("audio/speex")
+        << QStringLiteral("audio/x-speex+ogg")
         ;
 
     QTest::addRow("wav")

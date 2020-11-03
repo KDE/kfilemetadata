@@ -43,7 +43,6 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
     QStringLiteral("audio/opus"),
-    QStringLiteral("audio/speex"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-aifc"),
@@ -636,7 +635,7 @@ void TagLibWriter::write(const WriteData& data)
             writeFlacCover(file.tag(), data.imageData());
             file.save();
         }
-    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex+ogg")) {
+    } else if (mimeType == QLatin1String("audio/x-speex+ogg")) {
         TagLib::Ogg::Speex::File file(&stream, false);
         if (file.isValid()) {
             auto savedProperties = file.properties();

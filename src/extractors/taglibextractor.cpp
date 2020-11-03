@@ -46,7 +46,6 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
     QStringLiteral("audio/opus"),
-    QStringLiteral("audio/speex"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/vnd.audible.aax"),
     QStringLiteral("audio/x-aiff"),
@@ -645,7 +644,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 result->addImageData(extractFlacCover(file.tag()->pictureList(), imageTypes));
             }
         }
-    } else if (mimeType == QLatin1String("audio/speex") || mimeType == QLatin1String("audio/x-speex+ogg")) {
+    } else if (mimeType == QLatin1String("audio/x-speex+ogg")) {
         TagLib::Ogg::Speex::File file(&stream, true);
         // Workaround for buggy taglib:
         // isValid() returns true for invalid files, but XiphComment* tag() returns a nullptr
