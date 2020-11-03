@@ -60,6 +60,9 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
 
         const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
         for (const QString& fileName : entryList) {
+            if (!QLibrary::isLibrary(fileName)) {
+                continue;
+            }
             // Make sure the same plugin is not loaded twice, even if it
             // installed in two different locations
             if (plugins.contains(fileName))
@@ -75,6 +78,9 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
     // For external plugins, we look into the directories
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     for (const QString& externalPlugin : externalPluginEntryList) {
+        if (!QLibrary::isLibrary(externalPlugin)) {
+            continue;
+        }
         if (externalPlugins.contains(externalPlugin))
             continue;
 

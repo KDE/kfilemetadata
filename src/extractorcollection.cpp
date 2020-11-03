@@ -71,6 +71,9 @@ void ExtractorCollection::Private::findExtractors()
 
         const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
         for (const QString& fileName : entryList) {
+            if (!QLibrary::isLibrary(fileName)) {
+                continue;
+            }
             // Make sure the same plugin is not loaded twice, even if it is
             // installed in two different locations
             if (plugins.contains(fileName)) {
@@ -108,6 +111,9 @@ void ExtractorCollection::Private::findExtractors()
     // For external plugins, we look into the directories
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     for (const QString& externalPlugin : externalPluginEntryList) {
+        if (!QLibrary::isLibrary(externalPlugin)) {
+            continue;
+        }
         if (externalPlugins.contains(externalPlugin)) {
             qCDebug(KFILEMETADATA_LOG) << "Skipping duplicate - "
                 << externalPluginDir.path() << ":" << externalPlugin;
