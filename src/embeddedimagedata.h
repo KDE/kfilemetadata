@@ -94,6 +94,6 @@ private:
 }
 
 Q_DECLARE_METATYPE(KFileMetaData::EmbeddedImageData::ImageType)
-Q_DECLARE_METATYPE(KFileMetaData::EmbeddedImageData::ImageTypes);
+Q_DECLARE_METATYPE(KFileMetaData::EmbeddedImageData::ImageTypes)
 
 #endif // KFILEMETADATA_EMBEDDEDIMAGEDATA_H
