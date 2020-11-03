@@ -117,7 +117,7 @@ public:
      * \sa EmbeddedImageData
      * @since 5.76
      */
-    virtual void addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images);
+    void addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images);
 
     /**
      * Return embedded image data
@@ -125,7 +125,7 @@ public:
      * \sa Flags::ExtractImageData
      * @since 5.76
      */
-    virtual QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
+    QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:
     class Private;
