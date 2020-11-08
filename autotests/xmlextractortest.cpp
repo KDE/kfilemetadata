@@ -91,7 +91,7 @@ void XmlExtractorTests::testXmlExtractor()
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
     SimpleExtractionResult result(fileName, mimeType,
-            ExtractionResult::ExtractEverything);
+            ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QString content = QStringLiteral("Some text\n");
@@ -130,7 +130,7 @@ void XmlExtractorTests::testXmlExtractorContainer()
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test_with_container.svg")),
             QStringLiteral("image/svg"),
-            ExtractionResult::ExtractEverything);
+            ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QString content = QStringLiteral("Some text below <a>\n");
@@ -150,7 +150,7 @@ void XmlExtractorTests::testXmlExtractorMathML()
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test.mml")),
             QStringLiteral("application/mathml+xml"),
-            ExtractionResult::ExtractEverything);
+            ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QString content = QStringLiteral("1 + 1 = 2\n");
