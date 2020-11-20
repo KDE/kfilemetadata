@@ -8,6 +8,7 @@
 
 
 #include "odfextractor.h"
+#include <memory>
 
 #include <KZip>
 
@@ -73,15 +74,15 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     // we need a meta xml file in the archive!
-    const auto metaXml = directory->entry(QStringLiteral("meta.xml"));
-    if (!metaXml || !metaXml->isFile()) {
+    const auto metaXml = directory->file(QStringLiteral("meta.xml"));
+    if (!metaXml) {
         qWarning() << "Invalid document structure (meta.xml is missing)";
         return;
     }
 
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
         QDomDocument metaData(QStringLiteral("metaData"));
-        metaData.setContent(static_cast<const KArchiveFile*>(metaXml)->data(), true);
+        metaData.setContent(metaXml->data(), true);
 
         // parse metadata ...
         QDomElement meta = firstChildElementNS(firstChildElementNS(metaData,
@@ -153,13 +154,14 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     // for content indexing, we need content xml file
-    const auto contentXml = directory->entry(QStringLiteral("content.xml"));
-    if (!contentXml || !contentXml->isFile()) {
+    const auto contentXml = directory->file(QStringLiteral("content.xml"));
+    if (!contentXml) {
         qWarning() << "Invalid document structure (content.xml is missing)";
         return;
     }
 
-    QXmlStreamReader xml(static_cast<const KArchiveFile*>(contentXml)->createDevice());
+    std::unique_ptr<QIODevice> contentIODevice{contentXml->createDevice()};
+    QXmlStreamReader xml(contentIODevice.get());
     while (!xml.atEnd()) {
         xml.readNext();
         if (xml.isCharacters()) {

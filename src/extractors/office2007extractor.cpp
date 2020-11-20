@@ -6,6 +6,7 @@
 
 
 #include "office2007extractor.h"
+#include <memory>
 
 #include <KZip>
 
@@ -64,13 +65,12 @@ void Office2007Extractor::extract(ExtractionResult* result)
     }
 
     const KArchiveDirectory* docPropDirectory = dynamic_cast<const KArchiveDirectory*>(docPropEntry);
-    const QStringList docPropsEntries = docPropDirectory->entries();
 
     const bool extractMetaData = result->inputFlags() & ExtractionResult::ExtractMetaData;
 
-    if (extractMetaData && docPropsEntries.contains(QStringLiteral("core.xml"))) {
+    const KArchiveFile* file = docPropDirectory->file(QStringLiteral("core.xml"));
+    if (extractMetaData && file) {
         QDomDocument coreDoc(QStringLiteral("core"));
-        const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QStringLiteral("core.xml")));
         coreDoc.setContent(file->data());
 
         QDomElement docElem = coreDoc.documentElement();
@@ -133,9 +133,9 @@ void Office2007Extractor::extract(ExtractionResult* result)
         }
     }
 
-    if (extractMetaData && docPropsEntries.contains(QStringLiteral("app.xml"))) {
+    file = docPropDirectory->file(QStringLiteral("app.xml"));
+    if (extractMetaData && file) {
         QDomDocument appDoc(QStringLiteral("app"));
-        const KArchiveFile* file = static_cast<const KArchiveFile*>(docPropDirectory->entry(QStringLiteral("app.xml")));
         appDoc.setContent(file->data());
 
         QDomElement docElem = appDoc.documentElement();
@@ -192,9 +192,12 @@ void Office2007Extractor::extract(ExtractionResult* result)
         const QStringList wordEntries = wordDirectory->entries();
 
         if (wordEntries.contains(QStringLiteral("document.xml"))) {
-            const KArchiveFile* file = static_cast<const KArchiveFile*>(wordDirectory->entry(QStringLiteral("document.xml")));
+            const KArchiveFile* file = wordDirectory->file(QStringLiteral("document.xml"));
 
-            extractTextWithTag(file->createDevice(), QStringLiteral("w:t"), result);
+            if (file) {
+                std::unique_ptr<QIODevice> contentIODevice{file->createDevice()};
+                extractTextWithTag(contentIODevice.get(), QStringLiteral("w:t"), result);
+            }
         }
     }
 
@@ -254,17 +257,20 @@ void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveD
     const QStringList entries = archiveDir->entries();
     for (const QString & entryName : entries) {
         const KArchiveEntry* entry = archiveDir->entry(entryName);
+        if (!entry) {
+            continue;
+        }
         if (entry->isDirectory()) {
             const KArchiveDirectory* subDir = dynamic_cast<const KArchiveDirectory*>(entry);
             extractTextFromFiles(subDir, result);
             continue;
         }
 
-        if (!entryName.endsWith(QLatin1String(".xml")))
-            continue;
-
-        const KArchiveFile* file = static_cast<const KArchiveFile*>(entry);
-        extractAllText(file->createDevice(), result);
+        if (entry->isFile() && entryName.endsWith(QLatin1String(".xml"))) {
+            const KArchiveFile* file = static_cast<const KArchiveFile*>(entry);
+            std::unique_ptr<QIODevice> contentIODevice{file->createDevice()};
+            extractAllText(contentIODevice.get() , result);
+        }
     }
 }
 
