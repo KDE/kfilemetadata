@@ -23,8 +23,13 @@ Office2007Extractor::Office2007Extractor(QObject* parent)
 
 const QStringList supportedMimeTypes = {
     QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+    QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.template"),
     QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+    QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.slide"),
+    QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.slideshow"),
+    QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.template"),
     QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+    QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.template"),
 };
 
 QStringList Office2007Extractor::mimetypes() const

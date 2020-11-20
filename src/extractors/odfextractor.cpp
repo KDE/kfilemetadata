@@ -34,8 +34,13 @@ QDomElement firstChildElementNS(const QDomNode &node, const QString &nsURI, cons
 
 const QStringList supportedMimeTypes = {
     QStringLiteral("application/vnd.oasis.opendocument.text"),
+    QStringLiteral("application/vnd.oasis.opendocument.text-template"),
+    QStringLiteral("application/vnd.oasis.opendocument.text-master"),
+    QStringLiteral("application/vnd.oasis.opendocument.text-master-template"),
     QStringLiteral("application/vnd.oasis.opendocument.presentation"),
+    QStringLiteral("application/vnd.oasis.opendocument.presentation-template"),
     QStringLiteral("application/vnd.oasis.opendocument.spreadsheet"),
+    QStringLiteral("application/vnd.oasis.opendocument.spreadsheet-template"),
 };
 
 }
@@ -134,10 +139,12 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     result->addType(Type::Document);
-    if (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation")) {
+    if ((result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation")) ||
+        (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation-template"))) {
         result->addType(Type::Presentation);
     }
-    else if (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet")) {
+    else if ((result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet")) ||
+             (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet-template"))) {
         result->addType(Type::Spreadsheet);
     }
 
