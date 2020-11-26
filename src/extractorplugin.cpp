@@ -110,18 +110,38 @@ QStringList ExtractorPlugin::contactsFromString(const QString& string)
     cleanedString = cleanedString.remove(QLatin1Char('{'));
     cleanedString = cleanedString.remove(QLatin1Char('}'));
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     QStringList contactStrings = string.split(QLatin1Char(','), QString::SkipEmptyParts);
+#else
+    QStringList contactStrings = string.split(QLatin1Char(','), Qt::SkipEmptyParts);
+#endif
     if (contactStrings.size() == 1)
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         contactStrings = string.split(QLatin1Char(';'), QString::SkipEmptyParts);
+#else
+        contactStrings = string.split(QLatin1Char(';'), Qt::SkipEmptyParts);
+#endif
 
     if (contactStrings.size() == 1)
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         contactStrings = string.split(QStringLiteral(" ft "), QString::SkipEmptyParts);
+#else
+        contactStrings = string.split(QStringLiteral(" ft "), Qt::SkipEmptyParts);
+#endif
 
     if (contactStrings.size() == 1)
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         contactStrings = string.split(QStringLiteral(" feat. "), QString::SkipEmptyParts);
+#else
+        contactStrings = string.split(QStringLiteral(" feat. "), Qt::SkipEmptyParts);
+#endif
 
     if (contactStrings.size() == 1)
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
         contactStrings = string.split(QStringLiteral(" feat "), QString::SkipEmptyParts);
+#else
+        contactStrings = string.split(QStringLiteral(" feat "), Qt::SkipEmptyParts);
+#endif
 
     QStringList list;
     list.reserve(contactStrings.count());
