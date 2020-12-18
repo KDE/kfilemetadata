@@ -614,13 +614,8 @@ void  TagLibExtractorTest::testNoMetadata()
     const auto resultList = extracted.properties();
     const auto resultKeys = resultList.uniqueKeys();
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-    const QSet<KFileMetaData::Property::Property> resultKeySet = resultKeys.toSet();
-    const QSet<KFileMetaData::Property::Property> expectedKeySet = expectedKeys.toSet();
-#else
     const QSet<KFileMetaData::Property::Property> resultKeySet(resultKeys.begin(), resultKeys.end());
     const QSet<KFileMetaData::Property::Property> expectedKeySet(expectedKeys.begin(), expectedKeys.end());
-#endif
 
     const auto excessKeys = resultKeySet - expectedKeySet;
     const auto missingKeys = expectedKeySet - resultKeySet;

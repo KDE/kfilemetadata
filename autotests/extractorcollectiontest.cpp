@@ -91,16 +91,11 @@ private Q_SLOTS:
 
             // Verify properties for every supported mimetype
             auto propMimetypesJson = exProperties["MimeTypes"];
-#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-            QSet<QString> propMimetypes = propMimetypesJson.toMap().keys().toSet();
-            QSet<QString> supportedMimetypes = extractor->mimetypes().toSet();
-#else
             const QStringList propMimeList = propMimetypesJson.toMap().keys();
             QSet<QString> propMimetypes(propMimeList.begin(), propMimeList.end());
 
             const QStringList extractedMimes = extractor->mimetypes();
             QSet<QString> supportedMimetypes(extractedMimes.begin(), extractedMimes.end());
-#endif
             QVERIFY2(!exProperties["Name"].toString().isEmpty(), "Missing \"Name\" property");
             QVERIFY2(!exProperties["Id"].toString().isEmpty(),   "Missing \"Id\" property");
 
