@@ -26,9 +26,6 @@ public:
 
     QStringList mimetypes() const override;
     void extract(ExtractionResult* result) override;
-
-private:
-    QString parseFirstPage(Poppler::Document* pdfDoc, const QString& fileUrl);
 };
 }
 
