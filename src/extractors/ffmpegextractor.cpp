@@ -84,8 +84,10 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         result->add(Property::Duration, totalSecs);
         result->add(Property::BitRate, bitrate);
 
-        for (uint i = 0; i < fmt_ctx->nb_streams; i++) {
-            AVStream* stream = fmt_ctx->streams[i];
+        const int index_stream = av_find_default_stream_index(fmt_ctx);
+        if (index_stream >= 0) {
+            AVStream* stream = fmt_ctx->streams[index_stream];
+
 #if defined HAVE_AVSTREAM_CODECPAR && HAVE_AVSTREAM_CODECPAR
             const AVCodecParameters* codec = stream->codecpar;
 #else
