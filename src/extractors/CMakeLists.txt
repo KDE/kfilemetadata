@@ -11,7 +11,7 @@ if(Poppler_Qt5_FOUND)
     set_target_properties(kfilemetadata_popplerextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_popplerextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -25,7 +25,7 @@ if(Taglib_FOUND)
     set_target_properties(kfilemetadata_taglibextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_taglibextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 endif()
 
 if(LibExiv2_FOUND)
@@ -44,7 +44,7 @@ if(LibExiv2_FOUND)
     set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_exiv2extractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -61,7 +61,7 @@ if(FFMPEG_FOUND)
     set_target_properties(kfilemetadata_ffmpegextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_ffmpegextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -77,7 +77,7 @@ if(EPUB_FOUND)
     set_target_properties(kfilemetadata_epubextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_epubextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -93,7 +93,7 @@ target_link_libraries( kfilemetadata_plaintextextractor
 set_target_properties(kfilemetadata_plaintextextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
 TARGETS kfilemetadata_plaintextextractor
-DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 #
 # PO
@@ -106,7 +106,7 @@ target_link_libraries( kfilemetadata_poextractor
 set_target_properties(kfilemetadata_poextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
 TARGETS kfilemetadata_poextractor
-DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 #
 # XML
@@ -125,7 +125,7 @@ target_link_libraries( kfilemetadata_xmlextractor
 set_target_properties(kfilemetadata_xmlextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
     TARGETS kfilemetadata_xmlextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata
 )
 
 #
@@ -143,7 +143,7 @@ target_link_libraries( kfilemetadata_postscriptdscextractor
 set_target_properties(kfilemetadata_postscriptdscextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
     TARGETS kfilemetadata_postscriptdscextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata
 )
 
 #
@@ -163,7 +163,7 @@ if(KF5Archive_FOUND)
     set_target_properties(kfilemetadata_odfextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_odfextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 endif()
 
 #
@@ -183,7 +183,7 @@ if(KF5Archive_FOUND)
     set_target_properties(kfilemetadata_office2007extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_office2007extractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 endif()
 
 #
@@ -199,7 +199,7 @@ target_link_libraries(kfilemetadata_officeextractor
 set_target_properties(kfilemetadata_officeextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
 TARGETS kfilemetadata_officeextractor
-DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 #
 # Mobipocket
@@ -214,7 +214,7 @@ if (QMobipocket_FOUND)
     set_target_properties(kfilemetadata_mobiextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_mobiextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 
 endif()
 
@@ -231,5 +231,5 @@ if(libappimage_FOUND AND KF5Config_FOUND AND Qt5Gui_FOUND)
     set_target_properties(kfilemetadata_appimageextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
     install(
     TARGETS kfilemetadata_appimageextractor
-    DESTINATION ${PLUGIN_INSTALL_DIR}/kf5/kfilemetadata)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kfilemetadata)
 endif()

@@ -58,7 +58,7 @@ set_target_properties(KF5FileMetaData PROPERTIES
     EXPORT_NAME FileMetaData
 )
 
-target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData>")
+target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData>")
 
 ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     HEADER_NAMES
@@ -87,18 +87,18 @@ install(TARGETS KF5FileMetaData EXPORT KF5FileMetaDataTargets ${KF5_INSTALL_TARG
 
 install(EXPORT KF5FileMetaDataTargets
         NAMESPACE KF5::
-        DESTINATION ${LIB_INSTALL_DIR}/cmake/KF5FileMetaData
+        DESTINATION ${KDE_INSTALL_LIBDIR}/cmake/KF5FileMetaData
         FILE KF5FileMetaDataTargets.cmake)
 
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h
     ${KF5FileMetaData_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData/kfilemetadata COMPONENT Devel
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData/kfilemetadata COMPONENT Devel
 )
 
 install(FILES
     ${KF5FileMetaData_CamelCase_HEADERS}
-    DESTINATION ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData/KFileMetaData COMPONENT Devel
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData/KFileMetaData COMPONENT Devel
 )
 
 configure_file(config-kfilemetadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kfilemetadata.h)
@@ -134,7 +134,7 @@ ecm_generate_pri_file(
     LIB_NAME KF5FileMetaData
     DEPS "core"
     FILENAME_VAR PRI_FILENAME
-    INCLUDE_INSTALL_DIR ${KF5_INCLUDE_INSTALL_DIR}/KFileMetaData
+    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData
 )
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 
