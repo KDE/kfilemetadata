@@ -46,7 +46,7 @@ ecm_generate_export_header(KF5FileMetaData
     EXPORT_FILE_NAME kfilemetadata_export.h
     BASE_NAME KFileMetaData
     GROUP_BASE_NAME KF
-    VERSION ${KF5_VERSION}
+    VERSION ${KF_VERSION}
     DEPRECATED_BASE_VERSION 0
     DEPRECATION_VERSIONS 5.50 5.60 5.76
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
@@ -108,7 +108,7 @@ if(BUILD_QCH)
         KF5FileMetaData_QCH
         NAME KFileMetaData
         BASE_NAME KF5FileMetaData
-        VERSION ${KF5_VERSION}
+        VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
             ${KF5FileMetaData_HEADERS}

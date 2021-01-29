@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(KF5_VERSION "5.79.0") # handled by release scripts
-set(KF5_DEP_VERSION "5.79.0") # handled by release scripts
-project(KFileMetaData VERSION ${KF5_VERSION})
+set(KF_VERSION "5.79.0") # handled by release scripts
+set(KF_DEP_VERSION "5.79.0") # handled by release scripts
+project(KFileMetaData VERSION ${KF_VERSION})
 
 include(FeatureSummary)
 find_package(ECM 5.79.0  NO_MODULE)
@@ -42,22 +42,22 @@ set_package_properties(Qt5Gui PROPERTIES DESCRIPTION "Qt 5: Gui component"
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 
-find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS Archive)
+find_package(KF5 ${KF_DEP_VERSION} COMPONENTS Archive)
 set_package_properties(KF5Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Archive Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
                        PURPOSE "Archive is needed to build ODF and OOXML 2007 extractors")
 
-find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS CoreAddons)
+find_package(KF5 ${KF_DEP_VERSION} COMPONENTS CoreAddons)
 set_package_properties(KF5CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks 5: Core Addons Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE REQUIRED
                        PURPOSE "Needed for the formatting of properties for display purposes")
 
-find_package(KF5 ${KF5_DEP_VERSION} COMPONENTS Config)
+find_package(KF5 ${KF_DEP_VERSION} COMPONENTS Config)
 set_package_properties(KF5Config PROPERTIES DESCRIPTION "KDE Frameworks 5: Config Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
                        PURPOSE "Config is needed to build the AppImage extractor")
 
-find_package(KF5 ${KF5_DEP_VERSION} REQUIRED COMPONENTS I18n)
+find_package(KF5 ${KF_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
 find_package(Poppler 0.12.1 COMPONENTS Qt5)
 set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
