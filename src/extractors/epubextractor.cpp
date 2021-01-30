@@ -7,12 +7,12 @@
 
 
 #include "epubextractor.h"
+#include "kfilemetadata_debug.h"
 
 #include <epub.h>
 
 #include <QDateTime>
 #include <QRegularExpression>
-#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -60,7 +60,7 @@ void EPubExtractor::extract(ExtractionResult* result)
     // open epub, return on exit, file will be closed again at end of function
     auto ePubDoc = epub_open(result->inputUrl().toUtf8().constData(), 1);
     if (!ePubDoc) {
-        qWarning() << "Invalid document";
+        qCWarning(KFILEMETADATA_LOG) << "Invalid document";
         return;
     }
 

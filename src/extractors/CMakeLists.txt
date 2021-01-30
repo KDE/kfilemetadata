@@ -67,7 +67,10 @@ endif()
 
 
 if(EPUB_FOUND)
-    add_library(kfilemetadata_epubextractor MODULE epubextractor.cpp)
+    add_library(kfilemetadata_epubextractor MODULE
+        epubextractor.cpp
+        ../kfilemetadata_debug.cpp
+    )
     target_include_directories(kfilemetadata_epubextractor SYSTEM PRIVATE ${EPUB_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_epubextractor
         KF5::FileMetaData

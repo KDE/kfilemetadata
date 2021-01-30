@@ -77,7 +77,10 @@ endif()
 if(EPUB_FOUND)
     include_directories(${EPUB_INCLUDE_DIR})
 
-    ecm_add_test(epubextractortest.cpp ../src/extractors/epubextractor.cpp
+    ecm_add_test(
+        epubextractortest.cpp
+	../src/extractors/epubextractor.cpp
+	../src/kfilemetadata_debug.cpp
         TEST_NAME "epubextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${EPUB_LIBRARIES}
     )
