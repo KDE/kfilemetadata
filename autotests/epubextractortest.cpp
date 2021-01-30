@@ -69,6 +69,37 @@ void EPubExtractorTest::test()
     QCOMPARE(result.properties().size(), 7);
 }
 
+void EPubExtractorTest::testRepeated()
+{
+    EPubExtractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test_repeated.epub"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Document);
+
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));
+    QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Happy Publisher")));
+    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
+    QCOMPARE(result.properties().values(Property::Subject),
+        QVariantList({QStringLiteral("Test with repeated keys"), QStringLiteral("Baloo KFileMetaData")})
+    );
+    QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
+
+    QDateTime dt(QDate(2012, 1, 1), QTime(0, 0, 0));
+    dt.setTimeSpec(Qt::UTC);
+    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
+    QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2012));
+
+    QCOMPARE(result.properties().size(), 9);
+}
+
 void EPubExtractorTest::testMetaDataOnly()
 {
     EPubExtractor plugin{this};

@@ -62,6 +62,7 @@ private Q_SLOTS:
             { "test.pl",                       "application/x-perl"},
             { "test.ps",                       "application/postscript"},
             { "test_public_key.gpg",           "application/pgp-encrypted"},
+            { "test_repeated.epub",            "application/epub+zip"},
             { "test.spx",                      "audio/x-speex+ogg"},
             { "test.ts",                       "video/mp2t"},
             { "test.wav",                      "audio/x-wav"},

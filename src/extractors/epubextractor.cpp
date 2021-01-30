@@ -28,15 +28,17 @@ static const QStringList supportedMimeTypes = {
     QStringLiteral("application/epub+zip"),
 };
 
-QString fetchMetadata(struct epub* e, const epub_metadata& type)
+const QStringList fetchMetadata(struct epub* e, const epub_metadata& type)
 {
     int size = 0;
     unsigned char** data = epub_get_metadata(e, type, &size);
     if (data) {
         QStringList strList;
+        strList.reserve(size);
         for (int i = 0; i < size; i++) {
             // skip nullptr entries, can happen for broken xml files
-            if (!data[i])
+            // also skip empty entries
+            if (!data[i] || !data[i][0])
                 continue;
 
             strList << QString::fromUtf8((char*)data[i]);
@@ -44,9 +46,9 @@ QString fetchMetadata(struct epub* e, const epub_metadata& type)
         }
         free(data);
 
-        return strList.join(QLatin1String(", "));
+        return strList;
     }
-    return QString();
+    return QStringList();
 }
 }
 
@@ -68,27 +70,30 @@ void EPubExtractor::extract(ExtractionResult* result)
 
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
 
-        QString value = fetchMetadata(ePubDoc, EPUB_TITLE);
-        if (!value.isEmpty()) {
+        for (const QString& value : fetchMetadata(ePubDoc, EPUB_TITLE)) {
             result->add(Property::Title, value);
         }
 
-        value = fetchMetadata(ePubDoc, EPUB_SUBJECT);
-        if (!value.isEmpty()) {
+        for (const QString& value : fetchMetadata(ePubDoc, EPUB_SUBJECT)) {
             result->add(Property::Subject, value);
         }
 
-        value = fetchMetadata(ePubDoc, EPUB_CREATOR);
-        if (!value.isEmpty()) {
-            if (value.startsWith(QLatin1String("aut:"), Qt::CaseInsensitive)) {
-                value = value.mid(4).simplified();
-            } else if (value.startsWith(QLatin1String("author:"), Qt::CaseInsensitive)) {
-                value = value.mid(7).simplified();
+        for (QString value : fetchMetadata(ePubDoc, EPUB_CREATOR)) {
+            // Prefix added by libepub when no opf:role is specified
+            if (value.startsWith(QLatin1String("Author: "), Qt::CaseSensitive)) {
+                value = value.mid(8).simplified();
+            } else {
+                // Find 'opf:role' prefix added by libepub
+                int index = value.indexOf(QLatin1String(": "), Qt::CaseSensitive);
+                if (index > 0) {
+                    value = value.mid(index + 2).simplified();
+                }
             }
 
-            // A lot of authors have their name written in () again. We discard that part
+            // Name is provided as "<name>(<file-as>)" when opf:file-as property
+            // is specified, "<name>(<name>)" otherwise. Strip the last part
             int index = value.indexOf(QLatin1Char('('));
-            if (index)
+            if (index > 0)
                 value = value.mid(0, index);
 
             result->add(Property::Author, value);
@@ -106,24 +111,21 @@ void EPubExtractor::extract(ExtractionResult* result)
         graph << con;
     }*/
 
-        value = fetchMetadata(ePubDoc, EPUB_PUBLISHER);
-        if (!value.isEmpty()) {
+        for (const QString& value : fetchMetadata(ePubDoc, EPUB_PUBLISHER)) {
             result->add(Property::Publisher, value);
         }
 
-        value = fetchMetadata(ePubDoc, EPUB_DESCRIPTION);
-        if (!value.isEmpty()) {
+        for (const QString& value : fetchMetadata(ePubDoc, EPUB_DESCRIPTION)) {
             result->add(Property::Description, value);
         }
 
-        value = fetchMetadata(ePubDoc, EPUB_DATE);
-        if (!value.isEmpty()) {
+        for (QString value : fetchMetadata(ePubDoc, EPUB_DATE)) {
             if (value.startsWith(QLatin1String("Unspecified:"), Qt::CaseInsensitive)) {
-                value = value.mid(QByteArray("Unspecified:").size()).simplified();
-            }
-            int ind = value.indexOf(QLatin1String("publication:"), Qt::CaseInsensitive);
-            if (ind != -1) {
-                value = value.mid(ind + QByteArray("publication:").size()).simplified();
+                value = value.mid(12).simplified();
+            } else if (value.startsWith(QLatin1String("publication:"), Qt::CaseInsensitive)) {
+                value = value.mid(12).simplified();
+            } else {
+                continue;
             }
             QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
             if (!dt.isNull()) {

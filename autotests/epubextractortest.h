@@ -18,6 +18,7 @@ private:
 private Q_SLOTS:
     void testNoExtraction();
     void test();
+    void testRepeated();
     void testMetaDataOnly();
 };
 
