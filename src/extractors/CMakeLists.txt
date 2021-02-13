@@ -49,7 +49,10 @@ if(LibExiv2_FOUND)
 endif()
 
 if(FFMPEG_FOUND)
-    add_library(kfilemetadata_ffmpegextractor MODULE ffmpegextractor.cpp)
+    add_library(kfilemetadata_ffmpegextractor MODULE
+        ffmpegextractor.cpp
+        ../kfilemetadata_debug.cpp
+    )
     target_include_directories(kfilemetadata_ffmpegextractor SYSTEM PRIVATE ${AVCODEC_INCLUDE_DIRS} ${AVFORMAT_INCLUDE_DIRS} ${AVUTIL_INCLUDE_DIRS})
     target_link_libraries(kfilemetadata_ffmpegextractor
         KF5::FileMetaData

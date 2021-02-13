@@ -126,7 +126,10 @@ endif()
 #
 if(FFMPEG_FOUND)
     kde_enable_exceptions()
-    ecm_add_test(ffmpegextractortest.cpp ../src/extractors/ffmpegextractor.cpp
+    ecm_add_test(
+        ffmpegextractortest.cpp
+        ../src/extractors/ffmpegextractor.cpp
+        ../src/kfilemetadata_debug.cpp
         TEST_NAME "ffmpegextractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData ${AVCODEC_LIBRARIES} ${AVFORMAT_LIBRARIES} ${AVUTIL_LIBRARIES}
     )

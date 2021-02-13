@@ -10,6 +10,7 @@
 
 
 #include "ffmpegextractor.h"
+#include "kfilemetadata_debug.h"
 
 #include "config-kfilemetadata.h"
 
@@ -26,8 +27,6 @@ extern "C" {
 #include <libavutil/dict.h>
 #include <libavcodec/avcodec.h>
 }
-
-#include <QDebug>
 
 using namespace KFileMetaData;
 
@@ -65,13 +64,13 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     fmt_ctx = avformat_alloc_context();
     if (int ret = avformat_open_input(&fmt_ctx, arr.data(), nullptr, nullptr)) {
-        qWarning() << "avformat_open_input error: " << ret;
+        qCWarning(KFILEMETADATA_LOG) << "avformat_open_input error: " << ret;
         return;
     }
 
     int ret = avformat_find_stream_info(fmt_ctx, nullptr);
     if (ret < 0) {
-        qWarning() << "avform_find_stream_info error: " << ret;
+        qCWarning(KFILEMETADATA_LOG) << "avform_find_stream_info error: " << ret;
         return;
     }
 
