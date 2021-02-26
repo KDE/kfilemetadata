@@ -35,7 +35,7 @@
 #include <popularimeterframe.h>
 
 namespace {
-
+// clang-format off
 const QStringList supportedMimeTypes = {
     QStringLiteral("audio/flac"),
     QStringLiteral("audio/mp4"),
@@ -56,6 +56,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-wav"),
     QStringLiteral("audio/x-wavpack"),
 };
+// clang-format on
 
 int id3v2RatingTranslation[11] = {
     0, 1, 13, 54, 64, 118, 128, 186, 196, 242, 255

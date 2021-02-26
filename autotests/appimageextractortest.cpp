@@ -20,6 +20,7 @@ QString AppImageExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+// clang-format off
 /*
 The test.AppImage got created by:
 
@@ -34,6 +35,7 @@ mv Test_Desktop_Name-x86_64.AppImage test.AppImage
 To edit the appdata.xml & desktop file, run ./test.AppImage --appimage-extract to get the files.
 Use linuxdeploy to create the appimage then again.
 */
+// clang-format on
 
 void AppImageExtractorTest::test()
 {

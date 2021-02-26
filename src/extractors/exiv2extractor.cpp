@@ -18,6 +18,7 @@ Exiv2Extractor::Exiv2Extractor(QObject* parent)
 
 namespace
 {
+// clang-format off
 static const QStringList supportedMimeTypes = {
     QStringLiteral("image/bmp"),
     QStringLiteral("image/gif"),
@@ -42,6 +43,7 @@ static const QStringList supportedMimeTypes = {
     QStringLiteral("image/x-samsung-srw"),
     QStringLiteral("image/x-tga"),
 };
+// clang-format on
 
 QString toString(const Exiv2::Value& value)
 {

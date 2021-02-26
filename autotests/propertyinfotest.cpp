@@ -92,6 +92,7 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
     QVariantList bitRateList = {128000, 130000};
     QVariantList titleList = {QStringLiteral("Title1"), QStringLiteral("Title2")};
 
+    // clang-format off
     struct {
         KFileMetaData::Property::Property property;
         bool maybeLocalized;
@@ -140,6 +141,7 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
         { Property::PhotoFocalLength,       true,  2.0,                     QStringLiteral("2 mm")},
         { Property::PhotoFocalLength,       true,  2.4,                     QStringLiteral("2.4 mm")},
     };
+    // clang-format on
 
     for (auto row : rows) {
         PropertyInfo info(row.property);

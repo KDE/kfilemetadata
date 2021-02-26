@@ -69,8 +69,8 @@ void XmlExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    if ((result->inputMimetype() == QLatin1String("image/svg")) ||
-        (result->inputMimetype() == QLatin1String("image/svg+xml"))) {
+    if ((result->inputMimetype() == QLatin1String("image/svg")) //
+        || (result->inputMimetype() == QLatin1String("image/svg+xml"))) {
         result->addType(Type::Image);
 
         QDomDocument doc;

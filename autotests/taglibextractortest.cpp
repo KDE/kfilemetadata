@@ -9,10 +9,11 @@
 #include "taglibextractortest.h"
 #include "simpleextractionresult.h"
 #include "propertyinfo.h"
-//TODO: use QTESTFINDDATA and remove this
-#include "indexerextractortestsconfig.h"
 #include "extractors/taglibextractor.h"
 #include "mimeutils.h"
+
+//TODO: use QTESTFINDDATA and remove this
+#include "indexerextractortestsconfig.h"
 
 #include <QSet>
 #include <QTest>

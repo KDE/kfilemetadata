@@ -39,6 +39,7 @@ using namespace KFileMetaData;
 
 namespace {
 
+// clang-format off
 const QStringList supportedMimeTypes = {
     QStringLiteral("audio/flac"),
     QStringLiteral("audio/mp4"),
@@ -60,6 +61,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-wav"),
     QStringLiteral("audio/x-wavpack"),
 };
+// clang-format on
 
 void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
 {

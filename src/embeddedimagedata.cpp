@@ -22,6 +22,7 @@ public:
     static const QStringList mMimetypes;
 };
 
+// clang-format off
 const QStringList EmbeddedImageData::Private::mMimetypes =
 {
     QStringLiteral("audio/flac"),
@@ -42,6 +43,7 @@ const QStringList EmbeddedImageData::Private::mMimetypes =
     QStringLiteral("audio/x-wav"),
     QStringLiteral("audio/x-wavpack"),
 };
+// clang-format on
 
 EmbeddedImageData::EmbeddedImageData()
     : d(std::unique_ptr<Private>(new Private()))
