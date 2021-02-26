@@ -119,53 +119,18 @@ void TagLibExtractorTest::testCommonData_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("aiff")
-        << QStringLiteral("aif")
-        ;
-
-    QTest::addRow("ape")
-        << QStringLiteral("ape")
-        ;
-
-    QTest::addRow("flac")
-        << QStringLiteral("flac")
-        ;
-
-    QTest::addRow("m4a")
-        << QStringLiteral("m4a")
-        ;
-
-    QTest::addRow("mp3")
-        << QStringLiteral("mp3")
-        ;
-
-    QTest::addRow("mpc")
-        << QStringLiteral("mpc")
-        ;
-
-    QTest::addRow("ogg")
-        << QStringLiteral("ogg")
-        ;
-
-    QTest::addRow("opus")
-        << QStringLiteral("opus")
-        ;
-
-    QTest::addRow("speex")
-        << QStringLiteral("spx")
-        ;
-
-    QTest::addRow("wav")
-        << QStringLiteral("wav")
-        ;
-
-    QTest::addRow("wavpack")
-        << QStringLiteral("wv")
-        ;
-
-    QTest::addRow("wma")
-        << QStringLiteral("wma")
-        ;
+    QTest::addRow("aiff") << QStringLiteral("aif");
+    QTest::addRow("ape") << QStringLiteral("ape");
+    QTest::addRow("flac") << QStringLiteral("flac");
+    QTest::addRow("m4a") << QStringLiteral("m4a");
+    QTest::addRow("mp3") << QStringLiteral("mp3");
+    QTest::addRow("mpc") << QStringLiteral("mpc");
+    QTest::addRow("ogg") << QStringLiteral("ogg");
+    QTest::addRow("opus") << QStringLiteral("opus");
+    QTest::addRow("speex") << QStringLiteral("spx");
+    QTest::addRow("wav") << QStringLiteral("wav");
+    QTest::addRow("wavpack") << QStringLiteral("wv");
+    QTest::addRow("wma") << QStringLiteral("wma");
 }
 
 void TagLibExtractorTest::testVorbisComment()
@@ -209,21 +174,10 @@ void TagLibExtractorTest::testVorbisComment_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("flac")
-        << QStringLiteral("flac")
-        ;
-
-    QTest::addRow("ogg")
-        << QStringLiteral("ogg")
-        ;
-
-    QTest::addRow("opus")
-        << QStringLiteral("opus")
-        ;
-
-    QTest::addRow("speex")
-        << QStringLiteral("spx")
-        ;
+    QTest::addRow("flac") << QStringLiteral("flac");
+    QTest::addRow("ogg") << QStringLiteral("ogg");
+    QTest::addRow("opus") << QStringLiteral("opus");
+    QTest::addRow("speex") << QStringLiteral("spx");
 }
 
 void TagLibExtractorTest::testVorbisCommentMultivalue()
@@ -282,17 +236,9 @@ void TagLibExtractorTest::testId3_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("aiff")
-        << QStringLiteral("aif")
-        ;
-
-    QTest::addRow("mp3")
-        << QStringLiteral("mp3")
-        ;
-
-    QTest::addRow("wav")
-        << QStringLiteral("wav")
-        ;
+    QTest::addRow("aiff") << QStringLiteral("aif");
+    QTest::addRow("mp3") << QStringLiteral("mp3");
+    QTest::addRow("wav") << QStringLiteral("wav");
 }
 
 void TagLibExtractorTest::testApe()
@@ -334,17 +280,9 @@ void TagLibExtractorTest::testApe_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("ape")
-        << QStringLiteral("ape")
-        ;
-
-    QTest::addRow("musepack")
-        << QStringLiteral("mpc")
-        ;
-
-    QTest::addRow("wavpack")
-        << QStringLiteral("wv")
-        ;
+    QTest::addRow("ape") << QStringLiteral("ape");
+    QTest::addRow("musepack") << QStringLiteral("mpc");
+    QTest::addRow("wavpack") << QStringLiteral("wv");
 }
 
 void TagLibExtractorTest::testMp4()
@@ -556,48 +494,13 @@ void TagLibExtractorTest::testNoMetadata_data()
     QTest::addColumn<QList<Property::Property>>("expectedKeys");
     QTest::addColumn<QString>("failMessage");
 
-    QTest::addRow("mp3")
-            << QFINDTESTDATA("samplefiles/no-meta/test.mp3")
-            << QStringLiteral("audio/mpeg")
-            << expectedKeys << QString()
-               ;
-
-    QTest::addRow("m4a")
-            << QFINDTESTDATA("samplefiles/no-meta/test.m4a")
-            << QStringLiteral("audio/mp4")
-            << expectedKeys << QString()
-               ;
-
-    QTest::addRow("flac")
-            << QFINDTESTDATA("samplefiles/no-meta/test.flac")
-            << QStringLiteral("audio/flac")
-            << expectedKeys << QString()
-               ;
-
-    QTest::addRow("opus")
-            << QFINDTESTDATA("samplefiles/no-meta/test.opus")
-            << QStringLiteral("audio/opus")
-            << expectedKeys << QString()
-               ;
-
-    QTest::addRow("ogg")
-            << QFINDTESTDATA("samplefiles/no-meta/test.ogg")
-            << QStringLiteral("audio/ogg")
-            << expectedKeys << QString()
-               ;
-
-    QTest::addRow("mpc")
-            << QFINDTESTDATA("samplefiles/no-meta/test.mpc")
-            << QStringLiteral("audio/x-musepack")
-            << expectedKeys << QString()
-               ;
-
-    QTest::addRow("aax")
-            << QFINDTESTDATA("samplefiles/no-meta/test.aax")
-            << QStringLiteral("audio/vnd.audible.aax")
-            << expectedKeys << QString()
-               ;
-
+    QTest::addRow("mp3") << QFINDTESTDATA("samplefiles/no-meta/test.mp3") << QStringLiteral("audio/mpeg") << expectedKeys << QString();
+    QTest::addRow("m4a") << QFINDTESTDATA("samplefiles/no-meta/test.m4a") << QStringLiteral("audio/mp4") << expectedKeys << QString();
+    QTest::addRow("flac") << QFINDTESTDATA("samplefiles/no-meta/test.flac") << QStringLiteral("audio/flac") << expectedKeys << QString();
+    QTest::addRow("opus") << QFINDTESTDATA("samplefiles/no-meta/test.opus") << QStringLiteral("audio/opus") << expectedKeys << QString();
+    QTest::addRow("ogg") << QFINDTESTDATA("samplefiles/no-meta/test.ogg") << QStringLiteral("audio/ogg") << expectedKeys << QString();
+    QTest::addRow("mpc") << QFINDTESTDATA("samplefiles/no-meta/test.mpc") << QStringLiteral("audio/x-musepack") << expectedKeys << QString();
+    QTest::addRow("aax") << QFINDTESTDATA("samplefiles/no-meta/test.aax") << QStringLiteral("audio/vnd.audible.aax") << expectedKeys << QString();
 }
 
 void  TagLibExtractorTest::testNoMetadata()

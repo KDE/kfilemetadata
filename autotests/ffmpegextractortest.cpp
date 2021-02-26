@@ -46,17 +46,10 @@ void ffmpegExtractorTest::testVideoProperties_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("WebM")
-        << QStringLiteral("webm");
-
-    QTest::addRow("Matroska Video")
-        << QStringLiteral("mkv");
-
-    QTest::addRow("Vorbis Video")
-        << QStringLiteral("ogv");
-
-    QTest::addRow("MPEG Transport")
-        << QStringLiteral("ts");
+    QTest::addRow("WebM") << QStringLiteral("webm");
+    QTest::addRow("Matroska Video") << QStringLiteral("mkv");
+    QTest::addRow("Vorbis Video") << QStringLiteral("ogv");
+    QTest::addRow("MPEG Transport") << QStringLiteral("ts");
 }
 
 // only for testing of intrinsic video properties
@@ -87,14 +80,9 @@ void ffmpegExtractorTest::testMetaData_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("WebM")
-        << QStringLiteral("webm");
-
-    QTest::addRow("Matroska Video")
-        << QStringLiteral("mkv");
-
-    QTest::addRow("Vorbis Video")
-        << QStringLiteral("ogv");
+    QTest::addRow("WebM") << QStringLiteral("webm");
+    QTest::addRow("Matroska Video") << QStringLiteral("mkv");
+    QTest::addRow("Vorbis Video") << QStringLiteral("ogv");
 }
 
 void ffmpegExtractorTest::testMetaData()

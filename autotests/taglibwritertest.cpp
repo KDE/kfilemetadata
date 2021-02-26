@@ -98,150 +98,30 @@ void TagLibWriterTest::testCommonData_data()
     QTest::addColumn<QString>("mimeType");
     QTest::addColumn<QString>("stringSuffix");
 
-
-    QTest::addRow("aiff")
-        << QStringLiteral("aif")
-        << QStringLiteral("audio/x-aiff")
-        << QString()
-        ;
-
-    QTest::addRow("aiff_unicode")
-        << QStringLiteral("aif")
-        << QStringLiteral("audio/x-aiff")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("ape")
-        << QStringLiteral("ape")
-        << QStringLiteral("audio/x-ape")
-        << QString()
-        ;
-
-    QTest::addRow("ape_unicode")
-        << QStringLiteral("ape")
-        << QStringLiteral("audio/x-ape")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("flac")
-        << QStringLiteral("flac")
-        << QStringLiteral("audio/flac")
-        << QString()
-        ;
-
-    QTest::addRow("flac_unicode")
-        << QStringLiteral("flac")
-        << QStringLiteral("audio/flac")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("m4a")
-        << QStringLiteral("m4a")
-        << QStringLiteral("audio/mp4")
-        << QString()
-        ;
-
-    QTest::addRow("m4a_unicode")
-        << QStringLiteral("m4a")
-        << QStringLiteral("audio/mp4")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("mp3")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << QString()
-        ;
-
-    QTest::addRow("mp3_unicode")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("mpc")
-        << QStringLiteral("mpc")
-        << QStringLiteral("audio/x-musepack")
-        << QString()
-        ;
-
-    QTest::addRow("mpc_unicode")
-        << QStringLiteral("mpc")
-        << QStringLiteral("audio/x-musepack")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("ogg")
-        << QStringLiteral("ogg")
-        << QStringLiteral("audio/ogg")
-        << QString()
-        ;
-
-    QTest::addRow("ogg_unicode")
-        << QStringLiteral("ogg")
-        << QStringLiteral("audio/ogg")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("opus")
-        << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
-        << QString()
-        ;
-
-    QTest::addRow("opus_unicode")
-        << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("speex")
-        << QStringLiteral("spx")
-        << QStringLiteral("audio/x-speex+ogg")
-        << QString()
-        ;
-
-    QTest::addRow("speex_unicode")
-        << QStringLiteral("spx")
-        << QStringLiteral("audio/x-speex+ogg")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("wav")
-        << QStringLiteral("wav")
-        << QStringLiteral("audio/wav")
-        << QString()
-        ;
-
-    QTest::addRow("wav_unicode")
-        << QStringLiteral("wav")
-        << QStringLiteral("audio/wav")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("wavpack")
-        << QStringLiteral("wv")
-        << QStringLiteral("audio/x-wavpack")
-        << QString()
-        ;
-
-    QTest::addRow("wavpack_unicode")
-        << QStringLiteral("wv")
-        << QStringLiteral("audio/x-wavpack")
-        << unicodeTestStringSuffix
-        ;
-
-    QTest::addRow("wma")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << QString()
-        ;
-
-    QTest::addRow("wma_unicode")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << unicodeTestStringSuffix
-        ;
+    QTest::addRow("aiff") << QStringLiteral("aif") << QStringLiteral("audio/x-aiff") << QString();
+    QTest::addRow("aiff_unicode") << QStringLiteral("aif") << QStringLiteral("audio/x-aiff") << unicodeTestStringSuffix;
+    QTest::addRow("ape") << QStringLiteral("ape") << QStringLiteral("audio/x-ape") << QString();
+    QTest::addRow("ape_unicode") << QStringLiteral("ape") << QStringLiteral("audio/x-ape") << unicodeTestStringSuffix;
+    QTest::addRow("flac") << QStringLiteral("flac") << QStringLiteral("audio/flac") << QString();
+    QTest::addRow("flac_unicode") << QStringLiteral("flac") << QStringLiteral("audio/flac") << unicodeTestStringSuffix;
+    QTest::addRow("m4a") << QStringLiteral("m4a") << QStringLiteral("audio/mp4") << QString();
+    QTest::addRow("m4a_unicode") << QStringLiteral("m4a") << QStringLiteral("audio/mp4") << unicodeTestStringSuffix;
+    QTest::addRow("mp3") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << QString();
+    QTest::addRow("mp3_unicode") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << unicodeTestStringSuffix;
+    QTest::addRow("mpc") << QStringLiteral("mpc") << QStringLiteral("audio/x-musepack") << QString();
+    QTest::addRow("mpc_unicode") << QStringLiteral("mpc") << QStringLiteral("audio/x-musepack") << unicodeTestStringSuffix;
+    QTest::addRow("ogg") << QStringLiteral("ogg") << QStringLiteral("audio/ogg") << QString();
+    QTest::addRow("ogg_unicode") << QStringLiteral("ogg") << QStringLiteral("audio/ogg") << unicodeTestStringSuffix;
+    QTest::addRow("opus") << QStringLiteral("opus") << QStringLiteral("audio/opus") << QString();
+    QTest::addRow("opus_unicode") << QStringLiteral("opus") << QStringLiteral("audio/opus") << unicodeTestStringSuffix;
+    QTest::addRow("speex") << QStringLiteral("spx") << QStringLiteral("audio/x-speex+ogg") << QString();
+    QTest::addRow("speex_unicode") << QStringLiteral("spx") << QStringLiteral("audio/x-speex+ogg") << unicodeTestStringSuffix;
+    QTest::addRow("wav") << QStringLiteral("wav") << QStringLiteral("audio/wav") << QString();
+    QTest::addRow("wav_unicode") << QStringLiteral("wav") << QStringLiteral("audio/wav") << unicodeTestStringSuffix;
+    QTest::addRow("wavpack") << QStringLiteral("wv") << QStringLiteral("audio/x-wavpack") << QString();
+    QTest::addRow("wavpack_unicode") << QStringLiteral("wv") << QStringLiteral("audio/x-wavpack") << unicodeTestStringSuffix;
+    QTest::addRow("wma") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << QString();
+    QTest::addRow("wma_unicode") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << unicodeTestStringSuffix;
 }
 
 void TagLibWriterTest::testExtendedData()
@@ -281,55 +161,16 @@ void TagLibWriterTest::testExtendedData_data()
     QTest::addColumn<QString>("fileType");
     QTest::addColumn<QString>("mimeType");
 
-    QTest::addRow("aiff")
-        << QStringLiteral("aif")
-        << QStringLiteral("audio/x-aiff")
-        ;
-
-    QTest::addRow("ape")
-        << QStringLiteral("ape")
-        << QStringLiteral("audio/x-ape")
-        ;
-
-    QTest::addRow("flac")
-        << QStringLiteral("flac")
-        << QStringLiteral("audio/flac")
-        ;
-
-    QTest::addRow("mp3")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        ;
-
-    QTest::addRow("mpc")
-        << QStringLiteral("mpc")
-        << QStringLiteral("audio/x-musepack")
-        ;
-
-    QTest::addRow("ogg")
-        << QStringLiteral("ogg")
-        << QStringLiteral("audio/ogg")
-        ;
-
-    QTest::addRow("opus")
-        << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
-        ;
-
-    QTest::addRow("speex")
-        << QStringLiteral("spx")
-        << QStringLiteral("audio/x-speex+ogg")
-        ;
-
-    QTest::addRow("wav")
-        << QStringLiteral("wav")
-        << QStringLiteral("audio/wav")
-        ;
-
-    QTest::addRow("wavpack")
-        << QStringLiteral("wv")
-        << QStringLiteral("audio/x-wavpack")
-        ;
+    QTest::addRow("aiff") << QStringLiteral("aif") << QStringLiteral("audio/x-aiff");
+    QTest::addRow("ape") << QStringLiteral("ape") << QStringLiteral("audio/x-ape");
+    QTest::addRow("flac") << QStringLiteral("flac") << QStringLiteral("audio/flac");
+    QTest::addRow("mp3") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3");
+    QTest::addRow("mpc") << QStringLiteral("mpc") << QStringLiteral("audio/x-musepack");
+    QTest::addRow("ogg") << QStringLiteral("ogg") << QStringLiteral("audio/ogg");
+    QTest::addRow("opus") << QStringLiteral("opus") << QStringLiteral("audio/opus");
+    QTest::addRow("speex") << QStringLiteral("spx") << QStringLiteral("audio/x-speex+ogg");
+    QTest::addRow("wav") << QStringLiteral("wav") << QStringLiteral("audio/wav");
+    QTest::addRow("wavpack") << QStringLiteral("wv") << QStringLiteral("audio/x-wavpack");
 }
 
 void TagLibWriterTest::testRating()
@@ -364,167 +205,33 @@ void TagLibWriterTest::testRating_data()
     QTest::addColumn<QString>("mimeType");
     QTest::addColumn<int>("rating");
 
-    QTest::addRow("aiff")
-        << QStringLiteral("aif")
-        << QStringLiteral("audio/x-aiff")
-        << 3
-        ;
-
-    QTest::addRow("ape")
-        << QStringLiteral("ape")
-        << QStringLiteral("audio/x-ape")
-        << 1
-        ;
-
-    QTest::addRow("flac")
-        << QStringLiteral("flac")
-        << QStringLiteral("audio/flac")
-        << 3
-        ;
-
-    QTest::addRow("m4a")
-        << QStringLiteral("m4a")
-        << QStringLiteral("audio/mp4")
-        << 5
-        ;
-
-    QTest::addRow("mp3_0")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 0
-        ;
-
-    QTest::addRow("mp3_1")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 1
-        ;
-
-    QTest::addRow("mp3_2")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 2
-        ;
-
-    QTest::addRow("mp3_3")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 3
-        ;
-
-    QTest::addRow("mp3_4")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 4
-        ;
-
-    QTest::addRow("mp3_5")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 5
-        ;
-
-    QTest::addRow("mp3_6")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 6
-        ;
-
-    QTest::addRow("mp3_7")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 7
-        ;
-
-    QTest::addRow("mp3_8")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 8
-        ;
-
-    QTest::addRow("mp3_9")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 9
-        ;
-
-    QTest::addRow("mp3_10")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        << 10
-        ;
-
-    QTest::addRow("mpc")
-        << QStringLiteral("mpc")
-        << QStringLiteral("audio/x-musepack")
-        << 7
-        ;
-
-    QTest::addRow("opus")
-        << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
-        << 6
-        ;
-
-    QTest::addRow("speex")
-        << QStringLiteral("spx")
-        << QStringLiteral("audio/x-speex+ogg")
-        << 8
-        ;
-
-    QTest::addRow("wav")
-        << QStringLiteral("wav")
-        << QStringLiteral("audio/wav")
-        << 4
-        ;
-
-    QTest::addRow("wavpack")
-        << QStringLiteral("wv")
-        << QStringLiteral("audio/x-wavpack")
-        << 9
-        ;
-
-    QTest::addRow("wma_0")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << 0
-        ;
-
-    QTest::addRow("wma_2")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << 2
-        ;
-
-    QTest::addRow("wma_4")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << 4
-        ;
-
-    QTest::addRow("wma_5")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << 5
-        ;
-
-    QTest::addRow("wma_6")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << 6
-        ;
-
-    QTest::addRow("wma_8")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << 8
-        ;
-
-    QTest::addRow("wma_10")
-        << QStringLiteral("wma")
-        << QStringLiteral("audio/x-ms-wma")
-        << 10
-        ;
+    QTest::addRow("aiff") << QStringLiteral("aif") << QStringLiteral("audio/x-aiff") << 3;
+    QTest::addRow("ape") << QStringLiteral("ape") << QStringLiteral("audio/x-ape") << 1;
+    QTest::addRow("flac") << QStringLiteral("flac") << QStringLiteral("audio/flac") << 3;
+    QTest::addRow("m4a") << QStringLiteral("m4a") << QStringLiteral("audio/mp4") << 5;
+    QTest::addRow("mp3_0") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 0;
+    QTest::addRow("mp3_1") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 1;
+    QTest::addRow("mp3_2") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 2;
+    QTest::addRow("mp3_3") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 3;
+    QTest::addRow("mp3_4") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 4;
+    QTest::addRow("mp3_5") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 5;
+    QTest::addRow("mp3_6") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 6;
+    QTest::addRow("mp3_7") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 7;
+    QTest::addRow("mp3_8") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 8;
+    QTest::addRow("mp3_9") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 9;
+    QTest::addRow("mp3_10") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3") << 10;
+    QTest::addRow("mpc") << QStringLiteral("mpc") << QStringLiteral("audio/x-musepack") << 7;
+    QTest::addRow("opus") << QStringLiteral("opus") << QStringLiteral("audio/opus") << 6;
+    QTest::addRow("speex") << QStringLiteral("spx") << QStringLiteral("audio/x-speex+ogg") << 8;
+    QTest::addRow("wav") << QStringLiteral("wav") << QStringLiteral("audio/wav") << 4;
+    QTest::addRow("wavpack") << QStringLiteral("wv") << QStringLiteral("audio/x-wavpack") << 9;
+    QTest::addRow("wma_0") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << 0;
+    QTest::addRow("wma_2") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << 2;
+    QTest::addRow("wma_4") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << 4;
+    QTest::addRow("wma_5") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << 5;
+    QTest::addRow("wma_6") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << 6;
+    QTest::addRow("wma_8") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << 8;
+    QTest::addRow("wma_10") << QStringLiteral("wma") << QStringLiteral("audio/x-ms-wma") << 10;
 }
 
 void TagLibWriterTest::testComplexContactData()
@@ -569,55 +276,16 @@ void TagLibWriterTest::testComplexContactData_data()
     QTest::addColumn<QString>("fileExtension");
     QTest::addColumn<QString>("mimeType");
 
-    QTest::addRow("aiff")
-        << QStringLiteral("aif")
-        << QStringLiteral("audio/x-aiff")
-        ;
-
-    QTest::addRow("ape")
-        << QStringLiteral("ape")
-        << QStringLiteral("audio/x-ape")
-        ;
-
-    QTest::addRow("flac")
-        << QStringLiteral("flac")
-        << QStringLiteral("audio/flac")
-        ;
-
-    QTest::addRow("mp3")
-        << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
-        ;
-
-    QTest::addRow("mpc")
-        << QStringLiteral("mpc")
-        << QStringLiteral("audio/x-musepack")
-        ;
-
-    QTest::addRow("ogg")
-        << QStringLiteral("ogg")
-        << QStringLiteral("audio/ogg")
-        ;
-
-    QTest::addRow("opus")
-        << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
-        ;
-
-    QTest::addRow("speex")
-        << QStringLiteral("spx")
-        << QStringLiteral("audio/x-speex+ogg")
-        ;
-
-    QTest::addRow("wav")
-        << QStringLiteral("wav")
-        << QStringLiteral("audio/wav")
-        ;
-
-    QTest::addRow("wavpack")
-        << QStringLiteral("wv")
-        << QStringLiteral("audio/x-wavpack")
-        ;
+    QTest::addRow("aiff") << QStringLiteral("aif") << QStringLiteral("audio/x-aiff");
+    QTest::addRow("ape") << QStringLiteral("ape") << QStringLiteral("audio/x-ape");
+    QTest::addRow("flac") << QStringLiteral("flac") << QStringLiteral("audio/flac");
+    QTest::addRow("mp3") << QStringLiteral("mp3") << QStringLiteral("audio/mpeg3");
+    QTest::addRow("mpc") << QStringLiteral("mpc") << QStringLiteral("audio/x-musepack");
+    QTest::addRow("ogg") << QStringLiteral("ogg") << QStringLiteral("audio/ogg");
+    QTest::addRow("opus") << QStringLiteral("opus") << QStringLiteral("audio/opus");
+    QTest::addRow("speex") << QStringLiteral("spx") << QStringLiteral("audio/x-speex+ogg");
+    QTest::addRow("wav") << QStringLiteral("wav") << QStringLiteral("audio/wav");
+    QTest::addRow("wavpack") << QStringLiteral("wv") << QStringLiteral("audio/x-wavpack");
 }
 
 QTEST_GUILESS_MAIN(TagLibWriterTest)
