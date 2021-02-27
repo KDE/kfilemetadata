@@ -14,10 +14,10 @@ class XmlExtractorTests : public QObject
 {
     Q_OBJECT
 public:
-    explicit XmlExtractorTests(QObject* parent = nullptr);
+    explicit XmlExtractorTests(QObject *parent = nullptr);
 
 private:
-    QString testFilePath(const QString& fileName) const;
+    QString testFilePath(const QString &fileName) const;
 
 private Q_SLOTS:
     void testNoExtraction();

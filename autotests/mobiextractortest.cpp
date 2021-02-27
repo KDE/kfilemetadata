@@ -5,18 +5,18 @@
 */
 
 #include "mobiextractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/mobiextractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
-#include <QTest>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QTest>
 
 using namespace KFileMetaData;
 
-QString MobiExtractorTest::testFilePath(const QString& fileName) const
+QString MobiExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }

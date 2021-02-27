@@ -8,17 +8,15 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "poextractor.h"
 #include <QFile>
 #include <fstream>
 
 using namespace KFileMetaData;
 
-POExtractor::POExtractor(QObject* parent)
+POExtractor::POExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 const QStringList supportedMimeTypes = {
@@ -33,15 +31,15 @@ QStringList POExtractor::mimetypes() const
 void POExtractor::endMessage()
 {
     messages++;
-    fuzzy+=isFuzzy;
-    untranslated+=(!isTranslated);
+    fuzzy += isFuzzy;
+    untranslated += (!isTranslated);
 
     isFuzzy = false;
     isTranslated = false;
     state = WHITESPACE;
 }
 
-void POExtractor::handleComment(const char* data, quint32 length)
+void POExtractor::handleComment(const char *data, quint32 length)
 {
     state = COMMENT;
     if (length >= 8 && strncmp(data, "#, fuzzy", 8) == 0) { // could be better
@@ -49,13 +47,15 @@ void POExtractor::handleComment(const char* data, quint32 length)
     }
 }
 
-void POExtractor::handleLine(const char* data, quint32 length)
+void POExtractor::handleLine(const char *data, quint32 length)
 {
-    if (state == ERROR) return;
+    if (state == ERROR)
+        return;
     if (state == WHITESPACE) {
-        if (length == 0) return;
+        if (length == 0)
+            return;
         if (data[0] != '#') {
-            state = COMMENT; //this allows PO files w/o comments
+            state = COMMENT; // this allows PO files w/o comments
         } else {
             handleComment(data, length);
             return;
@@ -74,25 +74,20 @@ void POExtractor::handleLine(const char* data, quint32 length)
             state = ERROR;
         }
         return;
-    } else if (length > 1 && data[0] == '"' && data[length-1] == '"'
-            && (state == MSGCTXT || state == MSGID || state == MSGSTR
-                || state == MSGID_PLURAL)) {
+    } else if (length > 1 && data[0] == '"' && data[length - 1] == '"' && (state == MSGCTXT || state == MSGID || state == MSGSTR || state == MSGID_PLURAL)) {
         // continued text field
         isTranslated = state == MSGSTR && length > 2;
-    } else if (state == MSGCTXT
-            && length > 7 && strncmp("msgid \"", data, 7) == 0) {
+    } else if (state == MSGCTXT && length > 7 && strncmp("msgid \"", data, 7) == 0) {
         state = MSGID;
-    } else if (state == MSGID
-            && length > 14 && strncmp("msgid_plural \"", data, 14) == 0) {
+    } else if (state == MSGID && length > 14 && strncmp("msgid_plural \"", data, 14) == 0) {
         state = MSGID_PLURAL;
-    } else if ((state == MSGID || state == MSGID_PLURAL || state == MSGSTR)
-            && length > 8 && strncmp("msgstr", data, 6) == 0) {
+    } else if ((state == MSGID || state == MSGID_PLURAL || state == MSGSTR) && length > 8 && strncmp("msgstr", data, 6) == 0) {
         state = MSGSTR;
-        isTranslated = strncmp(data+length-3, " \"\"", 3) != 0;
+        isTranslated = strncmp(data + length - 3, " \"\"", 3) != 0;
     } else if (state == MSGSTR) {
         if (length == 0) {
             endMessage();
-        } else if (data[0]=='#' || data[0]=='m') { //allow PO without empty line between entries
+        } else if (data[0] == '#' || data[0] == 'm') { // allow PO without empty line between entries
             endMessage();
             state = COMMENT;
             handleLine(data, length);
@@ -117,7 +112,7 @@ void POExtractor::handleLine(const char* data, quint32 length)
 #endif
 }
 
-void POExtractor::extract(ExtractionResult* result)
+void POExtractor::extract(ExtractionResult *result)
 {
     std::ifstream fstream(QFile::encodeName(result->inputUrl()).constData());
     if (!fstream.is_open()) {
@@ -139,16 +134,14 @@ void POExtractor::extract(ExtractionResult* result)
     std::string line;
     int lines = 0;
     while (std::getline(fstream, line)) {
-        //TODO add a parsed text of translation units
-        //QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
-        //result->append(QString::fromUtf8(arr));
+        // TODO add a parsed text of translation units
+        // QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
+        // result->append(QString::fromUtf8(arr));
 
         handleLine(line.c_str(), line.size());
         lines++;
-        
-        
-        if (messages <= 1 && state == MSGSTR)
-        {
+
+        if (messages <= 1 && state == MSGSTR) {
             // handle special values in the first message
             // assumption is that value takes up only one line
             if (strncmp("\"POT-Creation-Date: ", line.c_str(), 20) == 0) {
@@ -160,12 +153,12 @@ void POExtractor::extract(ExtractionResult* result)
             }
         }
     }
-    handleLine("", 0); //for files with non-empty last line
-    messages--;//cause header does not count
+    handleLine("", 0); // for files with non-empty last line
+    messages--; // cause header does not count
 
     result->add(Property::TranslationUnitsTotal, messages);
-    result->add(Property::TranslationUnitsWithTranslation, messages-untranslated);
+    result->add(Property::TranslationUnitsWithTranslation, messages - untranslated);
     result->add(Property::TranslationUnitsWithDraftTranslation, fuzzy);
     result->add(Property::LineCount, lines);
-    //TODO WordCount
+    // TODO WordCount
 }

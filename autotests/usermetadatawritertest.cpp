@@ -8,15 +8,15 @@
 #include "indexerextractortestsconfig.h"
 #include "usermetadata.h"
 
-#include <QTest>
 #include <QFile>
+#include <QTest>
 
 #define TEST_FILENAME "writertest.txt"
 #define TEST_SYMLINK "dangling_symlink"
 
 using namespace KFileMetaData;
 
-QString UserMetaDataWriterTest::testFilePath(const QString& fileName) const
+QString UserMetaDataWriterTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -32,7 +32,6 @@ void UserMetaDataWriterTest::initTestCase()
 
 void UserMetaDataWriterTest::test()
 {
-
     KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
     QVERIFY(md.isSupported());
 
@@ -108,7 +107,6 @@ void UserMetaDataWriterTest::test()
     md.setAttribute(QStringLiteral("test.check_contains"), QString());
     QVERIFY(!md.hasAttribute(QStringLiteral("test.check_contains")));
 }
-
 
 void UserMetaDataWriterTest::testDanglingSymlink()
 {

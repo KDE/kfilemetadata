@@ -21,7 +21,7 @@ public:
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
 };
 
-WriteData::WriteData(const QString& url, const QString& mimetype)
+WriteData::WriteData(const QString &url, const QString &mimetype)
     : d_ptr(new WriteDataPrivate)
 {
     Q_D(WriteData);
@@ -33,30 +33,30 @@ WriteData::WriteData(const QString& url, const QString& mimetype)
     }
 }
 
-WriteData::WriteData(const WriteData& rhs)
+WriteData::WriteData(const WriteData &rhs)
     : d_ptr(new WriteDataPrivate(*rhs.d_ptr))
 {
 }
 
-WriteData& WriteData::operator=(const WriteData& rhs)
+WriteData &WriteData::operator=(const WriteData &rhs)
 {
     *d_ptr = *rhs.d_ptr;
     return *this;
 }
 
-bool WriteData::operator==(const WriteData& rhs) const
+bool WriteData::operator==(const WriteData &rhs) const
 {
     Q_D(const WriteData);
     return d->properties == rhs.d_ptr->properties;
 }
 
-void WriteData::add(Property::Property property, const QVariant& value)
+void WriteData::add(Property::Property property, const QVariant &value)
 {
     Q_D(WriteData);
     d->properties.insertMulti(property, value);
 }
 
-void WriteData::addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray>& images)
+void WriteData::addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray> &images)
 {
     Q_D(WriteData);
     d->images = images;
@@ -90,4 +90,3 @@ PropertyMap WriteData::getAllProperties() const
     Q_D(const WriteData);
     return d->properties;
 }
-

@@ -9,14 +9,14 @@
 
 #include <QTest>
 
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/odfextractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
 using namespace KFileMetaData;
 
-QString OdfExtractorTest::testFilePath(const QString& fileName) const
+QString OdfExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -34,7 +34,7 @@ void OdfExtractorTest::testNoExtraction()
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().at(0), Type::Document);
-    QCOMPARE(result.properties().size(),0);
+    QCOMPARE(result.properties().size(), 0);
 }
 
 void OdfExtractorTest::testText()
@@ -70,7 +70,9 @@ void OdfExtractorTest::testTextMetaDataOnly()
 {
     OdfExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("test.odt")), QStringLiteral("application/vnd.oasis.opendocument.text"), ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.odt")),
+                                  QStringLiteral("application/vnd.oasis.opendocument.text"),
+                                  ExtractionResult::ExtractMetaData);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

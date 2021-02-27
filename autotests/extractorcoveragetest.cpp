@@ -6,23 +6,24 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include <QObject>
-#include <QTest>
 #include <QDirIterator>
 #include <QMimeDatabase>
+#include <QObject>
+#include <QTest>
 
 #include "mimeutils.h"
 
 #include "indexerextractortestsconfig.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class ExtractorCoverageTest : public QObject
 {
     Q_OBJECT
 
 private:
-    static QString filePath() {
+    static QString filePath()
+    {
         return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH);
     }
 
@@ -31,7 +32,8 @@ private:
 
 private Q_SLOTS:
 
-    void initTestCase() {
+    void initTestCase()
+    {
         // clang-format off
         // Expected mimetypes
         m_knownFiles = {
@@ -96,8 +98,7 @@ private Q_SLOTS:
 
         auto it = m_knownFiles.cbegin();
         while (it != m_knownFiles.cend()) {
-            QTest::addRow("%s", it.key().toUtf8().constData())
-                << it.key() << it.value();
+            QTest::addRow("%s", it.key().toUtf8().constData()) << it.key() << it.value();
             ++it;
         }
     }
@@ -140,7 +141,6 @@ private Q_SLOTS:
 
         QVERIFY2(m_knownFiles.contains(fileName), "test file omitted from test suite");
     }
-
 };
 
 }

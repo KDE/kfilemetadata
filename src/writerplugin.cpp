@@ -8,10 +8,10 @@
 
 #include "writerplugin.h"
 
-
 using namespace KFileMetaData;
 
-WriterPlugin::WriterPlugin(QObject* parent): QObject(parent)
+WriterPlugin::WriterPlugin(QObject *parent)
+    : QObject(parent)
 {
 }
 

@@ -9,10 +9,10 @@
 #define KFILEMETADATA_XATTR_P_H
 
 #include <QByteArray>
-#include <QFile>
-#include <QString>
 #include <QDebug>
+#include <QFile>
 #include <QFileInfo>
+#include <QString>
 
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
 #include <sys/types.h>
@@ -21,19 +21,19 @@
 #if defined(Q_OS_ANDROID) || defined(Q_OS_LINUX)
 // attr/xattr.h is not available in the Android NDK so we are defining ENOATTR ourself
 #ifndef ENOATTR
-# define ENOATTR ENODATA        /* No such attribute */
+#define ENOATTR ENODATA /* No such attribute */
 #endif
 #endif
 
 #include <errno.h>
 #elif defined(Q_OS_MAC)
+#include <errno.h>
 #include <sys/types.h>
 #include <sys/xattr.h>
-#include <errno.h>
 #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-#include <sys/types.h>
-#include <sys/extattr.h>
 #include <errno.h>
+#include <sys/extattr.h>
+#include <sys/types.h>
 #elif defined(Q_OS_OPENBSD)
 #include <errno.h>
 #elif defined(Q_OS_WIN)
@@ -42,13 +42,13 @@
 #endif
 
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC) || defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
+inline ssize_t k_getxattr(const QString &path, const QString &name, QString *value)
 {
     const QByteArray p = QFile::encodeName(path);
-    const char* encodedPath = p.constData();
+    const char *encodedPath = p.constData();
 
     const QByteArray n = name.toUtf8();
-    const char* attributeName = n.constData();
+    const char *attributeName = n.constData();
 
     // First get the size of the data we are going to get to reserve the right amount of space.
 #if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_getxattr))
@@ -95,16 +95,16 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     }
 }
 
-inline int k_setxattr(const QString& path, const QString& name, const QString& value)
+inline int k_setxattr(const QString &path, const QString &name, const QString &value)
 {
     const QByteArray p = QFile::encodeName(path);
-    const char* encodedPath = p.constData();
+    const char *encodedPath = p.constData();
 
     const QByteArray n = name.toUtf8();
-    const char* attributeName = n.constData();
+    const char *attributeName = n.constData();
 
     const QByteArray v = value.toUtf8();
-    const void* attributeValue = v.constData();
+    const void *attributeValue = v.constData();
 
     const size_t valueSize = v.size();
 
@@ -118,38 +118,36 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
 #endif
 }
 
-
-inline int k_removexattr(const QString& path, const QString& name)
+inline int k_removexattr(const QString &path, const QString &name)
 {
     const QByteArray p = QFile::encodeName(path);
-    const char* encodedPath = p.constData();
+    const char *encodedPath = p.constData();
 
     const QByteArray n = name.toUtf8();
-    const char* attributeName = n.constData();
+    const char *attributeName = n.constData();
 
-    #if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_removexattr))
-        return removexattr(encodedPath, attributeName);
-    #elif defined(Q_OS_MAC)
-        return removexattr(encodedPath, attributeName, XATTR_NOFOLLOW );
-    #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-        return extattr_delete_file (encodedPath, EXTATTR_NAMESPACE_USER, attributeName);
-    #endif
+#if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_removexattr))
+    return removexattr(encodedPath, attributeName);
+#elif defined(Q_OS_MAC)
+    return removexattr(encodedPath, attributeName, XATTR_NOFOLLOW);
+#elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+    return extattr_delete_file(encodedPath, EXTATTR_NAMESPACE_USER, attributeName);
+#endif
 }
 
-inline bool k_hasAttribute(const QString& path, const QString& name)
+inline bool k_hasAttribute(const QString &path, const QString &name)
 {
     auto ret = k_getxattr(path, name, nullptr);
     return (ret >= 0);
 }
 
-inline bool k_isSupported(const QString& path)
+inline bool k_isSupported(const QString &path)
 {
     auto ret = k_getxattr(path, QStringLiteral("user.test"), nullptr);
     return (ret >= 0) || (errno != ENOTSUP);
 }
 
-
-static KFileMetaData::UserMetaData::Attribute _mapAttribute(const QByteArray& key)
+static KFileMetaData::UserMetaData::Attribute _mapAttribute(const QByteArray &key)
 {
     using KFileMetaData::UserMetaData;
     if (key == "user.xdg.tags") {
@@ -194,21 +192,20 @@ static QList<QByteArray> _split_length_value(QByteArray data)
 }
 #endif
 
-KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
-    KFileMetaData::UserMetaData::Attributes attributes)
+KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString &path, KFileMetaData::UserMetaData::Attributes attributes)
 {
     using KFileMetaData::UserMetaData;
 
     const QByteArray p = QFile::encodeName(path);
-    const char* encodedPath = p.constData();
+    const char *encodedPath = p.constData();
 
-    #if defined(Q_OS_LINUX)
+#if defined(Q_OS_LINUX)
     const ssize_t size = listxattr(encodedPath, nullptr, 0);
-    #elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MAC)
     const ssize_t size = listxattr(encodedPath, nullptr, 0, 0);
-    #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+#elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const ssize_t size = extattr_list_file(encodedPath, EXTATTR_NAMESPACE_USER, nullptr, 0);
-    #endif
+#endif
 
     if (size == 0) {
         return UserMetaData::Attribute::None;
@@ -229,13 +226,13 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
     QByteArray data(size, Qt::Uninitialized);
 
     while (true) {
-    #if defined(Q_OS_LINUX)
+#if defined(Q_OS_LINUX)
         const ssize_t r = listxattr(encodedPath, data.data(), data.size());
-    #elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MAC)
         const ssize_t r = listxattr(encodedPath, data.data(), data.size(), 0);
-    #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+#elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
         const ssize_t r = extattr_list_file(encodedPath, EXTATTR_NAMESPACE_USER, data.data(), data.size());
-    #endif
+#endif
 
         if (r == 0) {
             return UserMetaData::Attribute::None;
@@ -255,11 +252,11 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
 
     UserMetaData::Attributes fileAttributes = UserMetaData::Attribute::None;
     QByteArray prefix = QByteArray::fromRawData("user.", 5);
-    #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const auto entries = _split_length_value(data);
-    #else
+#else
     const auto entries = data.split('\0');
-    #endif
+#endif
     for (const auto entry : entries) {
         if (!entry.startsWith(prefix)) {
             continue;
@@ -275,15 +272,21 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
     return fileAttributes;
 }
 
-#elif  defined(Q_OS_WIN)
+#elif defined(Q_OS_WIN)
 
-inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
+inline ssize_t k_getxattr(const QString &path, const QString &name, QString *value)
 {
     const QString fullADSName = path + QLatin1Char(':') + name;
-    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
-             OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR *>(fullADSName.utf16()),
+                                 GENERIC_READ,
+                                 FILE_SHARE_READ,
+                                 NULL,
+                                 OPEN_EXISTING,
+                                 FILE_FLAG_SEQUENTIAL_SCAN,
+                                 NULL);
 
-    if(!hFile) return 0;
+    if (!hFile)
+        return 0;
 
     LARGE_INTEGER lsize;
     BOOL ret = GetFileSizeEx(hFile, &lsize);
@@ -311,30 +314,34 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     return r;
 }
 
-inline int k_setxattr(const QString& path, const QString& name, const QString& value)
+inline int k_setxattr(const QString &path, const QString &name, const QString &value)
 {
     const QByteArray v = value.toUtf8();
 
     const QString fullADSName = path + QLatin1Char(':') + name;
-    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_WRITE, FILE_SHARE_READ, NULL,
-             CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR *>(fullADSName.utf16()),
+                                 GENERIC_WRITE,
+                                 FILE_SHARE_READ,
+                                 NULL,
+                                 CREATE_ALWAYS,
+                                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN,
+                                 NULL);
 
-    if(!hFile) return -1;
+    if (!hFile)
+        return -1;
 
     DWORD count = 0;
 
-    if(!::WriteFile(hFile, v.constData(), v.size(), &count, NULL)) {
+    if (!::WriteFile(hFile, v.constData(), v.size(), &count, NULL)) {
         DWORD dw = GetLastError();
         TCHAR msg[1024];
-        FormatMessage(
-            FORMAT_MESSAGE_ALLOCATE_BUFFER |
-            FORMAT_MESSAGE_FROM_SYSTEM |
-            FORMAT_MESSAGE_IGNORE_INSERTS,
-            NULL,
-            dw,
-            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-            (LPTSTR) &msg,
-            0, NULL );
+        FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                      NULL,
+                      dw,
+                      MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+                      (LPTSTR)&msg,
+                      0,
+                      NULL);
         qWarning() << "failed to write to ADS:" << msg;
         CloseHandle(hFile);
         return -1;
@@ -344,57 +351,56 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
     return count;
 }
 
-inline bool k_hasAttribute(const QString& path, const QString& name)
+inline bool k_hasAttribute(const QString &path, const QString &name)
 {
     // enumerate all streams:
     const QString streamName = QStringLiteral(":") + name + QStringLiteral(":$DATA");
-    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(path.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
-             OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+    HANDLE hFile =
+        ::CreateFileW(reinterpret_cast<const WCHAR *>(path.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
-    if(!hFile) {
+    if (!hFile) {
         return false;
     }
-    FILE_STREAM_INFO* fi = new FILE_STREAM_INFO[256];
-    if(GetFileInformationByHandleEx(hFile, FileStreamInfo, fi, 256 * sizeof(FILE_STREAM_INFO))) {
-        if(QString::fromUtf16((ushort*)fi->StreamName, fi->StreamNameLength / sizeof(ushort)) == streamName) {
+    FILE_STREAM_INFO *fi = new FILE_STREAM_INFO[256];
+    if (GetFileInformationByHandleEx(hFile, FileStreamInfo, fi, 256 * sizeof(FILE_STREAM_INFO))) {
+        if (QString::fromUtf16((ushort *)fi->StreamName, fi->StreamNameLength / sizeof(ushort)) == streamName) {
             delete[] fi;
             CloseHandle(hFile);
             return true;
         }
-        FILE_STREAM_INFO* p = fi;
+        FILE_STREAM_INFO *p = fi;
         do {
-            p = (FILE_STREAM_INFO*) ((char*)p + p->NextEntryOffset);
-            if(QString::fromUtf16((ushort*)p->StreamName, p->StreamNameLength / sizeof(ushort)) == streamName) {
+            p = (FILE_STREAM_INFO *)((char *)p + p->NextEntryOffset);
+            if (QString::fromUtf16((ushort *)p->StreamName, p->StreamNameLength / sizeof(ushort)) == streamName) {
                 delete[] fi;
                 CloseHandle(hFile);
                 return true;
             }
-        } while(p->NextEntryOffset != NULL);
+        } while (p->NextEntryOffset != NULL);
     }
     delete[] fi;
     CloseHandle(hFile);
     return false;
 }
 
-inline int k_removexattr(const QString& path, const QString& name)
+inline int k_removexattr(const QString &path, const QString &name)
 {
     const QString fullADSName = path + QLatin1Char(':') + name;
-    int ret = (DeleteFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()))) ? 0 : -1;
+    int ret = (DeleteFileW(reinterpret_cast<const WCHAR *>(fullADSName.utf16()))) ? 0 : -1;
     return ret;
 }
 
-inline bool k_isSupported(const QString& path)
+inline bool k_isSupported(const QString &path)
 {
     QFileInfo f(path);
     const QString drive = QString(f.absolutePath().left(2)) + QStringLiteral("\\");
     WCHAR szFSName[MAX_PATH];
     DWORD dwVolFlags;
-    ::GetVolumeInformationW(reinterpret_cast<const WCHAR*>(drive.utf16()), NULL, 0, NULL, NULL, &dwVolFlags, szFSName, MAX_PATH);
+    ::GetVolumeInformationW(reinterpret_cast<const WCHAR *>(drive.utf16()), NULL, 0, NULL, NULL, &dwVolFlags, szFSName, MAX_PATH);
     return ((dwVolFlags & FILE_NAMED_STREAMS) && _wcsicmp(szFSName, L"NTFS") == 0);
 }
 
-KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
-    KFileMetaData::UserMetaData::Attributes attributes)
+KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString &path, KFileMetaData::UserMetaData::Attributes attributes)
 {
     using KFileMetaData::UserMetaData;
 
@@ -410,33 +416,32 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
 }
 
 #else
-inline ssize_t k_getxattr(const QString&, const QString&, QString*)
+inline ssize_t k_getxattr(const QString &, const QString &, QString *)
 {
     return 0;
 }
 
-inline int k_setxattr(const QString&, const QString&, const QString&)
+inline int k_setxattr(const QString &, const QString &, const QString &)
 {
     return -1;
 }
 
-inline int k_removexattr(const QString&, const QString&)
+inline int k_removexattr(const QString &, const QString &)
 {
     return -1;
 }
 
-inline bool k_hasAttribute(const QString&, const QString&)
+inline bool k_hasAttribute(const QString &, const QString &)
 {
     return false;
 }
 
-inline bool k_isSupported(const QString&)
+inline bool k_isSupported(const QString &)
 {
     return false;
 }
 
-KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString&,
-    KFileMetaData::UserMetaData::Attributes attributes)
+KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString &, KFileMetaData::UserMetaData::Attributes attributes)
 {
     return KFileMetaData::UserMetaData::Attribute::None;
 }

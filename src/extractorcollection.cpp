@@ -6,16 +6,16 @@
 */
 
 #include "extractorcollection.h"
+#include "config-kfilemetadata.h"
+#include "externalextractor.h"
 #include "extractor_p.h"
 #include "extractorplugin.h"
-#include "externalextractor.h"
 #include "kfilemetadata_debug.h"
-#include "config-kfilemetadata.h"
 
-#include <QMimeDatabase>
 #include <QCoreApplication>
-#include <QPluginLoader>
 #include <QDir>
+#include <QMimeDatabase>
+#include <QPluginLoader>
 #include <vector>
 
 using namespace KFileMetaData;
@@ -23,12 +23,12 @@ using namespace KFileMetaData;
 class Q_DECL_HIDDEN ExtractorCollection::Private
 {
 public:
-    QMultiHash<QString, Extractor*> m_mimeExtractors;
+    QMultiHash<QString, Extractor *> m_mimeExtractors;
 
     std::vector<Extractor> m_allExtractors;
 
     void findExtractors();
-    QList<Extractor*> getExtractors(const QString& mimetype);
+    QList<Extractor *> getExtractors(const QString &mimetype);
 };
 
 ExtractorCollection::ExtractorCollection()
@@ -42,11 +42,10 @@ ExtractorCollection::~ExtractorCollection()
     delete d;
 }
 
-
-QList<Extractor*> ExtractorCollection::allExtractors()
+QList<Extractor *> ExtractorCollection::allExtractors()
 {
-    QList<Extractor*> plugins;
-    for (auto& ex : d->m_allExtractors) {
+    QList<Extractor *> plugins;
+    for (auto &ex : d->m_allExtractors) {
         if (ex.d->initPlugin()) {
             plugins.push_back(&ex);
         }
@@ -60,7 +59,7 @@ void ExtractorCollection::Private::findExtractors()
     QStringList externalPlugins;
 
     const QStringList paths = QCoreApplication::libraryPaths();
-    for (const QString& libraryPath : paths) {
+    for (const QString &libraryPath : paths) {
         QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata"));
         QDir dir(path);
         qCDebug(KFILEMETADATA_LOG) << "Searching for extractors:" << dir.path();
@@ -70,7 +69,7 @@ void ExtractorCollection::Private::findExtractors()
         }
 
         const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
-        for (const QString& fileName : entryList) {
+        for (const QString &fileName : entryList) {
             if (!QLibrary::isLibrary(fileName)) {
                 continue;
             }
@@ -110,13 +109,12 @@ void ExtractorCollection::Private::findExtractors()
     qCDebug(KFILEMETADATA_LOG) << "Searching for external extractors:" << externalPluginDir.path();
     // For external plugins, we look into the directories
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    for (const QString& externalPlugin : externalPluginEntryList) {
+    for (const QString &externalPlugin : externalPluginEntryList) {
         if (!QLibrary::isLibrary(externalPlugin)) {
             continue;
         }
         if (externalPlugins.contains(externalPlugin)) {
-            qCDebug(KFILEMETADATA_LOG) << "Skipping duplicate - "
-                << externalPluginDir.path() << ":" << externalPlugin;
+            qCDebug(KFILEMETADATA_LOG) << "Skipping duplicate - " << externalPluginDir.path() << ":" << externalPlugin;
             continue;
         }
 
@@ -135,7 +133,7 @@ void ExtractorCollection::Private::findExtractors()
     }
     externalPlugins.clear();
 
-    for (Extractor& extractor : m_allExtractors) {
+    for (Extractor &extractor : m_allExtractors) {
         auto pluginProperties = extractor.extractorProperties();
         if (!pluginProperties.isEmpty()) {
             auto mimetypeProperties = pluginProperties[QLatin1String("MimeTypes")];
@@ -152,9 +150,9 @@ void ExtractorCollection::Private::findExtractors()
     }
 }
 
-QList<Extractor*> ExtractorCollection::Private::getExtractors(const QString& mimetype)
+QList<Extractor *> ExtractorCollection::Private::getExtractors(const QString &mimetype)
 {
-    QList<Extractor*> extractors = m_mimeExtractors.values(mimetype);
+    QList<Extractor *> extractors = m_mimeExtractors.values(mimetype);
 
     if (extractors.isEmpty()) {
         qCDebug(KFILEMETADATA_LOG) << "No extractor for" << mimetype;
@@ -162,7 +160,7 @@ QList<Extractor*> ExtractorCollection::Private::getExtractors(const QString& mim
     }
 
     qCDebug(KFILEMETADATA_LOG) << "Fetching extractors for" << mimetype;
-    Extractor* failed = nullptr;
+    Extractor *failed = nullptr;
     for (auto ex : extractors) {
         if (!ex->d->initPlugin()) {
             failed = ex;
@@ -185,9 +183,9 @@ QList<Extractor*> ExtractorCollection::Private::getExtractors(const QString& mim
     return getExtractors(mimetype);
 }
 
-QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) const
+QList<Extractor *> ExtractorCollection::fetchExtractors(const QString &mimetype) const
 {
-    QList<Extractor*> plugins = d->getExtractors(mimetype);
+    QList<Extractor *> plugins = d->getExtractors(mimetype);
     if (!plugins.isEmpty()) {
         return plugins;
     }
@@ -201,9 +199,9 @@ QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) 
         if (ancestor == QLatin1String("application/octet-stream")) {
             continue;
         }
-        QList<Extractor*> plugins = d->getExtractors(ancestor);
+        QList<Extractor *> plugins = d->getExtractors(ancestor);
         if (!plugins.isEmpty()) {
-            qCDebug(KFILEMETADATA_LOG) << "Using inherited mimetype" << ancestor <<  "for" << mimetype;
+            qCDebug(KFILEMETADATA_LOG) << "Using inherited mimetype" << ancestor << "for" << mimetype;
             return plugins;
         }
     }

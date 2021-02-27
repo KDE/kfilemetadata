@@ -5,21 +5,20 @@
 */
 
 #include "ffmpegextractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/ffmpegextractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
 #include <QTest>
 
 using namespace KFileMetaData;
 
-namespace {
-
-QString testFilePath(const QString& baseName, const QString& extension)
+namespace
 {
-    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH)
-        + QLatin1Char('/') + baseName + QLatin1Char('.') + extension;
+QString testFilePath(const QString &baseName, const QString &extension)
+{
+    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + baseName + QLatin1Char('.') + extension;
 }
 
 } // namespace
@@ -40,7 +39,6 @@ void ffmpegExtractorTest::testNoExtraction()
     QCOMPARE(result.types().constFirst(), Type::Video);
     QCOMPARE(result.properties().size(), 0);
 }
-
 
 void ffmpegExtractorTest::testVideoProperties_data()
 {
@@ -72,8 +70,8 @@ void ffmpegExtractorTest::testVideoProperties()
 
     QCOMPARE(result.properties().value(Property::Width).toInt(), 1280);
     QCOMPARE(result.properties().value(Property::Height).toInt(), 720);
-    QCOMPARE(result.properties().value(Property::FrameRate).toDouble(), 24.0/1.001);
-    QCOMPARE(result.properties().value(Property::AspectRatio).toDouble(), 16.0/9);
+    QCOMPARE(result.properties().value(Property::FrameRate).toDouble(), 24.0 / 1.001);
+    QCOMPARE(result.properties().value(Property::AspectRatio).toDouble(), 16.0 / 9);
 }
 
 void ffmpegExtractorTest::testMetaData_data()

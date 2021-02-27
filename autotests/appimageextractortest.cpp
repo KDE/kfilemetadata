@@ -9,13 +9,13 @@
 // Qt
 #include <QTest>
 
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/appimageextractor.h"
+#include "indexerextractortestsconfig.h"
+#include "simpleextractionresult.h"
 
 using namespace KFileMetaData;
 
-QString AppImageExtractorTest::testFilePath(const QString& fileName) const
+QString AppImageExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -51,7 +51,6 @@ void AppImageExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("Test Desktop Comment")));
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Test description line 1.\nTest description line 2.")));
     QCOMPARE(result.properties().value(Property::License), QVariant(QStringLiteral("GPL-2.0")));
-
 }
 
 QTEST_GUILESS_MAIN(AppImageExtractorTest)

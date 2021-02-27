@@ -14,7 +14,7 @@
 
 using namespace KFileMetaData;
 
-OfficeExtractor::OfficeExtractor(QObject* parent)
+OfficeExtractor::OfficeExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
     // Find the executables of catdoc, catppt and xls2csv. If an executable cannot
@@ -24,7 +24,7 @@ OfficeExtractor::OfficeExtractor(QObject* parent)
     findExe(QStringLiteral("application/vnd.ms-powerpoint"), QStringLiteral("catppt"), m_catppt);
 }
 
-void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QString& fullPath)
+void OfficeExtractor::findExe(const QString &mimeType, const QString &name, QString &fullPath)
 {
     fullPath = QStandardPaths::findExecutable(name);
 
@@ -38,13 +38,13 @@ QStringList OfficeExtractor::mimetypes() const
     return m_available_mime_types;
 }
 
-
-void OfficeExtractor::extract(ExtractionResult* result)
+void OfficeExtractor::extract(ExtractionResult *result)
 {
     QStringList args;
     QString contents;
 
-    args << QStringLiteral("-s") << QStringLiteral("cp1252"); // FIXME: Store somewhere a map between the user's language and the encoding of the Windows files it may use ?
+    args << QStringLiteral("-s")
+         << QStringLiteral("cp1252"); // FIXME: Store somewhere a map between the user's language and the encoding of the Windows files it may use ?
     args << QStringLiteral("-d") << QStringLiteral("utf8");
 
     const QString fileUrl = result->inputUrl();
@@ -85,7 +85,7 @@ void OfficeExtractor::extract(ExtractionResult* result)
     return;
 }
 
-QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& command, QStringList& arguments)
+QString OfficeExtractor::textFromFile(const QString &fileUrl, const QString &command, QStringList &arguments)
 {
     arguments << fileUrl;
 

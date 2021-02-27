@@ -4,19 +4,17 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef _KFILEMETADATA_EXTRACTOR_PLUGIN_H
 #define _KFILEMETADATA_EXTRACTOR_PLUGIN_H
 
-#include <QStringList>
 #include <QDateTime>
+#include <QStringList>
 
-#include "kfilemetadata_export.h"
 #include "extractionresult.h"
+#include "kfilemetadata_export.h"
 
 namespace KFileMetaData
 {
-
 /**
  * \class ExtractorPlugin extractorplugin.h <KFileMetaData/ExtractorPlugin>
  *
@@ -34,7 +32,7 @@ class KFILEMETADATA_EXPORT ExtractorPlugin : public QObject
 {
     Q_OBJECT
 public:
-    explicit ExtractorPlugin(QObject* parent);
+    explicit ExtractorPlugin(QObject *parent);
     virtual ~ExtractorPlugin();
 
     /**
@@ -60,7 +58,7 @@ public:
      * This function is synchronous and should be reentrant as it
      * can be called by multiple threads.
      */
-    virtual void extract(ExtractionResult* result) = 0;
+    virtual void extract(ExtractionResult *result) = 0;
 
     //
     // Helper functions
@@ -69,13 +67,13 @@ public:
     /**
      * Tries to extract a valid date time from the string provided.
      */
-    static QDateTime dateTimeFromString(const QString& dateString);
+    static QDateTime dateTimeFromString(const QString &dateString);
 
     /**
      * Tries to split the string into names. It cleans up any superfluous words
      * and removes extra junk such as curly braces
      */
-    static QStringList contactsFromString(const QString& string);
+    static QStringList contactsFromString(const QString &string);
 
 protected:
     /**
@@ -92,11 +90,11 @@ protected:
      * \sa QMimeType::allAncestors
      * @since 5.57
      */
-    QString getSupportedMimeType(const QString& mimetype) const;
+    QString getSupportedMimeType(const QString &mimetype) const;
 
 private:
     class Private;
-    Private* d;
+    Private *d;
 };
 }
 

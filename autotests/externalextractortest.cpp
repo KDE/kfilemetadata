@@ -5,17 +5,17 @@
 */
 
 #include "externalextractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
-#include "externalextractor.h"
 #include "config-kfilemetadata.h"
+#include "externalextractor.h"
+#include "indexerextractortestsconfig.h"
+#include "simpleextractionresult.h"
 
-#include <QTest>
 #include <QTemporaryFile>
+#include <QTest>
 
 using namespace KFileMetaData;
 
-QString ExternalExtractorTest::testFilePath(const QString& fileName) const
+QString ExternalExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_CONFIGURED_FILES_PATH) + QLatin1Char('/') + fileName;
 }

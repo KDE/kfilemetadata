@@ -6,23 +6,23 @@
 */
 
 #include "taglibwritertest.h"
-#include "indexerextractortestsconfig.h"
-#include "writers/taglibwriter.h"
-#include "writedata.h"
-#include <kfilemetadata/ExtractorCollection>
-#include <kfilemetadata/Extractor>
-#include <kfilemetadata/ExtractionResult>
-#include <kfilemetadata/SimpleExtractionResult>
-#include "taglib.h"
 #include "fileref.h"
+#include "indexerextractortestsconfig.h"
+#include "taglib.h"
+#include "writedata.h"
+#include "writers/taglibwriter.h"
+#include <kfilemetadata/ExtractionResult>
+#include <kfilemetadata/Extractor>
+#include <kfilemetadata/ExtractorCollection>
+#include <kfilemetadata/SimpleExtractionResult>
 
-#include <QTest>
 #include <QFile>
 #include <QMap>
+#include <QTest>
 
 using namespace KFileMetaData;
 
-QString TagLibWriterTest::testFilePath(const QString& fileName) const
+QString TagLibWriterTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -30,14 +30,14 @@ QString TagLibWriterTest::testFilePath(const QString& fileName) const
 void TagLibWriterTest::extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result)
 {
     KFileMetaData::ExtractorCollection extractors;
-    QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
+    QList<KFileMetaData::Extractor *> extractorList = extractors.fetchExtractors(mimeType);
     if (extractorList.isEmpty()) {
         QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
     }
     if (extractorList.size() > 1) {
         QWARN("Multiple extractors are available.");
     }
-    KFileMetaData::Extractor* ex = extractorList.first();
+    KFileMetaData::Extractor *ex = extractorList.first();
     ex->extract(&result);
 }
 
@@ -51,7 +51,7 @@ void TagLibWriterTest::testCommonData()
 
     QFile::copy(testFilePath("test." + fileType), temporaryFileName);
     TagLibWriter writerPlugin{this};
-    QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
+    QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType), true);
 
     WriteData data(temporaryFileName, mimeType);
 
@@ -91,7 +91,7 @@ void TagLibWriterTest::testCommonData_data()
 {
     // Add some unicode characters, use codepoints to avoid any issues with
     // source encoding: "€µ"
-    static const QChar data[2] = { 0x20ac, 0xb5 };
+    static const QChar data[2] = {0x20ac, 0xb5};
     QString unicodeTestStringSuffix(data, 2);
 
     QTest::addColumn<QString>("fileType");
@@ -183,7 +183,7 @@ void TagLibWriterTest::testRating()
 
     QFile::copy(testFilePath("test.") + fileType, temporaryFileName);
     TagLibWriter writerPlugin{this};
-    QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
+    QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType), true);
 
     WriteData data(temporaryFileName, mimeType);
 
@@ -200,7 +200,6 @@ void TagLibWriterTest::testRating()
 
 void TagLibWriterTest::testRating_data()
 {
-
     QTest::addColumn<QString>("fileType");
     QTest::addColumn<QString>("mimeType");
     QTest::addColumn<int>("rating");
@@ -247,11 +246,11 @@ void TagLibWriterTest::testComplexContactData()
     WriteData data(temporaryFileName, mimeType);
 
     const QMap<Property::Property, QString> properties = {
-        { Property::Artist, QStringLiteral("Artist1 feat Artist2") },
-        { Property::AlbumArtist, QStringLiteral("Artist1 feat. Artist2") },
-        { Property::Composer, QStringLiteral("Composer1; Composer2") },
-        { Property::Lyricist, QStringLiteral("Lyricist1 ft Lyricist2") },
-        { Property::Genre, QStringLiteral("Genre1; Genre2") },
+        {Property::Artist, QStringLiteral("Artist1 feat Artist2")},
+        {Property::AlbumArtist, QStringLiteral("Artist1 feat. Artist2")},
+        {Property::Composer, QStringLiteral("Composer1; Composer2")},
+        {Property::Lyricist, QStringLiteral("Lyricist1 ft Lyricist2")},
+        {Property::Genre, QStringLiteral("Genre1; Genre2")},
     };
 
     QMap<Property::Property, QString>::const_iterator it;
@@ -265,7 +264,7 @@ void TagLibWriterTest::testComplexContactData()
     extractResult(mimeType, result);
 
     for (it = properties.begin(); it != properties.end(); ++it) {
-         QCOMPARE(result.properties().value(it.key()), it.value());
+        QCOMPARE(result.properties().value(it.key()), it.value());
     }
 
     QFile::remove(temporaryFileName);

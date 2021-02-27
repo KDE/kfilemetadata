@@ -10,13 +10,13 @@
 #include "embeddedimagedata.h"
 #include "indexerextractortestsconfig.h"
 
+#include <QByteArray>
 #include <QMimeDatabase>
 #include <QTest>
-#include <QByteArray>
 
 using namespace KFileMetaData;
 
-QString EmbeddedImageDataTest::testFilePath(const QString& fileName) const
+QString EmbeddedImageDataTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -181,10 +181,10 @@ void EmbeddedImageDataTest::testMultiImage()
     QVERIFY(readImages.contains(EmbeddedImageData::FrontCover));
 
     using Image = EmbeddedImageData::ImageType;
-    for (auto type : { Image::Other, Image::BackCover }) {
-	if (type & imageTypes) {
-	    writeImages.insert(type, m_coverImage);
-	}
+    for (auto type : {Image::Other, Image::BackCover}) {
+        if (type & imageTypes) {
+            writeImages.insert(type, m_coverImage);
+        }
     }
     imageData.writeImageData(testFileName, writeImages);
 
@@ -192,11 +192,11 @@ void EmbeddedImageDataTest::testMultiImage()
     // Test if FrontCover still exists
     QVERIFY(readImages.contains(EmbeddedImageData::FrontCover));
 
-    for (auto type : { Image::FrontCover, Image::Other, Image::BackCover }) {
-	if (type & imageTypes) {
-	    QVERIFY2(readImages.contains(type), qPrintable(QString("has imagetype %1").arg(type)));
-	    QCOMPARE(readImages.value(type), m_coverImage);
-	}
+    for (auto type : {Image::FrontCover, Image::Other, Image::BackCover}) {
+        if (type & imageTypes) {
+            QVERIFY2(readImages.contains(type), qPrintable(QString("has imagetype %1").arg(type)));
+            QCOMPARE(readImages.value(type), m_coverImage);
+        }
     }
 
     QFile::remove(testFileName);
@@ -209,11 +209,10 @@ void EmbeddedImageDataTest::testMultiImage_data()
     QTest::addColumn<ImageTypes>("imageTypes");
 
     using Image = EmbeddedImageData::ImageType;
-    QTest::addRow("aiff") << QStringLiteral("test.aif") << ImageTypes{ Image::Other, Image::Artist };
-    QTest::addRow("opus") << QStringLiteral("test.opus") << ImageTypes{ Image::Other, Image::BackCover };
-    QTest::addRow("flac") << QStringLiteral("test.flac") << ImageTypes{ Image::Other, Image::Composer };
-    QTest::addRow("wma")  << QStringLiteral("test.wma") << ImageTypes{ Image::Other, Image::Band };
+    QTest::addRow("aiff") << QStringLiteral("test.aif") << ImageTypes{Image::Other, Image::Artist};
+    QTest::addRow("opus") << QStringLiteral("test.opus") << ImageTypes{Image::Other, Image::BackCover};
+    QTest::addRow("flac") << QStringLiteral("test.flac") << ImageTypes{Image::Other, Image::Composer};
+    QTest::addRow("wma") << QStringLiteral("test.wma") << ImageTypes{Image::Other, Image::Band};
 }
-
 
 QTEST_GUILESS_MAIN(EmbeddedImageDataTest)

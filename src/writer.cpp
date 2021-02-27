@@ -22,14 +22,13 @@ Writer::~Writer()
     delete d;
 }
 
-Writer::Writer(Writer&& other)
+Writer::Writer(Writer &&other)
 {
     d = other.d;
     other.d = nullptr;
 }
 
-
-void Writer::write(const WriteData& data)
+void Writer::write(const WriteData &data)
 {
     d->m_plugin->write(data);
 }

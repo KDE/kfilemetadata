@@ -16,7 +16,6 @@
 
 namespace KFileMetaData
 {
-
 /**
  * \class WriterCollection writercollection.h <KFileMetaData/WriterCollection>
  */
@@ -26,11 +25,11 @@ public:
     explicit WriterCollection();
     virtual ~WriterCollection();
 
-    QList<Writer*> fetchWriters(const QString& mimetype) const;
+    QList<Writer *> fetchWriters(const QString &mimetype) const;
 
 private:
     class WriterCollectionPrivate;
-    WriterCollectionPrivate* d;
+    WriterCollectionPrivate *d;
 };
 }
 

@@ -11,14 +11,15 @@
 
 #include "writerplugin.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class WriterPlugin;
 
 class Writer::WriterPrivate
 {
 public:
-    ~WriterPrivate() {
+    ~WriterPrivate()
+    {
         if (m_autoDeletePlugin == AutoDeletePlugin) {
             delete m_plugin;
         }
@@ -32,4 +33,3 @@ public:
 }
 
 #endif
-

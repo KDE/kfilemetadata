@@ -6,23 +6,23 @@
 
 #include "xmlextractortest.h"
 
-#include <QTest>
-#include <QTemporaryFile>
 #include <QMimeDatabase>
+#include <QTemporaryFile>
+#include <QTest>
 
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/xmlextractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
 using namespace KFileMetaData;
 
-XmlExtractorTests::XmlExtractorTests(QObject* parent) :
-    QObject(parent)
+XmlExtractorTests::XmlExtractorTests(QObject *parent)
+    : QObject(parent)
 {
 }
 
-QString XmlExtractorTests::testFilePath(const QString& fileName) const
+QString XmlExtractorTests::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -36,8 +36,7 @@ void XmlExtractorTests::testNoExtraction()
     QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(fileName, mimeType,
-            ExtractionResult::ExtractNothing);
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -90,8 +89,7 @@ void XmlExtractorTests::testXmlExtractor()
     QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(fileName, mimeType,
-            ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QString content = QStringLiteral("Some text\n");
@@ -110,9 +108,7 @@ void XmlExtractorTests::testXmlExtractorNoContent()
 {
     XmlExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("test_with_metadata.svg")),
-            QStringLiteral("image/svg"),
-            ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_with_metadata.svg")), QStringLiteral("image/svg"), ExtractionResult::ExtractMetaData);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -129,8 +125,8 @@ void XmlExtractorTests::testXmlExtractorContainer()
     XmlExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test_with_container.svg")),
-            QStringLiteral("image/svg"),
-            ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
+                                  QStringLiteral("image/svg"),
+                                  ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QString content = QStringLiteral("Some text below <a>\n");
@@ -149,8 +145,8 @@ void XmlExtractorTests::testXmlExtractorMathML()
     XmlExtractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test.mml")),
-            QStringLiteral("application/mathml+xml"),
-            ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
+                                  QStringLiteral("application/mathml+xml"),
+                                  ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QString content = QStringLiteral("1 + 1 = 2\n");
@@ -164,6 +160,4 @@ void XmlExtractorTests::testXmlExtractorMathML()
     QCOMPARE(result.text(), content);
 }
 
-
 QTEST_GUILESS_MAIN(XmlExtractorTests)
-

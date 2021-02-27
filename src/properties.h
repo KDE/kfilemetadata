@@ -14,9 +14,10 @@
 #include <QVariant>
 
 /** @file properties.h <KFileMetaData/Properties> */
-namespace KFileMetaData {
-namespace Property {
-
+namespace KFileMetaData
+{
+namespace Property
+{
 /**
  * @brief The Property enum contains all files property types that KFileMetaData manipulates
  *
@@ -350,22 +351,22 @@ enum Property {
      */
     Lyrics,
     /**
-      * Contains ReplayGain information for audio files
-      */
+     * Contains ReplayGain information for audio files
+     */
     ReplayGainAlbumPeak,
     /**
-      * Contains ReplayGain information for audio files
-      * The album gain is given in "dB"
-      */
+     * Contains ReplayGain information for audio files
+     * The album gain is given in "dB"
+     */
     ReplayGainAlbumGain,
     /**
-      * Contains ReplayGain information for audio files
-      */
+     * Contains ReplayGain information for audio files
+     */
     ReplayGainTrackPeak,
     /**
-      * Contains ReplayGain information for audio files
-      * The track gain is given in "dB"
-      */
+     * Contains ReplayGain information for audio files
+     * The track gain is given in "dB"
+     */
     ReplayGainTrackGain,
 
     /**
@@ -375,7 +376,7 @@ enum Property {
     Description,
 
     PropertyCount,
-    LastProperty = PropertyCount-1,
+    LastProperty = PropertyCount - 1,
 
 };
 
@@ -383,7 +384,8 @@ enum Property {
 
 typedef QMap<Property::Property, QVariant> PropertyMap;
 
-inline QVariantMap toVariantMap(const PropertyMap& propMap) {
+inline QVariantMap toVariantMap(const PropertyMap &propMap)
+{
     QVariantMap varMap;
     PropertyMap::const_iterator it = propMap.constBegin();
     for (; it != propMap.constEnd(); ++it) {
@@ -394,7 +396,8 @@ inline QVariantMap toVariantMap(const PropertyMap& propMap) {
     return varMap;
 }
 
-inline PropertyMap toPropertyMap(const QVariantMap& varMap) {
+inline PropertyMap toPropertyMap(const QVariantMap &varMap)
+{
     PropertyMap propMap;
     QVariantMap::const_iterator it = varMap.constBegin();
     for (; it != varMap.constEnd(); ++it) {

@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef PLAINTEXTEXTRACTOR_H
 #define PLAINTEXTEXTRACTOR_H
 
@@ -12,19 +11,17 @@
 
 namespace KFileMetaData
 {
-
 class PlainTextExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
-                      FILE "plaintextextractor.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "plaintextextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    explicit PlainTextExtractor(QObject* parent = nullptr);
+    explicit PlainTextExtractor(QObject *parent = nullptr);
 
     QStringList mimetypes() const override;
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
 };
 
 }

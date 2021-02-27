@@ -8,7 +8,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef POEXTRACTOR_H
 #define POEXTRACTOR_H
 
@@ -16,33 +15,29 @@
 
 namespace KFileMetaData
 {
-
 class POExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
-                      FILE "poextractor.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "poextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    explicit POExtractor(QObject* parent = nullptr);
+    explicit POExtractor(QObject *parent = nullptr);
 
     QStringList mimetypes() const override;
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
 
 private:
     void endMessage();
-    void handleComment(const char* data, quint32 length);
-    void handleLine(const char* data, quint32 length);
+    void handleComment(const char *data, quint32 length);
+    void handleLine(const char *data, quint32 length);
 
-
-    enum PoState {COMMENT, MSGCTXT, MSGID, MSGID_PLURAL, MSGSTR, MSGSTR_PLURAL,
-        WHITESPACE, ERROR};
+    enum PoState { COMMENT, MSGCTXT, MSGID, MSGID_PLURAL, MSGSTR, MSGSTR_PLURAL, WHITESPACE, ERROR };
     PoState state;
     int messages;
     int untranslated;
     int fuzzy;
-    bool isFuzzy=false, isTranslated=false;
+    bool isFuzzy = false, isTranslated = false;
 };
 
 }

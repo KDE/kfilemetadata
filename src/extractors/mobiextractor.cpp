@@ -7,7 +7,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "mobiextractor.h"
 
 #include <qmobipocket/mobipocket.h>
@@ -19,27 +18,30 @@ using namespace KFileMetaData;
 class QFileStream : public Mobipocket::Stream
 {
 public:
-    QFileStream(const QString& name) : d(name) {
+    QFileStream(const QString &name)
+        : d(name)
+    {
         d.open(QIODevice::ReadOnly);
     }
-    int read(char* buf, int size) override {
+    int read(char *buf, int size) override
+    {
         return d.read(buf, size);
     }
-    bool seek(int pos) override {
+    bool seek(int pos) override
+    {
         return d.seek(pos);
     }
+
 private:
     QFile d;
 };
 
-MobiExtractor::MobiExtractor(QObject* parent)
+MobiExtractor::MobiExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
-static const QStringList supportedMimeTypes =
-{
+static const QStringList supportedMimeTypes = {
     QStringLiteral("application/x-mobipocket-ebook"),
 };
 
@@ -48,7 +50,7 @@ QStringList MobiExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void MobiExtractor::extract(ExtractionResult* result)
+void MobiExtractor::extract(ExtractionResult *result)
 {
     QFileStream stream(result->inputUrl());
     Mobipocket::Document doc(&stream);
@@ -94,5 +96,4 @@ void MobiExtractor::extract(ExtractionResult* result)
 
         result->append(document.toPlainText());
     }
-
 }

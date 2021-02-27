@@ -15,8 +15,8 @@
 #include <QMetaType>
 #include <memory>
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 /**
  * \class EmbeddedImageData embeddedimagedata.h <KFileMetaData/EmbeddedImageData>
  *
@@ -27,7 +27,8 @@ namespace KFileMetaData {
  *
  * \author Alexander Stippich <a.stippich@gmx.net>
  */
-class KFILEMETADATA_EXPORT EmbeddedImageData {
+class KFILEMETADATA_EXPORT EmbeddedImageData
+{
 public:
     EmbeddedImageData();
     virtual ~EmbeddedImageData();
@@ -88,7 +89,7 @@ public:
 private:
     class Private;
     std::unique_ptr<Private> d;
-    EmbeddedImageData& operator=(const EmbeddedImageData&);
+    EmbeddedImageData &operator=(const EmbeddedImageData &);
 };
 
 }

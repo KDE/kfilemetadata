@@ -16,7 +16,6 @@
 
 namespace KFileMetaData
 {
-
 /**
  * \class WriterPlugin writerplugin.h <KFileMetaData/WriterPlugin>
  */
@@ -24,12 +23,12 @@ class KFILEMETADATA_EXPORT WriterPlugin : public QObject
 {
     Q_OBJECT
 public:
-    explicit WriterPlugin(QObject* parent);
+    explicit WriterPlugin(QObject *parent);
     virtual ~WriterPlugin();
 
     virtual QStringList writeMimetypes() const = 0;
 
-    virtual void write(const WriteData& data) = 0;
+    virtual void write(const WriteData &data) = 0;
 };
 }
 

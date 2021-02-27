@@ -10,19 +10,18 @@
 
 #include "writerplugin.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class ExternalWriter : public WriterPlugin
 {
-
     Q_OBJECT
 
 public:
-    explicit ExternalWriter(QObject* parent = nullptr);
-    explicit ExternalWriter(const QString& pluginPath);
+    explicit ExternalWriter(QObject *parent = nullptr);
+    explicit ExternalWriter(const QString &pluginPath);
     ~ExternalWriter() override;
 
-    void write(const WriteData& data) override;
+    void write(const WriteData &data) override;
     QStringList writeMimetypes() const override;
 
 private:

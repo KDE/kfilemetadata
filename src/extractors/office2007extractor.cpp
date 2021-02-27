@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "office2007extractor.h"
 #include <memory>
 
@@ -16,10 +15,9 @@
 
 using namespace KFileMetaData;
 
-Office2007Extractor::Office2007Extractor(QObject* parent)
+Office2007Extractor::Office2007Extractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 const QStringList supportedMimeTypes = {
@@ -38,7 +36,7 @@ QStringList Office2007Extractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void Office2007Extractor::extract(ExtractionResult* result)
+void Office2007Extractor::extract(ExtractionResult *result)
 {
     KZip zip(result->inputUrl());
     if (!zip.open(QIODevice::ReadOnly)) {
@@ -46,7 +44,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         return;
     }
 
-    const KArchiveDirectory* rootDir = zip.directory();
+    const KArchiveDirectory *rootDir = zip.directory();
     if (!rootDir) {
         qWarning() << "Invalid document structure (main directory is missing)";
         return;
@@ -58,17 +56,17 @@ void Office2007Extractor::extract(ExtractionResult* result)
         return;
     }
 
-    const KArchiveEntry* docPropEntry = rootDir->entry(QStringLiteral("docProps"));
+    const KArchiveEntry *docPropEntry = rootDir->entry(QStringLiteral("docProps"));
     if (!docPropEntry->isDirectory()) {
         qWarning() << "Invalid document structure (docProps is not a directory)";
         return;
     }
 
-    const KArchiveDirectory* docPropDirectory = dynamic_cast<const KArchiveDirectory*>(docPropEntry);
+    const KArchiveDirectory *docPropDirectory = dynamic_cast<const KArchiveDirectory *>(docPropEntry);
 
     const bool extractMetaData = result->inputFlags() & ExtractionResult::ExtractMetaData;
 
-    const KArchiveFile* file = docPropDirectory->file(QStringLiteral("core.xml"));
+    const KArchiveFile *file = docPropDirectory->file(QStringLiteral("core.xml"));
     if (extractMetaData && file) {
         QDomDocument coreDoc(QStringLiteral("core"));
         coreDoc.setContent(file->data());
@@ -182,17 +180,17 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!extractPlainText)
             return;
 
-        const KArchiveEntry* wordEntry = rootDir->entry(QStringLiteral("word"));
+        const KArchiveEntry *wordEntry = rootDir->entry(QStringLiteral("word"));
         if (!wordEntry->isDirectory()) {
             qWarning() << "Invalid document structure (word is not a directory)";
             return;
         }
 
-        const KArchiveDirectory* wordDirectory = dynamic_cast<const KArchiveDirectory*>(wordEntry);
+        const KArchiveDirectory *wordDirectory = dynamic_cast<const KArchiveDirectory *>(wordEntry);
         const QStringList wordEntries = wordDirectory->entries();
 
         if (wordEntries.contains(QStringLiteral("document.xml"))) {
-            const KArchiveFile* file = wordDirectory->file(QStringLiteral("document.xml"));
+            const KArchiveFile *file = wordDirectory->file(QStringLiteral("document.xml"));
 
             if (file) {
                 std::unique_ptr<QIODevice> contentIODevice{file->createDevice()};
@@ -208,13 +206,13 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!extractPlainText)
             return;
 
-        const KArchiveEntry* xlEntry = rootDir->entry(QStringLiteral("xl"));
+        const KArchiveEntry *xlEntry = rootDir->entry(QStringLiteral("xl"));
         if (!xlEntry->isDirectory()) {
             qWarning() << "Invalid document structure (xl is not a directory)";
             return;
         }
 
-        const KArchiveDirectory* xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
+        const KArchiveDirectory *xlDirectory = dynamic_cast<const KArchiveDirectory *>(xlEntry);
         extractTextFromFiles(xlDirectory, result);
     }
 
@@ -225,18 +223,18 @@ void Office2007Extractor::extract(ExtractionResult* result)
         if (!extractPlainText)
             return;
 
-        const KArchiveEntry* pptEntry = rootDir->entry(QStringLiteral("ppt"));
+        const KArchiveEntry *pptEntry = rootDir->entry(QStringLiteral("ppt"));
         if (!pptEntry->isDirectory()) {
             qWarning() << "Invalid document structure (ppt is not a directory)";
             return;
         }
 
-        const KArchiveDirectory* pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
+        const KArchiveDirectory *pptDirectory = dynamic_cast<const KArchiveDirectory *>(pptEntry);
         extractTextFromFiles(pptDirectory, result);
     }
 }
 
-void Office2007Extractor::extractAllText(QIODevice* device, ExtractionResult* result)
+void Office2007Extractor::extractAllText(QIODevice *device, ExtractionResult *result)
 {
     QXmlStreamReader xml(device);
 
@@ -252,29 +250,29 @@ void Office2007Extractor::extractAllText(QIODevice* device, ExtractionResult* re
     }
 }
 
-void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveDir, ExtractionResult* result)
+void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory *archiveDir, ExtractionResult *result)
 {
     const QStringList entries = archiveDir->entries();
-    for (const QString & entryName : entries) {
-        const KArchiveEntry* entry = archiveDir->entry(entryName);
+    for (const QString &entryName : entries) {
+        const KArchiveEntry *entry = archiveDir->entry(entryName);
         if (!entry) {
             continue;
         }
         if (entry->isDirectory()) {
-            const KArchiveDirectory* subDir = dynamic_cast<const KArchiveDirectory*>(entry);
+            const KArchiveDirectory *subDir = dynamic_cast<const KArchiveDirectory *>(entry);
             extractTextFromFiles(subDir, result);
             continue;
         }
 
         if (entry->isFile() && entryName.endsWith(QLatin1String(".xml"))) {
-            const KArchiveFile* file = static_cast<const KArchiveFile*>(entry);
+            const KArchiveFile *file = static_cast<const KArchiveFile *>(entry);
             std::unique_ptr<QIODevice> contentIODevice{file->createDevice()};
-            extractAllText(contentIODevice.get() , result);
+            extractAllText(contentIODevice.get(), result);
         }
     }
 }
 
-void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& tag, ExtractionResult* result)
+void Office2007Extractor::extractTextWithTag(QIODevice *device, const QString &tag, ExtractionResult *result)
 {
     QXmlStreamReader xml(device);
 

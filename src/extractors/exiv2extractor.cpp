@@ -4,14 +4,12 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "exiv2extractor.h"
 #include <cmath>
 
 using namespace KFileMetaData;
 
-
-Exiv2Extractor::Exiv2Extractor(QObject* parent)
+Exiv2Extractor::Exiv2Extractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
 }
@@ -45,13 +43,13 @@ static const QStringList supportedMimeTypes = {
 };
 // clang-format on
 
-QString toString(const Exiv2::Value& value)
+QString toString(const Exiv2::Value &value)
 {
     const std::string str = value.toString();
     return QString::fromUtf8(str.c_str(), str.length());
 }
 
-QVariant toVariantDateTime(const Exiv2::Value& value)
+QVariant toVariantDateTime(const Exiv2::Value &value)
 {
     if (value.typeId() == Exiv2::asciiString) {
         QDateTime val = ExtractorPlugin::dateTimeFromString(QString::fromLatin1(value.toString().c_str()));
@@ -65,7 +63,7 @@ QVariant toVariantDateTime(const Exiv2::Value& value)
     return QVariant();
 }
 
-QVariant toVariantLong(const Exiv2::Value& value)
+QVariant toVariantLong(const Exiv2::Value &value)
 {
     if (value.typeId() == Exiv2::unsignedLong || value.typeId() == Exiv2::signedLong) {
         qlonglong val = value.toLong();
@@ -81,10 +79,10 @@ QVariant toVariantLong(const Exiv2::Value& value)
     return QVariant();
 }
 
-QVariant toVariantDouble(const Exiv2::Value& value)
+QVariant toVariantDouble(const Exiv2::Value &value)
 {
-    if (value.typeId() == Exiv2::tiffFloat || value.typeId() == Exiv2::tiffDouble
-        || value.typeId() == Exiv2::unsignedRational || value.typeId() == Exiv2::signedRational) {
+    if (value.typeId() == Exiv2::tiffFloat || value.typeId() == Exiv2::tiffDouble || value.typeId() == Exiv2::unsignedRational
+        || value.typeId() == Exiv2::signedRational) {
         return QVariant(static_cast<double>(value.toFloat()));
     }
 
@@ -97,7 +95,7 @@ QVariant toVariantDouble(const Exiv2::Value& value)
     return QVariant();
 }
 
-QVariant toVariantString(const Exiv2::Value& value)
+QVariant toVariantString(const Exiv2::Value &value)
 {
     QString str = toString(value);
     if (!str.isEmpty())
@@ -106,7 +104,8 @@ QVariant toVariantString(const Exiv2::Value& value)
     return QVariant();
 }
 
-QVariant toVariant(const Exiv2::Value& value, QVariant::Type type) {
+QVariant toVariant(const Exiv2::Value &value, QVariant::Type type)
+{
     if (value.count() == 0) {
         return QVariant();
     }
@@ -132,7 +131,7 @@ QStringList Exiv2Extractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void Exiv2Extractor::extract(ExtractionResult* result)
+void Exiv2Extractor::extract(ExtractionResult *result)
 {
     QByteArray arr = result->inputUrl().toUtf8();
     std::string fileString(arr.data(), arr.length());
@@ -144,7 +143,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 #endif
     try {
         image = Exiv2::ImageFactory::open(fileString);
-    } catch (const std::exception&) {
+    } catch (const std::exception &) {
         return;
     }
     if (!image.get()) {
@@ -153,7 +152,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     try {
         image->readMetadata();
-    } catch (const std::exception&) {
+    } catch (const std::exception &) {
         return;
     }
     result->addType(Type::Image);
@@ -175,7 +174,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
         result->add(Property::Comment, QString::fromUtf8(comment.c_str(), comment.length()));
     }
 
-    const Exiv2::ExifData& data = image->exifData();
+    const Exiv2::ExifData &data = image->exifData();
 
     add(result, data, Property::Manufacturer, "Exif.Image.Make", QVariant::String);
     add(result, data, Property::Model, "Exif.Image.Model", QVariant::String);
@@ -226,9 +225,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     }
 }
 
-void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
-                         Property::Property prop, const char* name,
-                         QVariant::Type type)
+void Exiv2Extractor::add(ExtractionResult *result, const Exiv2::ExifData &data, Property::Property prop, const char *name, QVariant::Type type)
 {
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end()) {
@@ -238,7 +235,7 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
     }
 }
 
-double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* name)
+double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData &data, const char *name)
 {
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end() && it->count() == 3) {
@@ -284,19 +281,17 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
     return std::numeric_limits<double>::quiet_NaN();
 }
 
-double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
+double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData &data)
 {
     double alt = std::numeric_limits<double>::quiet_NaN();
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitude"));
-    if (it != data.end() && it->count() > 0 &&
-        (it->value().typeId() == Exiv2::unsignedRational || it->value().typeId() == Exiv2::signedRational)) {
+    if (it != data.end() && it->count() > 0 && (it->value().typeId() == Exiv2::unsignedRational || it->value().typeId() == Exiv2::signedRational)) {
         auto ratio = it->value().toRational();
         if (ratio.second == 0) {
             return alt;
         }
         it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitudeRef"));
-        if (it != data.end() && it->count() > 0 &&
-            (it->value().typeId() == Exiv2::unsignedByte || it->value().typeId() == Exiv2::signedByte)) {
+        if (it != data.end() && it->count() > 0 && (it->value().typeId() == Exiv2::unsignedByte || it->value().typeId() == Exiv2::signedByte)) {
             auto altRef = it->value().toLong();
             if (altRef) {
                 alt = -1.0 * ratio.first / ratio.second;
@@ -308,7 +303,7 @@ double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
     return alt;
 }
 
-QByteArray Exiv2Extractor::fetchByteArray(const Exiv2::ExifData& data, const char* name)
+QByteArray Exiv2Extractor::fetchByteArray(const Exiv2::ExifData &data, const char *name)
 {
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end() && it->count() > 0) {

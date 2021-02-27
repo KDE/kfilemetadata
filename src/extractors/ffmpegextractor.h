@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef FFMPEGEXTRACTOR_H
 #define FFMPEGEXTRACTOR_H
 
@@ -12,18 +11,16 @@
 
 namespace KFileMetaData
 {
-
 class FFmpegExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
-                      FILE "ffmpegextractor.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "ffmpegextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    explicit FFmpegExtractor(QObject* parent = nullptr);
+    explicit FFmpegExtractor(QObject *parent = nullptr);
 
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
     QStringList mimetypes() const override;
 
     friend class ffmpegExtractorTest;

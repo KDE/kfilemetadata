@@ -4,8 +4,8 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include <QCoreApplication>
 #include <QCommandLineParser>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QFileInfo>
 #include <QMimeDatabase>
@@ -18,7 +18,7 @@
 
 #include <iostream>
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     QCoreApplication app(argc, argv);
 
@@ -34,9 +34,8 @@ int main(int argc, char** argv)
     bool extractFulltext = parser.isSet("fulltext");
 
     using KFileMetaData::ExtractionResult;
-    const ExtractionResult::Flags extractionLevel = (extractFulltext
-        ? ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText
-        : ExtractionResult::ExtractMetaData);
+    const ExtractionResult::Flags extractionLevel =
+        (extractFulltext ? ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText : ExtractionResult::ExtractMetaData);
 
     QString url = QFileInfo(parser.positionalArguments().at(0)).absoluteFilePath();
 
@@ -44,12 +43,12 @@ int main(int argc, char** argv)
     QString mimetype = mimeDb.mimeTypeForFile(url).name();
 
     KFileMetaData::ExtractorCollection extractors;
-    QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(mimetype);
+    QList<KFileMetaData::Extractor *> exList = extractors.fetchExtractors(mimetype);
 
     QTextStream out(stdout);
     out << url << " " << mimetype << "\n";
 
-    for (KFileMetaData::Extractor* ex : qAsConst(exList)) {
+    for (KFileMetaData::Extractor *ex : qAsConst(exList)) {
         out << "\tExtractor For: " << ex->mimetypes().join(QLatin1Char(' ')) << "\n";
 
         KFileMetaData::SimpleExtractionResult result(url, mimetype, extractionLevel);
@@ -58,8 +57,7 @@ int main(int argc, char** argv)
         const KFileMetaData::PropertyMap properties = result.properties();
         KFileMetaData::PropertyMap::const_iterator it = properties.constBegin();
         for (; it != properties.constEnd(); it++) {
-            out << "\t\t" << KFileMetaData::PropertyInfo(it.key()).displayName() << ": "
-                << it.value().toString() << " (" << it.value().typeName() << ")\n";
+            out << "\t\t" << KFileMetaData::PropertyInfo(it.key()).displayName() << ": " << it.value().toString() << " (" << it.value().typeName() << ")\n";
         }
         if (extractFulltext) {
             out << "\t\tText: " << result.text() << "\n";

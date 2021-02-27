@@ -19,7 +19,7 @@ public:
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
 };
 
-ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
+ExtractionResult::ExtractionResult(const QString &url, const QString &mimetype, const Flags &flags)
     : d(new Private)
 {
     d->url = url;
@@ -30,7 +30,7 @@ ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype, 
     d->flags = flags;
 }
 
-ExtractionResult::ExtractionResult(const ExtractionResult& rhs)
+ExtractionResult::ExtractionResult(const ExtractionResult &rhs)
     : d(new Private(*rhs.d))
 {
 }
@@ -55,14 +55,12 @@ ExtractionResult::Flags ExtractionResult::inputFlags() const
     return d->flags;
 }
 
-void ExtractionResult::addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images)
+void ExtractionResult::addImageData(QMap<EmbeddedImageData::ImageType, QByteArray> &&images)
 {
     d->images = images;
 }
 
-QMap<EmbeddedImageData::ImageType, QByteArray>
-ExtractionResult::imageData() const
+QMap<EmbeddedImageData::ImageType, QByteArray> ExtractionResult::imageData() const
 {
     return d->images;
 }
-

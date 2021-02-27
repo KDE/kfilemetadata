@@ -6,10 +6,10 @@
 
 #include "embeddedimagedata.h"
 #include "extractorcollection.h"
+#include "kfilemetadata_debug.h"
 #include "simpleextractionresult.h"
 #include "writedata.h"
 #include "writercollection.h"
-#include "kfilemetadata_debug.h"
 
 #include <QMimeDatabase>
 
@@ -50,32 +50,27 @@ EmbeddedImageData::EmbeddedImageData()
 {
 }
 
-EmbeddedImageData::~EmbeddedImageData()
-= default;
+EmbeddedImageData::~EmbeddedImageData() = default;
 
 QStringList EmbeddedImageData::mimeTypes() const
 {
     return d->mMimetypes;
 }
 
-QMap<EmbeddedImageData::ImageType, QByteArray>
-EmbeddedImageData::imageData(const QString &fileUrl,
-                             const EmbeddedImageData::ImageTypes types) const
+QMap<EmbeddedImageData::ImageType, QByteArray> EmbeddedImageData::imageData(const QString &fileUrl, const EmbeddedImageData::ImageTypes types) const
 {
     const auto fileMimeType = d->mMimeDatabase.mimeTypeForFile(fileUrl).name();
     KFileMetaData::ExtractorCollection ec;
     KFileMetaData::SimpleExtractionResult result(fileUrl, fileMimeType, ExtractionResult::ExtractImageData);
 
     auto extractors = ec.fetchExtractors(fileMimeType);
-    for (const auto& ex : extractors) {
-	ex->extract(&result);
+    for (const auto &ex : extractors) {
+        ex->extract(&result);
     }
     return result.imageData();
 }
 
-void
-EmbeddedImageData::writeImageData(const QString &fileUrl,
-                             QMap<EmbeddedImageData::ImageType, QByteArray> &imageData)
+void EmbeddedImageData::writeImageData(const QString &fileUrl, QMap<EmbeddedImageData::ImageType, QByteArray> &imageData)
 {
     const auto fileMimeType = d->mMimeDatabase.mimeTypeForFile(fileUrl).name();
     KFileMetaData::WriterCollection wc;
@@ -83,7 +78,7 @@ EmbeddedImageData::writeImageData(const QString &fileUrl,
     data.addImageData(imageData);
 
     auto writers = wc.fetchWriters(fileMimeType);
-    for (const auto& w : writers) {
-	w->write(data);
+    for (const auto &w : writers) {
+        w->write(data);
     }
 }

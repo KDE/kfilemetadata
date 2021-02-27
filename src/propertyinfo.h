@@ -8,13 +8,13 @@
 #ifndef _KFILEMETADATA_PROPERTYINFO_H
 #define _KFILEMETADATA_PROPERTYINFO_H
 
+#include "kfilemetadata_export.h"
+#include "properties.h"
 #include <QString>
 #include <QVariant>
-#include "properties.h"
-#include "kfilemetadata_export.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 /**
  * \class PropertyInfo propertyinfo.h <KFileMetaData/PropertyInfo>
  *
@@ -28,11 +28,11 @@ class KFILEMETADATA_EXPORT PropertyInfo
 public:
     PropertyInfo();
     PropertyInfo(Property::Property property);
-    PropertyInfo(const PropertyInfo& pi);
+    PropertyInfo(const PropertyInfo &pi);
     ~PropertyInfo();
 
-    PropertyInfo& operator=(const PropertyInfo& rhs);
-    bool operator==(const PropertyInfo& rhs) const;
+    PropertyInfo &operator=(const PropertyInfo &rhs);
+    bool operator==(const PropertyInfo &rhs) const;
 
     /**
      * The enumeration which represents this property
@@ -69,22 +69,21 @@ public:
      * Construct a PropertyInfo from the internal property name.
      * The internal property name is case insensitive
      */
-    static PropertyInfo fromName(const QString& name);
+    static PropertyInfo fromName(const QString &name);
 
     /**
      * Returns the value of the property as a QString with added formatting,
      * added units if needed, and translated enums.
      * @since 5.56
      */
-    QString formatAsDisplayString(const QVariant& value) const;
+    QString formatAsDisplayString(const QVariant &value) const;
 
 private:
     class Private;
-    Private* d;
+    Private *d;
 };
 
 } // namespace
 Q_DECLARE_METATYPE(KFileMetaData::PropertyInfo)
-
 
 #endif // _KFILEMETADATA_PROPERTYINFO_H

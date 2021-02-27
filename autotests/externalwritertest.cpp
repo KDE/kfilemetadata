@@ -5,17 +5,17 @@
 */
 
 #include "externalwritertest.h"
-#include "writedata.h"
-#include "indexerextractortestsconfig.h"
-#include "externalwriter.h"
 #include "config-kfilemetadata.h"
+#include "externalwriter.h"
+#include "indexerextractortestsconfig.h"
+#include "writedata.h"
 
-#include <QTest>
 #include <QTemporaryFile>
+#include <QTest>
 
 using namespace KFileMetaData;
 
-QString ExternalWriterTest::testFilePath(const QString& fileName) const
+QString ExternalWriterTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_CONFIGURED_FILES_PATH) + QLatin1Char('/') + fileName;
 }

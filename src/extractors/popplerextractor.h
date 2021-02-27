@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef POPPLEREXTRACTOR_H
 #define POPPLEREXTRACTOR_H
 
@@ -13,19 +12,17 @@
 
 namespace KFileMetaData
 {
-
 class PopplerExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
-                      FILE "popplerextractor.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "popplerextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    explicit PopplerExtractor(QObject* parent = nullptr);
+    explicit PopplerExtractor(QObject *parent = nullptr);
 
     QStringList mimetypes() const override;
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
 };
 }
 

@@ -10,15 +10,16 @@
 
 #include <QObject>
 
-namespace KFileMetaData {
-    class ExtractionResult;
+namespace KFileMetaData
+{
+class ExtractionResult;
 }
 
 class TagLibWriterTest : public QObject
 {
     Q_OBJECT
 private:
-    QString testFilePath(const QString& fileName) const;
+    QString testFilePath(const QString &fileName) const;
     void extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result);
 
 private Q_SLOTS:

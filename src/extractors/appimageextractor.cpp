@@ -9,38 +9,53 @@
 // KF
 #include <KDesktopFile>
 // Qt
-#include <QTextDocument>
 #include <QDomDocument>
-#include <QTemporaryFile>
 #include <QLocale>
+#include <QTemporaryFile>
+#include <QTextDocument>
 // libappimage
 #include <appimage/appimage.h>
 
 using namespace KFileMetaData;
 
-
-namespace {
-namespace AttributeNames {
-QString xml_lang() { return QStringLiteral("xml:lang"); }
+namespace
+{
+namespace AttributeNames
+{
+QString xml_lang()
+{
+    return QStringLiteral("xml:lang");
 }
 }
-
+}
 
 // helper class to extract the interesting data from the appdata file
 // prefers localized strings over unlocalized, using system locale
 class AppDataParser
 {
 public:
-    AppDataParser(const char* appImageFilePath, const QString& appdataFilePath);
+    AppDataParser(const char *appImageFilePath, const QString &appdataFilePath);
 
 public:
-    QString summary() const        { return !m_localized.summary.isEmpty() ? m_localized.summary : m_unlocalized.summary; }
-    QString description() const    { return !m_localized.description.isEmpty() ? m_localized.description : m_unlocalized.description; }
-    QString developerName() const  { return !m_localized.developerName.isEmpty() ? m_localized.developerName : m_unlocalized.developerName; }
-    QString projectLicense() const { return m_projectLicense; }
+    QString summary() const
+    {
+        return !m_localized.summary.isEmpty() ? m_localized.summary : m_unlocalized.summary;
+    }
+    QString description() const
+    {
+        return !m_localized.description.isEmpty() ? m_localized.description : m_unlocalized.description;
+    }
+    QString developerName() const
+    {
+        return !m_localized.developerName.isEmpty() ? m_localized.developerName : m_unlocalized.developerName;
+    }
+    QString projectLicense() const
+    {
+        return m_projectLicense;
+    }
 
 private:
-    void extractDescription(const QDomElement& e, const QString& localeName);
+    void extractDescription(const QDomElement &e, const QString &localeName);
 
 private:
     struct Data {
@@ -53,19 +68,15 @@ private:
     QString m_projectLicense;
 };
 
-
-AppDataParser::AppDataParser(const char* appImageFilePath, const QString& appdataFilePath)
+AppDataParser::AppDataParser(const char *appImageFilePath, const QString &appdataFilePath)
 {
     if (appdataFilePath.isEmpty()) {
         return;
     }
 
     unsigned long size = 0L;
-    char* buf = nullptr;
-    bool ok = appimage_read_file_into_buffer_following_symlinks(appImageFilePath,
-                                                                qUtf8Printable(appdataFilePath),
-                                                                &buf,
-                                                                &size);
+    char *buf = nullptr;
+    bool ok = appimage_read_file_into_buffer_following_symlinks(appImageFilePath, qUtf8Printable(appdataFilePath), &buf, &size);
 
     QScopedPointer<char, QScopedPointerPodDeleter> cleanup(buf);
 
@@ -92,12 +103,12 @@ AppDataParser::AppDataParser(const char* appImageFilePath, const QString& appdat
         const auto matchingLocale = hasLangAttribute && (ec.attribute(AttributeNames::xml_lang()) == localeName);
         if (matchingLocale || !hasLangAttribute) {
             if (tagName == QLatin1String("summary")) {
-                Data& data = hasLangAttribute ? m_localized : m_unlocalized;
+                Data &data = hasLangAttribute ? m_localized : m_unlocalized;
                 data.summary = ec.text();
             } else if (tagName == QLatin1String("description")) {
                 extractDescription(ec, localeName);
             } else if (tagName == QLatin1String("developer_name")) {
-                Data& data = hasLangAttribute ? m_localized : m_unlocalized;
+                Data &data = hasLangAttribute ? m_localized : m_unlocalized;
                 data.developerName = ec.text();
             } else if (tagName == QLatin1String("project_license")) {
                 m_projectLicense = ec.text();
@@ -107,9 +118,9 @@ AppDataParser::AppDataParser(const char* appImageFilePath, const QString& appdat
     }
 }
 
-using DesriptionDomFilter = std::function<bool(const QDomElement& e)>;
+using DesriptionDomFilter = std::function<bool(const QDomElement &e)>;
 
-void stripDescriptionTextElements(QDomElement& element, const DesriptionDomFilter& stripFilter)
+void stripDescriptionTextElements(QDomElement &element, const DesriptionDomFilter &stripFilter)
 {
     auto childElement = element.firstChildElement();
     while (!childElement.isNull()) {
@@ -127,7 +138,7 @@ void stripDescriptionTextElements(QDomElement& element, const DesriptionDomFilte
     }
 }
 
-void AppDataParser::extractDescription(const QDomElement& e, const QString& localeName)
+void AppDataParser::extractDescription(const QDomElement &e, const QString &localeName)
 {
     // create fake html from it and let QTextDocument transform it to plain text for us
     QDomDocument descriptionDocument;
@@ -137,9 +148,8 @@ void AppDataParser::extractDescription(const QDomElement& e, const QString& loca
     // first localized...
     auto clonedE = descriptionDocument.importNode(e, true).toElement();
     clonedE.setTagName(QStringLiteral("body"));
-    stripDescriptionTextElements(clonedE, [localeName](const QDomElement& e) {
-        return !e.hasAttribute(AttributeNames::xml_lang()) ||
-            e.attribute(AttributeNames::xml_lang()) != localeName;
+    stripDescriptionTextElements(clonedE, [localeName](const QDomElement &e) {
+        return !e.hasAttribute(AttributeNames::xml_lang()) || e.attribute(AttributeNames::xml_lang()) != localeName;
     });
     htmlElement.appendChild(clonedE);
 
@@ -157,7 +167,7 @@ void AppDataParser::extractDescription(const QDomElement& e, const QString& loca
     htmlElement.removeChild(clonedE); // reuse descriptionDocument
     clonedE = descriptionDocument.importNode(e, true).toElement();
     clonedE.setTagName(QStringLiteral("body"));
-    stripDescriptionTextElements(clonedE, [](const QDomElement& e) {
+    stripDescriptionTextElements(clonedE, [](const QDomElement &e) {
         return e.hasAttribute(AttributeNames::xml_lang());
     });
     htmlElement.appendChild(clonedE);
@@ -167,31 +177,26 @@ void AppDataParser::extractDescription(const QDomElement& e, const QString& loca
     m_unlocalized.description = textDocument.toPlainText().trimmed();
 }
 
-
 // helper class to extract the interesting data from the desktop file
 class DesktopFileParser
 {
 public:
-    DesktopFileParser(const char* appImageFilePath, const QString& desktopFilePath);
+    DesktopFileParser(const char *appImageFilePath, const QString &desktopFilePath);
 
 public:
     QString name;
     QString comment;
 };
 
-
-DesktopFileParser::DesktopFileParser(const char* appImageFilePath, const QString& desktopFilePath)
+DesktopFileParser::DesktopFileParser(const char *appImageFilePath, const QString &desktopFilePath)
 {
     if (desktopFilePath.isEmpty()) {
         return;
     }
 
     unsigned long size = 0L;
-    char* buf = nullptr;
-    bool ok = appimage_read_file_into_buffer_following_symlinks(appImageFilePath,
-                                                                qUtf8Printable(desktopFilePath),
-                                                                &buf,
-                                                                &size);
+    char *buf = nullptr;
+    bool ok = appimage_read_file_into_buffer_following_symlinks(appImageFilePath, qUtf8Printable(desktopFilePath), &buf, &size);
 
     QScopedPointer<char, QScopedPointerPodDeleter> cleanup(buf);
 
@@ -210,8 +215,7 @@ DesktopFileParser::DesktopFileParser(const char* appImageFilePath, const QString
     comment = desktopFile.readComment();
 }
 
-
-AppImageExtractor::AppImageExtractor(QObject* parent)
+AppImageExtractor::AppImageExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
 }
@@ -224,7 +228,7 @@ QStringList AppImageExtractor::mimetypes() const
     };
 }
 
-void KFileMetaData::AppImageExtractor::extract(ExtractionResult* result)
+void KFileMetaData::AppImageExtractor::extract(ExtractionResult *result)
 {
     const auto appImageFilePath = result->inputUrl().toUtf8();
     const auto appImageType = appimage_get_type(appImageFilePath.constData(), false);
@@ -236,7 +240,7 @@ void KFileMetaData::AppImageExtractor::extract(ExtractionResult* result)
     // find desktop file and appdata file
     // need to scan ourselves, given there are no fixed names in the spec yet defined
     // and we just can try as the other appimage tools to simply use the first file of the type found
-    char** filePaths = appimage_list_files(appImageFilePath.constData());
+    char **filePaths = appimage_list_files(appImageFilePath.constData());
     if (!filePaths) {
         return;
     }
@@ -246,8 +250,7 @@ void KFileMetaData::AppImageExtractor::extract(ExtractionResult* result)
     for (int i = 0; filePaths[i] != nullptr; ++i) {
         const auto filePath = QString::fromUtf8(filePaths[i]);
 
-        if (filePath.startsWith(QLatin1String("usr/share/metainfo/")) &&
-            filePath.endsWith(QLatin1String(".appdata.xml"))) {
+        if (filePath.startsWith(QLatin1String("usr/share/metainfo/")) && filePath.endsWith(QLatin1String(".appdata.xml"))) {
             appdataFilePath = filePath;
             if (!desktopFilePath.isEmpty()) {
                 break;

@@ -7,7 +7,6 @@
 #include "usermetadata.h"
 #include "xattr_p.h"
 
-
 using namespace KFileMetaData;
 
 class Q_DECL_HIDDEN UserMetaData::Private
@@ -16,13 +15,13 @@ public:
     QString filePath;
 };
 
-UserMetaData::UserMetaData(const QString& filePath)
+UserMetaData::UserMetaData(const QString &filePath)
     : d(new Private)
 {
     d->filePath = filePath;
 }
 
-UserMetaData::UserMetaData(const UserMetaData& rhs)
+UserMetaData::UserMetaData(const UserMetaData &rhs)
     : d(new Private(*rhs.d))
 {
 }
@@ -32,7 +31,7 @@ UserMetaData::~UserMetaData()
     delete d;
 }
 
-const UserMetaData& UserMetaData::operator=(const UserMetaData& rhs)
+const UserMetaData &UserMetaData::operator=(const UserMetaData &rhs)
 {
     d->filePath = rhs.d->filePath;
     return *this;
@@ -43,7 +42,7 @@ QString UserMetaData::filePath() const
     return d->filePath;
 }
 
-UserMetaData::Error UserMetaData::setTags(const QStringList& tags)
+UserMetaData::Error UserMetaData::setTags(const QStringList &tags)
 {
     if (!tags.isEmpty()) {
         k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(QLatin1Char(',')));
@@ -89,7 +88,7 @@ QString UserMetaData::userComment() const
     return value;
 }
 
-UserMetaData::Error UserMetaData::setUserComment(const QString& userComment)
+UserMetaData::Error UserMetaData::setUserComment(const QString &userComment)
 {
     if (!userComment.isEmpty()) {
         k_setxattr(d->filePath, QStringLiteral("user.xdg.comment"), userComment);
@@ -173,7 +172,7 @@ UserMetaData::Error UserMetaData::setOriginEmailMessageId(const QString &originE
     return NoError;
 }
 
-UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString& value)
+UserMetaData::Error UserMetaData::setAttribute(const QString &key, const QString &value)
 {
     if (!value.isEmpty()) {
         k_setxattr(d->filePath, QStringLiteral("user.") + key, value);
@@ -184,12 +183,12 @@ UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString
     return NoError;
 }
 
-bool UserMetaData::hasAttribute(const QString& key)
+bool UserMetaData::hasAttribute(const QString &key)
 {
     return k_hasAttribute(d->filePath, QStringLiteral("user.") + key);
 }
 
-QString UserMetaData::attribute(const QString& key)
+QString UserMetaData::attribute(const QString &key)
 {
     QString value;
     k_getxattr(d->filePath, QStringLiteral("user.") + key, &value);

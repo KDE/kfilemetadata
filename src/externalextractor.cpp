@@ -13,10 +13,10 @@
 #include "typeinfo.h"
 
 #include <QDir>
-#include <QProcess>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
+#include <QProcess>
 
 #define EXTRACTOR_TIMEOUT_MS 30000
 
@@ -30,16 +30,15 @@ public:
     QString mainPath;
 };
 
-
-ExternalExtractor::ExternalExtractor(QObject* parent)
-    : ExtractorPlugin(parent),
-      d_ptr(new ExternalExtractorPrivate)
+ExternalExtractor::ExternalExtractor(QObject *parent)
+    : ExtractorPlugin(parent)
+    , d_ptr(new ExternalExtractorPrivate)
 {
 }
 
-ExternalExtractor::ExternalExtractor(const QString& pluginPath)
-    : ExtractorPlugin(nullptr),
-      d_ptr(new ExternalExtractorPrivate)
+ExternalExtractor::ExternalExtractor(const QString &pluginPath)
+    : ExtractorPlugin(nullptr)
+    , d_ptr(new ExternalExtractorPrivate)
 {
     Q_D(ExternalExtractor);
 
@@ -66,7 +65,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     QStringList mimetypes;
     mimetypes.reserve(mimetypesArray.count());
 
-     for (const QJsonValue &mimetype : mimetypesArray) {
+    for (const QJsonValue &mimetype : mimetypesArray) {
         mimetypes << mimetype.toString();
     }
 
@@ -86,7 +85,7 @@ QStringList ExternalExtractor::mimetypes() const
     return d->writeMimetypes;
 }
 
-void ExternalExtractor::extract(ExtractionResult* result)
+void ExternalExtractor::extract(ExtractionResult *result)
 {
     Q_D(ExternalExtractor);
 
@@ -103,8 +102,7 @@ void ExternalExtractor::extract(ExtractionResult* result)
     extractorProcess.start(d->mainPath, QStringList(), QIODevice::ReadWrite);
     bool started = extractorProcess.waitForStarted();
     if (!started) {
-        qCWarning(KFILEMETADATA_LOG) << "External extractor" << d->mainPath
-            << "failed to start:" << extractorProcess.errorString();
+        qCWarning(KFILEMETADATA_LOG) << "External extractor" << d->mainPath << "failed to start:" << extractorProcess.errorString();
         return;
     }
 
@@ -116,8 +114,7 @@ void ExternalExtractor::extract(ExtractionResult* result)
     errorOutput = extractorProcess.readAllStandardError();
 
     if (extractorProcess.exitStatus()) {
-        qCWarning(KFILEMETADATA_LOG) << "External extractor" << d->mainPath
-            << "failed to index" << result->inputUrl() << "-" << errorOutput;
+        qCWarning(KFILEMETADATA_LOG) << "External extractor" << d->mainPath << "failed to index" << result->inputUrl() << "-" << errorOutput;
         return;
     }
 

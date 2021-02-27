@@ -5,18 +5,16 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "popplerextractor.h"
 
-#include <QScopedPointer>
 #include <QDebug>
+#include <QScopedPointer>
 
 using namespace KFileMetaData;
 
-PopplerExtractor::PopplerExtractor(QObject* parent)
+PopplerExtractor::PopplerExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 const QStringList supportedMimeTypes = {
@@ -28,7 +26,7 @@ QStringList PopplerExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void PopplerExtractor::extract(ExtractionResult* result)
+void PopplerExtractor::extract(ExtractionResult *result)
 {
     const QString fileUrl = result->inputUrl();
     QScopedPointer<Poppler::Document> pdfDoc(Poppler::Document::load(fileUrl, QByteArray(), QByteArray()));

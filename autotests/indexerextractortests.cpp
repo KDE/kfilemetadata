@@ -8,21 +8,21 @@
 
 #include "indexerextractortests.h"
 
-#include <QTest>
 #include <QTemporaryFile>
+#include <QTest>
 
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/plaintextextractor.h"
+#include "indexerextractortestsconfig.h"
+#include "simpleextractionresult.h"
 
 using namespace KFileMetaData;
 
-IndexerExtractorTests::IndexerExtractorTests(QObject* parent) :
-    QObject(parent)
+IndexerExtractorTests::IndexerExtractorTests(QObject *parent)
+    : QObject(parent)
 {
 }
 
-QString IndexerExtractorTests::testFilePath(const QString& fileName) const
+QString IndexerExtractorTests::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -55,7 +55,6 @@ void IndexerExtractorTests::testNoExtraction()
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"), ExtractionResult::ExtractNothing);
     plugin.extract(&result);
-
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().at(0), Type::Text);
@@ -106,4 +105,3 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 }
 
 QTEST_GUILESS_MAIN(IndexerExtractorTests)
-

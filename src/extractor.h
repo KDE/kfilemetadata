@@ -11,8 +11,8 @@
 #include <QStringList>
 #include <QVariantMap>
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class ExtractionResult;
 class ExtractorCollection;
 class ExtractorPlugin;
@@ -30,18 +30,18 @@ class KFILEMETADATA_EXPORT Extractor
     };
 
 public:
-    Extractor(Extractor&&);
+    Extractor(Extractor &&);
     virtual ~Extractor() noexcept;
 
-    void extract(ExtractionResult* result);
+    void extract(ExtractionResult *result);
     QStringList mimetypes() const;
     QVariantMap extractorProperties() const;
 
 private:
     Extractor();
-    Extractor(const Extractor&);
+    Extractor(const Extractor &);
 
-    void operator =(const Extractor&);
+    void operator=(const Extractor &);
 
     void setExtractorPlugin(ExtractorPlugin *extractorPlugin);
 

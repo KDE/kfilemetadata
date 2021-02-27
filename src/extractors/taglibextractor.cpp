@@ -4,41 +4,40 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "taglibextractor.h"
 #include "embeddedimagedata.h"
 #include "kfilemetadata_debug.h"
 
 // Taglib includes
-#include <taglib.h>
-#include <tag.h>
-#include <tfilestream.h>
-#include <tpropertymap.h>
 #include <aifffile.h>
 #include <apefile.h>
 #include <apetag.h>
+#include <asfattribute.h>
 #include <asffile.h>
+#include <asfpicture.h>
+#include <asftag.h>
 #include <flacfile.h>
+#include <id3v2tag.h>
 #include <mp4file.h>
+#include <mp4tag.h>
 #include <mpcfile.h>
 #include <mpegfile.h>
 #include <oggfile.h>
 #include <opusfile.h>
+#include <popularimeterframe.h>
 #include <speexfile.h>
+#include <tag.h>
+#include <taglib.h>
+#include <tfilestream.h>
+#include <tpropertymap.h>
 #include <vorbisfile.h>
 #include <wavfile.h>
 #include <wavpackfile.h>
-#include <asftag.h>
-#include <asfattribute.h>
-#include <asfpicture.h>
-#include <id3v2tag.h>
-#include <mp4tag.h>
-#include <popularimeterframe.h>
 
 using namespace KFileMetaData;
 
-namespace {
-
+namespace
+{
 // clang-format off
 const QStringList supportedMimeTypes = {
     QStringLiteral("audio/flac"),
@@ -63,9 +62,9 @@ const QStringList supportedMimeTypes = {
 };
 // clang-format on
 
-void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
+void extractAudioProperties(TagLib::File *file, ExtractionResult *result)
 {
-    TagLib::AudioProperties* audioProp = file->audioProperties();
+    TagLib::AudioProperties *audioProp = file->audioProperties();
     if (audioProp && (result->inputFlags() & ExtractionResult::ExtractMetaData)) {
         if (audioProp->length()) {
             // What about the xml duration?
@@ -86,7 +85,7 @@ void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
     }
 }
 
-void readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult* result)
+void readGenericProperties(const TagLib::PropertyMap &savedProperties, ExtractionResult *result)
 {
     if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || savedProperties.isEmpty()) {
         return;
@@ -146,59 +145,61 @@ void readGenericProperties(const TagLib::PropertyMap &savedProperties, Extractio
         result->add(Property::Compilation, TStringToQString(savedProperties["COMPILATION"].toString()).trimmed());
     }
     if (savedProperties.contains("LYRICS")) {
-        result->add(Property::Lyrics, TStringToQString(savedProperties["LYRICS"].toString()).trimmed().replace(QLatin1Char('\r'), QLatin1Char('\n'))); // Convert old Mac line endings
+        result->add(
+            Property::Lyrics,
+            TStringToQString(savedProperties["LYRICS"].toString()).trimmed().replace(QLatin1Char('\r'), QLatin1Char('\n'))); // Convert old Mac line endings
     }
     if (savedProperties.contains("ARTIST")) {
         const auto artists = savedProperties["ARTIST"];
-        for (const auto& artist : artists) {
+        for (const auto &artist : artists) {
             result->add(Property::Artist, TStringToQString(artist).trimmed());
         }
     }
     if (savedProperties.contains("GENRE")) {
         const auto genres = savedProperties["GENRE"];
-        for (const auto& genre : genres) {
+        for (const auto &genre : genres) {
             result->add(Property::Genre, TStringToQString(genre).trimmed());
         }
     }
     if (savedProperties.contains("ALBUMARTIST")) {
         const auto albumArtists = savedProperties["ALBUMARTIST"];
-        for (const auto& albumArtist : albumArtists) {
+        for (const auto &albumArtist : albumArtists) {
             result->add(Property::AlbumArtist, TStringToQString(albumArtist).trimmed());
         }
     }
     if (savedProperties.contains("COMPOSER")) {
         const auto composers = savedProperties["COMPOSER"];
-        for (const auto& composer : composers) {
+        for (const auto &composer : composers) {
             result->add(Property::Composer, TStringToQString(composer).trimmed());
         }
     }
     if (savedProperties.contains("LYRICIST")) {
         const auto lyricists = savedProperties["LYRICIST"];
-        for (const auto& lyricist : lyricists) {
+        for (const auto &lyricist : lyricists) {
             result->add(Property::Lyricist, TStringToQString(lyricist).trimmed());
         }
     }
     if (savedProperties.contains("CONDUCTOR")) {
         const auto conductors = savedProperties["CONDUCTOR"];
-        for (const auto& conductor : conductors) {
+        for (const auto &conductor : conductors) {
             result->add(Property::Conductor, TStringToQString(conductor).trimmed());
         }
     }
     if (savedProperties.contains("ARRANGER")) {
         const auto arrangers = savedProperties["ARRANGER"];
-        for (const auto& arranger : arrangers) {
+        for (const auto &arranger : arrangers) {
             result->add(Property::Arranger, TStringToQString(arranger).trimmed());
         }
     }
     if (savedProperties.contains("PERFORMER")) {
         const auto performers = savedProperties["PERFORMER"];
-        for (const auto& performer : performers) {
+        for (const auto &performer : performers) {
             result->add(Property::Performer, TStringToQString(performer).trimmed());
         }
     }
     if (savedProperties.contains("AUTHOR")) {
         const auto authors = savedProperties["AUTHOR"];
-        for (const auto& author: authors) {
+        for (const auto &author : authors) {
             result->add(Property::Author, TStringToQString(author).trimmed());
         }
     }
@@ -245,7 +246,7 @@ void readGenericProperties(const TagLib::PropertyMap &savedProperties, Extractio
     }
 }
 
-void extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result)
+void extractId3Tags(TagLib::ID3v2::Tag *Id3Tags, ExtractionResult *result)
 {
     if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || Id3Tags->isEmpty()) {
         return;
@@ -299,56 +300,54 @@ template<typename ImageType>
 EmbeddedImageData::ImageType mapTaglibType(const ImageType type)
 {
     switch (type) {
-        case ImageType::FrontCover:
-            return EmbeddedImageData::FrontCover;
-         case ImageType::Other:
-             return EmbeddedImageData::Other;
-         case ImageType::FileIcon:
-              return EmbeddedImageData::FileIcon;
-         case ImageType::OtherFileIcon:
-              return EmbeddedImageData::OtherFileIcon;
-         case ImageType::BackCover:
-              return EmbeddedImageData::BackCover;
-         case ImageType::LeafletPage:
-              return EmbeddedImageData::LeafletPage;
-         case ImageType::Media:
-              return EmbeddedImageData::Media;
-         case ImageType::LeadArtist:
-              return EmbeddedImageData::LeadArtist;
-         case ImageType::Artist:
-              return EmbeddedImageData::Artist;
-         case ImageType::Conductor:
-              return EmbeddedImageData::Conductor;
-         case ImageType::Band:
-              return EmbeddedImageData::Band;
-         case ImageType::Composer:
-              return EmbeddedImageData::Composer;
-         case ImageType::Lyricist:
-              return EmbeddedImageData::Lyricist;
-         case ImageType::RecordingLocation:
-              return EmbeddedImageData::RecordingLocation;
-         case ImageType::DuringRecording:
-              return EmbeddedImageData::DuringRecording;
-         case ImageType::DuringPerformance:
-              return EmbeddedImageData::DuringPerformance;
-         case ImageType::MovieScreenCapture:
-              return EmbeddedImageData::MovieScreenCapture;
-         case ImageType::ColouredFish:
-              return EmbeddedImageData::ColouredFish;
-         case ImageType::Illustration:
-              return EmbeddedImageData::Illustration;
-         case ImageType::BandLogo:
-              return EmbeddedImageData::BandLogo;
-         case ImageType::PublisherLogo:
-              return EmbeddedImageData::PublisherLogo;
-         default:
-            return EmbeddedImageData::Unknown;
+    case ImageType::FrontCover:
+        return EmbeddedImageData::FrontCover;
+    case ImageType::Other:
+        return EmbeddedImageData::Other;
+    case ImageType::FileIcon:
+        return EmbeddedImageData::FileIcon;
+    case ImageType::OtherFileIcon:
+        return EmbeddedImageData::OtherFileIcon;
+    case ImageType::BackCover:
+        return EmbeddedImageData::BackCover;
+    case ImageType::LeafletPage:
+        return EmbeddedImageData::LeafletPage;
+    case ImageType::Media:
+        return EmbeddedImageData::Media;
+    case ImageType::LeadArtist:
+        return EmbeddedImageData::LeadArtist;
+    case ImageType::Artist:
+        return EmbeddedImageData::Artist;
+    case ImageType::Conductor:
+        return EmbeddedImageData::Conductor;
+    case ImageType::Band:
+        return EmbeddedImageData::Band;
+    case ImageType::Composer:
+        return EmbeddedImageData::Composer;
+    case ImageType::Lyricist:
+        return EmbeddedImageData::Lyricist;
+    case ImageType::RecordingLocation:
+        return EmbeddedImageData::RecordingLocation;
+    case ImageType::DuringRecording:
+        return EmbeddedImageData::DuringRecording;
+    case ImageType::DuringPerformance:
+        return EmbeddedImageData::DuringPerformance;
+    case ImageType::MovieScreenCapture:
+        return EmbeddedImageData::MovieScreenCapture;
+    case ImageType::ColouredFish:
+        return EmbeddedImageData::ColouredFish;
+    case ImageType::Illustration:
+        return EmbeddedImageData::Illustration;
+    case ImageType::BandLogo:
+        return EmbeddedImageData::BandLogo;
+    case ImageType::PublisherLogo:
+        return EmbeddedImageData::PublisherLogo;
+    default:
+        return EmbeddedImageData::Unknown;
     }
 }
 
-QMap<EmbeddedImageData::ImageType, QByteArray>
-extractId3Cover(const TagLib::ID3v2::Tag* Id3Tags,
-                const EmbeddedImageData::ImageTypes types)
+QMap<EmbeddedImageData::ImageType, QByteArray> extractId3Cover(const TagLib::ID3v2::Tag *Id3Tags, const EmbeddedImageData::ImageTypes types)
 {
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
     if (!types || Id3Tags->isEmpty()) {
@@ -359,27 +358,25 @@ extractId3Cover(const TagLib::ID3v2::Tag* Id3Tags,
     TagLib::ID3v2::FrameList lstID3v2 = Id3Tags->frameListMap()["APIC"];
 
     using PictureFrame = TagLib::ID3v2::AttachedPictureFrame;
-    for (const auto& frame : qAsConst(lstID3v2)) {
+    for (const auto &frame : qAsConst(lstID3v2)) {
         const auto *coverFrame = static_cast<PictureFrame *>(frame);
         const auto imageType = mapTaglibType<PictureFrame::Type>(coverFrame->type());
         if (types & imageType) {
-            const auto& picture = coverFrame->picture();
+            const auto &picture = coverFrame->picture();
             images.insert(imageType, QByteArray(picture.data(), picture.size()));
         }
     }
     return images;
 }
 
-QMap<EmbeddedImageData::ImageType, QByteArray>
-extractFlacCover(const TagLib::List<TagLib::FLAC::Picture *> picList,
-                 const EmbeddedImageData::ImageTypes types)
+QMap<EmbeddedImageData::ImageType, QByteArray> extractFlacCover(const TagLib::List<TagLib::FLAC::Picture *> picList, const EmbeddedImageData::ImageTypes types)
 {
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
     if (!types || picList.isEmpty()) {
         return images;
     }
 
-    for (const auto& picture : qAsConst(picList)) {
+    for (const auto &picture : qAsConst(picList)) {
         const auto imageType = mapTaglibType<TagLib::FLAC::Picture::Type>(picture->type());
         if (types & imageType) {
             images.insert(imageType, QByteArray(picture->data().data(), picture->data().size()));
@@ -388,7 +385,7 @@ extractFlacCover(const TagLib::List<TagLib::FLAC::Picture *> picList,
     return images;
 }
 
-void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
+void extractMp4Tags(TagLib::MP4::Tag *mp4Tags, ExtractionResult *result)
 {
     if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || mp4Tags->isEmpty()) {
         return;
@@ -407,9 +404,7 @@ void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
     }
 }
 
-QMap<EmbeddedImageData::ImageType, QByteArray>
-extractMp4Cover(const TagLib::MP4::Tag* mp4Tags,
-                const EmbeddedImageData::ImageTypes types)
+QMap<EmbeddedImageData::ImageType, QByteArray> extractMp4Cover(const TagLib::MP4::Tag *mp4Tags, const EmbeddedImageData::ImageTypes types)
 {
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
     TagLib::MP4::Item coverArtItem = mp4Tags->item("covr");
@@ -419,15 +414,13 @@ extractMp4Cover(const TagLib::MP4::Tag* mp4Tags,
 
     const TagLib::MP4::CoverArtList coverArtList = coverArtItem.toCoverArtList();
     if (!coverArtList.isEmpty()) {
-        const TagLib::MP4::CoverArt& cover = coverArtList.front();
+        const TagLib::MP4::CoverArt &cover = coverArtList.front();
         images.insert(EmbeddedImageData::FrontCover, QByteArray(cover.data().data(), cover.data().size()));
     }
     return images;
 }
 
-QMap<EmbeddedImageData::ImageType, QByteArray>
-extractApeCover(const TagLib::APE::Tag* apeTags,
-                const EmbeddedImageData::ImageTypes types)
+QMap<EmbeddedImageData::ImageType, QByteArray> extractApeCover(const TagLib::APE::Tag *apeTags, const EmbeddedImageData::ImageTypes types)
 {
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
     if (!(types & EmbeddedImageData::FrontCover) || apeTags->isEmpty()) {
@@ -441,7 +434,7 @@ extractApeCover(const TagLib::APE::Tag* apeTags,
      * with zero termination followed by the actual picture data */
     itApe = lstApe.find("COVER ART (FRONT)");
     if (itApe != lstApe.end()) {
-        const auto& picture = (*itApe).second.binaryData();
+        const auto &picture = (*itApe).second.binaryData();
         int position = picture.find('\0');
         if (position >= 0) {
             position += 1;
@@ -451,7 +444,7 @@ extractApeCover(const TagLib::APE::Tag* apeTags,
     return images;
 }
 
-void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result)
+void extractAsfTags(TagLib::ASF::Tag *asfTags, ExtractionResult *result)
 {
     if (!(result->inputFlags() & ExtractionResult::ExtractMetaData) || asfTags->isEmpty()) {
         return;
@@ -498,9 +491,7 @@ void extractAsfTags(TagLib::ASF::Tag* asfTags, ExtractionResult* result)
     }
 }
 
-QMap<EmbeddedImageData::ImageType, QByteArray>
-extractAsfCover(const TagLib::ASF::Tag* asfTags,
-                const EmbeddedImageData::ImageTypes types)
+QMap<EmbeddedImageData::ImageType, QByteArray> extractAsfCover(const TagLib::ASF::Tag *asfTags, const EmbeddedImageData::ImageTypes types)
 {
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
     if (!types || asfTags->isEmpty()) {
@@ -511,11 +502,11 @@ extractAsfCover(const TagLib::ASF::Tag* asfTags,
     TagLib::ASF::AttributeList lstASF = asfTags->attribute("WM/Picture");
 
     using Picture = TagLib::ASF::Picture;
-    for (const auto& attribute: qAsConst(lstASF)) {
+    for (const auto &attribute : qAsConst(lstASF)) {
         Picture picture = attribute.toPicture();
         const auto imageType = mapTaglibType<Picture::Type>(picture.type());
         if (types & imageType) {
-            const auto& pictureData = picture.picture();
+            const auto &pictureData = picture.picture();
             images.insert(imageType, QByteArray(pictureData.data(), pictureData.size()));
         }
     }
@@ -524,7 +515,7 @@ extractAsfCover(const TagLib::ASF::Tag* asfTags,
 
 } // anonymous namespace
 
-TagLibExtractor::TagLibExtractor(QObject* parent)
+TagLibExtractor::TagLibExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
 }
@@ -534,7 +525,7 @@ QStringList TagLibExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void TagLibExtractor::extract(ExtractionResult* result)
+void TagLibExtractor::extract(ExtractionResult *result)
 {
     const QString fileUrl = result->inputUrl();
     const QString mimeType = getSupportedMimeType(result->inputMimetype());
@@ -550,12 +541,9 @@ void TagLibExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    const EmbeddedImageData::ImageTypes imageTypes{
-        result->inputFlags() & ExtractionResult::ExtractImageData ? EmbeddedImageData::AllImages : 0
-    };
+    const EmbeddedImageData::ImageTypes imageTypes{result->inputFlags() & ExtractionResult::ExtractImageData ? EmbeddedImageData::AllImages : 0};
 
-    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3")
-            || mimeType == QLatin1String("audio/x-mpeg")) {
+    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3") || mimeType == QLatin1String("audio/x-mpeg")) {
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);
@@ -612,8 +600,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 result->addImageData(extractApeCover(file.APETag(), imageTypes));
             }
         }
-    } else if ((mimeType == QLatin1String("audio/mp4")) ||
-               (mimeType == QLatin1String("audio/vnd.audible.aax"))) {
+    } else if ((mimeType == QLatin1String("audio/mp4")) || (mimeType == QLatin1String("audio/vnd.audible.aax"))) {
         TagLib::MP4::File file(&stream, true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);
@@ -661,7 +648,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
             extractAsfTags(file.tag(), result);
-            TagLib::ASF::Tag* asfTags = dynamic_cast<TagLib::ASF::Tag*>(file.tag());
+            TagLib::ASF::Tag *asfTags = dynamic_cast<TagLib::ASF::Tag *>(file.tag());
             if (asfTags) {
                 result->addImageData(extractAsfCover(asfTags, imageTypes));
             }

@@ -7,12 +7,12 @@
 */
 
 #include "taglibextractortest.h"
-#include "simpleextractionresult.h"
-#include "propertyinfo.h"
 #include "extractors/taglibextractor.h"
 #include "mimeutils.h"
+#include "propertyinfo.h"
+#include "simpleextractionresult.h"
 
-//TODO: use QTESTFINDDATA and remove this
+// TODO: use QTESTFINDDATA and remove this
 #include "indexerextractortestsconfig.h"
 
 #include <QSet>
@@ -20,12 +20,12 @@
 
 using namespace KFileMetaData;
 
-QString TagLibExtractorTest::testFilePath(const QString& fileName) const
+QString TagLibExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
-const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaData::Property::Property>& keys) const
+const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaData::Property::Property> &keys) const
 {
     QStringList result;
     for (auto key : keys) {
@@ -54,7 +54,7 @@ void TagLibExtractorTest::testPropertyTypes()
     plugin.extract(&resultOpus);
 
     auto testForType = [](SimpleExtractionResult &result, Property::Property prop) {
-            QCOMPARE(result.properties().value(prop).type(), PropertyInfo(prop).valueType());
+        QCOMPARE(result.properties().value(prop).type(), PropertyInfo(prop).valueType());
     };
 
     QCOMPARE(resultOpus.types().size(), 1);
@@ -199,10 +199,7 @@ void TagLibExtractorTest::testVorbisCommentMultivalue_data()
     QTest::addColumn<QString>("fileName");
     QTest::addColumn<QString>("mimeType");
 
-    QTest::addRow("ogg multivalue")
-        << QStringLiteral("test_multivalue.ogg")
-        << QStringLiteral("audio/ogg")
-        ;
+    QTest::addRow("ogg multivalue") << QStringLiteral("test_multivalue.ogg") << QStringLiteral("audio/ogg");
 }
 
 void TagLibExtractorTest::testId3()
@@ -310,9 +307,7 @@ void TagLibExtractorTest::testMp4_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("mp4")
-        << QStringLiteral("m4a")
-        ;
+    QTest::addRow("mp4") << QStringLiteral("m4a");
 }
 
 void TagLibExtractorTest::testAax()
@@ -338,9 +333,7 @@ void TagLibExtractorTest::testAax_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("aax")
-        << QStringLiteral("aax")
-        ;
+    QTest::addRow("aax") << QStringLiteral("aax");
 }
 
 void TagLibExtractorTest::testAsf()
@@ -369,9 +362,7 @@ void TagLibExtractorTest::testAsf_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("asf")
-        << QStringLiteral("wma")
-        ;
+    QTest::addRow("asf") << QStringLiteral("wma");
 }
 
 void TagLibExtractorTest::testId3Rating_data()
@@ -379,57 +370,23 @@ void TagLibExtractorTest::testId3Rating_data()
     QTest::addColumn<QString>("path");
     QTest::addColumn<int>("expectedRating");
 
-    QTest::addRow("WMP")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP.mp3")
-        << 0 ;
-    QTest::addRow("WMP1")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP1.mp3")
-        << 2 ;
-    QTest::addRow("WMP2")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP2.mp3")
-        << 4 ;
-    QTest::addRow("WMP3")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP3.mp3")
-        << 6 ;
-    QTest::addRow("WMP4")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP4.mp3")
-        << 8 ;
-    QTest::addRow("WMP5")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testWMP5.mp3")
-        << 10 ;
-    QTest::addRow("MM")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM.mp3")
-        << 0 ;
-    QTest::addRow("MM1")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM1.mp3")
-        << 1 ;
-    QTest::addRow("MM2")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM2.mp3")
-        << 2 ;
-    QTest::addRow("MM3")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM3.mp3")
-        << 3 ;
-    QTest::addRow("MM4")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM4.mp3")
-        << 4 ;
-    QTest::addRow("MM5")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM5.mp3")
-        << 5 ;
-    QTest::addRow("MM6")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM6.mp3")
-        << 6 ;
-    QTest::addRow("MM7")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM7.mp3")
-        << 7 ;
-    QTest::addRow("MM8")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM8.mp3")
-        << 8 ;
-    QTest::addRow("MM9")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM9.mp3")
-        << 9 ;
-    QTest::addRow("MM10")
-        << QFINDTESTDATA("samplefiles/mp3_rating/testMM10.mp3")
-        << 10 ;
+    QTest::addRow("WMP") << QFINDTESTDATA("samplefiles/mp3_rating/testWMP.mp3") << 0;
+    QTest::addRow("WMP1") << QFINDTESTDATA("samplefiles/mp3_rating/testWMP1.mp3") << 2;
+    QTest::addRow("WMP2") << QFINDTESTDATA("samplefiles/mp3_rating/testWMP2.mp3") << 4;
+    QTest::addRow("WMP3") << QFINDTESTDATA("samplefiles/mp3_rating/testWMP3.mp3") << 6;
+    QTest::addRow("WMP4") << QFINDTESTDATA("samplefiles/mp3_rating/testWMP4.mp3") << 8;
+    QTest::addRow("WMP5") << QFINDTESTDATA("samplefiles/mp3_rating/testWMP5.mp3") << 10;
+    QTest::addRow("MM") << QFINDTESTDATA("samplefiles/mp3_rating/testMM.mp3") << 0;
+    QTest::addRow("MM1") << QFINDTESTDATA("samplefiles/mp3_rating/testMM1.mp3") << 1;
+    QTest::addRow("MM2") << QFINDTESTDATA("samplefiles/mp3_rating/testMM2.mp3") << 2;
+    QTest::addRow("MM3") << QFINDTESTDATA("samplefiles/mp3_rating/testMM3.mp3") << 3;
+    QTest::addRow("MM4") << QFINDTESTDATA("samplefiles/mp3_rating/testMM4.mp3") << 4;
+    QTest::addRow("MM5") << QFINDTESTDATA("samplefiles/mp3_rating/testMM5.mp3") << 5;
+    QTest::addRow("MM6") << QFINDTESTDATA("samplefiles/mp3_rating/testMM6.mp3") << 6;
+    QTest::addRow("MM7") << QFINDTESTDATA("samplefiles/mp3_rating/testMM7.mp3") << 7;
+    QTest::addRow("MM8") << QFINDTESTDATA("samplefiles/mp3_rating/testMM8.mp3") << 8;
+    QTest::addRow("MM9") << QFINDTESTDATA("samplefiles/mp3_rating/testMM9.mp3") << 9;
+    QTest::addRow("MM10") << QFINDTESTDATA("samplefiles/mp3_rating/testMM10.mp3") << 10;
 }
 
 void TagLibExtractorTest::testId3Rating()
@@ -461,34 +418,22 @@ void TagLibExtractorTest::testWmaRating_data()
     QTest::addColumn<QString>("path");
     QTest::addColumn<int>("expectedRating");
 
-    QTest::addRow("WMP0")
-        << QFINDTESTDATA("samplefiles/wma_rating/test0.wma")
-        << 0 ;
-    QTest::addRow("WMP1")
-        << QFINDTESTDATA("samplefiles/wma_rating/test1.wma")
-        << 2 ;
-    QTest::addRow("WMP2")
-        << QFINDTESTDATA("samplefiles/wma_rating/test2.wma")
-        << 4 ;
-    QTest::addRow("WMP3")
-        << QFINDTESTDATA("samplefiles/wma_rating/test3.wma")
-        << 6 ;
-    QTest::addRow("WMP4")
-        << QFINDTESTDATA("samplefiles/wma_rating/test4.wma")
-        << 8 ;
-    QTest::addRow("WMP5")
-        << QFINDTESTDATA("samplefiles/wma_rating/test5.wma")
-        << 10 ;
+    QTest::addRow("WMP0") << QFINDTESTDATA("samplefiles/wma_rating/test0.wma") << 0;
+    QTest::addRow("WMP1") << QFINDTESTDATA("samplefiles/wma_rating/test1.wma") << 2;
+    QTest::addRow("WMP2") << QFINDTESTDATA("samplefiles/wma_rating/test2.wma") << 4;
+    QTest::addRow("WMP3") << QFINDTESTDATA("samplefiles/wma_rating/test3.wma") << 6;
+    QTest::addRow("WMP4") << QFINDTESTDATA("samplefiles/wma_rating/test4.wma") << 8;
+    QTest::addRow("WMP5") << QFINDTESTDATA("samplefiles/wma_rating/test5.wma") << 10;
 }
 
 void TagLibExtractorTest::testNoMetadata_data()
 {
     const auto expectedKeys = QList<Property::Property>{
-            Property::BitRate,
-            Property::Channels,
-            Property::Duration,
-            Property::SampleRate,
-};
+        Property::BitRate,
+        Property::Channels,
+        Property::Duration,
+        Property::SampleRate,
+    };
 
     QTest::addColumn<QString>("path");
     QTest::addColumn<QString>("mimeType");
@@ -504,7 +449,7 @@ void TagLibExtractorTest::testNoMetadata_data()
     QTest::addRow("aax") << QFINDTESTDATA("samplefiles/no-meta/test.aax") << QStringLiteral("audio/vnd.audible.aax") << expectedKeys << QString();
 }
 
-void  TagLibExtractorTest::testNoMetadata()
+void TagLibExtractorTest::testNoMetadata()
 {
     QFETCH(QString, path);
     QFETCH(QString, mimeType);
@@ -525,7 +470,7 @@ void  TagLibExtractorTest::testNoMetadata()
     const auto missingKeys = expectedKeySet - resultKeySet;
 
     if (!excessKeys.isEmpty()) {
-        const auto propNames =  propertyEnumNames(excessKeys.values()).join(QLatin1String(", "));
+        const auto propNames = propertyEnumNames(excessKeys.values()).join(QLatin1String(", "));
         if (failMessage.isEmpty()) {
             const auto message = QStringLiteral("Excess properties: %1").arg(propNames);
             QWARN(qPrintable(message));
@@ -533,15 +478,12 @@ void  TagLibExtractorTest::testNoMetadata()
             QEXPECT_FAIL("", qPrintable(QStringLiteral("%1: %2").arg(failMessage).arg(propNames)), Continue);
         }
     } else if (!missingKeys.isEmpty()) {
-        const auto message = QStringLiteral("Missing properties: %1")
-                .arg(propertyEnumNames(missingKeys.values()).join(QLatin1String(", ")));
+        const auto message = QStringLiteral("Missing properties: %1").arg(propertyEnumNames(missingKeys.values()).join(QLatin1String(", ")));
         QWARN(qPrintable(message));
     }
     QCOMPARE(resultKeys, expectedKeys);
     if (!failMessage.isEmpty()) {
-        const auto message = QStringLiteral("%1: %2")
-                .arg(failMessage)
-                .arg(propertyEnumNames(excessKeys.values()).join(QLatin1String(", ")));
+        const auto message = QStringLiteral("%1: %2").arg(failMessage).arg(propertyEnumNames(excessKeys.values()).join(QLatin1String(", ")));
         QEXPECT_FAIL("", qPrintable(message), Continue);
     }
     QCOMPARE(resultKeys, expectedKeys);
@@ -552,9 +494,7 @@ void TagLibExtractorTest::testRobustness_data()
     QTest::addColumn<QString>("path");
     QTest::addColumn<QString>("mimeType");
 
-    QTest::addRow("ArcGIS GeoData spx")
-            << QFINDTESTDATA("samplefiles/misdetected/test_arcgis_geodata.spx")
-            << QStringLiteral("audio/x-speex+ogg");
+    QTest::addRow("ArcGIS GeoData spx") << QFINDTESTDATA("samplefiles/misdetected/test_arcgis_geodata.spx") << QStringLiteral("audio/x-speex+ogg");
 }
 
 void TagLibExtractorTest::testRobustness()

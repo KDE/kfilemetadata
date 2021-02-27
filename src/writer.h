@@ -14,7 +14,6 @@
 
 namespace KFileMetaData
 {
-
 class WriteData;
 class WriterCollection;
 
@@ -31,17 +30,17 @@ class KFILEMETADATA_EXPORT Writer
     };
 
 public:
-    Writer(Writer&&);
+    Writer(Writer &&);
     virtual ~Writer();
 
-    void write(const WriteData& data);
+    void write(const WriteData &data);
     QStringList mimetypes() const;
 
 private:
     Writer();
-    Writer(const Writer&);
+    Writer(const Writer &);
 
-    void operator =(const Writer&);
+    void operator=(const Writer &);
 
     void setAutoDeletePlugin(WriterPluginOwnership autoDelete);
 

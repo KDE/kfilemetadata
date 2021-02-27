@@ -7,16 +7,16 @@
 */
 
 #include "writercollection.h"
-#include "writer_p.h"
-#include "writerplugin.h"
+#include "config-kfilemetadata.h"
 #include "externalwriter.h"
 #include "kfilemetadata_debug.h"
-#include "config-kfilemetadata.h"
+#include "writer_p.h"
+#include "writerplugin.h"
 
 #include <QCoreApplication>
-#include <QPluginLoader>
 #include <QDir>
 #include <QMimeDatabase>
+#include <QPluginLoader>
 #include <vector>
 
 using namespace KFileMetaData;
@@ -24,7 +24,7 @@ using namespace KFileMetaData;
 class Q_DECL_HIDDEN WriterCollection::WriterCollectionPrivate
 {
 public:
-    QMultiHash<QString, Writer*> m_writers;
+    QMultiHash<QString, Writer *> m_writers;
 
     std::vector<Writer> m_allWriters;
 
@@ -50,7 +50,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
     QStringList externalPluginPaths;
 
     const QStringList paths = QCoreApplication::libraryPaths();
-    for (const QString& libraryPath : paths) {
+    for (const QString &libraryPath : paths) {
         QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata/writers"));
         QDir dir(path);
 
@@ -59,7 +59,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
         }
 
         const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
-        for (const QString& fileName : entryList) {
+        for (const QString &fileName : entryList) {
             if (!QLibrary::isLibrary(fileName)) {
                 continue;
             }
@@ -77,7 +77,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
     QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/writers/externalwriters"));
     // For external plugins, we look into the directories
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-    for (const QString& externalPlugin : externalPluginEntryList) {
+    for (const QString &externalPlugin : externalPluginEntryList) {
         if (!QLibrary::isLibrary(externalPlugin)) {
             continue;
         }
@@ -89,7 +89,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
     }
     externalPlugins.clear();
 
-    for (const QString& pluginPath : qAsConst(pluginPaths)) {
+    for (const QString &pluginPath : qAsConst(pluginPaths)) {
         QPluginLoader loader(pluginPath);
 
         if (!loader.load()) {
@@ -98,9 +98,9 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
             continue;
         }
 
-        QObject* obj = loader.instance();
+        QObject *obj = loader.instance();
         if (obj) {
-            WriterPlugin* plugin = qobject_cast<WriterPlugin*>(obj);
+            WriterPlugin *plugin = qobject_cast<WriterPlugin *>(obj);
             if (plugin) {
                 Writer writer;
                 writer.d->m_plugin = plugin;
@@ -111,13 +111,12 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
                 qCDebug(KFILEMETADATA_LOG) << "Plugin could not be converted to a WriterPlugin";
                 qCDebug(KFILEMETADATA_LOG) << pluginPath;
             }
-        }
-        else {
+        } else {
             qCDebug(KFILEMETADATA_LOG) << "Plugin could not create instance" << pluginPath;
         }
     }
 
-    for (const QString& externalPluginPath : qAsConst(externalPluginPaths)) {
+    for (const QString &externalPluginPath : qAsConst(externalPluginPaths)) {
         ExternalWriter *plugin = new ExternalWriter(externalPluginPath);
         Writer writer;
         writer.d->m_plugin = plugin;
@@ -126,17 +125,17 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
         m_allWriters.push_back(std::move(writer));
     }
 
-    for (Writer& writer : m_allWriters) {
+    for (Writer &writer : m_allWriters) {
         const QStringList lst = writer.mimetypes();
-        for (const QString& type : lst) {
+        for (const QString &type : lst) {
             m_writers.insert(type, &writer);
         }
     }
 }
 
-QList<Writer*> WriterCollection::fetchWriters(const QString& mimetype) const
+QList<Writer *> WriterCollection::fetchWriters(const QString &mimetype) const
 {
-    QList<Writer*> plugins = d->m_writers.values(mimetype);
+    QList<Writer *> plugins = d->m_writers.values(mimetype);
     if (!plugins.isEmpty()) {
         return plugins;
     }
@@ -150,15 +149,12 @@ QList<Writer*> WriterCollection::fetchWriters(const QString& mimetype) const
         if (ancestor == QLatin1String("application/octet-stream")) {
             continue;
         }
-        QList<Writer*> plugins = d->m_writers.values(ancestor);
+        QList<Writer *> plugins = d->m_writers.values(ancestor);
         if (!plugins.isEmpty()) {
-            qCDebug(KFILEMETADATA_LOG) << "Using inherited mimetype" << ancestor <<  "for" << mimetype;
+            qCDebug(KFILEMETADATA_LOG) << "Using inherited mimetype" << ancestor << "for" << mimetype;
             return plugins;
         }
     }
 
     return plugins;
 }
-
-
-

@@ -39,14 +39,14 @@ public:
      *
      * \sa QMimeType::allAncestors
      */
-    QList<Extractor*> fetchExtractors(const QString& mimetype) const;
+    QList<Extractor *> fetchExtractors(const QString &mimetype) const;
 
 private:
     class Private;
-    Private* d;
+    Private *d;
 
     friend class ExtractorCollectionTest;
-    QList<Extractor*> allExtractors();
+    QList<Extractor *> allExtractors();
 };
 }
 

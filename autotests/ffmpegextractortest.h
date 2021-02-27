@@ -7,11 +7,11 @@
 #ifndef FFMPEGEXTRACTORTEST_H
 #define FFMPEGEXTRACTORTEST_H
 
-#include <QObject>
 #include <QMimeDatabase>
+#include <QObject>
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class ffmpegExtractorTest : public QObject
 {
     Q_OBJECT

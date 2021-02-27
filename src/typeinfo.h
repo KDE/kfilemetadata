@@ -7,12 +7,12 @@
 #ifndef KFILEMETADATA_TYPEINFO_H
 #define KFILEMETADATA_TYPEINFO_H
 
-#include "types.h"
 #include "kfilemetadata_export.h"
+#include "types.h"
 #include <QString>
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 /**
  * \class TypeInfo typeinfo.h <KFileMetaData/TypeInfo>
  */
@@ -20,11 +20,11 @@ class KFILEMETADATA_EXPORT TypeInfo
 {
 public:
     TypeInfo(Type::Type type);
-    TypeInfo(const TypeInfo& ti);
+    TypeInfo(const TypeInfo &ti);
     ~TypeInfo();
 
-    TypeInfo& operator=(const TypeInfo& rhs);
-    bool operator==(const TypeInfo& rhs);
+    TypeInfo &operator=(const TypeInfo &rhs);
+    bool operator==(const TypeInfo &rhs);
 
     /**
      * The type identifier
@@ -45,11 +45,11 @@ public:
      * Construct a TypeInfo from the internal type name.
      * The internal type name is case insensitive
      */
-    static TypeInfo fromName(const QString& name);
+    static TypeInfo fromName(const QString &name);
 
 private:
     class Private;
-    Private* d;
+    Private *d;
 };
 }
 

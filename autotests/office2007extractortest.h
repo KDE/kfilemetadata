@@ -13,7 +13,7 @@ class Office2007ExtractorTest : public QObject
 {
     Q_OBJECT
 private:
-    QString testFilePath(const QString& fileName) const;
+    QString testFilePath(const QString &fileName) const;
 
 private Q_SLOTS:
     void testNoExtraction();

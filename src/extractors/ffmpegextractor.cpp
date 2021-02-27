@@ -8,7 +8,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "ffmpegextractor.h"
 #include "kfilemetadata_debug.h"
 
@@ -19,18 +18,18 @@
 #ifdef _STDINT_H
 #undef _STDINT_H
 #endif
-# include <stdint.h>
+#include <stdint.h>
 #endif
 
 extern "C" {
+#include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libavutil/dict.h>
-#include <libavcodec/avcodec.h>
 }
 
 using namespace KFileMetaData;
 
-FFmpegExtractor::FFmpegExtractor(QObject* parent)
+FFmpegExtractor::FFmpegExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
 }
@@ -54,9 +53,9 @@ QStringList FFmpegExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void FFmpegExtractor::extract(ExtractionResult* result)
+void FFmpegExtractor::extract(ExtractionResult *result)
 {
-    AVFormatContext* fmt_ctx = nullptr;
+    AVFormatContext *fmt_ctx = nullptr;
 
     av_register_all();
 
@@ -85,12 +84,12 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
         const int index_stream = av_find_default_stream_index(fmt_ctx);
         if (index_stream >= 0) {
-            AVStream* stream = fmt_ctx->streams[index_stream];
+            AVStream *stream = fmt_ctx->streams[index_stream];
 
 #if defined HAVE_AVSTREAM_CODECPAR && HAVE_AVSTREAM_CODECPAR
-            const AVCodecParameters* codec = stream->codecpar;
+            const AVCodecParameters *codec = stream->codecpar;
 #else
-            const AVCodecContext* codec = stream->codec;
+            const AVCodecContext *codec = stream->codec;
 #endif
 
             if (codec->codec_type == AVMEDIA_TYPE_VIDEO) {
@@ -99,10 +98,11 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
                 AVRational avSampleAspectRatio = av_guess_sample_aspect_ratio(fmt_ctx, stream, nullptr);
                 AVRational avDisplayAspectRatio;
-                av_reduce(&avDisplayAspectRatio.num, &avDisplayAspectRatio.den,
-                          codec->width  * avSampleAspectRatio.num,
+                av_reduce(&avDisplayAspectRatio.num,
+                          &avDisplayAspectRatio.den,
+                          codec->width * avSampleAspectRatio.num,
                           codec->height * avSampleAspectRatio.den,
-                          1024*1024);
+                          1024 * 1024);
                 double displayAspectRatio = avDisplayAspectRatio.num;
                 if (avDisplayAspectRatio.den)
                     displayAspectRatio /= avDisplayAspectRatio.den;
@@ -118,14 +118,13 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             }
         }
 
-        AVDictionary* dict = fmt_ctx->metadata;
-        AVDictionaryEntry* entry;
+        AVDictionary *dict = fmt_ctx->metadata;
+        AVDictionaryEntry *entry;
 
         entry = av_dict_get(dict, "title", nullptr, 0);
         if (entry) {
             result->add(Property::Title, QString::fromUtf8(entry->value));
         }
-
 
         entry = av_dict_get(dict, "author", nullptr, 0);
         if (entry) {

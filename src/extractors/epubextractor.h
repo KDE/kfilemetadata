@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef EPUBEXTRACTOR_H
 #define EPUBEXTRACTOR_H
 
@@ -12,18 +11,16 @@
 
 namespace KFileMetaData
 {
-
 class EPubExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
-                      FILE "epubextractor.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "epubextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    explicit EPubExtractor(QObject* parent = nullptr);
+    explicit EPubExtractor(QObject *parent = nullptr);
 
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
     QStringList mimetypes() const override;
 };
 }

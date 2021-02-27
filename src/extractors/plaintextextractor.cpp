@@ -4,28 +4,26 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "plaintextextractor.h"
 
+#include <QDebug>
 #include <QFile>
 #include <QTextCodec>
-#include <QDebug>
 
 #include <fstream>
 
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
-    #include <sys/types.h>
-    #include <sys/stat.h>
-    #include <fcntl.h>
-    #include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 #endif
 
 using namespace KFileMetaData;
 
-PlainTextExtractor::PlainTextExtractor(QObject* parent)
+PlainTextExtractor::PlainTextExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 const QStringList supportedMimeTypes = {
@@ -37,7 +35,7 @@ QStringList PlainTextExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void PlainTextExtractor::extract(ExtractionResult* result)
+void PlainTextExtractor::extract(ExtractionResult *result)
 {
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
     QByteArray filePath = QFile::encodeName(result->inputUrl());
@@ -62,16 +60,16 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    QTextCodec* codec = QTextCodec::codecForLocale();
+    QTextCodec *codec = QTextCodec::codecForLocale();
 
-    char* line = nullptr;
+    char *line = nullptr;
     size_t len = 0;
     int lines = 0;
     int r = 0;
 
-    FILE* fp = fdopen(fd, "r");
+    FILE *fp = fdopen(fd, "r");
 
-    while ( (r = getline(&line, &len, fp)) != -1) {
+    while ((r = getline(&line, &len, fp)) != -1) {
         QTextCodec::ConverterState state;
         QString text = codec->toUnicode(line, r - 1, &state);
 
@@ -106,7 +104,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    QTextCodec* codec = QTextCodec::codecForLocale();
+    QTextCodec *codec = QTextCodec::codecForLocale();
     while (std::getline(fstream, line)) {
         QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
 

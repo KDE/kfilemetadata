@@ -10,8 +10,8 @@
 
 #include <QObject>
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class PropertyInfoTest : public QObject
 {
     Q_OBJECT
@@ -23,6 +23,7 @@ private Q_SLOTS:
     void testNameIdMapping();
     void testFormatAsDisplayString();
     void testFormatAsDisplayString_data();
+
 private:
     bool m_useLocalization = false;
 };

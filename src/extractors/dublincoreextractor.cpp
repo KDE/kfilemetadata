@@ -9,17 +9,22 @@
 #include "dublincoreextractor.h"
 #include "extractionresult.h"
 
-namespace {
-
-inline QString dcNS()      { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
-inline QString dctermsNS() { return QStringLiteral("http://purl.org/dc/terms/"); }
+namespace
+{
+inline QString dcNS()
+{
+    return QStringLiteral("http://purl.org/dc/elements/1.1/");
+}
+inline QString dctermsNS()
+{
+    return QStringLiteral("http://purl.org/dc/terms/");
+}
 
 }
 
 namespace KFileMetaData
 {
-
-void DublinCoreExtractor::extract(ExtractionResult* result, const QDomNode& fragment)
+void DublinCoreExtractor::extract(ExtractionResult *result, const QDomNode &fragment)
 {
     QDomElement e = fragment.firstChildElement();
 

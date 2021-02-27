@@ -10,15 +10,15 @@
 #ifndef TAGLIBEXTRACTORTEST_H
 #define TAGLIBEXTRACTORTEST_H
 
-#include <QObject>
-#include <QMimeDatabase>
 #include "properties.h"
+#include <QMimeDatabase>
+#include <QObject>
 
 class TagLibExtractorTest : public QObject
 {
     Q_OBJECT
 private:
-    QString testFilePath(const QString& fileName) const;
+    QString testFilePath(const QString &fileName) const;
 
 private Q_SLOTS:
     void testNoExtraction();
@@ -50,7 +50,7 @@ private Q_SLOTS:
 
 private:
     // Convenience function
-    const QStringList propertyEnumNames(const QList<KFileMetaData::Property::Property>& key) const;
+    const QStringList propertyEnumNames(const QList<KFileMetaData::Property::Property> &key) const;
     QMimeDatabase mimeDb;
 };
 

@@ -20,13 +20,13 @@ Extractor::~Extractor()
     delete d;
 }
 
-Extractor::Extractor(Extractor&& other)
+Extractor::Extractor(Extractor &&other)
 {
     d = other.d;
     other.d = nullptr;
 }
 
-void Extractor::extract(ExtractionResult* result)
+void Extractor::extract(ExtractionResult *result)
 {
     d->m_plugin->extract(result);
 }

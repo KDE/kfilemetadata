@@ -6,14 +6,14 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
+#include <QDebug>
 #include <QObject>
 #include <QTest>
-#include <QDebug>
 
 #include "extractorcollection.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class ExtractorCollectionTest : public QObject
 {
     Q_OBJECT
@@ -84,8 +84,7 @@ private Q_SLOTS:
         for (auto extractor : allExtractors) {
             auto exProperties = extractor->extractorProperties();
             if (exProperties.isEmpty()) {
-                qWarning() << "Extractor has no property data, please add it! - (Extractor mimetypes:"
-                           << extractor->mimetypes().join(", ") + ')';
+                qWarning() << "Extractor has no property data, please add it! - (Extractor mimetypes:" << extractor->mimetypes().join(", ") + ')';
                 continue;
             }
 
@@ -97,7 +96,7 @@ private Q_SLOTS:
             const QStringList extractedMimes = extractor->mimetypes();
             QSet<QString> supportedMimetypes(extractedMimes.begin(), extractedMimes.end());
             QVERIFY2(!exProperties["Name"].toString().isEmpty(), "Missing \"Name\" property");
-            QVERIFY2(!exProperties["Id"].toString().isEmpty(),   "Missing \"Id\" property");
+            QVERIFY2(!exProperties["Id"].toString().isEmpty(), "Missing \"Id\" property");
 
             if (propMimetypes == supportedMimetypes) {
                 continue;
@@ -114,16 +113,14 @@ private Q_SLOTS:
                 }
 
                 if (!diff.isEmpty()) {
-                    qWarning() << exProperties["Name"].toString()
-                               << exProperties["Id"].toString()
+                    qWarning() << exProperties["Name"].toString() << exProperties["Id"].toString()
                                << "has extraneous properties for these mimetypes:" << diff.values().join(", ");
                 }
             }
 
             diff = supportedMimetypes - propMimetypes;
             if (!diff.isEmpty()) {
-                qWarning() << exProperties["Name"].toString()
-                           << exProperties["Id"].toString()
+                qWarning() << exProperties["Name"].toString() << exProperties["Id"].toString()
                            << "has no properties for these mimetypes:" + diff.values().join(", ");
             }
         }

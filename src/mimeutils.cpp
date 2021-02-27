@@ -7,13 +7,14 @@
 
 #include "mimeutils.h"
 
-namespace KFileMetaData {
-namespace MimeUtils {
-
-QMimeType strictMimeType(const QString& filePath, const QMimeDatabase& db)
+namespace KFileMetaData
+{
+namespace MimeUtils
+{
+QMimeType strictMimeType(const QString &filePath, const QMimeDatabase &db)
 {
     auto extensionMimes = db.mimeTypesForFileName(filePath);
-    auto contentMime    = db.mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
+    auto contentMime = db.mimeTypeForFile(filePath, QMimeDatabase::MatchContent);
 
     if (extensionMimes.contains(contentMime)) {
         // content based mime type is one of the types for the file extension, e.g.:
@@ -34,4 +35,5 @@ QMimeType strictMimeType(const QString& filePath, const QMimeDatabase& db)
     return contentMime;
 }
 
-}} // namespace KFileMetaData::MimeUtils
+}
+} // namespace KFileMetaData::MimeUtils

@@ -6,15 +6,15 @@
 */
 
 #include "externalwriter.h"
+#include "kfilemetadata_debug.h"
 #include "properties.h"
 #include "propertyinfo.h"
-#include "kfilemetadata_debug.h"
 
 #include <QDir>
-#include <QProcess>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
+#include <QProcess>
 
 #define WRITER_TIMEOUT_MS 30000
 
@@ -28,10 +28,9 @@ public:
     QString mainPath;
 };
 
-
-ExternalWriter::ExternalWriter(QObject* parent)
-    : WriterPlugin(parent),
-      d_ptr(new ExternalWriterPrivate)
+ExternalWriter::ExternalWriter(QObject *parent)
+    : WriterPlugin(parent)
+    , d_ptr(new ExternalWriterPrivate)
 {
 }
 
@@ -40,9 +39,9 @@ ExternalWriter::~ExternalWriter()
     delete d_ptr;
 }
 
-ExternalWriter::ExternalWriter(const QString& pluginPath)
-    : WriterPlugin(new QObject()),
-      d_ptr(new ExternalWriterPrivate)
+ExternalWriter::ExternalWriter(const QString &pluginPath)
+    : WriterPlugin(new QObject())
+    , d_ptr(new ExternalWriterPrivate)
 {
     Q_D(ExternalWriter);
     d->path = pluginPath;
@@ -80,7 +79,7 @@ QStringList ExternalWriter::writeMimetypes() const
     return d->writeMimetypes;
 }
 
-void ExternalWriter::write(const WriteData& data)
+void ExternalWriter::write(const WriteData &data)
 {
     Q_D(ExternalWriter);
     QJsonDocument writeData;
@@ -128,5 +127,4 @@ void ExternalWriter::write(const WriteData& data)
         qCDebug(KFILEMETADATA_LOG) << outputRootObject[QStringLiteral("error")].toString();
         qCDebug(KFILEMETADATA_LOG) << errorOutput;
     }
-
 }

@@ -5,16 +5,16 @@
 */
 
 #include "postscriptdscextractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/postscriptdscextractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
 #include <QTest>
 
 using namespace KFileMetaData;
 
-QString PostscriptDscExtractorTest::testFilePath(const QString& fileName) const
+QString PostscriptDscExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }

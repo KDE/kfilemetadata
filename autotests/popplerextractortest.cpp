@@ -5,17 +5,17 @@
 */
 
 #include "popplerextractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/popplerextractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
-#include <QTest>
 #include <QMimeDatabase>
+#include <QTest>
 
 using namespace KFileMetaData;
 
-QString PopplerExtractorTest::testFilePath(const QString& fileName) const
+QString PopplerExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -75,7 +75,6 @@ void PopplerExtractorTest::testMetaDataOnly()
     QCOMPARE(result.types().size(), 1);
     QVERIFY(result.text().isEmpty());
     QCOMPARE(result.properties().size(), 5);
-
 }
 
 QTEST_GUILESS_MAIN(PopplerExtractorTest)

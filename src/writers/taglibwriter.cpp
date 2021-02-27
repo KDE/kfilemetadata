@@ -11,30 +11,31 @@
 
 #include <array>
 
-#include <taglib.h>
-#include <tfilestream.h>
-#include <tpropertymap.h>
-#include <tstring.h>
 #include <aifffile.h>
 #include <apefile.h>
 #include <apetag.h>
 #include <asffile.h>
 #include <asftag.h>
 #include <flacfile.h>
+#include <id3v2tag.h>
 #include <mp4file.h>
 #include <mp4tag.h>
 #include <mpcfile.h>
 #include <mpegfile.h>
-#include <id3v2tag.h>
 #include <oggfile.h>
 #include <opusfile.h>
-#include <vorbisfile.h>
-#include <speexfile.h>
-#include <wavpackfile.h>
-#include <wavfile.h>
 #include <popularimeterframe.h>
+#include <speexfile.h>
+#include <taglib.h>
+#include <tfilestream.h>
+#include <tpropertymap.h>
+#include <tstring.h>
+#include <vorbisfile.h>
+#include <wavfile.h>
+#include <wavpackfile.h>
 
-namespace {
+namespace
+{
 // clang-format off
 const QStringList supportedMimeTypes = {
     QStringLiteral("audio/flac"),
@@ -58,9 +59,7 @@ const QStringList supportedMimeTypes = {
 };
 // clang-format on
 
-int id3v2RatingTranslation[11] = {
-    0, 1, 13, 54, 64, 118, 128, 186, 196, 242, 255
-};
+int id3v2RatingTranslation[11] = {0, 1, 13, 54, 64, 118, 128, 186, 196, 242, 255};
 
 using namespace KFileMetaData;
 
@@ -68,50 +67,50 @@ template<typename ImageType>
 EmbeddedImageData::ImageType mapTaglibType(const ImageType type)
 {
     switch (type) {
-        case ImageType::FrontCover:
-             return EmbeddedImageData::FrontCover;
-         case ImageType::Other:
-             return EmbeddedImageData::Other;
-         case ImageType::FileIcon:
-             return EmbeddedImageData::FileIcon;
-         case ImageType::OtherFileIcon:
-             return EmbeddedImageData::OtherFileIcon;
-         case ImageType::BackCover:
-             return EmbeddedImageData::BackCover;
-         case ImageType::LeafletPage:
-             return EmbeddedImageData::LeafletPage;
-         case ImageType::Media:
-             return EmbeddedImageData::Media;
-         case ImageType::LeadArtist:
-             return EmbeddedImageData::LeadArtist;
-         case ImageType::Artist:
-             return EmbeddedImageData::Artist;
-         case ImageType::Conductor:
-             return EmbeddedImageData::Conductor;
-         case ImageType::Band:
-             return EmbeddedImageData::Band;
-         case ImageType::Composer:
-             return EmbeddedImageData::Composer;
-         case ImageType::Lyricist:
-             return EmbeddedImageData::Lyricist;
-         case ImageType::RecordingLocation:
-             return EmbeddedImageData::RecordingLocation;
-         case ImageType::DuringRecording:
-             return EmbeddedImageData::DuringRecording;
-         case ImageType::DuringPerformance:
-             return EmbeddedImageData::DuringPerformance;
-         case ImageType::MovieScreenCapture:
-             return EmbeddedImageData::MovieScreenCapture;
-         case ImageType::ColouredFish:
-             return EmbeddedImageData::ColouredFish;
-         case ImageType::Illustration:
-             return EmbeddedImageData::Illustration;
-         case ImageType::BandLogo:
-             return EmbeddedImageData::BandLogo;
-         case ImageType::PublisherLogo:
-             return EmbeddedImageData::PublisherLogo;
-         default:
-             return EmbeddedImageData::Unknown;
+    case ImageType::FrontCover:
+        return EmbeddedImageData::FrontCover;
+    case ImageType::Other:
+        return EmbeddedImageData::Other;
+    case ImageType::FileIcon:
+        return EmbeddedImageData::FileIcon;
+    case ImageType::OtherFileIcon:
+        return EmbeddedImageData::OtherFileIcon;
+    case ImageType::BackCover:
+        return EmbeddedImageData::BackCover;
+    case ImageType::LeafletPage:
+        return EmbeddedImageData::LeafletPage;
+    case ImageType::Media:
+        return EmbeddedImageData::Media;
+    case ImageType::LeadArtist:
+        return EmbeddedImageData::LeadArtist;
+    case ImageType::Artist:
+        return EmbeddedImageData::Artist;
+    case ImageType::Conductor:
+        return EmbeddedImageData::Conductor;
+    case ImageType::Band:
+        return EmbeddedImageData::Band;
+    case ImageType::Composer:
+        return EmbeddedImageData::Composer;
+    case ImageType::Lyricist:
+        return EmbeddedImageData::Lyricist;
+    case ImageType::RecordingLocation:
+        return EmbeddedImageData::RecordingLocation;
+    case ImageType::DuringRecording:
+        return EmbeddedImageData::DuringRecording;
+    case ImageType::DuringPerformance:
+        return EmbeddedImageData::DuringPerformance;
+    case ImageType::MovieScreenCapture:
+        return EmbeddedImageData::MovieScreenCapture;
+    case ImageType::ColouredFish:
+        return EmbeddedImageData::ColouredFish;
+    case ImageType::Illustration:
+        return EmbeddedImageData::Illustration;
+    case ImageType::BandLogo:
+        return EmbeddedImageData::BandLogo;
+    case ImageType::PublisherLogo:
+        return EmbeddedImageData::PublisherLogo;
+    default:
+        return EmbeddedImageData::Unknown;
     }
 }
 
@@ -144,10 +143,8 @@ TagLib::String determineMimeType(const QByteArray &pictureData)
 {
     if (pictureData.startsWith(QByteArray::fromHex("89504E470D0A1A0A"))) {
         return TagLib::String("image/png");
-    } else if (pictureData.startsWith(QByteArray::fromHex("FFD8FFDB")) ||
-               pictureData.startsWith(QByteArray::fromHex("FFD8FFE000104A4649460001")) ||
-               pictureData.startsWith(QByteArray::fromHex("FFD8FFEE")) ||
-               pictureData.startsWith(QByteArray::fromHex("FFD8FFE1"))) {
+    } else if (pictureData.startsWith(QByteArray::fromHex("FFD8FFDB")) || pictureData.startsWith(QByteArray::fromHex("FFD8FFE000104A4649460001"))
+               || pictureData.startsWith(QByteArray::fromHex("FFD8FFEE")) || pictureData.startsWith(QByteArray::fromHex("FFD8FFE1"))) {
         return TagLib::String("image/jpeg");
     } else {
         return TagLib::String();
@@ -168,22 +165,20 @@ void writeID3v2Tags(TagLib::ID3v2::Tag *id3Tags, const PropertyMap &newPropertie
     }
 }
 
-void writeID3v2Cover(TagLib::ID3v2::Tag *id3Tags,
-                     const QMap<EmbeddedImageData::ImageType, QByteArray> images)
+void writeID3v2Cover(TagLib::ID3v2::Tag *id3Tags, const QMap<EmbeddedImageData::ImageType, QByteArray> images)
 {
     EmbeddedImageData::ImageTypes wantedTypes;
     EmbeddedImageData::ImageTypes removeTypes;
-    std::for_each(images.keyValueBegin(),images.keyValueEnd(),
-        [&](const std::pair<EmbeddedImageData::ImageType, QByteArray> it) {
-            if (it.second.isEmpty()) {
-                removeTypes |= it.first;
-            } else {
-                wantedTypes |= it.first;
-            }
-        });
+    std::for_each(images.keyValueBegin(), images.keyValueEnd(), [&](const std::pair<EmbeddedImageData::ImageType, QByteArray> it) {
+        if (it.second.isEmpty()) {
+            removeTypes |= it.first;
+        } else {
+            wantedTypes |= it.first;
+        }
+    });
 
     using PictureFrame = TagLib::ID3v2::AttachedPictureFrame;
-    auto updateFrame = [&wantedTypes, &images](PictureFrame* coverFrame, const EmbeddedImageData::ImageType kfmType) {
+    auto updateFrame = [&wantedTypes, &images](PictureFrame *coverFrame, const EmbeddedImageData::ImageType kfmType) {
         wantedTypes &= ~kfmType;
         auto newCover = images[kfmType];
         auto newMimeType = determineMimeType(newCover);
@@ -195,8 +190,8 @@ void writeID3v2Cover(TagLib::ID3v2::Tag *id3Tags,
 
     // Update existing covers
     TagLib::ID3v2::FrameList lstID3v2 = id3Tags->frameListMap()["APIC"];
-    for (auto& frame : qAsConst(lstID3v2)) {
-        auto* coverFrame = static_cast<PictureFrame *>(frame);
+    for (auto &frame : qAsConst(lstID3v2)) {
+        auto *coverFrame = static_cast<PictureFrame *>(frame);
         const auto kfmType = mapTaglibType<PictureFrame::Type>(coverFrame->type());
         if (kfmType & wantedTypes) {
             updateFrame(coverFrame, kfmType);
@@ -208,7 +203,7 @@ void writeID3v2Cover(TagLib::ID3v2::Tag *id3Tags,
     for (const auto type : allImageTypes<PictureFrame>) {
         const auto kfmType = mapTaglibType<PictureFrame::Type>(type);
         if (kfmType & wantedTypes) {
-            auto* coverFrame = new PictureFrame;
+            auto *coverFrame = new PictureFrame;
             coverFrame->setType(type);
             updateFrame(coverFrame, kfmType);
             id3Tags->addFrame(coverFrame);
@@ -219,22 +214,20 @@ void writeID3v2Cover(TagLib::ID3v2::Tag *id3Tags,
 // Instantiated for either FLAC::File or
 // Ogg::XiphComment (Ogg::*::File::tag())
 template<typename Container>
-void writeFlacCover(Container* tags,
-                    const QMap<EmbeddedImageData::ImageType, QByteArray> images)
+void writeFlacCover(Container *tags, const QMap<EmbeddedImageData::ImageType, QByteArray> images)
 {
     EmbeddedImageData::ImageTypes wantedTypes;
     EmbeddedImageData::ImageTypes removeTypes;
-    std::for_each(images.keyValueBegin(),images.keyValueEnd(),
-        [&](const std::pair<EmbeddedImageData::ImageType, QByteArray> it) {
-            if (it.second.isEmpty()) {
-                removeTypes |= it.first;
-            } else {
-                wantedTypes |= it.first;
-            }
-        });
+    std::for_each(images.keyValueBegin(), images.keyValueEnd(), [&](const std::pair<EmbeddedImageData::ImageType, QByteArray> it) {
+        if (it.second.isEmpty()) {
+            removeTypes |= it.first;
+        } else {
+            wantedTypes |= it.first;
+        }
+    });
 
     using PictureFrame = TagLib::FLAC::Picture;
-    auto updateFrame = [&wantedTypes, &images](PictureFrame* coverFrame, const EmbeddedImageData::ImageType kfmType) {
+    auto updateFrame = [&wantedTypes, &images](PictureFrame *coverFrame, const EmbeddedImageData::ImageType kfmType) {
         wantedTypes &= ~kfmType;
         auto newCover = images[kfmType];
         auto newMimeType = determineMimeType(newCover);
@@ -258,7 +251,7 @@ void writeFlacCover(Container* tags,
     for (const auto type : allImageTypes<PictureFrame>) {
         const auto kfmType = mapTaglibType<PictureFrame::Type>(type);
         if (kfmType & wantedTypes) {
-            auto* coverFrame = new PictureFrame;
+            auto *coverFrame = new PictureFrame;
             coverFrame->setType(type);
             updateFrame(coverFrame, kfmType);
             tags->addPicture(coverFrame);
@@ -273,8 +266,7 @@ void writeApeTags(TagLib::PropertyMap &oldProperties, const PropertyMap &newProp
     }
 }
 
-void writeApeCover(TagLib::APE::Tag* apeTags,
-                   const QMap<EmbeddedImageData::ImageType, QByteArray> images)
+void writeApeCover(TagLib::APE::Tag *apeTags, const QMap<EmbeddedImageData::ImageType, QByteArray> images)
 {
     if (images.empty()) {
         return;
@@ -313,14 +305,14 @@ void writeVorbisTags(TagLib::PropertyMap &oldProperties, const PropertyMap &newP
 void writeAsfTags(TagLib::ASF::Tag *asfTags, const PropertyMap &properties)
 {
     if (properties.contains(Property::Rating)) {
-        //map the rating values of WMP to Baloo rating
-        //0->0, 1->2, 4->25, 6->50, 8->75, 10->99
+        // map the rating values of WMP to Baloo rating
+        // 0->0, 1->2, 4->25, 6->50, 8->75, 10->99
         int rating = properties.value(Property::Rating).toInt();
         if (rating == 0) {
             rating = 0;
         } else if (rating <= 2) {
             rating = 1;
-        } else if (rating == 10){
+        } else if (rating == 10) {
             rating = 99;
         } else {
             rating = static_cast<int>(12.5 * rating - 25);
@@ -329,22 +321,20 @@ void writeAsfTags(TagLib::ASF::Tag *asfTags, const PropertyMap &properties)
     }
 }
 
-void writeAsfCover(TagLib::ASF::Tag* asfTags,
-                   const QMap<EmbeddedImageData::ImageType, QByteArray> images)
+void writeAsfCover(TagLib::ASF::Tag *asfTags, const QMap<EmbeddedImageData::ImageType, QByteArray> images)
 {
     EmbeddedImageData::ImageTypes wantedTypes;
     EmbeddedImageData::ImageTypes removeTypes;
-    std::for_each(images.keyValueBegin(),images.keyValueEnd(),
-        [&](const std::pair<EmbeddedImageData::ImageType, QByteArray> it) {
-            if (it.second.isEmpty()) {
-                removeTypes |= it.first;
-            } else {
-                wantedTypes |= it.first;
-            }
-        });
+    std::for_each(images.keyValueBegin(), images.keyValueEnd(), [&](const std::pair<EmbeddedImageData::ImageType, QByteArray> it) {
+        if (it.second.isEmpty()) {
+            removeTypes |= it.first;
+        } else {
+            wantedTypes |= it.first;
+        }
+    });
 
     using PictureFrame = TagLib::ASF::Picture;
-    auto updateFrame = [&wantedTypes, &images](PictureFrame* coverFrame, const EmbeddedImageData::ImageType kfmType) {
+    auto updateFrame = [&wantedTypes, &images](PictureFrame *coverFrame, const EmbeddedImageData::ImageType kfmType) {
         wantedTypes &= ~kfmType;
         auto newCover = images[kfmType];
         auto newMimeType = determineMimeType(newCover);
@@ -356,7 +346,7 @@ void writeAsfCover(TagLib::ASF::Tag* asfTags,
 
     // Update existing covers
     TagLib::ASF::AttributeList lstPic = asfTags->attribute("WM/Picture");
-    for (auto it = lstPic.begin(); it != lstPic.end(); ) {
+    for (auto it = lstPic.begin(); it != lstPic.end();) {
         PictureFrame picture = (*it).toPicture();
         const auto kfmType = mapTaglibType<PictureFrame::Type>(picture.type());
         if (kfmType & wantedTypes) {
@@ -372,7 +362,7 @@ void writeAsfCover(TagLib::ASF::Tag* asfTags,
     for (const auto type : allImageTypes<PictureFrame>) {
         const auto kfmType = mapTaglibType<PictureFrame::Type>(type);
         if (kfmType & wantedTypes) {
-            auto* coverFrame = new PictureFrame;
+            auto *coverFrame = new PictureFrame;
             updateFrame(coverFrame, kfmType);
             coverFrame->setType(type);
             lstPic.append(*coverFrame);
@@ -387,8 +377,7 @@ void writeMp4Tags(TagLib::MP4::Tag *mp4Tags, const PropertyMap &newProperties)
     }
 }
 
-void writeMp4Cover(TagLib::MP4::Tag *mp4Tags,
-                   const QMap<EmbeddedImageData::ImageType, QByteArray> images)
+void writeMp4Cover(TagLib::MP4::Tag *mp4Tags, const QMap<EmbeddedImageData::ImageType, QByteArray> images)
 {
     if (images.empty()) {
         return;
@@ -437,7 +426,7 @@ void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMa
 
     if (newProperties.contains(Property::TrackNumber)) {
         int trackNumber = newProperties.value(Property::TrackNumber).toInt();
-        //taglib requires uint
+        // taglib requires uint
         if (trackNumber >= 0) {
             oldProperties.replace("TRACKNUMBER", QStringToTString(newProperties.value(Property::TrackNumber).toString()));
         }
@@ -445,7 +434,7 @@ void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMa
 
     if (newProperties.contains(Property::DiscNumber)) {
         int discNumber = newProperties.value(Property::DiscNumber).toInt();
-        //taglib requires uint
+        // taglib requires uint
         if (discNumber >= 0) {
             oldProperties.replace("DISCNUMBER", QStringToTString(newProperties.value(Property::DiscNumber).toString()));
         }
@@ -453,7 +442,7 @@ void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMa
 
     if (newProperties.contains(Property::ReleaseYear)) {
         int year = newProperties.value(Property::ReleaseYear).toInt();
-        //taglib requires uint
+        // taglib requires uint
         if (year >= 0) {
             oldProperties.replace("DATE", QStringToTString(newProperties.value(Property::ReleaseYear).toString()));
         }
@@ -492,7 +481,7 @@ void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMa
     }
 }
 
-TagLibWriter::TagLibWriter(QObject* parent)
+TagLibWriter::TagLibWriter(QObject *parent)
     : WriterPlugin(parent)
 {
 }
@@ -502,7 +491,7 @@ QStringList TagLibWriter::writeMimetypes() const
     return supportedMimeTypes;
 }
 
-void TagLibWriter::write(const WriteData& data)
+void TagLibWriter::write(const WriteData &data)
 {
     const QString fileUrl = data.inputUrl();
     const PropertyMap properties = data.getAllProperties();
@@ -518,8 +507,7 @@ void TagLibWriter::write(const WriteData& data)
         return;
     }
 
-    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3")
-            || mimeType == QLatin1String("audio/x-mpeg")) {
+    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3") || mimeType == QLatin1String("audio/x-mpeg")) {
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), false);
         if (file.isValid()) {
             auto savedProperties = file.properties();
@@ -531,13 +519,13 @@ void TagLibWriter::write(const WriteData& data)
             }
             file.save();
         }
-    } else if (mimeType == QLatin1String("audio/x-aiff") || mimeType == QLatin1String("audio/x-aifc"))  {
+    } else if (mimeType == QLatin1String("audio/x-aiff") || mimeType == QLatin1String("audio/x-aifc")) {
         TagLib::RIFF::AIFF::File file(&stream, false);
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
-            auto id3Tags = dynamic_cast<TagLib::ID3v2::Tag*>(file.tag());
+            auto id3Tags = dynamic_cast<TagLib::ID3v2::Tag *>(file.tag());
             if (id3Tags) {
                 writeID3v2Tags(id3Tags, properties);
                 writeID3v2Cover(id3Tags, data.imageData());
@@ -550,7 +538,7 @@ void TagLibWriter::write(const WriteData& data)
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
-            auto id3Tags = dynamic_cast<TagLib::ID3v2::Tag*>(file.tag());
+            auto id3Tags = dynamic_cast<TagLib::ID3v2::Tag *>(file.tag());
             if (id3Tags) {
                 writeID3v2Tags(id3Tags, properties);
                 writeID3v2Cover(id3Tags, data.imageData());
@@ -598,7 +586,7 @@ void TagLibWriter::write(const WriteData& data)
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
-            auto mp4Tags = dynamic_cast<TagLib::MP4::Tag*>(file.tag());
+            auto mp4Tags = dynamic_cast<TagLib::MP4::Tag *>(file.tag());
             if (mp4Tags) {
                 writeMp4Tags(mp4Tags, properties);
                 writeMp4Cover(mp4Tags, data.imageData());
@@ -652,8 +640,8 @@ void TagLibWriter::write(const WriteData& data)
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
-            auto asfTags = dynamic_cast<TagLib::ASF::Tag*>(file.tag());
-            if (asfTags){
+            auto asfTags = dynamic_cast<TagLib::ASF::Tag *>(file.tag());
+            if (asfTags) {
                 writeAsfTags(asfTags, properties);
                 writeAsfCover(asfTags, data.imageData());
             }

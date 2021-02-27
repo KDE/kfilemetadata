@@ -11,14 +11,15 @@
 #include "kfilemetadata_debug.h"
 #include <QPluginLoader>
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class ExtractorPlugin;
 
 class Extractor::ExtractorPrivate
 {
 public:
-    ~ExtractorPrivate() {
+    ~ExtractorPrivate()
+    {
         if (m_autoDeletePlugin == AutoDeletePlugin) {
             delete m_plugin;
         }
@@ -46,13 +47,13 @@ inline bool Extractor::ExtractorPrivate::initPlugin()
         return false;
     }
 
-    QObject* obj = loader.instance();
+    QObject *obj = loader.instance();
     if (!obj) {
         qCWarning(KFILEMETADATA_LOG) << "Could not create instance:" << m_pluginPath;
         return false;
     }
 
-    m_plugin = qobject_cast<ExtractorPlugin*>(obj);
+    m_plugin = qobject_cast<ExtractorPlugin *>(obj);
     if (!m_plugin) {
         qCWarning(KFILEMETADATA_LOG) << "Could not convert to ExtractorPlugin:" << m_pluginPath;
         return false;

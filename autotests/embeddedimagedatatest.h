@@ -9,14 +9,14 @@
 #ifndef EMBEDDEDIMAGEDATATEST_H
 #define EMBEDDEDIMAGEDATATEST_H
 
-#include <QObject>
 #include "properties.h"
+#include <QObject>
 
 class EmbeddedImageDataTest : public QObject
 {
     Q_OBJECT
 private:
-    QString testFilePath(const QString& fileName) const;
+    QString testFilePath(const QString &fileName) const;
     QByteArray m_coverImage;
 
 private Q_SLOTS:

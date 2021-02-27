@@ -5,15 +5,15 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "extractorplugin.h"
 
-#include <QMimeDatabase>
 #include <QDebug>
+#include <QMimeDatabase>
 
 using namespace KFileMetaData;
 
-ExtractorPlugin::ExtractorPlugin(QObject* parent): QObject(parent)
+ExtractorPlugin::ExtractorPlugin(QObject *parent)
+    : QObject(parent)
 {
 }
 
@@ -25,7 +25,7 @@ ExtractorPlugin::~ExtractorPlugin()
 // Helper functions
 //
 
-QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
+QDateTime ExtractorPlugin::dateTimeFromString(const QString &dateString)
 {
     QDateTime dateTime;
 
@@ -104,7 +104,7 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
     return dateTime;
 }
 
-QStringList ExtractorPlugin::contactsFromString(const QString& string)
+QStringList ExtractorPlugin::contactsFromString(const QString &string)
 {
     QString cleanedString = string;
     cleanedString = cleanedString.remove(QLatin1Char('{'));
@@ -125,14 +125,14 @@ QStringList ExtractorPlugin::contactsFromString(const QString& string)
 
     QStringList list;
     list.reserve(contactStrings.count());
-    for (const QString& contactName : qAsConst(contactStrings)) {
+    for (const QString &contactName : qAsConst(contactStrings)) {
         list << contactName.trimmed();
     }
 
     return list;
 }
 
-QString ExtractorPlugin::getSupportedMimeType(const QString& mimetype) const
+QString ExtractorPlugin::getSupportedMimeType(const QString &mimetype) const
 {
     const QStringList allTypes = mimetypes();
     if (allTypes.contains(mimetype)) {

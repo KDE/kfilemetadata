@@ -76,7 +76,7 @@ TypeInfo::TypeInfo(Type::Type type)
     }
 }
 
-TypeInfo::TypeInfo(const TypeInfo& ti)
+TypeInfo::TypeInfo(const TypeInfo &ti)
     : d(new Private(*ti.d))
 {
 }
@@ -86,13 +86,13 @@ TypeInfo::~TypeInfo()
     delete d;
 }
 
-TypeInfo& TypeInfo::operator=(const TypeInfo& rhs)
+TypeInfo &TypeInfo::operator=(const TypeInfo &rhs)
 {
     *d = *rhs.d;
     return *this;
 }
 
-bool TypeInfo::operator==(const TypeInfo& rhs)
+bool TypeInfo::operator==(const TypeInfo &rhs)
 {
     return d->type == rhs.d->type && d->name == rhs.d->name && d->displayName == rhs.d->displayName;
 }
@@ -112,7 +112,7 @@ Type::Type TypeInfo::type() const
     return d->type;
 }
 
-TypeInfo TypeInfo::fromName(const QString& name)
+TypeInfo TypeInfo::fromName(const QString &name)
 {
     for (int t = static_cast<int>(Type::FirstType); t <= static_cast<int>(Type::LastType); t++) {
         TypeInfo ti(static_cast<Type::Type>(t));

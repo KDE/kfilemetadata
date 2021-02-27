@@ -5,17 +5,17 @@
 */
 
 #include "epubextractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/epubextractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
-#include <QTest>
 #include <QMimeDatabase>
+#include <QTest>
 
 using namespace KFileMetaData;
 
-QString EPubExtractorTest::testFilePath(const QString& fileName) const
+QString EPubExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -87,9 +87,7 @@ void EPubExtractorTest::testRepeated()
     QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));
     QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Happy Publisher")));
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
-    QCOMPARE(result.properties().values(Property::Subject),
-        QVariantList({QStringLiteral("Test with repeated keys"), QStringLiteral("Baloo KFileMetaData")})
-    );
+    QCOMPARE(result.properties().values(Property::Subject), QVariantList({QStringLiteral("Test with repeated keys"), QStringLiteral("Baloo KFileMetaData")}));
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
 
     QDateTime dt(QDate(2012, 1, 1), QTime(0, 0, 0));
@@ -111,6 +109,5 @@ void EPubExtractorTest::testMetaDataOnly()
     QVERIFY(!result.properties().isEmpty());
     QVERIFY(result.text().isEmpty());
 }
-
 
 QTEST_GUILESS_MAIN(EPubExtractorTest)

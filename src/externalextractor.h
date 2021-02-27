@@ -10,20 +10,19 @@
 
 #include "extractorplugin.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class ExternalExtractor : public ExtractorPlugin
 {
-
     Q_OBJECT
 
 public:
-    explicit ExternalExtractor(QObject* parent = nullptr);
-    explicit ExternalExtractor(const QString& pluginPath);
+    explicit ExternalExtractor(QObject *parent = nullptr);
+    explicit ExternalExtractor(const QString &pluginPath);
     ~ExternalExtractor() override;
 
     QStringList mimetypes() const override;
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
 
 private:
     class ExternalExtractorPrivate;

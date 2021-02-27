@@ -10,13 +10,13 @@
 #include <QString>
 #include <QVariant>
 
-#include "kfilemetadata_export.h"
 #include "embeddedimagedata.h"
+#include "kfilemetadata_export.h"
 #include "properties.h"
 #include "types.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 /**
  * \class ExtractionResult extractionresult.h <KFileMetaData/ExtractionResult>
  *
@@ -41,7 +41,7 @@ public:
         ExtractPlainText = 2,
         ExtractImageData = 4, ///< @since 5.76
 #if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 76)
-	/// @deprecated since 5.76, specify explicitly
+        /// @deprecated since 5.76, specify explicitly
         ExtractEverything = (ExtractMetaData | ExtractPlainText)
 #endif
     };
@@ -56,8 +56,8 @@ public:
      * which file the data should be extracted from and which data should
      * be extracted.
      */
-    ExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = Flags{ExtractPlainText | ExtractMetaData});
-    ExtractionResult(const ExtractionResult& rhs);
+    ExtractionResult(const QString &url, const QString &mimetype = QString(), const Flags &flags = Flags{ExtractPlainText | ExtractMetaData});
+    ExtractionResult(const ExtractionResult &rhs);
     virtual ~ExtractionResult();
 
     /**
@@ -86,7 +86,7 @@ public:
      * text to be indexed without any property. This generally corresponds
      * to the text content in a file
      */
-    virtual void append(const QString& text) = 0;
+    virtual void append(const QString &text) = 0;
 
     /**
      * This function is called by the plugins when they wish to
@@ -98,7 +98,7 @@ public:
      *
      * \p value The value of the property
      */
-    virtual void add(Property::Property property, const QVariant& value) = 0;
+    virtual void add(Property::Property property, const QVariant &value) = 0;
 
     /**
      * This function is called by the plugins.
@@ -117,7 +117,7 @@ public:
      * \sa EmbeddedImageData
      * @since 5.76
      */
-    void addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images);
+    void addImageData(QMap<EmbeddedImageData::ImageType, QByteArray> &&images);
 
     /**
      * Return embedded image data
@@ -129,7 +129,7 @@ public:
 
 private:
     class Private;
-    Private* d;
+    Private *d;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ExtractionResult::Flags)

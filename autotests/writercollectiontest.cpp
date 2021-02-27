@@ -7,14 +7,14 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
+#include <QDebug>
 #include <QObject>
 #include <QTest>
-#include <QDebug>
 
 #include "writercollection.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 class WriterCollectionTest : public QObject
 {
     Q_OBJECT
@@ -26,7 +26,6 @@ private Q_SLOTS:
         QVERIFY(collection.fetchWriters(QStringLiteral("unknown/mimetype")).isEmpty());
         QVERIFY(!collection.fetchWriters(QStringLiteral("audio/mpeg3")).isEmpty());
     }
-
 };
 
 }

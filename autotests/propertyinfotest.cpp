@@ -12,7 +12,7 @@
 
 using namespace KFileMetaData;
 
-//QTEST_GUILESS_MAIN(PropertyInfoTest)
+// QTEST_GUILESS_MAIN(PropertyInfoTest)
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -59,7 +59,8 @@ void PropertyInfoTest::testNameIdMapping()
     }
 }
 
-void PropertyInfoTest::testFormatAsDisplayString() {
+void PropertyInfoTest::testFormatAsDisplayString()
+{
     QFETCH(KFileMetaData::PropertyInfo, propertyInfo);
     QFETCH(QVariant, value);
     QFETCH(QString, expected);
@@ -83,8 +84,7 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
     QTest::addColumn<bool>("maybeLocalized");
 
     auto emptyProperty = PropertyInfo::fromName(QStringLiteral("no valid property name"));
-    QTest::addRow("<invalid>")
-        << emptyProperty << QVariant(QStringLiteral("empty")) << QStringLiteral("empty") << true;
+    QTest::addRow("<invalid>") << emptyProperty << QVariant(QStringLiteral("empty")) << QStringLiteral("empty") << true;
 
     QStringList artistList = {QStringLiteral("Artist1"), QStringLiteral("Artist2"), QStringLiteral("Artist3")};
     QStringList authorList = {QStringLiteral("Author1")};
@@ -145,7 +145,6 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
 
     for (auto row : rows) {
         PropertyInfo info(row.property);
-        QTest::addRow("%s", info.displayName().toUtf8().constData())
-            << info << row.value << row.expected << row.maybeLocalized;
+        QTest::addRow("%s", info.displayName().toUtf8().constData()) << info << row.value << row.expected << row.maybeLocalized;
     }
 }

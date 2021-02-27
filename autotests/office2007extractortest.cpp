@@ -5,17 +5,17 @@
 */
 
 #include "office2007extractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/office2007extractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
-#include <QTest>
 #include <QMimeDatabase>
+#include <QTest>
 
 using namespace KFileMetaData;
 
-QString Office2007ExtractorTest::testFilePath(const QString& fileName) const
+QString Office2007ExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
@@ -72,8 +72,8 @@ void Office2007ExtractorTest::testMetaDataOnly()
     Office2007Extractor plugin{this};
 
     SimpleExtractionResult result(testFilePath(QStringLiteral("test_libreoffice.docx")),
-                        QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-                        ExtractionResult::ExtractMetaData);
+                                  QStringLiteral("application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
+                                  ExtractionResult::ExtractMetaData);
 
     plugin.extract(&result);
 

@@ -5,18 +5,18 @@
 */
 
 #include "exiv2extractortest.h"
-#include "simpleextractionresult.h"
-#include "indexerextractortestsconfig.h"
 #include "extractors/exiv2extractor.h"
+#include "indexerextractortestsconfig.h"
 #include "mimeutils.h"
+#include "simpleextractionresult.h"
 
-#include <QTest>
 #include <QMimeDatabase>
+#include <QTest>
 
 using namespace KFileMetaData;
 using namespace KFileMetaData::Property;
 
-QString Exiv2ExtractorTest::testFilePath(const QString& fileName) const
+QString Exiv2ExtractorTest::testFilePath(const QString &fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }

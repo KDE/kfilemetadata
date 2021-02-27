@@ -12,7 +12,6 @@
 
 namespace KFileMetaData
 {
-
 class TagLibWriter : public WriterPlugin
 {
     Q_OBJECT
@@ -20,13 +19,12 @@ class TagLibWriter : public WriterPlugin
     Q_INTERFACES(KFileMetaData::WriterPlugin)
 
 public:
-    explicit TagLibWriter(QObject* parent = nullptr);
+    explicit TagLibWriter(QObject *parent = nullptr);
 
-    void write(const WriteData& data) override;
+    void write(const WriteData &data) override;
     QStringList writeMimetypes() const override;
 };
 
 }
 
 #endif // TAGLIBWRITER_H
-

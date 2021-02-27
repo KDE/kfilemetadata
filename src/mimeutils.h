@@ -8,14 +8,13 @@
 #ifndef KFILEMETADATA_MIMEUTILS
 #define KFILEMETADATA_MIMEUTILS
 
-#include <QMimeDatabase>
 #include "kfilemetadata_export.h"
+#include <QMimeDatabase>
 
 namespace KFileMetaData
 {
 namespace MimeUtils
 {
-
 /**
  * Returns the mimetype for a file
  *
@@ -33,8 +32,7 @@ namespace MimeUtils
  * \sa QMimeType::inherits
  */
 KFILEMETADATA_EXPORT
-QMimeType strictMimeType(const QString& filePath, const QMimeDatabase& db);
-
+QMimeType strictMimeType(const QString &filePath, const QMimeDatabase &db);
 
 } // namespace MimeUtils
 } // namespace KFileMetaData

@@ -6,7 +6,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "odfextractor.h"
 #include <memory>
 
@@ -16,11 +15,20 @@
 #include <QDomDocument>
 #include <QXmlStreamReader>
 
-namespace {
-
-inline QString dcNS()     { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
-inline QString metaNS()   { return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:meta:1.0"); }
-inline QString officeNS() { return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:office:1.0"); }
+namespace
+{
+inline QString dcNS()
+{
+    return QStringLiteral("http://purl.org/dc/elements/1.1/");
+}
+inline QString metaNS()
+{
+    return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:meta:1.0");
+}
+inline QString officeNS()
+{
+    return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:office:1.0");
+}
 
 QDomElement firstChildElementNS(const QDomNode &node, const QString &nsURI, const QString &localName)
 {
@@ -48,10 +56,9 @@ const QStringList supportedMimeTypes = {
 
 using namespace KFileMetaData;
 
-OdfExtractor::OdfExtractor(QObject* parent)
+OdfExtractor::OdfExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 QStringList OdfExtractor::mimetypes() const
@@ -59,7 +66,7 @@ QStringList OdfExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void OdfExtractor::extract(ExtractionResult* result)
+void OdfExtractor::extract(ExtractionResult *result)
 {
     KZip zip(result->inputUrl());
     if (!zip.open(QIODevice::ReadOnly)) {
@@ -67,7 +74,7 @@ void OdfExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    const KArchiveDirectory* directory = zip.directory();
+    const KArchiveDirectory *directory = zip.directory();
     if (!directory) {
         qWarning() << "Invalid document structure (main directory is missing)";
         return;
@@ -85,9 +92,7 @@ void OdfExtractor::extract(ExtractionResult* result)
         metaData.setContent(metaXml->data(), true);
 
         // parse metadata ...
-        QDomElement meta = firstChildElementNS(firstChildElementNS(metaData,
-                                                                   officeNS(), QStringLiteral("document-meta")),
-                                               officeNS(), QStringLiteral("meta"));
+        QDomElement meta = firstChildElementNS(firstChildElementNS(metaData, officeNS(), QStringLiteral("document-meta")), officeNS(), QStringLiteral("meta"));
 
         QDomNode n = meta.firstChild();
         while (!n.isNull()) {
@@ -140,12 +145,11 @@ void OdfExtractor::extract(ExtractionResult* result)
     }
 
     result->addType(Type::Document);
-    if ((result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation")) ||
-        (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation-template"))) {
+    if ((result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation"))
+        || (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.presentation-template"))) {
         result->addType(Type::Presentation);
-    }
-    else if ((result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet")) ||
-             (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet-template"))) {
+    } else if ((result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet"))
+               || (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet-template"))) {
         result->addType(Type::Spreadsheet);
     }
 

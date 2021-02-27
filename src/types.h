@@ -8,9 +8,10 @@
 #ifndef KFILEMETADATA_TYPES
 #define KFILEMETADATA_TYPES
 
-namespace KFileMetaData {
-namespace Type {
-
+namespace KFileMetaData
+{
+namespace Type
+{
 /**
  * A Type represents a way to represent a way to group files based on
  * a higher level view, which the user generally expects.

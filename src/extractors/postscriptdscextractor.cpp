@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "postscriptdscextractor.h"
 #include "kfilemetadata_debug.h"
 
@@ -12,23 +11,20 @@
 
 namespace KFileMetaData
 {
-
-DscExtractor::DscExtractor(QObject* parent)
+DscExtractor::DscExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 QStringList DscExtractor::mimetypes() const
 {
     QStringList list;
-    list << QStringLiteral("application/postscript")
-         << QStringLiteral("image/x-eps");
+    list << QStringLiteral("application/postscript") << QStringLiteral("image/x-eps");
 
     return list;
 }
 
-void DscExtractor::extract(ExtractionResult* result)
+void DscExtractor::extract(ExtractionResult *result)
 {
     QFile file(result->inputUrl());
     if (!file.open(QIODevice::ReadOnly)) {
@@ -84,7 +80,7 @@ void DscExtractor::extract(ExtractionResult* result)
                 // Standard PDF date format, ASN.1 like - (D:YYYYMMDDHHmmSSOHH'mm')
                 auto dt = QDateTime::fromString(date.mid(2, 14).toString(), QLatin1String("yyyyMMddhhmmss"));
                 auto offset = QTime::fromString(date.mid(17, 5).toString(), QLatin1String("hh'\\''mm"));
-                if (date.mid(16,1) == QLatin1String("+")) {
+                if (date.mid(16, 1) == QLatin1String("+")) {
                     dt.setOffsetFromUtc(QTime(0, 0).secsTo(offset));
                 } else {
                     dt.setOffsetFromUtc(-1 * QTime(0, 0).secsTo(offset));

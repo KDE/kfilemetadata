@@ -11,19 +11,17 @@
 
 namespace KFileMetaData
 {
-
 class AppImageExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
-                      FILE "appimageextractor.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "appimageextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    explicit AppImageExtractor(QObject* parent = nullptr);
+    explicit AppImageExtractor(QObject *parent = nullptr);
 
 public:
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
     QStringList mimetypes() const override;
 };
 

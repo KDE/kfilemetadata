@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #ifndef TAGLIBEXTRACTOR_H
 #define TAGLIBEXTRACTOR_H
 
@@ -12,20 +11,17 @@
 
 namespace KFileMetaData
 {
-
 class TagLibExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
-                      FILE "taglibextractor.json")
+    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "taglibextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:
-    explicit TagLibExtractor(QObject* parent = nullptr);
+    explicit TagLibExtractor(QObject *parent = nullptr);
 
-    void extract(ExtractionResult* result) override;
+    void extract(ExtractionResult *result) override;
     QStringList mimetypes() const override;
-
 };
 
 }

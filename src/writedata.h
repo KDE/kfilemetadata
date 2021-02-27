@@ -11,41 +11,41 @@
 
 #include "kfilemetadata_export.h"
 
-#include <QString>
 #include <QMap>
+#include <QString>
 #include <QVariant>
 
 #include "embeddedimagedata.h"
 #include "properties.h"
 #include "types.h"
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 /**
  * \class WriteData writedata.h <KFileMetaData/WriteData>
  */
 class KFILEMETADATA_EXPORT WriteData
 {
 public:
-    WriteData(const QString& url, const QString& mimetype);
-    WriteData(const WriteData& rhs);
+    WriteData(const QString &url, const QString &mimetype);
+    WriteData(const WriteData &rhs);
     virtual ~WriteData();
-    WriteData& operator=(const WriteData& rhs);
-    bool operator==(const WriteData& rhs) const;
+    WriteData &operator=(const WriteData &rhs);
+    bool operator==(const WriteData &rhs) const;
 
     QString inputUrl() const;
 
     QString inputMimetype() const;
 
-    void add(Property::Property property, const QVariant& value);
-    void addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray>& images);
+    void add(Property::Property property, const QVariant &value);
+    void addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray> &images);
 
     QMap<Property::Property, QVariant> getAllProperties() const;
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:
     class WriteDataPrivate;
-    WriteDataPrivate* d_ptr;
+    WriteDataPrivate *d_ptr;
     Q_DECLARE_PRIVATE(WriteData)
 };
 }

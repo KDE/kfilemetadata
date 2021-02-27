@@ -8,14 +8,14 @@
 #ifndef ODFEXTRACTORTEST_H
 #define ODFEXTRACTORTEST_H
 
-#include <QObject>
 #include <QMimeDatabase>
+#include <QObject>
 
 class OdfExtractorTest : public QObject
 {
     Q_OBJECT
 private:
-    QString testFilePath(const QString& fileName) const;
+    QString testFilePath(const QString &fileName) const;
 
 private Q_SLOTS:
     void testNoExtraction();

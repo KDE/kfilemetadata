@@ -5,7 +5,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
 #include "epubextractor.h"
 #include "kfilemetadata_debug.h"
 
@@ -16,10 +15,9 @@
 
 using namespace KFileMetaData;
 
-EPubExtractor::EPubExtractor(QObject* parent)
+EPubExtractor::EPubExtractor(QObject *parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 namespace
@@ -28,10 +26,10 @@ static const QStringList supportedMimeTypes = {
     QStringLiteral("application/epub+zip"),
 };
 
-const QStringList fetchMetadata(struct epub* e, const epub_metadata& type)
+const QStringList fetchMetadata(struct epub *e, const epub_metadata &type)
 {
     int size = 0;
-    unsigned char** data = epub_get_metadata(e, type, &size);
+    unsigned char **data = epub_get_metadata(e, type, &size);
     if (data) {
         QStringList strList;
         strList.reserve(size);
@@ -41,7 +39,7 @@ const QStringList fetchMetadata(struct epub* e, const epub_metadata& type)
             if (!data[i] || !data[i][0])
                 continue;
 
-            strList << QString::fromUtf8((char*)data[i]);
+            strList << QString::fromUtf8((char *)data[i]);
             free(data[i]);
         }
         free(data);
@@ -57,7 +55,7 @@ QStringList EPubExtractor::mimetypes() const
     return supportedMimeTypes;
 }
 
-void EPubExtractor::extract(ExtractionResult* result)
+void EPubExtractor::extract(ExtractionResult *result)
 {
     // open epub, return on exit, file will be closed again at end of function
     auto ePubDoc = epub_open(result->inputUrl().toUtf8().constData(), 1);
@@ -69,12 +67,11 @@ void EPubExtractor::extract(ExtractionResult* result)
     result->addType(Type::Document);
 
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
-
-        for (const QString& value : fetchMetadata(ePubDoc, EPUB_TITLE)) {
+        for (const QString &value : fetchMetadata(ePubDoc, EPUB_TITLE)) {
             result->add(Property::Title, value);
         }
 
-        for (const QString& value : fetchMetadata(ePubDoc, EPUB_SUBJECT)) {
+        for (const QString &value : fetchMetadata(ePubDoc, EPUB_SUBJECT)) {
             result->add(Property::Subject, value);
         }
 
@@ -111,11 +108,11 @@ void EPubExtractor::extract(ExtractionResult* result)
         graph << con;
     }*/
 
-        for (const QString& value : fetchMetadata(ePubDoc, EPUB_PUBLISHER)) {
+        for (const QString &value : fetchMetadata(ePubDoc, EPUB_PUBLISHER)) {
             result->add(Property::Publisher, value);
         }
 
-        for (const QString& value : fetchMetadata(ePubDoc, EPUB_DESCRIPTION)) {
+        for (const QString &value : fetchMetadata(ePubDoc, EPUB_DESCRIPTION)) {
             result->add(Property::Description, value);
         }
 
@@ -141,7 +138,7 @@ void EPubExtractor::extract(ExtractionResult* result)
     if (result->inputFlags() & ExtractionResult::ExtractPlainText) {
         if (auto iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0)) {
             do {
-                char* curr = epub_it_get_curr(iter);
+                char *curr = epub_it_get_curr(iter);
                 if (!curr)
                     continue;
 
@@ -161,10 +158,10 @@ void EPubExtractor::extract(ExtractionResult* result)
             if (epub_tit_curr_valid(tit)) {
                 do {
                     // get link, iterator handles freeing of it
-                    char* clink = epub_tit_get_curr_link(tit);
+                    char *clink = epub_tit_get_curr_link(tit);
 
                     // epub_get_data returns -1 on failure
-                    char* data = nullptr;
+                    char *data = nullptr;
                     const int size = epub_get_data(ePubDoc, clink, &data);
                     if (size >= 0 && data) {
                         QString html = QString::fromUtf8(data, size);

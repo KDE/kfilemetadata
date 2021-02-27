@@ -8,11 +8,11 @@
 #define KFILEMETADATA_SimpleExtractionResult_H
 
 #include "extractionresult.h"
-#include <QVector>
 #include <QString>
+#include <QVector>
 
-namespace KFileMetaData {
-
+namespace KFileMetaData
+{
 /**
  * \class SimpleExtractionResult simpleextractionresult.h <KFileMetaData/SimpleExtractionResult>
  *
@@ -26,16 +26,16 @@ namespace KFileMetaData {
 class KFILEMETADATA_EXPORT SimpleExtractionResult : public ExtractionResult
 {
 public:
-    SimpleExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = Flags{ExtractPlainText | ExtractMetaData});
-    SimpleExtractionResult(const SimpleExtractionResult& rhs);
+    SimpleExtractionResult(const QString &url, const QString &mimetype = QString(), const Flags &flags = Flags{ExtractPlainText | ExtractMetaData});
+    SimpleExtractionResult(const SimpleExtractionResult &rhs);
     ~SimpleExtractionResult() override;
 
-    SimpleExtractionResult& operator=(const SimpleExtractionResult& rhs);
-    bool operator==(const SimpleExtractionResult& rhs) const;
+    SimpleExtractionResult &operator=(const SimpleExtractionResult &rhs);
+    bool operator==(const SimpleExtractionResult &rhs) const;
 
-    void add(Property::Property property, const QVariant& value) override;
+    void add(Property::Property property, const QVariant &value) override;
     void addType(Type::Type type) override;
-    void append(const QString& text) override;
+    void append(const QString &text) override;
 
     PropertyMap properties() const;
     QString text() const;
@@ -43,7 +43,7 @@ public:
 
 private:
     class Private;
-    Private* d;
+    Private *d;
 };
 
 }
