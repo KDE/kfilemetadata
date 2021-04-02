@@ -15,7 +15,7 @@
 
 namespace {
 
-inline QString dcNS()     { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
+//inline QString dcElementNS()     { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
 inline QString svgNS()    { return QStringLiteral("http://www.w3.org/2000/svg"); }
 inline QString rdfNS()    { return QStringLiteral("http://www.w3.org/1999/02/22-rdf-syntax-ns#"); }
 inline QString ccNS()     { return QStringLiteral("http://creativecommons.org/ns#"); }
