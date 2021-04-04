@@ -116,7 +116,7 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
                        PURPOSE "Needed to build the AppImage extractor"
                        )
 
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f00)
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00) # TODO look into the QMap::insertMulti usage
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055000)
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
 add_definitions(-DQT_NO_FOREACH)
