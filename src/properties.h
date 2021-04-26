@@ -163,7 +163,7 @@ enum Property {
      * Same as @c Language.
      * @deprecated Since 5.50, use @c Language instead
      */
-    Langauge = Language,
+    Langauge KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(5, 82, 5, 50, "Use Language") = Language,
 #endif
 
     /**
@@ -225,7 +225,7 @@ enum Property {
      * Same as @c Manufacturer.
      * @deprecated Since 5.60, use @c Manufacturer instead
      */
-    ImageMake = Manufacturer,
+    ImageMake KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(5, 82, 5, 60, "Use Manufacturer") = Manufacturer,
 #endif
 
     /**
@@ -240,7 +240,7 @@ enum Property {
      * Same as @c Model.
      * @deprecated Since 5.60, use @c Model instead
      */
-    ImageModel = Model,
+    ImageModel KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(5, 82, 5, 60, "Use Model") = Model,
 #endif
 
     ImageDateTime,
