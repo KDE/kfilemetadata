@@ -430,9 +430,8 @@ void TagLibExtractorTest::testAsf_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("asf")
-        << QStringLiteral("wma")
-        ;
+    // ASF container format, used by WMA
+    QTest::addRow("wma") << QStringLiteral("wma");
 }
 
 void TagLibExtractorTest::testId3Rating_data()
