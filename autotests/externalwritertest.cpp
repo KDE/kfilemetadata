@@ -24,11 +24,24 @@ void ExternalWriterTest::test()
 {
     QTemporaryFile file;
     ExternalWriter plugin{testFilePath("testexternalwriter")};
-    file.open();
+    QVERIFY(file.open());
     WriteData data(file.fileName(), "application/text");
     plugin.write(data);
 
     QCOMPARE(QString(file.readAll()), QStringLiteral("{}"));
+}
+
+void ExternalWriterTest::testProperties()
+{
+    QTemporaryFile file;
+    ExternalWriter plugin{testFilePath("testexternalwriter")};
+    QVERIFY(file.open());
+    WriteData data(file.fileName(), "application/text");
+    data.add(Property::Author, QStringLiteral("Name"));
+    plugin.write(data);
+
+    auto expected = QStringLiteral("{\"author\": \"Name\"}");
+    QCOMPARE(QString(file.readAll()), expected);
 }
 
 QTEST_GUILESS_MAIN(ExternalWriterTest)

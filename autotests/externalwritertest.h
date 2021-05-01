@@ -18,6 +18,7 @@ private:
 
 private Q_SLOTS:
     void test();
+    void testProperties();
 };
 
 #endif // EXTERNALWRITERTEST_H
