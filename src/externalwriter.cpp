@@ -91,8 +91,7 @@ void ExternalWriter::write(const WriteData& data)
 
     const QMap<Property::Property, QVariant> properties = data.getAllProperties();
 
-    QMap<Property::Property, QVariant>::const_iterator i = properties.constBegin();
-    while (i != properties.constEnd()) {
+    for (auto i = properties.constBegin(); i != properties.constEnd(); ++i) {
         PropertyInfo propertyInfo(i.key());
         propertiesObject[propertyInfo.name()] = QJsonValue::fromVariant(properties[i.key()]);
     }
