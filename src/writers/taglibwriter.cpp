@@ -159,6 +159,7 @@ void writeID3v2Tags(TagLib::ID3v2::Tag *id3Tags, const PropertyMap &newPropertie
         int rating = newProperties.value(Property::Rating).toInt();
         if (rating >= 0 && rating <= 10) {
             id3Tags->removeFrames("POPM");
+            // ID3v2::Tag::addFrame takes ownership
             auto ratingFrame = new TagLib::ID3v2::PopularimeterFrame;
             ratingFrame->setEmail("org.kde.kfilemetadata");
             ratingFrame->setRating(id3v2RatingTranslation[rating]);
@@ -207,6 +208,7 @@ void writeID3v2Cover(TagLib::ID3v2::Tag *id3Tags,
     for (const auto type : allImageTypes<PictureFrame>) {
         const auto kfmType = mapTaglibType<PictureFrame::Type>(type);
         if (kfmType & wantedTypes) {
+            // ID3v2::Tag::addFrame takes ownership
             auto* coverFrame = new PictureFrame;
             coverFrame->setType(type);
             updateFrame(coverFrame, kfmType);
@@ -257,6 +259,7 @@ void writeFlacCover(Container* tags,
     for (const auto type : allImageTypes<PictureFrame>) {
         const auto kfmType = mapTaglibType<PictureFrame::Type>(type);
         if (kfmType & wantedTypes) {
+            // FLAC::File::addPicture takes ownership (dito XiphComment)
             auto* coverFrame = new PictureFrame;
             coverFrame->setType(type);
             updateFrame(coverFrame, kfmType);
@@ -371,10 +374,10 @@ void writeAsfCover(TagLib::ASF::Tag* asfTags,
     for (const auto type : allImageTypes<PictureFrame>) {
         const auto kfmType = mapTaglibType<PictureFrame::Type>(type);
         if (kfmType & wantedTypes) {
-            auto* coverFrame = new PictureFrame;
-            updateFrame(coverFrame, kfmType);
-            coverFrame->setType(type);
-            lstPic.append(*coverFrame);
+            PictureFrame coverFrame;
+            updateFrame(&coverFrame, kfmType);
+            coverFrame.setType(type);
+            lstPic.append(coverFrame);
         }
     }
     asfTags->setAttribute("WM/Picture", lstPic);
