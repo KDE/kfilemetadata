@@ -53,7 +53,7 @@ ecm_generate_export_header(KF5FileMetaData
 )
 
 set_target_properties(KF5FileMetaData PROPERTIES
-    VERSION ${KFILEMETADATA_VERSION_STRING}
+    VERSION ${KFILEMETADATA_VERSION}
     SOVERSION ${KFILEMETADATA_SOVERSION}
     EXPORT_NAME FileMetaData
 )
