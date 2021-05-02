@@ -135,14 +135,14 @@ void ExternalExtractor::extract(ExtractionResult* result)
     auto i = propertiesObject.constBegin();
     for (; i != propertiesObjectEnd; ++i) {
         if (i.key() == QStringLiteral("typeInfo")) {
-            TypeInfo info = TypeInfo::fromName(propertiesObject.value(i.key()).toString());
+            TypeInfo info = TypeInfo::fromName(i.value().toString());
             result->addType(info.type());
             continue;
         }
 
         // for plaintext extraction
         if (i.key() == QStringLiteral("text")) {
-            result->append(propertiesObject.value(i.key()).toString(QStringLiteral("")));
+            result->append(i.value().toString());
             continue;
         }
 

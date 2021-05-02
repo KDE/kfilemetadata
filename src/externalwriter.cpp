@@ -93,7 +93,7 @@ void ExternalWriter::write(const WriteData& data)
 
     for (auto i = properties.constBegin(); i != properties.constEnd(); ++i) {
         PropertyInfo propertyInfo(i.key());
-        propertiesObject[propertyInfo.name()] = QJsonValue::fromVariant(properties[i.key()]);
+        propertiesObject[propertyInfo.name()] = QJsonValue::fromVariant(i.value());
     }
 
     rootObject[QStringLiteral("path")] = QJsonValue(data.inputUrl());
