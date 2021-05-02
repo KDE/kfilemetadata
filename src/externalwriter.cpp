@@ -41,7 +41,7 @@ ExternalWriter::~ExternalWriter()
 }
 
 ExternalWriter::ExternalWriter(const QString& pluginPath)
-    : WriterPlugin(new QObject()),
+    : WriterPlugin(nullptr),
       d_ptr(new ExternalWriterPrivate)
 {
     Q_D(ExternalWriter);
