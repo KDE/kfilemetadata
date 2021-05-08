@@ -129,9 +129,7 @@ endif()
 # Config files
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5FileMetaData")
 
-if (IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
-    ki18n_install(po)
-endif()
+ki18n_install(po)
 
 if (BUILD_QCH)
     ecm_install_qch_export(
