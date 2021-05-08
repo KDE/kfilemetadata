@@ -124,6 +124,34 @@ void XmlExtractorTests::testXmlExtractorNoContent()
     QVERIFY(result.text().isEmpty());
 }
 
+void XmlExtractorTests::testXmlExtractorNoContentDcterms()
+{
+    XmlExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_dcterms.svg")),
+            QStringLiteral("image/svg"),
+            ExtractionResult::ExtractMetaData);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Image);
+
+    const auto properties = result.properties();
+    QCOMPARE(properties.size(), 6);
+    QCOMPARE(properties.value(Property::Description).toString(),
+             QStringLiteral("A test document for Dublin Core Terms namespace"));
+    QCOMPARE(properties.value(Property::Title).toString(), QStringLiteral("Document Title"));
+    QCOMPARE(properties.value(Property::Author).toString(), QStringLiteral("Stefan Brüns"));
+    QCOMPARE(properties.value(Property::Language).toString(), QStringLiteral("en"));
+
+    const auto subjects = QVariantList(properties.lowerBound(Property::Subject),
+                                       properties.upperBound(Property::Subject));
+    QCOMPARE(subjects.size(), 2);
+    QCOMPARE(subjects, QVariantList({QStringLiteral("Testing"), QStringLiteral("Dublin Core")}));
+
+    QVERIFY(result.text().isEmpty());
+}
+
 void XmlExtractorTests::testXmlExtractorContainer()
 {
     XmlExtractor plugin{this};

@@ -24,6 +24,7 @@ private Q_SLOTS:
     void benchMarkXmlExtractor();
     void testXmlExtractor();
     void testXmlExtractorNoContent();
+    void testXmlExtractorNoContentDcterms();
     void testXmlExtractorContainer();
     void testXmlExtractorMathML();
 };

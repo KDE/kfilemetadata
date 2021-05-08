@@ -67,6 +67,7 @@ private Q_SLOTS:
             { "test.ts",                       "video/mp2t"},
             { "test.wav",                      "audio/x-wav"},
             { "test.webm",                     "video/webm"},
+            { "test_dcterms.svg",              "image/svg+xml"},
             { "test_with_container.svg",       "image/svg+xml"},
             { "test_with_metadata.svg",        "image/svg+xml"},
             { "test.wma",                      "audio/x-ms-wma"},
