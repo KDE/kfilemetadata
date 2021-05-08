@@ -53,7 +53,7 @@ if(LibExiv2_FOUND)
 
 endif()
 
-if(FFMPEG_FOUND)
+if(AVCODEC_FOUND AND AVFORMAT_FOUND AND AVUTIL_FOUND)
     add_library(kfilemetadata_ffmpegextractor MODULE
         ffmpegextractor.cpp
         ../kfilemetadata_debug.cpp
