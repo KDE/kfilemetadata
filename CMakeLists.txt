@@ -81,11 +81,6 @@ set_package_properties(FFmpeg PROPERTIES DESCRIPTION "Video Tag reader"
                        URL "https://ffmpeg.org/" TYPE OPTIONAL
                        PURPOSE "Support for video metadata")
 
-if (FFmpeg_AVFORMAT_FOUND)
-    set(CMAKE_REQUIRED_INCLUDES ${AVCODEC_INCLUDE_DIRS})
-    CHECK_STRUCT_HAS_MEMBER(AVStream codecpar "stdint.h;libavformat/avformat.h" HAVE_AVSTREAM_CODECPAR LANGUAGE CXX)
-endif()
-
 find_package(EPub)
 set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
                        URL "https://sourceforge.net/projects/ebook-tools/" TYPE OPTIONAL
