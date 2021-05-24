@@ -83,4 +83,4 @@ Writers take in the properties to be changed via stdin and return JSON output wi
 
 ## Links
 - Mailing list: <https://mail.kde.org/mailman/listinfo/kde-devel>
-- IRC channel: #kde-devel on Freenode
+- IRC channel: #kde-devel on Libera Chat
