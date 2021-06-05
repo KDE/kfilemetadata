@@ -111,7 +111,8 @@ void ExtractorCollection::Private::findExtractors()
     // For external plugins, we look into the directories
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     for (const QString& externalPlugin : externalPluginEntryList) {
-        if (!QLibrary::isLibrary(externalPlugin)) {
+        if (QLibrary::isLibrary(externalPlugin)) {
+            qCDebug(KFILEMETADATA_LOG) << "Skipping library" << externalPlugin;
             continue;
         }
         if (externalPlugins.contains(externalPlugin)) {
