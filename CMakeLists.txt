@@ -69,10 +69,11 @@ set_package_properties(Taglib PROPERTIES
                        TYPE OPTIONAL
                        PURPOSE "Support for music metadata")
 
-find_package(LibExiv2 0.21)
-set_package_properties(LibExiv2 PROPERTIES
-                       TYPE OPTIONAL
-                       PURPOSE "Support for image metadata")
+# Disabled until upstream is ported away from std::auto_ptr...
+#find_package(LibExiv2 0.21)
+#set_package_properties(LibExiv2 PROPERTIES
+                       #TYPE OPTIONAL
+                       #PURPOSE "Support for image metadata")
 
 find_package(FFmpeg 57.48 COMPONENTS AVCODEC)
 find_package(FFmpeg 57.40 COMPONENTS AVFORMAT)
