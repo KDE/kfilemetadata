@@ -118,6 +118,11 @@ if(LibExiv2_FOUND)
         TEST_NAME "exiv2extractortest"
         LINK_LIBRARIES Qt5::Test KF5::FileMetaData LibExiv2::LibExiv2
     )
+    if (${LibExiv2_VERSION} VERSION_GREATER 0.27.4)
+        # exiv2 doesn't build [yet] with C++17 so force C++14
+        message(AUTHOR_WARNING "hello developer of the future, please check if with > 0.27.4 we can stop forcing CXX_STANDARD 14")
+    endif()
+    set_target_properties(exiv2extractortest PROPERTIES CXX_STANDARD 14)
     target_include_directories(exiv2extractortest PRIVATE ${CMAKE_BINARY_DIR}/src/extractors)
 endif()
 
