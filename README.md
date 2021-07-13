@@ -4,7 +4,7 @@
 
 KFileMetaData provides a simple library for extracting the text and metadata
 from a number of different files. This library is typically used by file
-indexers to retreive the metadata. This library can also be used by applications to write metadata.
+indexers to retrieve the metadata. This library can also be used by applications to write metadata.
 
 ## Using the library
 
@@ -14,7 +14,7 @@ they will populate with the information.
 
 For convenience a `SimpleResult` class has been provided which stores all the
 data in memory and allows it to be introspected later. Most clients *should*
-implement thier own `ExtractionResult` as the data can get quite large when
+implement their own `ExtractionResult` as the data can get quite large when
 extracting the text content from very large files.
 
 The library also supports plugins that write back data.

@@ -23,7 +23,7 @@ public:
     /**
       * Extract DC metadata from an XML fragment
       *
-      * Prerequsites:
+      * Prerequisites:
       * - DC element nodes are immediate children to \p fragment
       * - The \c QDomDocument has been parsed with enabled namespaceProcessing
       *
