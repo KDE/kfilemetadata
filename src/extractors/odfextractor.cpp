@@ -130,8 +130,9 @@ void OdfExtractor::extract(ExtractionResult* result)
                         result->add(Property::Generator, e.text());
                     } else if (localName == QLatin1String("creation-date")) {
                         QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
-                        if (!dt.isNull())
+                        if (!dt.isNull()) {
                             result->add(Property::CreationDate, dt);
+                        }
                     }
                 }
             }
@@ -169,7 +170,8 @@ void OdfExtractor::extract(ExtractionResult* result)
             result->append(str);
         }
 
-        if (xml.hasError() || xml.isEndDocument())
+        if (xml.hasError() || xml.isEndDocument()) {
             break;
+        }
     }
 }

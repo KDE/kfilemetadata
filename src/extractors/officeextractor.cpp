@@ -77,8 +77,9 @@ void OfficeExtractor::extract(ExtractionResult* result)
         contents = textFromFile(fileUrl, m_catppt, args);
     }
 
-    if (contents.isEmpty())
+    if (contents.isEmpty()) {
         return;
+    }
 
     result->append(contents);
 
@@ -96,8 +97,9 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
     process.start(command, arguments, QIODevice::ReadOnly);
     process.waitForFinished();
 
-    if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0)
+    if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0) {
         return QString();
-    else
+    } else {
         return QString::fromUtf8(process.readAll());
+    }
 }

@@ -179,8 +179,9 @@ void Office2007Extractor::extract(ExtractionResult* result)
     if (rootEntries.contains(QStringLiteral("word"))) {
         result->addType(Type::Document);
 
-        if (!extractPlainText)
+        if (!extractPlainText) {
             return;
+        }
 
         const KArchiveEntry* wordEntry = rootDir->entry(QStringLiteral("word"));
         if (!wordEntry->isDirectory()) {
@@ -205,8 +206,9 @@ void Office2007Extractor::extract(ExtractionResult* result)
         result->addType(Type::Document);
         result->addType(Type::Spreadsheet);
 
-        if (!extractPlainText)
+        if (!extractPlainText) {
             return;
+        }
 
         const KArchiveEntry* xlEntry = rootDir->entry(QStringLiteral("xl"));
         if (!xlEntry->isDirectory()) {
@@ -222,8 +224,9 @@ void Office2007Extractor::extract(ExtractionResult* result)
         result->addType(Type::Document);
         result->addType(Type::Presentation);
 
-        if (!extractPlainText)
+        if (!extractPlainText) {
             return;
+        }
 
         const KArchiveEntry* pptEntry = rootDir->entry(QStringLiteral("ppt"));
         if (!pptEntry->isDirectory()) {
@@ -247,8 +250,9 @@ void Office2007Extractor::extractAllText(QIODevice* device, ExtractionResult* re
             result->append(str);
         }
 
-        if (xml.isEndDocument() || xml.hasError())
+        if (xml.isEndDocument() || xml.hasError()) {
             break;
+        }
     }
 }
 
@@ -288,7 +292,8 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
             }
         }
 
-        if (xml.isEndDocument() || xml.hasError())
+        if (xml.isEndDocument() || xml.hasError()) {
             break;
+        }
     }
 }

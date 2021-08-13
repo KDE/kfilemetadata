@@ -38,8 +38,9 @@ const QStringList fetchMetadata(struct epub* e, const epub_metadata& type)
         for (int i = 0; i < size; i++) {
             // skip nullptr entries, can happen for broken xml files
             // also skip empty entries
-            if (!data[i] || !data[i][0])
+            if (!data[i] || !data[i][0]) {
                 continue;
+            }
 
             strList << QString::fromUtf8((char*)data[i]);
             free(data[i]);
@@ -93,8 +94,9 @@ void EPubExtractor::extract(ExtractionResult* result)
             // Name is provided as "<name>(<file-as>)" when opf:file-as property
             // is specified, "<name>(<name>)" otherwise. Strip the last part
             int index = value.indexOf(QLatin1Char('('));
-            if (index > 0)
+            if (index > 0) {
                 value = value.mid(0, index);
+            }
 
             result->add(Property::Author, value);
         }
@@ -142,8 +144,9 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (auto iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0)) {
             do {
                 char* curr = epub_it_get_curr(iter);
-                if (!curr)
+                if (!curr) {
                     continue;
+                }
 
                 QString html = QString::fromUtf8(curr);
                 html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));

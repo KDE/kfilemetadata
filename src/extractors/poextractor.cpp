@@ -51,9 +51,13 @@ void POExtractor::handleComment(const char* data, quint32 length)
 
 void POExtractor::handleLine(const char* data, quint32 length)
 {
-    if (state == ERROR) return;
+    if (state == ERROR) {
+        return;
+    }
     if (state == WHITESPACE) {
-        if (length == 0) return;
+        if (length == 0) {
+            return;
+        }
         if (data[0] != '#') {
             state = COMMENT; //this allows PO files w/o comments
         } else {

@@ -65,8 +65,9 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
             }
             // Make sure the same plugin is not loaded twice, even if it
             // installed in two different locations
-            if (plugins.contains(fileName))
+            if (plugins.contains(fileName)) {
                 continue;
+            }
 
             plugins << fileName;
             pluginPaths << dir.absoluteFilePath(fileName);
@@ -81,8 +82,9 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
         if (!QLibrary::isLibrary(externalPlugin)) {
             continue;
         }
-        if (externalPlugins.contains(externalPlugin))
+        if (externalPlugins.contains(externalPlugin)) {
             continue;
+        }
 
         externalPlugins << externalPlugin;
         externalPluginPaths << externalPluginDir.absoluteFilePath(externalPlugin);

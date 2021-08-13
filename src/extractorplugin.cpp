@@ -111,17 +111,21 @@ QStringList ExtractorPlugin::contactsFromString(const QString& string)
     cleanedString = cleanedString.remove(QLatin1Char('}'));
 
     QStringList contactStrings = string.split(QLatin1Char(','), Qt::SkipEmptyParts);
-    if (contactStrings.size() == 1)
+    if (contactStrings.size() == 1) {
         contactStrings = string.split(QLatin1Char(';'), Qt::SkipEmptyParts);
+    }
 
-    if (contactStrings.size() == 1)
+    if (contactStrings.size() == 1) {
         contactStrings = string.split(QStringLiteral(" ft "), Qt::SkipEmptyParts);
+    }
 
-    if (contactStrings.size() == 1)
+    if (contactStrings.size() == 1) {
         contactStrings = string.split(QStringLiteral(" feat. "), Qt::SkipEmptyParts);
+    }
 
-    if (contactStrings.size() == 1)
+    if (contactStrings.size() == 1) {
         contactStrings = string.split(QStringLiteral(" feat "), Qt::SkipEmptyParts);
+    }
 
     QStringList list;
     list.reserve(contactStrings.count());

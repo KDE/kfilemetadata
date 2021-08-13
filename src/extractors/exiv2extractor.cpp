@@ -73,8 +73,9 @@ QVariant toVariantLong(const Exiv2::Value& value)
     QString str(toString(value));
     bool ok = false;
     int val = str.toInt(&ok);
-    if (ok)
+    if (ok) {
         return QVariant(val);
+    }
 
     return QVariant();
 }
@@ -89,8 +90,9 @@ QVariant toVariantDouble(const Exiv2::Value& value)
     QString str(toString(value));
     bool ok = false;
     double val = str.toDouble(&ok);
-    if (ok)
+    if (ok) {
         return QVariant(val);
+    }
 
     return QVariant();
 }
@@ -98,8 +100,9 @@ QVariant toVariantDouble(const Exiv2::Value& value)
 QVariant toVariantString(const Exiv2::Value& value)
 {
     QString str = toString(value);
-    if (!str.isEmpty())
+    if (!str.isEmpty()) {
         return QVariant(str);
+    }
 
     return QVariant();
 }
@@ -204,12 +207,14 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     double altitude = fetchGpsAltitude(data);
 
     QByteArray latRef = fetchByteArray(data, "Exif.GPSInfo.GPSLatitudeRef");
-    if (!latRef.isEmpty() && latRef[0] == 'S')
+    if (!latRef.isEmpty() && latRef[0] == 'S') {
         latitude *= -1;
+    }
 
     QByteArray longRef = fetchByteArray(data, "Exif.GPSInfo.GPSLongitudeRef");
-    if (!longRef.isEmpty() && longRef[0] == 'W')
+    if (!longRef.isEmpty() && longRef[0] == 'W') {
         longitude *= -1;
+    }
 
     if (!std::isnan(latitude)) {
         result->add(Property::PhotoGpsLatitude, latitude);
@@ -231,8 +236,9 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end()) {
         QVariant value = toVariant(it->value(), type);
-        if (!value.isNull())
+        if (!value.isNull()) {
             result->add(prop, value);
+        }
     }
 }
 

@@ -104,17 +104,21 @@ void FFmpegExtractor::extract(ExtractionResult* result)
                           codec->height * avSampleAspectRatio.den,
                           1024*1024);
                 double displayAspectRatio = avDisplayAspectRatio.num;
-                if (avDisplayAspectRatio.den)
+                if (avDisplayAspectRatio.den) {
                     displayAspectRatio /= avDisplayAspectRatio.den;
-                if (displayAspectRatio)
+                }
+                if (displayAspectRatio) {
                     result->add(Property::AspectRatio, displayAspectRatio);
+                }
 
                 AVRational avFrameRate = av_guess_frame_rate(fmt_ctx, stream, nullptr);
                 double frameRate = avFrameRate.num;
-                if (avFrameRate.den)
+                if (avFrameRate.den) {
                     frameRate /= avFrameRate.den;
-                if (frameRate)
+                }
+                if (frameRate) {
                     result->add(Property::FrameRate, frameRate);
+                }
             }
         }
 
@@ -158,8 +162,9 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
             bool ok = false;
             int track = value.toInt(&ok);
-            if (ok && track)
+            if (ok && track) {
                 result->add(Property::TrackNumber, track);
+            }
         }
 
         entry = av_dict_get(dict, "year", nullptr, 0);
