@@ -33,7 +33,7 @@ ecm_setup_version(PROJECT
                   SOVERSION 3)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 5.15.0)
+set(REQUIRED_QT_VERSION 5.15.2)
 
 find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Gui)
 set_package_properties(Qt5Gui PROPERTIES DESCRIPTION "Qt 5: Gui component"
@@ -116,7 +116,7 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
                        PURPOSE "Needed to build the AppImage extractor"
                        )
 
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00) # TODO look into the QMap::insertMulti usage
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050f02) # TODO look into the QMap::insertMulti usage
 add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055100)
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
 add_subdirectory(src)
