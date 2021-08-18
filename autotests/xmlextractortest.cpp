@@ -73,7 +73,7 @@ void XmlExtractorTests::benchMarkXmlExtractor()
 
     QString content = QStringLiteral("foo bar\n");
     content.replace(QLatin1Char('\n'), QLatin1Char(' '));
-    QCOMPARE(result.text().leftRef(8), content.leftRef(8));
+    QCOMPARE(result.text().left(8), content.left(8));
     QCOMPARE(result.text().size(), 8 * count);
 
     QBENCHMARK {

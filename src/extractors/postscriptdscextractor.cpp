@@ -55,16 +55,19 @@ void DscExtractor::extract(ExtractionResult* result)
             continue;
         }
 
-        if (line.startsWith(QLatin1String("%%Pages:"))) {
+        if (const auto tag = QLatin1String("%%Pages:"); line.startsWith(tag)) {
             bool ok = false;
-            int pages = line.midRef(8).toInt(&ok, 10);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            int pages = QStringView(line).mid(tag.size()).toInt(&ok, 10);
+#else
+            int pages = line.midRef(tag.size()).toInt(&ok, 10);
+#endif
             if (ok) {
                 result->add(Property::PageCount, pages);
             }
 
-        } else if (line.startsWith(QLatin1String("%%Title:"))) {
-            QStringRef title = line.midRef(8);
-            title = title.trimmed();
+        } else if (const auto tag = QLatin1String("%%Title:"); line.startsWith(tag)) {
+            QStringView title = QStringView(line).mid(tag.size()).trimmed();
             if (title.startsWith(QLatin1Char('(')) && title.endsWith(QLatin1Char(')'))) {
                 title = title.mid(1, title.size() - 2);
             }
@@ -72,10 +75,9 @@ void DscExtractor::extract(ExtractionResult* result)
                 result->add(Property::Title, title.toString());
             }
 
-        } else if (line.startsWith(QLatin1String("%%CreationDate:"))) {
+        } else if (const auto tag = QLatin1String("%%CreationDate:"); line.startsWith(tag)) {
             // "Neither the date nor time need be in any standard format."
-            QStringRef date = line.midRef(15);
-            date = date.trimmed();
+            QStringView date = QStringView(line).mid(tag.size()).trimmed();
             if (date.startsWith(QLatin1Char('(')) && date.endsWith(QLatin1Char(')'))) {
                 date = date.mid(1, date.size() - 2);
                 date = date.trimmed();
@@ -84,7 +86,7 @@ void DscExtractor::extract(ExtractionResult* result)
                 // Standard PDF date format, ASN.1 like - (D:YYYYMMDDHHmmSSOHH'mm')
                 auto dt = QDateTime::fromString(date.mid(2, 14).toString(), QLatin1String("yyyyMMddhhmmss"));
                 auto offset = QTime::fromString(date.mid(17, 5).toString(), QLatin1String("hh'\\''mm"));
-                if (date.mid(16,1) == QLatin1String("+")) {
+                if (date.at(16) == QLatin1Char('+')) {
                     dt.setOffsetFromUtc(QTime(0, 0).secsTo(offset));
                 } else {
                     dt.setOffsetFromUtc(-1 * QTime(0, 0).secsTo(offset));
