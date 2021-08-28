@@ -49,7 +49,7 @@ int main(int argc, char** argv)
     QTextStream out(stdout);
     out << url << " " << mimetype << "\n";
 
-    for (KFileMetaData::Extractor* ex : qAsConst(exList)) {
+    for (KFileMetaData::Extractor* ex : std::as_const(exList)) {
         out << "\tExtractor For: " << ex->mimetypes().join(QLatin1Char(' ')) << "\n";
 
         KFileMetaData::SimpleExtractionResult result(url, mimetype, extractionLevel);

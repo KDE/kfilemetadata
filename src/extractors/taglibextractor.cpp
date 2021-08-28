@@ -357,7 +357,7 @@ extractId3Cover(const TagLib::ID3v2::Tag* Id3Tags,
     TagLib::ID3v2::FrameList lstID3v2 = Id3Tags->frameListMap()["APIC"];
 
     using PictureFrame = TagLib::ID3v2::AttachedPictureFrame;
-    for (const auto& frame : qAsConst(lstID3v2)) {
+    for (const auto& frame : std::as_const(lstID3v2)) {
         const auto *coverFrame = static_cast<PictureFrame *>(frame);
         const auto imageType = mapTaglibType<PictureFrame::Type>(coverFrame->type());
         if (types & imageType) {
@@ -377,7 +377,7 @@ extractFlacCover(const TagLib::List<TagLib::FLAC::Picture *> picList,
         return images;
     }
 
-    for (const auto& picture : qAsConst(picList)) {
+    for (const auto& picture : std::as_const(picList)) {
         const auto imageType = mapTaglibType<TagLib::FLAC::Picture::Type>(picture->type());
         if (types & imageType) {
             images.insert(imageType, QByteArray(picture->data().data(), picture->data().size()));
@@ -509,7 +509,7 @@ extractAsfCover(const TagLib::ASF::Tag* asfTags,
     TagLib::ASF::AttributeList lstASF = asfTags->attribute("WM/Picture");
 
     using Picture = TagLib::ASF::Picture;
-    for (const auto& attribute: qAsConst(lstASF)) {
+    for (const auto& attribute: std::as_const(lstASF)) {
         Picture picture = attribute.toPicture();
         const auto imageType = mapTaglibType<Picture::Type>(picture.type());
         if (types & imageType) {

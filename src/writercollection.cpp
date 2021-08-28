@@ -91,7 +91,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
     }
     externalPlugins.clear();
 
-    for (const QString& pluginPath : qAsConst(pluginPaths)) {
+    for (const QString& pluginPath : std::as_const(pluginPaths)) {
         QPluginLoader loader(pluginPath);
 
         if (!loader.load()) {
@@ -119,7 +119,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
         }
     }
 
-    for (const QString& externalPluginPath : qAsConst(externalPluginPaths)) {
+    for (const QString& externalPluginPath : std::as_const(externalPluginPaths)) {
         ExternalWriter *plugin = new ExternalWriter(externalPluginPath);
         Writer writer;
         writer.d->m_plugin = plugin;

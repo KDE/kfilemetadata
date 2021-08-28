@@ -195,7 +195,7 @@ void writeID3v2Cover(TagLib::ID3v2::Tag *id3Tags,
 
     // Update existing covers
     TagLib::ID3v2::FrameList lstID3v2 = id3Tags->frameListMap()["APIC"];
-    for (auto& frame : qAsConst(lstID3v2)) {
+    for (auto& frame : std::as_const(lstID3v2)) {
         auto* coverFrame = static_cast<PictureFrame *>(frame);
         const auto kfmType = mapTaglibType<PictureFrame::Type>(coverFrame->type());
         if (kfmType & wantedTypes) {
