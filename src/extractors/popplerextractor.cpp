@@ -10,6 +10,7 @@
 
 #include <QScopedPointer>
 #include <QDebug>
+#include <QDateTime>
 
 using namespace KFileMetaData;
 
@@ -40,31 +41,29 @@ void PopplerExtractor::extract(ExtractionResult* result)
     result->addType(Type::Document);
 
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
-        QString title = pdfDoc->info(QStringLiteral("Title")).trimmed();
-
+        const QString title = pdfDoc->title();
         if (!title.isEmpty()) {
             result->add(Property::Title, title);
         }
 
-        QString subject = pdfDoc->info(QStringLiteral("Subject"));
+        const QString subject = pdfDoc->subject();
         if (!subject.isEmpty()) {
             result->add(Property::Subject, subject);
         }
 
-        QString author = pdfDoc->info(QStringLiteral("Author"));
+        const QString author = pdfDoc->author();
         if (!author.isEmpty()) {
             result->add(Property::Author, author);
         }
 
-        QString generator = pdfDoc->info(QStringLiteral("Producer"));
+        const QString generator = pdfDoc->producer();
         if (!generator.isEmpty()) {
             result->add(Property::Generator, generator);
         }
 
-        QString creationDate = pdfDoc->info(QStringLiteral("CreationDate"));
-        if (!creationDate.isEmpty()) {
-            QByteArray utf8 = creationDate.toUtf8();
-            result->add(Property::CreationDate, Poppler::convertDate(utf8.data()));
+        const QDateTime creationDate = pdfDoc->creationDate();
+        if (!creationDate.isNull()) {
+            result->add(Property::CreationDate, creationDate);
         }
     }
 
