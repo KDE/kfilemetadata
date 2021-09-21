@@ -65,6 +65,11 @@ void PopplerExtractor::extract(ExtractionResult* result)
         if (!creationDate.isNull()) {
             result->add(Property::CreationDate, creationDate);
         }
+
+        const int numPages = pdfDoc->numPages();
+        if (numPages > 0) {
+            result->add(Property::PageCount, numPages);
+        }
     }
 
     if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {

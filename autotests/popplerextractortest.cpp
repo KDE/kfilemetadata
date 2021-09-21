@@ -57,12 +57,12 @@ void PopplerExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("PDF Metadata")));
     QCOMPARE(result.properties().value(Property::Generator), QVariant(QStringLiteral("LibreOffice 4.2")));
-
+    QCOMPARE(result.properties().value(Property::PageCount), 1);
     QDateTime dt(QDate(2014, 07, 01), QTime(13, 38, 50));
     dt.setTimeSpec(Qt::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
-    QCOMPARE(result.properties().size(), 5);
+    QCOMPARE(result.properties().size(), 6);
 }
 
 void PopplerExtractorTest::testMetaDataOnly()
@@ -74,7 +74,7 @@ void PopplerExtractorTest::testMetaDataOnly()
 
     QCOMPARE(result.types().size(), 1);
     QVERIFY(result.text().isEmpty());
-    QCOMPARE(result.properties().size(), 5);
+    QCOMPARE(result.properties().size(), 6);
 
 }
 
