@@ -25,7 +25,7 @@ class KFILEMETADATA_EXPORT WriterPlugin : public QObject
     Q_OBJECT
 public:
     explicit WriterPlugin(QObject* parent);
-    virtual ~WriterPlugin();
+    ~WriterPlugin() override;
 
     virtual QStringList writeMimetypes() const = 0;
 

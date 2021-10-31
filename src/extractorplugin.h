@@ -35,7 +35,7 @@ class KFILEMETADATA_EXPORT ExtractorPlugin : public QObject
     Q_OBJECT
 public:
     explicit ExtractorPlugin(QObject* parent);
-    virtual ~ExtractorPlugin();
+    ~ExtractorPlugin() override;
 
     /**
      * Provide a list of mimetypes which are supported by this plugin.
