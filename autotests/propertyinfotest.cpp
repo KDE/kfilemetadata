@@ -100,7 +100,7 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
     } rows[] = {
         { Property::DiscNumber,             true,  2018,                    QStringLiteral("2018")},
         { Property::Title,                  false, QStringLiteral("Title"), QStringLiteral("Title")},
-        { Property::Title,                  false, titleList,               QStringLiteral("Title1 and Title2")},
+        { Property::Title,                  true,  titleList,               QStringLiteral("Title1 and Title2")},
         { Property::Artist,                 true,  artistList,              QStringLiteral("Artist1, Artist2, and Artist3")},
         { Property::Author,                 true,  authorList,              QStringLiteral("Author1")},
         { Property::Arranger,               true,  arrangerList,            QStringLiteral("Arranger1 and Arranger2")},
