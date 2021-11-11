@@ -383,6 +383,11 @@ enum Property {
 
 typedef QMap<Property::Property, QVariant> PropertyMap;
 
+#if QT_DEPRECATED_SINCE(5, 15)
+QT_WARNING_PUSH
+QT_WARNING_DISABLE_CLANG("-Wdeprecated-declarations")
+QT_WARNING_DISABLE_GCC("-Wdeprecated-declarations")
+
 inline QVariantMap toVariantMap(const PropertyMap& propMap) {
     QVariantMap varMap;
     PropertyMap::const_iterator it = propMap.constBegin();
@@ -404,6 +409,8 @@ inline PropertyMap toPropertyMap(const QVariantMap& varMap) {
 
     return propMap;
 }
+QT_WARNING_POP
+#endif
 
 } // namespace KFileMetaData
 
