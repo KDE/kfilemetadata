@@ -12,7 +12,7 @@
 #include "kfilemetadata_export.h"
 
 #include <QString>
-#include <QMap>
+#include <QMultiMap>
 #include <QVariant>
 
 #include "embeddedimagedata.h"
@@ -40,7 +40,15 @@ public:
     void add(Property::Property property, const QVariant& value);
     void addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray>& images);
 
+    /// @since 5.89
+    PropertyMultiMap properties() const;
+
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 89)
+    /// @seprecated Since 5.89, use properties() instead
+    KFILEMETADATA_DEPRECATED_VERSION(5, 89, "Use properties() instead")
     QMap<Property::Property, QVariant> getAllProperties() const;
+#endif
+
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:

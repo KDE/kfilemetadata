@@ -89,7 +89,7 @@ void ExternalWriter::write(const WriteData& data)
     QByteArray output;
     QByteArray errorOutput;
 
-    const QMap<Property::Property, QVariant> properties = data.getAllProperties();
+    const PropertyMultiMap properties = data.properties();
 
     for (auto i = properties.constBegin(); i != properties.constEnd(); ++i) {
         PropertyInfo propertyInfo(i.key());

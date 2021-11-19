@@ -382,6 +382,7 @@ enum Property {
 } // namespace Property
 
 typedef QMap<Property::Property, QVariant> PropertyMap;
+using PropertyMultiMap = QMultiMap<Property::Property, QVariant>;
 
 #if QT_DEPRECATED_SINCE(5, 15)
 QT_WARNING_PUSH

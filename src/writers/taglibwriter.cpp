@@ -507,7 +507,7 @@ QStringList TagLibWriter::writeMimetypes() const
 void TagLibWriter::write(const WriteData& data)
 {
     const QString fileUrl = data.inputUrl();
-    const PropertyMap properties = data.getAllProperties();
+    const PropertyMap properties = data.properties();
     const QString mimeType = data.inputMimetype();
 
 #if defined Q_OS_WINDOWS

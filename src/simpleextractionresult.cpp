@@ -11,7 +11,7 @@ using namespace KFileMetaData;
 class Q_DECL_HIDDEN SimpleExtractionResult::Private
 {
 public:
-    PropertyMap m_properties;
+    PropertyMultiMap m_properties;
     QString m_text;
     QVector<Type::Type> m_types;
 };
@@ -47,7 +47,7 @@ bool SimpleExtractionResult::operator==(const SimpleExtractionResult& rhs) const
 
 void SimpleExtractionResult::add(Property::Property property, const QVariant& value)
 {
-    d->m_properties.insertMulti(property, value);
+    d->m_properties.insert(property, value);
 }
 
 void SimpleExtractionResult::addType(Type::Type type)
@@ -61,7 +61,14 @@ void SimpleExtractionResult::append(const QString& text)
     d->m_text.append(QLatin1Char(' '));
 }
 
+#if KFILEMETADATA_BUILD_DEPRECATED_SINCE(5, 89)
 PropertyMap SimpleExtractionResult::properties() const
+{
+    return d->m_properties;
+}
+#endif
+
+PropertyMultiMap SimpleExtractionResult::properties(PropertiesMapType) const
 {
     return d->m_properties;
 }

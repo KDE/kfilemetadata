@@ -12,6 +12,7 @@
 #include <QString>
 
 namespace KFileMetaData {
+enum PropertiesMapType { MultiMap };
 
 /**
  * \class SimpleExtractionResult simpleextractionresult.h <KFileMetaData/SimpleExtractionResult>
@@ -37,7 +38,29 @@ public:
     void addType(Type::Type type) override;
     void append(const QString& text) override;
 
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 89)
+    /// @deprecated Since 5.89, use properties(PropertiesMapType) overload instead
+    KFILEMETADATA_DEPRECATED_VERSION(5, 89, "Use properties(PropertiesMapType) overload instead")
     PropertyMap properties() const;
+#endif
+
+    /**
+     * Returns the properties of the extraction result.
+     * Because QMap::insertMulti is deprecated, this overload returns a QMultiMap.
+     * To automaticalls use the overload with the default value, define the KFILEMETADATA_DISABLE_DEPRECATED_BEFORE_AND_AT
+     * in the cmake code to the deprecating version of this method or greater.
+     * For example:
+     * @code
+     * add_definitions(-DKFILEMETADATA_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055900)
+     * @endcode
+     * @since 5.89
+     */
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 89)
+    PropertyMultiMap properties(PropertiesMapType) const;
+#else
+    PropertyMultiMap properties(PropertiesMapType = PropertiesMapType::MultiMap) const;
+#endif
+
     QString text() const;
     QVector<Type::Type> types() const;
 

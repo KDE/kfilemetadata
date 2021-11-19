@@ -235,8 +235,8 @@ void TagLibExtractorTest::testVorbisCommentMultivalue()
     SimpleExtractionResult result(testFilePath(fileName), mimeType);
     plugin.extract(&result);
 
-    QCOMPARE(result.properties().values(Property::Artist), QVariantList({QStringLiteral("Artist1"), QStringLiteral("Artist2")}));
-    QCOMPARE(result.properties().values(Property::Genre), QVariantList({QStringLiteral("Genre1"), QStringLiteral("Genre2")}));
+    QCOMPARE(result.properties(KFileMetaData::MultiMap).values(Property::Artist), QVariantList({QStringLiteral("Artist1"), QStringLiteral("Artist2")}));
+    QCOMPARE(result.properties(KFileMetaData::MultiMap).values(Property::Genre), QVariantList({QStringLiteral("Genre1"), QStringLiteral("Genre2")}));
 }
 
 void TagLibExtractorTest::testVorbisCommentMultivalue_data()
@@ -610,7 +610,7 @@ void  TagLibExtractorTest::testNoMetadata()
     SimpleExtractionResult extracted(path, mimeType);
     plugin.extract(&extracted);
 
-    const auto resultList = extracted.properties();
+    const auto resultList = extracted.properties(KFileMetaData::MultiMap);
     const auto resultKeys = resultList.uniqueKeys();
 
     const QSet<KFileMetaData::Property::Property> resultKeySet(resultKeys.begin(), resultKeys.end());

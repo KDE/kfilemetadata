@@ -17,7 +17,7 @@ class Q_DECL_HIDDEN WriteData::WriteDataPrivate
 public:
     QString url;
     QString mimetype;
-    PropertyMap properties;
+    PropertyMultiMap properties;
     QMap<EmbeddedImageData::ImageType, QByteArray> images;
 };
 
@@ -53,7 +53,7 @@ bool WriteData::operator==(const WriteData& rhs) const
 void WriteData::add(Property::Property property, const QVariant& value)
 {
     Q_D(WriteData);
-    d->properties.insertMulti(property, value);
+    d->properties.insert(property, value);
 }
 
 void WriteData::addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray>& images)
@@ -85,9 +85,16 @@ QString WriteData::inputMimetype() const
     return d->mimetype;
 }
 
-PropertyMap WriteData::getAllProperties() const
+PropertyMultiMap WriteData::properties() const
 {
     Q_D(const WriteData);
     return d->properties;
 }
 
+#if KFILEMETADATA_BUILD_DEPRECATED_SINCE(5, 89)
+PropertyMap WriteData::getAllProperties() const
+{
+    Q_D(const WriteData);
+    return d->properties;
+}
+#endif

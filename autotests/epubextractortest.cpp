@@ -87,7 +87,7 @@ void EPubExtractorTest::testRepeated()
     QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));
     QCOMPARE(result.properties().value(Property::Publisher), QVariant(QStringLiteral("Happy Publisher")));
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
-    QCOMPARE(result.properties().values(Property::Subject),
+    QCOMPARE(result.properties(KFileMetaData::MultiMap).values(Property::Subject),
         QVariantList({QStringLiteral("Test with repeated keys"), QStringLiteral("Baloo KFileMetaData")})
     );
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
