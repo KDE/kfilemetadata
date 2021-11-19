@@ -385,10 +385,12 @@ typedef QMap<Property::Property, QVariant> PropertyMap;
 using PropertyMultiMap = QMultiMap<Property::Property, QVariant>;
 
 #if QT_DEPRECATED_SINCE(5, 15)
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 89)
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_CLANG("-Wdeprecated-declarations")
 QT_WARNING_DISABLE_GCC("-Wdeprecated-declarations")
 
+KFILEMETADATA_DEPRECATED_VERSION(5, 89, "Deprecated for lack of usage, manaully convert the data if needed")
 inline QVariantMap toVariantMap(const PropertyMap& propMap) {
     QVariantMap varMap;
     PropertyMap::const_iterator it = propMap.constBegin();
@@ -400,6 +402,7 @@ inline QVariantMap toVariantMap(const PropertyMap& propMap) {
     return varMap;
 }
 
+KFILEMETADATA_DEPRECATED_VERSION(5, 89, "Deprecated for lack of usage, manaully convert the data if needed")
 inline PropertyMap toPropertyMap(const QVariantMap& varMap) {
     PropertyMap propMap;
     QVariantMap::const_iterator it = varMap.constBegin();
@@ -411,6 +414,7 @@ inline PropertyMap toPropertyMap(const QVariantMap& varMap) {
     return propMap;
 }
 QT_WARNING_POP
+#endif
 #endif
 
 } // namespace KFileMetaData
