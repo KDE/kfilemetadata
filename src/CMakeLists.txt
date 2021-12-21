@@ -36,7 +36,7 @@ add_library(KF5::FileMetaData ALIAS KF5FileMetaData)
 
 target_link_libraries(KF5FileMetaData
   PUBLIC
-    Qt5::Core
+    Qt${QT_MAJOR_VERSION}::Core
   PRIVATE
     KF5::I18n
     KF5::CoreAddons
@@ -58,7 +58,7 @@ set_target_properties(KF5FileMetaData PROPERTIES
     EXPORT_NAME FileMetaData
 )
 
-target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData>")
+target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData>")
 
 ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     HEADER_NAMES
@@ -93,12 +93,12 @@ install(EXPORT KF5FileMetaDataTargets
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h
     ${KF5FileMetaData_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData/kfilemetadata COMPONENT Devel
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData/kfilemetadata COMPONENT Devel
 )
 
 install(FILES
     ${KF5FileMetaData_CamelCase_HEADERS}
-    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData/KFileMetaData COMPONENT Devel
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData/KFileMetaData COMPONENT Devel
 )
 
 configure_file(config-kfilemetadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kfilemetadata.h)
@@ -137,7 +137,7 @@ ecm_generate_pri_file(
     LIB_NAME KF5FileMetaData
     DEPS "core"
     FILENAME_VAR PRI_FILENAME
-    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF5}/KFileMetaData
+    INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData
 )
 install(FILES ${PRI_FILENAME} DESTINATION ${ECM_MKSPECS_INSTALL_DIR})
 

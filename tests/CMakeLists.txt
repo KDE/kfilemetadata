@@ -5,6 +5,6 @@ add_executable(dump dump.cpp)
 target_include_directories(dump  PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>")
 
 target_link_libraries(dump
-    Qt5::Core
+    Qt${QT_MAJOR_VERSION}::Core
     KF5FileMetaData
 )

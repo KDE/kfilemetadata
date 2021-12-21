@@ -100,6 +100,9 @@ add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp)
 target_link_libraries( kfilemetadata_plaintextextractor
     KF5::FileMetaData
 )
+if (TARGET Qt6::Core5Compat)
+    target_link_libraries(kfilemetadata_plaintextextractor Qt6::Core5Compat) # QTextCodec
+endif()
 
 set_target_properties(kfilemetadata_plaintextextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
 install(
@@ -129,8 +132,8 @@ add_library(kfilemetadata_xmlextractor MODULE
 )
 target_link_libraries( kfilemetadata_xmlextractor
     KF5::FileMetaData
-    Qt5::Core
-    Qt5::Xml
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Xml
 )
 
 set_target_properties(kfilemetadata_xmlextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
@@ -148,7 +151,7 @@ add_library(kfilemetadata_postscriptdscextractor MODULE
 )
 target_link_libraries( kfilemetadata_postscriptdscextractor
     KF5::FileMetaData
-    Qt5::Core
+    Qt${QT_MAJOR_VERSION}::Core
 )
 
 set_target_properties(kfilemetadata_postscriptdscextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf5/kfilemetadata")
@@ -166,8 +169,8 @@ if(KF5Archive_FOUND)
 
     target_link_libraries(kfilemetadata_odfextractor
         KF5::FileMetaData
-        Qt5::Core
-        Qt5::Xml
+        Qt${QT_MAJOR_VERSION}::Core
+        Qt${QT_MAJOR_VERSION}::Xml
         KF5::Archive
     )
 
@@ -186,8 +189,8 @@ if(KF5Archive_FOUND)
 
     target_link_libraries(kfilemetadata_office2007extractor
         KF5::FileMetaData
-        Qt5::Core
-        Qt5::Xml
+        Qt${QT_MAJOR_VERSION}::Core
+        Qt${QT_MAJOR_VERSION}::Xml
         KF5::Archive
     )
 
@@ -229,13 +232,13 @@ if (QMobipocket_FOUND)
 
 endif()
 
-if(libappimage_FOUND AND KF5Config_FOUND AND Qt5Gui_FOUND)
+if(libappimage_FOUND AND KF5Config_FOUND AND Qt${QT_MAJOR_VERSION}Gui_FOUND)
     add_library(kfilemetadata_appimageextractor MODULE appimageextractor.cpp )
     target_link_libraries( kfilemetadata_appimageextractor
         KF5::FileMetaData
         KF5::ConfigCore
-        Qt5::Xml
-        Qt5::Gui
+        Qt${QT_MAJOR_VERSION}::Xml
+        Qt${QT_MAJOR_VERSION}::Gui
         libappimage
     )
 
