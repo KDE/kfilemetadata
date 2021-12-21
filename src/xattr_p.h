@@ -260,7 +260,7 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
     #else
     const auto entries = data.split('\0');
     #endif
-    for (const auto entry : entries) {
+    for (const auto &entry : entries) {
         if (!entry.startsWith(prefix)) {
             continue;
         }
