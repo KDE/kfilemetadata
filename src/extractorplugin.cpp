@@ -85,10 +85,6 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
         dateTime.setTimeSpec(Qt::LocalTime);
     }
     if (!dateTime.isValid()) {
-        dateTime = QDateTime::fromString(dateString, Qt::SystemLocaleDate);
-        dateTime.setTimeSpec(Qt::UTC);
-    }
-    if (!dateTime.isValid()) {
         dateTime = QLocale().toDateTime(dateString, QLocale::ShortFormat);
         dateTime.setTimeSpec(Qt::UTC);
     }

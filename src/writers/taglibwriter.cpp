@@ -153,7 +153,7 @@ TagLib::String determineMimeType(const QByteArray &pictureData)
     }
 }
 
-void writeID3v2Tags(TagLib::ID3v2::Tag *id3Tags, const PropertyMap &newProperties)
+void writeID3v2Tags(TagLib::ID3v2::Tag *id3Tags, const PropertyMultiMap &newProperties)
 {
     if (newProperties.contains(Property::Rating)) {
         int rating = newProperties.value(Property::Rating).toInt();
@@ -268,7 +268,7 @@ void writeFlacCover(Container* tags,
     }
 }
 
-void writeApeTags(TagLib::PropertyMap &oldProperties, const PropertyMap &newProperties)
+void writeApeTags(TagLib::PropertyMap &oldProperties, const PropertyMultiMap &newProperties)
 {
     if (newProperties.contains(Property::Rating)) {
         oldProperties.replace("RATING", TagLib::String::number(newProperties.value(Property::Rating).toInt() * 10));
@@ -305,14 +305,14 @@ void writeApeCover(TagLib::APE::Tag* apeTags,
     apeTags->setData("COVER ART (FRONT)", imageData);
 }
 
-void writeVorbisTags(TagLib::PropertyMap &oldProperties, const PropertyMap &newProperties)
+void writeVorbisTags(TagLib::PropertyMap &oldProperties, const PropertyMultiMap &newProperties)
 {
     if (newProperties.contains(Property::Rating)) {
         oldProperties.replace("RATING", TagLib::String::number(newProperties.value(Property::Rating).toInt() * 10));
     }
 }
 
-void writeAsfTags(TagLib::ASF::Tag *asfTags, const PropertyMap &properties)
+void writeAsfTags(TagLib::ASF::Tag *asfTags, const PropertyMultiMap &properties)
 {
     if (properties.contains(Property::Rating)) {
         //map the rating values of WMP to Baloo rating
@@ -382,7 +382,7 @@ void writeAsfCover(TagLib::ASF::Tag* asfTags,
     }
     asfTags->setAttribute("WM/Picture", lstPic);
 }
-void writeMp4Tags(TagLib::MP4::Tag *mp4Tags, const PropertyMap &newProperties)
+void writeMp4Tags(TagLib::MP4::Tag *mp4Tags, const PropertyMultiMap &newProperties)
 {
     if (newProperties.contains(Property::Rating)) {
         mp4Tags->setItem("rate", TagLib::StringList(TagLib::String::number(newProperties.value(Property::Rating).toInt() * 10)));
@@ -415,7 +415,7 @@ void writeMp4Cover(TagLib::MP4::Tag *mp4Tags,
 
 } // anonymous namespace
 
-void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMap &newProperties)
+void writeGenericProperties(TagLib::PropertyMap &oldProperties, const PropertyMultiMap &newProperties)
 {
     if (newProperties.empty()) {
         return;
@@ -507,7 +507,7 @@ QStringList TagLibWriter::writeMimetypes() const
 void TagLibWriter::write(const WriteData& data)
 {
     const QString fileUrl = data.inputUrl();
-    const PropertyMap properties = data.properties();
+    const PropertyMultiMap properties = data.properties();
     const QString mimeType = data.inputMimetype();
 
 #if defined Q_OS_WINDOWS

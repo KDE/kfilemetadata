@@ -91,7 +91,7 @@ void TagLibWriterTest::testCommonData_data()
 {
     // Add some unicode characters, use codepoints to avoid any issues with
     // source encoding: "€µ"
-    static const QChar data[2] = { 0x20ac, 0xb5 };
+    static const QChar data[2] = { QChar(0x20ac), QChar(0xb5) };
     QString unicodeTestStringSuffix(data, 2);
 
     QTest::addColumn<QString>("fileType");
