@@ -8,34 +8,34 @@ indexers to retrieve the metadata. This library can also be used by applications
 
 ## Using the library
 
-In order to use the library you must implement your own `ExtractionResult`
+In order to use the library you must implement your own ExtractionResult
 class. Instances of this class will be passed to every applicable plugin and
 they will populate with the information.
 
-For convenience a `SimpleResult` class has been provided which stores all the
+For convenience a SimpleExtractionResult class has been provided which stores all the
 data in memory and allows it to be introspected later. Most clients *should*
-implement their own `ExtractionResult` as the data can get quite large when
+implement their own ExtractionResult as the data can get quite large when
 extracting the text content from very large files.
 
 The library also supports plugins that write back data.
 
 ## Extracting Metadata from a file
 
-This requires us to create a `ExtractionPluginManger` class, fetch the extractor
+This requires us to create a ExtractionPluginManager class, fetch the extractor
 plugins which are applicable for that file, and then pass the instance of
-`ExtractionResult` to each Extractor.
+ExtractionResult to each Extractor.
 
 A simple test example called `dump.cpp` has been written.
 
 ## Writing Metadata to a file
 
-This will require calling the `WriterCollection` class's fetchWriters() method with the mimetype of the file that needs to be written to. This method will return a list of writers, and to actually write metadata, a call to the write() method is required. The write() method accepts an instance of the `WriteData` class, which stores a mapping of the properties to be written and their values.
+This will require calling the WriterCollection class's fetchWriters() method with the mimetype of the file that needs to be written to. This method will return a list of writers, and to actually write metadata, a call to the write() method is required. The write() method accepts an instance of the WriteData class, which stores a mapping of the properties to be written and their values.
 
 ## Writing a custom file extractor
 
 The Metadata is extracted with the help of Extraction Plugins. Each plugin
 provides a list of mimetypes that it supports, and implements the extraction
-function which extracts the data and fills it in an `ExtractionResult`.
+function which extracts the data and fills it in an ExtractionResult.
 
 Most of the common file types are already provided by the library.
 
@@ -44,7 +44,7 @@ just be wrappers on top of existing libraries.
 
 ## Writing a custom metadata writer
 
-The writeback framework uses an approach similar to the extraction framework. Each writer plugin supports a list of mimetypes and implements the write function that takes in a `WriteData` object as input.
+The writeback framework uses an approach similar to the extraction framework. Each writer plugin supports a list of mimetypes and implements the write function that takes in a WriteData object as input.
 
 ### Adding data into an `ExtractionResult`
 
@@ -67,7 +67,7 @@ An external plugin must be an independently executable file (a binary,
 script with a hashbang line with the executable permission set, a batch file or
 cmd script, etc). They must be located within libexec directory.
 
-KFileMetaData will wrap each external extractor with an instance of the `ExternalExtractor` class, and every writer with `ExternalWriter`. The application will be free to choose any of the plugins returned by `WriterCollection` or `ExtractorCollection`.
+KFileMetaData will wrap each external extractor with an instance of the ExternalExtractor class, and every writer with `ExternalWriter`. The application will be free to choose any of the plugins returned by WriterCollection or ExtractorCollection.
 
 Every external plugin will be placed within a directory in libexec/kf5/kfilemetadata/externalextractors. Every plugin shall have a manifest.json file that specifies the mimetypes that the plugin supports and the main executable file. A sample manifest file is located at src/writers/externalwriters/example/manifest.json.
 
