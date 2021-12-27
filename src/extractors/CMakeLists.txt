@@ -35,6 +35,13 @@ if(LibExiv2_FOUND)
         KF5::FileMetaData
         LibExiv2::LibExiv2
     )
+    #In some cases (like the homebrew version) exiv2 is built against libssh
+    if(APPLE)
+        find_package(libssh CONFIG)
+        if(libssh_FOUND)
+            target_link_libraries(kfilemetadata_exiv2extractor ssh)
+        endif()
+    endif()
     if(NOT ${LibExiv2_VERSION} VERSION_LESS 0.26)
         target_compile_definitions(kfilemetadata_exiv2extractor PRIVATE "-DHAVE_WEBP_SUPPORT")
         set(EXIV2_HAVE_WEBP_SUPPORT "1")
