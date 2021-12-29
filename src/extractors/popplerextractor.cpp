@@ -32,7 +32,7 @@ QStringList PopplerExtractor::mimetypes() const
 void PopplerExtractor::extract(ExtractionResult* result)
 {
     const QString fileUrl = result->inputUrl();
-    QScopedPointer<Poppler::Document> pdfDoc(Poppler::Document::load(fileUrl, QByteArray(), QByteArray()));
+    std::unique_ptr<Poppler::Document> pdfDoc(Poppler::Document::load(fileUrl, QByteArray(), QByteArray()));
 
     if (!pdfDoc || pdfDoc->isLocked()) {
         return;
@@ -77,7 +77,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
     }
 
     for (int i = 0; i < pdfDoc->numPages(); i++) {
-        QScopedPointer<Poppler::Page> page(pdfDoc->page(i));
+        std::unique_ptr<Poppler::Page> page(pdfDoc->page(i));
         if (!page) { // broken pdf files do not return a valid page
             qWarning() << "Could not read page content from" << fileUrl;
             break;
