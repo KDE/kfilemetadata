@@ -27,6 +27,13 @@ QString TagLibWriterTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void TagLibWriterTest::initTestCase()
+{
+    QFile imgFile(testFilePath("cover.jpg"));
+    imgFile.open(QIODevice::ReadOnly);
+    m_coverImage = imgFile.readAll();
+}
+
 void TagLibWriterTest::extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result)
 {
     KFileMetaData::ExtractorCollection extractors;
@@ -618,6 +625,225 @@ void TagLibWriterTest::testComplexContactData_data()
         << QStringLiteral("wv")
         << QStringLiteral("audio/x-wavpack")
         ;
+}
+
+void TagLibWriterTest::testImageWrite()
+{
+    QFETCH(QString, fileName);
+    QFETCH(QString, mimeType);
+
+    QString testFileName = testFilePath(QStringLiteral("writer") + fileName);
+
+    QFile::copy(testFilePath(fileName), testFileName);
+    WriteData data(testFileName, mimeType);
+
+    QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
+    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, m_coverImage);
+    data.addImageData(writeImages);
+    
+    TagLibWriter writerPlugin{this};
+    writerPlugin.write(data);
+    
+    SimpleExtractionResult result(testFileName, mimeType, ExtractionResult::ExtractImageData);
+    extractResult(mimeType, result);
+
+    QCOMPARE(result.imageData().value(EmbeddedImageData::FrontCover), writeImages.value(EmbeddedImageData::FrontCover));
+
+    QFile::remove(testFileName);
+}
+
+void TagLibWriterTest::testImageWrite_data()
+{
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("aiff")
+            << QStringLiteral("test.aif")
+            << QStringLiteral("audio/x-aiff")
+            ;
+
+    QTest::addRow("ape")
+            << QStringLiteral("test.ape")
+            << QStringLiteral("audio/x-ape")
+            ;
+
+    QTest::addRow("opus")
+            << QStringLiteral("test.opus")
+            << QStringLiteral("audio/opus")
+            ;
+
+    QTest::addRow("ogg")
+            << QStringLiteral("test.ogg")
+            << QStringLiteral("audio/ogg")
+            ;
+
+    QTest::addRow("flac")
+            << QStringLiteral("test.flac")
+            << QStringLiteral("audio/flac")
+            ;
+
+    QTest::addRow("mp3")
+            << QStringLiteral("test.mp3")
+            << QStringLiteral("audio/mpeg3")
+            ;
+
+    QTest::addRow("m4a")
+            << QStringLiteral("test.m4a")
+            << QStringLiteral("audio/mp4")
+            ;
+
+    QTest::addRow("mpc")
+            << QStringLiteral("test.mpc")
+            << QStringLiteral("audio/x-musepack")
+            ;
+
+    QTest::addRow("speex")
+            << QStringLiteral("test.spx")
+            << QStringLiteral("audio/x-speex+ogg")
+            ;
+
+    QTest::addRow("wav")
+            << QStringLiteral("test.wav")
+            << QStringLiteral("audio/wav")
+            ;
+
+    QTest::addRow("wavpack")
+            << QStringLiteral("test.wv")
+            << QStringLiteral("audio/x-wavpack")
+            ;
+
+    QTest::addRow("wma")
+            << QStringLiteral("test.wma")
+            << QStringLiteral("audio/x-ms-wma")
+            ;
+}
+
+void TagLibWriterTest::testImageDelete()
+{
+    QFETCH(QString, fileName);
+    QFETCH(QString, mimeType);
+
+    QString testFileName = testFilePath(QStringLiteral("writer") + fileName);
+
+    QFile::copy(testFilePath(fileName), testFileName);
+    WriteData data(testFileName, mimeType);
+
+    QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
+    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, QByteArray());
+    data.addImageData(writeImages);
+    
+    TagLibWriter writerPlugin{this};
+    writerPlugin.write(data);
+    
+    SimpleExtractionResult result(testFileName, mimeType, ExtractionResult::ExtractImageData);
+    extractResult(mimeType, result);
+
+    QVERIFY(!result.imageData().contains(EmbeddedImageData::FrontCover));
+
+    QFile::remove(testFileName);
+}
+
+void TagLibWriterTest::testImageDelete_data()
+{
+    testImageWrite_data();
+}
+
+void TagLibWriterTest::testImageDeleteInsert()
+{
+    QFETCH(QString, fileName);
+    QFETCH(QString, mimeType);
+
+    QString testFileName = testFilePath(QStringLiteral("writer_delinsert_") + fileName);
+
+    QFile::copy(testFilePath(fileName), testFileName);
+    WriteData data(testFileName, mimeType);
+
+    QFile imgFile(testFilePath("test.jpg"));
+    imgFile.open(QIODevice::ReadOnly);
+
+    QMap<EmbeddedImageData::ImageType, QByteArray> delImages;
+    QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
+    QMap<EmbeddedImageData::ImageType, QByteArray> readImages;
+
+    delImages.insert(EmbeddedImageData::ImageType::FrontCover, QByteArray());
+    writeImages.insert(EmbeddedImageData::ImageType::FrontCover, m_coverImage);
+    data.addImageData(delImages);
+    
+    TagLibWriter writerPlugin{this};
+    writerPlugin.write(data);
+
+    SimpleExtractionResult result(testFileName, mimeType, ExtractionResult::ExtractImageData);
+    extractResult(mimeType, result);
+
+    QVERIFY(!result.imageData().contains(EmbeddedImageData::FrontCover));
+
+    data.addImageData(writeImages);
+    writerPlugin.write(data);
+    extractResult(mimeType, result);
+
+    QCOMPARE(result.imageData().value(EmbeddedImageData::FrontCover), writeImages.value(EmbeddedImageData::FrontCover));
+
+    QFile::remove(testFileName);
+}
+
+void TagLibWriterTest::testImageDeleteInsert_data()
+{
+    testImageWrite_data();
+}
+
+void TagLibWriterTest::testMultiImage()
+{
+    QFETCH(QString, fileName);
+    QFETCH(QString, mimeType);
+    QFETCH(EmbeddedImageData::ImageTypes, imageTypes);
+
+    QString testFileName = testFilePath(QStringLiteral("writer_multiimage_") + fileName);
+
+    QFile::copy(testFilePath(fileName), testFileName);
+
+    QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
+
+    SimpleExtractionResult result(testFileName, mimeType, ExtractionResult::ExtractImageData);
+    extractResult(mimeType, result);
+    QVERIFY(result.imageData().contains(EmbeddedImageData::FrontCover));
+
+    using Image = EmbeddedImageData::ImageType;
+    for (auto type : { Image::Other, Image::BackCover }) {
+        if (type & imageTypes) {
+            writeImages.insert(type, m_coverImage);
+        }
+    }
+    WriteData data(testFileName, mimeType);
+    data.addImageData(writeImages);
+    TagLibWriter writerPlugin{this};
+    writerPlugin.write(data);
+
+    extractResult(mimeType, result);
+    // Test if FrontCover still exists
+    QVERIFY(result.imageData().contains(EmbeddedImageData::FrontCover));
+
+    for (auto type : { Image::FrontCover, Image::Other, Image::BackCover }) {
+        if (type & imageTypes) {
+            QVERIFY2(result.imageData().contains(type), qPrintable(QString("has imagetype %1").arg(type)));
+            QCOMPARE(result.imageData().value(type), m_coverImage);
+        }
+    }
+
+    QFile::remove(testFileName);
+}
+
+void TagLibWriterTest::testMultiImage_data()
+{
+    using ImageTypes = EmbeddedImageData::ImageTypes;
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<QString>("mimeType");
+    QTest::addColumn<ImageTypes>("imageTypes");
+
+    using Image = EmbeddedImageData::ImageType;
+    QTest::addRow("aiff") << QStringLiteral("test.aif") << QStringLiteral("audio/x-aiff") << ImageTypes{ Image::Other, Image::Artist };
+    QTest::addRow("opus") << QStringLiteral("test.opus") << QStringLiteral("audio/opus") << ImageTypes{ Image::Other, Image::BackCover };
+    QTest::addRow("flac") << QStringLiteral("test.flac") << QStringLiteral("audio/flac") << ImageTypes{ Image::Other, Image::Composer };
+    QTest::addRow("wma")  << QStringLiteral("test.wma") << QStringLiteral("audio/x-ms-wma") << ImageTypes{ Image::Other, Image::Band };
 }
 
 QTEST_GUILESS_MAIN(TagLibWriterTest)

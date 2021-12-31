@@ -24,6 +24,13 @@ QString TagLibExtractorTest::testFilePath(const QString& fileName) const
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void TagLibExtractorTest::initTestCase()
+{
+    QFile imgFile(testFilePath("cover.jpg"));
+    imgFile.open(QIODevice::ReadOnly);
+    m_coverImage = imgFile.readAll();
+}
+
 const QStringList TagLibExtractorTest::propertyEnumNames(const QList<KFileMetaData::Property::Property>& keys) const
 {
     QStringList result;
@@ -660,6 +667,76 @@ void TagLibExtractorTest::testRobustness()
     TagLibExtractor plugin{this};
     SimpleExtractionResult extracted(path, mimeType);
     plugin.extract(&extracted);
+}
+
+void TagLibExtractorTest::testImageData()
+{
+    QFETCH(QString, fileName);
+    QString testAudioFile;
+    TagLibExtractor plugin{this};;
+
+    testAudioFile = testFilePath(fileName);
+    const QString mimeType = mimeDb.mimeTypeForFile(testAudioFile).name();
+    
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+    
+    SimpleExtractionResult result(testAudioFile, mimeType, ExtractionResult::ExtractImageData);
+    plugin.extract(&result);
+    
+    QCOMPARE(result.imageData().value(EmbeddedImageData::FrontCover), m_coverImage);
+}
+
+void TagLibExtractorTest::testImageData_data()
+{
+    QTest::addColumn<QString>("fileName");
+
+    QTest::addRow("aiff")
+            << QStringLiteral("test.aif")
+            ;
+
+    QTest::addRow("ape")
+            << QStringLiteral("test.ape")
+            ;
+
+    QTest::addRow("opus")
+            << QStringLiteral("test.opus")
+            ;
+
+    QTest::addRow("ogg")
+            << QStringLiteral("test.ogg")
+            ;
+
+    QTest::addRow("flac")
+            << QStringLiteral("test.flac")
+            ;
+
+    QTest::addRow("mp3")
+            << QStringLiteral("test.mp3")
+            ;
+
+    QTest::addRow("m4a")
+            << QStringLiteral("test.m4a")
+            ;
+
+    QTest::addRow("mpc")
+            << QStringLiteral("test.mpc")
+            ;
+
+    QTest::addRow("speex")
+            << QStringLiteral("test.spx")
+            ;
+
+    QTest::addRow("wav")
+            << QStringLiteral("test.wav")
+            ;
+
+    QTest::addRow("wavpack")
+            << QStringLiteral("test.wv")
+            ;
+
+    QTest::addRow("wma")
+            << QStringLiteral("test.wma")
+            ;
 }
 
 QTEST_GUILESS_MAIN(TagLibExtractorTest)

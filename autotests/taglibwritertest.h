@@ -22,6 +22,7 @@ private:
     void extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result);
 
 private Q_SLOTS:
+    void initTestCase();
     void testCommonData();
     void testCommonData_data();
     void testExtendedData();
@@ -30,6 +31,17 @@ private Q_SLOTS:
     void testRating_data();
     void testComplexContactData();
     void testComplexContactData_data();
+    void testImageWrite();
+    void testImageWrite_data();
+    void testImageDelete();
+    void testImageDelete_data();
+    void testImageDeleteInsert();
+    void testImageDeleteInsert_data();
+    void testMultiImage();
+    void testMultiImage_data();
+    
+private:
+    QByteArray m_coverImage;
 };
 
 #endif // TAGLIBWRITERTEST_H

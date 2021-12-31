@@ -51,6 +51,8 @@ EmbeddedImageData::EmbeddedImageData()
 EmbeddedImageData::~EmbeddedImageData()
 = default;
 
+#if KFILEMETADATA_BUILD_DEPRECATED_SINCE(5, 91)
+
 QStringList EmbeddedImageData::mimeTypes() const
 {
     return d->mMimetypes;
@@ -85,3 +87,4 @@ EmbeddedImageData::writeImageData(const QString &fileUrl,
 	w->write(data);
     }
 }
+#endif

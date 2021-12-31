@@ -21,6 +21,7 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
+    void initTestCase();
     void testNoExtraction();
     void testPropertyTypes();
     void testCommonData();
@@ -47,11 +48,14 @@ private Q_SLOTS:
     void testNoMetadata_data();
     void testRobustness();
     void testRobustness_data();
+    void testImageData();
+    void testImageData_data();
 
 private:
     // Convenience function
     const QStringList propertyEnumNames(const QList<KFileMetaData::Property::Property>& key) const;
     QMimeDatabase mimeDb;
+    QByteArray m_coverImage;
 };
 
 #endif // TAGLIBEXTRACTORTEST_H

@@ -154,10 +154,6 @@ if(Taglib_FOUND)
         TEST_NAME "taglibextractortest"
         LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF5::FileMetaData Taglib::Taglib
     )
-    ecm_add_test(embeddedimagedatatest.cpp
-        TEST_NAME "embeddedimagedatatest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF5::FileMetaData Taglib::Taglib
-    )
 endif()
 
 
