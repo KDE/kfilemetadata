@@ -13,10 +13,11 @@
 #include "kfilemetadata_debug.h"
 #include "config-kfilemetadata.h"
 
+#include <KPluginMetaData>
 #include <QCoreApplication>
-#include <QPluginLoader>
 #include <QDir>
 #include <QMimeDatabase>
+#include <QPluginLoader>
 #include <vector>
 
 using namespace KFileMetaData;
@@ -41,37 +42,28 @@ WriterCollection::~WriterCollection() = default;
 
 void WriterCollectionPrivate::findWriters()
 {
-    QStringList plugins;
-    QStringList pluginPaths;
-    QStringList externalPlugins;
-    QStringList externalPluginPaths;
+    const auto internalPlugins = KPluginMetaData::findPlugins(QStringLiteral("kf" QT_STRINGIFY(QT_VERSION_MAJOR)) + QStringLiteral("/kfilemetadata/writers"), {}, KPluginMetaData::AllowEmptyMetaData);
 
-    const QStringList paths = QCoreApplication::libraryPaths();
-    for (const QString& libraryPath : paths) {
-        QString path(libraryPath + QStringLiteral("/kf" QT_STRINGIFY(QT_VERSION_MAJOR)) + QStringLiteral("/kfilemetadata/writers"));
-        QDir dir(path);
+    for (const KPluginMetaData &metaData : internalPlugins) {
+        QPluginLoader loader(metaData.fileName());
+        if (QObject *obj = loader.instance()) {
+            if (WriterPlugin *plugin = qobject_cast<WriterPlugin *>(obj)) {
+                Writer writer;
+                writer.d->m_plugin = plugin;
+                writer.setAutoDeletePlugin(Writer::DoNotDeletePlugin);
 
-        if (!dir.exists()) {
-            continue;
-        }
-
-        const QStringList entryList = dir.entryList(QDir::Files | QDir::NoDotAndDotDot);
-        for (const QString& fileName : entryList) {
-            if (!QLibrary::isLibrary(fileName)) {
-                continue;
+                m_allWriters.push_back(std::move(writer));
+            } else {
+                qCDebug(KFILEMETADATA_LOG) << "Plugin could not be converted to a WriterPlugin";
+                qCDebug(KFILEMETADATA_LOG) << metaData.fileName();
             }
-            // Make sure the same plugin is not loaded twice, even if it
-            // installed in two different locations
-            if (plugins.contains(fileName)) {
-                continue;
-            }
-
-            plugins << fileName;
-            pluginPaths << dir.absoluteFilePath(fileName);
+        } else {
+            qCDebug(KFILEMETADATA_LOG) << "Plugin could not create instance" << metaData.fileName();
         }
     }
-    plugins.clear();
 
+    QStringList externalPlugins;
+    QStringList externalPluginPaths;
     QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/writers/externalwriters"));
     // For external plugins, we look into the directories
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
@@ -85,35 +77,6 @@ void WriterCollectionPrivate::findWriters()
 
         externalPlugins << externalPlugin;
         externalPluginPaths << externalPluginDir.absoluteFilePath(externalPlugin);
-    }
-    externalPlugins.clear();
-
-    for (const QString& pluginPath : std::as_const(pluginPaths)) {
-        QPluginLoader loader(pluginPath);
-
-        if (!loader.load()) {
-            qCWarning(KFILEMETADATA_LOG) << "Could not create Writer: " << pluginPath;
-            qCWarning(KFILEMETADATA_LOG) << loader.errorString();
-            continue;
-        }
-
-        QObject* obj = loader.instance();
-        if (obj) {
-            WriterPlugin* plugin = qobject_cast<WriterPlugin*>(obj);
-            if (plugin) {
-                Writer writer;
-                writer.d->m_plugin = plugin;
-                writer.setAutoDeletePlugin(Writer::DoNotDeletePlugin);
-
-                m_allWriters.push_back(std::move(writer));
-            } else {
-                qCDebug(KFILEMETADATA_LOG) << "Plugin could not be converted to a WriterPlugin";
-                qCDebug(KFILEMETADATA_LOG) << pluginPath;
-            }
-        }
-        else {
-            qCDebug(KFILEMETADATA_LOG) << "Plugin could not create instance" << pluginPath;
-        }
     }
 
     for (const QString& externalPluginPath : std::as_const(externalPluginPaths)) {
