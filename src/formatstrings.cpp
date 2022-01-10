@@ -41,6 +41,13 @@ QString FormatStrings::formatDate(const QVariant& value)
 {
     KFormat form;
     QDateTime dt;
+    #if QT_VERSION_MAJOR > 5	// since Qt 5 LTS is frozen
+        if (value.typeId() == QMetaType::QDateTime) {
+            dt = value.toDateTime();
+        } else {
+            dt = QDateTime::fromString(value.toString(), Qt::ISODate);
+        }
+    #endif
     if (value.type() == QVariant::DateTime) {
         dt = value.toDateTime();
     } else {

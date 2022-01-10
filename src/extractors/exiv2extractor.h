@@ -30,7 +30,7 @@ public:
 private:
     void add(ExtractionResult* result, const Exiv2::ExifData& data,
              Property::Property prop,
-             const char* name, QVariant::Type type);
+             const char* name, QMetaType::Type type);
 
     double fetchGpsDouble(const Exiv2::ExifData& data, const char* name);
     double fetchGpsAltitude(const Exiv2::ExifData& data);

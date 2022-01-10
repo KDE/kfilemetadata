@@ -107,21 +107,21 @@ QVariant toVariantString(const Exiv2::Value& value)
     return QVariant();
 }
 
-QVariant toVariant(const Exiv2::Value& value, QVariant::Type type) {
+QVariant toVariant(const Exiv2::Value& value, QMetaType::Type type) {
     if (value.count() == 0) {
         return QVariant();
     }
     switch (type) {
-    case QVariant::Int:
+    case QMetaType::Int:
         return toVariantLong(value);
 
-    case QVariant::DateTime:
+    case QMetaType::QDateTime:
         return toVariantDateTime(value);
 
-    case QVariant::Double:
+    case QMetaType::Double:
         return toVariantDouble(value);
 
-    case QVariant::String:
+    case QMetaType::QString:
     default:
         return toVariantString(value);
     }
@@ -178,29 +178,29 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     const Exiv2::ExifData& data = image->exifData();
 
-    add(result, data, Property::Manufacturer, "Exif.Image.Make", QVariant::String);
-    add(result, data, Property::Model, "Exif.Image.Model", QVariant::String);
-    add(result, data, Property::Description, "Exif.Image.ImageDescription", QVariant::String);
-    add(result, data, Property::Artist, "Exif.Image.Artist", QVariant::String);
-    add(result, data, Property::Copyright, "Exif.Image.Copyright", QVariant::String);
-    add(result, data, Property::Generator, "Exif.Image.Software", QVariant::String);
-    add(result, data, Property::ImageDateTime, "Exif.Image.DateTime", QVariant::DateTime);
-    add(result, data, Property::ImageOrientation, "Exif.Image.Orientation", QVariant::Int);
-    add(result, data, Property::PhotoFlash, "Exif.Photo.Flash", QVariant::Int);
-    add(result, data, Property::PhotoPixelXDimension, "Exif.Photo.PixelXDimension", QVariant::Int);
-    add(result, data, Property::PhotoPixelYDimension, "Exif.Photo.PixelYDimension", QVariant::Int);
-    add(result, data, Property::PhotoDateTimeOriginal, "Exif.Photo.DateTimeOriginal", QVariant::DateTime);
-    add(result, data, Property::PhotoFocalLength, "Exif.Photo.FocalLength", QVariant::Double);
-    add(result, data, Property::PhotoFocalLengthIn35mmFilm, "Exif.Photo.FocalLengthIn35mmFilm", QVariant::Double);
-    add(result, data, Property::PhotoExposureTime, "Exif.Photo.ExposureTime", QVariant::Double);
-    add(result, data, Property::PhotoExposureBiasValue, "Exif.Photo.ExposureBiasValue", QVariant::Double);
-    add(result, data, Property::PhotoFNumber, "Exif.Photo.FNumber", QVariant::Double);
-    add(result, data, Property::PhotoApertureValue, "Exif.Photo.ApertureValue", QVariant::Double);
-    add(result, data, Property::PhotoWhiteBalance, "Exif.Photo.WhiteBalance", QVariant::Int);
-    add(result, data, Property::PhotoMeteringMode, "Exif.Photo.MeteringMode", QVariant::Int);
-    add(result, data, Property::PhotoISOSpeedRatings, "Exif.Photo.ISOSpeedRatings", QVariant::Int);
-    add(result, data, Property::PhotoSaturation, "Exif.Photo.Saturation", QVariant::Int);
-    add(result, data, Property::PhotoSharpness, "Exif.Photo.Sharpness", QVariant::Int);
+    add(result, data, Property::Manufacturer, "Exif.Image.Make", QMetaType::QString);
+    add(result, data, Property::Model, "Exif.Image.Model", QMetaType::QString);
+    add(result, data, Property::Description, "Exif.Image.ImageDescription", QMetaType::QString);
+    add(result, data, Property::Artist, "Exif.Image.Artist", QMetaType::QString);
+    add(result, data, Property::Copyright, "Exif.Image.Copyright", QMetaType::QString);
+    add(result, data, Property::Generator, "Exif.Image.Software", QMetaType::QString);
+    add(result, data, Property::ImageDateTime, "Exif.Image.DateTime", QMetaType::QDateTime);
+    add(result, data, Property::ImageOrientation, "Exif.Image.Orientation", QMetaType::Int);
+    add(result, data, Property::PhotoFlash, "Exif.Photo.Flash", QMetaType::Int);
+    add(result, data, Property::PhotoPixelXDimension, "Exif.Photo.PixelXDimension", QMetaType::Int);
+    add(result, data, Property::PhotoPixelYDimension, "Exif.Photo.PixelYDimension", QMetaType::Int);
+    add(result, data, Property::PhotoDateTimeOriginal, "Exif.Photo.DateTimeOriginal", QMetaType::QDateTime);
+    add(result, data, Property::PhotoFocalLength, "Exif.Photo.FocalLength", QMetaType::Double);
+    add(result, data, Property::PhotoFocalLengthIn35mmFilm, "Exif.Photo.FocalLengthIn35mmFilm", QMetaType::Double);
+    add(result, data, Property::PhotoExposureTime, "Exif.Photo.ExposureTime", QMetaType::Double);
+    add(result, data, Property::PhotoExposureBiasValue, "Exif.Photo.ExposureBiasValue", QMetaType::Double);
+    add(result, data, Property::PhotoFNumber, "Exif.Photo.FNumber", QMetaType::Double);
+    add(result, data, Property::PhotoApertureValue, "Exif.Photo.ApertureValue", QMetaType::Double);
+    add(result, data, Property::PhotoWhiteBalance, "Exif.Photo.WhiteBalance", QMetaType::Int);
+    add(result, data, Property::PhotoMeteringMode, "Exif.Photo.MeteringMode", QMetaType::Int);
+    add(result, data, Property::PhotoISOSpeedRatings, "Exif.Photo.ISOSpeedRatings", QMetaType::Int);
+    add(result, data, Property::PhotoSaturation, "Exif.Photo.Saturation", QMetaType::Int);
+    add(result, data, Property::PhotoSharpness, "Exif.Photo.Sharpness", QMetaType::Int);
 
     double latitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLatitude");
     double longitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLongitude");
@@ -231,7 +231,7 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
 void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
                          Property::Property prop, const char* name,
-                         QVariant::Type type)
+                         QMetaType::Type type)
 {
     Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
     if (it != data.end()) {

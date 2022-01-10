@@ -10,6 +10,7 @@
 
 #include <QString>
 #include <QVariant>
+#include <QMetaType>
 #include "properties.h"
 #include "kfilemetadata_export.h"
 
@@ -53,7 +54,7 @@ public:
      * The type the value of this property should be.
      * Eg - Property::Height should be an integer
      */
-    QVariant::Type valueType() const;
+    QMetaType::Type valueType() const;
 
     /**
      * Indicates if this property requires indexing or should just be stored.

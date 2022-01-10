@@ -21,7 +21,7 @@ public:
     Property::Property prop;
     QString name;
     QString displayName;
-    QVariant::Type valueType;
+    QMetaType::Type valueType;
     bool shouldBeIndexed;
     QString (*formatAsString)(const QVariant& value) = nullptr;
 };
@@ -31,7 +31,7 @@ PropertyInfo::PropertyInfo()
 {
     d->prop = Property::Empty;
     d->name = QStringLiteral("empty");
-    d->valueType = QVariant::Invalid;
+    d->valueType = QMetaType::UnknownType;
     d->shouldBeIndexed = false;
     d->formatAsString = &FormatStrings::toStringFunction;
 }
@@ -47,460 +47,460 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::Album:
             d->name = QStringLiteral("album");
             d->displayName = i18nc("@label music album", "Album");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::AlbumArtist:
             d->name = QStringLiteral("albumArtist");
             d->displayName = i18nc("@label", "Album Artist");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Artist:
             d->name = QStringLiteral("artist");
             d->displayName = i18nc("@label", "Artist");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::AspectRatio:
             d->name = QStringLiteral("aspectRatio");
             d->displayName = i18nc("@label", "Aspect Ratio");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAspectRatio;
             break;
 
         case Property::Author:
             d->name = QStringLiteral("author");
             d->displayName = i18nc("@label", "Author");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::BitRate:
             d->name = QStringLiteral("bitRate");
             d->displayName = i18nc("@label", "Bitrate");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->formatAsString = &FormatStrings::formatBitRate;
             break;
 
         case Property::Channels:
             d->name = QStringLiteral("channels");
             d->displayName = i18nc("@label", "Channels");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::Comment:
             d->name = QStringLiteral("comment");
             d->displayName = i18nc("@label", "Comment");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Description:
             d->name = QStringLiteral("description");
             d->displayName = i18nc("@label", "Description");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Composer:
             d->name = QStringLiteral("composer");
             d->displayName = i18nc("@label", "Composer");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Copyright:
             d->name = QStringLiteral("copyright");
             d->displayName = i18nc("@label", "Copyright");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::CreationDate:
             d->name = QStringLiteral("creationDate");
             d->displayName = i18nc("@label", "Creation Date");
-            d->valueType = QVariant::DateTime;
+            d->valueType = QMetaType::QDateTime;
             d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::Duration:
             d->name = QStringLiteral("duration");
             d->displayName = i18nc("@label", "Duration");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->formatAsString = &FormatStrings::formatDuration;
             break;
 
         case Property::Empty:
             d->name = QStringLiteral("empty");
-            d->valueType = QVariant::Invalid;
+            d->valueType = QMetaType::UnknownType;
             break;
 
         case Property::FrameRate:
             d->name = QStringLiteral("frameRate");
             d->displayName = i18nc("@label", "Frame Rate");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsFrameRate;
             break;
 
         case Property::Generator:
             d->name = QStringLiteral("generator");
             d->displayName = i18nc("@label", "Document Generated By");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Genre:
             d->name = QStringLiteral("genre");
             d->displayName = i18nc("@label music genre", "Genre");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Height:
             d->name = QStringLiteral("height");
             d->displayName = i18nc("@label", "Height");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::ImageDateTime:
             d->name = QStringLiteral("imageDateTime");
             d->displayName = i18nc("@label EXIF", "Image Date Time");
-            d->valueType = QVariant::DateTime;
+            d->valueType = QMetaType::QDateTime;
             d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::Manufacturer:
             d->name = QStringLiteral("manufacturer");
             d->displayName = i18nc("@label EXIF", "Manufacturer");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Model:
             d->name = QStringLiteral("model");
             d->displayName = i18nc("@label EXIF", "Model");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::ImageOrientation:
             d->name = QStringLiteral("imageOrientation");
             d->displayName = i18nc("@label EXIF", "Image Orientation");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->formatAsString = &FormatStrings::formatOrientationValue;
             break;
 
         case Property::Keywords:
             d->name = QStringLiteral("keywords");
             d->displayName = i18nc("@label", "Keywords");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Language:
             d->name = QStringLiteral("language");
             d->displayName = i18nc("@label", "Language");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::LineCount:
             d->name = QStringLiteral("lineCount");
             d->displayName = i18nc("@label number of lines", "Line Count");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::Lyricist:
             d->name = QStringLiteral("lyricist");
             d->displayName = i18nc("@label", "Lyricist");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::PageCount:
             d->name = QStringLiteral("pageCount");
             d->displayName = i18nc("@label", "Page Count");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::PhotoApertureValue:
             d->name = QStringLiteral("photoApertureValue");
             d->displayName = i18nc("@label EXIF", "Aperture Value");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsFNumber;
             break;
 
         case Property::PhotoDateTimeOriginal:
             d->name = QStringLiteral("photoDateTimeOriginal");
             d->displayName = i18nc("@label EXIF", "Original Date Time");
-            d->valueType = QVariant::DateTime;
+            d->valueType = QMetaType::QDateTime;
             d->formatAsString = &FormatStrings::formatDate;
             break;
 
         case Property::PhotoExposureBiasValue:
             d->name = QStringLiteral("photoExposureBiasValue");
             d->displayName = i18nc("@label EXIF", "Exposure Bias");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatPhotoExposureBias;
             break;
 
         case Property::PhotoExposureTime:
             d->name = QStringLiteral("photoExposureTime");
             d->displayName = i18nc("@label EXIF", "Exposure Time");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatPhotoTime;
             break;
 
         case Property::PhotoFlash:
             d->name = QStringLiteral("photoFlash");
             d->displayName = i18nc("@label EXIF", "Flash");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->formatAsString = &FormatStrings::formatPhotoFlashValue;
             break;
 
         case Property::PhotoFNumber:
             d->name = QStringLiteral("photoFNumber");
             d->displayName = i18nc("@label EXIF", "F Number");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsFNumber;
             break;
 
         case Property::PhotoFocalLength:
             d->name = QStringLiteral("photoFocalLength");
             d->displayName = i18nc("@label EXIF", "Focal Length");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsMilliMeter;
             break;
 
         case Property::PhotoFocalLengthIn35mmFilm:
             d->name = QStringLiteral("photoFocalLengthIn35mmFilm");
             d->displayName = i18nc("@label EXIF", "Focal Length 35mm");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsMilliMeter;
             break;
 
         case Property::PhotoGpsLatitude:
             d->name = QStringLiteral("photoGpsLatitude");
             d->displayName = i18nc("@label EXIF", "GPS Latitude");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsDegree;
             break;
 
         case Property::PhotoGpsLongitude:
             d->name = QStringLiteral("photoGpsLongitude");
             d->displayName = i18nc("@label EXIF", "GPS Longitude");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsDegree;
             break;
 
         case Property::PhotoGpsAltitude:
             d->name = QStringLiteral("photoGpsAltitude");
             d->displayName = i18nc("@label EXIF", "GPS Altitude");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatAsMeter;
             break;
 
         case Property::PhotoISOSpeedRatings:
             d->name = QStringLiteral("photoISOSpeedRatings");
             d->displayName = i18nc("@label EXIF", "ISO Speed Rating");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::PhotoMeteringMode:
             d->name = QStringLiteral("photoMeteringMode");
             d->displayName = i18nc("@label EXIF", "Metering Mode");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::PhotoPixelXDimension:
             d->name = QStringLiteral("photoPixelXDimension");
             d->displayName = i18nc("@label EXIF", "X Dimension");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::PhotoPixelYDimension:
             d->name = QStringLiteral("photoPixelYDimension");
             d->displayName = i18nc("@label EXIF", "Y Dimension");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::PhotoSaturation:
             d->name = QStringLiteral("photoSaturation");
             d->displayName = i18nc("@label EXIF", "Saturation");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::PhotoSharpness:
             d->name = QStringLiteral("photoSharpness");
             d->displayName = i18nc("@label EXIF", "Sharpness");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::PhotoWhiteBalance:
             d->name = QStringLiteral("photoWhiteBalance");
             d->displayName = i18nc("@label EXIF", "White Balance");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::Publisher:
             d->name = QStringLiteral("publisher");
             d->displayName = i18nc("@label", "Publisher");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Label:
             d->name = QStringLiteral("label");
             d->displayName = i18nc("@label", "Label");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::ReleaseYear:
             d->name = QStringLiteral("releaseYear");
             d->displayName = i18nc("@label", "Release Year");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::SampleRate:
             d->name = QStringLiteral("sampleRate");
             d->displayName = i18nc("@label", "Sample Rate");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->formatAsString = &FormatStrings::formatSampleRate;
             break;
 
         case Property::Subject:
             d->name = QStringLiteral("subject");
             d->displayName = i18nc("@label", "Subject");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::Title:
             d->name = QStringLiteral("title");
             d->displayName = i18nc("@label", "Title");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::TrackNumber:
             d->name = QStringLiteral("trackNumber");
             d->displayName = i18nc("@label music track number", "Track Number");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::DiscNumber:
             d->name = QStringLiteral("discNumber");
             d->displayName = i18nc("@label music disc number", "Disc Number");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::Location:
             d->name = QStringLiteral("location");
             d->displayName = i18nc("@label", "Location");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Performer:
             d->name = QStringLiteral("performer");
             d->displayName = i18nc("@label", "Performer");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Ensemble:
             d->name = QStringLiteral("ensemble");
             d->displayName = i18nc("@label", "Ensemble");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Arranger:
             d->name = QStringLiteral("arranger");
             d->displayName = i18nc("@label", "Arranger");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Conductor:
             d->name = QStringLiteral("conductor");
             d->displayName = i18nc("@label", "Conductor");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Compilation:
             d->name = QStringLiteral("compilation");
             d->displayName = i18nc("@label", "Compilation");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::License:
             d->name = QStringLiteral("license");
             d->displayName = i18nc("@label", "License");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Lyrics:
             d->name = QStringLiteral("lyrics");
             d->displayName = i18nc("@label", "Lyrics");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             break;
 
         case Property::Opus:
             d->name = QStringLiteral("opus");
             d->displayName = i18nc("@label", "Opus");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::Rating:
             d->name = QStringLiteral("embeddedRating");
             d->displayName = i18nc("@label", "Rating");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::ReplayGainAlbumPeak:
             d->name = QStringLiteral("replayGainAlbumPeak");
             d->displayName = i18nc("@label", "Replay Gain Album Peak");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainAlbumGain:
             d->name = QStringLiteral("replayGainAlbumGain");
             d->displayName = i18nc("@label", "Replay Gain Album Gain");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainTrackPeak:
             d->name = QStringLiteral("replayGainTrackPeak");
             d->displayName = i18nc("@label", "Replay Gain Track Peak");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainTrackGain:
             d->name = QStringLiteral("replayGainTrackGain");
             d->displayName = i18nc("@label", "Replay Gain Track Gain");
-            d->valueType = QVariant::Double;
+            d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::Width:
             d->name = QStringLiteral("width");
             d->displayName = i18nc("@label", "Width");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::WordCount:
             d->name = QStringLiteral("wordCount");
             d->displayName = i18nc("@label number of words", "Word Count");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             break;
 
         case Property::TranslationUnitsTotal:
             d->name = QStringLiteral("translationUnitsTotal");
             d->displayName = i18nc("@label number of translatable strings",
                                    "Translatable Units");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->shouldBeIndexed = false;
             break;
 
         case Property::TranslationUnitsWithTranslation:
             d->name = QStringLiteral("translationUnitsWithTranslation");
             d->displayName = i18nc("@label number of translated strings", "Translations");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->shouldBeIndexed = false;
             break;
 
@@ -508,21 +508,21 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->name = QStringLiteral("translationUnitsWithDraftTranslation");
             d->displayName = i18nc("@label number of fuzzy translated strings",
                                    "Draft Translations");
-            d->valueType = QVariant::Int;
+            d->valueType = QMetaType::Int;
             d->shouldBeIndexed = false;
             break;
 
         case Property::TranslationLastAuthor:
             d->name = QStringLiteral("translationLastAuthor");
             d->displayName = i18nc("@label translation author", "Author");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::TranslationLastUpDate:
             d->name = QStringLiteral("translationLastUpDate");
             d->displayName = i18nc("@label translations last update", "Last Update");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             d->formatAsString = &FormatStrings::formatDate;
             break;
@@ -530,7 +530,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::TranslationTemplateDate:
             d->name = QStringLiteral("translationTemplateDate");
             d->displayName = i18nc("@label date of template creation8", "Template Creation");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             d->formatAsString = &FormatStrings::formatDate;
             break;
@@ -538,28 +538,28 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::OriginUrl:
             d->name = QStringLiteral("originUrl");
             d->displayName = i18nc("@label the URL a file was originally downloaded from", "Downloaded From");
-            d->valueType = QVariant::Url;
+            d->valueType = QMetaType::QUrl;
             d->shouldBeIndexed = false;
             break;
 
         case Property::OriginEmailSubject:
             d->name = QStringLiteral("originEmailSubject");
             d->displayName = i18nc("@label the subject of an email this file was attached to", "E-Mail Attachment Subject");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::OriginEmailSender:
             d->name = QStringLiteral("originEmailSender");
             d->displayName = i18nc("@label the sender of an email this file was attached to", "E-Mail Attachment Sender");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
         case Property::OriginEmailMessageId:
             d->name = QStringLiteral("originEmailMessageId");
             d->displayName = i18nc("@label the message ID of an email this file was attached to", "E-Mail Attachment Message ID");
-            d->valueType = QVariant::String;
+            d->valueType = QMetaType::QString;
             d->shouldBeIndexed = false;
             break;
 
@@ -569,8 +569,8 @@ PropertyInfo::PropertyInfo(Property::Property property)
         // NOTE: new properties must also be added to ::fromName()
     }
 
-    if (d->valueType == QVariant::Int || d->valueType == QVariant::DateTime ||
-        d->valueType == QVariant::Double)
+    if (d->valueType == QMetaType::Int || d->valueType == QMetaType::QDateTime ||
+        d->valueType == QMetaType::Double)
     {
         d->shouldBeIndexed = false;
     }
@@ -613,7 +613,7 @@ Property::Property PropertyInfo::property() const
     return d->prop;
 }
 
-QVariant::Type PropertyInfo::valueType() const
+QMetaType::Type PropertyInfo::valueType() const
 {
     return d->valueType;
 }
@@ -625,8 +625,12 @@ bool PropertyInfo::shouldBeIndexed() const
 
 QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
 {
+    #if QT_VERSION_MAJOR > 5	// since Qt 5 LTS is frozen
+    if (value.typeId() == QMetaType::QVariantList || value.typeId() == QMetaType::QStringList) {
+    #else
     if (value.type() == QVariant::List || value.type() == QVariant::StringList) {
-        if (d->valueType == QVariant::String) {
+    #endif
+        if (d->valueType == QMetaType::QString) {
             return QLocale().createSeparatedList(value.toStringList());
         } else {
             QStringList displayList;
