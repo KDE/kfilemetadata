@@ -20,7 +20,7 @@
 #include "types.h"
 
 namespace KFileMetaData {
-
+class WriteDataPrivate;
 /**
  * \class WriteData writedata.h <KFileMetaData/WriteData>
  */
@@ -52,8 +52,7 @@ public:
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:
-    class WriteDataPrivate;
-    WriteDataPrivate* d_ptr;
+    std::unique_ptr<WriteDataPrivate> d_ptr;
     Q_DECLARE_PRIVATE(WriteData)
 };
 }

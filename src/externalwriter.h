@@ -11,10 +11,9 @@
 #include "writerplugin.h"
 
 namespace KFileMetaData {
-
+class ExternalWriterPrivate;
 class ExternalWriter : public WriterPlugin
 {
-
     Q_OBJECT
 
 public:
@@ -29,8 +28,7 @@ private:
     bool runtimeInstalled() const;
     bool dependenciesSatisfied() const;
 
-    class ExternalWriterPrivate;
-    ExternalWriterPrivate *d_ptr;
+    std::unique_ptr<ExternalWriterPrivate> d_ptr;
     Q_DECLARE_PRIVATE(ExternalWriter)
 };
 }

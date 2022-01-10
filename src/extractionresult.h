@@ -10,13 +10,15 @@
 #include <QString>
 #include <QVariant>
 
+#include <memory>
+
 #include "kfilemetadata_export.h"
 #include "embeddedimagedata.h"
 #include "properties.h"
 #include "types.h"
 
 namespace KFileMetaData {
-
+class ExtractionResultPrivate;
 /**
  * \class ExtractionResult extractionresult.h <KFileMetaData/ExtractionResult>
  *
@@ -128,8 +130,7 @@ public:
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:
-    class Private;
-    Private* d;
+    const std::unique_ptr<ExtractionResultPrivate> d;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ExtractionResult::Flags)

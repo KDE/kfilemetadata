@@ -11,8 +11,12 @@
 #include <QVector>
 #include <QString>
 
+#include <memory>
+
 namespace KFileMetaData {
 enum PropertiesMapType { MultiMap };
+
+class SimpleExtractionResultPrivate;
 
 /**
  * \class SimpleExtractionResult simpleextractionresult.h <KFileMetaData/SimpleExtractionResult>
@@ -65,8 +69,7 @@ public:
     QVector<Type::Type> types() const;
 
 private:
-    class Private;
-    Private* d;
+    const std::unique_ptr<SimpleExtractionResultPrivate> d;
 };
 
 }

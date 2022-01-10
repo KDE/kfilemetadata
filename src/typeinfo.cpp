@@ -10,7 +10,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN TypeInfo::Private
+class KFileMetaData::TypeInfoPrivate
 {
 public:
     Type::Type type;
@@ -19,7 +19,7 @@ public:
 };
 
 TypeInfo::TypeInfo(Type::Type type)
-    : d(new Private)
+    : d(new TypeInfoPrivate)
 {
     d->type = type;
 
@@ -77,14 +77,11 @@ TypeInfo::TypeInfo(Type::Type type)
 }
 
 TypeInfo::TypeInfo(const TypeInfo& ti)
-    : d(new Private(*ti.d))
+    : d(new TypeInfoPrivate(*ti.d))
 {
 }
 
-TypeInfo::~TypeInfo()
-{
-    delete d;
-}
+TypeInfo::~TypeInfo() = default;
 
 TypeInfo& TypeInfo::operator=(const TypeInfo& rhs)
 {

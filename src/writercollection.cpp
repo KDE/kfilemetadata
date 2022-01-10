@@ -21,7 +21,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN WriterCollection::WriterCollectionPrivate
+class KFileMetaData::WriterCollectionPrivate
 {
 public:
     QMultiHash<QString, Writer*> m_writers;
@@ -37,12 +37,9 @@ WriterCollection::WriterCollection()
     d->findWriters();
 }
 
-WriterCollection::~WriterCollection()
-{
-    delete d;
-}
+WriterCollection::~WriterCollection() = default;
 
-void WriterCollection::WriterCollectionPrivate::findWriters()
+void WriterCollectionPrivate::findWriters()
 {
     QStringList plugins;
     QStringList pluginPaths;

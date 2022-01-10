@@ -20,7 +20,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN ExternalWriter::ExternalWriterPrivate
+class KFileMetaData::ExternalWriterPrivate
 {
 public:
     QString path;
@@ -33,11 +33,6 @@ ExternalWriter::ExternalWriter(QObject* parent)
     : WriterPlugin(parent),
       d_ptr(new ExternalWriterPrivate)
 {
-}
-
-ExternalWriter::~ExternalWriter()
-{
-    delete d_ptr;
 }
 
 ExternalWriter::ExternalWriter(const QString& pluginPath)
@@ -73,6 +68,8 @@ ExternalWriter::ExternalWriter(const QString& pluginPath)
     d->writeMimetypes.append(mimetypes);
     d->mainPath = pluginDir.filePath(rootObject[QStringLiteral("main")].toString());
 }
+
+ExternalWriter::~ExternalWriter() = default;
 
 QStringList ExternalWriter::writeMimetypes() const
 {

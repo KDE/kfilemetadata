@@ -10,27 +10,24 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN UserMetaData::Private
+class KFileMetaData::UserMetaDataPrivate
 {
 public:
     QString filePath;
 };
 
 UserMetaData::UserMetaData(const QString& filePath)
-    : d(new Private)
+    : d(new UserMetaDataPrivate)
 {
     d->filePath = filePath;
 }
 
 UserMetaData::UserMetaData(const UserMetaData& rhs)
-    : d(new Private(*rhs.d))
+    : d(new UserMetaDataPrivate(*rhs.d))
 {
 }
 
-UserMetaData::~UserMetaData()
-{
-    delete d;
-}
+UserMetaData::~UserMetaData() = default;
 
 const UserMetaData& UserMetaData::operator=(const UserMetaData& rhs)
 {

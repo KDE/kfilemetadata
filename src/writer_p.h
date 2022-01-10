@@ -15,18 +15,18 @@ namespace KFileMetaData {
 
 class WriterPlugin;
 
-class Writer::WriterPrivate
+class WriterPrivate
 {
 public:
     ~WriterPrivate() {
-        if (m_autoDeletePlugin == AutoDeletePlugin) {
+        if (m_autoDeletePlugin == Writer::AutoDeletePlugin) {
             delete m_plugin;
         }
     }
 
     WriterPlugin *m_plugin = nullptr;
 
-    WriterPluginOwnership m_autoDeletePlugin = AutoDeletePlugin;
+    Writer::WriterPluginOwnership m_autoDeletePlugin = Writer::AutoDeletePlugin;
 };
 
 }

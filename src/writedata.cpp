@@ -12,7 +12,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN WriteData::WriteDataPrivate
+class KFileMetaData::WriteDataPrivate
 {
 public:
     QString url;
@@ -68,10 +68,7 @@ QMap<EmbeddedImageData::ImageType, QByteArray> WriteData::imageData() const
     return d->images;
 }
 
-WriteData::~WriteData()
-{
-    delete d_ptr;
-}
+WriteData::~WriteData() = default;
 
 QString WriteData::inputUrl() const
 {

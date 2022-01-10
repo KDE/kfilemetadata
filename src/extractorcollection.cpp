@@ -20,7 +20,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN ExtractorCollection::Private
+class KFileMetaData::ExtractorCollectionPrivate
 {
 public:
     QMultiHash<QString, Extractor*> m_mimeExtractors;
@@ -32,15 +32,12 @@ public:
 };
 
 ExtractorCollection::ExtractorCollection()
-    : d(new Private)
+    : d(new ExtractorCollectionPrivate)
 {
     d->findExtractors();
 }
 
-ExtractorCollection::~ExtractorCollection()
-{
-    delete d;
-}
+ExtractorCollection::~ExtractorCollection() = default;
 
 
 QList<Extractor*> ExtractorCollection::allExtractors()
@@ -54,7 +51,7 @@ QList<Extractor*> ExtractorCollection::allExtractors()
     return plugins;
 }
 
-void ExtractorCollection::Private::findExtractors()
+void ExtractorCollectionPrivate::findExtractors()
 {
     QStringList plugins;
     QStringList externalPlugins;
@@ -152,7 +149,7 @@ void ExtractorCollection::Private::findExtractors()
     }
 }
 
-QList<Extractor*> ExtractorCollection::Private::getExtractors(const QString& mimetype)
+QList<Extractor*> ExtractorCollectionPrivate::getExtractors(const QString& mimetype)
 {
     QList<Extractor*> extractors = m_mimeExtractors.values(mimetype);
 

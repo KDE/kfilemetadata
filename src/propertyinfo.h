@@ -13,8 +13,11 @@
 #include "properties.h"
 #include "kfilemetadata_export.h"
 
+#include <memory>
+
 namespace KFileMetaData {
 
+class PropertyInfoPrivate;
 /**
  * \class PropertyInfo propertyinfo.h <KFileMetaData/PropertyInfo>
  *
@@ -79,8 +82,7 @@ public:
     QString formatAsDisplayString(const QVariant& value) const;
 
 private:
-    class Private;
-    Private* d;
+    const std::unique_ptr<PropertyInfoPrivate> d;
 };
 
 } // namespace

@@ -15,11 +15,11 @@ namespace KFileMetaData {
 
 class ExtractorPlugin;
 
-class Extractor::ExtractorPrivate
+class ExtractorPrivate
 {
 public:
     ~ExtractorPrivate() {
-        if (m_autoDeletePlugin == AutoDeletePlugin) {
+        if (m_autoDeletePlugin == Extractor::AutoDeletePlugin) {
             delete m_plugin;
         }
     }
@@ -27,13 +27,13 @@ public:
 
     ExtractorPlugin *m_plugin = nullptr;
 
-    ExtractorPluginOwnership m_autoDeletePlugin = AutoDeletePlugin;
+    Extractor::ExtractorPluginOwnership m_autoDeletePlugin = Extractor::AutoDeletePlugin;
 
     QVariantMap m_metaData;
     QString m_pluginPath;
 };
 
-inline bool Extractor::ExtractorPrivate::initPlugin()
+inline bool ExtractorPrivate::initPlugin()
 {
     if (m_plugin) {
         return true;

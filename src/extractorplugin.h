@@ -95,8 +95,8 @@ protected:
     QString getSupportedMimeType(const QString& mimetype) const;
 
 private:
-    class Private;
-    Private* d;
+    class ExtractorPluginPrivate;
+    ExtractorPluginPrivate *d_placeholder; // Placeholder for future binary compatible extensions
 };
 }
 

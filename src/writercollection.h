@@ -11,12 +11,14 @@
 
 #include <QList>
 
+#include <memory>
+
 #include "kfilemetadata_export.h"
 #include "writer.h"
 
 namespace KFileMetaData
 {
-
+class WriterCollectionPrivate;
 /**
  * \class WriterCollection writercollection.h <KFileMetaData/WriterCollection>
  */
@@ -29,8 +31,7 @@ public:
     QList<Writer*> fetchWriters(const QString& mimetype) const;
 
 private:
-    class WriterCollectionPrivate;
-    WriterCollectionPrivate* d;
+    const std::unique_ptr<WriterCollectionPrivate> d;
 };
 }
 

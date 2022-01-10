@@ -10,8 +10,11 @@
 #include "extractor.h"
 #include "kfilemetadata_export.h"
 
+#include <memory>
+
 namespace KFileMetaData
 {
+class ExtractorCollectionPrivate;
 /**
  * \class ExtractorCollection extractorcollection.h <KFileMetaData/ExtractorCollection>
  *
@@ -42,11 +45,9 @@ public:
     QList<Extractor*> fetchExtractors(const QString& mimetype) const;
 
 private:
-    class Private;
-    Private* d;
-
     friend class ExtractorCollectionTest;
     QList<Extractor*> allExtractors();
+    const std::unique_ptr<ExtractorCollectionPrivate> d;
 };
 }
 

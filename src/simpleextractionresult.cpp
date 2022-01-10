@@ -8,7 +8,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN SimpleExtractionResult::Private
+class KFileMetaData::SimpleExtractionResultPrivate
 {
 public:
     PropertyMultiMap m_properties;
@@ -18,20 +18,17 @@ public:
 
 SimpleExtractionResult::SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
     : ExtractionResult(url, mimetype, flags)
-    , d(new Private)
+    , d(new SimpleExtractionResultPrivate)
 {
 }
 
 SimpleExtractionResult::SimpleExtractionResult(const SimpleExtractionResult& rhs)
     : ExtractionResult(*this)
-    , d(new Private(*rhs.d))
+    , d(new SimpleExtractionResultPrivate(*rhs.d))
 {
 }
 
-SimpleExtractionResult::~SimpleExtractionResult()
-{
-    delete d;
-}
+SimpleExtractionResult::~SimpleExtractionResult() = default;
 
 SimpleExtractionResult& SimpleExtractionResult::operator=(const SimpleExtractionResult& rhs)
 {

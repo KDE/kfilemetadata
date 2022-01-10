@@ -8,6 +8,8 @@
 #include "extractor_p.h"
 #include "extractorplugin.h"
 
+#include <utility>
+
 using namespace KFileMetaData;
 
 Extractor::Extractor()
@@ -15,15 +17,11 @@ Extractor::Extractor()
 {
 }
 
-Extractor::~Extractor()
-{
-    delete d;
-}
+Extractor::~Extractor() = default;
 
 Extractor::Extractor(Extractor&& other)
 {
-    d = other.d;
-    other.d = nullptr;
+    d = std::move(other.d);
 }
 
 void Extractor::extract(ExtractionResult* result)

@@ -20,16 +20,18 @@
 
 #define EXTRACTOR_TIMEOUT_MS 30000
 
-using namespace KFileMetaData;
-
-class Q_DECL_HIDDEN ExternalExtractor::ExternalExtractorPrivate
+namespace KFileMetaData
+{
+class ExternalExtractorPrivate
 {
 public:
     QString path;
     QStringList writeMimetypes;
     QString mainPath;
 };
+}
 
+using namespace KFileMetaData;
 
 ExternalExtractor::ExternalExtractor(QObject* parent)
     : ExtractorPlugin(parent),
@@ -74,10 +76,7 @@ ExternalExtractor::ExternalExtractor(const QString& pluginPath)
     d->mainPath = pluginDir.filePath(rootObject[QStringLiteral("main")].toString());
 }
 
-ExternalExtractor::~ExternalExtractor()
-{
-    delete d_ptr;
-}
+ExternalExtractor::~ExternalExtractor() = default;
 
 QStringList ExternalExtractor::mimetypes() const
 {

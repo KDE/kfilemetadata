@@ -11,19 +11,20 @@
 #include <QStringList>
 #include <QVariantMap>
 
+#include <memory>
+
 namespace KFileMetaData {
 
 class ExtractionResult;
 class ExtractorCollection;
 class ExtractorPlugin;
+class ExtractorPrivate;
 
 /**
  * \class Extractor extractor.h <KFileMetaData/Extractor>
  */
 class KFILEMETADATA_EXPORT Extractor
 {
-    class ExtractorPrivate;
-
     enum ExtractorPluginOwnership {
         AutoDeletePlugin,
         DoNotDeletePlugin,
@@ -49,8 +50,10 @@ private:
 
     void setMetaData(const QVariantMap &metaData);
 
-    ExtractorPrivate *d;
     friend class ExtractorCollection;
+    friend class ExtractorCollectionPrivate;
+    friend class ExtractorPrivate;
+    std::unique_ptr<ExtractorPrivate> d;
 };
 }
 

@@ -17,15 +17,11 @@ Writer::Writer()
 {
 }
 
-Writer::~Writer()
-{
-    delete d;
-}
+Writer::~Writer() = default;
 
 Writer::Writer(Writer&& other)
 {
-    d = other.d;
-    other.d = nullptr;
+    d = std::move(other.d);
 }
 
 

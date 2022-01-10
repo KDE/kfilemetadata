@@ -11,7 +11,7 @@
 #include "extractorplugin.h"
 
 namespace KFileMetaData {
-
+class ExternalExtractorPrivate;
 class ExternalExtractor : public ExtractorPlugin
 {
 
@@ -26,8 +26,7 @@ public:
     void extract(ExtractionResult* result) override;
 
 private:
-    class ExternalExtractorPrivate;
-    ExternalExtractorPrivate *d_ptr;
+    std::unique_ptr<ExternalExtractorPrivate> d_ptr;
     Q_DECLARE_PRIVATE(ExternalExtractor)
 };
 }

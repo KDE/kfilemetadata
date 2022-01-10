@@ -12,19 +12,20 @@
 #include "kfilemetadata_export.h"
 #include <QStringList>
 
+#include <memory>
+
 namespace KFileMetaData
 {
 
 class WriteData;
 class WriterCollection;
+class WriterPrivate;
 
 /**
  * \class Writer writer.h <KFileMetaData/Writer>
  */
 class KFILEMETADATA_EXPORT Writer
 {
-    class WriterPrivate;
-
     enum WriterPluginOwnership {
         AutoDeletePlugin,
         DoNotDeletePlugin,
@@ -45,8 +46,9 @@ private:
 
     void setAutoDeletePlugin(WriterPluginOwnership autoDelete);
 
-    WriterPrivate *d;
-    friend class WriterCollection;
+    std::unique_ptr<WriterPrivate> d;
+    friend class WriterPrivate;
+    friend class WriterCollectionPrivate;
 };
 }
 

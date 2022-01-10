@@ -15,7 +15,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN PropertyInfo::Private
+class KFileMetaData::PropertyInfoPrivate
 {
 public:
     Property::Property prop;
@@ -27,7 +27,7 @@ public:
 };
 
 PropertyInfo::PropertyInfo()
-    : d(new Private)
+    : d(new PropertyInfoPrivate)
 {
     d->prop = Property::Empty;
     d->name = QStringLiteral("empty");
@@ -37,7 +37,7 @@ PropertyInfo::PropertyInfo()
 }
 
 PropertyInfo::PropertyInfo(Property::Property property)
-    : d(new Private)
+    : d(new PropertyInfoPrivate)
 {
     d->prop = property;
     d->shouldBeIndexed = true;
@@ -577,14 +577,11 @@ PropertyInfo::PropertyInfo(Property::Property property)
 }
 
 PropertyInfo::PropertyInfo(const PropertyInfo& pi)
-    : d(new Private(*pi.d))
+    : d(new PropertyInfoPrivate(*pi.d))
 {
 }
 
-PropertyInfo::~PropertyInfo()
-{
-    delete d;
-}
+PropertyInfo::~PropertyInfo() = default;
 
 PropertyInfo& PropertyInfo::operator=(const PropertyInfo& rhs)
 {

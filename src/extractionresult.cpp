@@ -8,7 +8,7 @@
 
 using namespace KFileMetaData;
 
-class Q_DECL_HIDDEN ExtractionResult::Private
+class KFileMetaData::ExtractionResultPrivate
 {
 public:
     QString url;
@@ -18,7 +18,7 @@ public:
 };
 
 ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
-    : d(new Private)
+    : d(new ExtractionResultPrivate)
 {
     d->url = url;
     d->mimetype = mimetype;
@@ -26,14 +26,11 @@ ExtractionResult::ExtractionResult(const QString& url, const QString& mimetype, 
 }
 
 ExtractionResult::ExtractionResult(const ExtractionResult& rhs)
-    : d(new Private(*rhs.d))
+    : d(new ExtractionResultPrivate(*rhs.d))
 {
 }
 
-ExtractionResult::~ExtractionResult()
-{
-    delete d;
-}
+ExtractionResult::~ExtractionResult() = default;
 
 QString ExtractionResult::inputUrl() const
 {

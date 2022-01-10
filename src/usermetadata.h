@@ -11,8 +11,11 @@
 #include <QStringList>
 #include <QUrl>
 
+#include <memory>
+
 namespace KFileMetaData {
 
+class UserMetaDataPrivate;
 /**
  * \class UserMetaData usermetadata.h <KFileMetaData/UserMetaData>
  */
@@ -93,8 +96,7 @@ public:
     Attributes queryAttributes(Attributes attributes = Attribute::Any) const;
 
 private:
-    class Private;
-    Private *d;
+    const std::unique_ptr<UserMetaDataPrivate> d;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(UserMetaData::Attributes)
