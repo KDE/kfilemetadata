@@ -24,7 +24,18 @@ public:
     ~TypeInfo();
 
     TypeInfo& operator=(const TypeInfo& rhs);
+
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 91)
+    /*
+     * @deprecated since 5.91 Use TypeInfo::operator==() const instead.
+     */
+KFILEMETADATA_DEPRECATED_VERSION(5, 91, "Use TypeInfo::operator==() const instead")
     bool operator==(const TypeInfo& rhs);
+#endif
+    /*
+     * @since 5.91
+     */
+    bool operator==(const TypeInfo& rhs) const;
 
     /**
      * The type identifier

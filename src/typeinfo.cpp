@@ -92,9 +92,16 @@ TypeInfo& TypeInfo::operator=(const TypeInfo& rhs)
     return *this;
 }
 
+#if KFILEMETADATA_BUILD_DEPRECATED_SINCE(5, 91)
 bool TypeInfo::operator==(const TypeInfo& rhs)
 {
     return d->type == rhs.d->type && d->name == rhs.d->name && d->displayName == rhs.d->displayName;
+}
+#endif
+
+bool TypeInfo::operator==(const TypeInfo& rhs) const
+{
+    return std::tie(d->type, d->name, d->displayName) == std::tie(rhs.d->type, rhs.d->name, rhs.d->displayName);
 }
 
 QString TypeInfo::displayName() const
