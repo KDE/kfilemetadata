@@ -51,7 +51,7 @@ void WriterCollection::WriterCollectionPrivate::findWriters()
 
     const QStringList paths = QCoreApplication::libraryPaths();
     for (const QString& libraryPath : paths) {
-        QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata/writers"));
+        QString path(libraryPath + QStringLiteral("/kf" QT_STRINGIFY(QT_VERSION_MAJOR)) + QStringLiteral("/kfilemetadata/writers"));
         QDir dir(path);
 
         if (!dir.exists()) {

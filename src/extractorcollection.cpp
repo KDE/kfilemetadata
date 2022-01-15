@@ -61,7 +61,7 @@ void ExtractorCollection::Private::findExtractors()
 
     const QStringList paths = QCoreApplication::libraryPaths();
     for (const QString& libraryPath : paths) {
-        QString path(libraryPath + QStringLiteral("/kf5/kfilemetadata"));
+        QString path(libraryPath + QStringLiteral("/kf" QT_STRINGIFY(QT_VERSION_MAJOR)) + QStringLiteral("/kfilemetadata"));
         QDir dir(path);
         qCDebug(KFILEMETADATA_LOG) << "Searching for extractors:" << dir.path();
 
