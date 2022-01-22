@@ -13,6 +13,7 @@
 #include <qmobipocket/mobipocket.h>
 
 #include <QFile>
+#include <QTextDocument>
 
 using namespace KFileMetaData;
 
