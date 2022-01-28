@@ -1,11 +1,11 @@
 
 
-if(Poppler_Qt5_FOUND)
+if(TARGET Poppler::Qt${QT_MAJOR_VERSION})
     add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp)
 
     target_link_libraries(kfilemetadata_popplerextractor
         KF5::FileMetaData
-        Poppler::Qt5
+        Poppler::Qt${QT_MAJOR_VERSION}
     )
 
     set_target_properties(kfilemetadata_popplerextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf${QT_MAJOR_VERSION}/kfilemetadata")
