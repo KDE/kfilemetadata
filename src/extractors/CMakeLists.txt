@@ -207,7 +207,12 @@ endif()
 # Office (binary formats)
 #
 
-add_library(kfilemetadata_officeextractor MODULE officeextractor.cpp)
+add_library(kfilemetadata_officeextractor MODULE)
+target_sources(kfilemetadata_officeextractor
+    PRIVATE
+        officeextractor.cpp
+        ${debug_SRCS}
+)
 
 target_link_libraries(kfilemetadata_officeextractor
     KF5::FileMetaData

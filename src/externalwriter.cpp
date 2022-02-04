@@ -66,7 +66,7 @@ ExternalWriter::ExternalWriter(const QString& pluginPath)
     }
 
     d->writeMimetypes.append(mimetypes);
-    d->mainPath = pluginDir.filePath(rootObject[QStringLiteral("main")].toString());
+    d->mainPath = pluginDir.absoluteFilePath(rootObject[QStringLiteral("main")].toString());
 }
 
 ExternalWriter::~ExternalWriter() = default;

@@ -6,6 +6,7 @@
 */
 
 #include "officeextractor.h"
+#include "kfilemetadata_debug.h"
 
 #include <QRegularExpression>
 #include <QStandardPaths>
@@ -88,13 +89,19 @@ void OfficeExtractor::extract(ExtractionResult* result)
 
 QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& command, QStringList& arguments)
 {
+    const QString exec = QStandardPaths::findExecutable(command);
+    if (exec.isEmpty()) {
+        qCDebug(KFILEMETADATA_LOG) << "Could not find executable in PATH:" << command;
+        return {};
+    }
+
     arguments << fileUrl;
 
     // Start a process and read its standard output
     QProcess process;
 
     process.setReadChannel(QProcess::StandardOutput);
-    process.start(command, arguments, QIODevice::ReadOnly);
+    process.start(exec, arguments, QIODevice::ReadOnly);
     process.waitForFinished();
 
     if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0) {
