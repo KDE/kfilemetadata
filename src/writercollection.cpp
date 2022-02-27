@@ -65,7 +65,7 @@ void WriterCollectionPrivate::findWriters()
     QStringList externalPlugins;
     QStringList externalPluginPaths;
     QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR) + QStringLiteral("/kfilemetadata/writers/externalwriters"));
-    // For external plugins, we look into the directories
+    // For external plugins, we look into the directories. Those are executables and not C++ plugins.
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     for (const QString& externalPlugin : externalPluginEntryList) {
         if (!QLibrary::isLibrary(externalPlugin)) {
