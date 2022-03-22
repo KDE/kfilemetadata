@@ -36,13 +36,16 @@ private Q_SLOTS:
         m_knownFiles = {
             { "test.aif",                      "audio/x-aifc"},
             { "test.ape",                      "audio/x-ape"},
+            { "test.avif",                     "image/avif"},
             { "test.AppImage",                 "application/vnd.appimage"},
             { "test_apple_systemprofiler.spx", "application/x-apple-systemprofiler+xml"},  // s-m-i < 2.0 would give "application/xml"
             { "test.dot",                      "text/vnd.graphviz"},
             { "test.eps",                      "image/x-eps"},
             { "test.epub",                     "application/epub+zip"},
             { "test.flac",                     "audio/flac"},
+            { "test.heif",                     "image/heif"}, // alias for image/heic
             { "test.jpg",                      "image/jpeg"},
+            { "test.jxl",                      "image/jxl"},
             { "test_libreoffice.docx",         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
             { "test.m4a",                      "audio/mp4"},
             { "test_missing_content.odt",      "application/vnd.oasis.opendocument.text"},
@@ -114,6 +117,13 @@ private Q_SLOTS:
         if (fileMime.name() == "application/xml" && mimeType == "application/x-apple-systemprofiler+xml") {
             // s-m-i < 2.0 didn't have application/x-apple-systemprofiler+xml yet, it's all fine
             return;
+        }
+        if (!db.mimeTypeForName(mimeType).isValid()) {
+            /* Examples when test could be skipped:
+             * image/avif is available since s-m-i 2.0
+             * image/jxl will be registered in s-m-i 2.2 or when libjxl is installed
+             */
+            QSKIP("Expected mimetype is not registered");
         }
         QCOMPARE(fileMime.name(), mimeType);
     }

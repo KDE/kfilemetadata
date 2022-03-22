@@ -14,6 +14,9 @@ using namespace KFileMetaData;
 Exiv2Extractor::Exiv2Extractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
+#ifdef EXV_ENABLE_BMFF
+    Exiv2::enableBMFF(true);
+#endif
 }
 
 namespace
@@ -28,6 +31,11 @@ static const QStringList supportedMimeTypes = {
     QStringLiteral("image/tiff"),
 #ifdef HAVE_WEBP_SUPPORT
     QStringLiteral("image/webp"),
+#endif
+#ifdef EXV_ENABLE_BMFF
+    QStringLiteral("image/avif"),
+    QStringLiteral("image/heif"),
+    QStringLiteral("image/jxl"),
 #endif
     QStringLiteral("image/x-exv"),
     QStringLiteral("image/x-canon-cr2"),

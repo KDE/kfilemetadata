@@ -13,6 +13,18 @@
             "version"  : "0.0",
             "enabled"  : "@EXIV2_HAVE_WEBP_SUPPORT@"
         },
+        "image/avif"            : {
+            "version"  : "0.0",
+            "enabled"  : "@EXIV2_HAVE_BMFF_SUPPORT@"
+        },
+        "image/heif"            : {
+            "version"  : "0.0",
+            "enabled"  : "@EXIV2_HAVE_BMFF_SUPPORT@"
+        },
+        "image/jxl"             : {
+            "version"  : "0.0",
+            "enabled"  : "@EXIV2_HAVE_BMFF_SUPPORT@"
+        },
         "image/x-exv"           : { "version" : "0.0" },
         "image/x-canon-cr2"     : { "version" : "0.0" },
         "image/x-canon-crw"     : { "version" : "0.0" },
