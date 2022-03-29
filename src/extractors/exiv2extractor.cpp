@@ -36,6 +36,7 @@ static const QStringList supportedMimeTypes = {
     QStringLiteral("image/avif"),
     QStringLiteral("image/heif"),
     QStringLiteral("image/jxl"),
+    QStringLiteral("image/x-canon-cr3"),
 #endif
     QStringLiteral("image/x-exv"),
     QStringLiteral("image/x-canon-cr2"),
