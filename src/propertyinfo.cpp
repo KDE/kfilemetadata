@@ -566,7 +566,7 @@ PropertyInfo::PropertyInfo(Property::Property property)
         case Property::PropertyCount: // To silence the compiler.
             break;
 
-        // NOTE: new properties must also be added to ::fromName()
+        // NOTE: new properties must also be added to propertyHash
     }
 
     if (d->valueType == QMetaType::Int || d->valueType == QMetaType::QDateTime ||
@@ -638,9 +638,7 @@ QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
     }
 }
 
-PropertyInfo PropertyInfo::fromName(const QString& name)
-{
-    static QHash<QString, Property::Property> propertyHash = {
+static const QHash<QString, Property::Property> propertyHash = {
         { QStringLiteral("bitrate"), Property::BitRate },
         { QStringLiteral("channels"), Property::Channels },
         { QStringLiteral("duration"), Property::Duration },
@@ -719,7 +717,14 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("originemailsubject"), Property::OriginEmailSubject },
         { QStringLiteral("originemailsender"), Property::OriginEmailSender },
         { QStringLiteral("originemailmessageid"), Property::OriginEmailMessageId }
-    };
+};
 
+PropertyInfo PropertyInfo::fromName(const QString& name)
+{
     return PropertyInfo(propertyHash.value(name.toLower()));
+}
+
+QStringList PropertyInfo::allNames()
+{
+    return propertyHash.keys();
 }
