@@ -20,6 +20,7 @@ include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
+include(ECMDeprecationSettings)
 include(CheckStructHasMember)
 
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
@@ -115,8 +116,11 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
                        PURPOSE "Needed to build the AppImage extractor"
                        )
 
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00) # TODO look into the QMap::insertMulti usage
-add_definitions(-DKF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x055900)
+ecm_set_disabled_deprecation_versions(
+    QT 5.14.0 # TODO look into the QMap::insertMulti usage
+    KF 5.89
+)
+
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
 add_subdirectory(src)
 if (BUILD_TESTING)
