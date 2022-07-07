@@ -255,3 +255,14 @@ if(libappimage_FOUND AND KF5Config_FOUND AND Qt${QT_MAJOR_VERSION}Gui_FOUND)
     TARGETS kfilemetadata_appimageextractor
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata)
 endif()
+
+add_library(kfilemetadata_pngextractor MODULE pngextractor.cpp )
+target_link_libraries(kfilemetadata_pngextractor
+    KF5::FileMetaData
+    Qt${QT_MAJOR_VERSION}::Gui
+)
+
+set_target_properties(kfilemetadata_pngextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf${QT_MAJOR_VERSION}/kfilemetadata")
+install(
+TARGETS kfilemetadata_pngextractor
+DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata)
