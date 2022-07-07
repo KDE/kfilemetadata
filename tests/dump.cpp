@@ -50,7 +50,14 @@ int main(int argc, char** argv)
     out << url << " " << mimetype << "\n";
 
     for (KFileMetaData::Extractor* ex : std::as_const(exList)) {
-        out << "\tExtractor For: " << ex->mimetypes().join(QLatin1Char(' ')) << "\n";
+        const QString extractorName = ex->extractorProperties().value(QStringLiteral("Name")).toString();
+        out << "\t";
+        if (!extractorName.isEmpty()) {
+            out << extractorName;
+        } else {
+            out << "Extractor";
+        }
+        out << " For " << ex->mimetypes().join(QLatin1Char(' ')) << "\n";
 
         KFileMetaData::SimpleExtractionResult result(url, mimetype, extractionLevel);
         ex->extract(&result);
