@@ -161,7 +161,7 @@ if(PYTHONINTERP_FOUND)
     configure_file(samplefiles/testexternalextractor/main.py samplefiles/testexternalextractor/main.py)
     configure_file(samplefiles/testexternalextractor/manifest.json samplefiles/testexternalextractor/manifest.json COPYONLY)
 
-    ecm_add_test(externalextractortest.cpp ../src/externalextractor.cpp ${KfileMetaDataAutotest_SRCS}
+    ecm_add_test(externalextractortest.cpp $<$<BOOL:${BUILD_SHARED_LIBS}>:../src/externalextractor.cpp> ${KfileMetaDataAutotest_SRCS}
             TEST_NAME "externalextractortest"
             LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF5::FileMetaData KF5::I18n
     )
@@ -265,7 +265,7 @@ if(PYTHONINTERP_FOUND)
     configure_file(samplefiles/testexternalwriter/main.py samplefiles/testexternalwriter/main.py)
     configure_file(samplefiles/testexternalwriter/manifest.json samplefiles/testexternalwriter/manifest.json COPYONLY)
 
-    ecm_add_test(externalwritertest.cpp ../src/externalwriter.cpp ${KfileMetaDataAutotest_SRCS}
+    ecm_add_test(externalwritertest.cpp $<$<BOOL:${BUILD_SHARED_LIBS}>:../src/externalwriter.cpp> ${KfileMetaDataAutotest_SRCS}
             TEST_NAME "externalwritertest"
             LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF5::FileMetaData KF5::I18n
     )
