@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2020-06-09 02:02+0200\n"
-"PO-Revision-Date: 2022-09-26 17:29+0400\n"
+"PO-Revision-Date: 2022-10-02 19:41+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -59,19 +59,19 @@ msgstr "منقول"
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr ""
+msgstr "مدورة 90° عكس اتجاه عقارب الساعة"
 
 #: src/formatstrings.cpp:84
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Transversed"
-msgstr ""
+msgstr "مستعرضة"
 
 #: src/formatstrings.cpp:85
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr ""
+msgstr "مدورة 270° عكس اتجاه عقارب الساعة"
 
 #: src/formatstrings.cpp:96
 #, kde-format
@@ -89,49 +89,49 @@ msgstr "استُخدِم"
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light not detected"
-msgstr ""
+msgstr "استُخدِم، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:99
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light detected"
-msgstr ""
+msgstr "استُخدِم، رجع الضوء"
 
 #: src/formatstrings.cpp:100
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, did not fire"
-msgstr ""
+msgstr "نعم، لم يستعمل"
 
 #: src/formatstrings.cpp:101
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory"
-msgstr ""
+msgstr "نعم، إجباري"
 
 #: src/formatstrings.cpp:102
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light not detected"
-msgstr ""
+msgstr "نعم، إجباري، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:103
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light detected"
-msgstr ""
+msgstr "نعم، إجباري، رجع الضوء"
 
 #: src/formatstrings.cpp:104
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, compulsory"
-msgstr ""
+msgstr "لا، إجباري"
 
 #: src/formatstrings.cpp:105
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, did not fire, return light not detected"
-msgstr ""
+msgstr "لا، لم يستخدم، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:106
 #, kde-format
@@ -149,91 +149,91 @@ msgstr "نعم، آلي"
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light not detected"
-msgstr ""
+msgstr "نعم، آلي، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:109
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light detected"
-msgstr ""
+msgstr "نعم، آلي، رجع الضوء"
 
 #: src/formatstrings.cpp:110
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash function"
-msgstr ""
+msgstr "لا يوجد ميزة الوميض"
 
 #: src/formatstrings.cpp:111
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, no flash function"
-msgstr ""
+msgstr "لا، لا يوجد ميزة الوميض"
 
 #: src/formatstrings.cpp:112
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction"
-msgstr ""
+msgstr "نعم، إنقاص العين الحمراء"
 
 #: src/formatstrings.cpp:113
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction, return light not detected"
-msgstr ""
+msgstr "نعم، إنقاص العين الحمراء، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:114
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction, return light detected"
-msgstr ""
+msgstr "نعم، إنقاص العين الحمراء، رجع الضوء"
 
 #: src/formatstrings.cpp:115
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction"
-msgstr ""
+msgstr "نعم، إجباري، إنقاص العين الحمراء"
 
 #: src/formatstrings.cpp:116
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light not detected"
-msgstr ""
+msgstr "نعم، إجباري، إنقاص العين الحمراء، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:117
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light detected"
-msgstr ""
+msgstr "نعم، إجباري، إنقاص العين الحمراء، رجع الضوء"
 
 #: src/formatstrings.cpp:118
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, red-eye reduction"
-msgstr ""
+msgstr "لا، إنقاص العين الحمراء"
 
 #: src/formatstrings.cpp:119
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto, red-eye reduction"
-msgstr ""
+msgstr "لا، آلي، إنقاص العين الحمراء"
 
 #: src/formatstrings.cpp:120
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction"
-msgstr ""
+msgstr "نعم، آلي، إنقاص العين الحمراء"
 
 #: src/formatstrings.cpp:121
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light not detected"
-msgstr ""
+msgstr "نعم، آلي، إنقاص العين الحمراء، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:122
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light detected"
-msgstr ""
+msgstr "نعم، آلي، إنقاص العين الحمراء، رجع الضوء"
 
 #: src/formatstrings.cpp:127
 #, kde-format
@@ -491,7 +491,7 @@ msgstr "الوميض:"
 #, kde-format
 msgctxt "@label EXIF"
 msgid "F Number"
-msgstr "رقم F"
+msgstr "عدد البؤرة"
 
 #: src/propertyinfo.cpp:267
 #, kde-format
@@ -680,25 +680,25 @@ msgstr "التقييم"
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Album Peak"
-msgstr ""
+msgstr "رفع الإعادة قمة الألبوم"
 
 #: src/propertyinfo.cpp:461
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Album Gain"
-msgstr ""
+msgstr "رفع الإعادة رفع الألبوم"
 
 #: src/propertyinfo.cpp:468
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Track Peak"
-msgstr ""
+msgstr "رفع الإعادة قمة المسار"
 
 #: src/propertyinfo.cpp:475
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Track Gain"
-msgstr ""
+msgstr "إعادة رافعة رفع المسار"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
@@ -818,7 +818,7 @@ msgstr "نص"
 #, kde-format
 msgctxt "@label"
 msgid "Video"
-msgstr "فديو"
+msgstr "فيديو"
 
 #: src/typeinfo.cpp:74
 #, kde-format
