@@ -30,6 +30,7 @@ private Q_SLOTS:
     void testMetaData_data();
     void testCoverimage();
     void testCoverimage_data();
+    void testLocation();
 
 private:
     QMimeDatabase mimeDb;
@@ -213,6 +214,20 @@ void ffmpegExtractorTest::testCoverimage()
     for (const auto [type, imageData]: imageMap.asKeyValueRange()) {
         QCOMPARE(imageData, m_coverImage);
     }
+}
+
+void ffmpegExtractorTest::testLocation()
+{
+    const QString mimeType = QStringLiteral("mp4");
+    const QString fileName = testFilePath(QStringLiteral("test_location"), mimeType);
+
+    FFmpegExtractor plugin{this};
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.properties().value(Property::PhotoGpsLatitude), double(42.362998962402344));
+    QCOMPARE(result.properties().value(Property::PhotoGpsLongitude), double(-71.36019897460938));
 }
 
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)

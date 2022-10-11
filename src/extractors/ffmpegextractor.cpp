@@ -13,6 +13,8 @@
 #include "embeddedimagedata.h"
 #include "kfilemetadata_debug.h"
 
+#include <QRegularExpression>
+
 #ifdef __cplusplus
 #define __STDC_CONSTANT_MACROS
 #ifdef _STDINT_H
@@ -259,6 +261,35 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             const QDateTime date = QDateTime::fromString(QString::fromUtf8(entry->value), Qt::ISODate);
             if (date.isValid()) {
                 result->add(Property::CreationDate, date);
+            }
+        }
+
+        // TODO support localized location names through three letter language name (e.g. location-eng)
+        entry = av_dict_get(dict, "location", nullptr, 0);
+        if (entry) {
+            const QString location = QString::fromUtf8(entry->value);
+
+            // Format follows ISO 6709 Annex H: ±latitude±longitude±elevation/crs_name
+            // Latitude/longitude is always in integral degrees (i.e. 2 digit/3 digit) format
+            // Coordinate Reference System (crs) is omitted, though required
+            static const QRegularExpression iso6709rx(QStringLiteral(R"([+-]\d+(?:\.\d+)?)"));
+
+            auto matches = iso6709rx.globalMatch(location);
+            int i = 0;
+            while (matches.hasNext()) {
+                const auto match = matches.next();
+                bool ok;
+                const qreal value = match.captured(0).toFloat(&ok);
+                if (ok) {
+                    if (i == 0) {
+                        result->add(Property::PhotoGpsLatitude, value);
+                    } else if (i == 1) {
+                        result->add(Property::PhotoGpsLongitude, value);
+                    } else if (i == 2) { // elevation, optional
+                        result->add(Property::PhotoGpsAltitude, value);
+                    }
+                }
+                ++i;
             }
         }
     }

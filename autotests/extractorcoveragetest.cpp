@@ -79,6 +79,7 @@ private Q_SLOTS:
             { "test_cover.mkv",                "video/x-matroska"},
             { "test.mp3",                      "audio/mpeg"},
             { "test.id3v1.mp3",                "audio/mpeg"},
+            { "test_location.mp4",             "video/mp4"},
             { "test.aax",                      "audio/vnd.audible.aax"},
             { "test.aaxc",                     "audio/vnd.audible.aaxc"},
             { "test.mpc",                      "audio/x-musepack"},
