@@ -60,6 +60,10 @@ void PngExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Image);
 
+    if (!result->inputFlags().testFlag(ExtractionResult::ExtractMetaData)) {
+        return;
+    }
+
     for (const auto &mapping : s_textMapping) {
         QString text = reader.text(mapping.key);
         if (text.isEmpty()) {
