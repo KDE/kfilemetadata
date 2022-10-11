@@ -10,6 +10,8 @@
 
 #include "extractorplugin.h"
 
+class QIODevice;
+
 namespace KFileMetaData
 {
 
@@ -27,6 +29,8 @@ public:
     void extract(ExtractionResult* result) override;
 
 private:
+    void parseMetaData(const QString &documentElementId, const QByteArray &data, ExtractionResult *result);
+    void extractPlainText(QIODevice *device, ExtractionResult *result);
 };
 }
 
