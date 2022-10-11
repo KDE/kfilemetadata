@@ -176,6 +176,14 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             int year = QString::fromUtf8(entry->value).toInt();
             result->add(Property::ReleaseYear, year);
         }
+
+        entry = av_dict_get(dict, "creation_time", nullptr, 0);
+        if (entry) {
+            const QDateTime date = QDateTime::fromString(QString::fromUtf8(entry->value), Qt::ISODate);
+            if (date.isValid()) {
+                result->add(Property::CreationDate, date);
+            }
+        }
     }
 
     avformat_close_input(&fmt_ctx);
