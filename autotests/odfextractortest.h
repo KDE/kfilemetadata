@@ -18,10 +18,15 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
+    void testNoExtraction_data();
     void testNoExtraction();
+
+    void testText_data();
     void testText();
+
     void testTextMetaDataOnly();
 
+    void testPresentation_data();
     void testPresentation();
 
     void testTextMissingMetaNoCrash();

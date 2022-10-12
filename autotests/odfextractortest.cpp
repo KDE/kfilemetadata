@@ -16,36 +16,63 @@
 
 using namespace KFileMetaData;
 
+Q_DECLARE_METATYPE(Type::Type)
+
 QString OdfExtractorTest::testFilePath(const QString& fileName) const
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
+void OdfExtractorTest::testNoExtraction_data()
+{
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<QVector<Type::Type>>("types");
+
+    QTest::newRow("regular text") << QStringLiteral("test.odt") << QVector<Type::Type>{Type::Document};
+    QTest::newRow("flat xml text") << QStringLiteral("test.fodt") << QVector<Type::Type>{Type::Document};
+
+    QTest::newRow("regular presentation") << QStringLiteral("test.odp") << QVector<Type::Type>{Type::Document, Type::Presentation};
+    QTest::newRow("flat xml presentation") << QStringLiteral("test.fodp") << QVector<Type::Type>{Type::Document, Type::Presentation};
+}
+
 void OdfExtractorTest::testNoExtraction()
 {
+    QFETCH(QString, fileName);
+    QFETCH(QVector<Type::Type>, types);
+
     OdfExtractor plugin{this};
 
-    QString fileName = testFilePath(QStringLiteral("test.odt"));
-    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    const QString path = testFilePath(fileName);
+    const QString mimeType = MimeUtils::strictMimeType(path, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    SimpleExtractionResult result(path, mimeType, ExtractionResult::ExtractNothing);
     plugin.extract(&result);
 
-    QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().at(0), Type::Document);
+    QCOMPARE(result.types().size(), types.size());
+    QCOMPARE(result.types(), types);
     QCOMPARE(result.properties().size(),0);
+}
+
+void OdfExtractorTest::testText_data()
+{
+    QTest::addColumn<QString>("fileName");
+
+    QTest::newRow("regular") << QStringLiteral("test.odt");
+    QTest::newRow("flat xml") << QStringLiteral("test.fodt");
 }
 
 void OdfExtractorTest::testText()
 {
+    QFETCH(QString, fileName);
+
     OdfExtractor plugin{this};
 
-    QString fileName = testFilePath(QStringLiteral("test.odt"));
-    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    const QString path = testFilePath(fileName);
+    const QString mimeType = MimeUtils::strictMimeType(path, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(fileName, mimeType);
+    SimpleExtractionResult result(path, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -78,15 +105,25 @@ void OdfExtractorTest::testTextMetaDataOnly()
     QVERIFY(result.text().isEmpty());
 }
 
+void OdfExtractorTest::testPresentation_data()
+{
+    QTest::addColumn<QString>("fileName");
+
+    QTest::newRow("regular") << QStringLiteral("test.odp");
+    QTest::newRow("flat xml") << QStringLiteral("test.fodp");
+}
+
 void OdfExtractorTest::testPresentation()
 {
+    QFETCH(QString, fileName);
+
     OdfExtractor plugin{this};
 
-    QString fileName = testFilePath(QStringLiteral("test.odp"));
-    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    const QString path = testFilePath(fileName);
+    const QString mimeType = MimeUtils::strictMimeType(path, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(fileName, mimeType);
+    SimpleExtractionResult result(path, mimeType);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 2);

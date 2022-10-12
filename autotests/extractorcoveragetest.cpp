@@ -56,6 +56,8 @@ private Q_SLOTS:
             { "test_no_gps.jpg",               "image/jpeg"},
             { "test.odp",                      "application/vnd.oasis.opendocument.presentation"},
             { "test.odt",                      "application/vnd.oasis.opendocument.text"},
+            { "test.fodp",                     "application/vnd.oasis.opendocument.presentation-flat-xml"},
+            { "test.fodt",                     "application/vnd.oasis.opendocument.text-flat-xml"},
             { "test.ogg",                      "audio/x-vorbis+ogg"},
             { "test.mml",                      "application/mathml+xml"},
             { "test_multivalue.ogg",           "audio/x-vorbis+ogg"},
