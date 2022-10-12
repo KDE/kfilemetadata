@@ -77,6 +77,7 @@ private Q_SLOTS:
             { "test.wv",                       "audio/x-wavpack"},
             { "test_zero_gps.jpg",             "image/jpeg"},
             { "test.mobi",                     "application/x-mobipocket-ebook"},
+            { "test.png",                      "image/png"},
         };
 
         // Collect all test files from the samplefiles directory

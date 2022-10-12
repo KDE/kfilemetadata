@@ -235,6 +235,18 @@ if(libappimage_FOUND AND KF5Config_FOUND AND Qt${QT_MAJOR_VERSION}Gui_FOUND)
     )
 endif()
 
+#
+# PNG
+#
+ecm_add_test(pngextractortest.cpp ../src/extractors/pngextractor.cpp
+    TEST_NAME "pngextractortest"
+    LINK_LIBRARIES
+        Qt${QT_MAJOR_VERSION}::Test
+        KF5::FileMetaData
+        Qt${QT_MAJOR_VERSION}::Gui
+)
+
+
 ################
 # Writer tests #
 ################
