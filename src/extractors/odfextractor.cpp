@@ -22,6 +22,7 @@ namespace {
 inline QString dcNS()     { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
 inline QString metaNS()   { return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:meta:1.0"); }
 inline QString officeNS() { return QStringLiteral("urn:oasis:names:tc:opendocument:xmlns:office:1.0"); }
+inline QString bodyTag()  { return QStringLiteral("body"); }
 
 QDomElement firstChildElementNS(const QDomNode &node, const QString &nsURI, const QString &localName)
 {
@@ -201,11 +202,20 @@ void OdfExtractor::parseMetaData(const QString &documentElementId, const QByteAr
 
 void OdfExtractor::extractPlainText(QIODevice *device, ExtractionResult *result)
 {
+    bool inOfficeBody = false;
+
     QXmlStreamReader xml(device);
     while (!xml.atEnd()) {
         xml.readNext();
-        if (xml.isCharacters()) {
-            QString str = xml.text().toString();
+
+        if (xml.isStartElement() && !inOfficeBody && xml.namespaceUri() == officeNS() && xml.name() == bodyTag()) {
+            inOfficeBody = true;
+        } else if (xml.isEndElement() && inOfficeBody && xml.namespaceUri() == officeNS() && xml.name() == bodyTag()) {
+            break;
+        }
+
+        if (inOfficeBody && xml.isCharacters() && !xml.isWhitespace()) {
+            const QString str = xml.text().toString();
             result->append(str);
         }
 
