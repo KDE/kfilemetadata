@@ -42,6 +42,8 @@ private Q_SLOTS:
             { "test.dot",                      "text/vnd.graphviz"},
             { "test.eps",                      "image/x-eps"},
             { "test.epub",                     "application/epub+zip"},
+            { "test.fb2",                      "application/x-fictionbook+xml"},
+            { "test.fb2.zip",                  "application/x-zip-compressed-fb2"},
             { "test.flac",                     "audio/flac"},
             { "test.heif",                     "image/heif"}, // alias for image/heic
             { "test.jpg",                      "image/jpeg"},
