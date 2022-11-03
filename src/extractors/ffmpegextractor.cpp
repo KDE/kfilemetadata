@@ -121,6 +121,12 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         }
 
         AVDictionary* dict = fmt_ctx->metadata;
+        // In Ogg, the internal comment metadata headers are attached to a single content stream.
+        // By convention, it's the first logical bitstream occuring.
+        if (!dict && fmt_ctx->nb_streams > 0) {
+            dict = fmt_ctx->streams[0]->metadata;
+        }
+
         AVDictionaryEntry* entry;
 
         entry = av_dict_get(dict, "title", nullptr, 0);

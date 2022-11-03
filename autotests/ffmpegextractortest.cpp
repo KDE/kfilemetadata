@@ -109,7 +109,6 @@ void ffmpegExtractorTest::testMetaData()
     SimpleExtractionResult result(fileName, mimeType);
     plugin.extract(&result);
 
-    QEXPECT_FAIL("Vorbis Video", "Not yet supported", Abort);
     QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Title"));
     QCOMPARE(result.properties().value(Property::Copyright).toString(), QStringLiteral("Copyright"));
     QCOMPARE(result.properties().value(Property::Author).toString(), QStringLiteral("Author"));
