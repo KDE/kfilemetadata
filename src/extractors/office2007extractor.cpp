@@ -140,7 +140,6 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         QDomElement docElem = appDoc.documentElement();
 
-        // According to the ontologies only Documents can have a wordCount and pageCount
         const QString mimeType = result->inputMimetype();
         if (mimeType == QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
             QDomElement elem = docElem.firstChildElement(QStringLiteral("Pages"));
@@ -158,6 +157,15 @@ void Office2007Extractor::extract(ExtractionResult* result)
                 int wordCount = elem.text().toInt(&ok);
                 if (ok) {
                     result->add(Property::WordCount, wordCount);
+                }
+            }
+
+            elem = docElem.firstChildElement(QStringLiteral("Lines"));
+            if (!elem.isNull()) {
+                bool ok = false;
+                int lineCount = elem.text().toInt(&ok);
+                if (ok) {
+                    result->add(Property::LineCount, lineCount);
                 }
             }
         }

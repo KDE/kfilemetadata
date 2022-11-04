@@ -60,12 +60,13 @@ void Office2007ExtractorTest::test()
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
     QCOMPARE(result.properties().value(Property::PageCount), QVariant(1));
     QCOMPARE(result.properties().value(Property::WordCount), QVariant(4));
+    QCOMPARE(result.properties().value(Property::LineCount), QVariant(1));
 
     QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40));
     dt.setTimeSpec(Qt::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
-    QCOMPARE(result.properties().size(), 9);
+    QCOMPARE(result.properties().size(), 10);
     QCOMPARE(result.text(), QStringLiteral("Test file for KFileMetaData. "));
 }
 
