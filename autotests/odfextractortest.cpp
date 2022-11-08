@@ -33,6 +33,9 @@ void OdfExtractorTest::testNoExtraction_data()
 
     QTest::newRow("regular presentation") << QStringLiteral("test.odp") << QVector<Type::Type>{Type::Document, Type::Presentation};
     QTest::newRow("flat xml presentation") << QStringLiteral("test.fodp") << QVector<Type::Type>{Type::Document, Type::Presentation};
+
+    QTest::newRow("regular graphic") << QStringLiteral("test.odg") << QVector<Type::Type>{Type::Document, Type::Image};
+    QTest::newRow("flat xml graphic") << QStringLiteral("test.fodg") << QVector<Type::Type>{Type::Document, Type::Image};
 }
 
 void OdfExtractorTest::testNoExtraction()
@@ -135,6 +138,38 @@ void OdfExtractorTest::testPresentation()
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.text(), QStringLiteral("KFileMetaData Pres "));
+}
+
+void OdfExtractorTest::testGraphic_data()
+{
+    QTest::addColumn<QString>("fileName");
+
+    QTest::newRow("regular") << QStringLiteral("test.odg");
+    QTest::newRow("flat xml") << QStringLiteral("test.fodg");
+}
+
+void OdfExtractorTest::testGraphic()
+{
+    QFETCH(QString, fileName);
+
+    OdfExtractor plugin{this};
+
+    const QString path = testFilePath(fileName);
+    const QString mimeType = MimeUtils::strictMimeType(path, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(path, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 2);
+    QCOMPARE(result.types().at(0), Type::Document);
+    QCOMPARE(result.types().at(1), Type::Image);
+
+    QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
+    QDateTime dt(QDate(2022, 11, 8), QTime(15, 27, 0, 660));
+    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
+
+    QCOMPARE(result.text(), QStringLiteral("KFileMetaData Graphic "));
 }
 
 void OdfExtractorTest::testTextMissingMetaNoCrash()

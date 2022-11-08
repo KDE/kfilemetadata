@@ -29,6 +29,9 @@ private Q_SLOTS:
     void testPresentation_data();
     void testPresentation();
 
+    void testGraphic_data();
+    void testGraphic();
+
     void testTextMissingMetaNoCrash();
     void testTextMissingContentNoCrash();
 

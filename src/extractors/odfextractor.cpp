@@ -47,6 +47,9 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("application/vnd.oasis.opendocument.spreadsheet"),
     QStringLiteral("application/vnd.oasis.opendocument.spreadsheet-template"),
     QStringLiteral("application/vnd.oasis.opendocument.spreadsheet-flat-xml"),
+    QStringLiteral("application/vnd.oasis.opendocument.graphics"),
+    QStringLiteral("application/vnd.oasis.opendocument.graphics-template"),
+    QStringLiteral("application/vnd.oasis.opendocument.graphics-flat-xml"),
 };
 
 }
@@ -77,6 +80,8 @@ void OdfExtractor::extract(ExtractionResult* result)
             result->addType(Type::Presentation);
         } else if (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet-flat-xml")) {
             result->addType(Type::Spreadsheet);
+        } else if (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.graphics-flat-xml")) {
+            result->addType(Type::Image);
         }
 
         if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
@@ -122,6 +127,10 @@ void OdfExtractor::extract(ExtractionResult* result)
     else if ((result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet")) ||
              (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.spreadsheet-template"))) {
         result->addType(Type::Spreadsheet);
+    }
+    else if (result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.graphics") ||
+             result->inputMimetype() == QLatin1String("application/vnd.oasis.opendocument.graphics-template")) {
+        result->addType(Type::Image);
     }
 
     if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
