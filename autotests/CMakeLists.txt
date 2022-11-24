@@ -112,6 +112,16 @@ ecm_add_test(
 )
 
 #
+# GPS Exchange Format GPX
+#
+ecm_add_test(
+    gpxextractortest.cpp
+    ../src/extractors/gpxextractor.cpp
+    TEST_NAME "gpxextractortest"
+    LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF5::FileMetaData
+)
+
+#
 # Property Info
 #
 add_executable(propertyinfotest_bin propertyinfotest.cpp)

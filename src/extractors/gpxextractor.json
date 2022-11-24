@@ -1,0 +1,8 @@
+{
+    "Name" : "GpxExtractor",
+    "Id" :   "org.kde.epubextractor",
+    "MimeTypes" : {
+        "application/gpx+xml" : { "Version" : "0.0" }
+    }
+}
+

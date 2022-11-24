@@ -281,3 +281,17 @@ set_target_properties(kfilemetadata_fb2extractor PROPERTIES LIBRARY_OUTPUT_DIREC
 install(
 TARGETS kfilemetadata_fb2extractor
 DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata)
+
+#
+# GPS Exchange Format GPX
+#
+add_library(kfilemetadata_gpxextractor MODULE gpxextractor.cpp )
+target_link_libraries(kfilemetadata_gpxextractor
+    KF5::FileMetaData
+    Qt${QT_MAJOR_VERSION}::Core
+)
+
+set_target_properties(kfilemetadata_gpxextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf${QT_MAJOR_VERSION}/kfilemetadata")
+install(
+TARGETS kfilemetadata_gpxextractor
+DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata)
