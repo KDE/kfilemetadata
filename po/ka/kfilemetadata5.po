@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2020-06-09 02:02+0200\n"
-"PO-Revision-Date: 2022-09-18 12:02+0200\n"
+"PO-Revision-Date: 2022-12-03 07:11+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -58,79 +58,79 @@ msgstr "ტრანსპოსირებული"
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr ""
+msgstr "90° შებრუნებული სსმ "
 
 #: src/formatstrings.cpp:84
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Transversed"
-msgstr ""
+msgstr "გადაკვეთილი"
 
 #: src/formatstrings.cpp:85
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr ""
+msgstr "270° შებრუნებული სსმ"
 
 #: src/formatstrings.cpp:96
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash"
-msgstr ""
+msgstr "განათების გარეშე"
 
 #: src/formatstrings.cpp:97
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired"
-msgstr ""
+msgstr "ჩაირთო"
 
 #: src/formatstrings.cpp:98
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light not detected"
-msgstr ""
+msgstr "ჩაირთო, დაბრუნებული სინათლე აღმოჩენილი არაა"
 
 #: src/formatstrings.cpp:99
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light detected"
-msgstr ""
+msgstr "ჩაირთო, დაბრუნებული სინათლე აღმოჩენილია"
 
 #: src/formatstrings.cpp:100
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, did not fire"
-msgstr ""
+msgstr "დიახ, არ ჩაირთო"
 
 #: src/formatstrings.cpp:101
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory"
-msgstr ""
+msgstr "დიახ, იძულებით"
 
 #: src/formatstrings.cpp:102
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light not detected"
-msgstr ""
+msgstr "დიახ, იძულებით, დაბრუნებული სინათლე აღმოჩენილი არაა"
 
 #: src/formatstrings.cpp:103
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light detected"
-msgstr ""
+msgstr "დიახ, იძულებით, დაბრუნებული სინათლე აღმოჩენილია"
 
 #: src/formatstrings.cpp:104
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, compulsory"
-msgstr ""
+msgstr "არა, იძულებით"
 
 #: src/formatstrings.cpp:105
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, did not fire, return light not detected"
-msgstr ""
+msgstr "არა, არ ჩაირთო, დაბრუნებული სინათლე აღმოჩენილი არაა"
 
 #: src/formatstrings.cpp:106
 #, kde-format
@@ -190,19 +190,21 @@ msgstr "დიახ, წითელი თვალის მოცილე�
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction"
-msgstr ""
+msgstr "დიახ, ნაძალადევი, წითელი თვალის მოცილება"
 
 #: src/formatstrings.cpp:116
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light not detected"
 msgstr ""
+"დიახ, ნაძალადევი, წითელი თვალის მოცილება, დაბრუნებული სინათლე აღმოჩენილი არაა"
 
 #: src/formatstrings.cpp:117
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light detected"
 msgstr ""
+"დიახ, ნაძალადევი, წითელი თვალის მოცილება, დაბრუნებული სინათლე აღმოჩენილია"
 
 #: src/formatstrings.cpp:118
 #, kde-format
@@ -635,13 +637,13 @@ msgstr "ანსამბლი"
 #, kde-format
 msgctxt "@label"
 msgid "Arranger"
-msgstr ""
+msgstr "ხმის რეჟისორი"
 
 #: src/propertyinfo.cpp:418
 #, kde-format
 msgctxt "@label"
 msgid "Conductor"
-msgstr ""
+msgstr "დირიჟორი"
 
 #: src/propertyinfo.cpp:424
 #, kde-format
@@ -665,7 +667,7 @@ msgstr "ლირიკა"
 #, kde-format
 msgctxt "@label"
 msgid "Opus"
-msgstr ""
+msgstr "Opus"
 
 #: src/propertyinfo.cpp:448
 #, kde-format
@@ -713,7 +715,7 @@ msgstr "სიტყვების რაოდენობა"
 #, kde-format
 msgctxt "@label number of translatable strings"
 msgid "Translatable Units"
-msgstr ""
+msgstr "თარგმნად ერთეულები"
 
 #: src/propertyinfo.cpp:502
 #, kde-format
@@ -725,7 +727,7 @@ msgstr "თარგმანები"
 #, kde-format
 msgctxt "@label number of fuzzy translated strings"
 msgid "Draft Translations"
-msgstr ""
+msgstr "თარგმანის მონახაზები"
 
 #: src/propertyinfo.cpp:517
 #, kde-format
@@ -743,7 +745,7 @@ msgstr "ბოლო განახლება"
 #, kde-format
 msgctxt "@label date of template creation8"
 msgid "Template Creation"
-msgstr ""
+msgstr "ნიუშის შექმნა"
 
 #: src/propertyinfo.cpp:540
 #, kde-format
@@ -755,19 +757,19 @@ msgstr "გადმოწერის წყარო"
 #, kde-format
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
-msgstr ""
+msgstr "ელფოსტის მიმაგრების თემა"
 
 #: src/propertyinfo.cpp:554
 #, kde-format
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
-msgstr ""
+msgstr "ელფოსტის მიმაგრების გამგზავნი"
 
 #: src/propertyinfo.cpp:561
 #, kde-format
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr ""
+msgstr "ელფოსტის მიმაგრების შეტყობინების ID"
 
 #: src/typeinfo.cpp:34
 #, kde-format
