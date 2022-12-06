@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2020-06-09 02:02+0200\n"
-"PO-Revision-Date: 2022-12-03 07:11+0100\n"
+"PO-Revision-Date: 2022-12-05 06:19+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -475,7 +475,7 @@ msgstr "საწყისი თარიღი და დრო"
 #, kde-format
 msgctxt "@label EXIF"
 msgid "Exposure Bias"
-msgstr ""
+msgstr "ექსპოკორექცია"
 
 #: src/propertyinfo.cpp:246
 #, kde-format
@@ -649,7 +649,7 @@ msgstr "დირიჟორი"
 #, kde-format
 msgctxt "@label"
 msgid "Compilation"
-msgstr ""
+msgstr "ნაკრები"
 
 #: src/propertyinfo.cpp:430
 #, kde-format
@@ -679,25 +679,25 @@ msgstr "შეფასება"
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Album Peak"
-msgstr ""
+msgstr "ალბომის ხმის სიმაღლის პიკი"
 
 #: src/propertyinfo.cpp:461
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Album Gain"
-msgstr ""
+msgstr "ალბომის ხმის სიმაღლე"
 
 #: src/propertyinfo.cpp:468
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Track Peak"
-msgstr ""
+msgstr "ტრეკის ხმის სიმაღლის პიკი"
 
 #: src/propertyinfo.cpp:475
 #, kde-format
 msgctxt "@label"
 msgid "Replay Gain Track Gain"
-msgstr ""
+msgstr "ტრეკის ხმის სიმაღლე"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
