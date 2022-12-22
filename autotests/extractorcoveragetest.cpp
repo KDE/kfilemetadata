@@ -80,6 +80,7 @@ private Q_SLOTS:
             { "test.mp3",                      "audio/mpeg"},
             { "test.id3v1.mp3",                "audio/mpeg"},
             { "test_location.mp4",             "video/mp4"},
+            { "test_apple.mov",                "video/quicktime"},
             { "test.aax",                      "audio/vnd.audible.aax"},
             { "test.aaxc",                     "audio/vnd.audible.aaxc"},
             { "test.mpc",                      "audio/x-musepack"},

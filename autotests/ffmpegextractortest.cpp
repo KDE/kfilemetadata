@@ -31,6 +31,7 @@ private Q_SLOTS:
     void testCoverimage();
     void testCoverimage_data();
     void testLocation();
+    void testApple();
 
 private:
     QMimeDatabase mimeDb;
@@ -228,6 +229,22 @@ void ffmpegExtractorTest::testLocation()
 
     QCOMPARE(result.properties().value(Property::PhotoGpsLatitude), double(42.362998962402344));
     QCOMPARE(result.properties().value(Property::PhotoGpsLongitude), double(-71.36019897460938));
+}
+
+void ffmpegExtractorTest::testApple()
+{
+    const QString mimeType = QStringLiteral("mov");
+    const QString fileName = testFilePath(QStringLiteral("test_apple"), mimeType);
+
+    FFmpegExtractor plugin{this};
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.properties().value(Property::Manufacturer), QStringLiteral("Apple"));
+    QCOMPARE(result.properties().value(Property::Model), QStringLiteral("iPhone 11"));
+    QCOMPARE(result.properties().value(Property::Generator), QStringLiteral("18.3.1"));
+    QCOMPARE(result.properties().value(Property::CreationDate), QDateTime(QDate(2026, 8, 24), QTime(13, 59, 0), QTimeZone::utc()));
 }
 
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)

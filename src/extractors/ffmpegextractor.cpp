@@ -257,6 +257,9 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         }
 
         entry = av_dict_get(dict, "creation_time", nullptr, 0);
+        if (!entry) {
+            entry = av_dict_get(dict, "com.apple.quicktime.creationdate", nullptr, 0);
+        }
         if (entry) {
             const QDateTime date = QDateTime::fromString(QString::fromUtf8(entry->value), Qt::ISODate);
             if (date.isValid()) {
@@ -266,6 +269,9 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
         // TODO support localized location names through three letter language name (e.g. location-eng)
         entry = av_dict_get(dict, "location", nullptr, 0);
+        if (!entry) {
+            entry = av_dict_get(dict, "com.apple.quicktime.location.ISO6709", nullptr, 0);
+        }
         if (entry) {
             const QString location = QString::fromUtf8(entry->value);
 
@@ -291,6 +297,21 @@ void FFmpegExtractor::extract(ExtractionResult* result)
                 }
                 ++i;
             }
+        }
+
+        entry = av_dict_get(dict, "com.apple.quicktime.make", nullptr, 0);
+        if (entry) {
+            result->add(Property::Manufacturer, QString::fromUtf8(entry->value));
+        }
+
+        entry = av_dict_get(dict, "com.apple.quicktime.model", nullptr, 0);
+        if (entry) {
+            result->add(Property::Model, QString::fromUtf8(entry->value));
+        }
+
+        entry = av_dict_get(dict, "com.apple.quicktime.software", nullptr, 0);
+        if (entry) {
+            result->add(Property::Generator, QString::fromUtf8(entry->value));
         }
     }
 }
