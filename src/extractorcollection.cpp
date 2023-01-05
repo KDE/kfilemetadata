@@ -72,18 +72,19 @@ void ExtractorCollectionPrivate::findExtractors()
         }
     }
 
-    const QVector<KPluginMetaData> externalExtractors =
-        KPluginMetaData::findPlugins(QStringLiteral(LIBEXEC_INSTALL_DIR "/kfilemetadata/externalextractors"), {}, KPluginMetaData::AllowEmptyMetaData);
-    for (const KPluginMetaData &externalPlugin : externalExtractors) {
-        qCDebug(KFILEMETADATA_LOG) << "Adding plugin - " << externalPlugin.fileName();
-
-        Extractor extractor;
-        ExternalExtractor *plugin = new ExternalExtractor(externalPlugin.fileName());
-        if (plugin && !plugin->mimetypes().isEmpty()) {
-            extractor.setExtractorPlugin(plugin);
-            extractor.setAutoDeletePlugin(Extractor::AutoDeletePlugin);
-            m_allExtractors.push_back(std::move(extractor));
+    QStringList externalPlugins;
+    const QDir externalPluginDir(QStringLiteral(LIBEXEC_INSTALL_DIR "/kfilemetadata/externalextractors"));
+    qCDebug(KFILEMETADATA_LOG) << "Searching for external extractors:" << externalPluginDir.path();
+    // For external plugins, we look into the directories
+    const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (const QString &externalPlugin : externalPluginEntryList) {
+        if (externalPlugins.contains(externalPlugin)) {
+            qCDebug(KFILEMETADATA_LOG) << "Skipping duplicate - " << externalPluginDir.path() << ":" << externalPlugin;
+            continue;
         }
+
+        qCDebug(KFILEMETADATA_LOG) << "Adding plugin - " << externalPluginDir.path() << ":" << externalPlugin;
+        externalPlugins << externalPlugin;
     }
 
     for (Extractor& extractor : m_allExtractors) {

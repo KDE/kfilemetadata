@@ -68,9 +68,6 @@ void WriterCollectionPrivate::findWriters()
     // For external plugins, we look into the directories. Those are executables and not C++ plugins.
     const QStringList externalPluginEntryList = externalPluginDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     for (const QString& externalPlugin : externalPluginEntryList) {
-        if (!QLibrary::isLibrary(externalPlugin)) {
-            continue;
-        }
         if (externalPlugins.contains(externalPlugin)) {
             continue;
         }
