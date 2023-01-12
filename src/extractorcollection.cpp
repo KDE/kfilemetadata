@@ -85,7 +85,17 @@ void ExtractorCollectionPrivate::findExtractors()
 
         qCDebug(KFILEMETADATA_LOG) << "Adding plugin - " << externalPluginDir.path() << ":" << externalPlugin;
         externalPlugins << externalPlugin;
+
+        Extractor extractor;
+        auto pluginPath = externalPluginDir.absoluteFilePath(externalPlugin);
+        ExternalExtractor *plugin = new ExternalExtractor(pluginPath);
+        if (plugin && !plugin->mimetypes().isEmpty()) {
+              extractor.setExtractorPlugin(plugin);
+              extractor.setAutoDeletePlugin(Extractor::AutoDeletePlugin);
+              m_allExtractors.push_back(std::move(extractor));
+        }
     }
+    externalPlugins.clear();
 
     for (Extractor& extractor : m_allExtractors) {
         auto pluginProperties = extractor.extractorProperties();
