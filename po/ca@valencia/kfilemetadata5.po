@@ -746,7 +746,7 @@ msgstr "Última actualització"
 #, kde-format
 msgctxt "@label date of template creation8"
 msgid "Template Creation"
-msgstr "Creació de la plantilla"
+msgstr "Creeu la plantilla"
 
 #: src/propertyinfo.cpp:540
 #, kde-format
