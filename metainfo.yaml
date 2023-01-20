@@ -12,8 +12,8 @@ deprecated: false
 release: true
 libraries:
  - qmake: KFileMetaData
-   cmake: "KF5::FileMetaData"
-cmakename: KF5FileMetaData
+   cmake: "KF6::FileMetaData"
+cmakename: KF6FileMetaData
 
 public_lib: true
 group: Frameworks

@@ -6,5 +6,5 @@ target_include_directories(dump  PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>"
 
 target_link_libraries(dump
     Qt${QT_MAJOR_VERSION}::Core
-    KF5FileMetaData
+    KF6FileMetaData
 )

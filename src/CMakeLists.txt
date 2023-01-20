@@ -7,7 +7,7 @@ ecm_qt_declare_logging_category(debug_SRCS
     EXPORT KFILEMETADATA
 )
 
-set(KF5FileMetaData_SRCS
+set(KF6FileMetaData_SRCS
     extractionresult.cpp
     simpleextractionresult.cpp
     embeddedimagedata.cpp
@@ -28,21 +28,21 @@ set(KF5FileMetaData_SRCS
     ${debug_SRCS}
     )
 
-add_library(KF5FileMetaData
-    ${KF5FileMetaData_SRCS}
+add_library(KF6FileMetaData
+    ${KF6FileMetaData_SRCS}
 )
 
-add_library(KF5::FileMetaData ALIAS KF5FileMetaData)
+add_library(KF6::FileMetaData ALIAS KF6FileMetaData)
 
-target_link_libraries(KF5FileMetaData
+target_link_libraries(KF6FileMetaData
   PUBLIC
     Qt${QT_MAJOR_VERSION}::Core
   PRIVATE
-    KF5::I18n
-    KF5::CoreAddons
+    KF6::I18n
+    KF6::CoreAddons
 )
 
-ecm_generate_export_header(KF5FileMetaData
+ecm_generate_export_header(KF6FileMetaData
     EXPORT_FILE_NAME kfilemetadata_export.h
     BASE_NAME KFileMetaData
     GROUP_BASE_NAME KF
@@ -52,15 +52,15 @@ ecm_generate_export_header(KF5FileMetaData
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
 )
 
-set_target_properties(KF5FileMetaData PROPERTIES
+set_target_properties(KF6FileMetaData PROPERTIES
     VERSION ${KFILEMETADATA_VERSION}
     SOVERSION ${KFILEMETADATA_SOVERSION}
     EXPORT_NAME FileMetaData
 )
 
-target_include_directories(KF5FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData>")
+target_include_directories(KF6FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData>")
 
-ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
+ecm_generate_headers(KF6FileMetaData_CamelCase_HEADERS
     HEADER_NAMES
     ExtractionResult
     SimpleExtractionResult
@@ -80,24 +80,24 @@ ecm_generate_headers(KF5FileMetaData_CamelCase_HEADERS
     MimeUtils
 
     PREFIX kfilemetadata
-    REQUIRED_HEADERS KF5FileMetaData_HEADERS
+    REQUIRED_HEADERS KF6FileMetaData_HEADERS
 )
 
-install(TARGETS KF5FileMetaData EXPORT KF5FileMetaDataTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS KF6FileMetaData EXPORT KF6FileMetaDataTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
-install(EXPORT KF5FileMetaDataTargets
-        NAMESPACE KF5::
-        DESTINATION ${KDE_INSTALL_LIBDIR}/cmake/KF5FileMetaData
-        FILE KF5FileMetaDataTargets.cmake)
+install(EXPORT KF6FileMetaDataTargets
+        NAMESPACE KF6::
+        DESTINATION ${KDE_INSTALL_LIBDIR}/cmake/KF6FileMetaData
+        FILE KF6FileMetaDataTargets.cmake)
 
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_export.h
-    ${KF5FileMetaData_HEADERS}
+    ${KF6FileMetaData_HEADERS}
     DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData/kfilemetadata COMPONENT Devel
 )
 
 install(FILES
-    ${KF5FileMetaData_CamelCase_HEADERS}
+    ${KF6FileMetaData_CamelCase_HEADERS}
     DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData/KFileMetaData COMPONENT Devel
 )
 
@@ -105,13 +105,13 @@ configure_file(config-kfilemetadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kfil
 
 if(BUILD_QCH)
     ecm_add_qch(
-        KF5FileMetaData_QCH
+        KF6FileMetaData_QCH
         NAME KFileMetaData
-        BASE_NAME KF5FileMetaData
+        BASE_NAME KF6FileMetaData
         VERSION ${KF_VERSION}
         ORG_DOMAIN org.kde
         SOURCES # using only public headers, to cover only public API
-            ${KF5FileMetaData_HEADERS}
+            ${KF6FileMetaData_HEADERS}
         MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
         LINK_QCHS
             Qt5Core_QCH
@@ -134,7 +134,7 @@ endif()
 include(ECMGeneratePriFile)
 ecm_generate_pri_file(
     BASE_NAME KFileMetaData
-    LIB_NAME KF5FileMetaData
+    LIB_NAME KF6FileMetaData
     DEPS "core"
     FILENAME_VAR PRI_FILENAME
     INCLUDE_INSTALL_DIR ${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData

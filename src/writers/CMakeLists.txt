@@ -2,7 +2,7 @@ if(Taglib_FOUND)
     add_library(kfilemetadata_taglibwriter MODULE taglibwriter.cpp ${debug_SRCS})
 
     target_link_libraries( kfilemetadata_taglibwriter
-        KF5::FileMetaData
+        KF6::FileMetaData
         Taglib::Taglib
     )
 

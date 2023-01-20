@@ -31,7 +31,7 @@ add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt 
 ecm_setup_version(PROJECT
                   VARIABLE_PREFIX KFILEMETADATA
                   VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_version.h"
-                  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
+                  PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6FileMetaDataConfigVersion.cmake"
                   SOVERSION 3)
 
 # Dependencies
@@ -47,22 +47,22 @@ if (QT_MAJOR_VERSION STREQUAL "6")
     find_package(Qt6Core5Compat)
 endif()
 
-find_package(KF5 ${KF_DEP_VERSION} COMPONENTS Archive)
-set_package_properties(KF5Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Archive Framework"
+find_package(KF6 ${KF_DEP_VERSION} COMPONENTS Archive)
+set_package_properties(KF6Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Archive Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
                        PURPOSE "Archive is needed to build ODF and OOXML 2007 extractors")
 
-find_package(KF5 ${KF_DEP_VERSION} COMPONENTS CoreAddons)
-set_package_properties(KF5CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks 5: Core Addons Framework"
+find_package(KF6 ${KF_DEP_VERSION} COMPONENTS CoreAddons)
+set_package_properties(KF6CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks 5: Core Addons Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE REQUIRED
                        PURPOSE "Needed for the formatting of properties for display purposes")
 
-find_package(KF5 ${KF_DEP_VERSION} COMPONENTS Config)
-set_package_properties(KF5Config PROPERTIES DESCRIPTION "KDE Frameworks 5: Config Framework"
+find_package(KF6 ${KF_DEP_VERSION} COMPONENTS Config)
+set_package_properties(KF6Config PROPERTIES DESCRIPTION "KDE Frameworks 5: Config Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
                        PURPOSE "Config is needed to build the AppImage extractor")
 
-find_package(KF5 ${KF_DEP_VERSION} REQUIRED COMPONENTS I18n)
+find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
 find_package(Poppler 0.12.1 COMPONENTS Qt${QT_MAJOR_VERSION})
 set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
@@ -129,31 +129,31 @@ if (BUILD_TESTING)
 endif()
 
 # Config files
-set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF5FileMetaData")
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6FileMetaData")
 
 ki18n_install(po)
 
 if (BUILD_QCH)
     ecm_install_qch_export(
-        TARGETS KF5FileMetaData_QCH
-        FILE KF5FileMetaDataQchTargets.cmake
+        TARGETS KF6FileMetaData_QCH
+        FILE KF6FileMetaDataQchTargets.cmake
         DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
         COMPONENT Devel
     )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF5FileMetaDataQchTargets.cmake\")")
+    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF6FileMetaDataQchTargets.cmake\")")
 endif()
 
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KF5FileMetaDataConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/KF6FileMetaDataConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6FileMetaDataConfig.cmake"
   INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
 )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KF5FileMetaDataConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6FileMetaDataConfig.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/KF6FileMetaDataConfigVersion.cmake"
   DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
   COMPONENT devel
 )
