@@ -42,10 +42,6 @@ public:
         ExtractMetaData = 1,
         ExtractPlainText = 2,
         ExtractImageData = 4, ///< @since 5.76
-#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 76)
-	/// @deprecated since 5.76, specify explicitly
-        ExtractEverything KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(5, 82, 5, 76, "Specify flags explicitly") = (ExtractMetaData | ExtractPlainText)
-#endif
     };
     /**
      * Stores a combination of #Flag values.

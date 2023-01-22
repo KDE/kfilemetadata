@@ -58,13 +58,6 @@ void SimpleExtractionResult::append(const QString& text)
     d->m_text.append(QLatin1Char(' '));
 }
 
-#if KFILEMETADATA_BUILD_DEPRECATED_SINCE(5, 89)
-PropertyMap SimpleExtractionResult::properties() const
-{
-    return d->m_properties;
-}
-#endif
-
 PropertyMultiMap SimpleExtractionResult::properties(PropertiesMapType) const
 {
     return d->m_properties;

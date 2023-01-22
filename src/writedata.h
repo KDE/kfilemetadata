@@ -43,12 +43,6 @@ public:
     /// @since 5.89
     PropertyMultiMap properties() const;
 
-#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 89)
-    /// @seprecated Since 5.89, use properties() instead
-    KFILEMETADATA_DEPRECATED_VERSION(5, 89, "Use properties() instead")
-    QMap<Property::Property, QVariant> getAllProperties() const;
-#endif
-
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:

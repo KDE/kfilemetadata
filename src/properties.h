@@ -158,14 +158,6 @@ enum Property {
      */
     Language,
 
-#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 50)
-    /**
-     * Same as @c Language.
-     * @deprecated Since 5.50, use @c Language instead
-     */
-    Langauge KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(5, 82, 5, 50, "Use Language") = Language,
-#endif
-
     /**
      * The copyright of the file. Represented as a string.
      */
@@ -220,28 +212,12 @@ enum Property {
      */
     Manufacturer,
 
-#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 60)
-    /**
-     * Same as @c Manufacturer.
-     * @deprecated Since 5.60, use @c Manufacturer instead
-     */
-    ImageMake KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(5, 82, 5, 60, "Use Manufacturer") = Manufacturer,
-#endif
-
     /**
      * The model name of the equipment used for generating the file
      * and metadata. Typically maps to the 'Exif.Image.Model' tag.
      * @since 5.60
      */
     Model,
-
-#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 60)
-    /**
-     * Same as @c Model.
-     * @deprecated Since 5.60, use @c Model instead
-     */
-    ImageModel KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(5, 82, 5, 60, "Use Model") = Model,
-#endif
 
     ImageDateTime,
     ImageOrientation,
@@ -383,39 +359,6 @@ enum Property {
 
 typedef QMap<Property::Property, QVariant> PropertyMap;
 using PropertyMultiMap = QMultiMap<Property::Property, QVariant>;
-
-#if QT_DEPRECATED_SINCE(5, 15)
-#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 89)
-QT_WARNING_PUSH
-QT_WARNING_DISABLE_CLANG("-Wdeprecated-declarations")
-QT_WARNING_DISABLE_GCC("-Wdeprecated-declarations")
-
-KFILEMETADATA_DEPRECATED_VERSION(5, 89, "Deprecated for lack of usage, manaully convert the data if needed")
-inline QVariantMap toVariantMap(const PropertyMap& propMap) {
-    QVariantMap varMap;
-    PropertyMap::const_iterator it = propMap.constBegin();
-    for (; it != propMap.constEnd(); ++it) {
-        int p = static_cast<int>(it.key());
-        varMap.insertMulti(QString::number(p), it.value());
-    }
-
-    return varMap;
-}
-
-KFILEMETADATA_DEPRECATED_VERSION(5, 89, "Deprecated for lack of usage, manaully convert the data if needed")
-inline PropertyMap toPropertyMap(const QVariantMap& varMap) {
-    PropertyMap propMap;
-    QVariantMap::const_iterator it = varMap.constBegin();
-    for (; it != varMap.constEnd(); ++it) {
-        int p = it.key().toInt();
-        propMap.insertMulti(static_cast<Property::Property>(p), it.value());
-    }
-
-    return propMap;
-}
-QT_WARNING_POP
-#endif
-#endif
 
 } // namespace KFileMetaData
 

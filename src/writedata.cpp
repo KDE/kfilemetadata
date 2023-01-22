@@ -87,11 +87,3 @@ PropertyMultiMap WriteData::properties() const
     Q_D(const WriteData);
     return d->properties;
 }
-
-#if KFILEMETADATA_BUILD_DEPRECATED_SINCE(5, 89)
-PropertyMap WriteData::getAllProperties() const
-{
-    Q_D(const WriteData);
-    return d->properties;
-}
-#endif

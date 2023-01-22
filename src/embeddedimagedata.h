@@ -61,34 +61,6 @@ public:
      */
     Q_DECLARE_FLAGS(ImageTypes, ImageType)
 
-#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(5, 91)
-
-    /**
-     * Extracts the images stored in the metadata tags from a file.
-     * By default, the front cover is extracted.
-     * @deprecated Since 5.91 Use ExtractorCollection and ExtractionResult::imageData() instead.
-     */
-KFILEMETADATA_DEPRECATED_VERSION(5, 91, "Use ExtractorCollection and ExtractionResult::imageData() instead")
-    QMap<ImageType, QByteArray> imageData(const QString &fileUrl, const EmbeddedImageData::ImageTypes types = FrontCover) const;
-
-    /**
-     * Provides a list of mimetypes which are supported for reading
-     * of embedded images in e.g. audio files.
-     * @since 5.52
-     * @deprecated Since 5.91 Mimetypes are automatically handled when using the Extractor/WriterCollection.
-     */
-KFILEMETADATA_DEPRECATED_VERSION(5, 91, "Mimetypes are automatically handled when using the Extractor/WriterCollection")
-    QStringList mimeTypes() const;
-    
-    /**
-     * Extracts the images stored in the metadata tags from a file.
-     * By default, the front cover is extracted.
-     * @deprecated Since 5.91 Use WriterCollection and WriteData::addImageData() instead.
-     */
-KFILEMETADATA_DEPRECATED_VERSION(5, 91, "Use WriterCollection and WriteData::addImageData() instead")
-    void writeImageData(const QString &fileUrl, QMap<ImageType, QByteArray> &imageData);
-#endif
-
 private:
     class Private;
     std::unique_ptr<Private> d;
