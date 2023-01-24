@@ -76,7 +76,7 @@ void PngExtractor::extract(ExtractionResult* result)
 
         const auto propertyInfo = PropertyInfo(mapping.property);
 
-        if (propertyInfo.valueType() == QVariant::DateTime) {
+        if (propertyInfo.valueType() == QMetaType::QDateTime) {
             // "For the Creation Time keyword, the date format defined in section 5.2.14 of RFC 1123 is suggested"
             // which in turn references RFC822...
             const QDateTime dt = QDateTime::fromString(text, Qt::RFC2822Date);

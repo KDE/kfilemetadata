@@ -356,7 +356,7 @@ inline bool k_hasAttribute(const QString& path, const QString& name)
     }
     FILE_STREAM_INFO* fi = new FILE_STREAM_INFO[256];
     if(GetFileInformationByHandleEx(hFile, FileStreamInfo, fi, 256 * sizeof(FILE_STREAM_INFO))) {
-        if(QString::fromUtf16((ushort*)fi->StreamName, fi->StreamNameLength / sizeof(ushort)) == streamName) {
+        if(QString::fromUtf16((char16_t*)fi->StreamName, fi->StreamNameLength / sizeof(char16_t)) == streamName) {
             delete[] fi;
             CloseHandle(hFile);
             return true;
@@ -364,7 +364,7 @@ inline bool k_hasAttribute(const QString& path, const QString& name)
         FILE_STREAM_INFO* p = fi;
         do {
             p = (FILE_STREAM_INFO*) ((char*)p + p->NextEntryOffset);
-            if(QString::fromUtf16((ushort*)p->StreamName, p->StreamNameLength / sizeof(ushort)) == streamName) {
+            if(QString::fromUtf16((char16_t*)p->StreamName, p->StreamNameLength / sizeof(char16_t)) == streamName) {
                 delete[] fi;
                 CloseHandle(hFile);
                 return true;

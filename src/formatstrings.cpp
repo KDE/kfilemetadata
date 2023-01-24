@@ -41,7 +41,7 @@ QString FormatStrings::formatDate(const QVariant& value)
 {
     KFormat form;
     QDateTime dt;
-    if (value.type() == QVariant::DateTime) {
+    if (value.userType() == QMetaType::QDateTime) {
         dt = value.toDateTime();
     } else {
         dt = QDateTime::fromString(value.toString(), Qt::ISODate);

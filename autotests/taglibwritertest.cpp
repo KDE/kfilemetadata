@@ -42,7 +42,7 @@ void TagLibWriterTest::extractResult(const QString &mimeType, KFileMetaData::Ext
         QFAIL("This mime type is not supported by the extractor. Likely a newer KDE Frameworks version is required.");
     }
     if (extractorList.size() > 1) {
-        QWARN("Multiple extractors are available.");
+        qWarning() << "Multiple extractors are available.";
     }
     KFileMetaData::Extractor* ex = extractorList.first();
     ex->extract(&result);

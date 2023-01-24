@@ -60,7 +60,7 @@ void TagLibExtractorTest::testPropertyTypes()
     plugin.extract(&resultOpus);
 
     auto testForType = [](SimpleExtractionResult &result, Property::Property prop) {
-            QCOMPARE(result.properties().value(prop).type(), PropertyInfo(prop).valueType());
+            QCOMPARE(result.properties().value(prop).userType(), PropertyInfo(prop).valueType());
     };
 
     QCOMPARE(resultOpus.types().size(), 1);
@@ -630,14 +630,14 @@ void  TagLibExtractorTest::testNoMetadata()
         const auto propNames =  propertyEnumNames(excessKeys.values()).join(QLatin1String(", "));
         if (failMessage.isEmpty()) {
             const auto message = QStringLiteral("Excess properties: %1").arg(propNames);
-            QWARN(qPrintable(message));
+            qWarning() << message;
         } else {
             QEXPECT_FAIL("", qPrintable(QStringLiteral("%1: %2").arg(failMessage).arg(propNames)), Continue);
         }
     } else if (!missingKeys.isEmpty()) {
         const auto message = QStringLiteral("Missing properties: %1")
                 .arg(propertyEnumNames(missingKeys.values()).join(QLatin1String(", ")));
-        QWARN(qPrintable(message));
+        qWarning() << message;
     }
     QCOMPARE(resultKeys, expectedKeys);
     if (!failMessage.isEmpty()) {

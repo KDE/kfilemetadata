@@ -117,8 +117,8 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
                        )
 
 ecm_set_disabled_deprecation_versions(
-    QT 5.14.0 # TODO look into the QMap::insertMulti usage
-    KF 5.97
+    QT 6.4
+    KF 5.102
 )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
