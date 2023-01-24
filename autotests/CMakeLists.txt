@@ -1,4 +1,4 @@
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test)
+find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test)
 
 find_package(PythonInterp)
 set_package_properties(PythonInterp PROPERTIES DESCRIPTION "Python Interpreter"
@@ -28,7 +28,7 @@ set(extractorcoverage_SRCS
 
 ecm_add_test(${extractorcoverage_SRCS}
     TEST_NAME "extractorcoveragetest"
-    LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData
+    LINK_LIBRARIES Qt6::Test KF6::FileMetaData
 )
 
 #
@@ -45,7 +45,7 @@ if (TARGET Qt6::Core5Compat)
 endif()
 ecm_add_test(${indexerextractor_SRCS}
     TEST_NAME "indexextractortest"
-    LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData ${text_COMPAT_CODEC}
+    LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${text_COMPAT_CODEC}
 )
 
 #
@@ -54,24 +54,24 @@ ecm_add_test(${indexerextractor_SRCS}
 if(KF6Archive_FOUND)
     ecm_add_test(odfextractortest.cpp ../src/extractors/odfextractor.cpp
         TEST_NAME "odfextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test Qt${QT_MAJOR_VERSION}::Xml KF6::FileMetaData KF6::Archive
+        LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData KF6::Archive
     )
 endif()
 
 if(KF6Archive_FOUND)
     ecm_add_test(office2007extractortest.cpp ../src/extractors/office2007extractor.cpp
         TEST_NAME "officeextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test Qt${QT_MAJOR_VERSION}::Xml KF6::FileMetaData KF6::Archive
+        LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData KF6::Archive
     )
 endif()
 
 #
 # Poppler
 #
-if(Poppler_Qt${QT_MAJOR_VERSION}_FOUND)
+if(Poppler_Qt6_FOUND)
     ecm_add_test(popplerextractortest.cpp ../src/extractors/popplerextractor.cpp
         TEST_NAME "popplerextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData Poppler::Qt${QT_MAJOR_VERSION}
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData Poppler::Qt6
     )
 endif()
 
@@ -86,7 +86,7 @@ if(EPUB_FOUND)
 	../src/extractors/epubextractor.cpp
 	../src/kfilemetadata_debug.cpp
         TEST_NAME "epubextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData ${EPUB_LIBRARIES}
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${EPUB_LIBRARIES}
     )
 endif()
 
@@ -96,7 +96,7 @@ endif()
 if (QMobipocket_FOUND)
     ecm_add_test(mobiextractortest.cpp ../src/extractors/mobiextractor.cpp
         TEST_NAME "mobiextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData qmobipocket
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData qmobipocket
     )
 endif()
 
@@ -108,7 +108,7 @@ ecm_add_test(
     ../src/extractors/fb2extractor.cpp
     ../src/kfilemetadata_debug.cpp
     TEST_NAME "fb2extractortest"
-    LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::Archive KF6::FileMetaData
+    LINK_LIBRARIES Qt6::Test KF6::Archive KF6::FileMetaData
 )
 
 #
@@ -116,7 +116,7 @@ ecm_add_test(
 #
 add_executable(propertyinfotest_bin propertyinfotest.cpp)
 target_link_libraries(propertyinfotest_bin
-    Qt${QT_MAJOR_VERSION}::Test
+    Qt6::Test
     KF6::FileMetaData
 )
 ecm_mark_as_test(propertyinfotest_bin)
@@ -131,7 +131,7 @@ if(LibExiv2_FOUND)
     kde_enable_exceptions()
     ecm_add_test(exiv2extractortest.cpp ../src/extractors/exiv2extractor.cpp
         TEST_NAME "exiv2extractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData LibExiv2::LibExiv2
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData LibExiv2::LibExiv2
     )
     if (${LibExiv2_VERSION} VERSION_GREATER 0.27.4)
         # exiv2 doesn't build [yet] with C++17 so force C++14
@@ -151,7 +151,7 @@ if(FFMPEG_FOUND)
         ../src/extractors/ffmpegextractor.cpp
         ../src/kfilemetadata_debug.cpp
         TEST_NAME "ffmpegextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData ${AVCODEC_LIBRARIES} ${AVFORMAT_LIBRARIES} ${AVUTIL_LIBRARIES}
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${AVCODEC_LIBRARIES} ${AVFORMAT_LIBRARIES} ${AVUTIL_LIBRARIES}
     )
     target_include_directories(ffmpegextractortest SYSTEM PRIVATE ${AVCODEC_INCLUDE_DIRS} ${AVFORMAT_INCLUDE_DIRS} ${AVUTIL_INCLUDE_DIRS})
 endif()
@@ -163,7 +163,7 @@ if(Taglib_FOUND)
     kde_enable_exceptions()
     ecm_add_test(taglibextractortest.cpp ../src/extractors/taglibextractor.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "taglibextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData Taglib::Taglib
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData Taglib::Taglib
     )
 endif()
 
@@ -174,7 +174,7 @@ if(PYTHONINTERP_FOUND)
 
     ecm_add_test(externalextractortest.cpp $<$<BOOL:${BUILD_SHARED_LIBS}>:../src/externalextractor.cpp> ${KfileMetaDataAutotest_SRCS}
             TEST_NAME "externalextractortest"
-            LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData KF6::I18n
+            LINK_LIBRARIES Qt6::Test KF6::FileMetaData KF6::I18n
     )
 endif()
 
@@ -187,7 +187,7 @@ set(extractorcollection_SRCS
 
 ecm_add_test(${extractorcollection_SRCS}
         TEST_NAME "extractorcollectiontest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData
 )
 
 if(Taglib_FOUND)
@@ -197,7 +197,7 @@ if(Taglib_FOUND)
 
     ecm_add_test(${writercollection_SRCS}
             TEST_NAME "writercollectiontest"
-            LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData
+            LINK_LIBRARIES Qt6::Test KF6::FileMetaData
     )
 endif()
 
@@ -213,7 +213,7 @@ set(xmlextractor_SRCS
 
 ecm_add_test(${xmlextractor_SRCS}
         TEST_NAME "xmlextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test Qt${QT_MAJOR_VERSION}::Xml KF6::FileMetaData
+        LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData
 )
 
 #
@@ -227,21 +227,21 @@ set(postscriptdscextractor_SRCS
 
 ecm_add_test(${postscriptdscextractor_SRCS}
         TEST_NAME "postscriptdscextractortest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData
 )
 
 #
 # AppImage
 #
-if(libappimage_FOUND AND KF6Config_FOUND AND Qt${QT_MAJOR_VERSION}Gui_FOUND)
+if(libappimage_FOUND AND KF6Config_FOUND AND Qt6Gui_FOUND)
     ecm_add_test(appimageextractortest.cpp ../src/extractors/appimageextractor.cpp
         TEST_NAME "appimageextractortest"
         LINK_LIBRARIES
-            Qt${QT_MAJOR_VERSION}::Test
+            Qt6::Test
             KF6::FileMetaData
             KF6::ConfigCore
-            Qt${QT_MAJOR_VERSION}::Xml
-            Qt${QT_MAJOR_VERSION}::Gui
+            Qt6::Xml
+            Qt6::Gui
             libappimage
     )
 endif()
@@ -252,9 +252,9 @@ endif()
 ecm_add_test(pngextractortest.cpp ../src/extractors/pngextractor.cpp
     TEST_NAME "pngextractortest"
     LINK_LIBRARIES
-        Qt${QT_MAJOR_VERSION}::Test
+        Qt6::Test
         KF6::FileMetaData
-        Qt${QT_MAJOR_VERSION}::Gui
+        Qt6::Gui
 )
 
 
@@ -269,7 +269,7 @@ if(UNIX)
     kde_enable_exceptions()
     ecm_add_test(usermetadatawritertest.cpp ../src/usermetadata.cpp
         TEST_NAME "usermetadatawritertest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData
     )
 endif()
 
@@ -280,7 +280,7 @@ if(Taglib_FOUND)
     kde_enable_exceptions()
     ecm_add_test(taglibwritertest.cpp ../src/writers/taglibwriter.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "taglibwritertest"
-        LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData Taglib::Taglib
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData Taglib::Taglib
     )
 endif()
 
@@ -290,6 +290,6 @@ if(PYTHONINTERP_FOUND)
 
     ecm_add_test(externalwritertest.cpp $<$<BOOL:${BUILD_SHARED_LIBS}>:../src/externalwriter.cpp> ${KfileMetaDataAutotest_SRCS}
             TEST_NAME "externalwritertest"
-            LINK_LIBRARIES Qt${QT_MAJOR_VERSION}::Test KF6::FileMetaData KF6::I18n
+            LINK_LIBRARIES Qt6::Test KF6::FileMetaData KF6::I18n
     )
 endif()

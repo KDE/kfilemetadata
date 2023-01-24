@@ -6,9 +6,9 @@ if(Taglib_FOUND)
         Taglib::Taglib
     )
 
-    set_target_properties(kfilemetadata_taglibwriter PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf${QT_MAJOR_VERSION}/kfilemetadata/writers")
+    set_target_properties(kfilemetadata_taglibwriter PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata/writers")
     install(
     TARGETS kfilemetadata_taglibwriter
-    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata/writers)
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata/writers)
 
 endif()

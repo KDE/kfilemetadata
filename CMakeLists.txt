@@ -37,12 +37,12 @@ ecm_setup_version(PROJECT
 # Dependencies
 set(REQUIRED_QT_VERSION 6.4.0)
 
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Gui)
-set_package_properties(Qt${QT_MAJOR_VERSION}Gui PROPERTIES DESCRIPTION "Qt${QT_MAJOR_VERSION}: Gui component"
+find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Gui)
+set_package_properties(Qt6Gui PROPERTIES DESCRIPTION "Qt6: Gui component"
                        TYPE OPTIONAL
-                       PURPOSE "Qt${QT_MAJOR_VERSION}::Gui is needed to build the AppImage extractor")
+                       PURPOSE "Qt6::Gui is needed to build the AppImage extractor")
 
-find_package(Qt${QT_MAJOR_VERSION} ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
+find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 if (QT_MAJOR_VERSION STREQUAL "6")
     find_package(Qt6Core5Compat)
 endif()
@@ -64,7 +64,7 @@ set_package_properties(KF6Config PROPERTIES DESCRIPTION "KDE Frameworks 5: Confi
 
 find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
-find_package(Poppler 0.12.1 COMPONENTS Qt${QT_MAJOR_VERSION})
+find_package(Poppler 0.12.1 COMPONENTS Qt6)
 set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
                        URL "https://poppler.freedesktop.org/" TYPE OPTIONAL
                        PURPOSE "Support for PDF files")

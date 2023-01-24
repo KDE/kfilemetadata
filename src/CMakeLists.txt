@@ -36,7 +36,7 @@ add_library(KF6::FileMetaData ALIAS KF6FileMetaData)
 
 target_link_libraries(KF6FileMetaData
   PUBLIC
-    Qt${QT_MAJOR_VERSION}::Core
+    Qt6::Core
   PRIVATE
     KF6::I18n
     KF6::CoreAddons

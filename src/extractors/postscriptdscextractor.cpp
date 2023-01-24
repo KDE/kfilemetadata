@@ -57,11 +57,7 @@ void DscExtractor::extract(ExtractionResult* result)
 
         if (const auto tag = QLatin1String("%%Pages:"); line.startsWith(tag)) {
             bool ok = false;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
             int pages = QStringView(line).mid(tag.size()).toInt(&ok, 10);
-#else
-            int pages = line.midRef(tag.size()).toInt(&ok, 10);
-#endif
             if (ok) {
                 result->add(Property::PageCount, pages);
             }
