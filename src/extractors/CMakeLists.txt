@@ -103,9 +103,6 @@ add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp)
 target_link_libraries( kfilemetadata_plaintextextractor
     KF6::FileMetaData
 )
-if (TARGET Qt6::Core5Compat)
-    target_link_libraries(kfilemetadata_plaintextextractor Qt6::Core5Compat) # QTextCodec
-endif()
 
 set_target_properties(kfilemetadata_plaintextextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
 install(

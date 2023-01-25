@@ -7,9 +7,9 @@
 
 #include "plaintextextractor.h"
 
-#include <QFile>
-#include <QTextCodec>
 #include <QDebug>
+#include <QStringDecoder>
+#include <QFile>
 
 #include <fstream>
 
@@ -62,7 +62,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    QTextCodec* codec = QTextCodec::codecForLocale();
+    QStringDecoder codec(QStringConverter::System);
 
     char* line = nullptr;
     size_t len = 0;
@@ -72,10 +72,9 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     FILE* fp = fdopen(fd, "r");
 
     while ( (r = getline(&line, &len, fp)) != -1) {
-        QTextCodec::ConverterState state;
-        QString text = codec->toUnicode(line, r - 1, &state);
+        QString text = codec.decode(QByteArrayView(line, r - 1));
 
-        if (state.invalidChars > 0) {
+        if (codec.hasError()) {
             qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();
             free(line);
             close(fd);
@@ -106,14 +105,13 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    QTextCodec* codec = QTextCodec::codecForLocale();
+    QStringDecoder codec(QStringConverter::System);
     while (std::getline(fstream, line)) {
         QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
 
-        QTextCodec::ConverterState state;
-        QString text = codec->toUnicode(arr.constData(), arr.size(), &state);
+        QString text = codec.decode(arr);
 
-        if (state.invalidChars > 0) {
+        if (codec.hasError()) {
             qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();
             return;
         }

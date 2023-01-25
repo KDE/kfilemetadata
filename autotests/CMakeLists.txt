@@ -40,9 +40,6 @@ set(indexerextractor_SRCS
 )
 
 set(text_COMPAT_CODEC)
-if (TARGET Qt6::Core5Compat)
-    set(text_COMPAT_CODEC Qt6::Core5Compat)
-endif()
 ecm_add_test(${indexerextractor_SRCS}
     TEST_NAME "indexextractortest"
     LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${text_COMPAT_CODEC}

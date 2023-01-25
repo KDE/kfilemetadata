@@ -43,9 +43,6 @@ set_package_properties(Qt6Gui PROPERTIES DESCRIPTION "Qt6: Gui component"
                        PURPOSE "Qt6::Gui is needed to build the AppImage extractor")
 
 find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
-if (QT_MAJOR_VERSION STREQUAL "6")
-    find_package(Qt6Core5Compat)
-endif()
 
 find_package(KF6 ${KF_DEP_VERSION} COMPONENTS Archive)
 set_package_properties(KF6Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Archive Framework"
