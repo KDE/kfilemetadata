@@ -58,36 +58,38 @@ void MobiExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Document);
 
-    QMapIterator<Mobipocket::Document::MetaKey, QString> it(doc.metadata());
-    while (it.hasNext()) {
-        it.next();
-        switch (it.key()) {
-        case Mobipocket::Document::Title:
-            result->add(Property::Title, it.value());
-            break;
-        case Mobipocket::Document::Author: {
-            result->add(Property::Author, it.value());
-            break;
-        }
-        case Mobipocket::Document::Description: {
-            QTextDocument document;
-            document.setHtml(it.value());
+    if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
+        QMapIterator<Mobipocket::Document::MetaKey, QString> it(doc.metadata());
+        while (it.hasNext()) {
+            it.next();
+            switch (it.key()) {
+            case Mobipocket::Document::Title:
+                result->add(Property::Title, it.value());
+                break;
+            case Mobipocket::Document::Author: {
+                result->add(Property::Author, it.value());
+                break;
+            }
+            case Mobipocket::Document::Description: {
+                QTextDocument document;
+                document.setHtml(it.value());
 
-            QString plain = document.toPlainText();
-            if (!plain.isEmpty())
-                result->add(Property::Description, it.value());
-            break;
-        }
-        case Mobipocket::Document::Subject:
-            result->add(Property::Subject, it.value());
-            break;
-        case Mobipocket::Document::Copyright:
-            result->add(Property::Copyright, it.value());
-            break;
+                QString plain = document.toPlainText();
+                if (!plain.isEmpty())
+                    result->add(Property::Description, it.value());
+                break;
+            }
+            case Mobipocket::Document::Subject:
+                result->add(Property::Subject, it.value());
+                break;
+            case Mobipocket::Document::Copyright:
+                result->add(Property::Copyright, it.value());
+                break;
+            }
         }
     }
 
-    if (!doc.hasDRM()) {
+    if ((result->inputFlags() & ExtractionResult::Flag::ExtractPlainText) && !doc.hasDRM()) {
         QString html = doc.text();
 
         QTextDocument document;
