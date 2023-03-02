@@ -22,11 +22,7 @@ ecm_qt_declare_logging_category(KfileMetaDataAutotest_SRCS
 #
 # Test case coverage
 #
-set(extractorcoverage_SRCS
-  extractorcoveragetest.cpp
-)
-
-ecm_add_test(${extractorcoverage_SRCS}
+ecm_add_test(extractorcoveragetest.cpp
     TEST_NAME "extractorcoveragetest"
     LINK_LIBRARIES Qt6::Test KF6::FileMetaData
 )
@@ -34,13 +30,10 @@ ecm_add_test(${extractorcoverage_SRCS}
 #
 # Full text extraction test
 #
-set(indexerextractor_SRCS
-  indexerextractortests.cpp
-  ../src/extractors/plaintextextractor.cpp
-)
-
 set(text_COMPAT_CODEC)
-ecm_add_test(${indexerextractor_SRCS}
+ecm_add_test(
+    indexerextractortests.cpp
+    ../src/extractors/plaintextextractor.cpp
     TEST_NAME "indexextractortest"
     LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${text_COMPAT_CODEC}
 )
@@ -178,21 +171,13 @@ endif()
 #
 # Collection
 #
-set(extractorcollection_SRCS
-    extractorcollectiontest.cpp
-)
-
-ecm_add_test(${extractorcollection_SRCS}
+ecm_add_test(extractorcollectiontest.cpp
         TEST_NAME "extractorcollectiontest"
         LINK_LIBRARIES Qt6::Test KF6::FileMetaData
 )
 
 if(Taglib_FOUND)
-    set(writercollection_SRCS
-        writercollectiontest.cpp
-    )
-
-    ecm_add_test(${writercollection_SRCS}
+    ecm_add_test(writercollectiontest.cpp
             TEST_NAME "writercollectiontest"
             LINK_LIBRARIES Qt6::Test KF6::FileMetaData
     )
@@ -201,30 +186,24 @@ endif()
 #
 # XML
 #
-set(xmlextractor_SRCS
+ecm_add_test(
     xmlextractortest.cpp
     ../src/extractors/xmlextractor.cpp
     ../src/extractors/dublincoreextractor.cpp
     ../src/kfilemetadata_debug.cpp
-)
-
-ecm_add_test(${xmlextractor_SRCS}
-        TEST_NAME "xmlextractortest"
-        LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData
+    TEST_NAME "xmlextractortest"
+    LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData
 )
 
 #
 # Postscript DSC
 #
-set(postscriptdscextractor_SRCS
+ecm_add_test(
     postscriptdscextractortest.cpp
     ../src/extractors/postscriptdscextractor.cpp
     ../src/kfilemetadata_debug.cpp
-)
-
-ecm_add_test(${postscriptdscextractor_SRCS}
-        TEST_NAME "postscriptdscextractortest"
-        LINK_LIBRARIES Qt6::Test KF6::FileMetaData
+    TEST_NAME "postscriptdscextractortest"
+    LINK_LIBRARIES Qt6::Test KF6::FileMetaData
 )
 
 #

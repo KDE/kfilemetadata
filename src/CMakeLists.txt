@@ -7,7 +7,16 @@ ecm_qt_declare_logging_category(debug_SRCS
     EXPORT KFILEMETADATA
 )
 
-set(KF6FileMetaData_SRCS
+add_library(KF6FileMetaData)
+add_library(KF6::FileMetaData ALIAS KF6FileMetaData)
+
+set_target_properties(KF6FileMetaData PROPERTIES
+    VERSION     ${KFILEMETADATA_VERSION}
+    SOVERSION   ${KFILEMETADATA_SOVERSION}
+    EXPORT_NAME FileMetaData
+)
+
+target_sources(KF6FileMetaData PRIVATE
     extractionresult.cpp
     simpleextractionresult.cpp
     embeddedimagedata.cpp
@@ -28,12 +37,6 @@ set(KF6FileMetaData_SRCS
     ${debug_SRCS}
     )
 
-add_library(KF6FileMetaData
-    ${KF6FileMetaData_SRCS}
-)
-
-add_library(KF6::FileMetaData ALIAS KF6FileMetaData)
-
 target_link_libraries(KF6FileMetaData
   PUBLIC
     Qt6::Core
@@ -50,12 +53,6 @@ ecm_generate_export_header(KF6FileMetaData
     DEPRECATED_BASE_VERSION 0
     DEPRECATION_VERSIONS
     EXCLUDE_DEPRECATED_BEFORE_AND_AT ${EXCLUDE_DEPRECATED_BEFORE_AND_AT}
-)
-
-set_target_properties(KF6FileMetaData PROPERTIES
-    VERSION ${KFILEMETADATA_VERSION}
-    SOVERSION ${KFILEMETADATA_SOVERSION}
-    EXPORT_NAME FileMetaData
 )
 
 target_include_directories(KF6FileMetaData INTERFACE "$<INSTALL_INTERFACE:${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData>")
