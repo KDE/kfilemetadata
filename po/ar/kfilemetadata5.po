@@ -668,7 +668,7 @@ msgstr "الكلمات"
 #, kde-format
 msgctxt "@label"
 msgid "Opus"
-msgstr "أوپوس"
+msgstr "أوبوس"
 
 #: src/propertyinfo.cpp:448
 #, kde-format
