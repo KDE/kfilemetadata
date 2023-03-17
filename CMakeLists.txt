@@ -118,7 +118,7 @@ ecm_set_disabled_deprecation_versions(
     KF 5.102
 )
 
-add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata5\")
+add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata6\")
 add_subdirectory(src)
 if (BUILD_TESTING)
   add_subdirectory(autotests)
