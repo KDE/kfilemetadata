@@ -451,28 +451,28 @@ PropertyInfo::PropertyInfo(Property::Property property)
 
         case Property::ReplayGainAlbumPeak:
             d->name = QStringLiteral("replayGainAlbumPeak");
-            d->displayName = i18nc("@label", "Replay Gain Album Peak");
+            d->displayName = i18nc("@label ReplayGain is the name of a standard", "ReplayGain: Album Peak");
             d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainAlbumGain:
             d->name = QStringLiteral("replayGainAlbumGain");
-            d->displayName = i18nc("@label", "Replay Gain Album Gain");
+            d->displayName = i18nc("@label ReplayGain is the name of a standard", "ReplayGain: Album Gain");
             d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainTrackPeak:
             d->name = QStringLiteral("replayGainTrackPeak");
-            d->displayName = i18nc("@label", "Replay Gain Track Peak");
+            d->displayName = i18nc("@label ReplayGain is the name of a standard", "ReplayGain: Track Peak");
             d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
 
         case Property::ReplayGainTrackGain:
             d->name = QStringLiteral("replayGainTrackGain");
-            d->displayName = i18nc("@label", "Replay Gain Track Gain");
+            d->displayName = i18nc("@label ReplayGain is the name of a standard", "ReplayGain: Track Gain");
             d->valueType = QMetaType::Double;
             d->formatAsString = &FormatStrings::formatDouble;
             break;
