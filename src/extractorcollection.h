@@ -46,7 +46,9 @@ public:
 
 private:
     friend class ExtractorCollectionTest;
+    // exported for ExtractorCollectionTest
     QList<Extractor*> allExtractors();
+
     const std::unique_ptr<ExtractorCollectionPrivate> d;
 };
 }

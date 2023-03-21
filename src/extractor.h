@@ -44,11 +44,11 @@ private:
 
     void operator =(const Extractor&);
 
-    void setExtractorPlugin(ExtractorPlugin *extractorPlugin);
+    KFILEMETADATA_NO_EXPORT void setExtractorPlugin(ExtractorPlugin *extractorPlugin);
 
-    void setAutoDeletePlugin(ExtractorPluginOwnership autoDelete);
+    KFILEMETADATA_NO_EXPORT void setAutoDeletePlugin(ExtractorPluginOwnership autoDelete);
 
-    void setMetaData(const QVariantMap &metaData);
+    KFILEMETADATA_NO_EXPORT void setMetaData(const QVariantMap &metaData);
 
     friend class ExtractorCollection;
     friend class ExtractorCollectionPrivate;

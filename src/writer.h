@@ -44,7 +44,7 @@ private:
 
     void operator =(const Writer&);
 
-    void setAutoDeletePlugin(WriterPluginOwnership autoDelete);
+    KFILEMETADATA_NO_EXPORT void setAutoDeletePlugin(WriterPluginOwnership autoDelete);
 
     std::unique_ptr<WriterPrivate> d;
     friend class WriterPrivate;
