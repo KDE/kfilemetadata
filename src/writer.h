@@ -39,7 +39,7 @@ public:
     QStringList mimetypes() const;
 
 private:
-    Writer();
+    KFILEMETADATA_NO_EXPORT Writer();
 
     Writer(const Writer&) = delete;
     void operator =(const Writer&) = delete;

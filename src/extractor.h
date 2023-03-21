@@ -39,7 +39,7 @@ public:
     QVariantMap extractorProperties() const;
 
 private:
-    Extractor();
+    KFILEMETADATA_NO_EXPORT Extractor();
 
     Extractor(const Extractor&) = delete;
     void operator =(const Extractor&) = delete;
