@@ -64,7 +64,7 @@ public:
 private:
     class Private;
     std::unique_ptr<Private> d;
-    EmbeddedImageData& operator=(const EmbeddedImageData&);
+    EmbeddedImageData& operator=(const EmbeddedImageData&) = delete;
 };
 
 }

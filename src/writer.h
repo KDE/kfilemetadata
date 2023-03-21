@@ -40,9 +40,9 @@ public:
 
 private:
     Writer();
-    Writer(const Writer&);
 
-    void operator =(const Writer&);
+    Writer(const Writer&) = delete;
+    void operator =(const Writer&) = delete;
 
     KFILEMETADATA_NO_EXPORT void setAutoDeletePlugin(WriterPluginOwnership autoDelete);
 

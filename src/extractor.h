@@ -40,9 +40,9 @@ public:
 
 private:
     Extractor();
-    Extractor(const Extractor&);
 
-    void operator =(const Extractor&);
+    Extractor(const Extractor&) = delete;
+    void operator =(const Extractor&) = delete;
 
     KFILEMETADATA_NO_EXPORT void setExtractorPlugin(ExtractorPlugin *extractorPlugin);
 
