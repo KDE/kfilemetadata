@@ -518,7 +518,7 @@ msgstr "Latitud del GPS"
 #, kde-format
 msgctxt "@label EXIF"
 msgid "GPS Longitude"
-msgstr "Llargària del GPS"
+msgstr "Longitud del GPS"
 
 #: src/propertyinfo.cpp:295
 #, kde-format
