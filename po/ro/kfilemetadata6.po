@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-06-09 02:02+0200\n"
+"POT-Creation-Date: 2023-03-23 02:35+0000\n"
 "PO-Revision-Date: 2022-02-04 12:57+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -674,26 +674,26 @@ msgstr "Evaluare"
 
 #: src/propertyinfo.cpp:454
 #, kde-format
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain: Album Peak"
 msgstr ""
 
 #: src/propertyinfo.cpp:461
 #, kde-format
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain: Album Gain"
 msgstr ""
 
 #: src/propertyinfo.cpp:468
 #, kde-format
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain: Track Peak"
 msgstr ""
 
 #: src/propertyinfo.cpp:475
 #, kde-format
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain: Track Gain"
 msgstr ""
 
 #: src/propertyinfo.cpp:482
