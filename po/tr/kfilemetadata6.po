@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2014, 2015.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-23 02:35+0000\n"
-"PO-Revision-Date: 2022-04-01 14:25+0300\n"
+"PO-Revision-Date: 2023-03-23 13:42+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -406,7 +406,7 @@ msgstr "Yükseklik"
 #, kde-format
 msgctxt "@label EXIF"
 msgid "Image Date Time"
-msgstr "Resim Tarih Zaman"
+msgstr "Görsel Tarih-Zamanı"
 
 #: src/propertyinfo.cpp:172
 #, kde-format
@@ -424,7 +424,7 @@ msgstr "Model"
 #, kde-format
 msgctxt "@label EXIF"
 msgid "Image Orientation"
-msgstr "Resim Yönlendirme"
+msgstr "Görsel Yönelimi"
 
 #: src/propertyinfo.cpp:193
 #, kde-format
@@ -673,36 +673,28 @@ msgid "Rating"
 msgstr "Derecelendirme"
 
 #: src/propertyinfo.cpp:454
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Peak"
-msgstr "Yeniden Çalma Kazanması Albüm Tavanı"
+msgstr "Yeniden Çalma Kazanması: Albüm Tavanı"
 
 #: src/propertyinfo.cpp:461
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Gain"
-msgstr "Yeniden Çalma Kazanması Albüm Kazanması"
+msgstr "Yeniden Çalma Kazanması: Albüm Kazanması"
 
 #: src/propertyinfo.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Peak"
-msgstr "Yeniden Çalma Kazanması Parça Tavanı"
+msgstr "Yeniden Çalma Kazanması: Parça Tavanı"
 
 #: src/propertyinfo.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Gain"
-msgstr "Yeniden Çalma Kazanması Parça Kazanması"
+msgstr "Yeniden Çalma Kazanması: Parça Kazanması"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
@@ -750,7 +742,7 @@ msgstr "Son Güncelleme"
 #, kde-format
 msgctxt "@label date of template creation8"
 msgid "Template Creation"
-msgstr "Şablon Oluşturmak"
+msgstr "Şablon Oluşturma"
 
 #: src/propertyinfo.cpp:540
 #, kde-format
