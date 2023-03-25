@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Giovanni Sora <g.sora@tioscali.it>, 2014.
-# G.Sora <g.sora@tiscali.it>, 2014, 2016, 2017, 2019, 2020.
+# G.Sora <g.sora@tiscali.it>, 2014, 2016, 2017, 2019, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-23 02:35+0000\n"
-"PO-Revision-Date: 2020-02-18 19:51+0100\n"
-"Last-Translator: Giovanni Sora <g.sora@tiscali.it>\n"
+"PO-Revision-Date: 2023-03-24 10:51+0100\n"
+"Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -675,36 +675,28 @@ msgid "Rating"
 msgstr "Evalutation"
 
 #: src/propertyinfo.cpp:454
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Peak"
-msgstr "Picco de album de ganio repetite"
+msgstr "ReplayGain (Ganio Repetite) : Picco de album"
 
 #: src/propertyinfo.cpp:461
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Gain"
-msgstr "Ganio de album de ganio repetite"
+msgstr "ReplayGain (Ganio Repetite) : Ganio de album"
 
 #: src/propertyinfo.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Peak"
-msgstr "Picco de tracia de ganio repetite"
+msgstr "ReplayGain (Ganio Repetite) : Picco de tracia "
 
 #: src/propertyinfo.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Gain"
-msgstr "Ganio de tracia de ganio repetite"
+msgstr "ReplayGain (Ganio Repetite) : Ganio de tracia"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
