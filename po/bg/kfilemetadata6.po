@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Svetoslav Stefanov <svetlisashkov@yahoo.com>, 2014.
-# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+# Mincho Kondarev <mkondarev@yahoo.de>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-23 02:35+0000\n"
-"PO-Revision-Date: 2022-07-10 11:59+0200\n"
+"PO-Revision-Date: 2023-03-26 17:23+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: src/formatstrings.cpp:64
@@ -680,36 +680,28 @@ msgid "Rating"
 msgstr "Рейтинг"
 
 #: src/propertyinfo.cpp:454
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Peak"
 msgstr "Replay Gain Album Peak"
 
 #: src/propertyinfo.cpp:461
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Gain"
-msgstr "Replay Gain Album Gain"
+msgstr "ReplayGain: Album Gain"
 
 #: src/propertyinfo.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Peak"
-msgstr "Replay Gain Track Peak"
+msgstr "ReplayGain: Track Peak"
 
 #: src/propertyinfo.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Gain"
-msgstr "Replay Gain Track Gain"
+msgstr "ReplayGain: Track Gain"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
