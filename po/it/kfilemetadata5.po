@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2014.
-# Vincenzo Reale <smart2128vr@gmail.com>, 2015.
+# Vincenzo Reale <smart2128vr@gmail.com>, 2015, 2023.
 # Paolo Zamponi <zapaolo@email.it>, 2017, 2018.
 # Valter Mura <valtermura@gmail.com>, 2019.
 #
@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2020-06-09 02:02+0200\n"
-"PO-Revision-Date: 2019-06-29 12:01+0200\n"
-"Last-Translator: Valter Mura <valtermura@gmail.com>\n"
+"PO-Revision-Date: 2023-03-23 17:50+0100\n"
+"Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.04.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -42,7 +42,7 @@ msgstr "Ribaltata orizzontalmente"
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "180° rotated"
-msgstr "Rotazione di 180°"
+msgstr "Ruotata di 180°"
 
 #: src/formatstrings.cpp:81
 #, kde-format
@@ -60,7 +60,7 @@ msgstr "Trasposta"
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr "Rotazione di 90° in senso antiorario"
+msgstr "Ruotata di 90° in senso antiorario"
 
 #: src/formatstrings.cpp:84
 #, kde-format
@@ -72,7 +72,7 @@ msgstr "Trasversale"
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr "Rotazione di 270° in senso antiorario"
+msgstr "Ruotata di 270° in senso antiorario"
 
 #: src/formatstrings.cpp:96
 #, kde-format
