@@ -28,9 +28,10 @@ set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprec
 option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
 add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
+set(kfilemetadata_version_header "${CMAKE_CURRENT_BINARY_DIR}/src/kfilemetadata_version.h")
 ecm_setup_version(PROJECT
                   VARIABLE_PREFIX KFILEMETADATA
-                  VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_version.h"
+                  VERSION_HEADER "${kfilemetadata_version_header}"
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6FileMetaDataConfigVersion.cmake"
                   SOVERSION 3)
 
@@ -156,7 +157,7 @@ install(FILES
 )
 
 install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/kfilemetadata_version.h
+  ${kfilemetadata_version_header}
   DESTINATION ${KDE_INSTALL_INCLUDEDIR_KF}/KFileMetaData COMPONENT Devel
 )
 
