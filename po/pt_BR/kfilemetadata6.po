@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2014, 2015, 2016, 2018, 2019.
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2017, 2018, 2019.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2017, 2018, 2019, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-23 02:35+0000\n"
-"PO-Revision-Date: 2019-06-28 00:13-0300\n"
-"Last-Translator: André Marcelo Alvarenga <alvarenga@kde.org>\n"
-"Language-Team: Brazilian Portuguese <kde-i18n-pt_br@kde.org>\n"
+"PO-Revision-Date: 2023-04-05 10:50-0300\n"
+"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 19.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -682,36 +682,28 @@ msgid "Rating"
 msgstr "Avaliação"
 
 #: src/propertyinfo.cpp:454
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Peak"
-msgstr "Pico do álbum no ganho de reprodução"
+msgstr "ReplayGain: pico do álbum"
 
 #: src/propertyinfo.cpp:461
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Gain"
-msgstr "Ganho do álbum no ganho de reprodução"
+msgstr "ReplayGain: ganho do álbum"
 
 #: src/propertyinfo.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Peak"
-msgstr "Pico da faixa no ganho de reprodução"
+msgstr "ReplayGain: pico da faixa"
 
 #: src/propertyinfo.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Gain"
-msgstr "Ganho da faixa no ganho de reprodução"
+msgstr "ReplayGain: ganho da faixa"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
