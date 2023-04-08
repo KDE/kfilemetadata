@@ -270,14 +270,16 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata)
 #
 # FictionBook2
 #
-add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp )
-target_link_libraries(kfilemetadata_fb2extractor
-    KF5::Archive
-    KF5::FileMetaData
-    Qt${QT_MAJOR_VERSION}::Core
-)
+if(KF5Archive_FOUND)
+    add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp )
+    target_link_libraries(kfilemetadata_fb2extractor
+        KF5::Archive
+        KF5::FileMetaData
+        Qt${QT_MAJOR_VERSION}::Core
+    )
 
-set_target_properties(kfilemetadata_fb2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf${QT_MAJOR_VERSION}/kfilemetadata")
-install(
-TARGETS kfilemetadata_fb2extractor
-DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata)
+    set_target_properties(kfilemetadata_fb2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf${QT_MAJOR_VERSION}/kfilemetadata")
+    install(
+    TARGETS kfilemetadata_fb2extractor
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kfilemetadata)
+endif()
