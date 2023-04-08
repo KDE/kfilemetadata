@@ -267,14 +267,16 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 #
 # FictionBook2
 #
-add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp )
-target_link_libraries(kfilemetadata_fb2extractor
-    KF6::Archive
-    KF6::FileMetaData
-    Qt6::Core
-)
+if(KF6Archive_FOUND)
+    add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp )
+    target_link_libraries(kfilemetadata_fb2extractor
+        KF6::Archive
+        KF6::FileMetaData
+        Qt6::Core
+    )
 
-set_target_properties(kfilemetadata_fb2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
-install(
-TARGETS kfilemetadata_fb2extractor
-DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
+    set_target_properties(kfilemetadata_fb2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
+    install(
+    TARGETS kfilemetadata_fb2extractor
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
+endif()

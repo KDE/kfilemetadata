@@ -93,13 +93,15 @@ endif()
 #
 # FictionBook2
 #
-ecm_add_test(
-    fb2extractortest.cpp
-    ../src/extractors/fb2extractor.cpp
-    ../src/kfilemetadata_debug.cpp
-    TEST_NAME "fb2extractortest"
-    LINK_LIBRARIES Qt6::Test KF6::Archive KF6::FileMetaData
-)
+if(KF6Archive_FOUND)
+    ecm_add_test(
+        fb2extractortest.cpp
+        ../src/extractors/fb2extractor.cpp
+        ../src/kfilemetadata_debug.cpp
+        TEST_NAME "fb2extractortest"
+        LINK_LIBRARIES Qt6::Test KF6::Archive KF6::FileMetaData
+    )
+endif()
 
 #
 # Property Info
