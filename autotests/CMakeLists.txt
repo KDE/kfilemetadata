@@ -160,7 +160,8 @@ if(Taglib_FOUND)
 endif()
 
 
-if(TARGET Python3::Interpreter)
+if(TARGET Python3::Interpreter AND NOT WIN32)
+    # Test relies on working she-bang, which does non exist on Windows
     configure_file(samplefiles/testexternalextractor/main.py samplefiles/testexternalextractor/main.py)
     configure_file(samplefiles/testexternalextractor/manifest.json samplefiles/testexternalextractor/manifest.json COPYONLY)
 
@@ -262,7 +263,7 @@ if(Taglib_FOUND)
     )
 endif()
 
-if(TARGET Python3::Interpreter)
+if(TARGET Python3::Interpreter AND NOT WIN32)
     configure_file(samplefiles/testexternalwriter/main.py samplefiles/testexternalwriter/main.py)
     configure_file(samplefiles/testexternalwriter/manifest.json samplefiles/testexternalwriter/manifest.json COPYONLY)
 
