@@ -678,7 +678,8 @@ void TagLibExtractorTest::testImageData()
     testAudioFile = testFilePath(fileName);
     const QString mimeType = mimeDb.mimeTypeForFile(testAudioFile).name();
     
-    QVERIFY(plugin.mimetypes().contains(mimeType));
+    QVERIFY2(!mimeType.isEmpty(), "Failed to determine mimetype");
+    QVERIFY2(plugin.mimetypes().contains(mimeType), qPrintable(mimeType + " not supported by taglib"));
     
     SimpleExtractionResult result(testAudioFile, mimeType, ExtractionResult::ExtractImageData);
     plugin.extract(&result);
