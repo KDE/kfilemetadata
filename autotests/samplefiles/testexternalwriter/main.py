@@ -1,4 +1,4 @@
-#!@PYTHON_EXECUTABLE@
+#!@Python3_EXECUTABLE@
 #
 # SPDX-FileCopyrightText: 2016 Varun Joshi <varunj.1011@gmail.com>
 #

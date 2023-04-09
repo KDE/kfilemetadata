@@ -1,9 +1,9 @@
 find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Test)
 
-find_package(PythonInterp)
-set_package_properties(PythonInterp PROPERTIES DESCRIPTION "Python Interpreter"
+find_package(Python3 COMPONENTS Interpreter)
+set_package_properties(Python3 PROPERTIES DESCRIPTION "Python Interpreter"
                        URL "https://www.python.org" TYPE OPTIONAL
-                       PURPOSE "Python interpreter is needed to execute test for external extractors or writers")
+                       PURPOSE "Python interpreter is required for testing external extractors and writers")
 
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 
@@ -160,7 +160,7 @@ if(Taglib_FOUND)
 endif()
 
 
-if(PYTHONINTERP_FOUND)
+if(TARGET Python3::Interpreter)
     configure_file(samplefiles/testexternalextractor/main.py samplefiles/testexternalextractor/main.py)
     configure_file(samplefiles/testexternalextractor/manifest.json samplefiles/testexternalextractor/manifest.json COPYONLY)
 
@@ -262,7 +262,7 @@ if(Taglib_FOUND)
     )
 endif()
 
-if(PYTHONINTERP_FOUND)
+if(TARGET Python3::Interpreter)
     configure_file(samplefiles/testexternalwriter/main.py samplefiles/testexternalwriter/main.py)
     configure_file(samplefiles/testexternalwriter/manifest.json samplefiles/testexternalwriter/manifest.json COPYONLY)
 
