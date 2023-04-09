@@ -392,16 +392,15 @@ void extractMp4Tags(TagLib::MP4::Tag* mp4Tags, ExtractionResult* result)
         return;
     }
 
-    TagLib::MP4::ItemListMap allTags = mp4Tags->itemListMap();
+    auto ratingItem = mp4Tags->item("rate");
 
     /*
      * There is no standard regarding ratings. Mimic MediaMonkey's behavior
      * with a range of 0 to 100 (stored in steps of 10) and make it compatible
      * with baloo rating with a range from 0 to 10.
      */
-    TagLib::MP4::ItemListMap::Iterator itRating = allTags.find("rate");
-    if (itRating != allTags.end()) {
-        result->add(Property::Rating, itRating->second.toStringList().toString().toInt() / 10);
+    if (ratingItem.isValid()) {
+        result->add(Property::Rating, ratingItem.toStringList().toString().toInt() / 10);
     }
 }
 
