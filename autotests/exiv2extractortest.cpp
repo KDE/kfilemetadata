@@ -16,9 +16,12 @@
 using namespace KFileMetaData;
 using namespace KFileMetaData::Property;
 
-QString Exiv2ExtractorTest::testFilePath(const QString& fileName) const
+namespace {
+QString testFilePath(const QString& fileName)
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
+}
+
 }
 
 void Exiv2ExtractorTest::testNoExtraction()
