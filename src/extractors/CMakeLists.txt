@@ -44,12 +44,13 @@ if(LibExiv2_FOUND)
     endif()
     configure_file(exiv2extractor.json.in exiv2extractor.json)
 
-    if (${LibExiv2_VERSION} VERSION_GREATER 0.27.4)
-        # exiv2 doesn't build [yet] with C++17 so force C++14
-        message(AUTHOR_WARNING "hello developer of the future, please check if with > 0.27.4 we can stop forcing CXX_STANDARD 14")
+    set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
+
+    if (${LibExiv2_VERSION} VERSION_LESS 0.28.0)
+	# exiv2 0.27.x still uses std::auto_ptr, which is incompatible with C++17
+        set_target_properties(kfilemetadata_exiv2extractor PROPERTIES CXX_STANDARD 14)
     endif()
-    set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata"
-                                                                  CXX_STANDARD 14)
+
     install(
     TARGETS kfilemetadata_exiv2extractor
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
