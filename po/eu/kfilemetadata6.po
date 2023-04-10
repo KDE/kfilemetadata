@@ -1,26 +1,25 @@
-# Translation of kfilemetadata5.po to Euskara/Basque (eu).
-# Copyright (C) 2017-2018, Free Software Foundation.
-# Copyright (C) 2019, this file is copyright:
+# Translation of kfilemetadata6.po to Euskara/Basque (eu).
+# Copyright (C) 2017-2023 This file is copyright:
 # This file is distributed under the same license as the kfilemetadata package.
-# KDE Euskaratzeko proiektuaren arduraduna <xalba@euskalnet.net>.
+# KDE Euskaratzeko proiektuaren arduraduna <xalba@ni.eus>.
 #
 # Translators:
 # Osoitz <oelkoro@gmail.com>, 2017.
-# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2017, 2018, 2019.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2017, 2018, 2019, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-23 02:35+0000\n"
-"PO-Revision-Date: 2019-06-23 21:50+0200\n"
-"Last-Translator: Iñigo Salvador Azurmendi <xalba@euskalnet.net>\n"
+"PO-Revision-Date: 2023-04-09 21:15+0200\n"
+"Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.04.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -682,36 +681,28 @@ msgid "Rating"
 msgstr "Puntuazioa"
 
 #: src/propertyinfo.cpp:454
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Peak"
-msgstr "Berriz-jotze irabazia (RG) albumaren gailurra"
+msgstr "Berriz-jotze irabazia (RG): Albumaren gailurra"
 
 #: src/propertyinfo.cpp:461
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Gain"
-msgstr "Berriz-jotze irabazia (RG) albumaren irabazia"
+msgstr "Berriz-jotze irabazia (RG): Albumaren irabazia"
 
 #: src/propertyinfo.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Peak"
-msgstr "Berriz-jotze irabazia (RG) aztarnaren gailurra"
+msgstr "Berriz-jotze irabazia (RG): Aztarnaren gailurra"
 
 #: src/propertyinfo.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Gain"
-msgstr "Berriz-jotze irabazia (RG) aztarnaren irabazia"
+msgstr "Berriz-jotze irabazia (RG): Aztarnaren irabazia"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
