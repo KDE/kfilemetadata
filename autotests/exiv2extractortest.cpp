@@ -14,7 +14,6 @@
 #include <QMimeDatabase>
 
 using namespace KFileMetaData;
-using namespace KFileMetaData::Property;
 
 namespace {
 QString testFilePath(const QString& fileName)
@@ -43,6 +42,8 @@ void Exiv2ExtractorTest::testNoExtraction()
 
 void Exiv2ExtractorTest::test()
 {
+    using namespace KFileMetaData::Property;
+
     Exiv2Extractor plugin{this};
 
     QString fileName = testFilePath(QStringLiteral("test.jpg"));
@@ -64,6 +65,8 @@ void Exiv2ExtractorTest::test()
 
 void Exiv2ExtractorTest::testGPS()
 {
+    using namespace KFileMetaData::Property;
+
     Exiv2Extractor plugin{this};
 
     SimpleExtractionResult result(testFilePath("test.jpg"), "image/jpeg");
@@ -87,6 +90,74 @@ void Exiv2ExtractorTest::testGPS()
     QCOMPARE(resultZero.properties().value(PhotoGpsLatitude).toDouble(), 0.0);
     QCOMPARE(resultZero.properties().value(PhotoGpsLongitude).toDouble(), 0.0);
     QCOMPARE(resultZero.properties().value(PhotoGpsAltitude).toDouble(), 0.0);
+}
+
+void Exiv2ExtractorTest::testJpegJxlProperties()
+{
+    QFETCH(QString, fileName);
+    QFETCH(QString, mimeType);
+
+#ifndef EXV_ENABLE_BMFF
+    if (mimeType == QStringLiteral("image/jxl"))
+        QSKIP("BMFF support required");
+#endif
+
+    Exiv2Extractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Image);
+
+    const auto properties = result.properties();
+    QCOMPARE(properties.size(), 27);
+
+    auto verifyProperty = [&properties](KFileMetaData::Property::Property prop, const QVariant &value)
+    {
+	if (value.canConvert<float>()) {
+	    QCOMPARE(properties.value(prop).toFloat(), value.toFloat());
+	} else {
+	    QCOMPARE(properties.value(prop), value);
+	}
+    };
+
+    verifyProperty(Property::Artist, QStringLiteral("Artist"));
+    verifyProperty(Property::Description, QStringLiteral("Description"));
+    verifyProperty(Property::Copyright, QStringLiteral("Copyright"));
+    verifyProperty(Property::Generator, QStringLiteral("digikam-5.9.0"));
+    verifyProperty(Property::PhotoGpsLatitude, 41.411f);
+    verifyProperty(Property::PhotoGpsLongitude, 2.173f);
+    verifyProperty(Property::PhotoGpsAltitude, 12.2f);
+    verifyProperty(Property::Width, 8);
+    verifyProperty(Property::Height, 14);
+    verifyProperty(Property::Manufacturer, QStringLiteral("LGE"));
+    verifyProperty(Property::Model, QStringLiteral("Nexus 5"));
+    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43.000), Qt::UTC));
+    verifyProperty(Property::PhotoFlash, 0);
+    verifyProperty(Property::PhotoPixelXDimension, 8);
+    verifyProperty(Property::PhotoPixelYDimension, 14);
+    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43.000), Qt::UTC));
+    verifyProperty(Property::PhotoFocalLength, 4.f);
+    verifyProperty(Property::PhotoFocalLengthIn35mmFilm, 10.f);
+    verifyProperty(Property::PhotoExposureTime, 0.0027027f);
+    verifyProperty(Property::PhotoFNumber, 1.f);
+    verifyProperty(Property::PhotoApertureValue, 0.f);
+    verifyProperty(Property::PhotoExposureBiasValue, 0.f);
+    verifyProperty(Property::PhotoWhiteBalance, 0);
+    verifyProperty(Property::PhotoMeteringMode, 1);
+    verifyProperty(Property::PhotoISOSpeedRatings, 100);
+    verifyProperty(Property::PhotoSaturation, 0);
+    verifyProperty(Property::PhotoSharpness, 0);
+}
+
+void Exiv2ExtractorTest::testJpegJxlProperties_data()
+{
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<QString>("mimeType");
+
+    QTest::addRow("jpeg") << QStringLiteral("test.jpg") << QStringLiteral("image/jpeg");
+    QTest::addRow("jxl") << QStringLiteral("test.jxl") << QStringLiteral("image/jxl");
 }
 
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)
