@@ -19,6 +19,7 @@ private Q_SLOTS:
     void testGPS();
     void testJpegJxlProperties();
     void testJpegJxlProperties_data();
+    void testHeifProperties();
 };
 
 #endif // EXIV2EXTRACTORTEST_H

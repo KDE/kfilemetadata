@@ -160,4 +160,59 @@ void Exiv2ExtractorTest::testJpegJxlProperties_data()
     QTest::addRow("jxl") << QStringLiteral("test.jxl") << QStringLiteral("image/jxl");
 }
 
+void Exiv2ExtractorTest::testHeifProperties()
+{
+#ifndef EXV_ENABLE_BMFF
+    QSKIP("BMFF support required");
+#endif
+
+    Exiv2Extractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath("test.heif"), "image/heif");
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Image);
+
+    const auto properties = result.properties();
+    QCOMPARE(properties.size(), 23);
+
+    auto verifyProperty = [&properties](KFileMetaData::Property::Property prop, const QVariant &value)
+    {
+	if (value.canConvert<float>()) {
+	    QCOMPARE(properties.value(prop).toFloat(), value.toFloat());
+	} else {
+	    QCOMPARE(properties.value(prop), value);
+	}
+    };
+
+    verifyProperty(Property::Artist, QStringLiteral("Artist"));
+    verifyProperty(Property::Description, QStringLiteral("Description"));
+    verifyProperty(Property::Copyright, QStringLiteral("Copyright"));
+    verifyProperty(Property::Generator, QStringLiteral("digikam-5.9.0"));
+    verifyProperty(Property::PhotoGpsLatitude, 51.3331f);
+    verifyProperty(Property::PhotoGpsLongitude, -0.705575f);
+    verifyProperty(Property::PhotoGpsAltitude, 0.f);
+    verifyProperty(Property::Width, 750);
+    verifyProperty(Property::Height, 1000);
+    verifyProperty(Property::Manufacturer, QStringLiteral("samsung"));
+    verifyProperty(Property::Model, QStringLiteral("SM-J610N"));
+    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2022, 03, 24), QTime(18, 20, 07.000), Qt::UTC));
+    verifyProperty(Property::PhotoFlash, 0);
+    verifyProperty(Property::PhotoPixelXDimension, 750);
+    verifyProperty(Property::PhotoPixelYDimension, 1000);
+    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2020, 03, 31), QTime(11, 14, 30.000), Qt::UTC));
+    verifyProperty(Property::PhotoFocalLength, 3.6f);
+    verifyProperty(Property::PhotoFocalLengthIn35mmFilm, 26.f);
+    verifyProperty(Property::PhotoExposureTime, 0.00429185f);
+    verifyProperty(Property::PhotoFNumber, 1.9f);
+    verifyProperty(Property::PhotoApertureValue, 1.85f);
+    verifyProperty(Property::PhotoExposureBiasValue, 0.f);
+    verifyProperty(Property::PhotoWhiteBalance, 0);
+    verifyProperty(Property::PhotoMeteringMode, 2);
+    verifyProperty(Property::PhotoISOSpeedRatings, 40);
+    verifyProperty(Property::PhotoSaturation, 0);
+    verifyProperty(Property::PhotoSharpness, 0);
+}
+
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)
