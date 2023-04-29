@@ -1,22 +1,23 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Marce Villarino <mvillarino@kde-espana.org>, 2014.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2016, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2018, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2018, 2019, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-23 02:35+0000\n"
-"PO-Revision-Date: 2019-07-13 17:05+0200\n"
+"PO-Revision-Date: 2023-04-28 19:14+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
-"Language-Team: Galician <kde-i18n-doc@kde.org>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -52,7 +53,7 @@ msgstr "Invertida verticalmente"
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Transposed"
-msgstr "Transposta"
+msgstr "Trasposta"
 
 #: src/formatstrings.cpp:83
 #, kde-format
@@ -673,36 +674,28 @@ msgid "Rating"
 msgstr "Cualificación"
 
 #: src/propertyinfo.cpp:454
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Peak"
-msgstr "Pico de percepción de volume do álbum"
+msgstr "ReplayGain: pico do álbum"
 
 #: src/propertyinfo.cpp:461
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Gain"
-msgstr "Ganancia de percepción de volume do álbum"
+msgstr "ReplayGain: ganancia do álbum"
 
 #: src/propertyinfo.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Peak"
-msgstr "Pico de percepción de volume da pista"
+msgstr "ReplayGain: pico da pista"
 
 #: src/propertyinfo.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Gain"
-msgstr "Ganancia de percepción de volume da pista"
+msgstr "ReplayGain: ganancia da pista"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
