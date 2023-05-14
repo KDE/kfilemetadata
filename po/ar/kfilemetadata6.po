@@ -503,7 +503,7 @@ msgstr "الطول البؤريّ"
 #, kde-format
 msgctxt "@label EXIF"
 msgid "Focal Length 35mm"
-msgstr "الطول البؤريّ ٣٥مم"
+msgstr "الطول البؤريّ 35مم"
 
 # ترجمة خالد حسني
 #: src/propertyinfo.cpp:281
