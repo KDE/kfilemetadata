@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2014, 2015.
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2020-06-09 02:02+0200\n"
-"PO-Revision-Date: 2022-04-01 14:25+0300\n"
+"PO-Revision-Date: 2023-05-15 21:17+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.03.70\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -754,19 +754,19 @@ msgstr "İndirme Adresi"
 #, kde-format
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
-msgstr "E-Posta Eklenti Konusu"
+msgstr "E-Posta Eki Konusu"
 
 #: src/propertyinfo.cpp:554
 #, kde-format
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
-msgstr "E-Posta Eklenti Göndereni"
+msgstr "E-Posta Eki Göndereni"
 
 #: src/propertyinfo.cpp:561
 #, kde-format
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr "E-Posta Eklenti İleti ID'si"
+msgstr "E-Posta Eki İletisi Kimliği"
 
 #: src/typeinfo.cpp:34
 #, kde-format
