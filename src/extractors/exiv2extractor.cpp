@@ -75,7 +75,11 @@ QVariant toVariantDateTime(const Exiv2::Value& value)
 QVariant toVariantLong(const Exiv2::Value& value)
 {
     if (value.typeId() == Exiv2::unsignedLong || value.typeId() == Exiv2::signedLong) {
+#if EXIV2_TEST_VERSION(0,28,0)
+        qlonglong val = value.toInt64();
+#else
         qlonglong val = value.toLong();
+#endif
         return QVariant(val);
     }
 
@@ -310,7 +314,11 @@ double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
         it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitudeRef"));
         if (it != data.end() && it->count() > 0 &&
             (it->value().typeId() == Exiv2::unsignedByte || it->value().typeId() == Exiv2::signedByte)) {
+#if EXIV2_TEST_VERSION(0,28,0)
+            auto altRef = it->value().toInt64();
+#else
             auto altRef = it->value().toLong();
+#endif
             if (altRef) {
                 alt = -1.0 * ratio.first / ratio.second;
             } else {
