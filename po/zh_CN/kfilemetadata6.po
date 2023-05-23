@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-23 02:35+0000\n"
-"PO-Revision-Date: 2023-02-24 12:43\n"
+"PO-Revision-Date: 2023-05-22 13:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/kfilemetadata/kfilemetadata5.pot\n"
-"X-Crowdin-File-ID: 5564\n"
+"X-Crowdin-File: /kf6-trunk/messages/kfilemetadata/kfilemetadata6.pot\n"
+"X-Crowdin-File-ID: 42469\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -672,36 +672,28 @@ msgid "Rating"
 msgstr "评分"
 
 #: src/propertyinfo.cpp:454
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Peak"
-msgstr "回放增益 - 专辑峰值"
+msgstr "回放增益：专辑峰值"
 
 #: src/propertyinfo.cpp:461
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Album Gain"
-msgstr "回放增益 - 专辑增益"
+msgstr "回放增益：专辑增益"
 
 #: src/propertyinfo.cpp:468
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Peak"
-msgstr "回放增益 - 曲目峰值"
+msgstr "回放增益：曲目峰值"
 
 #: src/propertyinfo.cpp:475
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
+#, kde-format
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain: Track Gain"
-msgstr "回放增益 - 曲目增益"
+msgstr "回放增益：曲目增益"
 
 #: src/propertyinfo.cpp:482
 #, kde-format
