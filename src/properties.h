@@ -357,7 +357,6 @@ enum Property {
 
 } // namespace Property
 
-typedef QMap<Property::Property, QVariant> PropertyMap;
 using PropertyMultiMap = QMultiMap<Property::Property, QVariant>;
 
 } // namespace KFileMetaData

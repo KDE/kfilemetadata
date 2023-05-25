@@ -14,7 +14,6 @@
 #include <memory>
 
 namespace KFileMetaData {
-enum PropertiesMapType { MultiMap };
 
 class SimpleExtractionResultPrivate;
 
@@ -44,9 +43,8 @@ public:
 
     /**
      * Returns the properties of the extraction result.
-     * @since 5.89
      */
-    PropertyMultiMap properties(PropertiesMapType = PropertiesMapType::MultiMap) const;
+    PropertyMultiMap properties() const;
 
     QString text() const;
     QVector<Type::Type> types() const;

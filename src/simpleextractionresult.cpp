@@ -58,7 +58,7 @@ void SimpleExtractionResult::append(const QString& text)
     d->m_text.append(QLatin1Char(' '));
 }
 
-PropertyMultiMap SimpleExtractionResult::properties(PropertiesMapType) const
+PropertyMultiMap SimpleExtractionResult::properties() const
 {
     return d->m_properties;
 }
