@@ -19,11 +19,8 @@ namespace Property {
 
 /**
  * @brief The Property enum contains all files property types that KFileMetaData manipulates
- *
- * @todo KF6 remove PropertyCount and LastProperty such that one can easily add new properties
  */
 enum Property {
-    FirstProperty = 0,
     Empty = 0,
 
     /**
@@ -349,10 +346,6 @@ enum Property {
      * to the 'dc:description' tag from DublinCore
      */
     Description,
-
-    PropertyCount,
-    LastProperty = PropertyCount-1,
-
 };
 
 } // namespace Property

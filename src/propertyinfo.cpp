@@ -563,9 +563,6 @@ PropertyInfo::PropertyInfo(Property::Property property)
             d->shouldBeIndexed = false;
             break;
 
-        case Property::PropertyCount: // To silence the compiler.
-            break;
-
         // NOTE: new properties must also be added to propertyHash
     }
 
