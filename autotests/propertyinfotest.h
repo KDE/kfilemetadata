@@ -23,6 +23,12 @@ private Q_SLOTS:
     void testNameIdMapping();
     void testFormatAsDisplayString();
     void testFormatAsDisplayString_data();
+    void benchmarkPropertyInfo();
+    void benchmarkPropertyInfo_data();
+    void benchmarkPropertyInfoFromName();
+    void benchmarkPropertyInfoFromName_data();
+    void benchmarkPropertyInfoDisplayName();
+    void benchmarkPropertyInfoDisplayName_data();
 private:
     bool m_useLocalization = false;
 };

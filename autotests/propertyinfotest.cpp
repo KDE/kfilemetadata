@@ -144,3 +144,68 @@ void PropertyInfoTest::testFormatAsDisplayString_data()
             << info << row.value << row.expected << row.maybeLocalized;
     }
 }
+
+void PropertyInfoTest::benchmarkPropertyInfo()
+{
+    QFETCH(QString, propertyName);
+    QFETCH(KFileMetaData::Property::Property, propertyId);
+
+    QVERIFY(PropertyInfo::fromName(propertyName).property() == propertyId);
+
+    auto property = PropertyInfo(propertyId);
+
+    QBENCHMARK {
+        // Instantiate a PropertyInfo from Id
+        property = PropertyInfo(propertyId);
+    }
+}
+
+void PropertyInfoTest::benchmarkPropertyInfoFromName()
+{
+    QFETCH(QString, propertyName);
+    auto property = PropertyInfo::fromName(propertyName);
+
+    QBENCHMARK {
+        // Instantiate a PropertyInfo from its name
+        property = PropertyInfo::fromName(propertyName);
+    }
+}
+
+void PropertyInfoTest::benchmarkPropertyInfoDisplayName()
+{
+    QFETCH(KFileMetaData::Property::Property, propertyId);
+
+    auto displayName = PropertyInfo(propertyId).displayName();
+
+    QBENCHMARK {
+        // Instantiate a PropertyInfo and get the displayName;
+        auto property = PropertyInfo(propertyId);
+        displayName = property.displayName();
+    }
+    QVERIFY(!displayName.isEmpty());
+}
+
+static void benchmarkTestData()
+{
+    QTest::addColumn<QString>("propertyName");
+    QTest::addColumn<KFileMetaData::Property::Property>("propertyId");
+
+    QTest::addRow("album") << QStringLiteral("album") << KFileMetaData::Property::Album;
+    QTest::addRow("width") << QStringLiteral("width") << KFileMetaData::Property::Width;
+    QTest::addRow("originUrl") << QStringLiteral("originUrl") << KFileMetaData::Property::OriginUrl;
+}
+
+void PropertyInfoTest::benchmarkPropertyInfo_data()
+{
+    benchmarkTestData();
+}
+
+void PropertyInfoTest::benchmarkPropertyInfoFromName_data()
+{
+    benchmarkTestData();
+}
+
+void PropertyInfoTest::benchmarkPropertyInfoDisplayName_data()
+{
+    benchmarkTestData();
+}

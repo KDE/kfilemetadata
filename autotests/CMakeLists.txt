@@ -113,8 +113,9 @@ target_link_libraries(propertyinfotest_bin
 )
 ecm_mark_as_test(propertyinfotest_bin)
 ecm_mark_nongui_executable(propertyinfotest_bin)
-add_test(NAME propertyinfotest_en COMMAND propertyinfotest_bin)
-add_test(NAME propertyinfotest_localized COMMAND propertyinfotest_bin "--localized")
+# Run the benchmark with just 1 iteration, so we known it works
+add_test(NAME propertyinfotest_en COMMAND propertyinfotest_bin "-iterations" "1")
+add_test(NAME propertyinfotest_localized COMMAND propertyinfotest_bin "--localized" "-iterations" "1")
 
 #
 # Exiv2
