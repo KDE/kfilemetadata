@@ -236,6 +236,19 @@ ecm_add_test(pngextractortest.cpp ../src/extractors/pngextractor.cpp
         Qt6::Gui
 )
 
+#
+# Krita
+#
+if(KF6Archive_FOUND)
+    ecm_add_test(kritaextractortest.cpp ../src/extractors/kritaextractor.cpp
+        TEST_NAME "kritaextractortest"
+        LINK_LIBRARIES
+        KF6::Archive
+        KF6::FileMetaData
+        Qt6::Test
+        Qt6::Gui
+        )
+endif()
 
 ################
 # Writer tests #

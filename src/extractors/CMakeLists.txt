@@ -281,3 +281,26 @@ if(KF6Archive_FOUND)
     TARGETS kfilemetadata_fb2extractor
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 endif()
+
+#
+# Krita
+#
+
+if(KF6Archive_FOUND)
+    add_library(kfilemetadata_krita MODULE)
+    target_sources(kfilemetadata_krita
+        PRIVATE
+            kritaextractor.cpp
+    )
+
+    target_link_libraries(kfilemetadata_krita
+        KF6::FileMetaData
+        KF6::Archive
+    )
+endif()
+
+set_target_properties(kfilemetadata_krita PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
+install(
+TARGETS kfilemetadata_krita
+DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
+

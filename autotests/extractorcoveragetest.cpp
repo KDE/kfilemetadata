@@ -84,6 +84,7 @@ private Q_SLOTS:
             { "test_zero_gps.jpg",             "image/jpeg"},
             { "test.mobi",                     "application/x-mobipocket-ebook"},
             { "test.png",                      "image/png"},
+            { "test.kra",                      "application/x-krita"},
         };
 
         // Collect all test files from the samplefiles directory
