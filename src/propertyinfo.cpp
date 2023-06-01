@@ -278,5 +278,13 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
 
 QStringList PropertyInfo::allNames()
 {
-    return propertyHash.keys();
+    static QStringList sNames = []() {
+        QStringList names;
+        names.reserve(staticPropertyInfo.size());
+        for (auto info: staticPropertyInfo) {
+            names.append(info.name);
+        }
+        return names;
+    }();
+    return sNames;
 }

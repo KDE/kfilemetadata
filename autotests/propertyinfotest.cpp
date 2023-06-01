@@ -48,8 +48,7 @@ void PropertyInfoTest::testNameIdMapping()
 
         QVERIFY(!pi.name().isEmpty());
         QVERIFY(!pi.displayName().isEmpty());
-        // FIXME: toLower should not be necessary
-        QCOMPARE(name, pi.name().toLower());
+        QCOMPARE(name, pi.name());
 
         const auto pi2 = PropertyInfo::fromName(pi.name());
         QCOMPARE(pi.property(), pi2.property());
