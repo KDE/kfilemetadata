@@ -190,9 +190,47 @@ QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
     }
 }
 
+namespace {
+    class LcPropertyName
+    {
+    public:
+        LcPropertyName(const QString& n) : name(n) {};
+        QString name;
+    };
+
+    constexpr QChar trivialToLower(const QChar &c) {
+        if (c.isUpper()) {
+            return QChar::fromLatin1(c.toLatin1() ^ ('a' ^ 'A'));
+        }
+        return c;
+    }
+
+    inline bool operator==(const LcPropertyName &a, const LcPropertyName &b)
+    {
+        if (a.name.size() != b.name.size()) {
+            return false;
+        }
+        for (int i = 0; i < a.name.size(); i++) {
+            if ((a.name[i] != b.name[i]) && (trivialToLower(a.name[i]) != trivialToLower(b.name[i]))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    inline size_t qHash(const LcPropertyName &key, size_t seed = 0)
+    {
+        size_t val = seed;
+        for (const auto& c : key.name) {
+            val ^= qHash(trivialToLower(c));
+        }
+        return val;
+    }
+}
+
 PropertyInfo PropertyInfo::fromName(const QString& name)
 {
-    static const QHash<QString, PropertyInfo> propertyHash = {
+    static const QHash<LcPropertyName, PropertyInfo> propertyHash = {
         { QStringLiteral("bitrate"), Property::BitRate },
         { QStringLiteral("channels"), Property::Channels },
         { QStringLiteral("duration"), Property::Duration },
@@ -273,7 +311,7 @@ PropertyInfo PropertyInfo::fromName(const QString& name)
         { QStringLiteral("originemailmessageid"), Property::OriginEmailMessageId }
     };
 
-    return propertyHash.value(name.toLower());
+    return propertyHash.value(LcPropertyName(name));
 }
 
 QStringList PropertyInfo::allNames()
