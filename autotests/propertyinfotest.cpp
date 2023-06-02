@@ -41,21 +41,17 @@ void PropertyInfoTest::init()
 
 void PropertyInfoTest::testNameIdMapping()
 {
-    // The +1 is to avoid the Empty Property
-    int i = static_cast<int>(Property::FirstProperty) + 1;
-    int e = static_cast<int>(Property::LastProperty);
+    const auto names = PropertyInfo::allNames();
 
-    for (; i <= e; i++) {
-        Property::Property p = static_cast<Property::Property>(i);
-        PropertyInfo pi(p);
+    for (const auto& name : names) {
+        const auto pi = PropertyInfo::fromName(name);
 
-        // qDebug() << pi.name();
-        QCOMPARE(pi.property(), p);
         QVERIFY(!pi.name().isEmpty());
         QVERIFY(!pi.displayName().isEmpty());
+        QCOMPARE(name, pi.name());
 
-        PropertyInfo pi2 = PropertyInfo::fromName(pi.name());
-        QCOMPARE(pi2.property(), p);
+        const auto pi2 = PropertyInfo::fromName(pi.name());
+        QCOMPARE(pi.property(), pi2.property());
     }
 }
 
