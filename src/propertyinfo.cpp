@@ -190,7 +190,9 @@ QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
     }
 }
 
-static const QHash<QString, Property::Property> propertyHash = {
+PropertyInfo PropertyInfo::fromName(const QString& name)
+{
+    static const QHash<QString, PropertyInfo> propertyHash = {
         { QStringLiteral("bitrate"), Property::BitRate },
         { QStringLiteral("channels"), Property::Channels },
         { QStringLiteral("duration"), Property::Duration },
@@ -269,11 +271,9 @@ static const QHash<QString, Property::Property> propertyHash = {
         { QStringLiteral("originemailsubject"), Property::OriginEmailSubject },
         { QStringLiteral("originemailsender"), Property::OriginEmailSender },
         { QStringLiteral("originemailmessageid"), Property::OriginEmailMessageId }
-};
+    };
 
-PropertyInfo PropertyInfo::fromName(const QString& name)
-{
-    return PropertyInfo(propertyHash.value(name.toLower()));
+    return propertyHash.value(name.toLower());
 }
 
 QStringList PropertyInfo::allNames()
