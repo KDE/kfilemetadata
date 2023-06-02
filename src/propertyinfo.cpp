@@ -226,91 +226,20 @@ namespace {
         }
         return val;
     }
+
+    static const QHash<LcPropertyName, PropertyInfo> propertyHash = []() {
+        QHash<LcPropertyName, PropertyInfo> infoHash;
+        infoHash.reserve(staticPropertyInfo.size());
+
+        for (const auto& info: staticPropertyInfo) {
+            infoHash[info.name] = info.prop;
+        }
+        return infoHash;
+    }();
 }
 
 PropertyInfo PropertyInfo::fromName(const QString& name)
 {
-    static const QHash<LcPropertyName, PropertyInfo> propertyHash = {
-        { QStringLiteral("bitrate"), Property::BitRate },
-        { QStringLiteral("channels"), Property::Channels },
-        { QStringLiteral("duration"), Property::Duration },
-        { QStringLiteral("genre"), Property::Genre },
-        { QStringLiteral("samplerate"), Property::SampleRate },
-        { QStringLiteral("tracknumber"), Property::TrackNumber },
-        { QStringLiteral("discnumber"), Property::DiscNumber },
-        { QStringLiteral("releaseyear"), Property::ReleaseYear },
-        { QStringLiteral("comment"), Property::Comment },
-        { QStringLiteral("description"), Property::Description },
-        { QStringLiteral("artist"), Property::Artist },
-        { QStringLiteral("album"), Property::Album },
-        { QStringLiteral("albumartist"), Property::AlbumArtist },
-        { QStringLiteral("composer"), Property::Composer },
-        { QStringLiteral("lyricist"), Property::Lyricist },
-        { QStringLiteral("location"), Property::Location },
-        { QStringLiteral("performer"), Property::Performer },
-        { QStringLiteral("ensemble"), Property::Ensemble },
-        { QStringLiteral("arranger"), Property::Arranger },
-        { QStringLiteral("conductor"), Property::Conductor },
-        { QStringLiteral("opus"), Property::Opus },
-        { QStringLiteral("embeddedrating"), Property::Rating },
-        { QStringLiteral("author"), Property::Author },
-        { QStringLiteral("title"), Property::Title },
-        { QStringLiteral("subject"), Property::Subject },
-        { QStringLiteral("generator"), Property::Generator },
-        { QStringLiteral("pagecount"), Property::PageCount },
-        { QStringLiteral("wordcount"), Property::WordCount },
-        { QStringLiteral("linecount"), Property::LineCount },
-        { QStringLiteral("language"), Property::Language },
-        { QStringLiteral("copyright"), Property::Copyright },
-        { QStringLiteral("publisher"), Property::Publisher },
-        { QStringLiteral("label"), Property::Label },
-        { QStringLiteral("compilation"), Property::Compilation },
-        { QStringLiteral("license"), Property::License },
-        { QStringLiteral("lyrics"), Property::Lyrics },
-        { QStringLiteral("replaygainalbumpeak"), Property::ReplayGainAlbumPeak },
-        { QStringLiteral("replaygainalbumgain"), Property::ReplayGainAlbumGain },
-        { QStringLiteral("replaygaintrackpeak"), Property::ReplayGainTrackPeak },
-        { QStringLiteral("replaygaintrackgain"), Property::ReplayGainTrackGain },
-        { QStringLiteral("creationdate"), Property::CreationDate },
-        { QStringLiteral("keywords"), Property::Keywords },
-        { QStringLiteral("width"), Property::Width },
-        { QStringLiteral("height"), Property::Height },
-        { QStringLiteral("aspectratio"), Property::AspectRatio },
-        { QStringLiteral("framerate"), Property::FrameRate },
-        { QStringLiteral("manufacturer"), Property::Manufacturer },
-        { QStringLiteral("model"), Property::Model },
-        { QStringLiteral("imagedatetime"), Property::ImageDateTime },
-        { QStringLiteral("imageorientation"), Property::ImageOrientation },
-        { QStringLiteral("photoflash"), Property::PhotoFlash },
-        { QStringLiteral("photopixelxdimension"), Property::PhotoPixelXDimension },
-        { QStringLiteral("photopixelydimension"), Property::PhotoPixelYDimension },
-        { QStringLiteral("photodatetimeoriginal"), Property::PhotoDateTimeOriginal },
-        { QStringLiteral("photofocallength"), Property::PhotoFocalLength },
-        { QStringLiteral("photofocallengthin35mmfilm"), Property::PhotoFocalLengthIn35mmFilm },
-        { QStringLiteral("photoexposuretime"), Property::PhotoExposureTime },
-        { QStringLiteral("photofnumber"), Property::PhotoFNumber },
-        { QStringLiteral("photoaperturevalue"), Property::PhotoApertureValue },
-        { QStringLiteral("photoexposurebiasvalue"), Property::PhotoExposureBiasValue },
-        { QStringLiteral("photowhitebalance"), Property::PhotoWhiteBalance },
-        { QStringLiteral("photometeringmode"), Property::PhotoMeteringMode },
-        { QStringLiteral("photoisospeedratings"), Property::PhotoISOSpeedRatings },
-        { QStringLiteral("photosaturation"), Property::PhotoSaturation },
-        { QStringLiteral("photosharpness"), Property::PhotoSharpness },
-        { QStringLiteral("photogpslatitude"), Property::PhotoGpsLatitude },
-        { QStringLiteral("photogpslongitude"), Property::PhotoGpsLongitude },
-        { QStringLiteral("photogpsaltitude"), Property::PhotoGpsAltitude },
-        { QStringLiteral("translationunitstotal"), Property::TranslationUnitsTotal },
-        { QStringLiteral("translationunitswithtranslation"), Property::TranslationUnitsWithTranslation },
-        { QStringLiteral("translationunitswithdrafttranslation"), Property::TranslationUnitsWithDraftTranslation },
-        { QStringLiteral("translationlastauthor"), Property::TranslationLastAuthor },
-        { QStringLiteral("translationlastupdate"), Property::TranslationLastUpDate },
-        { QStringLiteral("translationtemplatedate"), Property::TranslationTemplateDate },
-        { QStringLiteral("originurl"), Property::OriginUrl },
-        { QStringLiteral("originemailsubject"), Property::OriginEmailSubject },
-        { QStringLiteral("originemailsender"), Property::OriginEmailSender },
-        { QStringLiteral("originemailmessageid"), Property::OriginEmailMessageId }
-    };
-
     return propertyHash.value(LcPropertyName(name));
 }
 
