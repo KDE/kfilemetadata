@@ -52,6 +52,9 @@ void PropertyInfoTest::testNameIdMapping()
 
         const auto pi2 = PropertyInfo::fromName(pi.name());
         QCOMPARE(pi.property(), pi2.property());
+        QCOMPARE(pi, pi2);
+        QCOMPARE(pi, PropertyInfo::fromName(pi.name().toLower()));
+        QCOMPARE(pi, PropertyInfo::fromName(pi.name().toUpper()));
     }
 }
 
