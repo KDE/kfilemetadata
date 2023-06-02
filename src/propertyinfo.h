@@ -13,11 +13,9 @@
 #include "properties.h"
 #include "kfilemetadata_export.h"
 
-#include <memory>
-
 namespace KFileMetaData {
 
-class PropertyInfoPrivate;
+class PropertyInfoData;
 /**
  * \class PropertyInfo propertyinfo.h <KFileMetaData/PropertyInfo>
  *
@@ -49,6 +47,10 @@ public:
 
     /**
      * A user visible name of the property
+     *
+     * Note: When the displayName for a given property is used repeatedly
+     * the returned value should be cached, as calling this method is
+     * fairly expensive, as the returned name is localized.
      */
     QString displayName() const;
 
@@ -82,7 +84,7 @@ public:
     QString formatAsDisplayString(const QVariant& value) const;
 
 private:
-    const std::unique_ptr<PropertyInfoPrivate> d;
+    const PropertyInfoData* d;
 };
 
 } // namespace
