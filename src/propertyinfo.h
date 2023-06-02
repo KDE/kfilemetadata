@@ -77,6 +77,12 @@ public:
     static PropertyInfo fromName(const QString& name);
 
     /**
+     * Get all supported property names
+     * @since 6.0
+     */
+    static QStringList allNames();
+
+    /**
      * Returns the value of the property as a QString with added formatting,
      * added units if needed, and translated enums.
      * @since 5.56
