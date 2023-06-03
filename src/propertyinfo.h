@@ -77,8 +77,12 @@ public:
     static PropertyInfo fromName(const QString& name);
 
     /**
-     * Get all supported property names
+     * Get the names of all valid, supported properties
+     *
+     * Note: Property::Empty is not considered a valid property.
+     *
      * @since 6.0
+     * @since 5.107
      */
     static QStringList allNames();
 
