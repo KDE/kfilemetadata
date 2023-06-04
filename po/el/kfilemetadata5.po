@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 00:43+0000\n"
+"POT-Creation-Date: 2023-06-04 00:42+0000\n"
 "PO-Revision-Date: 2021-06-20 11:52+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -617,23 +617,35 @@ msgid "Rating"
 msgstr "Βαθμολογία"
 
 #: src/propertyinfo.cpp:100
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr "Ανώτατο όριο ενίσχυσης ακουστότητας του αλμπουμ"
 
 #: src/propertyinfo.cpp:101
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr "Ενίσχυση ακουστότητας του άλμπουμ"
 
 #: src/propertyinfo.cpp:102
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr "Ανώτατο όριο ενίσχυσης ακουστότητας κομματιού"
 
 #: src/propertyinfo.cpp:103
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr "Ενίσχυση ακουστότητας κομματιού"
 
 #: src/propertyinfo.cpp:104
