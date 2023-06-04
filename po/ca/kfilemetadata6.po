@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
-"PO-Revision-Date: 2023-03-23 10:00+0100\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
+"PO-Revision-Date: 2023-06-03 11:45+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -618,35 +618,35 @@ msgstr "Valoració"
 
 #: src/propertyinfo.cpp:100
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
-msgstr "ReplayGain: Pic d'àlbum"
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
+msgstr "Pic d'àlbum de guany de reproducció"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
-msgstr "ReplayGain: Guany d'àlbum"
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
+msgstr "Guany d'àlbum de guany de reproducció"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
-msgstr "ReplayGain: Pic de peça"
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
+msgstr "Pic de peça de guany de reproducció"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
-msgstr "ReplayGain: Guany de peça"
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
+msgstr "Guany de peça de guany de reproducció"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"

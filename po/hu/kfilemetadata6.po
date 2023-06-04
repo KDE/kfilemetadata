@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
 "PO-Revision-Date: 2021-11-08 11:12+0100\n"
 "Last-Translator: Kristof Kiszel <kiszel.kristof@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -615,32 +615,32 @@ msgstr "Pontszám"
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr "Album hangerőállításának csúcsa"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr "Album erősítési tényezője"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr "Szám hangerőállításának csúcsa"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr "Szám erősítési tényezője"
 
 #: src/propertyinfo.cpp:104

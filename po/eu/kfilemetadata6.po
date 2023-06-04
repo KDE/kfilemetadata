@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
 "PO-Revision-Date: 2023-04-09 21:15+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -622,32 +622,32 @@ msgstr "Puntuazioa"
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr "Berriz-jotze irabazia (RG): Albumaren gailurra"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr "Berriz-jotze irabazia (RG): Albumaren irabazia"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr "Berriz-jotze irabazia (RG): Aztarnaren gailurra"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr "Berriz-jotze irabazia (RG): Aztarnaren irabazia"
 
 #: src/propertyinfo.cpp:104

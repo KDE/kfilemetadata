@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
 "PO-Revision-Date: 2015-02-04 16:00+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: none\n"
@@ -676,23 +676,23 @@ msgid "Rating"
 msgstr ""
 
 #: src/propertyinfo.cpp:100
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr ""
 
 #: src/propertyinfo.cpp:101
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr ""
 
 #: src/propertyinfo.cpp:102
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr ""
 
 #: src/propertyinfo.cpp:103
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr ""
 
 #: src/propertyinfo.cpp:104

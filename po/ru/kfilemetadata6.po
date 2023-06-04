@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
 "PO-Revision-Date: 2019-06-30 14:16+0300\n"
 "Last-Translator: Alexander Potashev <aspotashev@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -616,32 +616,32 @@ msgstr "Оценка"
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr "Пик громкости альбома"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr "Громкость альбома"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr "Пик громкости дорожки"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr "Громкость дорожки"
 
 #: src/propertyinfo.cpp:104

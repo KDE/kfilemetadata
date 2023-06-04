@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
 "PO-Revision-Date: 2023-03-26 17:23+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -621,32 +621,32 @@ msgstr "Рейтинг"
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr "Replay Gain Album Peak"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr "ReplayGain: Album Gain"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr "ReplayGain: Track Peak"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
 #| msgctxt "@label ReplayGain is the name of a standard"
 #| msgid "ReplayGain: Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr "ReplayGain: Track Gain"
 
 #: src/propertyinfo.cpp:104

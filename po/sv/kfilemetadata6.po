@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
 "PO-Revision-Date: 2019-06-22 09:11+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -614,32 +614,32 @@ msgstr "Betyg"
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr "Högsta uppspelningsnivå i album"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr "Uppspelningsnivå album"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr "Högsta uppspelningsnivå i spår"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr "Uppspelningsnivå spår"
 
 #: src/propertyinfo.cpp:104

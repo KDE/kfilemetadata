@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
-"PO-Revision-Date: 2023-03-24 13:09+0100\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
+"PO-Revision-Date: 2023-06-03 08:46+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -623,35 +623,35 @@ msgstr "Ocena"
 
 #: src/propertyinfo.cpp:100
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
-msgstr "Ojačitev ponovnega predvajanja: vrh albuma"
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
+msgstr "Ponovno predvajaj ojačitev vrha albuma"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
-msgstr "Ojačitev ponovnega predvajanja: ojačitev albuma"
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
+msgstr "Ponovno predvajaj ojačitev ojačitve albuma"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
-msgstr "Ojačitev ponovnega predvajanja: vrh posnetka"
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
+msgstr "Ponovno predvajaj ojačitev vrha sledi"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
-msgstr "Ojačitev ponovnega predvajanja: ojačitev posnetka"
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
+msgstr "Ponovno predvajaj ojačitev ojačitve sledi"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
 "PO-Revision-Date: 2019-09-07 19:58+0300\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -617,32 +617,32 @@ msgstr "Įvertinimas"
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
 msgstr "Replay Gain albumo viršūnė"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
 msgstr "Replay Gain albumo stiprinimas"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
 msgstr "Replay Gain takelio viršūnė"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
 msgstr "Replay Gain takelio stiprinimas"
 
 #: src/propertyinfo.cpp:104

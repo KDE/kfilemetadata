@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-03 02:03+0000\n"
-"PO-Revision-Date: 2023-03-23 13:42+0300\n"
+"POT-Creation-Date: 2023-06-04 02:16+0000\n"
+"PO-Revision-Date: 2023-06-03 12:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -318,7 +318,7 @@ msgstr "Sanatçı"
 #: src/propertyinfo.cpp:41
 msgctxt "@label"
 msgid "Aspect Ratio"
-msgstr "En Boy Oranı"
+msgstr "En-Boy Oranı"
 
 #: src/propertyinfo.cpp:42
 msgctxt "@label"
@@ -612,35 +612,35 @@ msgstr "Derecelendirme"
 
 #: src/propertyinfo.cpp:100
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Album Peak"
-msgctxt "@label"
-msgid "Replay Gain Album Peak"
-msgstr "Yeniden Çalma Kazanması: Albüm Tavanı"
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Peak"
+msgstr "Yeniden Çalma Kazanması Albüm Tavanı"
 
 #: src/propertyinfo.cpp:101
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Album Gain"
-msgctxt "@label"
-msgid "Replay Gain Album Gain"
-msgstr "Yeniden Çalma Kazanması: Albüm Kazanması"
+#| msgctxt "@label"
+#| msgid "Replay Gain Album Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Album Gain"
+msgstr "Yeniden Çalma Kazanması Albüm Kazanması"
 
 #: src/propertyinfo.cpp:102
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Track Peak"
-msgctxt "@label"
-msgid "Replay Gain Track Peak"
-msgstr "Yeniden Çalma Kazanması: Parça Tavanı"
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Peak"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Peak"
+msgstr "Yeniden Çalma Kazanması Parça Tavanı"
 
 #: src/propertyinfo.cpp:103
 #, fuzzy
-#| msgctxt "@label ReplayGain is the name of a standard"
-#| msgid "ReplayGain: Track Gain"
-msgctxt "@label"
-msgid "Replay Gain Track Gain"
-msgstr "Yeniden Çalma Kazanması: Parça Kazanması"
+#| msgctxt "@label"
+#| msgid "Replay Gain Track Gain"
+msgctxt "@label ReplayGain is the name of a standard"
+msgid "ReplayGain Track Gain"
+msgstr "Yeniden Çalma Kazanması Parça Kazanması"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
@@ -690,17 +690,17 @@ msgstr "İndirme Adresi"
 #: src/propertyinfo.cpp:113
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
-msgstr "E-Posta Eklenti Konusu"
+msgstr "E-posta Eklenti Konusu"
 
 #: src/propertyinfo.cpp:114
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
-msgstr "E-Posta Eklenti Göndereni"
+msgstr "E-posta Eklenti Göndereni"
 
 #: src/propertyinfo.cpp:115
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr "E-Posta Eklenti İleti ID'si"
+msgstr "E-posta Eklenti İleti ID'si"
 
 #: src/typeinfo.cpp:34
 #, kde-format
