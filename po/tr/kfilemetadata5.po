@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:42+0000\n"
-"PO-Revision-Date: 2023-06-03 12:40+0300\n"
+"PO-Revision-Date: 2023-06-04 12:48+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -615,36 +615,24 @@ msgid "Rating"
 msgstr "Derecelendirme"
 
 #: src/propertyinfo.cpp:100
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr "Yeniden Çalma Kazanması Albüm Tavanı"
+msgstr "ReplayGain Albüm Tavanı"
 
 #: src/propertyinfo.cpp:101
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "Yeniden Çalma Kazanması Albüm Kazanması"
+msgstr "ReplayGain Albüm Kazanması"
 
 #: src/propertyinfo.cpp:102
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "Yeniden Çalma Kazanması Parça Tavanı"
+msgstr "ReplayGain Parça Tavanı"
 
 #: src/propertyinfo.cpp:103
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "Yeniden Çalma Kazanması Parça Kazanması"
+msgstr "ReplayGain Parça Kazanması"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
