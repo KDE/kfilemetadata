@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 02:16+0000\n"
-"PO-Revision-Date: 2023-06-03 08:57+0300\n"
+"PO-Revision-Date: 2023-06-04 19:02+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -614,36 +614,24 @@ msgid "Rating"
 msgstr "Оцінка"
 
 #: src/propertyinfo.cpp:100
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr "Пікова гучність альбому при вирівнюванні гучності"
+msgstr "ReplayGain: пік альбому"
 
 #: src/propertyinfo.cpp:101
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "Збільшення гучності альбому при вирівнюванні гучності"
+msgstr "ReplayGain: підсилення альбому"
 
 #: src/propertyinfo.cpp:102
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "Пікова гучність композиції при вирівнюванні гучності"
+msgstr "ReplayGain: пік композиції"
 
 #: src/propertyinfo.cpp:103
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "Збільшення гучності композиції при вирівнюванні гучності"
+msgstr "ReplayGain: підсилення композиції"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
