@@ -177,11 +177,11 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     }
 
     if (image->pixelHeight()) {
-        result->add(Property::Height, image->pixelHeight());
+        result->add(Property::Height, static_cast<int>(image->pixelHeight()));
     }
 
     if (image->pixelWidth()) {
-        result->add(Property::Width, image->pixelWidth());
+        result->add(Property::Width, static_cast<int>(image->pixelWidth()));
     }
 
     std::string comment = image->comment();

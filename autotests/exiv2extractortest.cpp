@@ -215,4 +215,17 @@ void Exiv2ExtractorTest::testHeifProperties()
     verifyProperty(Property::PhotoSharpness, 0);
 }
 
+void Exiv2ExtractorTest::testPropertyType()
+{
+    Exiv2Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test.jpg"));
+
+    SimpleExtractionResult result(fileName, "image/jpeg");
+    plugin.extract(&result);
+
+    QCOMPARE(result.properties().value(Property::Width).typeId(), QMetaType::Int);
+    QCOMPARE(result.properties().value(Property::Height).typeId(), QMetaType::Int);
+}
+
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)
