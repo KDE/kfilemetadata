@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kfilemetadata package.
 #
-# Kishore G <kishore96@gmail.com>, 2022.
+# Kishore G <kishore96@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:42+0000\n"
-"PO-Revision-Date: 2022-06-28 21:15+0530\n"
+"PO-Revision-Date: 2023-06-11 17:21+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -27,25 +27,25 @@ msgstr "%1/நொடி"
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Unchanged"
-msgstr ""
+msgstr "மாற்றப்படாதது"
 
 #: src/formatstrings.cpp:79
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Horizontally flipped"
-msgstr ""
+msgstr "கிடைவாட்டில் புரப்பட்டது"
 
 #: src/formatstrings.cpp:80
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "180° rotated"
-msgstr ""
+msgstr "180° சுழற்றப்பட்டது"
 
 #: src/formatstrings.cpp:81
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Vertically flipped"
-msgstr ""
+msgstr "நெடுவாட்டில் புரட்டப்பட்டது"
 
 #: src/formatstrings.cpp:82
 #, kde-format
@@ -57,7 +57,7 @@ msgstr ""
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr ""
+msgstr "இடஞ்சுழியாக 90° சுழற்றப்பட்டது"
 
 #: src/formatstrings.cpp:84
 #, kde-format
@@ -69,13 +69,13 @@ msgstr ""
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr ""
+msgstr "இடஞ்சுழியாக 270° சுழற்றப்பட்டது"
 
 #: src/formatstrings.cpp:96
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash"
-msgstr ""
+msgstr "ஃப்ளாஷ் இல்லை"
 
 #: src/formatstrings.cpp:97
 #, kde-format
@@ -236,7 +236,7 @@ msgstr ""
 #: src/formatstrings.cpp:127
 #, kde-format
 msgid "Unknown"
-msgstr ""
+msgstr "தெரியாதது"
 
 #: src/formatstrings.cpp:134
 #, kde-format
@@ -291,17 +291,17 @@ msgstr ""
 #, kde-format
 msgctxt "Aspect ratio, normalized to one"
 msgid "%1:1"
-msgstr ""
+msgstr "%1:1"
 
 #: src/formatstrings.cpp:206
 #, kde-format
 msgctxt "F number for photographs"
 msgid "f/%1"
-msgstr ""
+msgstr "f/%1"
 
 #: src/propertyinfo.cpp:34
 msgid "Empty"
-msgstr ""
+msgstr "ஒன்றுமில்லை"
 
 #: src/propertyinfo.cpp:38
 msgctxt "@label music album"
@@ -391,7 +391,7 @@ msgstr "உயரம்"
 #: src/propertyinfo.cpp:55
 msgctxt "@label EXIF"
 msgid "Image Date Time"
-msgstr ""
+msgstr "பட தேதி/நேரம்"
 
 #: src/propertyinfo.cpp:56
 msgctxt "@label EXIF"
@@ -456,7 +456,7 @@ msgstr ""
 #: src/propertyinfo.cpp:68
 msgctxt "@label EXIF"
 msgid "Flash"
-msgstr ""
+msgstr "ஃப்ளாஷ்"
 
 #: src/propertyinfo.cpp:69
 msgctxt "@label EXIF"
@@ -501,12 +501,12 @@ msgstr ""
 #: src/propertyinfo.cpp:77
 msgctxt "@label EXIF"
 msgid "X Dimension"
-msgstr ""
+msgstr "X பரிமாணம்"
 
 #: src/propertyinfo.cpp:78
 msgctxt "@label EXIF"
 msgid "Y Dimension"
-msgstr ""
+msgstr "Y பரிமாணம்"
 
 #: src/propertyinfo.cpp:79
 msgctxt "@label EXIF"
@@ -541,7 +541,7 @@ msgstr "வெளியான ஆண்டு"
 #: src/propertyinfo.cpp:85
 msgctxt "@label"
 msgid "Sample Rate"
-msgstr ""
+msgstr "பதிவுவிகிதம்"
 
 #: src/propertyinfo.cpp:86
 msgctxt "@label"
@@ -691,7 +691,7 @@ msgstr "உடனிணைக்கப்பட்ட அஞ்சலின் �
 #: src/propertyinfo.cpp:115
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr ""
+msgstr "உடனிணைக்கப்பட்ட அஞ்சலின் அடையாளம்"
 
 #: src/typeinfo.cpp:34
 #, kde-format
