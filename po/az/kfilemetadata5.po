@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kfilemetadata package.
 #
-# Xəyyam <xxmn77@gmail.com>, 2020.
+# Xəyyam <xxmn77@gmail.com>, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:42+0000\n"
-"PO-Revision-Date: 2020-04-14 18:32+0400\n"
-"Last-Translator: Xəyyam <xxmn77@gmail.com>\n"
-"Language-Team: Azerbaijani\n"
+"PO-Revision-Date: 2023-06-12 17:30+0400\n"
+"Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
+"Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -305,7 +305,7 @@ msgstr "f/%1"
 
 #: src/propertyinfo.cpp:34
 msgid "Empty"
-msgstr ""
+msgstr "Boş"
 
 #: src/propertyinfo.cpp:38
 msgctxt "@label music album"
@@ -618,36 +618,24 @@ msgid "Rating"
 msgstr "Reytinq"
 
 #: src/propertyinfo.cpp:100
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr "Albomun Maksimum Səs Səviyyəsi"
+msgstr "ReplayGain: Albom səsinin pik həddi"
 
 #: src/propertyinfo.cpp:101
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "Albomun Səs Səviyyəsi"
+msgstr "ReplayGain Albomdakı səviyyə"
 
 #: src/propertyinfo.cpp:102
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "Trekin Maksimum Səs Səviyyəsi"
+msgstr "ReplayGain Cığırın pik səs həddi"
 
 #: src/propertyinfo.cpp:103
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "Trekin Səs Səviyyəsi"
+msgstr "ReplayGain Cığırdakı səs həddi"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
