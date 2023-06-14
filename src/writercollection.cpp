@@ -42,7 +42,7 @@ WriterCollection::~WriterCollection() = default;
 
 void WriterCollectionPrivate::findWriters()
 {
-    const auto internalPlugins = KPluginMetaData::findPlugins(QStringLiteral("kf" QT_STRINGIFY(QT_VERSION_MAJOR)) + QStringLiteral("/kfilemetadata/writers"), {}, KPluginMetaData::AllowEmptyMetaData);
+    const auto internalPlugins = KPluginMetaData::findPlugins(QStringLiteral("kf6/kfilemetadata/writers"), {}, KPluginMetaData::AllowEmptyMetaData);
 
     for (const KPluginMetaData &metaData : internalPlugins) {
         QPluginLoader loader(metaData.fileName());

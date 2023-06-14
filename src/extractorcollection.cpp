@@ -54,7 +54,7 @@ QList<Extractor*> ExtractorCollection::allExtractors()
 void ExtractorCollectionPrivate::findExtractors()
 {
     const QVector<KPluginMetaData> kfilemetadataPlugins =
-        KPluginMetaData::findPlugins(QStringLiteral("kf" QT_STRINGIFY(QT_VERSION_MAJOR) "/kfilemetadata"), {}, KPluginMetaData::AllowEmptyMetaData);
+        KPluginMetaData::findPlugins(QStringLiteral("kf6/kfilemetadata"), {}, KPluginMetaData::AllowEmptyMetaData);
     for (const KPluginMetaData &plugin : kfilemetadataPlugins) {
         Extractor extractor;
         extractor.d->m_pluginPath = plugin.fileName();
