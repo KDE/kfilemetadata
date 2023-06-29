@@ -287,3 +287,5 @@ void KFileMetaData::AppImageExtractor::extract(ExtractionResult* result)
         result->add(Property::Author, appData.developerName());
     }
 }
+
+#include "moc_appimageextractor.cpp"

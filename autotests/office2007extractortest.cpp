@@ -86,3 +86,5 @@ void Office2007ExtractorTest::testMetaDataOnly()
 }
 
 QTEST_GUILESS_MAIN(Office2007ExtractorTest)
+
+#include "moc_office2007extractortest.cpp"

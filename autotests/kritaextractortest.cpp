@@ -66,3 +66,5 @@ void KritaExtractorTest::test()
 }
 
 QTEST_GUILESS_MAIN(KritaExtractorTest)
+
+#include "moc_kritaextractortest.cpp"

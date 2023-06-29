@@ -79,3 +79,5 @@ void PopplerExtractorTest::testMetaDataOnly()
 }
 
 QTEST_GUILESS_MAIN(PopplerExtractorTest)
+
+#include "moc_popplerextractortest.cpp"

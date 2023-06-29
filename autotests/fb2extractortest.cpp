@@ -114,3 +114,5 @@ void Fb2ExtractorTest::testMetaDataOnly()
 }
 
 QTEST_GUILESS_MAIN(Fb2ExtractorTest)
+
+#include "moc_fb2extractortest.cpp"

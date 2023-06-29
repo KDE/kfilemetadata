@@ -83,3 +83,5 @@ void PostscriptDscExtractorTest::testEPS()
 }
 
 QTEST_GUILESS_MAIN(PostscriptDscExtractorTest)
+
+#include "moc_postscriptdscextractortest.cpp"

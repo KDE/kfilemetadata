@@ -180,3 +180,5 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     avformat_close_input(&fmt_ctx);
 }
+
+#include "moc_ffmpegextractor.cpp"

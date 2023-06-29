@@ -132,3 +132,5 @@ void KritaExtractor::extract(ExtractionResult* result)
         }
     }
 }
+
+#include "moc_kritaextractor.cpp"

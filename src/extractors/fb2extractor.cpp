@@ -216,3 +216,5 @@ void Fb2Extractor::extract(ExtractionResult *result)
         }
     }
 }
+
+#include "moc_fb2extractor.cpp"

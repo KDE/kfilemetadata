@@ -123,3 +123,5 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     result->add(Property::LineCount, lines);
 #endif
 }
+
+#include "moc_plaintextextractor.cpp"

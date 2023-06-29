@@ -156,3 +156,5 @@ void ExternalExtractor::extract(ExtractionResult* result)
         qCDebug(KFILEMETADATA_LOG) << rootObject[QStringLiteral("error")].toString();
     }
 }
+
+#include "moc_externalextractor.cpp"

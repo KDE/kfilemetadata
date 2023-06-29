@@ -99,3 +99,5 @@ void MobiExtractor::extract(ExtractionResult* result)
     }
 
 }
+
+#include "moc_mobiextractor.cpp"

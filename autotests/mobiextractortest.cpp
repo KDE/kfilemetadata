@@ -46,3 +46,5 @@ void MobiExtractorTest::test()
 }
 
 QTEST_GUILESS_MAIN(MobiExtractorTest)
+
+#include "moc_mobiextractortest.cpp"

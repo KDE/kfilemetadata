@@ -115,3 +115,5 @@ void ffmpegExtractorTest::testMetaData()
     QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 2019);
 }
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)
+
+#include "moc_ffmpegextractortest.cpp"

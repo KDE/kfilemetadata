@@ -126,3 +126,5 @@ void ExternalWriter::write(const WriteData& data)
     }
 
 }
+
+#include "moc_externalwriter.cpp"

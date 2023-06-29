@@ -150,3 +150,5 @@ QString ExtractorPlugin::getSupportedMimeType(const QString& mimetype) const
 
     return QString();
 }
+
+#include "moc_extractorplugin.cpp"

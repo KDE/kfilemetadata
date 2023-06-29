@@ -741,3 +741,5 @@ void TagLibExtractorTest::testImageData_data()
 }
 
 QTEST_GUILESS_MAIN(TagLibExtractorTest)
+
+#include "moc_taglibextractortest.cpp"

@@ -102,3 +102,5 @@ void DscExtractor::extract(ExtractionResult* result)
 }
 
 } // namespace KFileMetaData
+
+#include "moc_postscriptdscextractor.cpp"

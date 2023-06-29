@@ -110,3 +110,5 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
         return QString::fromUtf8(process.readAll());
     }
 }
+
+#include "moc_officeextractor.cpp"

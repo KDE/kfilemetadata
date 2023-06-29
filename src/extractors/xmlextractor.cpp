@@ -134,3 +134,5 @@ void XmlExtractor::extract(ExtractionResult* result)
 }
 
 } // namespace KFileMetaData
+
+#include "moc_xmlextractor.cpp"
