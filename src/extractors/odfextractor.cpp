@@ -233,3 +233,5 @@ void OdfExtractor::extractPlainText(QIODevice *device, ExtractionResult *result)
         }
     }
 }
+
+#include "moc_odfextractor.cpp"

@@ -35,3 +35,5 @@ void ExternalExtractorTest::test()
 }
 
 QTEST_GUILESS_MAIN(ExternalExtractorTest)
+
+#include "moc_externalextractortest.cpp"

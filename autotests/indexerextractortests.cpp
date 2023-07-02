@@ -107,3 +107,4 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 
 QTEST_GUILESS_MAIN(IndexerExtractorTests)
 
+#include "moc_indexerextractortests.cpp"

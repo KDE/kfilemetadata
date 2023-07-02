@@ -663,3 +663,5 @@ void TagLibWriter::write(const WriteData& data)
         }
     }
 }
+
+#include "moc_taglibwriter.cpp"

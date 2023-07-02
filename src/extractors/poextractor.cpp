@@ -173,3 +173,5 @@ void POExtractor::extract(ExtractionResult* result)
     result->add(Property::LineCount, lines);
     //TODO WordCount
 }
+
+#include "moc_poextractor.cpp"

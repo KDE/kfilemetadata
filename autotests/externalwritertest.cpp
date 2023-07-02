@@ -45,3 +45,5 @@ void ExternalWriterTest::testProperties()
 }
 
 QTEST_GUILESS_MAIN(ExternalWriterTest)
+
+#include "moc_externalwritertest.cpp"

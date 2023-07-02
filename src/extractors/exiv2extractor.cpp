@@ -339,3 +339,5 @@ QByteArray Exiv2Extractor::fetchByteArray(const Exiv2::ExifData& data, const cha
 
     return QByteArray();
 }
+
+#include "moc_exiv2extractor.cpp"

@@ -305,3 +305,5 @@ void Office2007Extractor::extractTextWithTag(QIODevice* device, const QString& t
         }
     }
 }
+
+#include "moc_office2007extractor.cpp"

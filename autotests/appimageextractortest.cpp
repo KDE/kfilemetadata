@@ -53,3 +53,5 @@ void AppImageExtractorTest::test()
 }
 
 QTEST_GUILESS_MAIN(AppImageExtractorTest)
+
+#include "moc_appimageextractortest.cpp"

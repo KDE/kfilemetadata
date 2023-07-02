@@ -216,3 +216,5 @@ void Exiv2ExtractorTest::testHeifProperties()
 }
 
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)
+
+#include "moc_exiv2extractortest.cpp"

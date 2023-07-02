@@ -696,3 +696,5 @@ void TagLibExtractor::extract(ExtractionResult* result)
 // Disc number[/total dics]:        TPOS
 // Track number[/total tracks]:     TRCK
 // Genre:                           TCON
+
+#include "moc_taglibextractor.cpp"

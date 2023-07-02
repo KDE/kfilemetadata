@@ -847,3 +847,5 @@ void TagLibWriterTest::testMultiImage_data()
 }
 
 QTEST_GUILESS_MAIN(TagLibWriterTest)
+
+#include "moc_taglibwritertest.cpp"

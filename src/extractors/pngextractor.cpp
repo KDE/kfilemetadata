@@ -92,3 +92,5 @@ void PngExtractor::extract(ExtractionResult* result)
         result->add(mapping.property, text);
     }
 }
+
+#include "moc_pngextractor.cpp"

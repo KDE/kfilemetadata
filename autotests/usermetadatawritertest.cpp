@@ -123,3 +123,5 @@ void UserMetaDataWriterTest::cleanupTestCase()
 }
 
 QTEST_GUILESS_MAIN(UserMetaDataWriterTest)
+
+#include "moc_usermetadatawritertest.cpp"

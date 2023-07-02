@@ -208,3 +208,5 @@ void PropertyInfoTest::benchmarkPropertyInfoDisplayName_data()
 {
     benchmarkTestData();
 }
+
+#include "moc_propertyinfotest.cpp"

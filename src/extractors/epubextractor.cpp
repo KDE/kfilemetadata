@@ -186,3 +186,5 @@ void EPubExtractor::extract(ExtractionResult* result)
     // close epub file again
     epub_close(ePubDoc);
 }
+
+#include "moc_epubextractor.cpp"

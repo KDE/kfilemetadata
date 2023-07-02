@@ -114,3 +114,5 @@ void EPubExtractorTest::testMetaDataOnly()
 
 
 QTEST_GUILESS_MAIN(EPubExtractorTest)
+
+#include "moc_epubextractortest.cpp"

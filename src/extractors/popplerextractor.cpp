@@ -85,3 +85,5 @@ void PopplerExtractor::extract(ExtractionResult* result)
         result->append(page->text(QRectF()));
     }
 }
+
+#include "moc_popplerextractor.cpp"

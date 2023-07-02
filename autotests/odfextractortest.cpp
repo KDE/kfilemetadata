@@ -189,3 +189,5 @@ void OdfExtractorTest::testTextMissingContentNoCrash()
 }
 
 QTEST_GUILESS_MAIN(OdfExtractorTest)
+
+#include "moc_odfextractortest.cpp"

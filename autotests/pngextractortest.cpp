@@ -60,3 +60,5 @@ void PngExtractorTest::test()
 }
 
 QTEST_GUILESS_MAIN(PngExtractorTest)
+
+#include "moc_pngextractortest.cpp"

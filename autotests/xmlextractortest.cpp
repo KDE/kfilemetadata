@@ -195,3 +195,4 @@ void XmlExtractorTests::testXmlExtractorMathML()
 
 QTEST_GUILESS_MAIN(XmlExtractorTests)
 
+#include "moc_xmlextractortest.cpp"

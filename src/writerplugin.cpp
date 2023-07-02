@@ -18,3 +18,5 @@ WriterPlugin::WriterPlugin(QObject* parent): QObject(parent)
 WriterPlugin::~WriterPlugin()
 {
 }
+
+#include "moc_writerplugin.cpp"
