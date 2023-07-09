@@ -74,7 +74,7 @@ set_package_properties(Taglib PROPERTIES
                        TYPE OPTIONAL
                        PURPOSE "Support for music metadata")
 
-find_package(LibExiv2 0.21)
+find_package(LibExiv2 0.26)
 set_package_properties(LibExiv2 PROPERTIES
                        TYPE OPTIONAL
                        PURPOSE "Support for image metadata")

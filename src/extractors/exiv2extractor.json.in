@@ -9,10 +9,7 @@
         "image/pgf"             : { "version" : "0.0" },
         "image/png"             : { "version" : "0.0" },
         "image/tiff"            : { "version" : "0.0" },
-        "image/webp"            : {
-            "version"  : "0.0",
-            "enabled"  : "@EXIV2_HAVE_WEBP_SUPPORT@"
-        },
+        "image/webp"            : { "version" : "0.0" },
         "image/avif"            : {
             "version"  : "0.0",
             "enabled"  : "@EXIV2_HAVE_BMFF_SUPPORT@"

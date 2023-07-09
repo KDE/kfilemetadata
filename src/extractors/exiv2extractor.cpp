@@ -29,9 +29,7 @@ static const QStringList supportedMimeTypes = {
     QStringLiteral("image/pgf"),
     QStringLiteral("image/png"),
     QStringLiteral("image/tiff"),
-#ifdef HAVE_WEBP_SUPPORT
     QStringLiteral("image/webp"),
-#endif
 #ifdef EXV_ENABLE_BMFF
     QStringLiteral("image/avif"),
     QStringLiteral("image/heif"),

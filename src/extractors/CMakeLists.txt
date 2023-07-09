@@ -35,10 +35,6 @@ if(LibExiv2_FOUND)
         KF5::FileMetaData
         LibExiv2::LibExiv2
     )
-    if(NOT ${LibExiv2_VERSION} VERSION_LESS 0.26)
-        target_compile_definitions(kfilemetadata_exiv2extractor PRIVATE "-DHAVE_WEBP_SUPPORT")
-        set(EXIV2_HAVE_WEBP_SUPPORT "1")
-    endif()
     if(${LibExiv2_VERSION} VERSION_GREATER_EQUAL 0.27.4)
         set(EXIV2_HAVE_BMFF_SUPPORT "1")
     endif()
