@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:42+0000\n"
-"PO-Revision-Date: 2022-07-02 17:21+0300\n"
+"PO-Revision-Date: 2023-07-04 21:30+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -305,7 +305,7 @@ msgstr "f/%1"
 
 #: src/propertyinfo.cpp:34
 msgid "Empty"
-msgstr ""
+msgstr "tyhjä"
 
 #: src/propertyinfo.cpp:38
 msgctxt "@label music album"
@@ -619,36 +619,24 @@ msgid "Rating"
 msgstr "Arvostelu"
 
 #: src/propertyinfo.cpp:100
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
 msgstr "ReplayGain: albumin huippu"
 
 #: src/propertyinfo.cpp:101
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "Albumin äänenvoimakkuudentasaus"
+msgstr "ReplayGain: albumin äänenvoimakkuudentasaus"
 
 #: src/propertyinfo.cpp:102
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
 msgstr "ReplayGain: kappaleen huippu"
 
 #: src/propertyinfo.cpp:103
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "Raidan äänenvoimakkuudentasaus"
+msgstr "ReplayGain: raidan äänenvoimakkuudentasaus"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
