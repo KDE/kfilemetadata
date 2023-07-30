@@ -1,23 +1,22 @@
-# Translation of kfilemetadata6 to Norwegian Nynorsk
+# translation of kfilemetadata5.pot to esperanto
+# Copyright (C) 2023 Free Software Foundation, Inc.
+# This file is distributed under the same license as the kfilemetadata package.
+# Oliver Kellogg <okellogg@users.sourceforge.net, 2023.
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2015, 2016, 2017, 2018, 2019, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 00:42+0000\n"
-"PO-Revision-Date: 2023-07-29 12:27+0200\n"
-"Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
-"Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
-"Language: nn\n"
+"PO-Revision-Date: 2023-07-29 12:25+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
-"X-Environment: kde\n"
-"X-Accelerator-Marker: &\n"
-"X-Text-Markup: kde4\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -29,216 +28,216 @@ msgstr "%1/s"
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Unchanged"
-msgstr "Uendra"
+msgstr "Neŝanĝita"
 
 #: src/formatstrings.cpp:79
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Horizontally flipped"
-msgstr "Spegla vassrett"
+msgstr "Horizontale renversita"
 
 #: src/formatstrings.cpp:80
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "180° rotated"
-msgstr "Dreia 180°"
+msgstr "180° turnita"
 
 #: src/formatstrings.cpp:81
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Vertically flipped"
-msgstr "Spegla loddrett"
+msgstr "Vertikale renversita"
 
 #: src/formatstrings.cpp:82
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Transposed"
-msgstr "Transponert"
+msgstr "Transmetita"
 
 #: src/formatstrings.cpp:83
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr "Dreia 90° mot klokka"
+msgstr "90° turnita CCW"
 
 #: src/formatstrings.cpp:84
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Transversed"
-msgstr "Transvers"
+msgstr "Transversa"
 
 #: src/formatstrings.cpp:85
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr "Dreia 270° mot klokka"
+msgstr "270° turnita CCW"
 
 #: src/formatstrings.cpp:96
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash"
-msgstr "Utan blits"
+msgstr "Neniu ekbrilo"
 
 #: src/formatstrings.cpp:97
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired"
-msgstr "Utløyst"
+msgstr "Pafite"
 
 #: src/formatstrings.cpp:98
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light not detected"
-msgstr "Utløyst, returlys ikkje oppdaga"
+msgstr "Pafis, revena lumo ne detektita"
 
 #: src/formatstrings.cpp:99
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light detected"
-msgstr "Utløyst, returlys oppdaga"
+msgstr "Pafita, revena lumo detektita"
 
 #: src/formatstrings.cpp:100
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, did not fire"
-msgstr "Ja, men vart ikkje utløyst"
+msgstr "Jes, ne pafis"
 
 #: src/formatstrings.cpp:101
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory"
-msgstr "Ja, obligatorisk"
+msgstr "Jes, deviga"
 
 #: src/formatstrings.cpp:102
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light not detected"
-msgstr "Ja, obligatorisk, returlys ikkje oppdaga"
+msgstr "Jes, deviga, revena lumo ne detektita"
 
 #: src/formatstrings.cpp:103
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light detected"
-msgstr "Ja, obligatorisk, returlys oppdaga"
+msgstr "Jes, deviga, revena lumo detektita"
 
 #: src/formatstrings.cpp:104
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, compulsory"
-msgstr "Nei, obligatorisk"
+msgstr "Ne, deviga"
 
 #: src/formatstrings.cpp:105
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, did not fire, return light not detected"
-msgstr "Nei, ikkje utløyst, returlys ikkje oppdaga"
+msgstr "Ne, ne pafis, revenis lumo ne detektita"
 
 #: src/formatstrings.cpp:106
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto"
-msgstr "Nei, automatisk"
+msgstr "Ne, aŭtomate"
 
 #: src/formatstrings.cpp:107
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto"
-msgstr "Ja, automatisk"
+msgstr "Jes, aŭtomate"
 
 #: src/formatstrings.cpp:108
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light not detected"
-msgstr "Ja, automatisk, returlys ikkje oppdaga"
+msgstr "Jes, aŭtomate, revena lumo ne detektita"
 
 #: src/formatstrings.cpp:109
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light detected"
-msgstr "Ja, automatisk, returlys oppdaga"
+msgstr "Jes, aŭtomate, revena lumo detektita"
 
 #: src/formatstrings.cpp:110
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash function"
-msgstr "Manglar blits"
+msgstr "Neniu ekbrila funkcio"
 
 #: src/formatstrings.cpp:111
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, no flash function"
-msgstr "Nei, manglar blits"
+msgstr "Ne, neniu fulmfunkcio"
 
 #: src/formatstrings.cpp:112
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction"
-msgstr "Ja, raudauge-reduksjon"
+msgstr "Jes, ruĝ-okula redukto"
 
 #: src/formatstrings.cpp:113
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction, return light not detected"
-msgstr "Ja, Ja, raudauge-reduksjon, returlys ikkje oppdaga"
+msgstr "Jes, ruĝ-okula redukto, revena lumo ne detektita"
 
 #: src/formatstrings.cpp:114
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction, return light detected"
-msgstr "Ja, Ja, raudauge-reduksjon, returlys oppdaga"
+msgstr "Jes, ruĝ-okula redukto, revena lumo detektita"
 
 #: src/formatstrings.cpp:115
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction"
-msgstr "Ja, obligatorisk, raudauge-reduksjon"
+msgstr "Jes, deviga, ruĝ-okula redukto"
 
 #: src/formatstrings.cpp:116
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light not detected"
-msgstr "Ja, obligatorisk, raudauge-reduksjon, returlys ikkje oppdaga"
+msgstr "Jes, deviga, ruĝ-okula redukto, revena lumo ne detektita"
 
 #: src/formatstrings.cpp:117
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light detected"
-msgstr "Ja, obligatorisk, raudauge-reduksjon, returlys oppdaga"
+msgstr "Jes, deviga, ruĝ-okula redukto, revena lumo detektita"
 
 #: src/formatstrings.cpp:118
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, red-eye reduction"
-msgstr "Nei, raudauge-reduksjon"
+msgstr "Ne, ruĝ-okula redukto"
 
 #: src/formatstrings.cpp:119
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto, red-eye reduction"
-msgstr "Nei, automatisk, raudauge-reduksjon"
+msgstr "Ne, aŭtomata, ruĝ-okula redukto"
 
 #: src/formatstrings.cpp:120
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction"
-msgstr "Ja, automatisk, raudauge-reduksjon"
+msgstr "Jes, aŭtomata, ruĝ-okula redukto"
 
 #: src/formatstrings.cpp:121
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light not detected"
-msgstr "Ja, automatisk, raudauge-reduksjon, returlys ikkje oppdaga"
+msgstr "Jes, aŭtomata, ruĝ-okula redukto, revena lumo ne detektita"
 
 #: src/formatstrings.cpp:122
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light detected"
-msgstr "Ja, automatisk, raudauge-reduksjon, returlys oppdaga"
+msgstr "Jes, aŭtomata, ruĝ-okula redukto, revena lumo detektita"
 
 #: src/formatstrings.cpp:127
 #, kde-format
 msgid "Unknown"
-msgstr "Ukjend"
+msgstr "Nekonata"
 
 #: src/formatstrings.cpp:134
 #, kde-format
@@ -256,38 +255,38 @@ msgstr "%1 mm"
 #, kde-format
 msgctxt "Symbol of frames per second, with space"
 msgid "%1 fps"
-msgstr "%1 b/s"
+msgstr "%1 fps"
 
 #: src/formatstrings.cpp:160
 #, kde-format
 msgctxt "Time period given in seconds as rational number, denominator is given"
 msgid "1/%1 s"
-msgstr "1/%1 s"
+msgstr "1/%1 s"
 
 #: src/formatstrings.cpp:163
 #, kde-format
 msgctxt "Time period given in seconds"
 msgid "%1 s"
-msgstr "%1 s"
+msgstr "%1 s"
 
 #: src/formatstrings.cpp:179
 #, kde-format
 msgctxt "Exposure bias/compensation in exposure value (EV)"
 msgid "%1 EV"
-msgstr "%1 EV"
+msgstr "%1 EV"
 
 #: src/formatstrings.cpp:193
 #, kde-format
 msgctxt ""
 "Exposure compensation given as integral with fraction, in exposure value (EV)"
 msgid "%1 %2/%3 EV"
-msgstr "%1 %2/%3 EV"
+msgstr "%1 %2/%3 EV"
 
 #: src/formatstrings.cpp:196
 #, kde-format
 msgctxt "Exposure compensation given as rational, in exposure value (EV)"
 msgid "%1/%2 EV"
-msgstr "%1/%2 EV"
+msgstr "%1/%2 EV"
 
 #: src/formatstrings.cpp:201
 #, kde-format
@@ -303,32 +302,32 @@ msgstr "f/%1"
 
 #: src/propertyinfo.cpp:34
 msgid "Empty"
-msgstr "Tom"
+msgstr "Malplena"
 
 #: src/propertyinfo.cpp:38
 msgctxt "@label music album"
 msgid "Album"
-msgstr "Album"
+msgstr "Albumo"
 
 #: src/propertyinfo.cpp:39
 msgctxt "@label"
 msgid "Album Artist"
-msgstr "Albumartist"
+msgstr "Albumartisto"
 
 #: src/propertyinfo.cpp:40
 msgctxt "@label"
 msgid "Artist"
-msgstr "Artist"
+msgstr "Artisto"
 
 #: src/propertyinfo.cpp:41
 msgctxt "@label"
 msgid "Aspect Ratio"
-msgstr "Breidd/høgd-forhold"
+msgstr "Bildformato"
 
 #: src/propertyinfo.cpp:42
 msgctxt "@label"
 msgid "Author"
-msgstr "Forfattar"
+msgstr "Aŭtoro"
 
 #: src/propertyinfo.cpp:43
 msgctxt "@label"
@@ -338,404 +337,404 @@ msgstr "Bitrate"
 #: src/propertyinfo.cpp:44
 msgctxt "@label"
 msgid "Channels"
-msgstr "Kanalar"
+msgstr "Kanaloj"
 
 #: src/propertyinfo.cpp:45
 msgctxt "@label"
 msgid "Comment"
-msgstr "Merknad"
+msgstr "Komento"
 
 #: src/propertyinfo.cpp:46
 msgctxt "@label"
 msgid "Description"
-msgstr "Skildring"
+msgstr "Priskribo"
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label"
 msgid "Composer"
-msgstr "Komponist"
+msgstr "Komponisto"
 
 #: src/propertyinfo.cpp:48
 msgctxt "@label"
 msgid "Copyright"
-msgstr "Opphavsrett"
+msgstr "Kopirajto"
 
 #: src/propertyinfo.cpp:49
 msgctxt "@label"
 msgid "Creation Date"
-msgstr "Opprettingsdato"
+msgstr "Dato de Kreo"
 
 #: src/propertyinfo.cpp:50
 msgctxt "@label"
 msgid "Duration"
-msgstr "Tid"
+msgstr "Daŭro"
 
 #: src/propertyinfo.cpp:51
 msgctxt "@label"
 msgid "Frame Rate"
-msgstr "Bilete per sekund"
+msgstr "Framfrekvenco"
 
 #: src/propertyinfo.cpp:52
 msgctxt "@label"
 msgid "Document Generated By"
-msgstr "Dokument generert av"
+msgstr "Dokumento Generita De"
 
 #: src/propertyinfo.cpp:53
 msgctxt "@label music genre"
 msgid "Genre"
-msgstr "Sjanger"
+msgstr "Ĝenro"
 
 #: src/propertyinfo.cpp:54
 msgctxt "@label"
 msgid "Height"
-msgstr "Høgd"
+msgstr "Alteco"
 
 #: src/propertyinfo.cpp:55
 msgctxt "@label EXIF"
 msgid "Image Date Time"
-msgstr "Bilete: dato og klokkeslett"
+msgstr "Bildo Dato Tempo"
 
 #: src/propertyinfo.cpp:56
 msgctxt "@label EXIF"
 msgid "Manufacturer"
-msgstr "Produsent"
+msgstr "Fabrikisto"
 
 #: src/propertyinfo.cpp:57
 msgctxt "@label EXIF"
 msgid "Model"
-msgstr "Modell"
+msgstr "Modelo"
 
 #: src/propertyinfo.cpp:58
 msgctxt "@label EXIF"
 msgid "Image Orientation"
-msgstr "Biletretning"
+msgstr "Bilda Orientiĝo"
 
 #: src/propertyinfo.cpp:59
 msgctxt "@label"
 msgid "Keywords"
-msgstr "Nøkkelord"
+msgstr "Ŝlosilvortoj"
 
 #: src/propertyinfo.cpp:60
 msgctxt "@label"
 msgid "Language"
-msgstr "Språk"
+msgstr "Lingvo"
 
 #: src/propertyinfo.cpp:61
 msgctxt "@label number of lines"
 msgid "Line Count"
-msgstr "Linjetal"
+msgstr "Liniokalkulo"
 
 #: src/propertyinfo.cpp:62
 msgctxt "@label"
 msgid "Lyricist"
-msgstr "Tekstforfattar"
+msgstr "Lirikisto"
 
 #: src/propertyinfo.cpp:63
 msgctxt "@label"
 msgid "Page Count"
-msgstr "Sidetal"
+msgstr "Paĝkalkulo"
 
 #: src/propertyinfo.cpp:64
 msgctxt "@label EXIF"
 msgid "Aperture Value"
-msgstr "Blenderopning"
+msgstr "Apertura Valoro"
 
 #: src/propertyinfo.cpp:65
 msgctxt "@label EXIF"
 msgid "Original Date Time"
-msgstr "Opphavleg dato og klokkeslett"
+msgstr "Originala Dato Tempo"
 
 #: src/propertyinfo.cpp:66
 msgctxt "@label EXIF"
 msgid "Exposure Bias"
-msgstr "Eksponeringsbias"
+msgstr "Ekspona Biaso"
 
 #: src/propertyinfo.cpp:67
 msgctxt "@label EXIF"
 msgid "Exposure Time"
-msgstr "Lukkartid"
+msgstr "Elmetiĝo-tempo"
 
 #: src/propertyinfo.cpp:68
 msgctxt "@label EXIF"
 msgid "Flash"
-msgstr "Blits"
+msgstr "Ekbrilo"
 
 #: src/propertyinfo.cpp:69
 msgctxt "@label EXIF"
 msgid "F Number"
-msgstr "F-nummer"
+msgstr "F Nombro"
 
 #: src/propertyinfo.cpp:70
 msgctxt "@label EXIF"
 msgid "Focal Length"
-msgstr "Brennvidd"
+msgstr "Foksa Longo"
 
 #: src/propertyinfo.cpp:71
 msgctxt "@label EXIF"
 msgid "Focal Length 35mm"
-msgstr "Brennvidd 35 mm"
+msgstr "Foka Longo 35mm"
 
 #: src/propertyinfo.cpp:72
 msgctxt "@label EXIF"
 msgid "GPS Latitude"
-msgstr "GPS-breiddegrad"
+msgstr "GPS Latitudo"
 
 #: src/propertyinfo.cpp:73
 msgctxt "@label EXIF"
 msgid "GPS Longitude"
-msgstr "GPS-lengdegrad"
+msgstr "GPS Longitudo"
 
 #: src/propertyinfo.cpp:74
 msgctxt "@label EXIF"
 msgid "GPS Altitude"
-msgstr "GPS-høgd"
+msgstr "GPS-Alteco"
 
 #: src/propertyinfo.cpp:75
 msgctxt "@label EXIF"
 msgid "ISO Speed Rating"
-msgstr "ISO-verdi"
+msgstr "ISO Rapida Taksado"
 
 #: src/propertyinfo.cpp:76
 msgctxt "@label EXIF"
 msgid "Metering Mode"
-msgstr "Lysmåling"
+msgstr "Mezura Reĝimo"
 
 #: src/propertyinfo.cpp:77
 msgctxt "@label EXIF"
 msgid "X Dimension"
-msgstr "Vassrett oppløysing"
+msgstr "X Dimensio"
 
 #: src/propertyinfo.cpp:78
 msgctxt "@label EXIF"
 msgid "Y Dimension"
-msgstr "Loddrett oppløysing"
+msgstr "Y Dimensio"
 
 #: src/propertyinfo.cpp:79
 msgctxt "@label EXIF"
 msgid "Saturation"
-msgstr "Fargemetting"
+msgstr "Saturiĝo"
 
 #: src/propertyinfo.cpp:80
 msgctxt "@label EXIF"
 msgid "Sharpness"
-msgstr "Skarpleik"
+msgstr "Akreco"
 
 #: src/propertyinfo.cpp:81
 msgctxt "@label EXIF"
 msgid "White Balance"
-msgstr "Kvitbalanse"
+msgstr "Blanka Ekvilibro"
 
 #: src/propertyinfo.cpp:82
 msgctxt "@label"
 msgid "Publisher"
-msgstr "Utgjevar"
+msgstr "Eldonisto"
 
 #: src/propertyinfo.cpp:83
 msgctxt "@label"
 msgid "Label"
-msgstr "Merkelapp"
+msgstr "Etikedo"
 
 #: src/propertyinfo.cpp:84
 msgctxt "@label"
 msgid "Release Year"
-msgstr "Utgjevingsår"
+msgstr "Eldonjaro"
 
 #: src/propertyinfo.cpp:85
 msgctxt "@label"
 msgid "Sample Rate"
-msgstr "Samplingsrate"
+msgstr "Ekzempla indico"
 
 #: src/propertyinfo.cpp:86
 msgctxt "@label"
 msgid "Subject"
-msgstr "Emne"
+msgstr "Subjekto"
 
 #: src/propertyinfo.cpp:87
 msgctxt "@label"
 msgid "Title"
-msgstr "Tittel"
+msgstr "Titolo"
 
 #: src/propertyinfo.cpp:88
 msgctxt "@label music track number"
 msgid "Track Number"
-msgstr "Spornummer"
+msgstr "Voja Nombro"
 
 #: src/propertyinfo.cpp:89
 msgctxt "@label music disc number"
 msgid "Disc Number"
-msgstr "Platenummer"
+msgstr "Disko-Numero"
 
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Location"
-msgstr "Plassering"
+msgstr "Loko"
 
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
 msgid "Performer"
-msgstr "Utøvar"
+msgstr "Prezentisto"
 
 #: src/propertyinfo.cpp:92
 msgctxt "@label"
 msgid "Ensemble"
-msgstr "Gruppe"
+msgstr "Ensemblo"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Arranger"
-msgstr "Arrangert av"
+msgstr "Aranĝanto"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
 msgid "Conductor"
-msgstr "Dirigent"
+msgstr "Direktoro"
 
 #: src/propertyinfo.cpp:95
 msgctxt "@label"
 msgid "Compilation"
-msgstr "Samling"
+msgstr "Kompilo"
 
 #: src/propertyinfo.cpp:96
 msgctxt "@label"
 msgid "License"
-msgstr "Lisens"
+msgstr "Permesilo"
 
 #: src/propertyinfo.cpp:97
 msgctxt "@label"
 msgid "Lyrics"
-msgstr "Songtekst"
+msgstr "Kantotekstoj"
 
 #: src/propertyinfo.cpp:98
 msgctxt "@label"
 msgid "Opus"
-msgstr "Opus"
+msgstr "Verko"
 
 #: src/propertyinfo.cpp:99
 msgctxt "@label"
 msgid "Rating"
-msgstr "Karakter"
+msgstr "Taksado"
 
 #: src/propertyinfo.cpp:100
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr "ReplayGain – album-lydtopp"
+msgstr "ReplayGain Album-Pinto"
 
 #: src/propertyinfo.cpp:101
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "ReplayGain – album-forsterking"
+msgstr "ReplayGain Album-Gajno"
 
 #: src/propertyinfo.cpp:102
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "ReplayGai – spor-lydtopp"
+msgstr "ReplayGain Trak-Pinto"
 
 #: src/propertyinfo.cpp:103
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "ReplayGain – spor-forsterking"
+msgstr "ReplayGain Trakgajno"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
 msgid "Width"
-msgstr "Breidd"
+msgstr "Larĝo"
 
 #: src/propertyinfo.cpp:105
 msgctxt "@label number of words"
 msgid "Word Count"
-msgstr "Ordteljing"
+msgstr "Sumo da vortoj"
 
 #: src/propertyinfo.cpp:106
 msgctxt "@label number of translatable strings"
 msgid "Translatable Units"
-msgstr "Omsetbare einingar"
+msgstr "Tradukeblaj Unuoj"
 
 #: src/propertyinfo.cpp:107
 msgctxt "@label number of translated strings"
 msgid "Translations"
-msgstr "Omsetjingar"
+msgstr "Tradukoj"
 
 #: src/propertyinfo.cpp:108
 msgctxt "@label number of fuzzy translated strings"
 msgid "Draft Translations"
-msgstr "Omsetjingsframlegg"
+msgstr "Malnetaj Tradukoj"
 
 #: src/propertyinfo.cpp:109
 msgctxt "@label translation author"
 msgid "Author"
-msgstr "Forfattar"
+msgstr "Aŭtoro"
 
 #: src/propertyinfo.cpp:110
 msgctxt "@label translations last update"
 msgid "Last Update"
-msgstr "Sist oppdatert"
+msgstr "Lasta Ĝisdatigo"
 
 #: src/propertyinfo.cpp:111
 msgctxt "@label date of template creation8"
 msgid "Template Creation"
-msgstr "Mal oppretta"
+msgstr "Kreado de Ŝablonoj"
 
 #: src/propertyinfo.cpp:112
 msgctxt "@label the URL a file was originally downloaded from"
 msgid "Downloaded From"
-msgstr "Lasta ned frå"
+msgstr "Elŝutite de"
 
 #: src/propertyinfo.cpp:113
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
-msgstr "Emne til e-postvedlegg"
+msgstr "Temo de Retpoŝta Aldonaĵo"
 
 #: src/propertyinfo.cpp:114
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
-msgstr "Avsendar av e-postvedlegg"
+msgstr "Sendanto de Retpoŝta Aldonaĵo"
 
 #: src/propertyinfo.cpp:115
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr "Meldings-ID til e-postvedlegg"
+msgstr "Mesaĝ-ID de Retpoŝta Aldonaĵo"
 
 #: src/typeinfo.cpp:34
 #, kde-format
 msgctxt "@label"
 msgid "Archive"
-msgstr "Arkiv"
+msgstr "Arkivo"
 
 #: src/typeinfo.cpp:39
 #, kde-format
 msgctxt "@label"
 msgid "Audio"
-msgstr "Lyd"
+msgstr "Aŭdio"
 
 #: src/typeinfo.cpp:44
 #, kde-format
 msgctxt "@label"
 msgid "Document"
-msgstr "Dokument"
+msgstr "Dokumento"
 
 #: src/typeinfo.cpp:49
 #, kde-format
 msgctxt "@label"
 msgid "Image"
-msgstr "Bilete"
+msgstr "Bildo"
 
 #: src/typeinfo.cpp:54
 #, kde-format
 msgctxt "@label"
 msgid "Presentation"
-msgstr "Presentasjon"
+msgstr "Prezento"
 
 #: src/typeinfo.cpp:59
 #, kde-format
 msgctxt "@label"
 msgid "Spreadsheet"
-msgstr "Rekneark"
+msgstr "Tabelfolio"
 
 #: src/typeinfo.cpp:64
 #, kde-format
 msgctxt "@label"
 msgid "Text"
-msgstr "Tekst"
+msgstr "Teksto"
 
 #: src/typeinfo.cpp:69
 #, kde-format
@@ -747,4 +746,4 @@ msgstr "Video"
 #, kde-format
 msgctxt "@label"
 msgid "Folder"
-msgstr "Mappe"
+msgstr "Dosierujo"
