@@ -8,7 +8,7 @@
 #define KFILEMETADATA_SimpleExtractionResult_H
 
 #include "extractionresult.h"
-#include <QVector>
+#include <QList>
 #include <QString>
 
 #include <memory>
@@ -47,7 +47,7 @@ public:
     PropertyMultiMap properties() const;
 
     QString text() const;
-    QVector<Type::Type> types() const;
+    QList<Type::Type> types() const;
 
 private:
     const std::unique_ptr<SimpleExtractionResultPrivate> d;

@@ -13,7 +13,7 @@ class KFileMetaData::SimpleExtractionResultPrivate
 public:
     PropertyMultiMap m_properties;
     QString m_text;
-    QVector<Type::Type> m_types;
+    QList<Type::Type> m_types;
 };
 
 SimpleExtractionResult::SimpleExtractionResult(const QString& url, const QString& mimetype, const Flags& flags)
@@ -68,7 +68,7 @@ QString SimpleExtractionResult::text() const
     return d->m_text;
 }
 
-QVector<Type::Type> SimpleExtractionResult::types() const
+QList<Type::Type> SimpleExtractionResult::types() const
 {
     return d->m_types;
 }

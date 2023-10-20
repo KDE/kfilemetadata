@@ -56,22 +56,22 @@ QString OdfExtractorTest::testFilePath(const QString& fileName) const
 void OdfExtractorTest::testNoExtraction_data()
 {
     QTest::addColumn<QString>("fileName");
-    QTest::addColumn<QVector<Type::Type>>("types");
+    QTest::addColumn<QList<Type::Type>>("types");
 
-    QTest::newRow("regular text") << QStringLiteral("test.odt") << QVector<Type::Type>{Type::Document};
-    QTest::newRow("flat xml text") << QStringLiteral("test.fodt") << QVector<Type::Type>{Type::Document};
+    QTest::newRow("regular text") << QStringLiteral("test.odt") << QList<Type::Type>{Type::Document};
+    QTest::newRow("flat xml text") << QStringLiteral("test.fodt") << QList<Type::Type>{Type::Document};
 
-    QTest::newRow("regular presentation") << QStringLiteral("test.odp") << QVector<Type::Type>{Type::Document, Type::Presentation};
-    QTest::newRow("flat xml presentation") << QStringLiteral("test.fodp") << QVector<Type::Type>{Type::Document, Type::Presentation};
+    QTest::newRow("regular presentation") << QStringLiteral("test.odp") << QList<Type::Type>{Type::Document, Type::Presentation};
+    QTest::newRow("flat xml presentation") << QStringLiteral("test.fodp") << QList<Type::Type>{Type::Document, Type::Presentation};
 
-    QTest::newRow("regular graphic") << QStringLiteral("test.odg") << QVector<Type::Type>{Type::Document, Type::Image};
-    QTest::newRow("flat xml graphic") << QStringLiteral("test.fodg") << QVector<Type::Type>{Type::Document, Type::Image};
+    QTest::newRow("regular graphic") << QStringLiteral("test.odg") << QList<Type::Type>{Type::Document, Type::Image};
+    QTest::newRow("flat xml graphic") << QStringLiteral("test.fodg") << QList<Type::Type>{Type::Document, Type::Image};
 }
 
 void OdfExtractorTest::testNoExtraction()
 {
     QFETCH(QString, fileName);
-    QFETCH(QVector<Type::Type>, types);
+    QFETCH(QList<Type::Type>, types);
 
     OdfExtractor plugin{this};
 
