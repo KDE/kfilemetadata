@@ -44,6 +44,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/ogg"),
     QStringLiteral("audio/opus"),
     QStringLiteral("audio/wav"),
+    QStringLiteral("audio/vnd.wave"),
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
@@ -546,7 +547,9 @@ void TagLibWriter::write(const WriteData& data)
             }
             file.save();
         }
-    } else if (mimeType == QLatin1String("audio/wav") || mimeType == QLatin1String("audio/x-wav")) {
+    } else if (mimeType == QLatin1String("audio/wav") ||
+               mimeType == QLatin1String("audio/vnd.wave") ||
+               mimeType == QLatin1String("audio/x-wav")) {
         TagLib::RIFF::WAV::File file(&stream, false);
         if (file.isValid()) {
             auto savedProperties = file.properties();

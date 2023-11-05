@@ -10,6 +10,7 @@
 #include <QTest>
 #include <QDirIterator>
 #include <QMimeDatabase>
+#include <QMultiMap>
 
 #include "mimeutils.h"
 
@@ -27,7 +28,7 @@ private:
     }
 
     QStringList m_testFiles;
-    QMap<QString, QString> m_knownFiles;
+    QMultiMap<QString, QString> m_knownFiles;
 
 private Q_SLOTS:
 
@@ -74,6 +75,8 @@ private Q_SLOTS:
             { "test_repeated.epub",            "application/epub+zip"},
             { "test.spx",                      "audio/x-speex+ogg"},
             { "test.ts",                       "video/mp2t"},
+            // Check both the actual name and its alias for wav
+            { "test.wav",                      "audio/vnd.wave"},
             { "test.wav",                      "audio/x-wav"},
             { "test.webm",                     "video/webm"},
             { "test_dcterms.svg",              "image/svg+xml"},
@@ -106,7 +109,7 @@ private Q_SLOTS:
 
         auto it = m_knownFiles.cbegin();
         while (it != m_knownFiles.cend()) {
-            QTest::addRow("%s", it.key().toUtf8().constData())
+            QTest::addRow("%s_%s", it.key().toUtf8().constData(), it.value().toUtf8().constData())
                 << it.key() << it.value();
             ++it;
         }
@@ -133,7 +136,10 @@ private Q_SLOTS:
              */
             QSKIP("Expected mimetype is not registered");
         }
-        QCOMPARE(fileMime.name(), mimeType);
+        if (fileMime.name() != mimeType) {
+            const auto aliases = fileMime.aliases();
+            QVERIFY(aliases.contains(mimeType));
+        }
     }
 
     void testFileCoverage_data()
