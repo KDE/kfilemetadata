@@ -35,6 +35,7 @@ private Q_SLOTS:
     void initTestCase() {
         // Expected mimetypes
         m_knownFiles = {
+            { "test.avi",                      "video/vnd.avi"},
             { "test.aif",                      "audio/x-aifc"},
             { "test.ape",                      "audio/x-ape"},
             { "test.avif",                     "image/avif"},

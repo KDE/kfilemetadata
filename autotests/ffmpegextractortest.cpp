@@ -57,6 +57,9 @@ void ffmpegExtractorTest::testVideoProperties_data()
 
     QTest::addRow("MPEG Transport")
         << QStringLiteral("ts");
+
+    QTest::addRow("MS AVI")
+        << QStringLiteral("avi");
 }
 
 // only for testing of intrinsic video properties
