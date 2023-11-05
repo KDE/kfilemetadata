@@ -48,6 +48,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/opus"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/vnd.audible.aax"),
+    QStringLiteral("audio/vnd.wave"),
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
@@ -572,7 +573,9 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 extractId3Tags(file.tag(), result);
             }
         }
-    } else if (mimeType == QLatin1String("audio/wav") || mimeType == QLatin1String("audio/x-wav")) {
+    } else if (mimeType == QLatin1String("audio/wav") ||
+               mimeType == QLatin1String("audio/vnd.wave") ||
+               mimeType == QLatin1String("audio/x-wav")) {
         TagLib::RIFF::WAV::File file(&stream, true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);
