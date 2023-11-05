@@ -36,16 +36,17 @@ FFmpegExtractor::FFmpegExtractor(QObject* parent)
 }
 
 const QStringList supportedMimeTypes = {
+    QStringLiteral("video/mp2t"),
     QStringLiteral("video/mp4"),
     QStringLiteral("video/mpeg"),
-    QStringLiteral("video/quicktime"),
-    QStringLiteral("video/webm"),
     QStringLiteral("video/ogg"),
-    QStringLiteral("video/mp2t"),
+    QStringLiteral("video/quicktime"),
+    QStringLiteral("video/vnd.avi"),
+    QStringLiteral("video/webm"),
     QStringLiteral("video/x-flv"),
     QStringLiteral("video/x-matroska"),
-    QStringLiteral("video/x-ms-wmv"),
     QStringLiteral("video/x-ms-asf"),
+    QStringLiteral("video/x-ms-wmv"),
     QStringLiteral("video/x-msvideo"),
 };
 
