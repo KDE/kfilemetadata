@@ -14,6 +14,7 @@
         "audio/x-aiff"       : { "Version" : "0.0" },
         "audio/x-aifc"       : { "Version" : "0.0" },
         "audio/x-ape"        : { "Version" : "0.0" },
+        "audio/x-flac+ogg"   : { "Version" : "0.0" },
         "audio/x-mpeg"       : { "Version" : "0.0" },
         "audio/x-ms-wma"     : { "Version" : "0.0" },
         "audio/x-musepack"   : { "Version" : "0.0" },
