@@ -80,8 +80,12 @@ set_package_properties(LibExiv2 PROPERTIES
                        PURPOSE "Support for image metadata")
 
 find_package(FFmpeg 57.48 COMPONENTS AVCODEC)
-find_package(FFmpeg 57.40 COMPONENTS AVFORMAT)
-find_package(FFmpeg 55.27 COMPONENTS AVUTIL)
+if (AVCODEC_FOUND)
+    find_package(FFmpeg 57.40 COMPONENTS AVFORMAT)
+    if (AVFORMAT_FOUND)
+        find_package(FFmpeg 55.27 COMPONENTS AVUTIL)
+    endif()
+endif()
 set_package_properties(FFmpeg PROPERTIES DESCRIPTION "Video Tag reader"
                        URL "https://ffmpeg.org/" TYPE OPTIONAL
                        PURPOSE "Support for video metadata")
