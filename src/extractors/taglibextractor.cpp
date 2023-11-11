@@ -23,6 +23,7 @@
 #include <mpcfile.h>
 #include <mpegfile.h>
 #include <oggfile.h>
+#include <oggflacfile.h>
 #include <opusfile.h>
 #include <speexfile.h>
 #include <vorbisfile.h>
@@ -52,6 +53,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
+    QStringLiteral("audio/x-flac+ogg"),
     QStringLiteral("audio/x-mpeg"),
     QStringLiteral("audio/x-ms-wma"),
     QStringLiteral("audio/x-musepack"),
@@ -627,6 +629,15 @@ void TagLibExtractor::extract(ExtractionResult* result)
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
             result->addImageData(extractFlacCover(file.pictureList(), imageTypes));
+        }
+    } else if (mimeType == QLatin1String("audio/x-flac+ogg")) {
+        TagLib::Ogg::FLAC::File file(&stream, true);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+            if (file.tag()) {
+                result->addImageData(extractFlacCover(file.tag()->pictureList(), imageTypes));
+            }
         }
     } else if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
         TagLib::Ogg::Vorbis::File file(&stream, true);

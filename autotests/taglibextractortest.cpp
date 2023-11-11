@@ -138,6 +138,10 @@ void TagLibExtractorTest::testCommonData_data()
         << QStringLiteral("flac")
         ;
 
+    QTest::addRow("flac+ogg")
+        << QStringLiteral("flac.ogg")
+        ;
+
     QTest::addRow("m4a")
         << QStringLiteral("m4a")
         ;
@@ -218,6 +222,10 @@ void TagLibExtractorTest::testVorbisComment_data()
 
     QTest::addRow("flac")
         << QStringLiteral("flac")
+        ;
+
+    QTest::addRow("flac+ogg")
+        << QStringLiteral("flac.ogg")
         ;
 
     QTest::addRow("ogg")
@@ -710,6 +718,10 @@ void TagLibExtractorTest::testImageData_data()
     QTest::addRow("flac")
             << QStringLiteral("test.flac")
             ;
+
+    QTest::addRow("flac+ogg")
+        << QStringLiteral("test.flac.ogg")
+        ;
 
     QTest::addRow("mp3")
             << QStringLiteral("test.mp3")

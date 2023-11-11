@@ -65,6 +65,7 @@ private Q_SLOTS:
             { "test.fodp",                     "application/vnd.oasis.opendocument.presentation-flat-xml"},
             { "test.fodt",                     "application/vnd.oasis.opendocument.text-flat-xml"},
             { "test.ogg",                      "audio/x-vorbis+ogg"},
+            { "test.flac.ogg",                 "audio/x-flac+ogg"},
             { "test.mml",                      "application/mathml+xml"},
             { "test_multivalue.ogg",           "audio/x-vorbis+ogg"},
             { "test.ogv",                      "video/x-theora+ogg"},
@@ -139,6 +140,8 @@ private Q_SLOTS:
         }
         if (fileMime.name() != mimeType) {
             const auto aliases = fileMime.aliases();
+	    if (!aliases.contains(mimeType))
+		QCOMPARE(fileMime.name(), mimeType);
             QVERIFY(aliases.contains(mimeType));
         }
     }
