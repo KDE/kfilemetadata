@@ -5,14 +5,44 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "odfextractortest.h"
-
-#include <QTest>
-
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/odfextractor.h"
 #include "mimeutils.h"
+
+#include <QMimeDatabase>
+#include <QObject>
+#include <QTest>
+
+class OdfExtractorTest : public QObject
+{
+    Q_OBJECT
+private:
+    QString testFilePath(const QString& fileName) const;
+
+private Q_SLOTS:
+    void testNoExtraction_data();
+    void testNoExtraction();
+
+    void testText_data();
+    void testText();
+    void testTextMetaDataOnly();
+
+    void testPresentation_data();
+    void testPresentation();
+
+    void testGraphic_data();
+    void testGraphic();
+
+    void testSpreadsheet_data();
+    void testSpreadsheet();
+
+    void testTextMissingMetaNoCrash();
+    void testTextMissingContentNoCrash();
+
+private:
+    QMimeDatabase mimeDb;
+};
 
 using namespace KFileMetaData;
 
@@ -172,6 +202,41 @@ void OdfExtractorTest::testGraphic()
     QCOMPARE(result.text(), QStringLiteral("KFileMetaData Graphic "));
 }
 
+void OdfExtractorTest::testSpreadsheet_data()
+{
+    QTest::addColumn<QString>("fileName");
+
+    QTest::newRow("regular") << QStringLiteral("test.ods");
+}
+
+void OdfExtractorTest::testSpreadsheet()
+{
+    QFETCH(QString, fileName);
+
+    OdfExtractor plugin{this};
+
+    const QString path = testFilePath(fileName);
+    const QString mimeType = MimeUtils::strictMimeType(path, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(path, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 2);
+    QCOMPARE(result.types().at(0), Type::Document);
+    QCOMPARE(result.types().at(1), Type::Spreadsheet);
+
+    QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
+    QDateTime dt(QDate(2023, 11, 12), QTime(05, 59, 53, 986));
+    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
+    QCOMPARE(result.properties().value(Property::Author), QStringLiteral("Author KFM"));
+    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("KFileMetaData Title")));
+    QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("KFileMetaData Subject")));
+    QCOMPARE(result.properties().value(Property::Keywords), QVariant(QStringLiteral("KFileMetaData keyword")));
+    QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Some KFileMetaData comment")));
+    QCOMPARE(result.text(), QStringLiteral("First cell Second cell Second row "));
+}
+
 void OdfExtractorTest::testTextMissingMetaNoCrash()
 {
     OdfExtractor plugin{this};
@@ -190,4 +255,4 @@ void OdfExtractorTest::testTextMissingContentNoCrash()
 
 QTEST_GUILESS_MAIN(OdfExtractorTest)
 
-#include "moc_odfextractortest.cpp"
+#include "odfextractortest.moc"

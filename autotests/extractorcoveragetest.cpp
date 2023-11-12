@@ -62,6 +62,7 @@ private Q_SLOTS:
             { "test.odg",                      "application/vnd.oasis.opendocument.graphics"},
             { "test.odp",                      "application/vnd.oasis.opendocument.presentation"},
             { "test.odt",                      "application/vnd.oasis.opendocument.text"},
+            { "test.ods",                      "application/vnd.oasis.opendocument.spreadsheet"},
             { "test.fodg",                     "application/vnd.oasis.opendocument.graphics-flat-xml"},
             { "test.fodp",                     "application/vnd.oasis.opendocument.presentation-flat-xml"},
             { "test.fodt",                     "application/vnd.oasis.opendocument.text-flat-xml"},
