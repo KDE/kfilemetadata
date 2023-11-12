@@ -24,14 +24,20 @@ void ExternalExtractorTest::test()
 {
     QTemporaryFile file;
     file.open();
-    file.write("Hello");
+    file.write("Hello\nWorld");
     file.close();
     ExternalExtractor plugin{testFilePath("testexternalextractor")};
+    QVERIFY(plugin.mimetypes().contains("application/text"));
 
     SimpleExtractionResult result(file.fileName(), "application/text");
     plugin.extract(&result);
 
-    QCOMPARE(result.text(), QStringLiteral("Hello "));
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Text);
+
+    QCOMPARE(result.text(), QStringLiteral("Hello\nWorld "));
+
+    QCOMPARE(result.properties().value(Property::LineCount), 2);
 }
 
 QTEST_GUILESS_MAIN(ExternalExtractorTest)

@@ -13,11 +13,19 @@ def extract():
      path = extractor_data.get('path')
      mimetype = extractor_data.get('mimetype')
 
-     doc = open(path)
+     doc = open(path, 'r')
 
      return_value = {}
      return_value['properties'] = {}
-     return_value['properties']['text'] = doc.read()
+     # Values matching KFileMetaData::Type
+     return_value['properties']['typeInfo'] = 'Text'
+     # Plain text
+     text = ""
+     for lineCount, line in enumerate(doc):
+         text += line;
+     return_value['properties']['text'] = text
+     # Other properties matching KFileMetaData::PropertyInfo
+     return_value['properties']['lineCount'] = lineCount + 1
      return_value['status'] = 'OK'
      return_value['error'] = ''
 
