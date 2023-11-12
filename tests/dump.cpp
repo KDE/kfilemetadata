@@ -15,6 +15,7 @@
 #include "extractorcollection.h"
 #include "propertyinfo.h"
 #include "simpleextractionresult.h"
+#include "typeinfo.h"
 
 #include <iostream>
 
@@ -68,10 +69,16 @@ int main(int argc, char** argv)
         } else {
             out << "Extractor";
         }
-        out << " For " << ex->mimetypes().join(QLatin1Char(' ')) << "\n";
+        out << " For " << ex->mimetypes().join(QLatin1String("\n\t\t\t")) << "\n";
 
         KFileMetaData::SimpleExtractionResult result(url, mimetype, extractionLevel);
         ex->extract(&result);
+
+        out << "\t\tTypes:";
+        for (const auto t : result.types()) {
+            out << " " << KFileMetaData::TypeInfo(t).name();
+        }
+        out << "\n";
 
         const KFileMetaData::PropertyMultiMap multiMap= result.properties();
         KFileMetaData::PropertyMultiMap::const_iterator it = multiMap.constBegin();
