@@ -6,16 +6,62 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "taglibextractortest.h"
 #include "simpleextractionresult.h"
 #include "propertyinfo.h"
 //TODO: use QTESTFINDDATA and remove this
 #include "indexerextractortestsconfig.h"
 #include "extractors/taglibextractor.h"
 #include "mimeutils.h"
+#include "properties.h"
 
+#include <QMimeDatabase>
+#include <QObject>
 #include <QSet>
 #include <QTest>
+
+class TagLibExtractorTest : public QObject
+{
+    Q_OBJECT
+private:
+    QString testFilePath(const QString& fileName) const;
+
+private Q_SLOTS:
+    void initTestCase();
+    void testNoExtraction();
+    void testPropertyTypes();
+    void testCommonData();
+    void testCommonData_data();
+    void testVorbisComment();
+    void testVorbisComment_data();
+    void testVorbisCommentMultivalue();
+    void testVorbisCommentMultivalue_data();
+    void testId3();
+    void testId3_data();
+    void testApe();
+    void testApe_data();
+    void testMp4();
+    void testMp4_data();
+    void testAax();
+    void testAax_data();
+    void testAsf();
+    void testAsf_data();
+    void testId3Rating_data();
+    void testId3Rating();
+    void testWmaRating_data();
+    void testWmaRating();
+    void testNoMetadata();
+    void testNoMetadata_data();
+    void testRobustness();
+    void testRobustness_data();
+    void testImageData();
+    void testImageData_data();
+
+private:
+    // Convenience function
+    const QStringList propertyEnumNames(const QList<KFileMetaData::Property::Property>& key) const;
+    QMimeDatabase mimeDb;
+    QByteArray m_coverImage;
+};
 
 using namespace KFileMetaData;
 
@@ -116,7 +162,12 @@ void TagLibExtractorTest::testCommonData()
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
     QCOMPARE(result.properties().value(Property::Artist), QVariant(QStringLiteral("Artist")));
     QCOMPARE(result.properties().value(Property::Album), QVariant(QStringLiteral("Album")));
-    QCOMPARE(result.properties().value(Property::Genre), QVariant(QStringLiteral("Genre")));
+    // ID3v1 only supports a limited set of Genres, not the ID3v2 freeform string "Genre"
+    if (qstrcmp(QTest::currentDataTag(), "mp3 id3v1") == 0) {
+        QCOMPARE(result.properties().value(Property::Genre), QVariant(QStringLiteral("Soul")));
+    } else {
+        QCOMPARE(result.properties().value(Property::Genre), QVariant(QStringLiteral("Genre")));
+    }
     QCOMPARE(result.properties().value(Property::Comment), QVariant(QStringLiteral("Comment")));
     QCOMPARE(result.properties().value(Property::TrackNumber).toInt(), 1);
     QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 2015);
@@ -146,9 +197,8 @@ void TagLibExtractorTest::testCommonData_data()
         << QStringLiteral("m4a")
         ;
 
-    QTest::addRow("mp3")
-        << QStringLiteral("mp3")
-        ;
+    QTest::addRow("mp3 id3v2") << QStringLiteral("mp3") ;
+    QTest::addRow("mp3 id3v1") << QStringLiteral("id3v1.mp3");
 
     QTest::addRow("mpc")
         << QStringLiteral("mpc")
@@ -724,8 +774,8 @@ void TagLibExtractorTest::testImageData_data()
         ;
 
     QTest::addRow("mp3")
-            << QStringLiteral("test.mp3")
-            ;
+	<< QStringLiteral("test.mp3")
+	;
 
     QTest::addRow("m4a")
             << QStringLiteral("test.m4a")
@@ -754,4 +804,4 @@ void TagLibExtractorTest::testImageData_data()
 
 QTEST_GUILESS_MAIN(TagLibExtractorTest)
 
-#include "moc_taglibextractortest.cpp"
+#include "taglibextractortest.moc"
