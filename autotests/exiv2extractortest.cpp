@@ -103,6 +103,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
 #endif
 
     Exiv2Extractor plugin{this};
+    QVERIFY(plugin.mimetypes().contains(mimeType));
 
     SimpleExtractionResult result(testFilePath(fileName), mimeType);
     plugin.extract(&result);
@@ -158,6 +159,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties_data()
 
     QTest::addRow("jpeg") << QStringLiteral("test.jpg") << QStringLiteral("image/jpeg");
     QTest::addRow("jxl") << QStringLiteral("test.jxl") << QStringLiteral("image/jxl");
+    QTest::addRow("webp") << QStringLiteral("test.webp") << QStringLiteral("image/webp");
 }
 
 void Exiv2ExtractorTest::testHeifProperties()
@@ -167,6 +169,7 @@ void Exiv2ExtractorTest::testHeifProperties()
 #endif
 
     Exiv2Extractor plugin{this};
+    QVERIFY(plugin.mimetypes().contains("image/heif"));
 
     SimpleExtractionResult result(testFilePath("test.heif"), "image/heif");
     plugin.extract(&result);

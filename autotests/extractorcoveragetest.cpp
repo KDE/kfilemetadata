@@ -82,6 +82,7 @@ private Q_SLOTS:
             { "test.wav",                      "audio/vnd.wave"},
             { "test.wav",                      "audio/x-wav"},
             { "test.webm",                     "video/webm"},
+            { "test.webp",                     "image/webp"},
             { "test_dcterms.svg",              "image/svg+xml"},
             { "test_with_container.svg",       "image/svg+xml"},
             { "test_with_metadata.svg",        "image/svg+xml"},
