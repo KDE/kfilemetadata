@@ -38,7 +38,18 @@ int main(int argc, char** argv)
         ? ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText
         : ExtractionResult::ExtractMetaData);
 
-    QString url = QFileInfo(parser.positionalArguments().at(0)).absoluteFilePath();
+    auto fi = QFileInfo(parser.positionalArguments().at(0));
+    QString url = fi.absoluteFilePath();
+
+    if (!fi.exists()) {
+        qDebug() << "File" << url << "not found";
+        return 1;
+    }
+
+    if (!fi.isFile() || !fi.isReadable()) {
+        qDebug() << "File" << url << "is not a readable file";
+        return 1;
+    }
 
     QMimeDatabase mimeDb;
     QString mimetype = mimeDb.mimeTypeForFile(url).name();
