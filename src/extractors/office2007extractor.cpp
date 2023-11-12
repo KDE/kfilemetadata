@@ -224,8 +224,15 @@ void Office2007Extractor::extract(ExtractionResult* result)
             return;
         }
 
-        const KArchiveDirectory* xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
-        extractTextFromFiles(xlDirectory, result);
+        const auto xlDirectory = dynamic_cast<const KArchiveDirectory*>(xlEntry);
+        // TODO: Read the sheets from worksheets/*.xml, and dereference all cells
+        // values in order
+        const KArchiveFile* file = xlDirectory->file(QStringLiteral("sharedStrings.xml"));
+        if (!file) {
+            return;
+        }
+        std::unique_ptr<QIODevice> contentIODevice{file->createDevice()};
+        extractTextWithTag(contentIODevice.get(), QStringLiteral("t"), result);
     }
 
     else if (rootEntries.contains(QStringLiteral("ppt"))) {
@@ -242,46 +249,24 @@ void Office2007Extractor::extract(ExtractionResult* result)
             return;
         }
 
-        const KArchiveDirectory* pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
-        extractTextFromFiles(pptDirectory, result);
-    }
-}
-
-void Office2007Extractor::extractAllText(QIODevice* device, ExtractionResult* result)
-{
-    QXmlStreamReader xml(device);
-
-    while (!xml.atEnd()) {
-        xml.readNext();
-        if (xml.isCharacters()) {
-            QString str = xml.text().toString();
-            result->append(str);
+        const auto pptDirectory = dynamic_cast<const KArchiveDirectory*>(pptEntry);
+        const auto slidesEntry = pptDirectory->entry(QStringLiteral("slides"));
+        if (!slidesEntry || !slidesEntry->isDirectory()) {
+            return;
         }
 
-        if (xml.isEndDocument() || xml.hasError()) {
-            break;
-        }
-    }
-}
-
-void Office2007Extractor::extractTextFromFiles(const KArchiveDirectory* archiveDir, ExtractionResult* result)
-{
-    const QStringList entries = archiveDir->entries();
-    for (const QString & entryName : entries) {
-        const KArchiveEntry* entry = archiveDir->entry(entryName);
-        if (!entry) {
-            continue;
-        }
-        if (entry->isDirectory()) {
-            const KArchiveDirectory* subDir = dynamic_cast<const KArchiveDirectory*>(entry);
-            extractTextFromFiles(subDir, result);
-            continue;
-        }
-
-        if (entry->isFile() && entryName.endsWith(QLatin1String(".xml"))) {
-            const KArchiveFile* file = static_cast<const KArchiveFile*>(entry);
+        const auto slidesDirectory = dynamic_cast<const KArchiveDirectory*>(slidesEntry);
+        QStringList entries = slidesDirectory->entries();
+        // TODO: Read the actual order from presentation.xml, and follow the
+        // references in ppt/_rels/presentation.xml.rel
+        std::sort(entries.begin(), entries.end());
+        for (const QString & entryName : std::as_const(entries)) {
+            const KArchiveFile* file = slidesDirectory->file(entryName);
+            if (!file) {
+                continue;
+            }
             std::unique_ptr<QIODevice> contentIODevice{file->createDevice()};
-            extractAllText(contentIODevice.get() , result);
+            extractTextWithTag(contentIODevice.get(), QStringLiteral("a:t"), result);
         }
     }
 }
