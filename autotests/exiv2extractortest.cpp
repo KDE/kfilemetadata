@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "exiv2extractortest.h"
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/exiv2extractor.h"
@@ -14,6 +13,19 @@
 #include <QMimeDatabase>
 
 using namespace KFileMetaData;
+
+class Exiv2ExtractorTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void testNoExtraction();
+    void test();
+    void testGPS();
+    void testJpegJxlProperties();
+    void testJpegJxlProperties_data();
+    void testHeifProperties();
+};
 
 namespace {
 QString testFilePath(const QString& fileName)
@@ -111,7 +123,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     QCOMPARE(result.types().constFirst(), Type::Image);
 
     const auto properties = result.properties();
-    QCOMPARE(properties.size(), 27);
+    QCOMPARE(properties.size(), 29);
 
     auto verifyProperty = [&properties](KFileMetaData::Property::Property prop, const QVariant &value)
     {
@@ -149,6 +161,8 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     verifyProperty(Property::PhotoISOSpeedRatings, 100);
     verifyProperty(Property::PhotoSaturation, 0);
     verifyProperty(Property::PhotoSharpness, 0);
+    verifyProperty(Property::Title, QStringLiteral("Title"));
+    verifyProperty(Property::Subject, QStringLiteral("Subject"));
 }
 
 void Exiv2ExtractorTest::testJpegJxlProperties_data()
@@ -218,4 +232,4 @@ void Exiv2ExtractorTest::testHeifProperties()
 
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)
 
-#include "moc_exiv2extractortest.cpp"
+#include "exiv2extractortest.moc"

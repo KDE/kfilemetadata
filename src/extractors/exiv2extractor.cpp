@@ -226,6 +226,8 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     add(result, data, Property::PhotoISOSpeedRatings, EK{"Exif.Photo.ISOSpeedRatings"s}, QMetaType::Int);
     add(result, data, Property::PhotoSaturation, EK{"Exif.Photo.Saturation"s}, QMetaType::Int);
     add(result, data, Property::PhotoSharpness, EK{"Exif.Photo.Sharpness"s}, QMetaType::Int);
+    // https://exiv2.org/tags.html "Exif.Photo.ImageTitle" not natively supported, use tag value
+    add(result, data, Property::Title, EK{0xa436, "Photo"s}, QMetaType::QString);
 
     double latitude = fetchGpsDouble(data, EK{"Exif.GPSInfo.GPSLatitude"s});
     double longitude = fetchGpsDouble(data, EK{"Exif.GPSInfo.GPSLongitude"s});
@@ -251,6 +253,29 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     if (!std::isnan(altitude)) {
         result->add(Property::PhotoGpsAltitude, altitude);
+    }
+
+    const Exiv2::XmpData& xmpData = image->xmpData();
+    for (const auto& entry : xmpData) {
+        if (entry.groupName() != "dc"s) {
+            continue;
+        }
+
+        std::map<std::string, Property::Property> propMap = {
+            { "subject"s, Property::Subject },
+            { "title"s, Property::Title},
+            { "description"s, Property::Description},
+        };
+        if (auto type = propMap.find(entry.tagName()); type != propMap.end()) {
+            auto xmpType = Exiv2::XmpValue::xmpArrayType(entry.value().typeId());
+            size_t limit = ((xmpType == Exiv2::XmpValue::xaBag) || (xmpType == Exiv2::XmpValue::xaSeq)) ? entry.count() : 1;
+            for (size_t i = 0; i < limit; i++) {
+                auto value = QString::fromStdString(entry.toString(i));
+                if (!value.isEmpty()) {
+                    result->add(type->second, value);
+                }
+            }
+        }
     }
 }
 
