@@ -9,7 +9,6 @@
 #define EXIV2EXTRACTOR_H
 
 #include "extractorplugin.h"
-#include <exiv2/exiv2.hpp>
 
 namespace KFileMetaData
 {
@@ -26,16 +25,8 @@ public:
 
     void extract(ExtractionResult* result) override;
     QStringList mimetypes() const override;
-
-private:
-    void add(ExtractionResult* result, const Exiv2::ExifData& data,
-             Property::Property prop,
-             const char* name, QMetaType::Type type);
-
-    double fetchGpsDouble(const Exiv2::ExifData& data, const char* name);
-    double fetchGpsAltitude(const Exiv2::ExifData& data);
-    QByteArray fetchByteArray(const Exiv2::ExifData& data, const char* name);
 };
-}
+
+} // namespace
 
 #endif // EXIV2EXTRACTOR_H

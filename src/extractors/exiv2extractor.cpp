@@ -6,10 +6,21 @@
 
 
 #include "exiv2extractor.h"
+#include "kfilemetadata_debug.h"
 #include <cmath>
+#include <exiv2/exiv2.hpp>
 
 using namespace KFileMetaData;
 
+namespace {
+void add(ExtractionResult* result, const Exiv2::ExifData& data,
+         Property::Property prop, const Exiv2::ExifKey& key,
+         QMetaType::Type type);
+
+double fetchGpsDouble(const Exiv2::ExifData& data, const Exiv2::ExifKey& key);
+double fetchGpsAltitude(const Exiv2::ExifData& data);
+QByteArray fetchByteArray(const Exiv2::ExifData& data, const Exiv2::ExifKey& key);
+}
 
 Exiv2Extractor::Exiv2Extractor(QObject* parent)
     : ExtractorPlugin(parent)
@@ -146,6 +157,8 @@ QStringList Exiv2Extractor::mimetypes() const
 
 void Exiv2Extractor::extract(ExtractionResult* result)
 {
+    using namespace std::string_literals;
+
     QByteArray arr = result->inputUrl().toUtf8();
     std::string fileString(arr.data(), arr.length());
 
@@ -189,40 +202,41 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     const Exiv2::ExifData& data = image->exifData();
 
-    add(result, data, Property::Manufacturer, "Exif.Image.Make", QMetaType::QString);
-    add(result, data, Property::Model, "Exif.Image.Model", QMetaType::QString);
-    add(result, data, Property::Description, "Exif.Image.ImageDescription", QMetaType::QString);
-    add(result, data, Property::Artist, "Exif.Image.Artist", QMetaType::QString);
-    add(result, data, Property::Copyright, "Exif.Image.Copyright", QMetaType::QString);
-    add(result, data, Property::Generator, "Exif.Image.Software", QMetaType::QString);
-    add(result, data, Property::ImageDateTime, "Exif.Image.DateTime", QMetaType::QDateTime);
-    add(result, data, Property::ImageOrientation, "Exif.Image.Orientation", QMetaType::Int);
-    add(result, data, Property::PhotoFlash, "Exif.Photo.Flash", QMetaType::Int);
-    add(result, data, Property::PhotoPixelXDimension, "Exif.Photo.PixelXDimension", QMetaType::Int);
-    add(result, data, Property::PhotoPixelYDimension, "Exif.Photo.PixelYDimension", QMetaType::Int);
-    add(result, data, Property::PhotoDateTimeOriginal, "Exif.Photo.DateTimeOriginal", QMetaType::QDateTime);
-    add(result, data, Property::PhotoFocalLength, "Exif.Photo.FocalLength", QMetaType::Double);
-    add(result, data, Property::PhotoFocalLengthIn35mmFilm, "Exif.Photo.FocalLengthIn35mmFilm", QMetaType::Double);
-    add(result, data, Property::PhotoExposureTime, "Exif.Photo.ExposureTime", QMetaType::Double);
-    add(result, data, Property::PhotoExposureBiasValue, "Exif.Photo.ExposureBiasValue", QMetaType::Double);
-    add(result, data, Property::PhotoFNumber, "Exif.Photo.FNumber", QMetaType::Double);
-    add(result, data, Property::PhotoApertureValue, "Exif.Photo.ApertureValue", QMetaType::Double);
-    add(result, data, Property::PhotoWhiteBalance, "Exif.Photo.WhiteBalance", QMetaType::Int);
-    add(result, data, Property::PhotoMeteringMode, "Exif.Photo.MeteringMode", QMetaType::Int);
-    add(result, data, Property::PhotoISOSpeedRatings, "Exif.Photo.ISOSpeedRatings", QMetaType::Int);
-    add(result, data, Property::PhotoSaturation, "Exif.Photo.Saturation", QMetaType::Int);
-    add(result, data, Property::PhotoSharpness, "Exif.Photo.Sharpness", QMetaType::Int);
+    using EK = Exiv2::ExifKey;
+    add(result, data, Property::Manufacturer, EK{"Exif.Image.Make"s}, QMetaType::QString);
+    add(result, data, Property::Model, EK{"Exif.Image.Model"s}, QMetaType::QString);
+    add(result, data, Property::Description, EK{"Exif.Image.ImageDescription"s}, QMetaType::QString);
+    add(result, data, Property::Artist, EK{"Exif.Image.Artist"s}, QMetaType::QString);
+    add(result, data, Property::Copyright, EK{"Exif.Image.Copyright"s}, QMetaType::QString);
+    add(result, data, Property::Generator, EK{"Exif.Image.Software"s}, QMetaType::QString);
+    add(result, data, Property::ImageDateTime, EK{"Exif.Image.DateTime"s}, QMetaType::QDateTime);
+    add(result, data, Property::ImageOrientation, EK{"Exif.Image.Orientation"s}, QMetaType::Int);
+    add(result, data, Property::PhotoFlash, EK{"Exif.Photo.Flash"s}, QMetaType::Int);
+    add(result, data, Property::PhotoPixelXDimension, EK{"Exif.Photo.PixelXDimension"s}, QMetaType::Int);
+    add(result, data, Property::PhotoPixelYDimension, EK{"Exif.Photo.PixelYDimension"s}, QMetaType::Int);
+    add(result, data, Property::PhotoDateTimeOriginal, EK{"Exif.Photo.DateTimeOriginal"s}, QMetaType::QDateTime);
+    add(result, data, Property::PhotoFocalLength, EK{"Exif.Photo.FocalLength"s}, QMetaType::Double);
+    add(result, data, Property::PhotoFocalLengthIn35mmFilm, EK{"Exif.Photo.FocalLengthIn35mmFilm"s}, QMetaType::Double);
+    add(result, data, Property::PhotoExposureTime, EK{"Exif.Photo.ExposureTime"s}, QMetaType::Double);
+    add(result, data, Property::PhotoExposureBiasValue, EK{"Exif.Photo.ExposureBiasValue"s}, QMetaType::Double);
+    add(result, data, Property::PhotoFNumber, EK{"Exif.Photo.FNumber"s}, QMetaType::Double);
+    add(result, data, Property::PhotoApertureValue, EK{"Exif.Photo.ApertureValue"s}, QMetaType::Double);
+    add(result, data, Property::PhotoWhiteBalance, EK{"Exif.Photo.WhiteBalance"s}, QMetaType::Int);
+    add(result, data, Property::PhotoMeteringMode, EK{"Exif.Photo.MeteringMode"s}, QMetaType::Int);
+    add(result, data, Property::PhotoISOSpeedRatings, EK{"Exif.Photo.ISOSpeedRatings"s}, QMetaType::Int);
+    add(result, data, Property::PhotoSaturation, EK{"Exif.Photo.Saturation"s}, QMetaType::Int);
+    add(result, data, Property::PhotoSharpness, EK{"Exif.Photo.Sharpness"s}, QMetaType::Int);
 
-    double latitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLatitude");
-    double longitude = fetchGpsDouble(data, "Exif.GPSInfo.GPSLongitude");
+    double latitude = fetchGpsDouble(data, EK{"Exif.GPSInfo.GPSLatitude"s});
+    double longitude = fetchGpsDouble(data, EK{"Exif.GPSInfo.GPSLongitude"s});
     double altitude = fetchGpsAltitude(data);
 
-    QByteArray latRef = fetchByteArray(data, "Exif.GPSInfo.GPSLatitudeRef");
+    QByteArray latRef = fetchByteArray(data, EK{"Exif.GPSInfo.GPSLatitudeRef"s});
     if (!latRef.isEmpty() && latRef[0] == 'S') {
         latitude *= -1;
     }
 
-    QByteArray longRef = fetchByteArray(data, "Exif.GPSInfo.GPSLongitudeRef");
+    QByteArray longRef = fetchByteArray(data, EK{"Exif.GPSInfo.GPSLongitudeRef"s});
     if (!longRef.isEmpty() && longRef[0] == 'W') {
         longitude *= -1;
     }
@@ -240,11 +254,12 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     }
 }
 
-void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
-                         Property::Property prop, const char* name,
-                         QMetaType::Type type)
+namespace {
+void add(ExtractionResult* result, const Exiv2::ExifData& data,
+         Property::Property prop, const Exiv2::ExifKey& key,
+         QMetaType::Type type)
 {
-    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
+    Exiv2::ExifData::const_iterator it = data.findKey(key);
     if (it != data.end()) {
         QVariant value = toVariant(it->value(), type);
         if (!value.isNull()) {
@@ -253,9 +268,9 @@ void Exiv2Extractor::add(ExtractionResult* result, const Exiv2::ExifData& data,
     }
 }
 
-double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* name)
+double fetchGpsDouble(const Exiv2::ExifData& data, const Exiv2::ExifKey& key)
 {
-    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
+    Exiv2::ExifData::const_iterator it = data.findKey(key);
     if (it != data.end() && it->count() == 3) {
         double n = 0.0;
         double d = 0.0;
@@ -299,17 +314,19 @@ double Exiv2Extractor::fetchGpsDouble(const Exiv2::ExifData& data, const char* n
     return std::numeric_limits<double>::quiet_NaN();
 }
 
-double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
+double fetchGpsAltitude(const Exiv2::ExifData& data)
 {
+    using namespace std::string_literals;
+
     double alt = std::numeric_limits<double>::quiet_NaN();
-    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitude"));
+    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitude"s));
     if (it != data.end() && it->count() > 0 &&
         (it->value().typeId() == Exiv2::unsignedRational || it->value().typeId() == Exiv2::signedRational)) {
         auto ratio = it->value().toRational();
         if (ratio.second == 0) {
             return alt;
         }
-        it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitudeRef"));
+        it = data.findKey(Exiv2::ExifKey("Exif.GPSInfo.GPSAltitudeRef"s));
         if (it != data.end() && it->count() > 0 &&
             (it->value().typeId() == Exiv2::unsignedByte || it->value().typeId() == Exiv2::signedByte)) {
 #if EXIV2_TEST_VERSION(0,28,0)
@@ -326,10 +343,9 @@ double Exiv2Extractor::fetchGpsAltitude(const Exiv2::ExifData& data)
     }
     return alt;
 }
-
-QByteArray Exiv2Extractor::fetchByteArray(const Exiv2::ExifData& data, const char* name)
+QByteArray fetchByteArray(const Exiv2::ExifData& data, const Exiv2::ExifKey& key)
 {
-    Exiv2::ExifData::const_iterator it = data.findKey(Exiv2::ExifKey(name));
+    Exiv2::ExifData::const_iterator it = data.findKey(key);
     if (it != data.end() && it->count() > 0) {
         std::string str = it->value().toString();
         return QByteArray(str.c_str(), str.size());
@@ -337,5 +353,6 @@ QByteArray Exiv2Extractor::fetchByteArray(const Exiv2::ExifData& data, const cha
 
     return QByteArray();
 }
+} // <anonymous> namespace
 
 #include "moc_exiv2extractor.cpp"

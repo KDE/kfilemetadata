@@ -97,12 +97,11 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     QFETCH(QString, fileName);
     QFETCH(QString, mimeType);
 
-#ifndef EXV_ENABLE_BMFF
-    if (mimeType == QStringLiteral("image/jxl"))
-        QSKIP("BMFF support required");
-#endif
-
     Exiv2Extractor plugin{this};
+
+    if ((mimeType == QStringLiteral("image/jxl")) && !plugin.mimetypes().contains("image/jxl")) {
+        QSKIP("BMFF support required for JXL");
+    }
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
     SimpleExtractionResult result(testFilePath(fileName), mimeType);
@@ -164,12 +163,11 @@ void Exiv2ExtractorTest::testJpegJxlProperties_data()
 
 void Exiv2ExtractorTest::testHeifProperties()
 {
-#ifndef EXV_ENABLE_BMFF
-    QSKIP("BMFF support required");
-#endif
-
     Exiv2Extractor plugin{this};
-    QVERIFY(plugin.mimetypes().contains("image/heif"));
+
+    if (!plugin.mimetypes().contains("image/heif")) {
+        QSKIP("BMFF support required for HEIF");
+    }
 
     SimpleExtractionResult result(testFilePath("test.heif"), "image/heif");
     plugin.extract(&result);
