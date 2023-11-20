@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-04 02:16+0000\n"
-"PO-Revision-Date: 2023-11-11 07:19\n"
+"PO-Revision-Date: 2023-11-19 03:37\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -33,19 +33,19 @@ msgstr "不改变"
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Horizontally flipped"
-msgstr "水平翻转"
+msgstr "翻转 (水平)"
 
 #: src/formatstrings.cpp:80
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "180° rotated"
-msgstr "旋转 180°"
+msgstr "旋转 (180°)"
 
 #: src/formatstrings.cpp:81
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Vertically flipped"
-msgstr "竖直翻转"
+msgstr "翻转 (垂直)"
 
 #: src/formatstrings.cpp:82
 #, kde-format
@@ -57,7 +57,7 @@ msgstr "颠倒"
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr "逆时针旋转 90° "
+msgstr "旋转 (逆时针 90°) "
 
 #: src/formatstrings.cpp:84
 #, kde-format
@@ -69,7 +69,7 @@ msgstr "截断"
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr "逆时针旋转 270°"
+msgstr "旋转 (逆时针 270°)"
 
 #: src/formatstrings.cpp:96
 #, kde-format
