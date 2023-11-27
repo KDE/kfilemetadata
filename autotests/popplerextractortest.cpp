@@ -12,6 +12,7 @@
 
 #include <QTest>
 #include <QMimeDatabase>
+#include <QTimeZone>
 
 using namespace KFileMetaData;
 
@@ -58,8 +59,7 @@ void PopplerExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("PDF Metadata")));
     QCOMPARE(result.properties().value(Property::Generator), QVariant(QStringLiteral("LibreOffice 4.2")));
     QCOMPARE(result.properties().value(Property::PageCount), 1);
-    QDateTime dt(QDate(2014, 07, 01), QTime(13, 38, 50));
-    dt.setTimeSpec(Qt::UTC);
+    QDateTime dt(QDate(2014, 07, 01), QTime(13, 38, 50), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.properties().size(), 6);

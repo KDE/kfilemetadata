@@ -10,6 +10,7 @@
 
 #include <QMimeDatabase>
 #include <QDebug>
+#include <QTimeZone>
 
 using namespace KFileMetaData;
 
@@ -31,66 +32,66 @@ QDateTime ExtractorPlugin::dateTimeFromString(const QString& dateString)
 
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy-MM-dd"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("dd-MM-yyyy"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy-MM"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("MM-yyyy"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy.MM.dd"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("dd.MM.yyyy"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("dd MMMM yyyy"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("MM.yyyy"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy.MM"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("yy"));
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, Qt::ISODate);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("dddd d MMM yyyy h':'mm':'ss AP"));
-        dateTime.setTimeSpec(Qt::LocalTime);
+        dateTime.setTimeZone(QTimeZone::LocalTime);
     }
     if (!dateTime.isValid()) {
         dateTime = QDateTime::fromString(dateString, QStringLiteral("yyyy:MM:dd hh:mm:ss"));
-        dateTime.setTimeSpec(Qt::LocalTime);
+        dateTime.setTimeZone(QTimeZone::LocalTime);
     }
     if (!dateTime.isValid()) {
         dateTime = QLocale().toDateTime(dateString, QLocale::ShortFormat);
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         dateTime = QLocale().toDateTime(dateString, QLocale::LongFormat);
-        dateTime.setTimeSpec(Qt::UTC);
+        dateTime.setTimeZone(QTimeZone::UTC);
     }
     if (!dateTime.isValid()) {
         qWarning() << "Could not determine correct datetime format from:" << dateString;

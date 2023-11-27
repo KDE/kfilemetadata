@@ -11,6 +11,7 @@
 #include "mimeutils.h"
 
 #include <QTest>
+#include <QTimeZone>
 
 using namespace KFileMetaData;
 
@@ -52,8 +53,7 @@ void PostscriptDscExtractorTest::testPS()
     QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("The Big Brown Bear"));
     QCOMPARE(result.properties().value(Property::PageCount).toInt(), 2);
 
-    QDateTime dt(QDate(2018, 10, 28), QTime(21, 13, 39));
-    dt.setOffsetFromUtc(+3600);
+    QDateTime dt(QDate(2018, 10, 28), QTime(21, 13, 39), QTimeZone::fromSecondsAheadOfUtc(+3600));
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.properties().size(), 3);
@@ -76,8 +76,7 @@ void PostscriptDscExtractorTest::testEPS()
     QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("The Big Brown Bear"));
     QCOMPARE(result.properties().value(Property::PageCount).toInt(), 1);
 
-    QDateTime dt(QDate(2018, 10, 28), QTime(21, 13, 39));
-    dt.setOffsetFromUtc(-5400);
+    QDateTime dt(QDate(2018, 10, 28), QTime(21, 13, 39), QTimeZone::fromSecondsAheadOfUtc(-5400));
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().size(), 3);
 }

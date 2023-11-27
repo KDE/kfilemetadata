@@ -9,6 +9,7 @@
 #include "kfilemetadata_debug.h"
 
 #include <QFile>
+#include <QTimeZone>
 
 namespace KFileMetaData
 {
@@ -83,9 +84,9 @@ void DscExtractor::extract(ExtractionResult* result)
                 auto dt = QDateTime::fromString(date.mid(2, 14).toString(), QLatin1String("yyyyMMddhhmmss"));
                 auto offset = QTime::fromString(date.mid(17, 5).toString(), QLatin1String("hh'\\''mm"));
                 if (date.at(16) == QLatin1Char('+')) {
-                    dt.setOffsetFromUtc(QTime(0, 0).secsTo(offset));
+                    dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(QTime(0, 0).secsTo(offset)));
                 } else {
-                    dt.setOffsetFromUtc(-1 * QTime(0, 0).secsTo(offset));
+                    dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(-1 * QTime(0, 0).secsTo(offset)));
                 }
                 result->add(Property::CreationDate, dt);
             } else {

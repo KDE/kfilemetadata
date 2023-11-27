@@ -12,6 +12,7 @@
 
 #include <QTest>
 #include <QMimeDatabase>
+#include <QTimeZone>
 
 using namespace KFileMetaData;
 
@@ -61,8 +62,7 @@ void EPubExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Baloo KFileMetaData")));
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
 
-    QDateTime dt(QDate(2014, 1, 1), QTime(1, 1, 1));
-    dt.setTimeSpec(Qt::UTC);
+    QDateTime dt(QDate(2014, 1, 1), QTime(1, 1, 1), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2014));
 
@@ -92,8 +92,7 @@ void EPubExtractorTest::testRepeated()
     );
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
 
-    QDateTime dt(QDate(2012, 1, 1), QTime(0, 0, 0));
-    dt.setTimeSpec(Qt::UTC);
+    QDateTime dt(QDate(2012, 1, 1), QTime(0, 0, 0), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2012));
 

@@ -12,6 +12,7 @@
 
 #include <QMimeDatabase>
 #include <QTest>
+#include <QTimeZone>
 
 using namespace KFileMetaData;
 
@@ -81,8 +82,7 @@ void Fb2ExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Genre), QVariant(QStringLiteral("antique")));
     QCOMPARE(result.properties().value(Property::Generator), QVariant(QStringLiteral("calibre 4.99.4")));
 
-    QDateTime dt(QDate(2014, 1, 1), QTime(0, 0, 0));
-    dt.setTimeSpec(Qt::UTC);
+    QDateTime dt(QDate(2014, 1, 1), QTime(0, 0, 0), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2014));
 

@@ -12,6 +12,7 @@
 #include <QMimeDatabase>
 #include <QObject>
 #include <QTest>
+#include <QTimeZone>
 
 using namespace KFileMetaData;
 
@@ -114,8 +115,7 @@ void Office2007ExtractorTest::test()
     QCOMPARE(result.properties().value(Property::WordCount), QVariant(4));
     QCOMPARE(result.properties().value(Property::LineCount), QVariant(1));
 
-    QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40));
-    dt.setTimeSpec(Qt::UTC);
+    QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.properties().size(), 10);
@@ -145,8 +145,7 @@ void Office2007ExtractorTest::test_pptx()
     QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("de-DE")));
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
 
-    QDateTime dt(QDate(2014, 07, 02), QTime(10, 59, 23));
-    dt.setTimeSpec(Qt::UTC);
+    QDateTime dt(QDate(2014, 07, 02), QTime(10, 59, 23), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.properties().size(), 7);
@@ -176,8 +175,7 @@ void Office2007ExtractorTest::test_xlsx()
     QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("de-DE")));
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
 
-    QDateTime dt(QDate(2023, 11, 12), QTime(05, 59, 53));
-    dt.setTimeSpec(Qt::UTC);
+    QDateTime dt(QDate(2023, 11, 12), QTime(05, 59, 53), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.properties().size(), 7);
