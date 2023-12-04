@@ -556,7 +556,7 @@ void TagLibWriter::write(const WriteData& data)
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
             file.setProperties(savedProperties);
-            auto id3Tags = dynamic_cast<TagLib::ID3v2::Tag*>(file.tag());
+            auto id3Tags = file.ID3v2Tag();
             if (id3Tags) {
                 writeID3v2Tags(id3Tags, properties);
                 writeID3v2Cover(id3Tags, data.imageData());
