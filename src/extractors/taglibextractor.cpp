@@ -583,8 +583,8 @@ void TagLibExtractor::extract(ExtractionResult* result)
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
             if (file.hasID3v2Tag()) {
-                result->addImageData(extractId3Cover(file.tag(), imageTypes));
-                extractId3Tags(file.tag(), result);
+                result->addImageData(extractId3Cover(file.ID3v2Tag(), imageTypes));
+                extractId3Tags(file.ID3v2Tag(), result);
             }
         }
     } else if (mimeType == QLatin1String("audio/x-musepack")) {
