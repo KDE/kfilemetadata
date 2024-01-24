@@ -33,6 +33,7 @@
 #include <wavpackfile.h>
 #include <wavfile.h>
 #include <popularimeterframe.h>
+#include <attachedpictureframe.h>
 
 namespace {
 
