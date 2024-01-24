@@ -35,6 +35,7 @@
 #include <id3v2tag.h>
 #include <mp4tag.h>
 #include <popularimeterframe.h>
+#include <attachedpictureframe.h>
 
 using namespace KFileMetaData;
 
