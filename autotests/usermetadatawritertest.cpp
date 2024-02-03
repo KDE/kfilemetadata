@@ -38,7 +38,7 @@ void UserMetaDataWriterTest::test()
 
     // Tags
     md.setTags(QStringList() << QStringLiteral("this/is/a/test/tag"));
-    QCOMPARE(md.tags().at(0), QStringLiteral("this/is/a/test/tag"));
+    QCOMPARE(md.tags().isEmpty() ? QStringLiteral("<no tags found>") : md.tags().at(0), QStringLiteral("this/is/a/test/tag"));
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::Any) & UserMetaData::Attribute::Tags);
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) & UserMetaData::Attribute::Tags);
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::Tags) & UserMetaData::Attribute::Tags);
