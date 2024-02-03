@@ -47,7 +47,11 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     const QByteArray p = QFile::encodeName(path);
     const char* encodedPath = p.constData();
 
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const QByteArray n = name.toUtf8();
+#else
+    const QByteArray n = QByteArrayView("user.") + name.toUtf8();
+#endif
     const char* attributeName = n.constData();
 
     // First get the size of the data we are going to get to reserve the right amount of space.
@@ -100,7 +104,12 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
     const QByteArray p = QFile::encodeName(path);
     const char* encodedPath = p.constData();
 
+
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const QByteArray n = name.toUtf8();
+#else
+    const QByteArray n = QByteArrayView("user.") + name.toUtf8();
+#endif
     const char* attributeName = n.constData();
 
     const QByteArray v = value.toUtf8();
@@ -124,7 +133,11 @@ inline int k_removexattr(const QString& path, const QString& name)
     const QByteArray p = QFile::encodeName(path);
     const char* encodedPath = p.constData();
 
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const QByteArray n = name.toUtf8();
+#else
+    const QByteArray n = QByteArrayView("user.") + name.toUtf8();
+#endif
     const char* attributeName = n.constData();
 
     #if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_removexattr))
@@ -144,33 +157,33 @@ inline bool k_hasAttribute(const QString& path, const QString& name)
 
 inline bool k_isSupported(const QString& path)
 {
-    auto ret = k_getxattr(path, QStringLiteral("user.test"), nullptr);
+    auto ret = k_getxattr(path, QStringLiteral("test"), nullptr);
     return (ret >= 0) || (errno != ENOTSUP);
 }
 
 
-static KFileMetaData::UserMetaData::Attribute _mapAttribute(const QByteArray& key)
+static KFileMetaData::UserMetaData::Attribute _mapAttribute(QByteArrayView key)
 {
     using KFileMetaData::UserMetaData;
-    if (key == "user.xdg.tags") {
+    if (key == "xdg.tags") {
         return UserMetaData::Attribute::Tags;
     }
-    if (key == "user.baloo.rating") {
+    if (key == "baloo.rating") {
         return UserMetaData::Attribute::Rating;
     }
-    if (key == "user.xdg.comment") {
+    if (key == "xdg.comment") {
         return UserMetaData::Attribute::Comment;
     }
-    if (key == "user.xdg.origin.url") {
+    if (key == "xdg.origin.url") {
         return UserMetaData::Attribute::OriginUrl;
     }
-    if (key == "user.xdg.origin.email.subject") {
+    if (key == "xdg.origin.email.subject") {
         return UserMetaData::Attribute::OriginEmailSubject;
     }
-    if (key == "user.xdg.origin.email.sender") {
+    if (key == "xdg.origin.email.sender") {
         return UserMetaData::Attribute::OriginEmailSender;
     }
-    if (key == "user.xdg.origin.email.message-id") {
+    if (key == "xdg.origin.email.message-id") {
         return UserMetaData::Attribute::OriginEmailMessageId;
     }
     return UserMetaData::Attribute::Other;
@@ -254,16 +267,9 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
     }
 
     UserMetaData::Attributes fileAttributes = UserMetaData::Attribute::None;
-    QByteArray prefix = QByteArray::fromRawData("user.", 5);
-    #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const auto entries = _split_length_value(data);
-    #else
-    const auto entries = data.split('\0');
-    #endif
     for (const auto &entry : entries) {
-        if (!entry.startsWith(prefix)) {
-            continue;
-        }
         fileAttributes |= _mapAttribute(entry);
         fileAttributes &= attributes;
 
@@ -271,6 +277,21 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
             break;
         }
     }
+#else
+    const QByteArrayView prefix("user.");
+    const auto entries = data.split('\0');
+    for (const auto &entry : entries) {
+        if (!entry.startsWith(prefix)) {
+            continue;
+        }
+        fileAttributes |= _mapAttribute(QByteArrayView(entry).sliced(prefix.size()));
+        fileAttributes &= attributes;
+
+        if (fileAttributes == attributes) {
+            break;
+        }
+    }
+#endif
 
     return fileAttributes;
 }
@@ -279,7 +300,7 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
 
 inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
 {
-    const QString fullADSName = path + QLatin1Char(':') + name;
+    const QString fullADSName = path + QLatin1String(":user.") + name;
     HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
              OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
@@ -315,7 +336,7 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
 {
     const QByteArray v = value.toUtf8();
 
-    const QString fullADSName = path + QLatin1Char(':') + name;
+    const QString fullADSName = path + QLatin1String(":user.") + name;
     HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_WRITE, FILE_SHARE_READ, NULL,
              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
@@ -347,7 +368,7 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
 inline bool k_hasAttribute(const QString& path, const QString& name)
 {
     // enumerate all streams:
-    const QString streamName = QStringLiteral(":") + name + QStringLiteral(":$DATA");
+    const QString streamName = QLatin1String(":user.") + name + QStringLiteral(":$DATA");
     HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(path.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
              OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
@@ -378,7 +399,7 @@ inline bool k_hasAttribute(const QString& path, const QString& name)
 
 inline int k_removexattr(const QString& path, const QString& name)
 {
-    const QString fullADSName = path + QLatin1Char(':') + name;
+    const QString fullADSName = path + QLatin1String(":user.") + name;
     int ret = (DeleteFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()))) ? 0 : -1;
     return ret;
 }
