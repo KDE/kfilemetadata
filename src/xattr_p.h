@@ -266,33 +266,25 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
         }
     }
 
-    UserMetaData::Attributes fileAttributes = UserMetaData::Attribute::None;
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+    const QByteArrayView prefix;
     const auto entries = _split_length_value(data);
-    for (const auto &entry : entries) {
-        fileAttributes |= _mapAttribute(entry);
-        fileAttributes &= attributes;
-
-        if (fileAttributes == attributes) {
-            break;
-        }
-    }
 #else
     const QByteArrayView prefix("user.");
     const auto entries = data.split('\0');
+#endif
+
+    UserMetaData::Attributes fileAttributes = UserMetaData::Attribute::None;
     for (const auto &entry : entries) {
         if (!entry.startsWith(prefix)) {
             continue;
         }
         fileAttributes |= _mapAttribute(QByteArrayView(entry).sliced(prefix.size()));
         fileAttributes &= attributes;
-
         if (fileAttributes == attributes) {
             break;
         }
     }
-#endif
-
     return fileAttributes;
 }
 
