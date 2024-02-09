@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-04 02:16+0000\n"
+"POT-Creation-Date: 2024-02-09 00:35+0000\n"
 "PO-Revision-Date: 2019-07-29 20:03+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -753,6 +753,14 @@ msgstr "Video"
 msgctxt "@label"
 msgid "Folder"
 msgstr "Folder"
+
+#: src/typeinfo.cpp:78
+#, fuzzy, kde-format
+#| msgctxt "@label EXIF"
+#| msgid "Model"
+msgctxt "@label"
+msgid "Model"
+msgstr "Model"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"
