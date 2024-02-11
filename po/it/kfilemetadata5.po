@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2014.
-# Vincenzo Reale <smart2128vr@gmail.com>, 2015, 2023.
+# SPDX-FileCopyrightText: 2015, 2023, 2024 Vincenzo Reale <smart2128vr@gmail.com>
 # Paolo Zamponi <feus73@gmail.com>, 2017, 2018.
 # Valter Mura <valtermura@gmail.com>, 2019.
 #
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
