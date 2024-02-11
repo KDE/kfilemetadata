@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2014.
-# Vincenzo Reale <smart2128vr@gmail.com>, 2015, 2023.
+# SPDX-FileCopyrightText: 2015, 2023, 2024 Vincenzo Reale <smart2128vr@gmail.com>
 # Paolo Zamponi <feus73@gmail.com>, 2017, 2018.
 # Valter Mura <valtermura@gmail.com>, 2019.
 #
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-09 00:35+0000\n"
-"PO-Revision-Date: 2023-06-05 08:17+0200\n"
+"PO-Revision-Date: 2024-02-09 11:51+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -750,9 +750,7 @@ msgid "Folder"
 msgstr "Cartella"
 
 #: src/typeinfo.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Model"
+#, kde-format
 msgctxt "@label"
 msgid "Model"
 msgstr "Modello"

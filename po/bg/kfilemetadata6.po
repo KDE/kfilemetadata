@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Svetoslav Stefanov <svetlisashkov@yahoo.com>, 2014.
-# Mincho Kondarev <mkondarev@yahoo.de>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-09 00:35+0000\n"
-"PO-Revision-Date: 2023-06-08 19:15+0200\n"
+"PO-Revision-Date: 2024-02-10 20:49+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.08.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: src/formatstrings.cpp:64
@@ -752,9 +752,7 @@ msgid "Folder"
 msgstr "Папка"
 
 #: src/typeinfo.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Model"
+#, kde-format
 msgctxt "@label"
 msgid "Model"
 msgstr "Модел"
