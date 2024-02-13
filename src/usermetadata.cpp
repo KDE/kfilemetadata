@@ -43,9 +43,9 @@ QString UserMetaData::filePath() const
 UserMetaData::Error UserMetaData::setTags(const QStringList& tags)
 {
     if (!tags.isEmpty()) {
-        k_setxattr(d->filePath, QStringLiteral("user.xdg.tags"), tags.join(QLatin1Char(',')));
+        k_setxattr(d->filePath, QStringLiteral("xdg.tags"), tags.join(QLatin1Char(',')));
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.xdg.tags"));
+        k_removexattr(d->filePath, QStringLiteral("xdg.tags"));
     }
 
     return NoError;
@@ -55,7 +55,7 @@ QStringList UserMetaData::tags() const
 {
     QString value;
 
-    k_getxattr(d->filePath, QStringLiteral("user.xdg.tags"), &value);
+    k_getxattr(d->filePath, QStringLiteral("xdg.tags"), &value);
     return value.split(QLatin1Char(','), Qt::SkipEmptyParts);
 }
 
@@ -63,16 +63,16 @@ int UserMetaData::rating() const
 {
     QString value;
 
-    k_getxattr(d->filePath, QStringLiteral("user.baloo.rating"), &value);
+    k_getxattr(d->filePath, QStringLiteral("baloo.rating"), &value);
     return value.toInt();
 }
 
 UserMetaData::Error UserMetaData::setRating(int rating)
 {
     if (rating) {
-        k_setxattr(d->filePath, QStringLiteral("user.baloo.rating"), QString::number(rating));
+        k_setxattr(d->filePath, QStringLiteral("baloo.rating"), QString::number(rating));
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.baloo.rating"));
+        k_removexattr(d->filePath, QStringLiteral("baloo.rating"));
     }
 
     return NoError;
@@ -81,7 +81,7 @@ UserMetaData::Error UserMetaData::setRating(int rating)
 QString UserMetaData::userComment() const
 {
     QString value;
-    k_getxattr(d->filePath, QStringLiteral("user.xdg.comment"), &value);
+    k_getxattr(d->filePath, QStringLiteral("xdg.comment"), &value);
 
     return value;
 }
@@ -89,9 +89,9 @@ QString UserMetaData::userComment() const
 UserMetaData::Error UserMetaData::setUserComment(const QString& userComment)
 {
     if (!userComment.isEmpty()) {
-        k_setxattr(d->filePath, QStringLiteral("user.xdg.comment"), userComment);
+        k_setxattr(d->filePath, QStringLiteral("xdg.comment"), userComment);
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.xdg.comment"));
+        k_removexattr(d->filePath, QStringLiteral("xdg.comment"));
     }
 
     return NoError;
@@ -100,7 +100,7 @@ UserMetaData::Error UserMetaData::setUserComment(const QString& userComment)
 QUrl UserMetaData::originUrl() const
 {
     QString value;
-    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.url"), &value);
+    k_getxattr(d->filePath, QStringLiteral("xdg.origin.url"), &value);
 
     return QUrl(value);
 }
@@ -108,9 +108,9 @@ QUrl UserMetaData::originUrl() const
 UserMetaData::Error UserMetaData::setOriginUrl(const QUrl &originUrl)
 {
     if (!originUrl.isEmpty()) {
-        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.url"), originUrl.toString());
+        k_setxattr(d->filePath, QStringLiteral("xdg.origin.url"), originUrl.toString());
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.url"));
+        k_removexattr(d->filePath, QStringLiteral("xdg.origin.url"));
     }
 
     return NoError;
@@ -119,16 +119,16 @@ UserMetaData::Error UserMetaData::setOriginUrl(const QUrl &originUrl)
 QString UserMetaData::originEmailSubject() const
 {
     QString value;
-    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"), &value);
+    k_getxattr(d->filePath, QStringLiteral("xdg.origin.email.subject"), &value);
     return value;
 }
 
 UserMetaData::Error UserMetaData::setOriginEmailSubject(const QString &originEmailSubject)
 {
     if (!originEmailSubject.isEmpty()) {
-        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"), originEmailSubject);
+        k_setxattr(d->filePath, QStringLiteral("xdg.origin.email.subject"), originEmailSubject);
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.email.subject"));
+        k_removexattr(d->filePath, QStringLiteral("xdg.origin.email.subject"));
     }
 
     return NoError;
@@ -137,16 +137,16 @@ UserMetaData::Error UserMetaData::setOriginEmailSubject(const QString &originEma
 QString UserMetaData::originEmailSender() const
 {
     QString value;
-    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"), &value);
+    k_getxattr(d->filePath, QStringLiteral("xdg.origin.email.sender"), &value);
     return value;
 }
 
 UserMetaData::Error UserMetaData::setOriginEmailSender(const QString &originEmailSender)
 {
     if (!originEmailSender.isEmpty()) {
-        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"), originEmailSender);
+        k_setxattr(d->filePath, QStringLiteral("xdg.origin.email.sender"), originEmailSender);
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.email.sender"));
+        k_removexattr(d->filePath, QStringLiteral("xdg.origin.email.sender"));
     }
 
     return NoError;
@@ -155,16 +155,16 @@ UserMetaData::Error UserMetaData::setOriginEmailSender(const QString &originEmai
 QString UserMetaData::originEmailMessageId() const
 {
     QString value;
-    k_getxattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"), &value);
+    k_getxattr(d->filePath, QStringLiteral("xdg.origin.email.message-id"), &value);
     return value;
 }
 
 UserMetaData::Error UserMetaData::setOriginEmailMessageId(const QString &originEmailMessageId)
 {
     if (!originEmailMessageId.isEmpty()) {
-        k_setxattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"), originEmailMessageId);
+        k_setxattr(d->filePath, QStringLiteral("xdg.origin.email.message-id"), originEmailMessageId);
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.xdg.origin.email.message-id"));
+        k_removexattr(d->filePath, QStringLiteral("xdg.origin.email.message-id"));
     }
 
     return NoError;
@@ -173,9 +173,9 @@ UserMetaData::Error UserMetaData::setOriginEmailMessageId(const QString &originE
 UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString& value)
 {
     if (!value.isEmpty()) {
-        k_setxattr(d->filePath, QStringLiteral("user.") + key, value);
+        k_setxattr(d->filePath, key, value);
     } else {
-        k_removexattr(d->filePath, QStringLiteral("user.") + key);
+        k_removexattr(d->filePath, key);
     }
 
     return NoError;
@@ -183,13 +183,13 @@ UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString
 
 bool UserMetaData::hasAttribute(const QString& key)
 {
-    return k_hasAttribute(d->filePath, QStringLiteral("user.") + key);
+    return k_hasAttribute(d->filePath, key);
 }
 
 QString UserMetaData::attribute(const QString& key)
 {
     QString value;
-    k_getxattr(d->filePath, QStringLiteral("user.") + key, &value);
+    k_getxattr(d->filePath, key, &value);
 
     return value;
 }
