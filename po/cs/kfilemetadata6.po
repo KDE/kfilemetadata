@@ -747,9 +747,7 @@ msgid "Folder"
 msgstr "Složka"
 
 #: src/typeinfo.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Model"
+#, kde-format
 msgctxt "@label"
 msgid "Model"
 msgstr "Model"
