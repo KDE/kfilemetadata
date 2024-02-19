@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kfilemetadata package.
 #
-# Kishore G <kishore96@gmail.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-09 00:35+0000\n"
-"PO-Revision-Date: 2023-03-19 12:12+0530\n"
+"PO-Revision-Date: 2024-02-18 16:20+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -497,12 +497,12 @@ msgstr ""
 #: src/propertyinfo.cpp:77
 msgctxt "@label EXIF"
 msgid "X Dimension"
-msgstr ""
+msgstr "அகல பரிமாணம்"
 
 #: src/propertyinfo.cpp:78
 msgctxt "@label EXIF"
 msgid "Y Dimension"
-msgstr ""
+msgstr "உயர பரிமாணம்"
 
 #: src/propertyinfo.cpp:79
 msgctxt "@label EXIF"
@@ -537,7 +537,7 @@ msgstr "வெளியான ஆண்டு"
 #: src/propertyinfo.cpp:85
 msgctxt "@label"
 msgid "Sample Rate"
-msgstr ""
+msgstr "பதிவுவிகிதம்"
 
 #: src/propertyinfo.cpp:86
 msgctxt "@label"
@@ -687,7 +687,7 @@ msgstr "உடனிணைக்கப்பட்ட அஞ்சலின் �
 #: src/propertyinfo.cpp:115
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr ""
+msgstr "உடனிணைக்கப்பட்ட அஞ்சலின் அடையாளம்"
 
 #: src/typeinfo.cpp:34
 #, kde-format
