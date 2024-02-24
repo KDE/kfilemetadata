@@ -98,3 +98,16 @@ TypeInfo TypeInfo::fromName(const QString& name)
 
     return TypeInfo(Type::Empty);
 }
+
+QStringList TypeInfo::allNames()
+{
+    static QStringList sNames = []() {
+        QStringList names;
+        names.reserve(staticTypeInfo.size());
+        for (auto info: staticTypeInfo) {
+            names.append(info.name);
+        }
+        return names;
+    }();
+    return sNames;
+}

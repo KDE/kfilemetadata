@@ -61,17 +61,7 @@ void TypeInfoTest::init()
 
 void TypeInfoTest::testNameIdMapping()
 {
-    const QString names[] = {
-        QStringLiteral("Archive"),
-        QStringLiteral("Audio"),
-        QStringLiteral("Video"),
-        QStringLiteral("Image"),
-        QStringLiteral("Document"),
-        QStringLiteral("Spreadsheet"),
-        QStringLiteral("Presentation"),
-        QStringLiteral("Text"),
-        QStringLiteral("Folder"),
-    };
+    const auto names = TypeInfo::allNames();
 
     for (const auto& name : names) {
         const auto ti = TypeInfo::fromName(name);

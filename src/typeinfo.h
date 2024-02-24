@@ -63,6 +63,11 @@ public:
      */
     static TypeInfo fromName(const QString& name);
 
+    /**
+     * Get all supported property names
+     */
+    static QStringList allNames();
+
 private:
     const TypeInfoPrivate* d;
 };
