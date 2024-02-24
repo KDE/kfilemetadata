@@ -17,6 +17,15 @@ namespace KFileMetaData {
 class TypeInfoPrivate;
 /**
  * \class TypeInfo typeinfo.h <KFileMetaData/TypeInfo>
+
+ * The TypeInfo class can be used to obtain a rough type
+ * classification for a file.
+ *
+ * It is somewhat related to the MIME "<type>/<subtype>"
+ * classification, but provides additional types, e.g.
+ * MIME does not provide a generic "Archive" type.
+ *
+ * \sa <KFileMetaData/Types>
  */
 class KFILEMETADATA_EXPORT TypeInfo
 {
@@ -56,6 +65,7 @@ public:
 private:
     const std::unique_ptr<TypeInfoPrivate> d;
 };
-}
+
+} // namespace
 
 #endif // KFILEMETADATA_TYPEINFO_H
