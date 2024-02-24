@@ -118,6 +118,20 @@ add_test(NAME propertyinfotest_en COMMAND propertyinfotest_bin "-iterations" "1"
 add_test(NAME propertyinfotest_localized COMMAND propertyinfotest_bin "--localized" "-iterations" "1")
 
 #
+# Property Info
+#
+add_executable(typeinfotest_bin typeinfotest.cpp)
+target_link_libraries(typeinfotest_bin
+    Qt6::Test
+    KF6::FileMetaData
+)
+ecm_mark_as_test(typeinfotest_bin)
+ecm_mark_nongui_executable(typeinfotest_bin)
+# Run the benchmark with just 1 iteration, so we known it works
+add_test(NAME typeinfotest_en COMMAND typeinfotest_bin "-iterations" "1")
+add_test(NAME typeinfotest_localized COMMAND typeinfotest_bin "--localized" "-iterations" "1")
+
+#
 # Exiv2
 #
 if(LibExiv2_FOUND)

@@ -8,6 +8,8 @@
 #ifndef KFILEMETADATA_TYPES
 #define KFILEMETADATA_TYPES
 
+#include <QVariant>
+
 namespace KFileMetaData {
 namespace Type {
 
@@ -81,7 +83,9 @@ enum Type {
     LastType = Folder
 };
 
-}
-}
+} // namespace Type
+} // namespace KFileMetaData
+
+Q_DECLARE_METATYPE(KFileMetaData::Type::Type)
 
 #endif

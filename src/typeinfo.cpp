@@ -18,6 +18,9 @@ public:
     QString displayName;
 };
 
+TypeInfo::TypeInfo()
+    : d(new TypeInfoPrivate{Type::Empty, {}, {}}) {};
+
 TypeInfo::TypeInfo(Type::Type type)
     : d(new TypeInfoPrivate)
 {

@@ -10,6 +10,7 @@
 #include "types.h"
 #include "kfilemetadata_export.h"
 #include <QString>
+#include <QVariant>
 #include <memory>
 
 namespace KFileMetaData {
@@ -30,6 +31,7 @@ class TypeInfoPrivate;
 class KFILEMETADATA_EXPORT TypeInfo
 {
 public:
+    TypeInfo();
     TypeInfo(Type::Type type);
     TypeInfo(const TypeInfo& ti);
     ~TypeInfo();
@@ -67,5 +69,6 @@ private:
 };
 
 } // namespace
+Q_DECLARE_METATYPE(KFileMetaData::TypeInfo)
 
 #endif // KFILEMETADATA_TYPEINFO_H
