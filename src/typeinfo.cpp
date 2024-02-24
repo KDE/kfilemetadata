@@ -9,6 +9,8 @@
 #include <KLazyLocalizedString>
 #include <KLocalizedString>
 
+#include "icnamematch_p.h"
+
 #include <array>
 
 using namespace KFileMetaData;
@@ -87,16 +89,21 @@ Type::Type TypeInfo::type() const
     return d->type;
 }
 
+namespace {
+    static const QHash<LcIdentifierName, TypeInfo> typeHash = []() {
+        QHash<LcIdentifierName, TypeInfo> infoHash;
+        infoHash.reserve(staticTypeInfo.size());
+
+        for (const auto& info: staticTypeInfo) {
+            infoHash[info.name] = info.type;
+        }
+        return infoHash;
+    }();
+}
+
 TypeInfo TypeInfo::fromName(const QString& name)
 {
-    for (int t = static_cast<int>(Type::FirstType); t <= static_cast<int>(Type::LastType); t++) {
-        TypeInfo ti(static_cast<Type::Type>(t));
-        if (ti.name().compare(name, Qt::CaseInsensitive) == 0) {
-            return ti;
-        }
-    }
-
-    return TypeInfo(Type::Empty);
+    return typeHash.value(LcIdentifierName(name));
 }
 
 QStringList TypeInfo::allNames()
