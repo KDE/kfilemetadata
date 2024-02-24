@@ -11,7 +11,6 @@
 #include "kfilemetadata_export.h"
 #include <QString>
 #include <QVariant>
-#include <memory>
 
 namespace KFileMetaData {
 
@@ -65,7 +64,7 @@ public:
     static TypeInfo fromName(const QString& name);
 
 private:
-    const std::unique_ptr<TypeInfoPrivate> d;
+    const TypeInfoPrivate* d;
 };
 
 } // namespace

@@ -6,81 +6,56 @@
 
 #include "typeinfo.h"
 
+#include <KLazyLocalizedString>
 #include <KLocalizedString>
+
+#include <array>
 
 using namespace KFileMetaData;
 
 class KFileMetaData::TypeInfoPrivate
 {
 public:
-    Type::Type type;
-    QString name;
-    QString displayName;
+    const Type::Type type;
+    const QString name;
+    const KLazyLocalizedString displayName;
 };
 
+const static TypeInfoPrivate staticEmptyTypeInfo{ Type::Empty, QStringLiteral("empty"), kli18nc("@label", "Empty") };
+
+const static std::array<TypeInfoPrivate, 9> staticTypeInfo
+{
+    TypeInfoPrivate{ Type::Archive,      QStringLiteral("Archive"),      kli18nc("@label", "Archive") },
+    TypeInfoPrivate{ Type::Audio,        QStringLiteral("Audio"),        kli18nc("@label", "Audio") },
+    TypeInfoPrivate{ Type::Document,     QStringLiteral("Document"),     kli18nc("@label", "Document") },
+    TypeInfoPrivate{ Type::Image,        QStringLiteral("Image"),        kli18nc("@label", "Image") },
+    TypeInfoPrivate{ Type::Presentation, QStringLiteral("Presentation"), kli18nc("@label", "Presentation") },
+    TypeInfoPrivate{ Type::Spreadsheet,  QStringLiteral("Spreadsheet"),  kli18nc("@label", "Spreadsheet") },
+    TypeInfoPrivate{ Type::Text,         QStringLiteral("Text"),         kli18nc("@label", "Text") },
+    TypeInfoPrivate{ Type::Video,        QStringLiteral("Video"),        kli18nc("@label", "Video") },
+    TypeInfoPrivate{ Type::Folder,       QStringLiteral("Folder"),       kli18nc("@label", "Folder") },
+};
+
+namespace {
+     auto constexpr typeDataById(Type::Type type) {
+         for (const auto& t : staticTypeInfo) {
+             if (t.type == type)
+                 return &t;
+         }
+         return &staticEmptyTypeInfo;
+     }
+}
+
 TypeInfo::TypeInfo()
-    : d(new TypeInfoPrivate{Type::Empty, {}, {}}) {};
+    : d(&staticEmptyTypeInfo) {};
 
 TypeInfo::TypeInfo(Type::Type type)
-    : d(new TypeInfoPrivate)
+    : d(typeDataById(type))
 {
-    d->type = type;
-
-    switch (type) {
-    case Type::Empty:
-        d->name = QStringLiteral("empty");
-        d->displayName = QString();
-        break;
-
-    case Type::Archive:
-        d->name = QStringLiteral("Archive");
-        d->displayName = i18nc("@label", "Archive");
-        break;
-
-    case Type::Audio:
-        d->name = QStringLiteral("Audio");
-        d->displayName = i18nc("@label", "Audio");
-        break;
-
-    case Type::Document:
-        d->name = QStringLiteral("Document");
-        d->displayName = i18nc("@label", "Document");
-        break;
-
-    case Type::Image:
-        d->name = QStringLiteral("Image");
-        d->displayName = i18nc("@label", "Image");
-        break;
-
-    case Type::Presentation:
-        d->name = QStringLiteral("Presentation");
-        d->displayName = i18nc("@label", "Presentation");
-        break;
-
-    case Type::Spreadsheet:
-        d->name = QStringLiteral("Spreadsheet");
-        d->displayName = i18nc("@label", "Spreadsheet");
-        break;
-
-    case Type::Text:
-        d->name = QStringLiteral("Text");
-        d->displayName = i18nc("@label", "Text");
-        break;
-
-    case Type::Video:
-        d->name = QStringLiteral("Video");
-        d->displayName = i18nc("@label", "Video");
-        break;
-
-    case Type::Folder:
-        d->name = QStringLiteral("Folder");
-        d->displayName = i18nc("@label", "Folder");
-        break;
-    }
 }
 
 TypeInfo::TypeInfo(const TypeInfo& ti)
-    : d(new TypeInfoPrivate(*ti.d))
+    : d(ti.d)
 {
 }
 
@@ -88,18 +63,18 @@ TypeInfo::~TypeInfo() = default;
 
 TypeInfo& TypeInfo::operator=(const TypeInfo& rhs)
 {
-    *d = *rhs.d;
+    d = rhs.d;
     return *this;
 }
 
 bool TypeInfo::operator==(const TypeInfo& rhs) const
 {
-    return std::tie(d->type, d->name, d->displayName) == std::tie(rhs.d->type, rhs.d->name, rhs.d->displayName);
+    return d == rhs.d;
 }
 
 QString TypeInfo::displayName() const
 {
-    return d->displayName;
+    return d->displayName.toString();
 }
 
 QString TypeInfo::name() const
