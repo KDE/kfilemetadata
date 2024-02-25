@@ -22,8 +22,11 @@ enum Type {
     Empty = 0,
 
     /**
-     * Any file which contains a compressed collection of other files
+     * A file which contains a compressed collection of other files
      * eg - tar, zip, rar, gz
+     * File types which use e.g. zip as an implementation detail -
+     * Java JAR files, OpenDocument formats, etc. - are not treated
+     * as Archive.
      */
     Archive,
 
@@ -45,7 +48,8 @@ enum Type {
 
     /**
      * Any file which counts as a document. Documents are generally
-     * files which contain rich text, formatting and maybe images
+     * files which contain rich text, formatting and maybe images,
+     * but also just plain text.
      */
     Document,
 
@@ -62,8 +66,10 @@ enum Type {
     Presentation,
 
     /**
-     * Any file which just contains plain text data counts
-     * as a Text file
+     * Any file which contains text data (i.e. not binary data) counts as
+     * a Text file. As this also includes various file types which contain
+     * data collections (e.g. csv, json) or code (e.g. QML, Makefile),
+     * "Document" is typically the more appropriate type.
      */
     Text,
 
