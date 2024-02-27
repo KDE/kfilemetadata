@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-09 00:35+0000\n"
+"POT-Creation-Date: 2024-02-27 00:35+0000\n"
 "PO-Revision-Date: 2024-02-09 10:23+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -744,11 +744,9 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Map"
 
-#: src/typeinfo.cpp:78
-#, kde-format
-msgctxt "@label"
-msgid "Model"
-msgstr "Model"
+#~ msgctxt "@label"
+#~ msgid "Model"
+#~ msgstr "Model"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"

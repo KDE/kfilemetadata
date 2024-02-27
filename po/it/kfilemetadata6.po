@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-09 00:35+0000\n"
+"POT-Creation-Date: 2024-02-27 00:35+0000\n"
 "PO-Revision-Date: 2024-02-09 11:51+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -749,11 +749,9 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Cartella"
 
-#: src/typeinfo.cpp:78
-#, kde-format
-msgctxt "@label"
-msgid "Model"
-msgstr "Modello"
+#~ msgctxt "@label"
+#~ msgid "Model"
+#~ msgstr "Modello"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"

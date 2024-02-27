@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-09 00:35+0000\n"
+"POT-Creation-Date: 2024-02-27 00:35+0000\n"
 "PO-Revision-Date: 2024-02-09 20:54+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -745,11 +745,9 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Cartafol"
 
-#: src/typeinfo.cpp:78
-#, kde-format
-msgctxt "@label"
-msgid "Model"
-msgstr "Modelo"
+#~ msgctxt "@label"
+#~ msgid "Model"
+#~ msgstr "Modelo"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"
