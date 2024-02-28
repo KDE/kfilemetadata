@@ -1,5 +1,4 @@
 
-
 if(TARGET Poppler::Qt6)
     add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp)
 
@@ -293,10 +292,11 @@ if(KF6Archive_FOUND)
         KF6::FileMetaData
         KF6::Archive
     )
+
+    set_target_properties(kfilemetadata_krita PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
+    install(
+    TARGETS kfilemetadata_krita
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 endif()
 
-set_target_properties(kfilemetadata_krita PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
-install(
-TARGETS kfilemetadata_krita
-DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 
