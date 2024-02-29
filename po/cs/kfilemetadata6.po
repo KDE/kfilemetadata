@@ -745,7 +745,3 @@ msgstr "Video"
 msgctxt "@label"
 msgid "Folder"
 msgstr "Složka"
-
-#~ msgctxt "@label"
-#~ msgid "Model"
-#~ msgstr "Model"

@@ -744,10 +744,3 @@ msgstr "Video"
 msgctxt "@label"
 msgid "Folder"
 msgstr "Mappe"
-
-#, fuzzy
-#~| msgctxt "@label EXIF"
-#~| msgid "Model"
-#~ msgctxt "@label"
-#~ msgid "Model"
-#~ msgstr "Modell"
