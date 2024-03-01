@@ -46,17 +46,17 @@ set_package_properties(Qt6Gui PROPERTIES DESCRIPTION "Qt6: Gui component"
 find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 
 find_package(KF6 ${KF_DEP_VERSION} COMPONENTS Archive)
-set_package_properties(KF6Archive PROPERTIES DESCRIPTION "KDE Frameworks 5: Archive Framework"
+set_package_properties(KF6Archive PROPERTIES DESCRIPTION "KDE Frameworks: Archive Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
                        PURPOSE "Archive is needed to build ODF and OOXML 2007 extractors")
 
 find_package(KF6 ${KF_DEP_VERSION} COMPONENTS CoreAddons)
-set_package_properties(KF6CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks 5: Core Addons Framework"
+set_package_properties(KF6CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks: Core Addons Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE REQUIRED
                        PURPOSE "Needed for the formatting of properties for display purposes")
 
 find_package(KF6 ${KF_DEP_VERSION} COMPONENTS Config)
-set_package_properties(KF6Config PROPERTIES DESCRIPTION "KDE Frameworks 5: Config Framework"
+set_package_properties(KF6Config PROPERTIES DESCRIPTION "KDE Frameworks: Config Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
                        PURPOSE "Config is needed to build the AppImage extractor")
 
