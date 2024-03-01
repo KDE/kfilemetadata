@@ -159,7 +159,7 @@ install(
 #
 # ODF
 #
-
+set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for ODF extractor")
 if(KF6Archive_FOUND)
     add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp)
 
@@ -179,7 +179,7 @@ endif()
 #
 # Office 2007
 #
-
+set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for Office 2007 extractor")
 if(KF6Archive_FOUND)
     add_library(kfilemetadata_office2007extractor MODULE office2007extractor.cpp)
 
@@ -263,6 +263,7 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 #
 # FictionBook2
 #
+set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for FictionBook2 extractor")
 if(KF6Archive_FOUND)
     add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp )
     target_link_libraries(kfilemetadata_fb2extractor
@@ -280,7 +281,7 @@ endif()
 #
 # Krita
 #
-
+set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for Krita extractor")
 if(KF6Archive_FOUND)
     add_library(kfilemetadata_krita MODULE)
     target_sources(kfilemetadata_krita

@@ -48,7 +48,7 @@ find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 find_package(KF6 ${KF_DEP_VERSION} COMPONENTS Archive)
 set_package_properties(KF6Archive PROPERTIES DESCRIPTION "KDE Frameworks: Archive Framework"
                        URL "https://download.kde.org/stable/frameworks/" TYPE OPTIONAL
-                       PURPOSE "Archive is needed to build ODF and OOXML 2007 extractors")
+                       PURPOSE "Archive is needed for several extractors")
 
 find_package(KF6 ${KF_DEP_VERSION} COMPONENTS CoreAddons)
 set_package_properties(KF6CoreAddons PROPERTIES DESCRIPTION "KDE Frameworks: Core Addons Framework"
