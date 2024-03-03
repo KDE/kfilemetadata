@@ -78,7 +78,12 @@ enum Type {
      */
     Folder,
 
-    LastType = Folder
+    /**
+     * 3d model fom Blender, etc
+     */
+    Model,
+
+    LastType = Model
 };
 
 }
