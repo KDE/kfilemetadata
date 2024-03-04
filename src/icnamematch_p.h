@@ -16,8 +16,8 @@ class LcIdentifierName
     // trivially map to their lowercase counterpart. This
     // is the case for all ASCII codepoints.
 public:
-    LcIdentifierName(const QString& _name) : name(_name) {};
-    QString name;
+    LcIdentifierName(const QStringView _name) : name(_name) {};
+    QStringView name;
 };
 
 constexpr QChar trivialToLower(const QChar &c) {

@@ -197,7 +197,7 @@ namespace {
         infoHash.reserve(staticPropertyInfo.size());
 
         for (const auto& info: staticPropertyInfo) {
-            infoHash[info.name] = info.prop;
+            infoHash[QStringView(info.name)] = info.prop;
         }
         return infoHash;
     }();

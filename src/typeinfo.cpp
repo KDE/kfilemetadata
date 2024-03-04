@@ -95,7 +95,7 @@ namespace {
         infoHash.reserve(staticTypeInfo.size());
 
         for (const auto& info: staticTypeInfo) {
-            infoHash[info.name] = info.type;
+            infoHash[QStringView(info.name)] = info.type;
         }
         return infoHash;
     }();
