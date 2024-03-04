@@ -90,12 +90,12 @@ Type::Type TypeInfo::type() const
 }
 
 namespace {
-    static const QHash<LcIdentifierName, TypeInfo> typeHash = []() {
-        QHash<LcIdentifierName, TypeInfo> infoHash;
+    static const auto typeHash = []() {
+        QHash<LcIdentifierName, const TypeInfoPrivate*> infoHash;
         infoHash.reserve(staticTypeInfo.size());
 
         for (const auto& info: staticTypeInfo) {
-            infoHash[QStringView(info.name)] = info.type;
+            infoHash[QStringView(info.name)] = &info;
         }
         return infoHash;
     }();
@@ -103,7 +103,9 @@ namespace {
 
 TypeInfo TypeInfo::fromName(const QString& name)
 {
-    return typeHash.value(LcIdentifierName(name));
+    TypeInfo ti;
+    ti.d = typeHash.value(LcIdentifierName(name), &staticEmptyTypeInfo);
+    return ti;
 }
 
 QStringList TypeInfo::allNames()

@@ -192,12 +192,12 @@ QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
 }
 
 namespace {
-    static const QHash<LcIdentifierName, PropertyInfo> propertyHash = []() {
-        QHash<LcIdentifierName, PropertyInfo> infoHash;
+    static const auto propertyHash = []() {
+        QHash<LcIdentifierName, const PropertyInfoData*> infoHash;
         infoHash.reserve(staticPropertyInfo.size());
 
         for (const auto& info: staticPropertyInfo) {
-            infoHash[QStringView(info.name)] = info.prop;
+            infoHash[QStringView(info.name)] = &info;
         }
         return infoHash;
     }();
@@ -205,7 +205,9 @@ namespace {
 
 PropertyInfo PropertyInfo::fromName(const QString& name)
 {
-    return propertyHash.value(LcIdentifierName(name));
+    PropertyInfo pi;
+    pi.d = propertyHash.value(LcIdentifierName(name), &staticEmptyPropertyInfo);
+    return pi;
 }
 
 QStringList PropertyInfo::allNames()
