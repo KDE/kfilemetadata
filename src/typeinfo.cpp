@@ -73,12 +73,6 @@ TypeInfo::TypeInfo(Type::Type type)
         d->name = QStringLiteral("Folder");
         d->displayName = i18nc("@label", "Folder");
         break;
-    case Type::Model:
-        d->name = QStringLiteral("Model");
-        d->displayName = i18nc("@label", "Model");
-        break;
-    default:
-        break;
     }
 }
 
