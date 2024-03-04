@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-27 00:35+0000\n"
+"POT-Creation-Date: 2024-03-04 00:35+0000\n"
 "PO-Revision-Date: 2024-02-19 11:34+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -748,9 +748,11 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Kansio"
 
-#~ msgctxt "@label"
-#~ msgid "Model"
-#~ msgstr "Malli"
+#: src/typeinfo.cpp:78
+#, kde-format
+msgctxt "@label"
+msgid "Model"
+msgstr "Malli"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"

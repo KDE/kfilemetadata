@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-27 00:35+0000\n"
+"POT-Creation-Date: 2024-03-04 00:35+0000\n"
 "PO-Revision-Date: 2024-02-09 22:29+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -746,9 +746,11 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Папка"
 
-#~ msgctxt "@label"
-#~ msgid "Model"
-#~ msgstr "Модель"
+#: src/typeinfo.cpp:78
+#, kde-format
+msgctxt "@label"
+msgid "Model"
+msgstr "Модель"
 
 # See http://www.exiv2.org/tags.html --aspotashev
 #~ msgctxt "@label EXIF"
