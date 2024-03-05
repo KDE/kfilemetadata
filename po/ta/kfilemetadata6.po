@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:35+0000\n"
+"POT-Creation-Date: 2024-03-05 00:35+0000\n"
 "PO-Revision-Date: 2024-02-18 16:20+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -742,9 +742,3 @@ msgstr "நிகழ்படம்"
 msgctxt "@label"
 msgid "Folder"
 msgstr "அடைவு"
-
-#: src/typeinfo.cpp:78
-#, kde-format
-msgctxt "@label"
-msgid "Model"
-msgstr ""

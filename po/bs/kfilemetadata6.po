@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:35+0000\n"
+"POT-Creation-Date: 2024-03-05 00:35+0000\n"
 "PO-Revision-Date: 2015-02-04 16:00+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: none\n"
@@ -811,13 +811,12 @@ msgctxt "@label"
 msgid "Folder"
 msgstr ""
 
-#: src/typeinfo.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Image Model"
-msgctxt "@label"
-msgid "Model"
-msgstr "Model slike"
+#, fuzzy
+#~| msgctxt "@label EXIF"
+#~| msgid "Image Model"
+#~ msgctxt "@label"
+#~ msgid "Model"
+#~ msgstr "Model slike"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"

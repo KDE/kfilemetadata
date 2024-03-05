@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:35+0000\n"
+"POT-Creation-Date: 2024-03-05 00:35+0000\n"
 "PO-Revision-Date: 2016-04-29 19:43+0100\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Fòram na Gàidhlig\n"
@@ -821,13 +821,12 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Pasgan"
 
-#: src/typeinfo.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Image Model"
-msgctxt "@label"
-msgid "Model"
-msgstr "Modail an deilbh"
+#, fuzzy
+#~| msgctxt "@label EXIF"
+#~| msgid "Image Model"
+#~ msgctxt "@label"
+#~ msgid "Model"
+#~ msgstr "Modail an deilbh"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"

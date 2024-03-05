@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:35+0000\n"
+"POT-Creation-Date: 2024-03-05 00:35+0000\n"
 "PO-Revision-Date: 2019-10-18 21:01+0200\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -754,13 +754,12 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Priečinok"
 
-#: src/typeinfo.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Model"
-msgctxt "@label"
-msgid "Model"
-msgstr "Model"
+#, fuzzy
+#~| msgctxt "@label EXIF"
+#~| msgid "Model"
+#~ msgctxt "@label"
+#~ msgid "Model"
+#~ msgstr "Model"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"

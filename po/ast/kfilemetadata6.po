@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:35+0000\n"
+"POT-Creation-Date: 2024-03-05 00:35+0000\n"
 "PO-Revision-Date: 2023-05-03 23:38+0200\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -741,10 +741,4 @@ msgstr ""
 #, kde-format
 msgctxt "@label"
 msgid "Folder"
-msgstr ""
-
-#: src/typeinfo.cpp:78
-#, kde-format
-msgctxt "@label"
-msgid "Model"
 msgstr ""

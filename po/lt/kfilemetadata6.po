@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-04 00:35+0000\n"
+"POT-Creation-Date: 2024-03-05 00:35+0000\n"
 "PO-Revision-Date: 2019-09-07 19:58+0300\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -759,13 +759,12 @@ msgctxt "@label"
 msgid "Folder"
 msgstr "Aplankas"
 
-#: src/typeinfo.cpp:78
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Model"
-msgctxt "@label"
-msgid "Model"
-msgstr "Modelis"
+#, fuzzy
+#~| msgctxt "@label EXIF"
+#~| msgid "Model"
+#~ msgctxt "@label"
+#~ msgid "Model"
+#~ msgstr "Modelis"
 
 #~ msgctxt "@label EXIF"
 #~ msgid "Image Make"
