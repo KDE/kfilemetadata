@@ -72,7 +72,10 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     FILE* fp = fdopen(fd, "r");
 
     while ( (r = getline(&line, &len, fp)) != -1) {
-        QString text = codec.decode(QByteArrayView(line, r - 1));
+        if ((r > 0) && (line[r - 1] == '\n')) {
+            r--;
+        }
+        QString text = codec.decode(QByteArrayView(line, r));
 
         if (codec.hasError()) {
             qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();

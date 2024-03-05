@@ -135,14 +135,7 @@ void IndexerExtractorTests::testPlainTextExtractorEmptyLines()
                           "including three empty lines.  It has 152 "
                           "characters and 28 words.  The file ends "
                           "without a newline character. "};
-#if defined(Q_OS_LINUX) || defined(__GLIBC__)
-    QEXPECT_FAIL("", "Last character truncated on Linux", Continue);
     QCOMPARE(result.text(), content);
-    // Verify only last character is mangled. Remove this after fixing the extractor
-    QCOMPARE(result.text().chopped(1), content.chopped(2));
-#else
-    QCOMPARE(result.text(), content);
-#endif
 }
 
 QTEST_GUILESS_MAIN(IndexerExtractorTests)
