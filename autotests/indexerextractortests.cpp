@@ -31,6 +31,7 @@ private Q_SLOTS:
     void benchMarkPlainTextExtractor();
     void testPlainTextExtractor();
     void testPlainTextExtractorNoPlainText();
+    void testPlainTextExtractorEmptyLines();
 };
 
 IndexerExtractorTests::IndexerExtractorTests(QObject* parent) :
@@ -114,6 +115,21 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 
     QCOMPARE(result.properties().size(), 0);
     QCOMPARE(result.text().size(), 0);
+}
+
+void IndexerExtractorTests::testPlainTextExtractorEmptyLines()
+{
+    PlainTextExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_plain_text_newlines.txt")), QStringLiteral("text/plain"));
+
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Text);
+
+    QCOMPARE(result.properties().size(), 1);
+    QCOMPARE(result.properties().value(Property::LineCount), QVariant(10));
 }
 
 QTEST_GUILESS_MAIN(IndexerExtractorTests)

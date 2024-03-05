@@ -35,6 +35,7 @@ private Q_SLOTS:
     void initTestCase() {
         // Expected mimetypes
         m_knownFiles = {
+            { "test_plain_text_newlines.txt",  "text/plain"},
             { "test.avi",                      "video/vnd.avi"},
             { "test.aif",                      "audio/x-aifc"},
             { "test.ape",                      "audio/x-ape"},
