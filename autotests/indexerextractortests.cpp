@@ -109,16 +109,11 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
     SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"), ExtractionResult::ExtractMetaData);
     plugin.extract(&result);
 
-    QString content;
-    QTextStream(&content) << "This is a text file\n"
-                          << "it is four lines long\n"
-                          << "it has 77 characters\n"
-                          << "and 17 words.\n";
-
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().at(0), Type::Text);
 
     QCOMPARE(result.properties().size(), 0);
+    QCOMPARE(result.text().size(), 0);
 }
 
 QTEST_GUILESS_MAIN(IndexerExtractorTests)
