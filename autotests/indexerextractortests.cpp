@@ -6,8 +6,8 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "indexerextractortests.h"
-
+#include <QObject>
+#include <QString>
 #include <QTest>
 #include <QTemporaryFile>
 
@@ -16,6 +16,22 @@
 #include "extractors/plaintextextractor.h"
 
 using namespace KFileMetaData;
+
+class IndexerExtractorTests : public QObject
+{
+    Q_OBJECT
+public:
+    explicit IndexerExtractorTests(QObject* parent = nullptr);
+
+private:
+    QString testFilePath(const QString& fileName) const;
+
+private Q_SLOTS:
+    void testNoExtraction();
+    void benchMarkPlainTextExtractor();
+    void testPlainTextExtractor();
+    void testPlainTextExtractorNoPlainText();
+};
 
 IndexerExtractorTests::IndexerExtractorTests(QObject* parent) :
     QObject(parent)
@@ -107,4 +123,4 @@ void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
 
 QTEST_GUILESS_MAIN(IndexerExtractorTests)
 
-#include "moc_indexerextractortests.cpp"
+#include "indexerextractortests.moc"
