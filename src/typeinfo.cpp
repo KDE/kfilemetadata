@@ -21,11 +21,18 @@ public:
     const Type::Type type;
     const QString name;
     const KLazyLocalizedString displayName;
+
+    static constexpr auto fromId(Type::Type type) -> const TypeInfoPrivate*;
+    static auto fromName(const QString& name) -> const TypeInfoPrivate*;
+
+    static const TypeInfoPrivate s_Empty;
+    static const std::array<TypeInfoPrivate, 9> s_allTypes;
+    static const QHash<LcIdentifierName, const TypeInfoPrivate*> s_typeHash;
 };
 
-const static TypeInfoPrivate staticEmptyTypeInfo{ Type::Empty, QStringLiteral("empty"), kli18nc("@label", "Empty") };
+const TypeInfoPrivate TypeInfoPrivate::s_Empty{ Type::Empty, QStringLiteral("empty"), kli18nc("@label", "Empty") };
 
-const static std::array<TypeInfoPrivate, 9> staticTypeInfo
+const std::array<TypeInfoPrivate, 9> TypeInfoPrivate::s_allTypes
 {
     TypeInfoPrivate{ Type::Archive,      QStringLiteral("Archive"),      kli18nc("@label", "Archive") },
     TypeInfoPrivate{ Type::Audio,        QStringLiteral("Audio"),        kli18nc("@label", "Audio") },
@@ -38,21 +45,36 @@ const static std::array<TypeInfoPrivate, 9> staticTypeInfo
     TypeInfoPrivate{ Type::Folder,       QStringLiteral("Folder"),       kli18nc("@label", "Folder") },
 };
 
-namespace {
-     auto constexpr typeDataById(Type::Type type) {
-         for (const auto& t : staticTypeInfo) {
-             if (t.type == type)
-                 return &t;
-         }
-         return &staticEmptyTypeInfo;
-     }
+const QHash<LcIdentifierName, const TypeInfoPrivate*> TypeInfoPrivate::s_typeHash = []()
+{
+    QHash<LcIdentifierName, const TypeInfoPrivate*> infoHash;
+    infoHash.reserve(s_allTypes.size());
+
+    for (const auto& info: s_allTypes) {
+        infoHash[QStringView(info.name)] = &info;
+    }
+    return infoHash;
+}();
+
+constexpr auto TypeInfoPrivate::fromId(Type::Type type) -> const TypeInfoPrivate*
+{
+    for (const auto& t : s_allTypes) {
+        if (t.type == type)
+            return &t;
+    }
+    return &s_Empty;
+}
+
+auto TypeInfoPrivate::fromName(const QString& name) -> const TypeInfoPrivate*
+{
+    return s_typeHash.value(LcIdentifierName(name), &s_Empty);
 }
 
 TypeInfo::TypeInfo()
-    : d(&staticEmptyTypeInfo) {};
+    : d(&TypeInfoPrivate::s_Empty) {};
 
 TypeInfo::TypeInfo(Type::Type type)
-    : d(typeDataById(type))
+    : d(TypeInfoPrivate::fromId(type))
 {
 }
 
@@ -89,22 +111,10 @@ Type::Type TypeInfo::type() const
     return d->type;
 }
 
-namespace {
-    static const auto typeHash = []() {
-        QHash<LcIdentifierName, const TypeInfoPrivate*> infoHash;
-        infoHash.reserve(staticTypeInfo.size());
-
-        for (const auto& info: staticTypeInfo) {
-            infoHash[QStringView(info.name)] = &info;
-        }
-        return infoHash;
-    }();
-}
-
 TypeInfo TypeInfo::fromName(const QString& name)
 {
     TypeInfo ti;
-    ti.d = typeHash.value(LcIdentifierName(name), &staticEmptyTypeInfo);
+    ti.d = TypeInfoPrivate::fromName(name);
     return ti;
 }
 
@@ -112,8 +122,8 @@ QStringList TypeInfo::allNames()
 {
     static QStringList sNames = []() {
         QStringList names;
-        names.reserve(staticTypeInfo.size());
-        for (auto info: staticTypeInfo) {
+        names.reserve(TypeInfoPrivate::s_allTypes.size());
+        for (auto info: TypeInfoPrivate::s_allTypes) {
             names.append(info.name);
         }
         return names;

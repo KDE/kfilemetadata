@@ -30,11 +30,18 @@ public:
     const KLazyLocalizedString displayName;
     const QMetaType::Type valueType = QMetaType::UnknownType;
     const FormatFunction formatAsString = FormatStrings::toStringFunction;
+
+    static constexpr auto fromId(Property::Property property) -> const PropertyInfoData*;
+    static auto fromName(const QString& name) -> const PropertyInfoData*;
+
+    static const PropertyInfoData s_Empty;
+    static const std::array<PropertyInfoData, 78> s_allProperties;
+    static const QHash<LcIdentifierName, const PropertyInfoData*> s_propertyHash;
 };
 
-const static PropertyInfoData staticEmptyPropertyInfo{ Property::Empty, false, QStringLiteral("empty") };
+const PropertyInfoData PropertyInfoData::s_Empty{ Property::Empty, false, QStringLiteral("empty") };
 
-const static std::array<PropertyInfoData, 78> staticPropertyInfo
+const std::array<PropertyInfoData, 78> PropertyInfoData::s_allProperties
 {
     PropertyInfoData{ Property::Album,                      true,  QStringLiteral("album"),                      kli18nc("@label music album", "Album"),                QMetaType::QString },
     PropertyInfoData{ Property::AlbumArtist,                true,  QStringLiteral("albumArtist"),                kli18nc("@label", "Album Artist"),                     QMetaType::QString },
@@ -116,19 +123,35 @@ const static std::array<PropertyInfoData, 78> staticPropertyInfo
     PropertyInfoData{ Property::OriginEmailMessageId,       false, QStringLiteral("originEmailMessageId"),       kli18nc("@label the message ID of an email this file was attached to", "E-Mail Attachment Message ID"), QMetaType::QString }
 };
 
-namespace {
-     auto constexpr propertyDataById(Property::Property property) {
-         for (const auto& p : staticPropertyInfo) {
-             if (p.prop == property)
-                 return &p;
-         }
-         return &staticEmptyPropertyInfo;
-     }
+const QHash<LcIdentifierName, const PropertyInfoData*> PropertyInfoData::s_propertyHash = []()
+{
+    QHash<LcIdentifierName, const PropertyInfoData*> infoHash;
+    infoHash.reserve(s_allProperties.size());
+
+    for (const auto& info: s_allProperties) {
+        infoHash[QStringView(info.name)] = &info;
+    }
+    return infoHash;
+}();
+
+constexpr auto PropertyInfoData::fromId(Property::Property property) -> const PropertyInfoData*
+{
+    for (const auto& p : s_allProperties) {
+        if (p.prop == property)
+            return &p;
+    }
+    return &s_Empty;
 }
 
-PropertyInfo::PropertyInfo(Property::Property property) : d(propertyDataById(property)) {};
+auto PropertyInfoData::fromName(const QString& name) -> const PropertyInfoData*
+{
+    return s_propertyHash.value(LcIdentifierName(name), &s_Empty);
+}
 
-PropertyInfo::PropertyInfo() : d(&staticEmptyPropertyInfo) {};
+
+PropertyInfo::PropertyInfo(Property::Property property) : d(PropertyInfoData::fromId(property)) {};
+
+PropertyInfo::PropertyInfo() : d(&PropertyInfoData::s_Empty) {};
 
 PropertyInfo::PropertyInfo(const PropertyInfo& pi)
     : d(pi.d)
@@ -191,22 +214,10 @@ QString PropertyInfo::formatAsDisplayString(const QVariant &value) const
     }
 }
 
-namespace {
-    static const auto propertyHash = []() {
-        QHash<LcIdentifierName, const PropertyInfoData*> infoHash;
-        infoHash.reserve(staticPropertyInfo.size());
-
-        for (const auto& info: staticPropertyInfo) {
-            infoHash[QStringView(info.name)] = &info;
-        }
-        return infoHash;
-    }();
-}
-
 PropertyInfo PropertyInfo::fromName(const QString& name)
 {
     PropertyInfo pi;
-    pi.d = propertyHash.value(LcIdentifierName(name), &staticEmptyPropertyInfo);
+    pi.d = PropertyInfoData::fromName(name);
     return pi;
 }
 
@@ -214,8 +225,8 @@ QStringList PropertyInfo::allNames()
 {
     static QStringList sNames = []() {
         QStringList names;
-        names.reserve(staticPropertyInfo.size());
-        for (auto info: staticPropertyInfo) {
+        names.reserve(PropertyInfoData::s_allProperties.size());
+        for (auto info: PropertyInfoData::s_allProperties) {
             names.append(info.name);
         }
         return names;
