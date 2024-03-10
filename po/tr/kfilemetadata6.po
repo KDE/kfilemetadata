@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2024-02-09 17:46+0300\n"
+"PO-Revision-Date: 2024-03-09 10:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -318,7 +318,7 @@ msgstr "Sanatçı"
 #: src/propertyinfo.cpp:49
 msgctxt "@label"
 msgid "Aspect Ratio"
-msgstr "En-Boy Oranı"
+msgstr "En–Boy Oranı"
 
 #: src/propertyinfo.cpp:50
 msgctxt "@label"
@@ -388,7 +388,7 @@ msgstr "Yükseklik"
 #: src/propertyinfo.cpp:63
 msgctxt "@label EXIF"
 msgid "Image Date Time"
-msgstr "Görsel Tarih-Zamanı"
+msgstr "Görsel Tarihi ve Zamanı"
 
 #: src/propertyinfo.cpp:64
 msgctxt "@label EXIF"
@@ -678,22 +678,22 @@ msgstr "İndirme Adresi"
 #: src/propertyinfo.cpp:121
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
-msgstr "E-posta Eklenti Konusu"
+msgstr "E-posta Eki Konusu"
 
 #: src/propertyinfo.cpp:122
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
-msgstr "E-posta Eklenti Göndereni"
+msgstr "E-posta Eki Göndereni"
 
 #: src/propertyinfo.cpp:123
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr "E-posta Eklenti İleti ID’si"
+msgstr "E-posta Eki İleti ID’si"
 
 #: src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "Boş"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"
