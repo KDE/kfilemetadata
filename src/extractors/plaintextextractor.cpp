@@ -8,16 +8,11 @@
 #include "plaintextextractor.h"
 
 #include <QDebug>
-#include <QStringDecoder>
 #include <QFile>
-
-#include <fstream>
+#include <QStringDecoder>
 
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
-    #include <sys/types.h>
-    #include <sys/stat.h>
     #include <fcntl.h>
-    #include <unistd.h>
 #endif
 
 using namespace KFileMetaData;
@@ -39,50 +34,45 @@ QStringList PlainTextExtractor::mimetypes() const
 
 void PlainTextExtractor::extract(ExtractionResult* result)
 {
-#if defined(Q_OS_LINUX) || defined(__GLIBC__)
-    QByteArray filePath = QFile::encodeName(result->inputUrl());
+    QFile file(result->inputUrl());
+    bool isOpen = false;
 
 #ifdef O_NOATIME
+    const QByteArray filePath = QFile::encodeName(result->inputUrl());
     int fd = open(filePath.constData(), O_RDONLY | O_NOATIME);
-    if (fd < 0)
-#else
-    int fd;
+    if (fd >= 0) {
+        isOpen = file.open(fd, QIODevice::ReadOnly | QIODevice::Text, QFileDevice::AutoCloseHandle);
+    } else
 #endif
     {
-        fd = open(filePath.constData(), O_RDONLY);
+        isOpen = file.open(QIODevice::ReadOnly | QIODevice::Text);
     }
 
-    if (fd < 0) {
+    if (!isOpen) {
         return;
     }
 
     result->addType(Type::Text);
     if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
-        close(fd);
         return;
     }
 
     QStringDecoder codec(QStringConverter::System);
 
-    char* line = nullptr;
-    size_t len = 0;
     int lines = 0;
-    int r = 0;
 
-    FILE* fp = fdopen(fd, "r");
-
-    while ( (r = getline(&line, &len, fp)) != -1) {
-        if ((r > 0) && (line[r - 1] == '\n')) {
-            r--;
-        }
-        QString text = codec.decode(QByteArrayView(line, r));
+    while (!file.atEnd()) {
+        QString text = codec.decode(file.readLine());
 
         if (codec.hasError()) {
             qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();
-            free(line);
-            close(fd);
             return;
         }
+
+        if (!text.isEmpty() && text.back() == QLatin1Char('\n')) {
+            text.removeLast();
+        }
+
         result->append(text);
 
         lines += 1;
@@ -90,41 +80,6 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
         result->add(Property::LineCount, lines);
     }
-
-    free(line);
-    close(fd);
-
-#else
-    std::string line;
-    int lines = 0;
-
-    std::ifstream fstream(QFile::encodeName(result->inputUrl()).constData());
-    if (!fstream.is_open()) {
-        return;
-    }
-
-    result->addType(Type::Text);
-    if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
-        return;
-    }
-
-    QStringDecoder codec(QStringConverter::System);
-    while (std::getline(fstream, line)) {
-        QByteArray arr = QByteArray::fromRawData(line.c_str(), line.size());
-
-        QString text = codec.decode(arr);
-
-        if (codec.hasError()) {
-            qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();
-            return;
-        }
-        result->append(text);
-
-        lines += 1;
-    }
-
-    result->add(Property::LineCount, lines);
-#endif
 }
 
 #include "moc_plaintextextractor.cpp"
