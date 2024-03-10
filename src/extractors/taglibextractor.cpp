@@ -11,6 +11,10 @@
 
 // Taglib includes
 #include <taglib.h>
+#include <modfile.h>
+#include <s3mfile.h>
+#include <xmfile.h>
+#include <itfile.h>
 #include <tag.h>
 #include <tfilestream.h>
 #include <tpropertymap.h>
@@ -63,6 +67,10 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-vorbis+ogg"),
     QStringLiteral("audio/x-wav"),
     QStringLiteral("audio/x-wavpack"),
+    QStringLiteral("audio/x-mod"),
+    QStringLiteral("audio/x-s3m"),
+    QStringLiteral("audio/x-xm"),
+    QStringLiteral("audio/x-it"),
 };
 
 void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
@@ -244,6 +252,9 @@ void readGenericProperties(const TagLib::PropertyMap &savedProperties, Extractio
         if (success) {
             result->add(Property::ReplayGainAlbumPeak, replayGainAlbumPeak);
         }
+    }
+    if (savedProperties.contains("TRACKERNAME")) {
+        result->add(Property::Generator, TStringToQString(savedProperties["TRACKERNAME"].toString()).trimmed());
     }
 }
 
@@ -677,6 +688,30 @@ void TagLibExtractor::extract(ExtractionResult* result)
             if (asfTags) {
                 result->addImageData(extractAsfCover(asfTags, imageTypes));
             }
+        }
+    } else if (mimeType == QLatin1String("audio/x-mod")) {
+        TagLib::Mod::File file(&stream);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
+    } else if (mimeType == QLatin1String("audio/x-s3m")) {
+        TagLib::S3M::File file(&stream);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
+    } else if (mimeType == QLatin1String("audio/x-xm")) {
+        TagLib::XM::File file(&stream);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
+        }
+    } else if (mimeType == QLatin1String("audio/x-it")) {
+        TagLib::IT::File file(&stream);
+        if (file.isValid()) {
+            extractAudioProperties(&file, result);
+            readGenericProperties(file.properties(), result);
         }
     }
 

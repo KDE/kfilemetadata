@@ -96,6 +96,10 @@ private Q_SLOTS:
             { "test.mobi",                     "application/x-mobipocket-ebook"},
             { "test.png",                      "image/png"},
             { "test.kra",                      "application/x-krita"},
+            { "test.mod",                      "audio/x-mod"},
+            { "test.s3m",                      "audio/x-s3m"},
+            { "test.it",                       "audio/x-it"},
+            { "test.xm",                       "audio/x-xm"},
         };
 
         // Collect all test files from the samplefiles directory

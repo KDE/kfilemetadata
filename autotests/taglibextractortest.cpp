@@ -55,6 +55,8 @@ private Q_SLOTS:
     void testRobustness_data();
     void testImageData();
     void testImageData_data();
+    void testModuleTrackerFormats();
+    void testModuleTrackerFormats_data();
 
 private:
     // Convenience function
@@ -735,13 +737,13 @@ void TagLibExtractorTest::testImageData()
 
     testAudioFile = testFilePath(fileName);
     const QString mimeType = mimeDb.mimeTypeForFile(testAudioFile).name();
-    
+
     QVERIFY2(!mimeType.isEmpty(), "Failed to determine mimetype");
     QVERIFY2(plugin.mimetypes().contains(mimeType), qPrintable(mimeType + " not supported by taglib"));
-    
+
     SimpleExtractionResult result(testAudioFile, mimeType, ExtractionResult::ExtractImageData);
     plugin.extract(&result);
-    
+
     QCOMPARE(result.imageData().value(EmbeddedImageData::FrontCover), m_coverImage);
 }
 
@@ -774,8 +776,8 @@ void TagLibExtractorTest::testImageData_data()
         ;
 
     QTest::addRow("mp3")
-	<< QStringLiteral("test.mp3")
-	;
+        << QStringLiteral("test.mp3")
+        ;
 
     QTest::addRow("m4a")
             << QStringLiteral("test.m4a")
@@ -800,6 +802,68 @@ void TagLibExtractorTest::testImageData_data()
     QTest::addRow("wma")
             << QStringLiteral("test.wma")
             ;
+}
+
+void TagLibExtractorTest::testModuleTrackerFormats()
+{
+    QFETCH(QString, fileType);
+    QFETCH(KFileMetaData::PropertyMultiMap, expectedProperties);
+
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+
+    TagLibExtractor plugin{this};
+    SimpleExtractionResult resultForMod(fileName, mimeType);
+    plugin.extract(&resultForMod);
+
+    QCOMPARE(resultForMod.properties().size(), expectedProperties.size());
+    for (auto [property, value] : expectedProperties.asKeyValueRange()) {
+        QVERIFY(resultForMod.properties().contains(property));
+        QCOMPARE(resultForMod.properties().value(property), value);
+    }
+}
+
+void TagLibExtractorTest::testModuleTrackerFormats_data()
+{
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<KFileMetaData::PropertyMultiMap>("expectedProperties");
+
+    QTest::addRow("mod")
+        << "mod"
+        << KFileMetaData::PropertyMultiMap{
+            {Property::Channels, 4},
+            {Property::Title, QStringLiteral("Title Tag")},
+            {Property::Generator, QStringLiteral("ProTracker")},
+            {Property::Comment, QStringLiteral()}
+            }
+        ;
+    QTest::addRow("s3m")
+        << "s3m"
+        << KFileMetaData::PropertyMultiMap{
+            {Property::Channels, 16},
+            {Property::Title, QStringLiteral("Title Tag")},
+            {Property::Generator, QStringLiteral("ScreamTracker III")},
+            {Property::Comment, QStringLiteral()}
+            }
+        ;
+    QTest::addRow("it")
+        << "it"
+        << KFileMetaData::PropertyMultiMap{
+            {Property::Channels, 1},
+            {Property::Title, QStringLiteral("Title Tag")},
+            {Property::Generator, QStringLiteral("Impulse Tracker")},
+            {Property::Comment, QStringLiteral("Comment Tag")},
+            }
+        ;
+    QTest::addRow("xm")
+        << "xm"
+        << KFileMetaData::PropertyMultiMap{
+            {Property::Channels, 32},
+            {Property::Title, QStringLiteral("Title Tag")},
+            {Property::Generator, QStringLiteral("OpenMPT 1.31.05.00")},
+            {Property::Comment, QStringLiteral()}
+            }
+        ;
 }
 
 QTEST_GUILESS_MAIN(TagLibExtractorTest)

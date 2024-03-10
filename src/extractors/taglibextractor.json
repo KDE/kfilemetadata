@@ -22,7 +22,10 @@
         "audio/x-speex+ogg"  : { "Version" : "0.0" },
         "audio/x-vorbis+ogg" : { "Version" : "0.0" },
         "audio/x-wav"        : { "Version" : "0.0" },
-        "audio/x-wavpack"    : { "Version" : "0.0" }
+        "audio/x-wavpack"    : { "Version" : "0.0" },
+        "audio/x-mod"        : { "Version" : "0.0" },
+        "audio/x-s3m"        : { "Version" : "0.0" },
+        "audio/x-xm"         : { "Version" : "0.0" },
+        "audio/x-it"         : { "Version" : "0.0" }
     }
 }
-
