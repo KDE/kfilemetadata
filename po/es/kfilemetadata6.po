@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2024-02-09 12:41+0100\n"
+"PO-Revision-Date: 2024-03-10 17:48+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -694,7 +694,7 @@ msgstr "ID de mensaje del correo electrónico del adjunto"
 #: src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "Vacío"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2024-02-18 16:20+0530\n"
+"PO-Revision-Date: 2024-03-10 10:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -99,13 +99,13 @@ msgstr ""
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, did not fire"
-msgstr ""
+msgstr "ஆம், ஆனால் செயல்படவில்லை"
 
 #: src/formatstrings.cpp:101
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory"
-msgstr ""
+msgstr "ஆம், கட்டாயம்"
 
 #: src/formatstrings.cpp:102
 #, kde-format
@@ -123,7 +123,7 @@ msgstr ""
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, compulsory"
-msgstr ""
+msgstr "இல்லை, காட்டாயம்"
 
 #: src/formatstrings.cpp:105
 #, kde-format
@@ -135,13 +135,13 @@ msgstr ""
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto"
-msgstr ""
+msgstr "இல்லை, தானியக்கம்"
 
 #: src/formatstrings.cpp:107
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto"
-msgstr ""
+msgstr "ஆம், தானியக்கம்"
 
 #: src/formatstrings.cpp:108
 #, kde-format
@@ -367,7 +367,7 @@ msgstr "நீளம்"
 #: src/propertyinfo.cpp:59
 msgctxt "@label"
 msgid "Frame Rate"
-msgstr ""
+msgstr "சட்டக விகிதம்"
 
 #: src/propertyinfo.cpp:60
 msgctxt "@label"
@@ -387,7 +387,7 @@ msgstr "உயரம்"
 #: src/propertyinfo.cpp:63
 msgctxt "@label EXIF"
 msgid "Image Date Time"
-msgstr ""
+msgstr "பட தேதி/நேரம்"
 
 #: src/propertyinfo.cpp:64
 msgctxt "@label EXIF"
@@ -437,7 +437,7 @@ msgstr ""
 #: src/propertyinfo.cpp:73
 msgctxt "@label EXIF"
 msgid "Original Date Time"
-msgstr ""
+msgstr "மூல தேதி/நேரம்"
 
 #: src/propertyinfo.cpp:74
 msgctxt "@label EXIF"
@@ -462,12 +462,12 @@ msgstr ""
 #: src/propertyinfo.cpp:78
 msgctxt "@label EXIF"
 msgid "Focal Length"
-msgstr ""
+msgstr "குவிய தூரம்"
 
 #: src/propertyinfo.cpp:79
 msgctxt "@label EXIF"
 msgid "Focal Length 35mm"
-msgstr ""
+msgstr "குவிய தூரம் 35மிமீ"
 
 #: src/propertyinfo.cpp:80
 msgctxt "@label EXIF"
@@ -487,7 +487,7 @@ msgstr "GPS உயரம்"
 #: src/propertyinfo.cpp:83
 msgctxt "@label EXIF"
 msgid "ISO Speed Rating"
-msgstr ""
+msgstr "ISO வேக மதிப்பு"
 
 #: src/propertyinfo.cpp:84
 msgctxt "@label EXIF"
@@ -692,7 +692,7 @@ msgstr "உடனிணைக்கப்பட்ட அஞ்சலின் �
 #: src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "காலியானது"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"
