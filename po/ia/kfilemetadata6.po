@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2024-02-13 16:32+0100\n"
+"PO-Revision-Date: 2024-03-11 11:58+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -695,7 +695,7 @@ msgstr "ID de message de attachamento de e-posta"
 #: src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "Vacue"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"
