@@ -27,11 +27,9 @@ private:
     QString testFilePath(const QString& fileName) const;
 
 private Q_SLOTS:
-    void testNoExtraction();
     void benchMarkPlainTextExtractor();
     void testPlainTextExtractor();
-    void testPlainTextExtractorNoPlainText();
-    void testPlainTextExtractorEmptyLines();
+    void testPlainTextExtractor_data();
 };
 
 IndexerExtractorTests::IndexerExtractorTests(QObject* parent) :
@@ -66,76 +64,55 @@ void IndexerExtractorTests::benchMarkPlainTextExtractor()
     }
 }
 
-void IndexerExtractorTests::testNoExtraction()
-{
-    PlainTextExtractor plugin{this};
-
-    SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"), ExtractionResult::ExtractNothing);
-    plugin.extract(&result);
-
-
-    QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().at(0), Type::Text);
-
-    QCOMPARE(result.properties().size(), 0);
-}
-
 void IndexerExtractorTests::testPlainTextExtractor()
 {
+    QFETCH(QString, fileName);
+    QFETCH(ExtractionResult::Flags, flags);
+    QFETCH(QString, content);
+    QFETCH(QVariant, lineCount);
+
     PlainTextExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"));
+    SimpleExtractionResult result(testFilePath(fileName), QStringLiteral("text/plain"), flags);
     plugin.extract(&result);
-
-    QString content;
-    QTextStream(&content) << "This is a text file\n"
-                          << "it is four lines long\n"
-                          << "it has 77 characters\n"
-                          << "and 17 words.\n";
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().at(0), Type::Text);
 
-    QCOMPARE(result.properties().size(), 1);
-    QCOMPARE(result.properties().value(Property::LineCount), QVariant(4));
+    if (lineCount.isValid()) {
+        QCOMPARE(result.properties().size(), 1);
+        QCOMPARE(result.properties().value(Property::LineCount), lineCount);
+    } else {
+        QCOMPARE(result.properties().size(), 0);
+    }
 
-    content.replace(QLatin1Char('\n'), QLatin1Char(' '));
     QCOMPARE(result.text(), content);
 }
 
-void IndexerExtractorTests::testPlainTextExtractorNoPlainText()
+void IndexerExtractorTests::testPlainTextExtractor_data()
 {
-    PlainTextExtractor plugin{this};
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<ExtractionResult::Flags>("flags");
+    QTest::addColumn<QString>("content");
+    QTest::addColumn<QVariant>("lineCount");
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("plain_text_file.txt")), QStringLiteral("text/plain"), ExtractionResult::ExtractMetaData);
-    plugin.extract(&result);
+    using ER = ExtractionResult;
 
-    QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().at(0), Type::Text);
+    const QString plainTextContent{"This is a text file "
+                                   "it is four lines long "
+                                   "it has 77 characters "
+                                   "and 17 words. "};
 
-    QCOMPARE(result.properties().size(), 0);
-    QCOMPARE(result.text().size(), 0);
-}
+    QTest::addRow("No extraction")     << QStringLiteral("plain_text_file.txt") << ER::Flags{ER::ExtractNothing}  << QString() << QVariant();
+    QTest::addRow("Metadata only")     << QStringLiteral("plain_text_file.txt") << ER::Flags{ER::ExtractMetaData} << QString() << QVariant();
+    QTest::addRow("Metadata and text") << QStringLiteral("plain_text_file.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << plainTextContent << QVariant(4);
 
-void IndexerExtractorTests::testPlainTextExtractorEmptyLines()
-{
-    PlainTextExtractor plugin{this};
+    const QString emptyLineContent{"This is a text file  It is ten lines long, "
+                                   "including three empty lines.  It has 152 "
+                                   "characters and 28 words.  The file ends "
+                                   "without a newline character. "};
 
-    SimpleExtractionResult result(testFilePath(QStringLiteral("test_plain_text_newlines.txt")), QStringLiteral("text/plain"));
-
-    plugin.extract(&result);
-
-    QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().at(0), Type::Text);
-
-    QCOMPARE(result.properties().size(), 1);
-    QCOMPARE(result.properties().value(Property::LineCount), QVariant(10));
-
-    const QString content{"This is a text file  It is ten lines long, "
-                          "including three empty lines.  It has 152 "
-                          "characters and 28 words.  The file ends "
-                          "without a newline character. "};
-    QCOMPARE(result.text(), content);
+    QTest::addRow("Count empty lines") << QStringLiteral("test_plain_text_newlines.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << emptyLineContent << QVariant(10);
 }
 
 QTEST_GUILESS_MAIN(IndexerExtractorTests)

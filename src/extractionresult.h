@@ -131,6 +131,9 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ExtractionResult::Flags)
 
-}
+} // namespace KFileMetaData
+
+Q_DECLARE_METATYPE(KFileMetaData::ExtractionResult::Flag)
+Q_DECLARE_METATYPE(KFileMetaData::ExtractionResult::Flags)
 
 #endif // _KFILEMETADATA_EXTRACTIONRESULT_H
