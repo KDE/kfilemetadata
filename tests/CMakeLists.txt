@@ -21,12 +21,12 @@ set_tests_properties(dump_fail PROPERTIES
     WILL_FAIL TRUE
 )
 
-add_test(NAME dump_meta COMMAND dump "${CMAKE_CURRENT_SOURCE_DIR}/../autotests/samplefiles/plain_text_file.txt")
+add_test(NAME dump_meta COMMAND dump "${CMAKE_CURRENT_SOURCE_DIR}/../autotests/samplefiles/test_plain_text_file.txt")
 set_tests_properties(dump_meta PROPERTIES
     PASS_REGULAR_EXPRESSION "PlaintextExtractor"
 )
 
-add_test(NAME dump_fulltext COMMAND dump "-f" "${CMAKE_CURRENT_SOURCE_DIR}/../autotests/samplefiles/plain_text_file.txt")
+add_test(NAME dump_fulltext COMMAND dump "-f" "${CMAKE_CURRENT_SOURCE_DIR}/../autotests/samplefiles/test_plain_text_file.txt")
 set_tests_properties(dump_fulltext PROPERTIES
     PASS_REGULAR_EXPRESSION "Text: This"
 )

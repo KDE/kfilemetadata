@@ -23,9 +23,8 @@ QString UserMetaDataWriterTest::testFilePath(const QString& fileName) const
 
 void UserMetaDataWriterTest::initTestCase()
 {
-    QFile testFile(testFilePath("plain_text_file.txt"));
     QFile writerTestFile(testFilePath(TEST_FILENAME));
-    QFile::copy(testFilePath("plain_text_file.txt"), testFilePath(TEST_FILENAME));
+    writerTestFile.open(QIODevice::WriteOnly | QIODevice::NewOnly);
 
     QFile::link(testFilePath("invalid_target"), testFilePath(TEST_SYMLINK));
 }

@@ -103,9 +103,9 @@ void IndexerExtractorTests::testPlainTextExtractor_data()
                                    "it has 77 characters "
                                    "and 17 words. "};
 
-    QTest::addRow("No extraction")     << QStringLiteral("plain_text_file.txt") << ER::Flags{ER::ExtractNothing}  << QString() << QVariant();
-    QTest::addRow("Metadata only")     << QStringLiteral("plain_text_file.txt") << ER::Flags{ER::ExtractMetaData} << QString() << QVariant();
-    QTest::addRow("Metadata and text") << QStringLiteral("plain_text_file.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << plainTextContent << QVariant(4);
+    QTest::addRow("No extraction")     << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractNothing}  << QString() << QVariant();
+    QTest::addRow("Metadata only")     << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractMetaData} << QString() << QVariant();
+    QTest::addRow("Metadata and text") << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << plainTextContent << QVariant(4);
 
     const QString emptyLineContent{"This is a text file  It is ten lines long, "
                                    "including three empty lines.  It has 152 "
