@@ -4,22 +4,34 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "popplerextractortest.h"
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/popplerextractor.h"
 #include "mimeutils.h"
 
+#include <QObject>
 #include <QTest>
 #include <QMimeDatabase>
 #include <QTimeZone>
 
 using namespace KFileMetaData;
 
-QString PopplerExtractorTest::testFilePath(const QString& fileName) const
+namespace {
+QString testFilePath(const QString& fileName)
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
+} // namespace
+
+class PopplerExtractorTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void testNoExtraction();
+    void test();
+    void testMetaDataOnly();
+};
 
 void PopplerExtractorTest::testNoExtraction()
 {
@@ -80,4 +92,4 @@ void PopplerExtractorTest::testMetaDataOnly()
 
 QTEST_GUILESS_MAIN(PopplerExtractorTest)
 
-#include "moc_popplerextractortest.cpp"
+#include "popplerextractortest.moc"
