@@ -10,6 +10,9 @@
 #include <QDebug>
 #include <QFile>
 #include <QStringDecoder>
+#include <QtMinMax>
+
+#include <KEncodingProber>
 
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
     #include <fcntl.h>
@@ -57,7 +60,37 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    QStringDecoder codec(QStringConverter::System);
+    auto autodetectCodec = [](QFile &file) -> QStringDecoder {
+        const qint64 BUFFER_SIZE = 256 * 1024;
+        const auto buffer = file.read(BUFFER_SIZE);
+        file.seek(0);
+
+        // First 16 bytes for detecting by BOM.
+        const QByteArrayView bufferForBom(buffer.begin(), qMin(16, buffer.size()));
+
+        // first: try to get encoding by BOM handling
+        // If BOM has been found, trust it
+        if (auto encoding = QStringConverter::encodingForData(bufferForBom)) {
+            return QStringDecoder(encoding.value());
+        }
+
+        // second: try to get encoding by KEncodingProber
+        KEncodingProber prober(KEncodingProber::Universal);
+        prober.feed(buffer.constData());
+
+        // we found codec with some confidence?
+        if (prober.confidence() > 0.5) {
+            auto proberDecoder = QStringDecoder(prober.encoding().constData());
+            // rare case, but if not valid, do not return proberDecoder
+            if (proberDecoder.isValid()) {
+                return proberDecoder;
+            }
+        }
+
+        return QStringDecoder{QStringConverter::System};
+    };
+
+    QStringDecoder codec = {autodetectCodec(file)};
 
     int lines = 0;
 
@@ -69,8 +102,18 @@ void PlainTextExtractor::extract(ExtractionResult* result)
             return;
         }
 
-        if (!text.isEmpty() && text.back() == QLatin1Char('\n')) {
+        // Newline '\n' can be first symbol in line in case UTF-16LE.
+        if (!text.isEmpty() && text.front() == QLatin1Char('\n')) {
+            text.removeFirst();
+        } else if (!text.isEmpty() && text.back() == QLatin1Char('\n')) {
             text.removeLast();
+        }
+
+        // This case is possible for Little-Endian encodings
+        // when '\00' part of the newline character
+        // is mistakenly read here as a separate line.
+        if (file.atEnd() && text.isEmpty()) {
+            break;
         }
 
         result->append(text);

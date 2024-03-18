@@ -37,6 +37,11 @@ private Q_SLOTS:
         m_knownFiles = {
             { "test_plain_text_newlines.txt",  "text/plain"},
             { "test_plain_text_file.txt",      "text/plain"},
+            { "test_plain_text_file_win1251.txt",        "text/plain"},
+            { "test_plain_text_file_GB18030.txt",        "text/plain"},
+            { "test_plain_text_file_euc-jp.txt",         "text/plain"},
+            { "test_plain_text_html_file_utf16.html",    "text/html"},
+            { "test_plain_text_html_file_win1251.html",  "text/html"},
             { "test.avi",                      "video/vnd.avi"},
             { "test.aif",                      "audio/x-aifc"},
             { "test.ape",                      "audio/x-ape"},

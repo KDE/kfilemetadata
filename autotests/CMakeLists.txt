@@ -35,7 +35,7 @@ ecm_add_test(
     indexerextractortests.cpp
     ../src/extractors/plaintextextractor.cpp
     TEST_NAME "indexextractortest"
-    LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${text_COMPAT_CODEC}
+    LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${text_COMPAT_CODEC} KF6::Codecs
 )
 
 #

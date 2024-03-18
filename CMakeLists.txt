@@ -62,6 +62,11 @@ set_package_properties(KF6Config PROPERTIES DESCRIPTION "KDE Frameworks: Config 
 
 find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS I18n)
 
+find_package(KF6 ${KF_DEP_VERSION} COMPONENTS Codecs)
+set_package_properties(KF6Codecs PROPERTIES DESCRIPTION "KDE Frameworks: KCodecs Framework"
+                       URL "https://download.kde.org/stable/frameworks/" TYPE REQUIRED
+                       PURPOSE "Needed for the autodetecting encoding of plain text files")
+
 find_package(Poppler 0.12.1 COMPONENTS Qt6)
 set_package_properties(Poppler PROPERTIES DESCRIPTION "A PDF rendering library"
                        URL "https://poppler.freedesktop.org/" TYPE OPTIONAL
