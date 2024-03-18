@@ -18,8 +18,6 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-#define EXTRACTOR_TIMEOUT_MS 30000
-
 namespace KFileMetaData
 {
 class ExternalExtractorPrivate
@@ -109,7 +107,7 @@ void ExternalExtractor::extract(ExtractionResult* result)
 
     extractorProcess.write(writeData.toJson());
     extractorProcess.closeWriteChannel();
-    extractorProcess.waitForFinished(EXTRACTOR_TIMEOUT_MS);
+    extractorProcess.waitForFinished();
 
     output = extractorProcess.readAll();
     errorOutput = extractorProcess.readAllStandardError();
