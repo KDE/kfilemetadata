@@ -355,5 +355,6 @@ using PropertyMultiMap = QMultiMap<Property::Property, QVariant>;
 } // namespace KFileMetaData
 
 Q_DECLARE_METATYPE(KFileMetaData::Property::Property)
+Q_DECLARE_METATYPE(KFileMetaData::PropertyMultiMap)
 
 #endif

@@ -28,66 +28,79 @@ class PopplerExtractorTest : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
-    void testNoExtraction();
-    void test();
-    void testMetaDataOnly();
+    void testMimeType();
+    void testMimeType_data();
+    void testExtraction();
+    void testExtraction_data();
 };
 
-void PopplerExtractorTest::testNoExtraction()
+void PopplerExtractorTest::testMimeType()
 {
+    QFETCH(QString, fileName);
+
+    QMimeDatabase mimeDb;
+    QString filePath = testFilePath(fileName);
+    QString mimeType = MimeUtils::strictMimeType(filePath, mimeDb).name();
+    QCOMPARE(mimeType, QStringLiteral("application/pdf"));
+
+    PopplerExtractor plugin{this};
+    QVERIFY(plugin.mimetypes().contains(QStringLiteral("application/pdf")));
+}
+
+void PopplerExtractorTest::testMimeType_data()
+{
+    QTest::addColumn<QString>("fileName");
+
+    QTest::addRow("Simple PDF") << QStringLiteral("test.pdf");
+}
+
+void PopplerExtractorTest::testExtraction()
+{
+    QFETCH(QString, fileName);
+    QFETCH(ExtractionResult::Flags, flags);
+    QFETCH(QString, content);
+    QFETCH(KFileMetaData::PropertyMultiMap, expectedProperties);
+
+
     PopplerExtractor plugin{this};
 
-    QString fileName = testFilePath(QStringLiteral("test.pdf"));
-    QMimeDatabase mimeDb;
-    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
-    QVERIFY(plugin.mimetypes().contains(mimeType));
-
-    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractNothing);
+    QString filePath = testFilePath(fileName);
+    SimpleExtractionResult result(filePath, QStringLiteral("application/pdf"), flags);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().constFirst(), Type::Document);
-    QCOMPARE(result.properties().size(), 0);
+
+    for (auto [property, value] : expectedProperties.asKeyValueRange()) {
+        QCOMPARE(result.properties().value(property), value);
+    }
+    QCOMPARE(result.properties().size(), expectedProperties.size());
+
+    QCOMPARE(result.text(), content);
 }
 
-void PopplerExtractorTest::test()
+void PopplerExtractorTest::testExtraction_data()
 {
-    PopplerExtractor plugin{this};
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<ExtractionResult::Flags>("flags");
+    QTest::addColumn<QString>("content");
+    QTest::addColumn<KFileMetaData::PropertyMultiMap>("expectedProperties");
 
-    QString fileName = testFilePath(QStringLiteral("test.pdf"));
-    QMimeDatabase mimeDb;
-    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
-    QVERIFY(plugin.mimetypes().contains(mimeType));
+    using ER = ExtractionResult;
 
-    SimpleExtractionResult result(fileName, mimeType);
-    plugin.extract(&result);
+    KFileMetaData::PropertyMultiMap simplePdfProperties{
+        {Property::Author, QStringLiteral("Happy Man")},
+        {Property::Title, QStringLiteral("The Big Brown Bear")},
+        {Property::Subject, QStringLiteral("PDF Metadata")},
+        {Property::Generator, QStringLiteral("LibreOffice 4.2")},
+        {Property::PageCount, 1},
+        {Property::CreationDate, QDateTime::fromString(QStringLiteral("2014-07-01T13:38:50+00"), Qt::ISODate)},
+    };
+    auto simplePdfContent = QStringLiteral("This is a sample PDF file for KFileMetaData. ");
 
-    QCOMPARE(result.types().size(), 1);
-    QCOMPARE(result.types().constFirst(), Type::Document);
-
-    QCOMPARE(result.text(), QStringLiteral("This is a sample PDF file for KFileMetaData. "));
-    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Happy Man")));
-    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
-    QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("PDF Metadata")));
-    QCOMPARE(result.properties().value(Property::Generator), QVariant(QStringLiteral("LibreOffice 4.2")));
-    QCOMPARE(result.properties().value(Property::PageCount), 1);
-    QDateTime dt(QDate(2014, 07, 01), QTime(13, 38, 50), QTimeZone::UTC);
-    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
-
-    QCOMPARE(result.properties().size(), 6);
-}
-
-void PopplerExtractorTest::testMetaDataOnly()
-{
-    PopplerExtractor plugin{this};
-
-    SimpleExtractionResult result(testFilePath("test.pdf"), "application/pdf", ExtractionResult::ExtractMetaData);
-    plugin.extract(&result);
-
-    QCOMPARE(result.types().size(), 1);
-    QVERIFY(result.text().isEmpty());
-    QCOMPARE(result.properties().size(), 6);
-
+    QTest::addRow("No extraction")     << QStringLiteral("test.pdf") << ER::Flags{ER::ExtractNothing}  << QString() << KFileMetaData::PropertyMultiMap{};
+    QTest::addRow("Metadata only")     << QStringLiteral("test.pdf") << ER::Flags{ER::ExtractMetaData} << QString() << simplePdfProperties;
+    QTest::addRow("Metadata and text") << QStringLiteral("test.pdf") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << simplePdfContent << simplePdfProperties;
 }
 
 QTEST_GUILESS_MAIN(PopplerExtractorTest)
