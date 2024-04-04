@@ -4,8 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include "xmlextractortest.h"
-
 #include <QTest>
 #include <QTemporaryFile>
 #include <QMimeDatabase>
@@ -16,6 +14,25 @@
 #include "mimeutils.h"
 
 using namespace KFileMetaData;
+
+class XmlExtractorTests : public QObject
+{
+    Q_OBJECT
+public:
+    explicit XmlExtractorTests(QObject* parent = nullptr);
+
+private:
+    QString testFilePath(const QString& fileName) const;
+
+private Q_SLOTS:
+    void testNoExtraction();
+    void benchMarkXmlExtractor();
+    void testXmlExtractor();
+    void testXmlExtractorSvgNoContent();
+    void testXmlExtractorSvgNoContentDcterms();
+    void testXmlExtractorSvgContainer();
+    void testXmlExtractorMathML();
+};
 
 XmlExtractorTests::XmlExtractorTests(QObject* parent) :
     QObject(parent)
@@ -106,7 +123,7 @@ void XmlExtractorTests::testXmlExtractor()
     QCOMPARE(result.text(), content);
 }
 
-void XmlExtractorTests::testXmlExtractorNoContent()
+void XmlExtractorTests::testXmlExtractorSvgNoContent()
 {
     XmlExtractor plugin{this};
 
@@ -124,7 +141,7 @@ void XmlExtractorTests::testXmlExtractorNoContent()
     QVERIFY(result.text().isEmpty());
 }
 
-void XmlExtractorTests::testXmlExtractorNoContentDcterms()
+void XmlExtractorTests::testXmlExtractorSvgNoContentDcterms()
 {
     XmlExtractor plugin{this};
 
@@ -152,7 +169,7 @@ void XmlExtractorTests::testXmlExtractorNoContentDcterms()
     QVERIFY(result.text().isEmpty());
 }
 
-void XmlExtractorTests::testXmlExtractorContainer()
+void XmlExtractorTests::testXmlExtractorSvgContainer()
 {
     XmlExtractor plugin{this};
 
@@ -195,4 +212,4 @@ void XmlExtractorTests::testXmlExtractorMathML()
 
 QTEST_GUILESS_MAIN(XmlExtractorTests)
 
-#include "moc_xmlextractortest.cpp"
+#include "xmlextractortest.moc"
