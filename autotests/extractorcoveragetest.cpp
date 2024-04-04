@@ -100,6 +100,7 @@ private Q_SLOTS:
             { "test_dcterms.svg",              "image/svg+xml"},
             { "test_with_container.svg",       "image/svg+xml"},
             { "test_with_metadata.svg",        "image/svg+xml"},
+            { "test_with_metadata.svgz",       "image/svg+xml-compressed"},
             { "test.wma",                      "audio/x-ms-wma"},
             { "test.wv",                       "audio/x-wavpack"},
             { "test_zero_gps.jpg",             "image/jpeg"},

@@ -214,6 +214,10 @@ ecm_add_test(
     TEST_NAME "xmlextractortest"
     LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData
 )
+if(KF6Archive_FOUND)
+    target_link_libraries(xmlextractortest KF6::Archive)
+    target_compile_definitions(xmlextractortest PRIVATE SVG_XML_COMPRESSED_SUPPORT=1)
+endif()
 
 #
 # Postscript DSC

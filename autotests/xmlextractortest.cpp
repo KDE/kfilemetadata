@@ -31,6 +31,7 @@ private Q_SLOTS:
     void testXmlExtractorSvgNoContent();
     void testXmlExtractorSvgNoContentDcterms();
     void testXmlExtractorSvgContainer();
+    void testXmlExtractorSvgCompressed();
     void testXmlExtractorMathML();
 };
 
@@ -187,6 +188,28 @@ void XmlExtractorTests::testXmlExtractorSvgContainer()
 
     content.replace(QLatin1Char('\n'), QLatin1Char(' '));
     QCOMPARE(result.text(), content);
+}
+
+void XmlExtractorTests::testXmlExtractorSvgCompressed()
+{
+    XmlExtractor plugin{this};
+
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_with_metadata.svgz")),
+            QStringLiteral("image/svg+xml-compressed"),
+            ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Image);
+
+#ifdef SVG_XML_COMPRESSED_SUPPORT
+    QCOMPARE(result.properties().size(), 1);
+    QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Document Title"));
+    QCOMPARE(result.text(), "Some text ");
+#else
+    QVERIFY(result.properties().isEmpty());
+    QVERIFY(result.text().isEmpty());
+#endif
 }
 
 void XmlExtractorTests::testXmlExtractorMathML()

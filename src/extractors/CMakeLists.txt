@@ -122,6 +122,7 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 #
 # XML
 #
+set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for extracting data from compressed SVGs")
 add_library(kfilemetadata_xmlextractor MODULE
    dublincoreextractor.cpp
    xmlextractor.cpp
@@ -132,6 +133,10 @@ target_link_libraries( kfilemetadata_xmlextractor
     Qt6::Core
     Qt6::Xml
 )
+if(KF6Archive_FOUND)
+    target_link_libraries(kfilemetadata_xmlextractor KF6::Archive)
+    target_compile_definitions(kfilemetadata_xmlextractor PRIVATE SVG_XML_COMPRESSED_SUPPORT=1)
+endif()
 
 set_target_properties(kfilemetadata_xmlextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
 install(

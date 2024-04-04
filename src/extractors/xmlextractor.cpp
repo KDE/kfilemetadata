@@ -13,6 +13,10 @@
 #include <QFile>
 #include <QXmlStreamReader>
 
+#ifdef SVG_XML_COMPRESSED_SUPPORT
+#include <KCompressionDevice>
+#endif
+
 namespace {
 
 //inline QString dcElementNS()     { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
@@ -41,6 +45,7 @@ void extractSvgText(KFileMetaData::ExtractionResult* result, const QDomElement &
 static const QStringList supportedMimeTypes = {
     QStringLiteral("application/xml"),
     QStringLiteral("image/svg+xml"),
+    QStringLiteral("image/svg+xml-compressed"),
     QStringLiteral("image/svg"),
 };
 
@@ -63,19 +68,39 @@ QStringList XmlExtractor::mimetypes() const
 void XmlExtractor::extract(ExtractionResult* result)
 {
     auto flags = result->inputFlags();
+
     QFile file(result->inputUrl());
     if (!file.open(QIODevice::ReadOnly)) {
         qCWarning(KFILEMETADATA_LOG) << "Document is not a valid file";
         return;
     }
 
+
     if ((result->inputMimetype() == QLatin1String("image/svg")) ||
+        (result->inputMimetype() == QLatin1String("image/svg+xml-compressed")) ||
         (result->inputMimetype() == QLatin1String("image/svg+xml"))) {
+
         result->addType(Type::Image);
+
+        QIODevice *ioDevice = &file;
+#ifdef SVG_XML_COMPRESSED_SUPPORT
+        std::unique_ptr<KCompressionDevice> gzReader;
+        if (result->inputMimetype() == QLatin1String("image/svg+xml-compressed")) {
+            gzReader.reset(new KCompressionDevice(&file, false, KCompressionDevice::CompressionType::GZip));
+            if (!gzReader->open(QIODevice::ReadOnly)) {
+                return;
+            }
+            ioDevice = gzReader.get();
+        }
+#else
+        if (result->inputMimetype() == QLatin1String("image/svg+xml-compressed")) {
+            return;
+        }
+#endif
 
         QDomDocument doc;
         const bool processNamespaces = true;
-        doc.setContent(&file, processNamespaces);
+        doc.setContent(ioDevice, processNamespaces);
         QDomElement svg = doc.firstChildElement();
 
         if (!svg.isNull()
