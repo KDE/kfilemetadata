@@ -4,13 +4,13 @@
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2014, 2015, 2017.
 # Jeff Huang <s8321414@gmail.com>, 2016, 2017, 2018.
 # pan93412 <pan93412@gmail.com>, 2018, 2019.
-# SPDX-FileCopyrightText: 2023 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:25+0000\n"
-"PO-Revision-Date: 2023-12-02 20:17+0900\n"
+"PO-Revision-Date: 2024-04-04 19:48+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.04.70\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -534,7 +534,7 @@ msgstr "發行者"
 #: src/propertyinfo.cpp:83
 msgctxt "@label"
 msgid "Label"
-msgstr "標籤"
+msgstr "唱片公司"
 
 #: src/propertyinfo.cpp:84
 msgctxt "@label"
@@ -594,7 +594,7 @@ msgstr "指揮者"
 #: src/propertyinfo.cpp:95
 msgctxt "@label"
 msgid "Compilation"
-msgstr "彙集"
+msgstr "合輯"
 
 #: src/propertyinfo.cpp:96
 msgctxt "@label"
@@ -624,17 +624,17 @@ msgstr "ReplayGain 專輯峰值"
 #: src/propertyinfo.cpp:101
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "ReplayGain 重播增益專輯增益"
+msgstr "ReplayGain 專輯增益"
 
 #: src/propertyinfo.cpp:102
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "ReplayGain 重播增益音軌峰值"
+msgstr "ReplayGain 音軌峰值"
 
 #: src/propertyinfo.cpp:103
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "ReplayGain 重播增益音軌增益"
+msgstr "ReplayGain 音軌增益"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
@@ -679,7 +679,7 @@ msgstr "樣本建立"
 #: src/propertyinfo.cpp:112
 msgctxt "@label the URL a file was originally downloaded from"
 msgid "Downloaded From"
-msgstr "下載來源："
+msgstr "下載來源"
 
 #: src/propertyinfo.cpp:113
 msgctxt "@label the subject of an email this file was attached to"
@@ -700,7 +700,7 @@ msgstr "電子郵件附件訊息 ID"
 #, kde-format
 msgctxt "@label"
 msgid "Archive"
-msgstr "歸檔"
+msgstr "封存檔"
 
 #: src/typeinfo.cpp:39
 #, kde-format
