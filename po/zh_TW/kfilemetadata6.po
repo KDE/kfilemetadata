@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2024-03-12 02:06+0900\n"
+"PO-Revision-Date: 2024-04-04 19:46+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -530,7 +530,7 @@ msgstr "發行者"
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
 msgid "Label"
-msgstr "標籤"
+msgstr "唱片公司"
 
 #: src/propertyinfo.cpp:92
 msgctxt "@label"
@@ -590,7 +590,7 @@ msgstr "指揮者"
 #: src/propertyinfo.cpp:103
 msgctxt "@label"
 msgid "Compilation"
-msgstr "彙集"
+msgstr "合輯"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
@@ -675,7 +675,7 @@ msgstr "樣本建立"
 #: src/propertyinfo.cpp:120
 msgctxt "@label the URL a file was originally downloaded from"
 msgid "Downloaded From"
-msgstr "下載來源："
+msgstr "下載來源"
 
 #: src/propertyinfo.cpp:121
 msgctxt "@label the subject of an email this file was attached to"
