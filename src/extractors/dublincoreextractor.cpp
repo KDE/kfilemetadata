@@ -21,30 +21,34 @@ namespace KFileMetaData
 
 void DublinCoreExtractor::extract(ExtractionResult* result, const QDomNode& fragment)
 {
-    QDomElement e = fragment.firstChildElement();
 
-    while (!e.isNull()) {
-        const QString namespaceURI = e.namespaceURI();
-        const QString localName = e.localName();
-
+    for (auto e = fragment.firstChildElement(); !e.isNull(); e = e.nextSiblingElement()) {
         // Dublin Core
         // According to http://dublincore.org/documents/dces/, the
         // properties should be treated the same regardless if
         // used in the legacy DCES or DCMI-TERMS variant
-        if (namespaceURI == dcNS() || namespaceURI == dctermsNS()) {
-            if (localName == QLatin1String("description")) {
-                result->add(Property::Description, e.text());
-            } else if (localName == QLatin1String("subject")) {
-                result->add(Property::Subject, e.text());
-            } else if (localName == QLatin1String("title")) {
-                result->add(Property::Title, e.text());
-            } else if (localName == QLatin1String("creator")) {
-                result->add(Property::Author, e.text());
-            } else if (localName == QLatin1String("language")) {
-                result->add(Property::Language, e.text());
-            }
+
+        const QString namespaceURI = e.namespaceURI();
+        if (namespaceURI != dcNS() && namespaceURI != dctermsNS()) {
+            continue;
         }
-        e = e.nextSiblingElement();
+
+        if (e.text().isEmpty()) {
+            continue;
+        }
+
+        const QString localName = e.localName();
+        if (localName == QLatin1String("description")) {
+            result->add(Property::Description, e.text());
+        } else if (localName == QLatin1String("subject")) {
+            result->add(Property::Subject, e.text());
+        } else if (localName == QLatin1String("title")) {
+            result->add(Property::Title, e.text());
+        } else if (localName == QLatin1String("creator")) {
+            result->add(Property::Author, e.text());
+        } else if (localName == QLatin1String("language")) {
+            result->add(Property::Language, e.text());
+        }
     }
 }
 
