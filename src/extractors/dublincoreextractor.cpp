@@ -9,6 +9,8 @@
 #include "dublincoreextractor.h"
 #include "extractionresult.h"
 
+#include "datetimeparser_p.h"
+
 namespace {
 
 inline QString dcNS()      { return QStringLiteral("http://purl.org/dc/elements/1.1/"); }
@@ -46,6 +48,9 @@ void DublinCoreExtractor::extract(ExtractionResult* result, const QDomNode& frag
             result->add(Property::Title, e.text());
         } else if (localName == QLatin1String("creator")) {
             result->add(Property::Author, e.text());
+        } else if (localName == QLatin1String("created")) {
+            QDateTime dt = Parser::dateTimeFromString(e.text());
+            result->add(Property::CreationDate, dt);
         } else if (localName == QLatin1String("language")) {
             result->add(Property::Language, e.text());
         }
