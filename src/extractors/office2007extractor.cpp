@@ -6,6 +6,8 @@
 
 
 #include "office2007extractor.h"
+
+#include "dublincoreextractor.h"
 #include <memory>
 
 #include <KZip>
@@ -15,6 +17,10 @@
 #include <QXmlStreamReader>
 
 using namespace KFileMetaData;
+
+namespace {
+inline QString cpNS()     { return QStringLiteral("http://schemas.openxmlformats.org/package/2006/metadata/core-properties"); }
+} // namespace
 
 Office2007Extractor::Office2007Extractor(QObject* parent)
     : ExtractorPlugin(parent)
@@ -71,61 +77,16 @@ void Office2007Extractor::extract(ExtractionResult* result)
     const KArchiveFile* file = docPropDirectory->file(QStringLiteral("core.xml"));
     if (extractMetaData && file) {
         QDomDocument coreDoc(QStringLiteral("core"));
-        coreDoc.setContent(file->data());
+        coreDoc.setContent(file->data(), true);
 
-        QDomElement docElem = coreDoc.documentElement();
+        QDomElement cpElem = coreDoc.documentElement();
 
-        QDomElement elem = docElem.firstChildElement(QStringLiteral("dc:description"));
-        if (!elem.isNull()) {
-            QString str = elem.text();
-            if (!str.isEmpty()) {
-                result->add(Property::Description, str);
-            }
+        if (!cpElem.isNull() && cpElem.namespaceURI() == cpNS()) {
+            DublinCoreExtractor::extract(result, cpElem);
         }
 
-        elem = docElem.firstChildElement(QStringLiteral("dc:subject"));
-        if (!elem.isNull()) {
-            QString str = elem.text();
-            if (!str.isEmpty()) {
-                result->add(Property::Subject, str);
-            }
-        }
-
-        elem = docElem.firstChildElement(QStringLiteral("dc:title"));
-        if (!elem.isNull()) {
-            QString str = elem.text();
-            if (!str.isEmpty()) {
-                result->add(Property::Title, str);
-            }
-        }
-
-        elem = docElem.firstChildElement(QStringLiteral("dc:creator"));
-        if (!elem.isNull()) {
-            QString str = elem.text();
-            if (!str.isEmpty()) {
-                result->add(Property::Author, str);
-            }
-        }
-
-        elem = docElem.firstChildElement(QStringLiteral("dc:language"));
-        if (!elem.isNull()) {
-            QString str = elem.text();
-            if (!str.isEmpty()) {
-                result->add(Property::Language, str);
-            }
-        }
-
-        elem = docElem.firstChildElement(QStringLiteral("dcterms:created"));
-        if (!elem.isNull()) {
-            QString str = elem.text();
-            QDateTime dt = dateTimeFromString(str);
-            if (!dt.isNull()) {
-                result->add(Property::CreationDate, dt);
-            }
-        }
-
-        elem = docElem.firstChildElement(QStringLiteral("cp:keywords"));
-        if (!elem.isNull()) {
+        auto elem = cpElem.firstChildElement(QStringLiteral("keywords"));
+        if (!elem.isNull() && elem.namespaceURI() == cpNS()) {
             QString str = elem.text();
             if (!str.isEmpty()) {
                 result->add(Property::Keywords, str);

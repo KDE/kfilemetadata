@@ -51,6 +51,7 @@ endif()
 if(KF6Archive_FOUND)
     ecm_add_test(office2007extractortest.cpp
         ../src/extractors/office2007extractor.cpp
+        ../src/extractors/dublincoreextractor.cpp
         ../src/kfilemetadata_debug.cpp
         TEST_NAME "officeextractortest"
         LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData KF6::Archive

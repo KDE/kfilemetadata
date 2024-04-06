@@ -184,6 +184,7 @@ set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for Office 2007
 if(KF6Archive_FOUND)
     add_library(kfilemetadata_office2007extractor MODULE
         office2007extractor.cpp
+        dublincoreextractor.cpp
         ${debug_SRCS}
     )
 
