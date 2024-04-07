@@ -5,7 +5,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "taglibwritertest.h"
 #include "indexerextractortestsconfig.h"
 #include "writers/taglibwriter.h"
 #include "writedata.h"
@@ -13,28 +12,48 @@
 #include <kfilemetadata/Extractor>
 #include <kfilemetadata/ExtractionResult>
 #include <kfilemetadata/SimpleExtractionResult>
-#include "taglib.h"
-#include "fileref.h"
 
 #include <QTest>
 #include <QFile>
 #include <QMap>
 
+class TagLibWriterTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void initTestCase();
+    void testCommonData();
+    void testCommonData_data();
+    void testExtendedData();
+    void testExtendedData_data();
+    void testRating();
+    void testRating_data();
+    void testComplexContactData();
+    void testComplexContactData_data();
+    void testImageWrite();
+    void testImageWrite_data();
+    void testImageDelete();
+    void testImageDelete_data();
+    void testImageDeleteInsert();
+    void testImageDeleteInsert_data();
+    void testMultiImage();
+    void testMultiImage_data();
+
+private:
+    QByteArray m_coverImage;
+};
+
 using namespace KFileMetaData;
 
-QString TagLibWriterTest::testFilePath(const QString& fileName) const
+namespace
+{
+QString testFilePath(const QString &fileName)
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
 
-void TagLibWriterTest::initTestCase()
-{
-    QFile imgFile(testFilePath("cover.jpg"));
-    imgFile.open(QIODevice::ReadOnly);
-    m_coverImage = imgFile.readAll();
-}
-
-void TagLibWriterTest::extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result)
+void extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result)
 {
     KFileMetaData::ExtractorCollection extractors;
     QList<KFileMetaData::Extractor*> extractorList = extractors.fetchExtractors(mimeType);
@@ -46,6 +65,14 @@ void TagLibWriterTest::extractResult(const QString &mimeType, KFileMetaData::Ext
     }
     KFileMetaData::Extractor* ex = extractorList.first();
     ex->extract(&result);
+}
+} // <anonymous> namespace
+
+void TagLibWriterTest::initTestCase()
+{
+    QFile imgFile(testFilePath("cover.jpg"));
+    imgFile.open(QIODevice::ReadOnly);
+    m_coverImage = imgFile.readAll();
 }
 
 void TagLibWriterTest::testCommonData()
@@ -848,4 +875,4 @@ void TagLibWriterTest::testMultiImage_data()
 
 QTEST_GUILESS_MAIN(TagLibWriterTest)
 
-#include "moc_taglibwritertest.cpp"
+#include "taglibwritertest.moc"
