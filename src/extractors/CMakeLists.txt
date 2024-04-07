@@ -182,7 +182,10 @@ endif()
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for Office 2007 extractor")
 if(KF6Archive_FOUND)
-    add_library(kfilemetadata_office2007extractor MODULE office2007extractor.cpp)
+    add_library(kfilemetadata_office2007extractor MODULE
+        office2007extractor.cpp
+        ${debug_SRCS}
+    )
 
     target_link_libraries(kfilemetadata_office2007extractor
         KF6::FileMetaData
