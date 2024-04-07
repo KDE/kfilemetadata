@@ -156,13 +156,13 @@ void TagLibWriterTest::testCommonData_data()
 
     QTest::addRow("mp3")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << QString()
         ;
 
     QTest::addRow("mp3_unicode")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << unicodeTestStringSuffix
         ;
 
@@ -192,13 +192,13 @@ void TagLibWriterTest::testCommonData_data()
 
     QTest::addRow("opus")
         << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
+        << QStringLiteral("audio/x-opus+ogg")
         << QString()
         ;
 
     QTest::addRow("opus_unicode")
         << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
+        << QStringLiteral("audio/x-opus+ogg")
         << unicodeTestStringSuffix
         ;
 
@@ -305,7 +305,7 @@ void TagLibWriterTest::testExtendedData_data()
 
     QTest::addRow("mp3")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         ;
 
     QTest::addRow("mpc")
@@ -320,7 +320,7 @@ void TagLibWriterTest::testExtendedData_data()
 
     QTest::addRow("opus")
         << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
+        << QStringLiteral("audio/x-opus+ogg")
         ;
 
     QTest::addRow("speex")
@@ -397,67 +397,67 @@ void TagLibWriterTest::testRating_data()
 
     QTest::addRow("mp3_0")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 0
         ;
 
     QTest::addRow("mp3_1")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 1
         ;
 
     QTest::addRow("mp3_2")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 2
         ;
 
     QTest::addRow("mp3_3")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 3
         ;
 
     QTest::addRow("mp3_4")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 4
         ;
 
     QTest::addRow("mp3_5")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 5
         ;
 
     QTest::addRow("mp3_6")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 6
         ;
 
     QTest::addRow("mp3_7")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 7
         ;
 
     QTest::addRow("mp3_8")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 8
         ;
 
     QTest::addRow("mp3_9")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 9
         ;
 
     QTest::addRow("mp3_10")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         << 10
         ;
 
@@ -469,7 +469,7 @@ void TagLibWriterTest::testRating_data()
 
     QTest::addRow("opus")
         << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
+        << QStringLiteral("audio/x-opus+ogg")
         << 6
         ;
 
@@ -593,7 +593,7 @@ void TagLibWriterTest::testComplexContactData_data()
 
     QTest::addRow("mp3")
         << QStringLiteral("mp3")
-        << QStringLiteral("audio/mpeg3")
+        << QStringLiteral("audio/mpeg")
         ;
 
     QTest::addRow("mpc")
@@ -608,7 +608,7 @@ void TagLibWriterTest::testComplexContactData_data()
 
     QTest::addRow("opus")
         << QStringLiteral("opus")
-        << QStringLiteral("audio/opus")
+        << QStringLiteral("audio/x-opus+ogg")
         ;
 
     QTest::addRow("speex")
@@ -669,7 +669,7 @@ void TagLibWriterTest::testImageWrite_data()
 
     QTest::addRow("opus")
             << QStringLiteral("test.opus")
-            << QStringLiteral("audio/opus")
+            << QStringLiteral("audio/x-opus+ogg")
             ;
 
     QTest::addRow("ogg")
@@ -684,7 +684,7 @@ void TagLibWriterTest::testImageWrite_data()
 
     QTest::addRow("mp3")
             << QStringLiteral("test.mp3")
-            << QStringLiteral("audio/mpeg3")
+            << QStringLiteral("audio/mpeg")
             ;
 
     QTest::addRow("m4a")
@@ -841,7 +841,7 @@ void TagLibWriterTest::testMultiImage_data()
 
     using Image = EmbeddedImageData::ImageType;
     QTest::addRow("aiff") << QStringLiteral("test.aif") << QStringLiteral("audio/x-aiff") << ImageTypes{ Image::Other, Image::Artist };
-    QTest::addRow("opus") << QStringLiteral("test.opus") << QStringLiteral("audio/opus") << ImageTypes{ Image::Other, Image::BackCover };
+    QTest::addRow("opus") << QStringLiteral("test.opus") << QStringLiteral("audio/x-opus+ogg") << ImageTypes{ Image::Other, Image::BackCover };
     QTest::addRow("flac") << QStringLiteral("test.flac") << QStringLiteral("audio/flac") << ImageTypes{ Image::Other, Image::Composer };
     QTest::addRow("wma")  << QStringLiteral("test.wma") << QStringLiteral("audio/x-ms-wma") << ImageTypes{ Image::Other, Image::Band };
 }

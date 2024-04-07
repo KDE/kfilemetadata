@@ -41,15 +41,12 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/flac"),
     QStringLiteral("audio/mp4"),
     QStringLiteral("audio/mpeg"),
-    QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
-    QStringLiteral("audio/opus"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/vnd.wave"),
     QStringLiteral("audio/x-aiff"),
     QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
-    QStringLiteral("audio/x-mpeg"),
     QStringLiteral("audio/x-ms-wma"),
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
@@ -522,8 +519,7 @@ void TagLibWriter::write(const WriteData& data)
         return;
     }
 
-    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3")
-            || mimeType == QLatin1String("audio/x-mpeg")) {
+    if (mimeType == QLatin1String("audio/mpeg")) {
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), false);
         if (file.isValid()) {
             auto savedProperties = file.properties();
@@ -632,7 +628,7 @@ void TagLibWriter::write(const WriteData& data)
             writeFlacCover(file.tag(), data.imageData());
             file.save();
         }
-    } else if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
+    } else if (mimeType == QLatin1String("audio/x-opus+ogg")) {
         TagLib::Ogg::Opus::File file(&stream, false);
         if (file.isValid()) {
             auto savedProperties = file.properties();

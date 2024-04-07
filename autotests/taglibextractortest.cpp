@@ -92,7 +92,7 @@ void TagLibExtractorTest::testNoExtraction()
 {
     TagLibExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.opus"), QStringLiteral("audio/opus"), ExtractionResult::ExtractNothing);
+    SimpleExtractionResult result(testFilePath("test.opus"), QStringLiteral("audio/x-opus+ogg"), ExtractionResult::ExtractNothing);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -104,7 +104,7 @@ void TagLibExtractorTest::testPropertyTypes()
 {
     TagLibExtractor plugin{this};
 
-    SimpleExtractionResult resultOpus(testFilePath("test.opus"), "audio/opus");
+    SimpleExtractionResult resultOpus(testFilePath("test.opus"), "audio/x-opus+ogg");
     plugin.extract(&resultOpus);
 
     auto testForType = [](SimpleExtractionResult &result, Property::Property prop) {
@@ -642,7 +642,7 @@ void TagLibExtractorTest::testNoMetadata_data()
 
     QTest::addRow("opus")
             << QFINDTESTDATA("samplefiles/no-meta/test.opus")
-            << QStringLiteral("audio/opus")
+            << QStringLiteral("audio/x-opus+ogg")
             << expectedKeys << QString()
                ;
 

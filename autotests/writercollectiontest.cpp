@@ -24,7 +24,7 @@ private Q_SLOTS:
         QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
         WriterCollection collection;
         QVERIFY(collection.fetchWriters(QStringLiteral("unknown/mimetype")).isEmpty());
-        QVERIFY(!collection.fetchWriters(QStringLiteral("audio/mpeg3")).isEmpty());
+        QVERIFY(!collection.fetchWriters(QStringLiteral("audio/mpeg")).isEmpty());
     }
 
 };

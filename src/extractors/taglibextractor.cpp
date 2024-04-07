@@ -49,9 +49,7 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/flac"),
     QStringLiteral("audio/mp4"),
     QStringLiteral("audio/mpeg"),
-    QStringLiteral("audio/mpeg3"),
     QStringLiteral("audio/ogg"),
-    QStringLiteral("audio/opus"),
     QStringLiteral("audio/wav"),
     QStringLiteral("audio/vnd.audible.aax"),
     QStringLiteral("audio/vnd.wave"),
@@ -59,7 +57,6 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("audio/x-aifc"),
     QStringLiteral("audio/x-ape"),
     QStringLiteral("audio/x-flac+ogg"),
-    QStringLiteral("audio/x-mpeg"),
     QStringLiteral("audio/x-ms-wma"),
     QStringLiteral("audio/x-musepack"),
     QStringLiteral("audio/x-opus+ogg"),
@@ -566,8 +563,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
         result->inputFlags() & ExtractionResult::ExtractImageData ? EmbeddedImageData::AllImages : 0
     };
 
-    if (mimeType == QLatin1String("audio/mpeg") || mimeType == QLatin1String("audio/mpeg3")
-            || mimeType == QLatin1String("audio/x-mpeg")) {
+    if (mimeType == QLatin1String("audio/mpeg")) {
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);
@@ -660,7 +656,7 @@ void TagLibExtractor::extract(ExtractionResult* result)
                 result->addImageData(extractFlacCover(file.tag()->pictureList(), imageTypes));
             }
         }
-    } else if (mimeType == QLatin1String("audio/opus") || mimeType == QLatin1String("audio/x-opus+ogg")) {
+    } else if (mimeType == QLatin1String("audio/x-opus+ogg")) {
         TagLib::Ogg::Opus::File file(&stream, true);
         if (file.isValid()) {
             extractAudioProperties(&file, result);
