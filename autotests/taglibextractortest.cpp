@@ -467,6 +467,7 @@ void TagLibExtractorTest::testAax_data()
     QTest::addColumn<QString>("fileType");
 
     QTest::addRow("aax")  << QStringLiteral("aax");
+    QTest::addRow("aaxc") << QStringLiteral("aaxc");
 }
 
 void TagLibExtractorTest::testAsf()

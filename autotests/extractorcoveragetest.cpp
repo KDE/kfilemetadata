@@ -67,6 +67,7 @@ private Q_SLOTS:
             { "test.mp3",                      "audio/mpeg"},
             { "test.id3v1.mp3",                "audio/mpeg"},
             { "test.aax",                      "audio/vnd.audible.aax"},
+            { "test.aaxc",                     "audio/vnd.audible.aaxc"},
             { "test.mpc",                      "audio/x-musepack"},
             { "test_no_gps.jpg",               "image/jpeg"},
             { "test.odg",                      "application/vnd.oasis.opendocument.graphics"},
