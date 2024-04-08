@@ -447,7 +447,7 @@ void TagLibExtractorTest::testAax()
 {
     QFETCH(QString, fileType);
 
-    QString fileName = testFilePath(QStringLiteral("nocoverage_test.") + fileType);
+    QString fileName = testFilePath(QStringLiteral("test.") + fileType);
     QString mimeType = QStringLiteral("audio/vnd.audible.aax");
 
     TagLibExtractor plugin{this};
@@ -466,9 +466,7 @@ void TagLibExtractorTest::testAax_data()
 {
     QTest::addColumn<QString>("fileType");
 
-    QTest::addRow("aax")
-        << QStringLiteral("aax")
-        ;
+    QTest::addRow("aax")  << QStringLiteral("aax");
 }
 
 void TagLibExtractorTest::testAsf()
