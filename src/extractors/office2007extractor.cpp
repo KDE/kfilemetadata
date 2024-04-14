@@ -19,7 +19,14 @@
 using namespace KFileMetaData;
 
 namespace {
-inline QString cpNS()     { return QStringLiteral("http://schemas.openxmlformats.org/package/2006/metadata/core-properties"); }
+inline QString cpNS()       { return QStringLiteral("http://schemas.openxmlformats.org/package/2006/metadata/core-properties"); }
+inline QString relNS()      { return QStringLiteral("http://schemas.openxmlformats.org/package/2006/relationships"); }
+inline QString extPropNST() { return QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"); }
+inline QString extPropNSS() { return QStringLiteral("http://purl.oclc.org/ooxml/officeDocument/extendedProperties"); }
+
+inline QString coreProp()   { return QStringLiteral("http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties"); }
+inline QString extPropT()   { return QStringLiteral("http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties"); }
+inline QString extPropS()   { return QStringLiteral("http://purl.oclc.org/ooxml/officeDocument/relationships/extendedProperties"); }
 } // namespace
 
 Office2007Extractor::Office2007Extractor(QObject* parent)
@@ -58,26 +65,41 @@ void Office2007Extractor::extract(ExtractionResult* result)
         return;
     }
 
-    const QStringList rootEntries = rootDir->entries();
-    if (!rootEntries.contains(QStringLiteral("docProps"))) {
-        qWarning() << "Invalid document structure (docProps is missing)";
-        return;
-    }
-
-    const KArchiveEntry* docPropEntry = rootDir->entry(QStringLiteral("docProps"));
-    if (!docPropEntry->isDirectory()) {
-        qWarning() << "Invalid document structure (docProps is not a directory)";
-        return;
-    }
-
-    const KArchiveDirectory* docPropDirectory = dynamic_cast<const KArchiveDirectory*>(docPropEntry);
-
     const bool extractMetaData = result->inputFlags() & ExtractionResult::ExtractMetaData;
 
-    const KArchiveFile* file = docPropDirectory->file(QStringLiteral("core.xml"));
-    if (extractMetaData && file) {
+    // Resolve part relationships according to ECMA-376-2 (Open Packaging Conventions, OPC)
+    const QDomElement relationsElem = [rootDir]() {
+        const KArchiveFile *baseRels = rootDir->file(QStringLiteral("_rels/.rels"));
+        if (!baseRels) {
+            qCWarning(KFILEMETADATA_LOG) << "Invalid document structure - missing package relationship";
+            return QDomElement{};
+        }
+
+        QDomDocument relationsDoc;
+        relationsDoc.setContent(baseRels->data(), QDomDocument::ParseOption::UseNamespaceProcessing);
+
+        auto relations = relationsDoc.firstChildElement(QStringLiteral("Relationships"));
+        if (relations.isNull()) {
+            qCWarning(KFILEMETADATA_LOG) << "Invalid document structure - invalid package relationships";
+        }
+        return relations;
+    }();
+
+    auto targetByType = [&relationsElem](const QString &type, const QString &defVal = {}) -> QString {
+        for (auto rel = relationsElem.firstChildElement(); !rel.isNull(); rel = rel.nextSiblingElement()) {
+            if (rel.namespaceURI() == relNS() && rel.localName() == QStringLiteral("Relationship")
+                && rel.attribute(QStringLiteral("Type")) == type) {
+                return rel.attribute(QStringLiteral("Target"));
+            }
+        }
+        return defVal;
+    };
+
+    // Core Properties
+    const QString corePropertiesFile = targetByType(coreProp(), QStringLiteral("docProps/core.xml"));
+    if (const KArchiveFile *file = extractMetaData ? rootDir->file(corePropertiesFile) : nullptr; file) {
         QDomDocument coreDoc(QStringLiteral("core"));
-        coreDoc.setContent(file->data(), true);
+        coreDoc.setContent(file->data(), QDomDocument::ParseOption::UseNamespaceProcessing);
 
         QDomElement cpElem = coreDoc.documentElement();
 
@@ -94,48 +116,39 @@ void Office2007Extractor::extract(ExtractionResult* result)
         }
     }
 
-    file = docPropDirectory->file(QStringLiteral("app.xml"));
-    if (extractMetaData && file) {
-        QDomDocument appDoc(QStringLiteral("app"));
-        appDoc.setContent(file->data());
+    // Extended Properties - two valid relation types: "strict" (ECMA-376-1:2016) or "transitional" (ECMA-367-4:2016)
+    const QString extPropertiesFile = targetByType(extPropS(), targetByType(extPropT(), QStringLiteral("docProps/app.xml")));
+    if (const KArchiveFile *file = extractMetaData ? rootDir->file(extPropertiesFile) : nullptr; file) {
+        QDomDocument appDoc;
+        appDoc.setContent(file->data(), QDomDocument::ParseOption::UseNamespaceProcessing);
 
-        QDomElement docElem = appDoc.documentElement();
+        QDomElement propsElem = appDoc.documentElement();
 
-        const QString mimeType = result->inputMimetype();
-        if (mimeType == QLatin1String("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
-            QDomElement elem = docElem.firstChildElement(QStringLiteral("Pages"));
-            if (!elem.isNull()) {
-                bool ok = false;
-                int pageCount = elem.text().toInt(&ok);
-                if (ok) {
-                    result->add(Property::PageCount, pageCount);
+        for (auto prop = propsElem.firstChildElement(); !prop.isNull(); prop = prop.nextSiblingElement()) {
+            // Look for properties as specified in ECMA-376-1, Annex A.6.2 Extended Properties
+            bool ok;
+            if (prop.localName() == QStringLiteral("Pages")) {
+                if (int count = prop.text().toInt(&ok); ok == true) {
+                    result->add(Property::PageCount, count);
                 }
-            }
-
-            elem = docElem.firstChildElement(QStringLiteral("Words"));
-            if (!elem.isNull()) {
-                bool ok = false;
-                int wordCount = elem.text().toInt(&ok);
-                if (ok) {
-                    result->add(Property::WordCount, wordCount);
+            } else if (prop.localName() == QStringLiteral("Slides")) {
+                if (int count = prop.text().toInt(&ok); ok == true) {
+                    // Map number of slides to PageCount
+                    result->add(Property::PageCount, count);
                 }
-            }
-
-            elem = docElem.firstChildElement(QStringLiteral("Lines"));
-            if (!elem.isNull()) {
-                bool ok = false;
-                int lineCount = elem.text().toInt(&ok);
-                if (ok) {
-                    result->add(Property::LineCount, lineCount);
+            } else if (prop.localName() == QStringLiteral("Words")) {
+                if (int count = prop.text().toInt(&ok); ok == true) {
+                    result->add(Property::WordCount, count);
                 }
-            }
-        }
-
-        QDomElement elem = docElem.firstChildElement(QStringLiteral("Application"));
-        if (!elem.isNull()) {
-            QString app = elem.text();
-            if (!app.isEmpty()) {
-                result->add(Property::Generator, app);
+            } else if (prop.localName() == QStringLiteral("Lines")) {
+                if (int count = prop.text().toInt(&ok); ok == true) {
+                    result->add(Property::LineCount, count);
+                }
+            } else if (prop.localName() == QStringLiteral("Application")) {
+                QString application = prop.text();
+                if (!application.isEmpty()) {
+                    result->add(Property::Generator, application);
+                }
             }
         }
     }

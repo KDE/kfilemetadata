@@ -26,7 +26,9 @@ private Q_SLOTS:
     void testNoExtraction();
     void testNoExtraction_pptx();
     void testNoExtraction_xlsx();
-    void test();
+    void test_docx_lo();
+    void test_docx_word();
+    void test_docx_word_strict();
     void test_pptx();
     void test_xlsx();
     void testMetaDataOnly();
@@ -90,7 +92,7 @@ void Office2007ExtractorTest::testNoExtraction_xlsx()
     QCOMPARE(result.properties().size(), 0);
 }
 
-void Office2007ExtractorTest::test()
+void Office2007ExtractorTest::test_docx_lo()
 {
     Office2007Extractor plugin{this};
 
@@ -120,6 +122,59 @@ void Office2007ExtractorTest::test()
 
     QCOMPARE(result.properties().size(), 10);
     QCOMPARE(result.text(), QStringLiteral("Test file for KFileMetaData. "));
+}
+
+void Office2007ExtractorTest::test_docx_word()
+{
+    Office2007Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test_word.docx"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Document);
+
+    QCOMPARE(result.properties().value(Property::Generator), QStringLiteral("Microsoft Word for the web"));
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Creator Name")));
+    QCOMPARE(result.properties().value(Property::CreationDate), QDateTime::fromString(QStringLiteral("2024-04-15T18:12:00+00"), Qt::ISODate));
+
+    QCOMPARE(result.properties().size(), 3);
+    QCOMPARE(result.text(), QStringLiteral("Testing This is a test document. First bullet point Second bullet point "));
+}
+
+void Office2007ExtractorTest::test_docx_word_strict()
+{
+    Office2007Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test_word_strict.docx"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().at(0), Type::Document);
+
+    QCOMPARE(result.properties().value(Property::Generator), QStringLiteral("Microsoft Office Word"));
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("KFileMetaData Author")));
+    QCOMPARE(result.properties().value(Property::CreationDate), QDateTime::fromString(QStringLiteral("2024-02-19T23:18:00+00"), Qt::ISODate));
+    QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("KFileMetaData Subject")));
+    QCOMPARE(result.properties().value(Property::Title), QStringLiteral("KFileMetaData Title"));
+    QCOMPARE(result.properties().value(Property::LineCount), 4);
+    QCOMPARE(result.properties().value(Property::WordCount), 14);
+    QCOMPARE(result.properties().value(Property::PageCount), 1);
+    QCOMPARE(result.properties().value(Property::Keywords), QVariant(QStringLiteral("KFileMetaData keyword")));
+    QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("KFileMetaData comment")));
+
+    QCOMPARE(result.properties().size(), 10);
+    QCOMPARE(result.text(), QStringLiteral("Test file for KFileMetaData. Second paragraph. First bullet point Second bullet point "));
 }
 
 void Office2007ExtractorTest::test_pptx()
