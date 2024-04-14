@@ -60,6 +60,8 @@ private Q_SLOTS:
             { "test_libreoffice.docx",         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
             { "test_libreoffice.pptx",         "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
             { "test_libreoffice.xlsx",         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+            { "test_word.docx",                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+            { "test_word_strict.docx",         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
             { "test.m4a",                      "audio/mp4"},
             { "test_missing_content.odt",      "application/vnd.oasis.opendocument.text"},
             { "test_missing_meta.odt",         "application/vnd.oasis.opendocument.text"},
