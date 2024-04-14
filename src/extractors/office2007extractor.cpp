@@ -145,14 +145,13 @@ void Office2007Extractor::extract(ExtractionResult* result)
     //
     bool extractPlainText = (result->inputFlags() & ExtractionResult::ExtractPlainText);
 
-    if (rootEntries.contains(QStringLiteral("word"))) {
+    if (const auto wordEntry = rootDir->entry(QStringLiteral("word")); wordEntry) {
         result->addType(Type::Document);
 
         if (!extractPlainText) {
             return;
         }
 
-        const KArchiveEntry* wordEntry = rootDir->entry(QStringLiteral("word"));
         if (!wordEntry->isDirectory()) {
             qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (word is not a directory)";
             return;
@@ -171,7 +170,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         }
     }
 
-    else if (rootEntries.contains(QStringLiteral("xl"))) {
+    else if (const auto xlEntry = rootDir->entry(QStringLiteral("xl")); xlEntry) {
         result->addType(Type::Document);
         result->addType(Type::Spreadsheet);
 
@@ -179,7 +178,6 @@ void Office2007Extractor::extract(ExtractionResult* result)
             return;
         }
 
-        const KArchiveEntry* xlEntry = rootDir->entry(QStringLiteral("xl"));
         if (!xlEntry->isDirectory()) {
             qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (xl is not a directory)";
             return;
@@ -196,7 +194,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
         extractTextWithTag(contentIODevice.get(), QStringLiteral("t"), result);
     }
 
-    else if (rootEntries.contains(QStringLiteral("ppt"))) {
+    else if (const auto pptEntry = rootDir->entry(QStringLiteral("ppt")); pptEntry) {
         result->addType(Type::Document);
         result->addType(Type::Presentation);
 
@@ -204,7 +202,6 @@ void Office2007Extractor::extract(ExtractionResult* result)
             return;
         }
 
-        const KArchiveEntry* pptEntry = rootDir->entry(QStringLiteral("ppt"));
         if (!pptEntry->isDirectory()) {
             qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (ppt is not a directory)";
             return;
