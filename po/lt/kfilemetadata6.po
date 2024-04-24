@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2019-09-07 19:58+0300\n"
+"PO-Revision-Date: 2024-04-24 01:10+0300\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -614,36 +614,24 @@ msgid "Rating"
 msgstr "Įvertinimas"
 
 #: src/propertyinfo.cpp:108
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr "Replay Gain albumo viršūnė"
+msgstr "„ReplayGain“ albumo viršūnė"
 
 #: src/propertyinfo.cpp:109
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "Replay Gain albumo stiprinimas"
+msgstr "„ReplayGain“ albumo stiprinimas"
 
 #: src/propertyinfo.cpp:110
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "Replay Gain takelio viršūnė"
+msgstr "„ReplayGain“ takelio viršūnė"
 
 #: src/propertyinfo.cpp:111
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "Replay Gain takelio stiprinimas"
+msgstr "„ReplayGain“ takelio stiprinimas"
 
 #: src/propertyinfo.cpp:112
 msgctxt "@label"
@@ -708,7 +696,7 @@ msgstr "El. laiško priedo laiško ID"
 #: src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "Tuščia"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"
