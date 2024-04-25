@@ -118,12 +118,14 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
     const size_t valueSize = v.size();
 
 #if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_setxattr))
-    return setxattr(encodedPath, attributeName, attributeValue, valueSize, 0);
+    int result = setxattr(encodedPath, attributeName, attributeValue, valueSize, 0);
+    return result == -1 ? errno : 0;
 #elif defined(Q_OS_MAC)
-    return setxattr(encodedPath, attributeName, attributeValue, valueSize, 0, 0);
+    int count = setxattr(encodedPath, attributeName, attributeValue, valueSize, 0, 0);
+    return count == -1 ? errno : 0;
 #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const ssize_t count = extattr_set_file(encodedPath, EXTATTR_NAMESPACE_USER, attributeName, attributeValue, valueSize);
-    return count == -1 ? -1 : 0;
+    return count == -1 ? errno : 0;
 #endif
 }
 
@@ -141,11 +143,14 @@ inline int k_removexattr(const QString& path, const QString& name)
     const char* attributeName = n.constData();
 
     #if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_removexattr))
-        return removexattr(encodedPath, attributeName);
+        int result = removexattr(encodedPath, attributeName);
+        return result == -1 ? errno : 0;
     #elif defined(Q_OS_MAC)
-        return removexattr(encodedPath, attributeName, XATTR_NOFOLLOW );
+        int result = removexattr(encodedPath, attributeName, XATTR_NOFOLLOW );
+        return result == -1 ? errno : 0;
     #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-        return extattr_delete_file (encodedPath, EXTATTR_NAMESPACE_USER, attributeName);
+        int result = extattr_delete_file (encodedPath, EXTATTR_NAMESPACE_USER, attributeName);
+        return result == -1 ? errno : 0;
     #endif
 }
 

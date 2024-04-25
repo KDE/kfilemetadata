@@ -16,17 +16,32 @@
 namespace KFileMetaData {
 
 class UserMetaDataPrivate;
+
 /**
  * \class UserMetaData usermetadata.h <KFileMetaData/UserMetaData>
  */
-class KFILEMETADATA_EXPORT UserMetaData {
+class KFILEMETADATA_EXPORT UserMetaData
+{
 public:
     UserMetaData(const QString &filePath);
     UserMetaData(const UserMetaData &rhs);
     virtual ~UserMetaData();
 
     enum Error {
-        NoError = 0
+        /// i.e Success
+        NoError = 0,
+        /// An error that's not currently handled specifically @since 6.2
+        UnknownError,
+        /// Underlying filesystem does not provide extended attributes features @since 6.2
+        NotSupported,
+        /// There is insufficient space remaining to store the extended attribute. @since 6.2
+        NoSpace,
+        /// Process doesn't have write permission to the file or the file is marked append-only @since 6.2
+        MissingPermission,
+        /// The value size exceeds the maximum size allowed per-value (64 kB for Linux VFS) @since 6.2
+        ValueTooBig,
+        /// The attribute name is too long (255 bytes for Linux VFS)  @since 6.2
+        NameToolong,
     };
 
     /**
@@ -76,9 +91,21 @@ public:
     QString originEmailMessageId() const;
     Error setOriginEmailMessageId(const QString &originEmailMessageId);
 
-    QString attribute(const QString& name);
-    Error setAttribute(const QString& name, const QString& value);
-    bool hasAttribute(const QString& name);
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(6, 2)
+    /// @deprecated since 6.2
+    QString attribute(const QString &name);
+#endif
+    /// @since 6.2
+    QString attribute(const QString &name) const;
+
+    Error setAttribute(const QString &name, const QString &value);
+
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(6, 2)
+    /// @deprecated since 6.2
+    bool hasAttribute(const QString &name);
+#endif
+    /// @since 6.2
+    bool hasAttribute(const QString &name) const;
 
     /**
       * Query list of available attributes

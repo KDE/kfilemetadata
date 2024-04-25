@@ -8,6 +8,7 @@
 #define USERMETADATAWRITERTEST_H
 
 #include <QObject>
+#include <QFile>
 
 class UserMetaDataWriterTest : public QObject
 {
@@ -18,8 +19,13 @@ private:
 private Q_SLOTS:
     void initTestCase();
     void test();
+    void testMissingPermision();
+    void testMetadataSize();
     void testDanglingSymlink();
     void cleanupTestCase();
+
+private:
+    QFile m_writerTestFile;
 };
 
 #endif // USERMETADATAWRITERTEST_H

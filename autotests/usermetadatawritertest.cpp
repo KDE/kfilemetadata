@@ -23,10 +23,69 @@ QString UserMetaDataWriterTest::testFilePath(const QString& fileName) const
 
 void UserMetaDataWriterTest::initTestCase()
 {
-    QFile writerTestFile(testFilePath(TEST_FILENAME));
-    writerTestFile.open(QIODevice::WriteOnly | QIODevice::NewOnly);
+    m_writerTestFile.setFileName(testFilePath(TEST_FILENAME));
+    QVERIFY(m_writerTestFile.open(QIODevice::WriteOnly | QIODevice::NewOnly));
 
     QFile::link(testFilePath("invalid_target"), testFilePath(TEST_SYMLINK));
+}
+
+void UserMetaDataWriterTest::testMissingPermision()
+{
+    m_writerTestFile.setPermissions(QFileDevice::ReadOwner);
+    KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
+    QVERIFY(md.isSupported());
+
+    auto result = md.setAttribute("test", "my-value");
+    QCOMPARE(result, KFileMetaData::UserMetaData::MissingPermission);
+
+    QVERIFY(m_writerTestFile.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner));
+}
+
+void UserMetaDataWriterTest::testMetadataSize()
+{
+    KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
+    QVERIFY(md.isSupported());
+
+    // In the current ext2, ext3, and ext4 filesystem implementations,
+    // the total bytes used by the names and values of all of a file's
+    // extended attributes must fit in a single filesystem block (1/2/4 kB)
+
+    // all implementations should support at least 512 B
+    const auto smallSize = 512; // 512 B
+    auto smallValue = QString(smallSize, 'a');
+    auto result = md.setAttribute("test", smallValue);
+    QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
+    QCOMPARE(md.attribute("test"), smallValue);
+
+    // a big value, equal to the maximum value of an extended attribute according to Linux VFS
+    // applies to XFS, btrfs...
+    auto maxSize = 64 * 1024;
+    const auto bigValue = QString(maxSize, 'a'); // 64 kB
+    result = md.setAttribute("test", bigValue);
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+    // BSD VFS has no such limit to 64 kB
+    QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
+    QCOMPARE(md.attribute("test"), bigValue);
+#else
+    QCOMPARE(result, KFileMetaData::UserMetaData::NoSpace);
+#endif
+
+    // In Linux, The VFS-imposed limits on attribute names and
+    // values are 255 bytes and 64 kB, respectively.
+    auto excessiveValue = QString(maxSize + 1, 'a');
+    result = md.setAttribute("test", excessiveValue);
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+    QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
+    QCOMPARE(md.attribute("test"), excessiveValue);
+#else
+    // In Linux, we exceed the max value of an extended attribute, the error is different
+    QCOMPARE(result, KFileMetaData::UserMetaData::ValueTooBig);
+#endif
+
+    // BSD and Linux have a limit of the attribute name of 255 bytes
+    auto longName = QString(256, 'a');
+    result = md.setAttribute(longName, "smallValue");
+    QCOMPARE(result, KFileMetaData::UserMetaData::NameToolong);
 }
 
 void UserMetaDataWriterTest::test()
@@ -108,7 +167,6 @@ void UserMetaDataWriterTest::test()
     QVERIFY(!md.hasAttribute(QStringLiteral("test.check_contains")));
 }
 
-
 void UserMetaDataWriterTest::testDanglingSymlink()
 {
     KFileMetaData::UserMetaData md(testFilePath(TEST_SYMLINK));
@@ -117,7 +175,7 @@ void UserMetaDataWriterTest::testDanglingSymlink()
 
 void UserMetaDataWriterTest::cleanupTestCase()
 {
-    QFile::remove(testFilePath(TEST_FILENAME));
+    m_writerTestFile.remove();
     QFile::remove(testFilePath(TEST_SYMLINK));
 }
 
