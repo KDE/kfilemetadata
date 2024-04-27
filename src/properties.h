@@ -13,8 +13,11 @@
 #include <QMap>
 #include <QVariant>
 
-/** @file properties.h <KFileMetaData/Properties> */
 namespace KFileMetaData {
+
+/**
+ * The Property namespace
+ */
 namespace Property {
 
 /**

@@ -13,6 +13,10 @@
 
 namespace KFileMetaData
 {
+
+/**
+ * The MimeUtils namespace
+ */
 namespace MimeUtils
 {
 

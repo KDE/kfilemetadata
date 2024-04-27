@@ -10,7 +10,14 @@
 
 #include <QVariant>
 
+/**
+ * The KFileMetaData namespace
+ */
 namespace KFileMetaData {
+
+/**
+ * The Type namespace
+ */
 namespace Type {
 
 /**
