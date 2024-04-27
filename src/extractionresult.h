@@ -23,7 +23,9 @@ class ExtractionResultPrivate;
  * \class ExtractionResult extractionresult.h <KFileMetaData/ExtractionResult>
  *
  * \brief The ExtractionResult class is where all the data extracted by
- * the indexer is saved. This class acts as a base class which should be
+ * the indexer is saved.
+ *
+ * This class acts as a base class which should be
  * derived from and then passed to the relevant plugins.
  *
  * The derived class needs to implement 3 pure virtual functions through

@@ -21,7 +21,9 @@ namespace KFileMetaData
  * \class ExtractorPlugin extractorplugin.h <KFileMetaData/ExtractorPlugin>
  *
  * \brief The ExtractorPlugin is the base class for all file metadata
- * extractors. It is responsible for extracting the metadata in a file.
+ * extractors.
+ *
+ * It is responsible for extracting the metadata in a file.
  *
  * Plugins should derive from this class and implement the mimetypes
  * and extract method.

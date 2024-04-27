@@ -19,7 +19,9 @@ class ExtractorCollectionPrivate;
  * \class ExtractorCollection extractorcollection.h <KFileMetaData/ExtractorCollection>
  *
  * \brief The ExtractorCollection is a helper class which internally
- * loads all the extractor plugins. It can be used to fetch a certain
+ * loads all the extractor plugins.
+ *
+ * It can be used to fetch a certain
  * subset of these plugins based on a given mimetype.
  *
  * Once the appropriate plugins have been fetched, an ExtractionResult

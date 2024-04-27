@@ -19,8 +19,10 @@ class PropertyInfoData;
 /**
  * \class PropertyInfo propertyinfo.h <KFileMetaData/PropertyInfo>
  *
- * The PropertyInfo class can be used to obtain extra information
- * about any property. It is commonly used be indexers in order
+ * \brief The PropertyInfo class can be used to obtain extra information
+ * about any property.
+ *
+ * It is commonly used be indexers in order
  * to obtain a translatable name of the property along with
  * additional information such as if the property should be indexed.
  */
