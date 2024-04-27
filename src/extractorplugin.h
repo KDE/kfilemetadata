@@ -25,7 +25,7 @@ namespace KFileMetaData
  *
  * It is responsible for extracting the metadata in a file.
  *
- * Plugins should derive from this class and implement the mimetypes
+ * Plugins should derive from this class and implement the MIME types
  * and extract method.
  *
  * All Plugins should be synchronous and blocking.
@@ -40,14 +40,14 @@ public:
     ~ExtractorPlugin() override;
 
     /**
-     * Provide a list of mimetypes which are supported by this plugin.
-     * Only files with those mimetypes will be provided to the plugin via
+     * Provide a list of MIME types which are supported by this plugin.
+     * Only files with those MIME types will be provided to the plugin via
      * the extract function.
      *
-     * This can also contains partial mimetypes like "text/", in that case
+     * This can also contains partial MIME types like "text/", in that case
      * this plugin will be chosen only if a better plugin does not exist.
      *
-     * \return A StringList containing the mimetypes.
+     * \return A StringList containing the MIME types.
      * \sa extract
      */
     virtual QStringList mimetypes() const = 0;
@@ -56,7 +56,7 @@ public:
      * The main function of the plugin that is responsible for extracting
      * the data and filling up the ExtractionResult
      *
-     * The \p result provides the input url and mimetype which
+     * The \p result provides the input URL and MIME type which
      * can be used to identify the file.
      *
      * This function is synchronous and should be reentrant as it
@@ -81,13 +81,13 @@ public:
 
 protected:
     /**
-     * Return the inherited mimetype which the extractor directly supports.
+     * Return the inherited MIME type which the extractor directly supports.
      *
      * The returned type is one of the types from \c mimetypes(),
      * and is one of the ancestors of the input \p mimetype
      * (including \p mimetype itself).
      *
-     * In case the mimetype is not a subtype of the supported types,
+     * In case the MIME type is not a subtype of the supported types,
      * an empty QString() is returned.
      *
      * \sa ExtractorCollection::fetchExtractors

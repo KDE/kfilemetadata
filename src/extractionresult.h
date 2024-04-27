@@ -61,13 +61,13 @@ public:
     virtual ~ExtractionResult();
 
     /**
-     * The input url which the plugins will use to locate the file
+     * The input URL which the plugins will use to locate the file
      */
     QString inputUrl() const;
 
     /**
-     * The input mimetype. This mimetype should correspond with the
-     * mimetypes supported with the relevant plugin when it is being
+     * The input MIME type. This MIME type should correspond with the
+     * MIME types supported with the relevant plugin when it is being
      * passed to the Extractor, or be a subtype thereof.
      *
      * \sa ExtractorCollection::fetchExtractors

@@ -21,12 +21,12 @@ namespace MimeUtils
 {
 
 /**
- * Returns the mimetype for a file
+ * Returns the MIME type for a file
  *
  * The function uses both content and filename to determine the
- * \c QMimeType. In case the extension mimetype is more specific
- * than the content mimetype, and the first inherits the latter,
- * the extension mimetype is preferred.
+ * \c QMimeType. In case the extension MIME type is more specific
+ * than the content MIME type, and the first inherits the latter,
+ * the extension MIME type is preferred.
  * If the extension does not match the content, the content has
  * higher priority.
  * The file must exist and be readable.

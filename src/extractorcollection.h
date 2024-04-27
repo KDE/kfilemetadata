@@ -37,10 +37,10 @@ public:
 
     /**
      * Fetch the extractors which can be used to extract
-     * data for the respective file with the given mimetype.
+     * data for the respective file with the given MIME type.
      *
      * If no match is found then the best matching plugins
-     * are returned, determined by mimetype inheritance.
+     * are returned, determined by MIME type inheritance.
      *
      * \sa QMimeType::allAncestors
      */
