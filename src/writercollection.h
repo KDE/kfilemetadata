@@ -21,6 +21,15 @@ namespace KFileMetaData
 class WriterCollectionPrivate;
 /**
  * \class WriterCollection writercollection.h <KFileMetaData/WriterCollection>
+ *
+ * \brief The WriterCollection is a helper class which internally
+ * loads all the writer plugins.
+ *
+ * It can be used to fetch a certain
+ * subset of writer plugins based on a given MIME type.
+ *
+ * Once the appropriate plugins have been fetched, a WriteData
+ * should be created and passed to the plugin's write function.
  */
 class KFILEMETADATA_EXPORT WriterCollection
 {

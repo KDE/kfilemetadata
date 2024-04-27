@@ -23,6 +23,8 @@ class WriterPrivate;
 
 /**
  * \class Writer writer.h <KFileMetaData/Writer>
+ *
+ * \brief The Writer class is used to write data to a file.
  */
 class KFILEMETADATA_EXPORT Writer
 {

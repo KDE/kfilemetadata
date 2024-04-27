@@ -19,6 +19,8 @@ class UserMetaDataPrivate;
 
 /**
  * \class UserMetaData usermetadata.h <KFileMetaData/UserMetaData>
+ *
+ * \brief The UserMetaData class can be used to read and set user meta data of files.
  */
 class KFILEMETADATA_EXPORT UserMetaData
 {
