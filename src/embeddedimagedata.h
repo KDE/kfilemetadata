@@ -21,7 +21,7 @@ namespace KFileMetaData {
  * \class EmbeddedImageData embeddedimagedata.h <KFileMetaData/EmbeddedImageData>
  *
  * \brief EmbeddedImageData defines enums for different image types that can
- * be extracted from the metadata of e.g. music files
+ * be extracted from the metadata of e.g.\ music files
  * @todo KF6 make this an enum only in KF6 similar to properties.h
  */
 class KFILEMETADATA_EXPORT EmbeddedImageData {
