@@ -746,7 +746,3 @@ msgstr "Видео"
 msgctxt "@label"
 msgid "Folder"
 msgstr "Папка"
-
-#~ msgctxt "@label"
-#~ msgid "Model"
-#~ msgstr "Модел"
