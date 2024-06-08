@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2024-02-19 11:34+0200\n"
+"PO-Revision-Date: 2024-03-11 15:21+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -697,7 +697,7 @@ msgstr "Sähköpostiliitteen viestitunniste"
 #: src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "Tyhjä"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"
