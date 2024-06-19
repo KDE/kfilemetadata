@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stefan Asserhäll <stefan.asserhall@gmail.com>, 2014, 2015, 2016, 2017, 2018, 2019.
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-09 00:35+0000\n"
-"PO-Revision-Date: 2019-06-22 09:11+0100\n"
+"PO-Revision-Date: 2024-06-18 19:46+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -611,36 +611,32 @@ msgid "Rating"
 msgstr "Betyg"
 
 #: src/propertyinfo.cpp:108
-#, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr "Högsta uppspelningsnivå i album"
+msgstr "Högsta uppspelningsnivå för album"
 
 #: src/propertyinfo.cpp:109
-#, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Album Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "Uppspelningsnivå album"
+msgstr "Uppspelningsnivåförstärkning för album"
 
 #: src/propertyinfo.cpp:110
-#, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "Högsta uppspelningsnivå i spår"
+msgstr "Högsta uppspelningsnivå för spår"
 
 #: src/propertyinfo.cpp:111
-#, fuzzy
 #| msgctxt "@label"
 #| msgid "Replay Gain Track Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "Uppspelningsnivå spår"
+msgstr "Uppspelningsnivåförstärkning för spår"
 
 #: src/propertyinfo.cpp:112
 msgctxt "@label"
@@ -705,7 +701,7 @@ msgstr "Brev-id för e-postbilaga"
 #: src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "Tom"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"
@@ -805,3 +801,4 @@ msgstr "Katalog"
 #~ msgctxt "@label"
 #~ msgid "Generator"
 #~ msgstr "Generator"
+
