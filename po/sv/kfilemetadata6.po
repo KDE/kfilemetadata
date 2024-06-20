@@ -611,29 +611,21 @@ msgid "Rating"
 msgstr "Betyg"
 
 #: src/propertyinfo.cpp:108
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
 msgstr "Högsta uppspelningsnivå för album"
 
 #: src/propertyinfo.cpp:109
-#| msgctxt "@label"
-#| msgid "Replay Gain Album Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
 msgstr "Uppspelningsnivåförstärkning för album"
 
 #: src/propertyinfo.cpp:110
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Peak"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
 msgstr "Högsta uppspelningsnivå för spår"
 
 #: src/propertyinfo.cpp:111
-#| msgctxt "@label"
-#| msgid "Replay Gain Track Gain"
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
 msgstr "Uppspelningsnivåförstärkning för spår"
@@ -801,4 +793,3 @@ msgstr "Katalog"
 #~ msgctxt "@label"
 #~ msgid "Generator"
 #~ msgstr "Generator"
-
