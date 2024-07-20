@@ -38,10 +38,10 @@ ecm_setup_version(PROJECT
 # Dependencies
 set(REQUIRED_QT_VERSION 6.5.0)
 
-find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG COMPONENTS Gui)
+find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG OPTIONAL_COMPONENTS Gui)
 set_package_properties(Qt6Gui PROPERTIES DESCRIPTION "Qt6: Gui component"
                        TYPE OPTIONAL
-                       PURPOSE "Qt6::Gui is needed to build the AppImage extractor")
+                       PURPOSE "Qt6::Gui is needed for several extractors")
 
 find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE COMPONENTS Xml)
 

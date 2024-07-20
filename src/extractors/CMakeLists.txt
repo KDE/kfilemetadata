@@ -243,6 +243,7 @@ if (QMobipocket6_FOUND)
 
 endif()
 
+set_package_properties(Qt6Gui PROPERTIES PURPOSE "- Required for AppImage extractor")
 if(libappimage_FOUND AND KF6Config_FOUND AND Qt6Gui_FOUND)
     add_library(kfilemetadata_appimageextractor MODULE appimageextractor.cpp )
     target_link_libraries( kfilemetadata_appimageextractor
@@ -259,16 +260,19 @@ if(libappimage_FOUND AND KF6Config_FOUND AND Qt6Gui_FOUND)
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 endif()
 
-add_library(kfilemetadata_pngextractor MODULE pngextractor.cpp )
-target_link_libraries(kfilemetadata_pngextractor
-    KF6::FileMetaData
-    Qt6::Gui
-)
+set_package_properties(Qt6Gui PROPERTIES PURPOSE "- Required for Qt based PNG extractor")
+if(Qt6Gui_FOUND)
+    add_library(kfilemetadata_pngextractor MODULE pngextractor.cpp )
+    target_link_libraries(kfilemetadata_pngextractor
+        KF6::FileMetaData
+        Qt6::Gui
+    )
 
-set_target_properties(kfilemetadata_pngextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
-install(
-TARGETS kfilemetadata_pngextractor
-DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
+    set_target_properties(kfilemetadata_pngextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
+    install(
+    TARGETS kfilemetadata_pngextractor
+    DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
+endif()
 
 #
 # FictionBook2

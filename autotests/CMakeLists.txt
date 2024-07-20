@@ -249,13 +249,15 @@ endif()
 #
 # PNG
 #
-ecm_add_test(pngextractortest.cpp ../src/extractors/pngextractor.cpp
-    TEST_NAME "pngextractortest"
-    LINK_LIBRARIES
-        Qt6::Test
-        KF6::FileMetaData
-        Qt6::Gui
-)
+if(Qt6Gui_FOUND)
+    ecm_add_test(pngextractortest.cpp ../src/extractors/pngextractor.cpp
+        TEST_NAME "pngextractortest"
+        LINK_LIBRARIES
+            Qt6::Test
+            KF6::FileMetaData
+            Qt6::Gui
+    )
+endif()
 
 #
 # Krita
@@ -267,7 +269,6 @@ if(KF6Archive_FOUND)
         KF6::Archive
         KF6::FileMetaData
         Qt6::Test
-        Qt6::Gui
         )
 endif()
 
