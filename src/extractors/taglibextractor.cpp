@@ -75,9 +75,9 @@ void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
 {
     TagLib::AudioProperties* audioProp = file->audioProperties();
     if (audioProp && (result->inputFlags() & ExtractionResult::ExtractMetaData)) {
-        if (audioProp->length()) {
+        if (audioProp->lengthInSeconds()) {
             // What about the xml duration?
-            result->add(Property::Duration, audioProp->length());
+            result->add(Property::Duration, audioProp->lengthInSeconds());
         }
 
         if (audioProp->bitrate()) {
