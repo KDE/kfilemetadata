@@ -39,7 +39,7 @@ public:
     static const QHash<LcIdentifierName, const PropertyInfoData*> s_propertyHash;
 };
 
-const PropertyInfoData PropertyInfoData::s_Empty{ Property::Empty, false, QStringLiteral("empty") };
+const PropertyInfoData PropertyInfoData::s_Empty{ Property::Empty, false, QStringLiteral("empty"), kli18nc("@label", "Empty") };
 
 const std::array<PropertyInfoData, 78> PropertyInfoData::s_allProperties
 {
