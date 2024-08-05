@@ -520,7 +520,11 @@ void TagLibWriter::write(const WriteData& data)
     }
 
     if (mimeType == QLatin1String("audio/mpeg")) {
+#if TAGLIB_MAJOR_VERSION >= 2
+        TagLib::MPEG::File file(&stream, false);
+#else
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), false);
+#endif
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);
@@ -609,7 +613,11 @@ void TagLibWriter::write(const WriteData& data)
             file.save();
         }
     } else if (mimeType == QLatin1String("audio/flac")) {
+#if TAGLIB_MAJOR_VERSION >= 2
+        TagLib::FLAC::File file(&stream, false);
+#else
         TagLib::FLAC::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), false);
+#endif
         if (file.isValid()) {
             auto savedProperties = file.properties();
             writeGenericProperties(savedProperties, properties);

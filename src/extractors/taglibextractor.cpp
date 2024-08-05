@@ -565,7 +565,11 @@ void TagLibExtractor::extract(ExtractionResult* result)
     };
 
     if (mimeType == QLatin1String("audio/mpeg")) {
+#if TAGLIB_MAJOR_VERSION >= 2
+        TagLib::MPEG::File file(&stream, true);
+#else
         TagLib::MPEG::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+#endif
         if (file.isValid()) {
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
@@ -634,7 +638,11 @@ void TagLibExtractor::extract(ExtractionResult* result)
             result->addImageData(extractMp4Cover(file.tag(), imageTypes));
         }
     } else if (mimeType == QLatin1String("audio/flac")) {
+#if TAGLIB_MAJOR_VERSION >= 2
+        TagLib::FLAC::File file(&stream, true);
+#else
         TagLib::FLAC::File file(&stream, TagLib::ID3v2::FrameFactory::instance(), true);
+#endif
         if (file.isValid()) {
             extractAudioProperties(&file, result);
             readGenericProperties(file.properties(), result);
