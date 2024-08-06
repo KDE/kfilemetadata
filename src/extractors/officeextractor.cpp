@@ -31,6 +31,8 @@ void OfficeExtractor::findExe(const QString& mimeType, const QString& name, QStr
 
     if (!fullPath.isEmpty()) {
         m_available_mime_types << mimeType;
+    } else {
+        qCDebug(KFILEMETADATA_LOG) << "Could not find executable in PATH:" << name;
     }
 }
 
@@ -89,9 +91,7 @@ void OfficeExtractor::extract(ExtractionResult* result)
 
 QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& command, QStringList& arguments)
 {
-    const QString exec = QStandardPaths::findExecutable(command);
-    if (exec.isEmpty()) {
-        qCDebug(KFILEMETADATA_LOG) << "Could not find executable in PATH:" << command;
+    if (command.isEmpty()) {
         return {};
     }
 
@@ -101,7 +101,7 @@ QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& com
     QProcess process;
 
     process.setReadChannel(QProcess::StandardOutput);
-    process.start(exec, arguments, QIODevice::ReadOnly);
+    process.start(command, arguments, QIODevice::ReadOnly);
     process.waitForFinished();
 
     if (process.exitStatus() != QProcess::NormalExit || process.exitCode() != 0) {
