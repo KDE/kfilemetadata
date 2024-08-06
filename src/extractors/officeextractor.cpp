@@ -50,10 +50,16 @@ void OfficeExtractor::extract(ExtractionResult* result)
     args << QStringLiteral("-s") << QStringLiteral("cp1252"); // FIXME: Store somewhere a map between the user's language and the encoding of the Windows files it may use ?
     args << QStringLiteral("-d") << QStringLiteral("utf8");
 
+    const bool extractPlainText = result->inputFlags() & ExtractionResult::ExtractPlainText;
+
     const QString fileUrl = result->inputUrl();
     const QString mimeType = result->inputMimetype();
     if (mimeType == QLatin1String("application/msword")) {
         result->addType(Type::Document);
+
+        if (!extractPlainText) {
+            return;
+        }
 
         args << QStringLiteral("-w");
         contents = textFromFile(fileUrl, m_catdoc, args);
@@ -69,6 +75,10 @@ void OfficeExtractor::extract(ExtractionResult* result)
         result->addType(Type::Document);
         result->addType(Type::Spreadsheet);
 
+        if (!extractPlainText) {
+            return;
+        }
+
         args << QStringLiteral("-c") << QStringLiteral(" ");
         args << QStringLiteral("-b") << QStringLiteral(" ");
         args << QStringLiteral("-q") << QStringLiteral("0");
@@ -77,6 +87,9 @@ void OfficeExtractor::extract(ExtractionResult* result)
         result->addType(Type::Document);
         result->addType(Type::Presentation);
 
+        if (!extractPlainText) {
+            return;
+        }
         contents = textFromFile(fileUrl, m_catppt, args);
     }
 
