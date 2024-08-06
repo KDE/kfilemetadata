@@ -45,7 +45,6 @@ QStringList OfficeExtractor::mimetypes() const
 void OfficeExtractor::extract(ExtractionResult* result)
 {
     QStringList args;
-    QString contents;
 
     args << QStringLiteral("-s") << QStringLiteral("cp1252"); // FIXME: Store somewhere a map between the user's language and the encoding of the Windows files it may use ?
     args << QStringLiteral("-d") << QStringLiteral("utf8");
@@ -62,15 +61,16 @@ void OfficeExtractor::extract(ExtractionResult* result)
         }
 
         args << QStringLiteral("-w");
-        contents = textFromFile(fileUrl, m_catdoc, args);
+        if (const auto contents = textFromFile(fileUrl, m_catdoc, args); !contents.isEmpty()) {
+            // Now that we have the plain text content, count words, lines and characters
+            // (original code from plaintextextractor.cpp, authored by Vishesh Handa)
+            int lines = contents.count(QLatin1Char('\n'));
+            int words = contents.count(QRegularExpression(QStringLiteral("\\b\\w+\\b"), QRegularExpression::UseUnicodePropertiesOption));
 
-        // Now that we have the plain text content, count words, lines and characters
-        // (original code from plaintextextractor.cpp, authored by Vishesh Handa)
-        int lines = contents.count(QLatin1Char('\n'));
-        int words = contents.count(QRegularExpression(QStringLiteral("\\b\\w+\\b"), QRegularExpression::UseUnicodePropertiesOption));
-
-        result->add(Property::WordCount, words);
-        result->add(Property::LineCount, lines);
+            result->add(Property::WordCount, words);
+            result->add(Property::LineCount, lines);
+            result->append(contents);
+        }
     } else if (mimeType == QLatin1String("application/vnd.ms-excel")) {
         result->addType(Type::Document);
         result->addType(Type::Spreadsheet);
@@ -82,7 +82,9 @@ void OfficeExtractor::extract(ExtractionResult* result)
         args << QStringLiteral("-c") << QStringLiteral(" ");
         args << QStringLiteral("-b") << QStringLiteral(" ");
         args << QStringLiteral("-q") << QStringLiteral("0");
-        contents = textFromFile(fileUrl, m_xls2csv, args);
+        if (const auto contents = textFromFile(fileUrl, m_xls2csv, args); !contents.isEmpty()) {
+            result->append(contents);
+        }
     } else if (mimeType == QLatin1String("application/vnd.ms-powerpoint")) {
         result->addType(Type::Document);
         result->addType(Type::Presentation);
@@ -90,16 +92,11 @@ void OfficeExtractor::extract(ExtractionResult* result)
         if (!extractPlainText) {
             return;
         }
-        contents = textFromFile(fileUrl, m_catppt, args);
+
+        if (const auto contents = textFromFile(fileUrl, m_catppt, args); !contents.isEmpty()) {
+            result->append(contents);
+        }
     }
-
-    if (contents.isEmpty()) {
-        return;
-    }
-
-    result->append(contents);
-
-    return;
 }
 
 QString OfficeExtractor::textFromFile(const QString& fileUrl, const QString& command, QStringList& arguments)
