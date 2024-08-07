@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2016-04-29 19:43+0100\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Fòram na Gàidhlig\n"
@@ -303,6 +303,11 @@ msgstr ""
 #, kde-format
 msgctxt "F number for photographs"
 msgid "f/%1"
+msgstr ""
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
 msgstr ""
 
 #: src/propertyinfo.cpp:46
@@ -766,11 +771,6 @@ msgstr "Seòladair a' cheanglachain puist-d"
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "ID teachdaireachd a' cheanglachain puist-d"
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
-msgstr ""
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

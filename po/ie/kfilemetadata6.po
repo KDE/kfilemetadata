@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2024-08-04 17:05+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <>\n"
@@ -298,6 +298,11 @@ msgstr "%1:1"
 msgctxt "F number for photographs"
 msgid "f/%1"
 msgstr "f/%1"
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
+msgstr "Vacui"
 
 #: src/propertyinfo.cpp:46
 msgctxt "@label music album"
@@ -698,11 +703,6 @@ msgstr "Inviator del atachament"
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "ID de missage del atachament"
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
-msgstr "Vacui"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

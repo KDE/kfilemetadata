@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2024-03-09 08:57+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -310,6 +310,11 @@ msgstr "%1:1"
 msgctxt "F number for photographs"
 msgid "f/%1"
 msgstr "f/%1"
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
+msgstr "Prazno"
 
 #: src/propertyinfo.cpp:46
 msgctxt "@label music album"
@@ -700,11 +705,6 @@ msgstr "Pošiljatelj e-sporočila te priloge"
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "ID e-sporočila te priloge"
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
-msgstr "Prazno"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

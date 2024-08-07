@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2024-06-18 19:46+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -299,6 +299,11 @@ msgstr "%1:1"
 msgctxt "F number for photographs"
 msgid "f/%1"
 msgstr "f/%1"
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
+msgstr "Tom"
 
 #: src/propertyinfo.cpp:46
 msgctxt "@label music album"
@@ -689,11 +694,6 @@ msgstr "Avsändare av e-postbilaga"
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "Brev-id för e-postbilaga"
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
-msgstr "Tom"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

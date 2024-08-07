@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2024-03-11 15:21+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -302,6 +302,11 @@ msgstr "%1:1"
 msgctxt "F number for photographs"
 msgid "f/%1"
 msgstr "f/%1"
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
+msgstr "Tyhjä"
 
 #: src/propertyinfo.cpp:46
 msgctxt "@label music album"
@@ -693,11 +698,6 @@ msgstr "Sähköpostiliitteen lähettäjä"
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "Sähköpostiliitteen viestitunniste"
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
-msgstr "Tyhjä"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

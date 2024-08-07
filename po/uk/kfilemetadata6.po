@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2024-03-09 09:11+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -302,6 +302,11 @@ msgstr "%1:1"
 msgctxt "F number for photographs"
 msgid "f/%1"
 msgstr "f/%1"
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
+msgstr "Порожньо"
 
 #: src/propertyinfo.cpp:46
 msgctxt "@label music album"
@@ -692,11 +697,6 @@ msgstr "Відправник долучення електронної пошт�
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "Ідентифікатор повідомлення долучення електронної пошти"
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
-msgstr "Порожньо"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

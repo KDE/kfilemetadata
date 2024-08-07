@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2020-04-14 18:32+0400\n"
 "Last-Translator: Xəyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani\n"
@@ -302,6 +302,11 @@ msgstr "%1:1"
 msgctxt "F number for photographs"
 msgid "f/%1"
 msgstr "f/%1"
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
+msgstr ""
 
 #: src/propertyinfo.cpp:46
 msgctxt "@label music album"
@@ -704,11 +709,6 @@ msgstr "E-Poçt Əlavələr Göndərən"
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "E-Poçt Əlavələr Masajı İD-si"
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
-msgstr ""
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"

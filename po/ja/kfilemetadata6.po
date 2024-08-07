@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-09 00:35+0000\n"
+"POT-Creation-Date: 2024-08-07 00:37+0000\n"
 "PO-Revision-Date: 2019-05-11 17:02-0700\n"
 "Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -297,6 +297,11 @@ msgstr ""
 #, kde-format
 msgctxt "F number for photographs"
 msgid "f/%1"
+msgstr ""
+
+#: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
+msgctxt "@label"
+msgid "Empty"
 msgstr ""
 
 #: src/propertyinfo.cpp:46
@@ -741,11 +746,6 @@ msgstr ""
 #: src/propertyinfo.cpp:123
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr ""
-
-#: src/typeinfo.cpp:33
-msgctxt "@label"
-msgid "Empty"
 msgstr ""
 
 #: src/typeinfo.cpp:37
