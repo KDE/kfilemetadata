@@ -359,7 +359,7 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
     }
 
     CloseHandle(hFile);
-    return count;
+    return 0;
 }
 
 inline bool k_hasAttribute(const QString& path, const QString& name)
