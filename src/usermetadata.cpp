@@ -134,6 +134,9 @@ UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString
         case EACCES:
         case EPERM:
             return MissingPermission;
+#ifdef Q_OS_WIN
+        case ERROR_FILENAME_EXCED_RANGE:
+#endif
         case ENAMETOOLONG:
         case ERANGE:
             return NameToolong;

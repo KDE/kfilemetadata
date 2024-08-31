@@ -12,7 +12,6 @@
 #include <QFile>
 #include <QString>
 #include <QDebug>
-#include <QFileInfo>
 
 #if defined(Q_OS_LINUX) || defined(__GLIBC__)
 #include <sys/types.h>
@@ -37,9 +36,55 @@
 #elif defined(Q_OS_OPENBSD)
 #include <errno.h>
 #elif defined(Q_OS_WIN)
+#include <QFileInfo>
 #include <windows.h>
 #define ssize_t SSIZE_T
 #endif
+#include <chrono>
+
+static KFileMetaData::UserMetaData::Attribute _mapAttribute(QByteArrayView key)
+{
+    using KFileMetaData::UserMetaData;
+    if (key == "xdg.tags") {
+        return UserMetaData::Attribute::Tags;
+    }
+    if (key == "baloo.rating") {
+        return UserMetaData::Attribute::Rating;
+    }
+    if (key == "xdg.comment") {
+        return UserMetaData::Attribute::Comment;
+    }
+    if (key == "xdg.origin.url") {
+        return UserMetaData::Attribute::OriginUrl;
+    }
+    if (key == "xdg.origin.email.subject") {
+        return UserMetaData::Attribute::OriginEmailSubject;
+    }
+    if (key == "xdg.origin.email.sender") {
+        return UserMetaData::Attribute::OriginEmailSender;
+    }
+    if (key == "xdg.origin.email.message-id") {
+        return UserMetaData::Attribute::OriginEmailMessageId;
+    }
+    return UserMetaData::Attribute::Other;
+}
+
+static KFileMetaData::UserMetaData::Attributes attributesFromEntries(const QList<QByteArray> &entries, const QByteArrayView &prefix, KFileMetaData::UserMetaData::Attributes attributes)
+{
+    using KFileMetaData::UserMetaData;
+    UserMetaData::Attributes fileAttributes = UserMetaData::Attribute::None;
+    for (const auto &entry : entries) {
+        if (!entry.startsWith(prefix)) {
+            continue;
+        }
+        fileAttributes |= _mapAttribute(QByteArrayView(entry).sliced(prefix.size()));
+        fileAttributes &= attributes;
+        if (fileAttributes == attributes) {
+            break;
+        }
+    }
+    return fileAttributes;
+}
 
 #if defined(Q_OS_LINUX) || defined(Q_OS_MAC) || defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
 inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
@@ -104,7 +149,6 @@ inline int k_setxattr(const QString& path, const QString& name, const QString& v
     const QByteArray p = QFile::encodeName(path);
     const char* encodedPath = p.constData();
 
-
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
     const QByteArray n = name.toUtf8();
 #else
@@ -164,34 +208,6 @@ inline bool k_isSupported(const QString& path)
 {
     auto ret = k_getxattr(path, QStringLiteral("test"), nullptr);
     return (ret >= 0) || (errno != ENOTSUP);
-}
-
-
-static KFileMetaData::UserMetaData::Attribute _mapAttribute(QByteArrayView key)
-{
-    using KFileMetaData::UserMetaData;
-    if (key == "xdg.tags") {
-        return UserMetaData::Attribute::Tags;
-    }
-    if (key == "baloo.rating") {
-        return UserMetaData::Attribute::Rating;
-    }
-    if (key == "xdg.comment") {
-        return UserMetaData::Attribute::Comment;
-    }
-    if (key == "xdg.origin.url") {
-        return UserMetaData::Attribute::OriginUrl;
-    }
-    if (key == "xdg.origin.email.subject") {
-        return UserMetaData::Attribute::OriginEmailSubject;
-    }
-    if (key == "xdg.origin.email.sender") {
-        return UserMetaData::Attribute::OriginEmailSender;
-    }
-    if (key == "xdg.origin.email.message-id") {
-        return UserMetaData::Attribute::OriginEmailMessageId;
-    }
-    return UserMetaData::Attribute::Other;
 }
 
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
@@ -279,34 +295,29 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
     const auto entries = data.split('\0');
 #endif
 
-    UserMetaData::Attributes fileAttributes = UserMetaData::Attribute::None;
-    for (const auto &entry : entries) {
-        if (!entry.startsWith(prefix)) {
-            continue;
-        }
-        fileAttributes |= _mapAttribute(QByteArrayView(entry).sliced(prefix.size()));
-        fileAttributes &= attributes;
-        if (fileAttributes == attributes) {
-            break;
-        }
-    }
-    return fileAttributes;
+    return attributesFromEntries(entries, prefix, attributes);
 }
 
 #elif  defined(Q_OS_WIN)
 
 inline ssize_t k_getxattr(const QString& path, const QString& name, QString* value)
 {
-    const QString fullADSName = path + QLatin1String(":user.") + name;
+    const QString fullADSName = path +
+        QLatin1String(":user.") + name;
     HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
              OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
-    if(!hFile) return 0;
+    if (hFile == INVALID_HANDLE_VALUE) {
+        DWORD error = ::GetLastError();
+        std::string message = std::system_category().message(error);
+        qWarning() << "failed to open ADS:" << message << fullADSName;
+        return -1;
+    }
 
     LARGE_INTEGER lsize;
     BOOL ret = GetFileSizeEx(hFile, &lsize);
 
-    if (ret || lsize.QuadPart > 0x7fffffff || lsize.QuadPart == 0) {
+    if (!ret || lsize.QuadPart > 0x7fffffff || lsize.QuadPart == 0) {
         CloseHandle(hFile);
         value->clear();
         return lsize.QuadPart == 0 ? 0 : -1;
@@ -318,9 +329,16 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
     ret = ::ReadFile(hFile, data.data(), data.size(), &r, NULL);
     CloseHandle(hFile);
 
-    if (ret || r == 0) {
+    if (!ret) {
+        DWORD error = ::GetLastError();
+        std::string message = std::system_category().message(error);
+        qWarning() << "failed to open ADS:" << message << fullADSName;
+        return -1;
+    }
+
+    if (r == 0) {
         value->clear();
-        return r == 0 ? 0 : -1;
+        return 0;
     }
 
     data.resize(r);
@@ -331,67 +349,51 @@ inline ssize_t k_getxattr(const QString& path, const QString& name, QString* val
 
 inline int k_setxattr(const QString& path, const QString& name, const QString& value)
 {
-    const QByteArray v = value.toUtf8();
-
     const QString fullADSName = path + QLatin1String(":user.") + name;
-    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_WRITE, FILE_SHARE_READ, NULL,
+    if (fullADSName.size() > MAX_PATH) {
+        // https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file#maximum-path-length-limitation
+        // We could handle longer file names but it would require special casing per-windows version
+        return ERROR_FILENAME_EXCED_RANGE;
+    }
+
+    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()), GENERIC_WRITE, 0, NULL,
              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
-    if(!hFile) return -1;
+    if (hFile == INVALID_HANDLE_VALUE) {
+        DWORD error = ::GetLastError();
+        std::string message = std::system_category().message(error);
+        qWarning() << "failed to open file to write to ADS:" << message << error << fullADSName;
+        return -1; // unknown error
+    }
 
     DWORD count = 0;
 
+    const QByteArray v = value.toUtf8();
     if(!::WriteFile(hFile, v.constData(), v.size(), &count, NULL)) {
-        DWORD dw = GetLastError();
-        TCHAR msg[1024];
-        FormatMessage(
-            FORMAT_MESSAGE_ALLOCATE_BUFFER |
-            FORMAT_MESSAGE_FROM_SYSTEM |
-            FORMAT_MESSAGE_IGNORE_INSERTS,
-            NULL,
-            dw,
-            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-            (LPTSTR) &msg,
-            0, NULL );
-        qWarning() << "failed to write to ADS:" << msg;
+        DWORD error = ::GetLastError();
+        std::string message = std::system_category().message(error);
+        qWarning() << "failed to write to ADS:" << message << error << fullADSName;
+
         CloseHandle(hFile);
-        return -1;
+        return -1; // unknown error
     }
 
     CloseHandle(hFile);
-    return 0;
+    return 0; // Success
 }
 
 inline bool k_hasAttribute(const QString& path, const QString& name)
 {
-    // enumerate all streams:
-    const QString streamName = QLatin1String(":user.") + name + QStringLiteral(":$DATA");
-    HANDLE hFile = ::CreateFileW(reinterpret_cast<const WCHAR*>(path.utf16()), GENERIC_READ, FILE_SHARE_READ, NULL,
-             OPEN_EXISTING, FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+    QString fullpath = path + QLatin1String(":user.") + name;
+    HANDLE hFile = CreateFileW(reinterpret_cast<const WCHAR*>(fullpath.utf16()), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-    if(!hFile) {
+    if (hFile == INVALID_HANDLE_VALUE) {
+        // ERROR_FILE_NOT_FOUND supposedly
         return false;
     }
-    FILE_STREAM_INFO* fi = new FILE_STREAM_INFO[256];
-    if(GetFileInformationByHandleEx(hFile, FileStreamInfo, fi, 256 * sizeof(FILE_STREAM_INFO))) {
-        if(QString::fromUtf16((char16_t*)fi->StreamName, fi->StreamNameLength / sizeof(char16_t)) == streamName) {
-            delete[] fi;
-            CloseHandle(hFile);
-            return true;
-        }
-        FILE_STREAM_INFO* p = fi;
-        do {
-            p = (FILE_STREAM_INFO*) ((char*)p + p->NextEntryOffset);
-            if(QString::fromUtf16((char16_t*)p->StreamName, p->StreamNameLength / sizeof(char16_t)) == streamName) {
-                delete[] fi;
-                CloseHandle(hFile);
-                return true;
-            }
-        } while(p->NextEntryOffset != NULL);
-    }
-    delete[] fi;
+    // ADS exists
     CloseHandle(hFile);
-    return false;
+    return true;
 }
 
 inline int k_removexattr(const QString& path, const QString& name)
@@ -420,11 +422,49 @@ KFileMetaData::UserMetaData::Attributes k_queryAttributes(const QString& path,
         return UserMetaData::Attribute::None;
     }
 
-    // TODO - this is mostly a stub, streams should be enumerated, see k_hasAttribute above
-    if (attributes == UserMetaData::Attribute::Any) {
+    HANDLE hFile= ::CreateFile(reinterpret_cast<const WCHAR*>(path.utf16()), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE , NULL,
+                                OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+    if (hFile == INVALID_HANDLE_VALUE) {
+        DWORD error = ::GetLastError();
+        std::string message = std::system_category().message(error);
+        qWarning() << "failed CreateFile:" << message << path << error;
+        return UserMetaData::Attribute::None;
+    }
+
+    QList<QByteArray> entries;
+    QString entry;
+    FILE_STREAM_INFO* fi = new FILE_STREAM_INFO[256];
+    if (::GetFileInformationByHandleEx(hFile, FileStreamInfo, fi, 256 * sizeof(FILE_STREAM_INFO))) {
+        // ignore first entry it is "::$DATA"
+        FILE_STREAM_INFO* p = fi;
+        while (p->NextEntryOffset != NULL) {
+            p = (FILE_STREAM_INFO*) ((char*)p + p->NextEntryOffset);
+            entry = QString::fromUtf16((char16_t*)p->StreamName, p->StreamNameLength / sizeof(char16_t));
+            // entries are of the form ":user.key:$DATA"
+            entry.chop(6);
+            entries.append(entry.sliced(1).toLocal8Bit());
+        }
+    } else {
+        DWORD error = ::GetLastError();
+        if (error != ERROR_HANDLE_EOF) {
+            std::string message = std::system_category().message(error);
+            qWarning() << "failed GetFileInformationByHandleEx:" << message << path << hFile;
+        }
+    }
+    delete[] fi;
+    CloseHandle(hFile);
+
+    if (entries.size() == 0) {
+        return UserMetaData::Attribute::None;
+    }
+
+    if (entries.size() > 0 && attributes == UserMetaData::Attribute::Any) {
         return UserMetaData::Attribute::All;
     }
-    return attributes;
+
+    const QByteArrayView prefix("user.");
+    return attributesFromEntries(entries, prefix, attributes);
 }
 
 #else
