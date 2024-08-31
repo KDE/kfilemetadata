@@ -21,7 +21,10 @@ private Q_SLOTS:
     void test();
     void testMissingPermision();
     void testMetadataSize();
+    void testMetadataNameTooLong();
     void testDanglingSymlink();
+    void testRemoveMetadata();
+    void testMetadataFolder();
     void cleanupTestCase();
 
 private:

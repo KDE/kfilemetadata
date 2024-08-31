@@ -11,8 +11,8 @@
 #include <QTest>
 #include <QFile>
 
-#define TEST_FILENAME "writertest.txt"
-#define TEST_SYMLINK "dangling_symlink"
+#define TEST_FILENAME "writertest-usermetadata.txt"
+#define TEST_SYMLINK "dangling_symlink-metadata"
 
 using namespace KFileMetaData;
 
@@ -24,13 +24,17 @@ QString UserMetaDataWriterTest::testFilePath(const QString& fileName) const
 void UserMetaDataWriterTest::initTestCase()
 {
     m_writerTestFile.setFileName(testFilePath(TEST_FILENAME));
-    QVERIFY(m_writerTestFile.open(QIODevice::WriteOnly | QIODevice::NewOnly));
+    auto opened = m_writerTestFile.open(QIODevice::WriteOnly | QIODevice::NewOnly);
+    QVERIFY(opened);
 
     QFile::link(testFilePath("invalid_target"), testFilePath(TEST_SYMLINK));
 }
 
 void UserMetaDataWriterTest::testMissingPermision()
 {
+#ifdef Q_OS_WIN
+    QSKIP("Only unix permissions can restrict metadata writing");
+#endif
     m_writerTestFile.setPermissions(QFileDevice::ReadOwner);
     KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
     QVERIFY(md.isSupported());
@@ -62,7 +66,7 @@ void UserMetaDataWriterTest::testMetadataSize()
     auto maxSize = 64 * 1024;
     const auto bigValue = QString(maxSize, 'a'); // 64 kB
     result = md.setAttribute("test", bigValue);
-#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD) || defined(Q_OS_WIN)
     // BSD VFS has no such limit to 64 kB
     QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
     QCOMPARE(md.attribute("test"), bigValue);
@@ -74,34 +78,44 @@ void UserMetaDataWriterTest::testMetadataSize()
     // values are 255 bytes and 64 kB, respectively.
     auto excessiveValue = QString(maxSize + 1, 'a');
     result = md.setAttribute("test", excessiveValue);
-#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+#if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD) || defined(Q_OS_WIN)
     QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
     QCOMPARE(md.attribute("test"), excessiveValue);
 #else
     // In Linux, we exceed the max value of an extended attribute, the error is different
     QCOMPARE(result, KFileMetaData::UserMetaData::ValueTooBig);
 #endif
+}
+
+void UserMetaDataWriterTest::testMetadataNameTooLong()
+{
+    KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
+    QVERIFY(md.isSupported());
 
     // BSD and Linux have a limit of the attribute name of 255 bytes
+    // Windows has by default a limit on filename that applies to filesystem metadata
     auto longName = QString(256, 'a');
-    result = md.setAttribute(longName, "smallValue");
+    int result = md.setAttribute(longName, "smallValue");
     QCOMPARE(result, KFileMetaData::UserMetaData::NameToolong);
 }
 
 void UserMetaDataWriterTest::test()
 {
-
-    KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
+    auto testFile = testFilePath(TEST_FILENAME);
+    KFileMetaData::UserMetaData md(testFile);
     QVERIFY(md.isSupported());
 
     // Tags
-    md.setTags(QStringList() << QStringLiteral("this/is/a/test/tag"));
+    const QString tagValue = QStringLiteral("this/is/a/test/tag");
+    md.setTags({tagValue});
+    QVERIFY(md.hasAttribute(QStringLiteral("xdg.tags")));
+    QCOMPARE(md.attribute(QStringLiteral("xdg.tags")), tagValue);
     QCOMPARE(md.tags().isEmpty() ? QStringLiteral("<no tags found>") : md.tags().at(0), QStringLiteral("this/is/a/test/tag"));
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::Any) & UserMetaData::Attribute::Tags);
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) & UserMetaData::Attribute::Tags);
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::Tags) & UserMetaData::Attribute::Tags);
     QVERIFY(!(md.queryAttributes(UserMetaData::Attribute::Rating) & UserMetaData::Attribute::Tags));
-    md.setTags(QStringList());
+    md.setTags({});
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.tags")));
     QVERIFY(!(md.queryAttributes(UserMetaData::Attribute::Tags) & UserMetaData::Attribute::Tags));
 
@@ -171,6 +185,35 @@ void UserMetaDataWriterTest::testDanglingSymlink()
 {
     KFileMetaData::UserMetaData md(testFilePath(TEST_SYMLINK));
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) == UserMetaData::Attribute::None);
+}
+
+void UserMetaDataWriterTest::testRemoveMetadata()
+{
+    auto testFile = testFilePath(TEST_FILENAME);
+    KFileMetaData::UserMetaData md(testFile);
+    QVERIFY(md.isSupported());
+
+    const auto tagValue = QStringLiteral("this/is/a/test/tag");
+    QCOMPARE(md.setAttribute(QStringLiteral("tag"), tagValue), KFileMetaData::UserMetaData::NoError);
+    QVERIFY(md.hasAttribute(QStringLiteral("tag")));
+
+    QCOMPARE(md.setAttribute(QStringLiteral("tag"), QString{}), KFileMetaData::UserMetaData::NoError);
+    QVERIFY(!md.hasAttribute(QStringLiteral("tag")));
+}
+
+void UserMetaDataWriterTest::testMetadataFolder()
+{
+    const auto dirPath = testFilePath(QStringLiteral("metadata-dir"));
+    QVERIFY(QDir().mkdir(dirPath));
+
+    KFileMetaData::UserMetaData md(dirPath);
+
+    const auto tagValue = QStringLiteral("this/is/a/test/tag");
+    QCOMPARE(md.setAttribute(QStringLiteral("tag"), tagValue), KFileMetaData::UserMetaData::NoError);
+    QVERIFY(md.hasAttribute(QStringLiteral("tag")));
+
+    QCOMPARE(md.setAttribute(QStringLiteral("tag"), QString{}), KFileMetaData::UserMetaData::NoError);
+    QVERIFY(!md.hasAttribute(QStringLiteral("tag")));
 }
 
 void UserMetaDataWriterTest::cleanupTestCase()
