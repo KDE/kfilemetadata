@@ -77,7 +77,13 @@ void Office2007Extractor::extract(ExtractionResult* result)
     const KArchiveFile* file = docPropDirectory->file(QStringLiteral("core.xml"));
     if (extractMetaData && file) {
         QDomDocument coreDoc(QStringLiteral("core"));
-        coreDoc.setContent(file->data(), true);
+        const QDomDocument::ParseResult parseResult = coreDoc.setContent(file->data(), QDomDocument::ParseOption::UseNamespaceProcessing);
+        if (!parseResult) {
+            qDebug() << QStringLiteral("Can't read variableRates\nError: %1 in Line %2, Column %3")
+                            .arg(parseResult.errorMessage)
+                            .arg(parseResult.errorLine)
+                            .arg(parseResult.errorColumn);
+        }
 
         QDomElement cpElem = coreDoc.documentElement();
 

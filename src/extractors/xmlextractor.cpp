@@ -99,8 +99,13 @@ void XmlExtractor::extract(ExtractionResult* result)
 #endif
 
         QDomDocument doc;
-        const bool processNamespaces = true;
-        doc.setContent(ioDevice, processNamespaces);
+        const QDomDocument::ParseResult parseResult = doc.setContent(ioDevice, QDomDocument::ParseOption::UseNamespaceProcessing);
+        if (!parseResult) {
+            qDebug() << QStringLiteral("Can't read variableRates\nError: %1 in Line %2, Column %3")
+                            .arg(parseResult.errorMessage)
+                            .arg(parseResult.errorLine)
+                            .arg(parseResult.errorColumn);
+        }
         QDomElement svg = doc.firstChildElement();
 
         if (!svg.isNull()

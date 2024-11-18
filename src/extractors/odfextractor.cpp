@@ -151,7 +151,13 @@ void OdfExtractor::extract(ExtractionResult* result)
 void OdfExtractor::parseMetaData(const QString &documentElementId, const QByteArray &data, ExtractionResult *result)
 {
     QDomDocument metaData(QStringLiteral("metaData"));
-    metaData.setContent(data, true);
+    const QDomDocument::ParseResult parseResult = metaData.setContent(data, QDomDocument::ParseOption::UseNamespaceProcessing);
+    if (!parseResult) {
+        qDebug() << QStringLiteral("Can't read variableRates\nError: %1 in Line %2, Column %3")
+                        .arg(parseResult.errorMessage)
+                        .arg(parseResult.errorLine)
+                        .arg(parseResult.errorColumn);
+    }
 
     // parse metadata ...
     QDomElement meta = firstChildElementNS(firstChildElementNS(metaData,
