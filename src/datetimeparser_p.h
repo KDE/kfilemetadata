@@ -21,6 +21,9 @@ namespace Parser
 inline QDateTime dateTimeFromString(const QString &dateString)
 {
     if (auto dateTime = QDateTime::fromString(dateString, Qt::ISODate); dateTime.isValid()) {
+        if (dateTime.timeSpec() == Qt::LocalTime) {
+            dateTime.setTimeZone(QTimeZone::UTC);
+        }
         return dateTime;
     }
 
