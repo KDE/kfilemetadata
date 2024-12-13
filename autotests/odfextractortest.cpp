@@ -115,7 +115,7 @@ void OdfExtractorTest::testText()
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("KFileMetaData description")));
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
 
-    QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40, 690));
+    QDateTime dt(QDate(2014, 07, 01), QTime(17, 37, 40, 690), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.properties().value(Property::WordCount), QVariant(4));
@@ -162,7 +162,7 @@ void OdfExtractorTest::testPresentation()
     QCOMPARE(result.types().at(1), Type::Presentation);
 
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
-    QDateTime dt(QDate(2014, 07, 02), QTime(10, 59, 23, 434));
+    QDateTime dt(QDate(2014, 07, 02), QTime(10, 59, 23, 434), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.text(), QStringLiteral("KFileMetaData Pres "));
@@ -194,7 +194,7 @@ void OdfExtractorTest::testGraphic()
     QCOMPARE(result.types().at(1), Type::Image);
 
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
-    QDateTime dt(QDate(2022, 11, 8), QTime(15, 27, 0, 660));
+    QDateTime dt(QDate(2022, 11, 8), QTime(15, 27, 0, 660), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
 
     QCOMPARE(result.text(), QStringLiteral("KFileMetaData Graphic "));
@@ -225,7 +225,7 @@ void OdfExtractorTest::testSpreadsheet()
     QCOMPARE(result.types().at(1), Type::Spreadsheet);
 
     QVERIFY(result.properties().value(Property::Generator).toString().contains(QStringLiteral("LibreOffice")));
-    QDateTime dt(QDate(2023, 11, 12), QTime(05, 59, 53, 986));
+    QDateTime dt(QDate(2023, 11, 12), QTime(05, 59, 53, 986), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::Author), QStringLiteral("Author KFM"));
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("KFileMetaData Title")));
