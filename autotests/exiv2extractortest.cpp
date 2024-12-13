@@ -113,7 +113,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     Exiv2Extractor plugin{this};
 
     if ((mimeType == QStringLiteral("image/jxl")) && !plugin.mimetypes().contains("image/jxl")) {
-        QSKIP("BMFF support required for JXL");
+        QSKIP("BMFF and brotli support required for JXL");
     }
     QVERIFY(plugin.mimetypes().contains(mimeType));
 

@@ -45,7 +45,9 @@ static const QStringList supportedMimeTypes = {
 #ifdef EXV_ENABLE_BMFF
     QStringLiteral("image/avif"),
     QStringLiteral("image/heif"),
+#ifdef EXV_HAVE_BROTLI
     QStringLiteral("image/jxl"),
+#endif
     QStringLiteral("image/x-canon-cr3"),
 #endif
     QStringLiteral("image/x-exv"),
