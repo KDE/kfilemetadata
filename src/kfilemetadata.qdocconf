@@ -1,0 +1,32 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = KFileMetaData
+description = Library for extracting the text and metadata from a number of different files
+
+documentationinheaders = true
+
+headerdirs += .
+sourcedirs += .
+
+excludedirs += extractors writers
+
+outputformats = HTML
+
+depends += \
+    kde \
+    qtcore \
+
+
+qhp.projects            = KFileMetaData
+
+qhp.KFileMetaData.file                = kfilemetadata.qhp
+qhp.KFileMetaData.namespace           = org.kde.kfilemetadata.$QT_VERSION_TAG
+qhp.KFileMetaData.virtualFolder       = kfilemetadata
+qhp.KFileMetaData.indexTitle          = KFileMetaData
+qhp.KFileMetaData.indexRoot           =
+
+qhp.KFileMetaData.subprojects         = classes
+qhp.KFileMetaData.subprojects.classes.title = C++ Classes
+qhp.KFileMetaData.subprojects.classes.indexTitle = KFileMetaData C++ Classes
+qhp.KFileMetaData.subprojects.classes.selectors = class fake:headerfile
+qhp.KFileMetaData.subprojects.classes.sortPages = true

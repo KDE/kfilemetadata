@@ -21,30 +21,57 @@
 
 namespace KFileMetaData {
 class WriteDataPrivate;
-/**
- * \class WriteData writedata.h <KFileMetaData/WriteData>
+/*!
+ * \class KFileMetaData::WriteData
+ * \inheaderfile FileMetaData/WriteData
+ * \inmodule KFileMetaData
  *
  * \brief The WriteData class stores all the data to be written to a file.
  */
 class KFILEMETADATA_EXPORT WriteData
 {
 public:
+    /*!
+     *
+     */
     WriteData(const QString& url, const QString& mimetype);
     WriteData(const WriteData& rhs);
     virtual ~WriteData();
     WriteData& operator=(const WriteData& rhs);
+
+    /*!
+     *
+     */
     bool operator==(const WriteData& rhs) const;
 
+    /*!
+     *
+     */
     QString inputUrl() const;
 
+    /*!
+     *
+     */
     QString inputMimetype() const;
 
+    /*!
+     *
+     */
     void add(Property::Property property, const QVariant& value);
+
+    /*!
+     *
+     */
     void addImageData(const QMap<EmbeddedImageData::ImageType, QByteArray>& images);
 
-    /// @since 5.89
+    /*!
+     * \since 5.89
+     */
     PropertyMultiMap properties() const;
 
+    /*!
+     *
+     */
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
 private:

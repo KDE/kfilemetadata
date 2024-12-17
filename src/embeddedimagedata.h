@@ -17,19 +17,46 @@
 
 namespace KFileMetaData {
 
-/**
- * \class EmbeddedImageData embeddedimagedata.h <KFileMetaData/EmbeddedImageData>
+// TODO KF6 make this an enum only in KF6 similar to properties.h
+/*!
+ * \class KFileMetaData::EmbeddedImageData
+ * \inheaderfile KFileMetaData/EmbeddedImageData
+ * \inmodule KFileMetaData
  *
  * \brief EmbeddedImageData defines enums for different image types that can
- * be extracted from the metadata of e.g.\ music files
- * @todo KF6 make this an enum only in KF6 similar to properties.h
+ * be extracted from the metadata of e.g. music files.
  */
 class KFILEMETADATA_EXPORT EmbeddedImageData {
 public:
+    /*!
+     *
+     */
     EmbeddedImageData();
     virtual ~EmbeddedImageData();
-    /**
-     * @see ImageTypes
+    /*!
+     * \value FrontCover
+     * \value Other
+     * \value FileIcon
+     * \value OtherFileIcon
+     * \value BackCover
+     * \value LeafletPage
+     * \value Media
+     * \value LeadArtist
+     * \value Artist
+     * \value Conductor
+     * \value Band
+     * \value Composer
+     * \value Lyricist
+     * \value RecordingLocation
+     * \value DuringRecording
+     * \value DuringPerformance
+     * \value MovieScreenCapture
+     * \value ColouredFish
+     * \value Illustration
+     * \value BandLogo
+     * \value PublisherLogo
+     * \value Unknown
+     * \value AllImages
      */
     enum ImageType {
         FrontCover = 1 << 0x0,
@@ -56,9 +83,6 @@ public:
         Unknown = 1 << 30,
         AllImages = 0x7fffffff
     };
-    /**
-     * Stores a combination of #ImageType values.
-     */
     Q_DECLARE_FLAGS(ImageTypes, ImageType)
 
 private:

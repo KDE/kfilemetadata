@@ -20,12 +20,12 @@ class ExtractionResult;
 class DublinCoreExtractor
 {
 public:
-    /**
+    /*!
       * Extract DC metadata from an XML fragment
       *
       * Prerequisites:
-      * - DC element nodes are immediate children to \p fragment
-      * - The \c QDomDocument has been parsed with enabled namespaceProcessing
+      * - DC element nodes are immediate children to \a fragment
+      * - The QDomDocument has been parsed with enabled namespaceProcessing
       *
       * \sa QDomDocument::setContent
       */

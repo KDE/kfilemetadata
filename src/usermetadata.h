@@ -17,37 +17,55 @@ namespace KFileMetaData {
 
 class UserMetaDataPrivate;
 
-/**
- * \class UserMetaData usermetadata.h <KFileMetaData/UserMetaData>
+/*!
+ * \class KFileMetaData::UserMetaData
+ * \inheaderfile KFileMetaData/UserMetaData
+ * \inmodule KFileMetaData
  *
  * \brief The UserMetaData class can be used to read and set user meta data of files.
  */
 class KFILEMETADATA_EXPORT UserMetaData
 {
 public:
+    /*!
+     *
+     */
     UserMetaData(const QString &filePath);
     UserMetaData(const UserMetaData &rhs);
     virtual ~UserMetaData();
 
+    /*!
+     * \value NoError i.e. Success
+     * \value[since 6.2] UnknownError An error that's not currently handled specifically
+     * \value[since 6.2] NotSupported Underlying filesystem does not provide extended attributes features
+     * \value[since 6.2] NoSpace There is insufficient space remaining to store the extended attribute
+     * \value[since 6.2] MissingPermission Process doesn't have write permission to the file or the file is marked append-only
+     * \value[since 6.2] ValueTooBig The value size exceeds the maximum size allowed per-value (64 kB for Linux VFS
+     * \value[since 6.2] NameToolong The attribute name is too long (255 bytes for Linux VFS)
+     *
+     */
     enum Error {
-        /// i.e Success
         NoError = 0,
-        /// An error that's not currently handled specifically @since 6.2
         UnknownError,
-        /// Underlying filesystem does not provide extended attributes features @since 6.2
         NotSupported,
-        /// There is insufficient space remaining to store the extended attribute. @since 6.2
         NoSpace,
-        /// Process doesn't have write permission to the file or the file is marked append-only @since 6.2
         MissingPermission,
-        /// The value size exceeds the maximum size allowed per-value (64 kB for Linux VFS) @since 6.2
         ValueTooBig,
-        /// The attribute name is too long (255 bytes for Linux VFS)  @since 6.2
         NameToolong,
     };
 
-    /**
-     * @see Attributes
+    /*!
+     * \value None
+     * \value Any
+     * \value Tags
+     * \value Rating
+     * \value Comment
+     * \value OriginUrl
+     * \value OriginEmailSubject
+     * \value OriginEmailSender
+     * \value OriginEmailMessageId
+     * \value Other
+     * \value All
      */
     enum Attribute : uint32_t {
         None                 = 0x0,
@@ -62,57 +80,121 @@ public:
         Other                = 0xffffff80,
         All                  = 0xffffffff,
     };
-    /**
-     * Stores a combination of #Attribute values.
-     */
     Q_DECLARE_FLAGS(Attributes, Attribute)
 
     const UserMetaData& operator =(const UserMetaData& rhs);
 
+    /*!
+     *
+     */
     QString filePath() const;
+
+    /*!
+     *
+     */
     bool isSupported() const;
 
+    /*!
+     *
+     */
     Error setTags(const QStringList& tags);
+
+    /*!
+     *
+     */
     QStringList tags() const;
 
+    /*!
+     *
+     */
     int rating() const;
+
+    /*!
+     *
+     */
     Error setRating(int rating);
 
+    /*!
+     *
+     */
     QString userComment() const;
+
+    /*!
+     *
+     */
     Error setUserComment(const QString& userComment);
 
+    /*!
+     *
+     */
     QUrl originUrl() const;
+
+    /*!
+     *
+     */
     Error setOriginUrl(const QUrl &originUrl);
 
+    /*!
+     *
+     */
     QString originEmailSubject() const;
+
+    /*!
+     *
+     */
     Error setOriginEmailSubject(const QString &originEmailSubject);
 
+    /*!
+     *
+     */
     QString originEmailSender() const;
+
+    /*!
+     *
+     */
     Error setOriginEmailSender(const QString &originEmailSender);
 
+    /*!
+     *
+     */
     QString originEmailMessageId() const;
+
+    /*!
+     *
+     */
     Error setOriginEmailMessageId(const QString &originEmailMessageId);
 
 #if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(6, 2)
-    /// @deprecated since 6.2
+    /*!
+     * \deprecated[6.2]
+     */
     QString attribute(const QString &name);
 #endif
-    /// @since 6.2
+    /*!
+     * \since 6.2
+     */
     QString attribute(const QString &name) const;
 
+    /*!
+     *
+     */
     Error setAttribute(const QString &name, const QString &value);
 
 #if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(6, 2)
-    /// @deprecated since 6.2
+    /*!
+     * \deprecated[6.2]
+     */
     bool hasAttribute(const QString &name);
 #endif
-    /// @since 6.2
+    /*!
+     * \since 6.2
+     */
     bool hasAttribute(const QString &name) const;
 
-    /**
+    /*!
       * Query list of available attributes
       *
-      * Checks for the availability of the given \p attributes. May return
+      * Checks for the availability of the given \a attributes. May return
       * a superset of the input value when the file has attributes set
       * beyond the requested ones.
       *
