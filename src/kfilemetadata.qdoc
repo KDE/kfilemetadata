@@ -1,0 +1,11 @@
+/*!
+    \module KFileMetaData
+    \title KFileMetaData C++ Classes
+    \ingroup modules
+    \cmakepackage KF6
+    \cmakecomponent FileMetaData
+
+    \brief Provides Stuff.
+
+    Stuff
+*/
