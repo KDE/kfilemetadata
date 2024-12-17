@@ -17,7 +17,7 @@ namespace KFileMetaData {
 
 class SimpleExtractionResultPrivate;
 
-/**
+/*!
  * \class SimpleExtractionResult simpleextractionresult.h <KFileMetaData/SimpleExtractionResult>
  *
  * A simple ExtractionResult implementation which stores
@@ -41,7 +41,7 @@ public:
     void addType(Type::Type type) override;
     void append(const QString& text) override;
 
-    /**
+    /*!
      * Returns the properties of the extraction result.
      */
     PropertyMultiMap properties() const;

@@ -17,7 +17,7 @@ namespace KFileMetaData {
 
 class UserMetaDataPrivate;
 
-/**
+/*!
  * \class UserMetaData usermetadata.h <KFileMetaData/UserMetaData>
  *
  * \brief The UserMetaData class can be used to read and set user meta data of files.
@@ -46,7 +46,7 @@ public:
         NameToolong,
     };
 
-    /**
+    /*!
      * @see Attributes
      */
     enum Attribute : uint32_t {
@@ -62,7 +62,7 @@ public:
         Other                = 0xffffff80,
         All                  = 0xffffffff,
     };
-    /**
+    /*!
      * Stores a combination of #Attribute values.
      */
     Q_DECLARE_FLAGS(Attributes, Attribute)
@@ -109,7 +109,7 @@ public:
     /// @since 6.2
     bool hasAttribute(const QString &name) const;
 
-    /**
+    /*!
       * Query list of available attributes
       *
       * Checks for the availability of the given \p attributes. May return

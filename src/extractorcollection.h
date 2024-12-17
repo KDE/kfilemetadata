@@ -15,7 +15,7 @@
 namespace KFileMetaData
 {
 class ExtractorCollectionPrivate;
-/**
+/*!
  * \class ExtractorCollection extractorcollection.h <KFileMetaData/ExtractorCollection>
  *
  * \brief The ExtractorCollection is a helper class which internally
@@ -35,7 +35,7 @@ public:
     explicit ExtractorCollection();
     virtual ~ExtractorCollection();
 
-    /**
+    /*!
      * Fetch the extractors which can be used to extract
      * data for the respective file with the given MIME type.
      *

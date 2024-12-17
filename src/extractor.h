@@ -20,7 +20,7 @@ class ExtractorCollection;
 class ExtractorPlugin;
 class ExtractorPrivate;
 
-/**
+/*!
  * \class Extractor extractor.h <KFileMetaData/Extractor>
  *
  * \brief The Extractor class is used to extract data from a file.
