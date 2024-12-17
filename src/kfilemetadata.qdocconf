@@ -1,0 +1,29 @@
+include($KDE_DOCS/global/qt-module-defaults.qdocconf)
+
+project = KFileMetaData
+description = Additions to Qt Core
+
+documentationinheaders = true
+
+headerdirs = .
+sourcedirs = .
+
+outputformats = HTML
+
+depends += \
+    qtcore \
+
+
+qhp.projects            = KFileMetaData
+
+qhp.KFileMetaData.file                = kfilemetadata.qhp
+qhp.KFileMetaData.namespace           = org.kde.kfilemetadata.$QT_VERSION_TAG
+qhp.KFileMetaData.virtualFolder       = kfilemetadata
+qhp.KFileMetaData.indexTitle          = KFileMetaData
+qhp.KFileMetaData.indexRoot           =
+
+qhp.KFileMetaData.subprojects         = classes
+qhp.KFileMetaData.subprojects.classes.title = C++ Classes
+qhp.KFileMetaData.subprojects.classes.indexTitle = KFileMetaData C++ Classes
+qhp.KFileMetaData.subprojects.classes.selectors = class fake:headerfile
+qhp.KFileMetaData.subprojects.classes.sortPages = true

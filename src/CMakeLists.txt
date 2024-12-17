@@ -81,6 +81,8 @@ ecm_generate_headers(KF6FileMetaData_CamelCase_HEADERS
     REQUIRED_HEADERS KF6FileMetaData_HEADERS
 )
 
+ecm_generate_qdoc(KF6FileMetaData kfilemetadata.qdocconf)
+
 install(TARGETS KF6FileMetaData EXPORT KF6FileMetaDataTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(EXPORT KF6FileMetaDataTargets
