@@ -17,7 +17,7 @@
 namespace KFileMetaData
 {
 
-/**
+/*!
  * \class WriterPlugin writerplugin.h <KFileMetaData/WriterPlugin>
  *
  * \brief The WriterPlugin is the base class for all file metadata

@@ -20,7 +20,7 @@ class ExtractionResult;
 class DublinCoreExtractor
 {
 public:
-    /**
+    /*!
       * Extract DC metadata from an XML fragment
       *
       * Prerequisites:

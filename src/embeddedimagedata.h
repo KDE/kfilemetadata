@@ -17,7 +17,7 @@
 
 namespace KFileMetaData {
 
-/**
+/*!
  * \class EmbeddedImageData embeddedimagedata.h <KFileMetaData/EmbeddedImageData>
  *
  * \brief EmbeddedImageData defines enums for different image types that can
@@ -28,7 +28,7 @@ class KFILEMETADATA_EXPORT EmbeddedImageData {
 public:
     EmbeddedImageData();
     virtual ~EmbeddedImageData();
-    /**
+    /*!
      * @see ImageTypes
      */
     enum ImageType {
@@ -56,7 +56,7 @@ public:
         Unknown = 1 << 30,
         AllImages = 0x7fffffff
     };
-    /**
+    /*!
      * Stores a combination of #ImageType values.
      */
     Q_DECLARE_FLAGS(ImageTypes, ImageType)

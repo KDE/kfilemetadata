@@ -19,7 +19,7 @@
 namespace KFileMetaData
 {
 class WriterCollectionPrivate;
-/**
+/*!
  * \class WriterCollection writercollection.h <KFileMetaData/WriterCollection>
  *
  * \brief The WriterCollection is a helper class which internally

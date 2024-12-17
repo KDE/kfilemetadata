@@ -14,13 +14,13 @@
 namespace KFileMetaData
 {
 
-/**
+/*!
  * The MimeUtils namespace
  */
 namespace MimeUtils
 {
 
-/**
+/*!
  * Returns the MIME type for a file
  *
  * The function uses both content and filename to determine the

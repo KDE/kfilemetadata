@@ -21,7 +21,7 @@
 
 namespace KFileMetaData {
 class WriteDataPrivate;
-/**
+/*!
  * \class WriteData writedata.h <KFileMetaData/WriteData>
  *
  * \brief The WriteData class stores all the data to be written to a file.

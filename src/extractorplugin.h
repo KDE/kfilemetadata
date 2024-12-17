@@ -17,7 +17,7 @@
 namespace KFileMetaData
 {
 
-/**
+/*!
  * \class ExtractorPlugin extractorplugin.h <KFileMetaData/ExtractorPlugin>
  *
  * \brief The ExtractorPlugin is the base class for all file metadata
@@ -39,7 +39,7 @@ public:
     explicit ExtractorPlugin(QObject* parent);
     ~ExtractorPlugin() override;
 
-    /**
+    /*!
      * Provide a list of MIME types which are supported by this plugin.
      * Only files with those MIME types will be provided to the plugin via
      * the extract function.
@@ -52,7 +52,7 @@ public:
      */
     virtual QStringList mimetypes() const = 0;
 
-    /**
+    /*!
      * The main function of the plugin that is responsible for extracting
      * the data and filling up the ExtractionResult
      *
@@ -68,19 +68,19 @@ public:
     // Helper functions
     //
 
-    /**
+    /*!
      * Tries to extract a valid date time from the string provided.
      */
     static QDateTime dateTimeFromString(const QString& dateString);
 
-    /**
+    /*!
      * Tries to split the string into names. It cleans up any superfluous words
      * and removes extra junk such as curly braces
      */
     static QStringList contactsFromString(const QString& string);
 
 protected:
-    /**
+    /*!
      * Return the inherited MIME type which the extractor directly supports.
      *
      * The returned type is one of the types from \c mimetypes(),

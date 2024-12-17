@@ -15,7 +15,7 @@
 namespace KFileMetaData {
 
 class TypeInfoPrivate;
-/**
+/*!
  * \class TypeInfo typeinfo.h <KFileMetaData/TypeInfo>
 
  * The TypeInfo class can be used to obtain a rough type
@@ -42,28 +42,28 @@ public:
      */
     bool operator==(const TypeInfo& rhs) const;
 
-    /**
+    /*!
      * The type identifier
      */
     Type::Type type() const;
 
-    /**
+    /*!
      * An internal unique name for the type
      */
     QString name() const;
 
-    /**
+    /*!
      * A user visible translated name for this type
      */
     QString displayName() const;
 
-    /**
+    /*!
      * Construct a TypeInfo from the internal type name.
      * The internal type name is case insensitive
      */
     static TypeInfo fromName(const QString& name);
 
-    /**
+    /*!
      * Get all supported property names
      */
     static QStringList allNames();
