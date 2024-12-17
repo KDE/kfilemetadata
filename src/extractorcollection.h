@@ -15,8 +15,10 @@
 namespace KFileMetaData
 {
 class ExtractorCollectionPrivate;
-/**
- * \class ExtractorCollection extractorcollection.h <KFileMetaData/ExtractorCollection>
+/*!
+ * \class KFileMetaData::ExtractorCollection
+ * \inheaderfile KFileMetaData/ExtractorCollection
+ * \inmodule KFileMetaData
  *
  * \brief The ExtractorCollection is a helper class which internally
  * loads all the extractor plugins.
@@ -26,16 +28,17 @@ class ExtractorCollectionPrivate;
  *
  * Once the appropriate plugins have been fetched, an ExtractionResult
  * should be created and passed to the plugin's extract function.
- *
- * \author Vishesh Handa <me@vhanda.in>
  */
 class KFILEMETADATA_EXPORT ExtractorCollection
 {
 public:
+    /*!
+     *
+     */
     explicit ExtractorCollection();
     virtual ~ExtractorCollection();
 
-    /**
+    /*!
      * Fetch the extractors which can be used to extract
      * data for the respective file with the given MIME type.
      *

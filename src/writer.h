@@ -21,13 +21,19 @@ class WriteData;
 class WriterCollection;
 class WriterPrivate;
 
-/**
- * \class Writer writer.h <KFileMetaData/Writer>
+/*!
+ * \class KFileMetaData::Writer
+ * \inheaderfile KFileMetaData/Writer
+ * \inmodule KFileMetaData
  *
  * \brief The Writer class is used to write data to a file.
  */
 class KFILEMETADATA_EXPORT Writer
 {
+    /*!
+     * \value AutoDeletePlugin
+     * \value DoNotDeletePlugin
+     */
     enum WriterPluginOwnership {
         AutoDeletePlugin,
         DoNotDeletePlugin,
@@ -37,7 +43,14 @@ public:
     Writer(Writer&&);
     virtual ~Writer();
 
+    /*!
+     *
+     */
     void write(const WriteData& data);
+
+    /*!
+     *
+     */
     QStringList mimetypes() const;
 
 private:

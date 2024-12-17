@@ -20,13 +20,19 @@ class ExtractorCollection;
 class ExtractorPlugin;
 class ExtractorPrivate;
 
-/**
- * \class Extractor extractor.h <KFileMetaData/Extractor>
+/*!
+ * \class KFileMetaData::Extractor
+ * \inheaderfile KFileMetaData/Extractor
+ * \inmodule KFileMetaData
  *
  * \brief The Extractor class is used to extract data from a file.
  */
 class KFILEMETADATA_EXPORT Extractor
 {
+    /*!
+     * \value AutoDeletePlugin
+     * \value DoNotDeletePlugin
+     */
     enum ExtractorPluginOwnership {
         AutoDeletePlugin,
         DoNotDeletePlugin,
@@ -36,8 +42,19 @@ public:
     Extractor(Extractor&&);
     virtual ~Extractor() noexcept;
 
+    /*!
+     *
+     */
     void extract(ExtractionResult* result);
+
+    /*!
+     *
+     */
     QStringList mimetypes() const;
+
+    /*!
+     *
+     */
     QVariantMap extractorProperties() const;
 
 private:

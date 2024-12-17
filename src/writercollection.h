@@ -19,8 +19,10 @@
 namespace KFileMetaData
 {
 class WriterCollectionPrivate;
-/**
- * \class WriterCollection writercollection.h <KFileMetaData/WriterCollection>
+/*!
+ * \class KFileMetaData::WriterCollection
+ * \inheaderfile KFileMetaData/WriterCollection
+ * \inmodule KFileMetaData
  *
  * \brief The WriterCollection is a helper class which internally
  * loads all the writer plugins.
@@ -34,9 +36,15 @@ class WriterCollectionPrivate;
 class KFILEMETADATA_EXPORT WriterCollection
 {
 public:
+    /*!
+     *
+     */
     explicit WriterCollection();
     virtual ~WriterCollection();
 
+    /*!
+     *
+     */
     QList<Writer*> fetchWriters(const QString& mimetype) const;
 
 private:

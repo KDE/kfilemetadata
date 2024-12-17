@@ -81,6 +81,8 @@ ecm_generate_headers(KF6FileMetaData_CamelCase_HEADERS
     REQUIRED_HEADERS KF6FileMetaData_HEADERS
 )
 
+ecm_generate_qdoc(KF6FileMetaData kfilemetadata.qdocconf)
+
 install(TARGETS KF6FileMetaData EXPORT KF6FileMetaDataTargets ${KF_INSTALL_TARGETS_DEFAULT_ARGS})
 
 install(EXPORT KF6FileMetaDataTargets
@@ -100,34 +102,6 @@ install(FILES
 )
 
 configure_file(config-kfilemetadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kfilemetadata.h)
-
-if(BUILD_QCH)
-    ecm_add_qch(
-        KF6FileMetaData_QCH
-        NAME KFileMetaData
-        BASE_NAME KF6FileMetaData
-        VERSION ${KF_VERSION}
-        ORG_DOMAIN org.kde
-        SOURCES # using only public headers, to cover only public API
-            ${KF6FileMetaData_HEADERS}
-        MD_MAINPAGE "${CMAKE_SOURCE_DIR}/README.md"
-        LINK_QCHS
-            Qt6Core_QCH
-        INCLUDE_DIRS
-            ${CMAKE_CURRENT_BINARY_DIR}
-        BLANK_MACROS
-            KFILEMETADATA_EXPORT
-            KFILEMETADATA_DEPRECATED
-            KFILEMETADATA_DEPRECATED_EXPORT
-            "KFILEMETADATA_DEPRECATED_VERSION(x, y, t)"
-            "KFILEMETADATA_DEPRECATED_VERSION_BELATED(x, y, xt, yt, t)"
-            "KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION(x, y, t)"
-            "KFILEMETADATA_ENUMERATOR_DEPRECATED_VERSION_BELATED(x, y, xt, yt, t)"
-        TAGFILE_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        QCH_INSTALL_DESTINATION ${KDE_INSTALL_QTQCHDIR}
-        COMPONENT Devel
-    )
-endif()
 
 add_subdirectory(extractors)
 

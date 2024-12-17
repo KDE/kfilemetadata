@@ -17,8 +17,10 @@
 namespace KFileMetaData
 {
 
-/**
- * \class WriterPlugin writerplugin.h <KFileMetaData/WriterPlugin>
+/*!
+ * \class KFileMetaData::WriterPlugin
+ * \inheaderfile KFileMetaData/WriterPlugin
+ * \inmodule KFileMetaData
  *
  * \brief The WriterPlugin is the base class for all file metadata
  * writers.
@@ -29,11 +31,20 @@ class KFILEMETADATA_EXPORT WriterPlugin : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     *
+     */
     explicit WriterPlugin(QObject* parent);
     ~WriterPlugin() override;
 
+    /*!
+     *
+     */
     virtual QStringList writeMimetypes() const = 0;
 
+    /*!
+     *
+     */
     virtual void write(const WriteData& data) = 0;
 };
 }

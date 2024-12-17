@@ -17,10 +17,12 @@ namespace KFileMetaData {
 
 class SimpleExtractionResultPrivate;
 
-/**
- * \class SimpleExtractionResult simpleextractionresult.h <KFileMetaData/SimpleExtractionResult>
+/*!
+ * \class KFileMetaData::SimpleExtractionResult
+ * \inheaderfile KFileMetaData/SimpleExtractionResult
+ * \inmodule KFileMetaData
  *
- * A simple ExtractionResult implementation which stores
+ * \brief A simple ExtractionResult implementation which stores
  * all the data in memory.
  *
  * This should ideally not be used in production applications as
@@ -30,23 +32,48 @@ class SimpleExtractionResultPrivate;
 class KFILEMETADATA_EXPORT SimpleExtractionResult : public ExtractionResult
 {
 public:
+    /*!
+     *
+     */
     SimpleExtractionResult(const QString& url, const QString& mimetype = QString(), const Flags& flags = Flags{ExtractPlainText | ExtractMetaData});
     SimpleExtractionResult(const SimpleExtractionResult& rhs);
     ~SimpleExtractionResult() override;
 
     SimpleExtractionResult& operator=(const SimpleExtractionResult& rhs);
+
+    /*!
+     *
+     */
     bool operator==(const SimpleExtractionResult& rhs) const;
 
+    /*!
+     *
+     */
     void add(Property::Property property, const QVariant& value) override;
+
+    /*!
+     *
+     */
     void addType(Type::Type type) override;
+
+    /*!
+     *
+     */
     void append(const QString& text) override;
 
-    /**
+    /*!
      * Returns the properties of the extraction result.
      */
     PropertyMultiMap properties() const;
 
+    /*!
+     *
+     */
     QString text() const;
+
+    /*!
+     *
+     */
     QList<Type::Type> types() const;
 
 private:

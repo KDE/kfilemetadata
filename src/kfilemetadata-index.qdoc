@@ -1,0 +1,21 @@
+/*!
+    \page kfilemetadata-index.html
+    \title KFileMetaData
+
+    Library for extracting the text and metadata
+    from a number of different files.
+
+    \section1 Using the Module
+
+    \include {module-use.qdocinc} {using the c++ api}
+
+    \section2 Building with CMake
+
+    \include {module-use.qdocinc} {building with cmake} {KF6} {FileMetaData} {KF6::FileMetaData}
+
+    \section1 API Reference
+
+    \list
+        \li \l{KFileMetaData C++ Classes}
+    \endlist
+*/

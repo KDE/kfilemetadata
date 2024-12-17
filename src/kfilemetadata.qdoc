@@ -1,0 +1,10 @@
+/*!
+    \module KFileMetaData
+    \title KFileMetaData C++ Classes
+    \ingroup modules
+    \cmakepackage KF6
+    \cmakecomponent FileMetaData
+
+    \brief Library for extracting the text and metadata
+    from a number of different files.
+*/

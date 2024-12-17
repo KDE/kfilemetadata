@@ -16,8 +16,10 @@
 namespace KFileMetaData {
 
 class PropertyInfoData;
-/**
- * \class PropertyInfo propertyinfo.h <KFileMetaData/PropertyInfo>
+/*!
+ * \class KFileMetaData::PropertyInfo
+ * \inheaderfile KFileMetaData/PropertyInfo
+ * \inmodule KFileMetaData
  *
  * \brief The PropertyInfo class can be used to obtain extra information
  * about any property.
@@ -29,25 +31,36 @@ class PropertyInfoData;
 class KFILEMETADATA_EXPORT PropertyInfo
 {
 public:
+    /*!
+     *
+     */
     PropertyInfo();
+
+    /*!
+     *
+     */
     PropertyInfo(Property::Property property);
     PropertyInfo(const PropertyInfo& pi);
     ~PropertyInfo();
 
     PropertyInfo& operator=(const PropertyInfo& rhs);
+
+    /*!
+     *
+     */
     bool operator==(const PropertyInfo& rhs) const;
 
-    /**
+    /*!
      * The enumeration which represents this property
      */
     Property::Property property() const;
 
-    /**
+    /*!
      * The internal unique name used to refer to the property
      */
     QString name() const;
 
-    /**
+    /*!
      * A user visible name of the property
      *
      * Note: When the displayName for a given property is used repeatedly
@@ -56,13 +69,13 @@ public:
      */
     QString displayName() const;
 
-    /**
+    /*!
      * The type the value of this property should be.
      * Eg - Property::Height should be an integer
      */
     QMetaType::Type valueType() const;
 
-    /**
+    /*!
      * Indicates if this property requires indexing or should just be stored.
      * Eg - Property::Height does not need to be part of the global index.
      *      When a user searches for 600, they should not get images with
@@ -72,26 +85,25 @@ public:
      */
     bool shouldBeIndexed() const;
 
-    /**
+    /*!
      * Construct a PropertyInfo from the internal property name.
      * The internal property name is case insensitive
      */
     static PropertyInfo fromName(const QString& name);
 
-    /**
+    /*!
      * Get the names of all valid, supported properties
      *
      * Note: Property::Empty is not considered a valid property.
      *
-     * @since 6.0
-     * @since 5.107
+     * \since 5.107
      */
     static QStringList allNames();
 
-    /**
+    /*!
      * Returns the value of the property as a QString with added formatting,
      * added units if needed, and translated enums.
-     * @since 5.56
+     * \since 5.56
      */
     QString formatAsDisplayString(const QVariant& value) const;
 

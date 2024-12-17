@@ -18,15 +18,12 @@ include(ECMAddTests)
 include(ECMGenerateExportHeader)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
-include(ECMAddQch)
 include(ECMQtDeclareLoggingCategory)
 include(ECMDeprecationSettings)
+include(ECMGenerateQDoc)
 include(CheckStructHasMember)
 
 set(EXCLUDE_DEPRECATED_BEFORE_AND_AT 0 CACHE STRING "Control the range of deprecated API excluded from the build [default=0].")
-
-option(BUILD_QCH "Build API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)" OFF)
-add_feature_info(QCH ${BUILD_QCH} "API documentation in QCH format (for e.g. Qt Assistant, Qt Creator & KDevelop)")
 
 set(kfilemetadata_version_header "${CMAKE_CURRENT_BINARY_DIR}/src/kfilemetadata_version.h")
 ecm_setup_version(PROJECT
@@ -140,16 +137,6 @@ add_subdirectory(tests)
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6FileMetaData")
 
 ki18n_install(po)
-
-if (BUILD_QCH)
-    ecm_install_qch_export(
-        TARGETS KF6FileMetaData_QCH
-        FILE KF6FileMetaDataQchTargets.cmake
-        DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-        COMPONENT Devel
-    )
-    set(PACKAGE_INCLUDE_QCHTARGETS "include(\"\${CMAKE_CURRENT_LIST_DIR}/KF6FileMetaDataQchTargets.cmake\")")
-endif()
 
 include(CMakePackageConfigHelpers)
 
