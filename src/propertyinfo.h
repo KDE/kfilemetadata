@@ -17,7 +17,9 @@ namespace KFileMetaData {
 
 class PropertyInfoData;
 /*!
- * \class PropertyInfo propertyinfo.h <KFileMetaData/PropertyInfo>
+ * \class KFileMetaData::PropertyInfo
+ * \inheaderfile KFileMetaData/PropertyInfo
+ * \inmodule KFileMetaData
  *
  * \brief The PropertyInfo class can be used to obtain extra information
  * about any property.
@@ -29,12 +31,23 @@ class PropertyInfoData;
 class KFILEMETADATA_EXPORT PropertyInfo
 {
 public:
+    /*!
+     *
+     */
     PropertyInfo();
+
+    /*!
+     *
+     */
     PropertyInfo(Property::Property property);
     PropertyInfo(const PropertyInfo& pi);
     ~PropertyInfo();
 
     PropertyInfo& operator=(const PropertyInfo& rhs);
+
+    /*!
+     *
+     */
     bool operator==(const PropertyInfo& rhs) const;
 
     /*!
@@ -83,15 +96,14 @@ public:
      *
      * Note: Property::Empty is not considered a valid property.
      *
-     * @since 6.0
-     * @since 5.107
+     * \since 5.107
      */
     static QStringList allNames();
 
     /*!
      * Returns the value of the property as a QString with added formatting,
      * added units if needed, and translated enums.
-     * @since 5.56
+     * \since 5.56
      */
     QString formatAsDisplayString(const QVariant& value) const;
 
