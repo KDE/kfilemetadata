@@ -19,7 +19,7 @@ class TypeInfoPrivate;
  * \class KFileMetaData::TypeInfo
  * \inheaderfile KFileMetaData/TypeInfo
  * \inmodule KFileMetaData
-
+ *
  * \brief The TypeInfo class can be used to obtain a rough type
  * classification for a file.
  *
