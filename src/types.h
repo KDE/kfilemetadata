@@ -21,6 +21,7 @@ namespace KFileMetaData
 
 /*!
  * \namespace KFileMetaData::Type
+ * \inmodule KFileMetaData
  * The Type namespace
  */
 namespace Type
@@ -42,7 +43,7 @@ namespace Type
  * \value Image Any Image file. This includes both raster and vector formats
  * \value Document Any file which counts as a document. Documents are generally
  *  files which contain rich text, formatting and maybe images, but also just plain text
- * \value SpreadSheet Any file which counts as a document. Documents are generally
+ * \value Spreadsheet Any file which counts as a document. Documents are generally
  * files which contain rich text, formatting and maybe images,
  * but also just plain text.
  * \value Presentation A Presentation file. This is a specialization of the Document type.

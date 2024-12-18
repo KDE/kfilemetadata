@@ -17,7 +17,7 @@ namespace KFileMetaData {
 
 /*!
  * \namespace KFileMetaData::Property
- * \brief The Property namespace
+ * \brief The Property namespace.
  */
 namespace Property {
 
