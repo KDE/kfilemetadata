@@ -11,6 +11,9 @@
 #include <QVariant>
 
 /*!
+ * \namespace KFileMetaData
+ * \inheaderfile KFileMetaData/Types
+ * \inmodule KFileMetaData
  * The KFileMetaData namespace
  */
 namespace KFileMetaData
