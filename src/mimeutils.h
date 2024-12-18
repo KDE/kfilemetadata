@@ -16,6 +16,7 @@ namespace KFileMetaData
 
 /*!
  * \namespace KFileMetaData::MimeUtils
+ * \inmodule KFileMetaData
  *
  * \brief The MimeUtils namespace.
  */

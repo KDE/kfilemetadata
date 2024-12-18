@@ -125,8 +125,6 @@ public:
     /*!
      * Return embedded image data
      *
-     * \sa Flags::ExtractImageData
-     *
      * \since 5.76
      */
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
