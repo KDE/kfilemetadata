@@ -20,7 +20,9 @@
 namespace KFileMetaData {
 class ExtractionResultPrivate;
 /*!
- * \class ExtractionResult extractionresult.h <KFileMetaData/ExtractionResult>
+ * \class KFileMetaData::ExtractionResult
+ * \inheaderfile KFileMetaData/ExtractionResult
+ * \inmodule KFileMetaData
  *
  * \brief The ExtractionResult class is where all the data extracted by
  * the indexer is saved.
@@ -30,29 +32,27 @@ class ExtractionResultPrivate;
  *
  * The derived class needs to implement 3 pure virtual functions through
  * which it receives the extracted data.
- *
- * \author Vishesh Handa <me@vhanda.in>
  */
 class KFILEMETADATA_EXPORT ExtractionResult
 {
 public:
     /*!
-     * @see Flags
+     * \value ExtractNothing
+     * \value ExtractMetaData
+     * \value ExtractPlainText
+     * \value[since 5.76] ExtractImageData
      */
     enum Flag {
         ExtractNothing = 0,
         ExtractMetaData = 1,
         ExtractPlainText = 2,
-        ExtractImageData = 4, ///< @since 5.76
+        ExtractImageData = 4,
     };
-    /*!
-     * Stores a combination of #Flag values.
-     */
     Q_DECLARE_FLAGS(Flags, Flag)
 
     /*!
      * Create an ExtractionResult which can be passed be to Extractors. The
-     * extractors use the \p url, \p mimetype and \p flags in order to determine
+     * extractors use the \a url, \a mimetype and \a flags in order to determine
      * which file the data should be extracted from and which data should
      * be extracted.
      */
@@ -93,15 +93,16 @@ public:
      * add a key value pair which should be indexed. This function may be
      * called multiple times for the same key.
      *
-     * \p property This specifies a property name. It should be one of the
+     * \a property This specifies a property name. It should be one of the
      *             properties from the global list of properties.
      *
-     * \p value The value of the property
+     * \a value The value of the property
      */
     virtual void add(Property::Property property, const QVariant& value) = 0;
 
     /*!
      * This function is called by the plugins.
+     *
      * A type is a higher level classification of the file. A file can
      * have multiple types, but mostly when it does, those types are related.
      * Eg - Document and Presentation.
@@ -113,9 +114,11 @@ public:
     /*!
      * This function is called by the plugins.
      *
-     * \p images The images to add
+     * \a images The images to add
+     *
      * \sa EmbeddedImageData
-     * @since 5.76
+     *
+     * \since 5.76
      */
     void addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>&& images);
 
@@ -123,7 +126,8 @@ public:
      * Return embedded image data
      *
      * \sa Flags::ExtractImageData
-     * @since 5.76
+     *
+     * \since 5.76
      */
     QMap<EmbeddedImageData::ImageType, QByteArray> imageData() const;
 
