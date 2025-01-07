@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Marce Villarino <mvillarino@kde-espana.org>, 2014.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2016, 2017.
-# SPDX-FileCopyrightText: 2024 Adrián Chaves (Gallaecio)
+# SPDX-FileCopyrightText: 2024, 2025 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:25+0000\n"
-"PO-Revision-Date: 2023-06-05 08:31+0200\n"
+"PO-Revision-Date: 2025-01-06 12:40+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -55,6 +55,7 @@ msgctxt "Description of image orientation"
 msgid "Transposed"
 msgstr "Trasposta"
 
+# skip-rule: trasno-rotate
 #: src/formatstrings.cpp:83
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
@@ -67,6 +68,7 @@ msgctxt "Description of image orientation"
 msgid "Transversed"
 msgstr "Oblicuo"
 
+# skip-rule: trasno-rotate
 #: src/formatstrings.cpp:85
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
