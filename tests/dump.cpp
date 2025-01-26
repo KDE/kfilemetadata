@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     QCoreApplication app(argc, argv);
 
     QCommandLineParser parser;
-    parser.addOption({{"f", "fulltext"}, "Extract full text"});
+    parser.addOption({{QStringLiteral("f"), QStringLiteral("fulltext")}, QStringLiteral("Extract full text")});
     parser.addPositionalArgument(QStringLiteral("filename"), QStringLiteral("File to process"));
     parser.process(app);
 
@@ -32,7 +32,7 @@ int main(int argc, char** argv)
         qDebug() << "Exactly one argument is accepted";
         parser.showHelp(1);
     }
-    bool extractFulltext = parser.isSet("fulltext");
+    bool extractFulltext = parser.isSet(QStringLiteral("fulltext"));
 
     using KFileMetaData::ExtractionResult;
     const ExtractionResult::Flags extractionLevel = (extractFulltext
