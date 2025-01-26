@@ -1,4 +1,12 @@
 add_executable(dump dump.cpp)
+ecm_mark_nongui_executable(dump)
+
+set_target_properties(dump PROPERTIES
+    OUTPUT_NAME kfilemetadata_dump6
+)
+install(TARGETS dump
+        DESTINATION ${KDE_INSTALL_BINDIR}
+)
 
 target_include_directories(dump  PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>")
 
