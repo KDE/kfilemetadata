@@ -205,7 +205,7 @@ void XmlExtractorTests::testXmlExtractorSvgCompressed()
 #ifdef SVG_XML_COMPRESSED_SUPPORT
     QCOMPARE(result.properties().size(), 1);
     QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Document Title"));
-    QCOMPARE(result.text(), "Some text ");
+    QCOMPARE(result.text(), QStringLiteral("Some text "));
 #else
     QVERIFY(result.properties().isEmpty());
     QVERIFY(result.text().isEmpty());

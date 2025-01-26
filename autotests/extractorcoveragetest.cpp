@@ -28,7 +28,7 @@ private:
     }
 
     QStringList m_testFiles;
-    QMultiMap<QString, QString> m_knownFiles;
+    QMultiMap<QByteArray, QByteArray> m_knownFiles;
 
 private Q_SLOTS:
 
@@ -132,8 +132,9 @@ private Q_SLOTS:
 
         auto it = m_knownFiles.cbegin();
         while (it != m_knownFiles.cend()) {
-            QTest::addRow("%s_%s", it.key().toUtf8().constData(), it.value().toUtf8().constData())
-                << it.key() << it.value();
+            QTest::addRow("%s_%s", it.key().constData(), it.value().constData())
+                << QString::fromUtf8(it.key().constData(), -1)
+                << QString::fromUtf8(it.value().constData(), -1);
             ++it;
         }
     }
@@ -142,13 +143,14 @@ private Q_SLOTS:
     {
         QFETCH(QString, fileName);
         QFETCH(QString, mimeType);
-        QString url = filePath() + QChar('/') + fileName;
+        QString url = filePath() + QLatin1Char('/') + fileName;
 
         QMimeDatabase db;
         auto fileMime = MimeUtils::strictMimeType(url, db);
 
         QVERIFY(fileMime.isValid());
-        if (fileMime.name() == "application/xml" && mimeType == "application/x-apple-systemprofiler+xml") {
+        if (fileMime.name() == QStringLiteral("application/xml")
+            && mimeType == QStringLiteral("application/x-apple-systemprofiler+xml")) {
             // s-m-i < 2.0 didn't have application/x-apple-systemprofiler+xml yet, it's all fine
             return;
         }
@@ -186,7 +188,7 @@ private Q_SLOTS:
     {
         QFETCH(QString, fileName);
 
-        QVERIFY2(m_knownFiles.contains(fileName), "test file omitted from test suite");
+        QVERIFY2(m_knownFiles.contains(fileName.toUtf8()), "test file omitted from test suite");
     }
 
 };

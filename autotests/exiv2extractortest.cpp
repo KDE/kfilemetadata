@@ -82,20 +82,20 @@ void Exiv2ExtractorTest::testGPS()
 
     Exiv2Extractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.jpg"), "image/jpeg");
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.jpg")), QStringLiteral("image/jpeg"));
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(PhotoGpsLatitude).toDouble(), 41.411);
     QCOMPARE(result.properties().value(PhotoGpsLongitude).toDouble(), 2.173);
     QCOMPARE(result.properties().value(PhotoGpsAltitude).toDouble(), 12.2);
 
-    SimpleExtractionResult resultEmpty(testFilePath("test_no_gps.jpg"), "image/jpeg");
+    SimpleExtractionResult resultEmpty(testFilePath(QStringLiteral("test_no_gps.jpg")), QStringLiteral("image/jpeg"));
     plugin.extract(&resultEmpty);
     QVERIFY(!resultEmpty.properties().contains(PhotoGpsLatitude));
     QVERIFY(!resultEmpty.properties().contains(PhotoGpsLongitude));
     QVERIFY(!resultEmpty.properties().contains(PhotoGpsAltitude));
 
-    SimpleExtractionResult resultZero(testFilePath("test_zero_gps.jpg"), "image/jpeg");
+    SimpleExtractionResult resultZero(testFilePath(QStringLiteral("test_zero_gps.jpg")), QStringLiteral("image/jpeg"));
     plugin.extract(&resultZero);
     QVERIFY(resultZero.properties().contains(PhotoGpsLatitude));
     QVERIFY(resultZero.properties().contains(PhotoGpsLongitude));
@@ -112,7 +112,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
 
     Exiv2Extractor plugin{this};
 
-    if ((mimeType == QStringLiteral("image/jxl")) && !plugin.mimetypes().contains("image/jxl")) {
+    if ((mimeType == QStringLiteral("image/jxl")) && !plugin.mimetypes().contains(QStringLiteral("image/jxl"))) {
         QSKIP("BMFF support required for JXL");
     }
     QVERIFY(plugin.mimetypes().contains(mimeType));
@@ -180,11 +180,11 @@ void Exiv2ExtractorTest::testHeifProperties()
 {
     Exiv2Extractor plugin{this};
 
-    if (!plugin.mimetypes().contains("image/heif")) {
+    if (!plugin.mimetypes().contains(QStringLiteral("image/heif"))) {
         QSKIP("BMFF support required for HEIF");
     }
 
-    SimpleExtractionResult result(testFilePath("test.heif"), "image/heif");
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.heif")), QStringLiteral("image/heif"));
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

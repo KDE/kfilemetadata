@@ -98,44 +98,50 @@ void IndexerExtractorTests::testPlainTextExtractor_data()
 
     using ER = ExtractionResult;
 
-    const QString plainTextContent{"This is a text file "
+    const QString plainTextContent = QStringLiteral( //
+                                   "This is a text file "
                                    "it is four lines long "
                                    "it has 77 characters "
-                                   "and 17 words. "};
+                                   "and 17 words. ");
 
     QTest::addRow("No extraction")     << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractNothing}  << QString() << QVariant();
     QTest::addRow("Metadata only")     << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractMetaData} << QString() << QVariant();
     QTest::addRow("Metadata and text") << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << plainTextContent << QVariant(4);
 
-    const QString emptyLineContent{"This is a text file  It is ten lines long, "
+    const QString emptyLineContent = QStringLiteral( //
+                                   "This is a text file  It is ten lines long, "
                                    "including three empty lines.  It has 152 "
                                    "characters and 28 words.  The file ends "
-                                   "without a newline character. "};
+                                   "without a newline character. ");
 
     QTest::addRow("Count empty lines") << QStringLiteral("test_plain_text_newlines.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << emptyLineContent << QVariant(10);
 
-    const QString win1251Content{"Это текстовый файл "
+    const QString win1251Content = QStringLiteral( //
+                                 "Это текстовый файл "
                                  "длиной в четыре строки, "
                                  "содержащий 77 символов "
-                                 "и 13 слов. "};
+                                 "и 13 слов. ");
 
     QTest::addRow("File with win1251 encoding") << QStringLiteral("test_plain_text_file_win1251.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << win1251Content << QVariant(4);
 
-    const QString GB18030Content{"这是一个文本文件 "
+    const QString GB18030Content = QStringLiteral( //
+                                 "这是一个文本文件 "
                                  "它有四条线 "
                                  "它有31个字符 "
-                                 "还有25个字。 "};
+                                 "还有25个字。 ");
 
     QTest::addRow("File with GB18030 encoding") << QStringLiteral("test_plain_text_file_GB18030.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << GB18030Content << QVariant(4);
 
-    const QString eucJpContent{"これはテキストファイルです "
+    const QString eucJpContent = QStringLiteral( //
+                               "これはテキストファイルです "
                                "それは4行の長さです "
                                "それは46文字を持っています "
-                               "そして44の言葉。 "};
+                               "そして44の言葉。 ");
 
     QTest::addRow("File with EucJp encoding") << QStringLiteral("test_plain_text_file_euc-jp.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << eucJpContent << QVariant(4);
 
-    const QString utf16HtmlContent{"<html> "
+    const QString utf16HtmlContent = QStringLiteral( //
+                                   "<html> "
                                    "<head> "
                                    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-16\"/> "
                                    "</head> "
@@ -144,11 +150,12 @@ void IndexerExtractorTests::testPlainTextExtractor_data()
                                    "it is ten lines long "
                                    "and it has utf-16 encoding (ɒɓɔɕ). "
                                    "</body> "
-                                   "</html> "};
+                                   "</html> ");
 
     QTest::addRow("Html file with UTF-16 encoding") << QStringLiteral("test_plain_text_html_file_utf16.html") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << utf16HtmlContent << QVariant(10);
 
-    const QString win1251HtmlContent{"<html> "
+    const QString win1251HtmlContent = QStringLiteral( //
+                                     "<html> "
                                      "<head> "
                                      "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\"/> "
                                      "</head> "
@@ -157,7 +164,7 @@ void IndexerExtractorTests::testPlainTextExtractor_data()
                                      "в нем 10 строк, "
                                      "и он имеет кодировку windows-1251. "
                                      "</body> "
-                                     "</html> "};
+                                     "</html> ");
 
     QTest::addRow("Html file with win1251 encoding") << QStringLiteral("test_plain_text_html_file_win1251.html") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << win1251HtmlContent << QVariant(10);
 }

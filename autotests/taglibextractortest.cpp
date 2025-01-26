@@ -74,7 +74,7 @@ QString TagLibExtractorTest::testFilePath(const QString& fileName) const
 
 void TagLibExtractorTest::initTestCase()
 {
-    QFile imgFile(testFilePath("cover.jpg"));
+    QFile imgFile(testFilePath(QStringLiteral("cover.jpg")));
     imgFile.open(QIODevice::ReadOnly);
     m_coverImage = imgFile.readAll();
 }
@@ -92,7 +92,7 @@ void TagLibExtractorTest::testNoExtraction()
 {
     TagLibExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.opus"), QStringLiteral("audio/x-opus+ogg"), ExtractionResult::ExtractNothing);
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.opus")), QStringLiteral("audio/x-opus+ogg"), ExtractionResult::ExtractNothing);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -104,7 +104,7 @@ void TagLibExtractorTest::testPropertyTypes()
 {
     TagLibExtractor plugin{this};
 
-    SimpleExtractionResult resultOpus(testFilePath("test.opus"), "audio/x-opus+ogg");
+    SimpleExtractionResult resultOpus(testFilePath(QStringLiteral("test.opus")), QStringLiteral("audio/x-opus+ogg"));
     plugin.extract(&resultOpus);
 
     auto testForType = [](SimpleExtractionResult &result, Property::Property prop) {
@@ -564,7 +564,7 @@ void TagLibExtractorTest::testId3Rating()
     QFETCH(int, expectedRating);
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult result(path, "audio/mpeg");
+    SimpleExtractionResult result(path, QStringLiteral("audio/mpeg"));
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(Property::Rating).toInt(), expectedRating);
@@ -576,7 +576,7 @@ void TagLibExtractorTest::testWmaRating()
     QFETCH(int, expectedRating);
 
     TagLibExtractor plugin{this};
-    SimpleExtractionResult result(path, "audio/x-ms-wma");
+    SimpleExtractionResult result(path, QStringLiteral("audio/x-ms-wma"));
     plugin.extract(&result);
 
     QCOMPARE(result.properties().value(Property::Rating).toInt(), expectedRating);
@@ -738,7 +738,7 @@ void TagLibExtractorTest::testImageData()
     const QString mimeType = mimeDb.mimeTypeForFile(testAudioFile).name();
 
     QVERIFY2(!mimeType.isEmpty(), "Failed to determine mimetype");
-    QVERIFY2(plugin.mimetypes().contains(mimeType), qPrintable(mimeType + " not supported by taglib"));
+    QVERIFY2(plugin.mimetypes().contains(mimeType), qPrintable(QStringLiteral("%1 not supported by taglib").arg(mimeType)));
 
     SimpleExtractionResult result(testAudioFile, mimeType, ExtractionResult::ExtractImageData);
     plugin.extract(&result);

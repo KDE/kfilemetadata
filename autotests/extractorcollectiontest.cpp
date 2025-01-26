@@ -22,21 +22,21 @@ private Q_SLOTS:
     {
         QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
         ExtractorCollection collection;
-        QVERIFY(collection.fetchExtractors("unknown/mimetype").isEmpty());
-        QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
+        QVERIFY(collection.fetchExtractors(QStringLiteral("unknown/mimetype")).isEmpty());
+        QVERIFY(!collection.fetchExtractors(QStringLiteral("text/plain")).isEmpty());
     }
 
     void testMultipleExtractorCollections()
     {
         QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
         ExtractorCollection collection;
-        QVERIFY(collection.fetchExtractors("unknown/mimetype").isEmpty());
-        QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
+        QVERIFY(collection.fetchExtractors(QStringLiteral("unknown/mimetype")).isEmpty());
+        QVERIFY(!collection.fetchExtractors(QStringLiteral("text/plain")).isEmpty());
         ExtractorCollection collection2;
-        QVERIFY(collection.fetchExtractors("unknown/mimetype").isEmpty());
-        QVERIFY(!collection.fetchExtractors("text/plain").isEmpty());
-        QVERIFY(collection2.fetchExtractors("unknown/mimetype").isEmpty());
-        QVERIFY(!collection2.fetchExtractors("text/plain").isEmpty());
+        QVERIFY(collection.fetchExtractors(QStringLiteral("unknown/mimetype")).isEmpty());
+        QVERIFY(!collection.fetchExtractors(QStringLiteral("text/plain")).isEmpty());
+        QVERIFY(collection2.fetchExtractors(QStringLiteral("unknown/mimetype")).isEmpty());
+        QVERIFY(!collection2.fetchExtractors(QStringLiteral("text/plain")).isEmpty());
     }
 
     void testMimeInheritance()
@@ -44,10 +44,10 @@ private Q_SLOTS:
         QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
         ExtractorCollection collection;
 
-        auto textExtractors = collection.fetchExtractors("text/plain");
+        auto textExtractors = collection.fetchExtractors(QStringLiteral("text/plain"));
         QVERIFY(!textExtractors.isEmpty());
 
-        auto xmlExtractors = collection.fetchExtractors("application/xml");
+        auto xmlExtractors = collection.fetchExtractors(QStringLiteral("application/xml"));
         QVERIFY(!xmlExtractors.isEmpty());
 
         // Verify the generic "text/plain" extractor is not used for "application/xml"
@@ -61,10 +61,10 @@ private Q_SLOTS:
         QCoreApplication::setLibraryPaths({QCoreApplication::applicationDirPath()});
         ExtractorCollection collection;
 
-        auto textExtractors = collection.fetchExtractors("text/plain");
+        auto textExtractors = collection.fetchExtractors(QStringLiteral("text/plain"));
         // "application/mathml+xml" is "sub-class-of" "application/xml" (i.e. inherits it),
         // according to the shared-mime-info database
-        auto xmlSubtypeExtractors = collection.fetchExtractors("application/mathml+xml");
+        auto xmlSubtypeExtractors = collection.fetchExtractors(QStringLiteral("application/mathml+xml"));
         QVERIFY(!xmlSubtypeExtractors.isEmpty());
 
         // Verify the generic "text/plain" extractor is also not used for
@@ -85,19 +85,19 @@ private Q_SLOTS:
             auto exProperties = extractor->extractorProperties();
             if (exProperties.isEmpty()) {
                 qWarning() << "Extractor has no property data, please add it! - (Extractor mimetypes:"
-                           << extractor->mimetypes().join(", ") + ')';
+                           << extractor->mimetypes().join(QStringLiteral(", ")) << ')';
                 continue;
             }
 
             // Verify properties for every supported mimetype
-            auto propMimetypesJson = exProperties["MimeTypes"];
+            auto propMimetypesJson = exProperties[QStringLiteral("MimeTypes")];
             const QStringList propMimeList = propMimetypesJson.toMap().keys();
             QSet<QString> propMimetypes(propMimeList.begin(), propMimeList.end());
 
             const QStringList extractedMimes = extractor->mimetypes();
             QSet<QString> supportedMimetypes(extractedMimes.begin(), extractedMimes.end());
-            QVERIFY2(!exProperties["Name"].toString().isEmpty(), "Missing \"Name\" property");
-            QVERIFY2(!exProperties["Id"].toString().isEmpty(),   "Missing \"Id\" property");
+            QVERIFY2(!exProperties[QStringLiteral("Name")].toString().isEmpty(), "Missing \"Name\" property");
+            QVERIFY2(!exProperties[QStringLiteral("Id")].toString().isEmpty(),   "Missing \"Id\" property");
 
             if (propMimetypes == supportedMimetypes) {
                 continue;
@@ -107,24 +107,24 @@ private Q_SLOTS:
             if (!diff.isEmpty()) {
                 for (auto mimetype : diff.values()) {
                     auto mimetypeProp = propMimetypesJson.toMap()[mimetype];
-                    auto runtimedep = mimetypeProp.toMap()["HasRuntimeDependency"];
+                    auto runtimedep = mimetypeProp.toMap()[QStringLiteral("HasRuntimeDependency")];
                     if (runtimedep.isValid() && runtimedep.toInt()) {
                         diff.remove(mimetype);
                     }
                 }
 
                 if (!diff.isEmpty()) {
-                    qWarning() << exProperties["Name"].toString()
-                               << exProperties["Id"].toString()
-                               << "has extraneous properties for these mimetypes:" << diff.values().join(", ");
+                    qWarning() << exProperties[QStringLiteral("Name")].toString()
+                               << exProperties[QStringLiteral("Id")].toString()
+                               << "has extraneous properties for these mimetypes:" << diff.values().join(QStringLiteral(", "));
                 }
             }
 
             diff = supportedMimetypes - propMimetypes;
             if (!diff.isEmpty()) {
-                qWarning() << exProperties["Name"].toString()
-                           << exProperties["Id"].toString()
-                           << "has no properties for these mimetypes:" + diff.values().join(", ");
+                qWarning() << exProperties[QStringLiteral("Name")].toString()
+                           << exProperties[QStringLiteral("Id")].toString()
+                           << "has no properties for these mimetypes:" << diff.values().join(QStringLiteral(", "));
             }
         }
     }

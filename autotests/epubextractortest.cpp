@@ -103,7 +103,7 @@ void EPubExtractorTest::testMetaDataOnly()
 {
     EPubExtractor plugin{this};
 
-    SimpleExtractionResult result(testFilePath("test.epub"), "application/epub+zip", ExtractionResult::ExtractMetaData);
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test.epub")), QStringLiteral("application/epub+zip"), ExtractionResult::ExtractMetaData);
     plugin.extract(&result);
 
     QVERIFY(!result.types().isEmpty());

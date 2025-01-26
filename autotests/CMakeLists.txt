@@ -5,8 +5,6 @@ set_package_properties(Python3 PROPERTIES DESCRIPTION "Python Interpreter"
                        URL "https://www.python.org" TYPE OPTIONAL
                        PURPOSE "Python interpreter is required for testing external extractors and writers")
 
-remove_definitions(-DQT_NO_CAST_FROM_ASCII)
-
 configure_file(indexerextractortestsconfig.h.in
                ${CMAKE_CURRENT_BINARY_DIR}/indexerextractortestsconfig.h @ONLY)
 

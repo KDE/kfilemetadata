@@ -26,10 +26,10 @@ void ExternalExtractorTest::test()
     file.open();
     file.write("Hello\nWorld");
     file.close();
-    ExternalExtractor plugin{testFilePath("testexternalextractor")};
-    QVERIFY(plugin.mimetypes().contains("application/text"));
+    ExternalExtractor plugin{testFilePath(QStringLiteral("testexternalextractor"))};
+    QVERIFY(plugin.mimetypes().contains(QStringLiteral("application/text")));
 
-    SimpleExtractionResult result(file.fileName(), "application/text");
+    SimpleExtractionResult result(file.fileName(), QStringLiteral("application/text"));
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);

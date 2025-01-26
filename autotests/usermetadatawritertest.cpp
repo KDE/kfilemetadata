@@ -11,8 +11,10 @@
 #include <QTest>
 #include <QFile>
 
-#define TEST_FILENAME "writertest-usermetadata.txt"
-#define TEST_SYMLINK "dangling_symlink-metadata"
+namespace {
+const auto TEST_FILENAME = QStringLiteral("writertest-usermetadata.txt");
+const auto TEST_SYMLINK = QStringLiteral("dangling_symlink-metadata");
+}
 
 using namespace KFileMetaData;
 
@@ -27,7 +29,7 @@ void UserMetaDataWriterTest::initTestCase()
     auto opened = m_writerTestFile.open(QIODevice::WriteOnly | QIODevice::NewOnly);
     QVERIFY(opened);
 
-    QFile::link(testFilePath("invalid_target"), testFilePath(TEST_SYMLINK));
+    QFile::link(testFilePath(QStringLiteral("invalid_target")), testFilePath(TEST_SYMLINK));
 }
 
 void UserMetaDataWriterTest::testMissingPermision()
@@ -39,7 +41,7 @@ void UserMetaDataWriterTest::testMissingPermision()
     KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
     QVERIFY(md.isSupported());
 
-    auto result = md.setAttribute("test", "my-value");
+    auto result = md.setAttribute(QStringLiteral("test"), QStringLiteral("my-value"));
     QCOMPARE(result, KFileMetaData::UserMetaData::MissingPermission);
 
     QVERIFY(m_writerTestFile.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner));
@@ -56,31 +58,31 @@ void UserMetaDataWriterTest::testMetadataSize()
 
     // all implementations should support at least 512 B
     const auto smallSize = 512; // 512 B
-    auto smallValue = QString(smallSize, 'a');
-    auto result = md.setAttribute("test", smallValue);
+    auto smallValue = QString(smallSize, QLatin1Char('a'));
+    auto result = md.setAttribute(QStringLiteral("test"), smallValue);
     QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
-    QCOMPARE(md.attribute("test"), smallValue);
+    QCOMPARE(md.attribute(QStringLiteral("test")), smallValue);
 
     // a big value, equal to the maximum value of an extended attribute according to Linux VFS
     // applies to XFS, btrfs...
     auto maxSize = 64 * 1024;
-    const auto bigValue = QString(maxSize, 'a'); // 64 kB
-    result = md.setAttribute("test", bigValue);
+    const auto bigValue = QString(maxSize, QLatin1Char('a')); // 64 kB
+    result = md.setAttribute(QStringLiteral("test"), bigValue);
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD) || defined(Q_OS_WIN)
     // BSD VFS has no such limit to 64 kB
     QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
-    QCOMPARE(md.attribute("test"), bigValue);
+    QCOMPARE(md.attribute(QStringLiteral("test")), bigValue);
 #else
     QCOMPARE(result, KFileMetaData::UserMetaData::NoSpace);
 #endif
 
     // In Linux, The VFS-imposed limits on attribute names and
     // values are 255 bytes and 64 kB, respectively.
-    auto excessiveValue = QString(maxSize + 1, 'a');
-    result = md.setAttribute("test", excessiveValue);
+    auto excessiveValue = QString(maxSize + 1, QLatin1Char('a'));
+    result = md.setAttribute(QStringLiteral("test"), excessiveValue);
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD) || defined(Q_OS_WIN)
     QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
-    QCOMPARE(md.attribute("test"), excessiveValue);
+    QCOMPARE(md.attribute(QStringLiteral("test")), excessiveValue);
 #else
     // In Linux, we exceed the max value of an extended attribute, the error is different
     QCOMPARE(result, KFileMetaData::UserMetaData::ValueTooBig);
@@ -94,8 +96,8 @@ void UserMetaDataWriterTest::testMetadataNameTooLong()
 
     // BSD and Linux have a limit of the attribute name of 255 bytes
     // Windows has by default a limit on filename that applies to filesystem metadata
-    auto longName = QString(256, 'a');
-    int result = md.setAttribute(longName, "smallValue");
+    auto longName = QString(256, QLatin1Char('a'));
+    int result = md.setAttribute(longName, QStringLiteral("smallValue"));
     QCOMPARE(result, KFileMetaData::UserMetaData::NameToolong);
 }
 
@@ -136,8 +138,8 @@ void UserMetaDataWriterTest::test()
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.comment")));
 
     // Origin url
-    md.setOriginUrl(QUrl("http://this.is.a.test.website.local"));
-    QCOMPARE(md.originUrl(), QUrl("http://this.is.a.test.website.local"));
+    md.setOriginUrl(QUrl(QStringLiteral("http://this.is.a.test.website.local")));
+    QCOMPARE(md.originUrl(), QUrl(QStringLiteral("http://this.is.a.test.website.local")));
     md.setOriginUrl(QUrl());
     QVERIFY(!md.hasAttribute(QStringLiteral("xdg.origin.url")));
 
