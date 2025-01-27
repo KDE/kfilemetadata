@@ -13,4 +13,6 @@
 // External test extractors/writers
 #define INDEXER_TESTS_EXTERNALPLUGIN_PATH "@CMAKE_CURRENT_BINARY_DIR@/../autotests/samplefiles"
 
+#define INDEXER_TESTS_OUTPUT_PATH "@CMAKE_CURRENT_BINARY_DIR@/../autotests/output"
+
 #endif

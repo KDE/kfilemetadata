@@ -39,6 +39,7 @@ private Q_SLOTS:
     void testImageDeleteInsert_data();
     void testMultiImage();
     void testMultiImage_data();
+    void cleanupTestCase();
 
 private:
     QByteArray m_coverImage;
@@ -51,6 +52,19 @@ namespace
 QString testFilePath(const QString &fileName)
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
+}
+
+QString testOutputPath(const QString& fileName)
+{
+    return QStringLiteral(INDEXER_TESTS_OUTPUT_PATH "/TaglibWriterTest/%1").arg(fileName);
+}
+
+QString createTestFileCopy(const QString &fileName)
+{
+    const auto srcFile = testFilePath(fileName);
+    const auto destFile = testOutputPath(fileName);
+    QFile::copy(srcFile, destFile);
+    return destFile;
 }
 
 void extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &result)
@@ -70,9 +84,16 @@ void extractResult(const QString &mimeType, KFileMetaData::ExtractionResult &res
 
 void TagLibWriterTest::initTestCase()
 {
+    QVERIFY(QDir().mkpath(testOutputPath({})));
+
     QFile imgFile(testFilePath(QStringLiteral("cover.jpg")));
     imgFile.open(QIODevice::ReadOnly);
     m_coverImage = imgFile.readAll();
+}
+
+void TagLibWriterTest::cleanupTestCase()
+{
+    QVERIFY(QDir(testOutputPath({})).removeRecursively());
 }
 
 void TagLibWriterTest::testCommonData()
@@ -81,9 +102,8 @@ void TagLibWriterTest::testCommonData()
     QFETCH(QString, mimeType);
     QFETCH(QString, stringSuffix);
 
-    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileType);
+    QString temporaryFileName = createTestFileCopy(QStringLiteral("test.") + fileType);
 
-    QFile::copy(testFilePath(QStringLiteral("test.") + fileType), temporaryFileName);
     TagLibWriter writerPlugin{this};
     QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
 
@@ -283,9 +303,8 @@ void TagLibWriterTest::testExtendedData()
     QFETCH(QString, fileType);
     QFETCH(QString, mimeType);
 
-    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileType);
+    QString temporaryFileName = createTestFileCopy(QStringLiteral("test.") + fileType);
 
-    QFile::copy(testFilePath(QStringLiteral("test.") + fileType), temporaryFileName);
     TagLibWriter writerPlugin{this};
 
     WriteData data(temporaryFileName, mimeType);
@@ -372,9 +391,8 @@ void TagLibWriterTest::testRating()
     QFETCH(QString, mimeType);
     QFETCH(int, rating);
 
-    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileType);
+    QString temporaryFileName = createTestFileCopy(QStringLiteral("test.") + fileType);
 
-    QFile::copy(testFilePath(QStringLiteral("test.")) + fileType, temporaryFileName);
     TagLibWriter writerPlugin{this};
     QCOMPARE(writerPlugin.writeMimetypes().contains(mimeType),true);
 
@@ -566,9 +584,8 @@ void TagLibWriterTest::testComplexContactData()
     QFETCH(QString, fileExtension);
     QFETCH(QString, mimeType);
 
-    QString temporaryFileName = testFilePath(QStringLiteral("writertest.") + fileExtension);
+    QString temporaryFileName = createTestFileCopy(QStringLiteral("test.") + fileExtension);
 
-    QFile::copy(testFilePath(QStringLiteral("test.") + fileExtension), temporaryFileName);
     TagLibWriter writerPlugin{this};
 
     WriteData data(temporaryFileName, mimeType);
@@ -659,9 +676,8 @@ void TagLibWriterTest::testImageWrite()
     QFETCH(QString, fileName);
     QFETCH(QString, mimeType);
 
-    QString testFileName = testFilePath(QStringLiteral("writer") + fileName);
+    QString testFileName = createTestFileCopy(fileName);
 
-    QFile::copy(testFilePath(fileName), testFileName);
     WriteData data(testFileName, mimeType);
 
     QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
@@ -750,9 +766,8 @@ void TagLibWriterTest::testImageDelete()
     QFETCH(QString, fileName);
     QFETCH(QString, mimeType);
 
-    QString testFileName = testFilePath(QStringLiteral("writer") + fileName);
+    QString testFileName = createTestFileCopy(fileName);
 
-    QFile::copy(testFilePath(fileName), testFileName);
     WriteData data(testFileName, mimeType);
 
     QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
@@ -780,9 +795,8 @@ void TagLibWriterTest::testImageDeleteInsert()
     QFETCH(QString, fileName);
     QFETCH(QString, mimeType);
 
-    QString testFileName = testFilePath(QStringLiteral("writer_delinsert_") + fileName);
+    QString testFileName = createTestFileCopy(fileName);
 
-    QFile::copy(testFilePath(fileName), testFileName);
     WriteData data(testFileName, mimeType);
 
     QFile imgFile(testFilePath(QStringLiteral("test.jpg")));
@@ -824,9 +838,7 @@ void TagLibWriterTest::testMultiImage()
     QFETCH(QString, mimeType);
     QFETCH(EmbeddedImageData::ImageTypes, imageTypes);
 
-    QString testFileName = testFilePath(QStringLiteral("writer_multiimage_") + fileName);
-
-    QFile::copy(testFilePath(fileName), testFileName);
+    QString testFileName = createTestFileCopy(fileName);
 
     QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;
 

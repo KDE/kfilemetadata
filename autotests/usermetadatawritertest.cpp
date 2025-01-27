@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "usermetadatawritertest.h"
 #include "indexerextractortestsconfig.h"
 #include "usermetadata.h"
 
@@ -14,22 +13,43 @@
 namespace {
 const auto TEST_FILENAME = QStringLiteral("writertest-usermetadata.txt");
 const auto TEST_SYMLINK = QStringLiteral("dangling_symlink-metadata");
+
+QString testOutputPath(const QString& fileName)
+{
+    return QStringLiteral(INDEXER_TESTS_OUTPUT_PATH "/UserMetaDataWriterTest/%1").arg(fileName);
 }
+}
+
+class UserMetaDataWriterTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void initTestCase();
+    void test();
+    void testMissingPermision();
+    void testMetadataSize();
+    void testMetadataNameTooLong();
+    void testDanglingSymlink();
+    void testRemoveMetadata();
+    void testMetadataFolder();
+    void cleanupTestCase();
+
+private:
+    QFile m_writerTestFile;
+};
 
 using namespace KFileMetaData;
 
-QString UserMetaDataWriterTest::testFilePath(const QString& fileName) const
-{
-    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
-}
-
 void UserMetaDataWriterTest::initTestCase()
 {
-    m_writerTestFile.setFileName(testFilePath(TEST_FILENAME));
+    QVERIFY(QDir().mkpath(testOutputPath({})));
+
+    m_writerTestFile.setFileName(testOutputPath(TEST_FILENAME));
     auto opened = m_writerTestFile.open(QIODevice::WriteOnly | QIODevice::NewOnly);
     QVERIFY(opened);
 
-    QFile::link(testFilePath(QStringLiteral("invalid_target")), testFilePath(TEST_SYMLINK));
+    QFile::link(testOutputPath(QStringLiteral("invalid_target")), testOutputPath(TEST_SYMLINK));
 }
 
 void UserMetaDataWriterTest::testMissingPermision()
@@ -38,7 +58,7 @@ void UserMetaDataWriterTest::testMissingPermision()
     QSKIP("Only unix permissions can restrict metadata writing");
 #endif
     m_writerTestFile.setPermissions(QFileDevice::ReadOwner);
-    KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
+    KFileMetaData::UserMetaData md(testOutputPath(TEST_FILENAME));
     QVERIFY(md.isSupported());
 
     auto result = md.setAttribute(QStringLiteral("test"), QStringLiteral("my-value"));
@@ -49,7 +69,7 @@ void UserMetaDataWriterTest::testMissingPermision()
 
 void UserMetaDataWriterTest::testMetadataSize()
 {
-    KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
+    KFileMetaData::UserMetaData md(testOutputPath(TEST_FILENAME));
     QVERIFY(md.isSupported());
 
     // In the current ext2, ext3, and ext4 filesystem implementations,
@@ -91,7 +111,7 @@ void UserMetaDataWriterTest::testMetadataSize()
 
 void UserMetaDataWriterTest::testMetadataNameTooLong()
 {
-    KFileMetaData::UserMetaData md(testFilePath(TEST_FILENAME));
+    KFileMetaData::UserMetaData md(testOutputPath(TEST_FILENAME));
     QVERIFY(md.isSupported());
 
     // BSD and Linux have a limit of the attribute name of 255 bytes
@@ -103,7 +123,7 @@ void UserMetaDataWriterTest::testMetadataNameTooLong()
 
 void UserMetaDataWriterTest::test()
 {
-    auto testFile = testFilePath(TEST_FILENAME);
+    auto testFile = testOutputPath(TEST_FILENAME);
     KFileMetaData::UserMetaData md(testFile);
     QVERIFY(md.isSupported());
 
@@ -185,13 +205,13 @@ void UserMetaDataWriterTest::test()
 
 void UserMetaDataWriterTest::testDanglingSymlink()
 {
-    KFileMetaData::UserMetaData md(testFilePath(TEST_SYMLINK));
+    KFileMetaData::UserMetaData md(testOutputPath(TEST_SYMLINK));
     QVERIFY(md.queryAttributes(UserMetaData::Attribute::All) == UserMetaData::Attribute::None);
 }
 
 void UserMetaDataWriterTest::testRemoveMetadata()
 {
-    auto testFile = testFilePath(TEST_FILENAME);
+    auto testFile = testOutputPath(TEST_FILENAME);
     KFileMetaData::UserMetaData md(testFile);
     QVERIFY(md.isSupported());
 
@@ -205,7 +225,7 @@ void UserMetaDataWriterTest::testRemoveMetadata()
 
 void UserMetaDataWriterTest::testMetadataFolder()
 {
-    const auto dirPath = testFilePath(QStringLiteral("metadata-dir"));
+    const auto dirPath = testOutputPath(QStringLiteral("metadata-dir"));
     QVERIFY(QDir().mkdir(dirPath));
 
     KFileMetaData::UserMetaData md(dirPath);
@@ -216,14 +236,18 @@ void UserMetaDataWriterTest::testMetadataFolder()
 
     QCOMPARE(md.setAttribute(QStringLiteral("tag"), QString{}), KFileMetaData::UserMetaData::NoError);
     QVERIFY(!md.hasAttribute(QStringLiteral("tag")));
+
+    QVERIFY(QDir().rmdir(dirPath));
 }
 
 void UserMetaDataWriterTest::cleanupTestCase()
 {
     m_writerTestFile.remove();
-    QFile::remove(testFilePath(TEST_SYMLINK));
+    QFile::remove(testOutputPath(TEST_SYMLINK));
+
+    QVERIFY(QDir(testOutputPath({})).removeRecursively());
 }
 
 QTEST_GUILESS_MAIN(UserMetaDataWriterTest)
 
-#include "moc_usermetadatawritertest.cpp"
+#include "usermetadatawritertest.moc"
