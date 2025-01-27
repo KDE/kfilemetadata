@@ -4,26 +4,35 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "externalwritertest.h"
 #include "writedata.h"
 #include "indexerextractortestsconfig.h"
 #include "externalwriter.h"
-#include "config-kfilemetadata.h"
 
 #include <QTest>
 #include <QTemporaryFile>
 
+class ExternalWriterTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void test();
+    void testProperties();
+};
+
 using namespace KFileMetaData;
 
-QString ExternalWriterTest::testFilePath(const QString& fileName) const
+namespace {
+QString pluginPath(const QString& fileName)
 {
-    return QLatin1String(INDEXER_TESTS_SAMPLE_CONFIGURED_FILES_PATH) + QLatin1Char('/') + fileName;
+    return QLatin1String(INDEXER_TESTS_EXTERNALPLUGIN_PATH) + QLatin1Char('/') + fileName;
+}
 }
 
 void ExternalWriterTest::test()
 {
     QTemporaryFile file;
-    ExternalWriter plugin{testFilePath(QStringLiteral("testexternalwriter"))};
+    ExternalWriter plugin{pluginPath(QStringLiteral("testexternalwriter"))};
     QVERIFY(file.open());
     WriteData data(file.fileName(), QStringLiteral("application/text"));
     plugin.write(data);
@@ -34,7 +43,7 @@ void ExternalWriterTest::test()
 void ExternalWriterTest::testProperties()
 {
     QTemporaryFile file;
-    ExternalWriter plugin{testFilePath(QStringLiteral("testexternalwriter"))};
+    ExternalWriter plugin{pluginPath(QStringLiteral("testexternalwriter"))};
     QVERIFY(file.open());
     WriteData data(file.fileName(), QStringLiteral("application/text"));
     data.add(Property::Author, QStringLiteral("Name"));
@@ -46,4 +55,4 @@ void ExternalWriterTest::testProperties()
 
 QTEST_GUILESS_MAIN(ExternalWriterTest)
 
-#include "moc_externalwritertest.cpp"
+#include "externalwritertest.moc"

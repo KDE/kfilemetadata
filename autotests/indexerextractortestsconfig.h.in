@@ -9,6 +9,8 @@
 #define INDEXEREXTRACTORTESTSCONFIG_H
 
 #define INDEXER_TESTS_SAMPLE_FILES_PATH "@CMAKE_CURRENT_SOURCE_DIR@/samplefiles"
-#define INDEXER_TESTS_SAMPLE_CONFIGURED_FILES_PATH "@CMAKE_CURRENT_BINARY_DIR@/../autotests/samplefiles"
+
+// External test extractors/writers
+#define INDEXER_TESTS_EXTERNALPLUGIN_PATH "@CMAKE_CURRENT_BINARY_DIR@/../autotests/samplefiles"
 
 #endif

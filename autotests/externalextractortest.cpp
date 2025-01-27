@@ -4,42 +4,50 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "externalextractortest.h"
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "externalextractor.h"
-#include "config-kfilemetadata.h"
 
 #include <QTest>
-#include <QTemporaryFile>
+
+class ExternalExtractorTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void test();
+};
 
 using namespace KFileMetaData;
 
-QString ExternalExtractorTest::testFilePath(const QString& fileName) const
+namespace {
+QString testFilePath(const QString& fileName)
 {
-    return QLatin1String(INDEXER_TESTS_SAMPLE_CONFIGURED_FILES_PATH) + QLatin1Char('/') + fileName;
+    return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
+}
+
+QString pluginPath(const QString& fileName)
+{
+    return QLatin1String(INDEXER_TESTS_EXTERNALPLUGIN_PATH) + QLatin1Char('/') + fileName;
+}
 }
 
 void ExternalExtractorTest::test()
 {
-    QTemporaryFile file;
-    file.open();
-    file.write("Hello\nWorld");
-    file.close();
-    ExternalExtractor plugin{testFilePath(QStringLiteral("testexternalextractor"))};
+    ExternalExtractor plugin{pluginPath(QStringLiteral("testexternalextractor"))};
     QVERIFY(plugin.mimetypes().contains(QStringLiteral("application/text")));
 
-    SimpleExtractionResult result(file.fileName(), QStringLiteral("application/text"));
+    SimpleExtractionResult result(testFilePath(QStringLiteral("test_plain_text_file.txt")), QStringLiteral("application/text"));
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
     QCOMPARE(result.types().constFirst(), Type::Text);
 
-    QCOMPARE(result.text(), QStringLiteral("Hello\nWorld "));
+    QCOMPARE(result.text(), QStringLiteral("This is a text file\nit is four lines long\nit has 77 characters\nand 17 words.\n "));
 
-    QCOMPARE(result.properties().value(Property::LineCount), 2);
+    QCOMPARE(result.properties().value(Property::LineCount), 4);
 }
 
 QTEST_GUILESS_MAIN(ExternalExtractorTest)
 
-#include "moc_externalextractortest.cpp"
+#include "externalextractortest.moc"
