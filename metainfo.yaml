@@ -10,7 +10,7 @@ portingAid: false
 deprecated: false
 release: true
 libraries:
- - cmake: "KF6::FileMetaData"
+    - cmake: "KF6::FileMetaData"
 cmakename: KF6FileMetaData
 
 public_lib: true
