@@ -10,6 +10,7 @@
 #include "popplerextractor.h"
 
 #include <poppler-qt6.h>
+#include <qt6/poppler-version.h>
 
 #include <QScopedPointer>
 #include <QDebug>
@@ -85,7 +86,12 @@ void PopplerExtractor::extract(ExtractionResult* result)
             qCWarning(KFILEMETADATA_LOG) << "Could not read page content from" << fileUrl;
             break;
         }
-        result->append(page->text(QRectF()));
+#if POPPLER_VERSION_MAJOR >= 26
+        // ReadingOrder is available since 26.01.00
+        result->append(page->text(QRectF(), Poppler::Page::TextLayout::ReadingOrder));
+#else
+        result->append(page->text(QRectF(), Poppler::Page::TextLayout::PhysicalLayout));
+#endif
     }
 }
 
