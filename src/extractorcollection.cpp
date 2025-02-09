@@ -65,7 +65,7 @@ void ExtractorCollectionPrivate::findExtractors()
             extractor.setMetaData(plugin.rawData().toVariantMap());
             m_allExtractors.push_back(std::move(extractor));
         } else {
-            qCDebug(KFILEMETADATA_LOG) << "Found plugin without metadata:" << extractor.d->m_pluginPath;
+            qCWarning(KFILEMETADATA_LOG) << "Found plugin without metadata (deprecated):" << extractor.d->m_pluginPath;
             if (extractor.d->initPlugin() && !extractor.mimetypes().isEmpty()) {
                 m_allExtractors.push_back(std::move(extractor));
             }
