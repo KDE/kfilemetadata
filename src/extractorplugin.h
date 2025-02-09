@@ -25,10 +25,29 @@ namespace KFileMetaData
  *
  * It is responsible for extracting the metadata in a file.
  *
- * Plugins should derive from this class and implement the MIME types
- * and extract method.
+ * Plugins should derive from this class and implement the \c mimetypes()
+ * and \c extract() method.
  *
- * All Plugins should be synchronous and blocking.
+ * The plugin must also specify the implemented interface and provide
+ * sufficient metadata:
+ *
+ * \code{cpp}
+ * class FooExtractor : public ExtractorPlugin
+ * {
+ *     Q_OBJECT
+ *     Q_PLUGIN_METADATA(IID kfilemetadata_extractor_iid
+ *                       FILE "fooextractor.json")
+ *     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
+ * ...
+ * };
+ * \endcode
+ * \code{json}
+ * {
+ *     "Name" : "FooExtractor",
+ *     "Id" :   "org.kde.fooextractor",
+ *     "MimeTypes" : { "application/x-foo" : { "Version" : "0.0" } }
+ * }
+ * \endcode
  *
  * \author Vishesh Handa <me@vhanda.in>
  */
@@ -59,7 +78,7 @@ public:
      * The \p result provides the input URL and MIME type which
      * can be used to identify the file.
      *
-     * This function is synchronous and should be reentrant as it
+     * This function is synchronous and must be reentrant as it
      * can be called by multiple threads.
      */
     virtual void extract(ExtractionResult* result) = 0;
