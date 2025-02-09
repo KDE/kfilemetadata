@@ -14,7 +14,8 @@ namespace KFileMetaData
 class Fb2Extractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin" FILE "fb2extractor.json")
+    Q_PLUGIN_METADATA(IID kfilemetadata_extractor_iid
+                      FILE "fb2extractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
 public:

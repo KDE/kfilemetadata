@@ -16,7 +16,7 @@ namespace KFileMetaData
 class Exiv2Extractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
+    Q_PLUGIN_METADATA(IID kfilemetadata_extractor_iid
                       FILE "exiv2extractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 

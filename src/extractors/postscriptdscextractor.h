@@ -16,7 +16,7 @@ namespace KFileMetaData
 class DscExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
+    Q_PLUGIN_METADATA(IID kfilemetadata_extractor_iid
                       FILE "postscriptdscextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 

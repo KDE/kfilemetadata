@@ -16,7 +16,7 @@ namespace KFileMetaData
 class MobiExtractor : public ExtractorPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.kde.kf5.kfilemetadata.ExtractorPlugin"
+    Q_PLUGIN_METADATA(IID kfilemetadata_extractor_iid
                       FILE "mobiextractor.json")
     Q_INTERFACES(KFileMetaData::ExtractorPlugin)
 
