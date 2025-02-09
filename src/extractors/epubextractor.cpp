@@ -6,6 +6,7 @@
 */
 
 
+#include "datetimeparser_p.h"
 #include "epubextractor.h"
 #include "kfilemetadata_debug.h"
 
@@ -129,7 +130,7 @@ void EPubExtractor::extract(ExtractionResult* result)
             } else {
                 continue;
             }
-            QDateTime dt = ExtractorPlugin::dateTimeFromString(value);
+            QDateTime dt = Parser::dateTimeFromString(value);
             if (!dt.isNull()) {
                 result->add(Property::CreationDate, dt);
                 result->add(Property::ReleaseYear, dt.date().year());

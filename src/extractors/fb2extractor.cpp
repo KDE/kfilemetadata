@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
+#include "datetimeparser_p.h"
 #include "fb2extractor.h"
 #include "kfilemetadata_debug.h"
 
@@ -188,7 +189,7 @@ void Fb2Extractor::extract(ExtractionResult *result)
                     QDateTime dt = QDateTime::fromString(dateValue.toString());
 
                     if (!dt.isValid()) {
-                        dt = ExtractorPlugin::dateTimeFromString(xml.readElementText());
+                        dt = Parser::dateTimeFromString(xml.readElementText());
                     }
 
                     if (dt.isValid()) {

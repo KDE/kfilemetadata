@@ -83,6 +83,7 @@ public:
      */
     virtual void extract(ExtractionResult* result) = 0;
 
+#if KFILEMETADATA_ENABLE_DEPRECATED_SINCE(6, 12)
     //
     // Helper functions
     //
@@ -90,13 +91,16 @@ public:
     /**
      * Tries to extract a valid date time from the string provided.
      */
+    /// @deprecated since 6.12
     static QDateTime dateTimeFromString(const QString& dateString);
 
     /**
      * Tries to split the string into names. It cleans up any superfluous words
      * and removes extra junk such as curly braces
      */
+    /// @deprecated since 6.12
     static QStringList contactsFromString(const QString& string);
+#endif
 
 protected:
     /**

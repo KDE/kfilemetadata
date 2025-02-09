@@ -7,6 +7,7 @@
 */
 
 
+#include "datetimeparser_p.h"
 #include "odfextractor.h"
 #include <memory>
 
@@ -198,7 +199,7 @@ void OdfExtractor::parseMetaData(const QString &documentElementId, const QByteAr
                 } else if (localName == QLatin1String("generator")) {
                     result->add(Property::Generator, e.text());
                 } else if (localName == QLatin1String("creation-date")) {
-                    QDateTime dt = ExtractorPlugin::dateTimeFromString(e.text());
+                    QDateTime dt = Parser::dateTimeFromString(e.text());
                     if (!dt.isNull()) {
                         result->add(Property::CreationDate, dt);
                     }

@@ -5,6 +5,7 @@
 */
 
 
+#include "datetimeparser_p.h"
 #include "exiv2extractor.h"
 #include "kfilemetadata_debug.h"
 #include <QTimeZone>
@@ -71,7 +72,7 @@ QString toString(const Exiv2::Value& value)
 QVariant toVariantDateTime(const Exiv2::Value& value)
 {
     if (value.typeId() == Exiv2::asciiString) {
-        QDateTime val = ExtractorPlugin::dateTimeFromString(QString::fromLatin1(value.toString().c_str()));
+        QDateTime val = Parser::dateTimeFromString(QString::fromStdString(value.toString()));
         if (val.isValid()) {
             // Datetime is stored in exif as local time.
             val.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(0));

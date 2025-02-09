@@ -40,7 +40,7 @@ ecm_add_test(
 # Office
 #
 if(KF6Archive_FOUND)
-    ecm_add_test(odfextractortest.cpp ../src/extractors/odfextractor.cpp
+    ecm_add_test(odfextractortest.cpp ../src/extractors/odfextractor.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "odfextractortest"
         LINK_LIBRARIES Qt6::Test Qt6::Xml KF6::FileMetaData KF6::Archive
     )
@@ -137,7 +137,7 @@ add_test(NAME typeinfotest_localized COMMAND typeinfotest_bin "--localized" "-it
 #
 if(LibExiv2_FOUND)
     kde_enable_exceptions()
-    ecm_add_test(exiv2extractortest.cpp ../src/extractors/exiv2extractor.cpp
+    ecm_add_test(exiv2extractortest.cpp ../src/extractors/exiv2extractor.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "exiv2extractortest"
         LINK_LIBRARIES Qt6::Test KF6::FileMetaData LibExiv2::LibExiv2
     )

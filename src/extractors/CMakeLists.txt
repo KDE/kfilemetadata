@@ -28,7 +28,7 @@ if(Taglib_FOUND)
 endif()
 
 if(LibExiv2_FOUND)
-    add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp)
+    add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp ${debug_SRCS})
     kde_target_enable_exceptions(kfilemetadata_exiv2extractor PRIVATE)
     target_link_libraries(kfilemetadata_exiv2extractor
         KF6::FileMetaData
@@ -167,7 +167,7 @@ install(
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for ODF extractor")
 if(KF6Archive_FOUND)
-    add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp)
+    add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp ${debug_SRCS})
 
     target_link_libraries(kfilemetadata_odfextractor
         KF6::FileMetaData
@@ -279,7 +279,7 @@ endif()
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for FictionBook2 extractor")
 if(KF6Archive_FOUND)
-    add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp )
+    add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp ${debug_SRCS})
     target_link_libraries(kfilemetadata_fb2extractor
         KF6::Archive
         KF6::FileMetaData
