@@ -61,9 +61,16 @@ void ExtractorCollectionPrivate::findExtractors()
         extractor.setAutoDeletePlugin(Extractor::DoNotDeletePlugin);
 
         if (!plugin.rawData().isEmpty()) {
-            qCDebug(KFILEMETADATA_LOG) << "Found plugin with metadata:" << extractor.d->m_pluginPath;
-            extractor.setMetaData(plugin.rawData().toVariantMap());
-            m_allExtractors.push_back(std::move(extractor));
+            const auto metadataMap = plugin.rawData().toVariantMap();
+            if (!metadataMap.contains(QLatin1String("Name"))) {
+                qCWarning(KFILEMETADATA_LOG) << "Found plugin with invalid metadata (missing Name):" << extractor.d->m_pluginPath;
+            } else if (!metadataMap.contains(QLatin1String("MimeTypes"))) {
+                qCWarning(KFILEMETADATA_LOG) << "Found plugin with invalid metadata (missing MimeTypes):" << extractor.d->m_pluginPath;
+            } else {
+                qCWarning(KFILEMETADATA_LOG) << "Found plugin with metadata:" << extractor.d->m_pluginPath;
+                extractor.setMetaData(metadataMap);
+                m_allExtractors.push_back(std::move(extractor));
+            }
         } else {
             qCWarning(KFILEMETADATA_LOG) << "Found plugin without metadata (deprecated):" << extractor.d->m_pluginPath;
             if (extractor.d->initPlugin() && !extractor.mimetypes().isEmpty()) {
@@ -101,9 +108,13 @@ void ExtractorCollectionPrivate::findExtractors()
         auto pluginProperties = extractor.extractorProperties();
         if (!pluginProperties.isEmpty()) {
             auto mimetypeProperties = pluginProperties[QLatin1String("MimeTypes")];
-            const auto mimetypes = mimetypeProperties.toMap().keys();
-            for (const QString &mimetype : mimetypes) {
-                m_mimeExtractors.insert(mimetype, &extractor);
+            if (mimetypeProperties.metaType() != QMetaType(QMetaType::QVariantMap)) {
+                qCWarning(KFILEMETADATA_LOG) << "Invalid MimeTypes property in" << pluginProperties;
+            } else {
+                const auto mimetypes = mimetypeProperties.toMap();
+                for (const auto [mimetype, v] : mimetypes.asKeyValueRange()) {
+                    m_mimeExtractors.insert(mimetype, &extractor);
+                }
             }
         } else if (extractor.d->m_plugin) {
             const auto mimetypes = extractor.mimetypes();
