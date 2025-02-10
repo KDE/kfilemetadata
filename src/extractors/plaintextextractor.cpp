@@ -62,8 +62,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 
     auto autodetectCodec = [](QFile &file) -> QStringDecoder {
         const qint64 BUFFER_SIZE = 256 * 1024;
-        const auto buffer = file.read(BUFFER_SIZE);
-        file.seek(0);
+        const auto buffer = file.peek(BUFFER_SIZE);
 
         // First 16 bytes for detecting by BOM.
         const QByteArrayView bufferForBom(buffer.begin(), qMin(16, buffer.size()));
