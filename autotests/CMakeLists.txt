@@ -28,12 +28,11 @@ ecm_add_test(extractorcoveragetest.cpp
 #
 # Full text extraction test
 #
-set(text_COMPAT_CODEC)
 ecm_add_test(
     indexerextractortests.cpp
     ../src/extractors/plaintextextractor.cpp
     TEST_NAME "indexextractortest"
-    LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${text_COMPAT_CODEC} KF6::Codecs
+    LINK_LIBRARIES Qt6::Test KF6::FileMetaData KF6::Codecs
 )
 
 #
