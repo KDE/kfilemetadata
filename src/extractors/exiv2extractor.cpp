@@ -28,7 +28,10 @@ Exiv2Extractor::Exiv2Extractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
 #ifdef EXV_ENABLE_BMFF
+#if !(EXIV2_TEST_VERSION(0, 28, 3))
+// Enabled by default since 0.28.3 when Exiv2 was built with BMFF support
     Exiv2::enableBMFF(true);
+#endif
 #endif
 }
 
