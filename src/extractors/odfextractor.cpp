@@ -152,7 +152,7 @@ void OdfExtractor::extract(ExtractionResult* result)
 void OdfExtractor::parseMetaData(const QString &documentElementId, const QByteArray &data, ExtractionResult *result)
 {
     QDomDocument metaData(QStringLiteral("metaData"));
-    metaData.setContent(data, true);
+    metaData.setContent(data, QDomDocument::ParseOption::UseNamespaceProcessing);
 
     // parse metadata ...
     QDomElement meta = firstChildElementNS(firstChildElementNS(metaData,
