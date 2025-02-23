@@ -235,6 +235,9 @@ if (QMobipocket6_FOUND)
         KF6::FileMetaData
         QMobipocket6
     )
+    if (${ENABLE_MOBIPOCKET_TEXT_EXTRACTION})
+        target_compile_definitions(kfilemetadata_mobiextractor PRIVATE ENABLE_TEXT_EXTRACTION=1)
+    endif()
 
     set_target_properties(kfilemetadata_mobiextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
     install(
