@@ -115,6 +115,7 @@ find_package(QMobipocket6 2.1)
 set_package_properties(QMobipocket6 PROPERTIES DESCRIPTION "Mobipocket epub reader"
                        URL "https://invent.kde.org/graphics/kdegraphics-mobipocket"
                        TYPE OPTIONAL PURPOSE "Support for mobi metadata")
+option(ENABLE_MOBIPOCKET_TEXT_EXTRACTION "Enable text (content) extraction for Mobipocket files (experimental)" OFF)
 
 find_package(libappimage 0.1.10 CONFIG)
 set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the AppImage project"
