@@ -47,6 +47,14 @@ ecm_add_test(
 )
 
 #
+# CSV test, unittest and extractor
+#
+ecm_add_test(csvdetectortest.cpp
+    TEST_NAME "csvdetectortest"
+    LINK_LIBRARIES Qt6::Test KF6::Codecs
+)
+
+#
 # Office
 #
 if(KF6Archive_FOUND)
