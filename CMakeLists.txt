@@ -132,8 +132,8 @@ add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata6\")
 add_subdirectory(src)
 if (BUILD_TESTING)
   add_subdirectory(autotests)
-  add_subdirectory(tests)
 endif()
+add_subdirectory(tests)
 
 # Config files
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6FileMetaData")
