@@ -99,8 +99,7 @@ void XmlExtractor::extract(ExtractionResult* result)
 #endif
 
         QDomDocument doc;
-        const bool processNamespaces = true;
-        doc.setContent(ioDevice, processNamespaces);
+        doc.setContent(ioDevice, QDomDocument::ParseOption::UseNamespaceProcessing);
         QDomElement svg = doc.firstChildElement();
 
         if (!svg.isNull()
