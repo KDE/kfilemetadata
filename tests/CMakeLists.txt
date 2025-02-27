@@ -18,8 +18,6 @@ target_link_libraries(dump
 # Though the dump utility is not a regular test case, running it increases
 # code coverage significantly
 # We check if the output matches using a regular expression
-ecm_mark_as_test(dump)
-ecm_mark_nongui_executable(dump)
 
 add_test(NAME dump_fail COMMAND dump "${CMAKE_CURRENT_SOURCE_DIR}")
 set_tests_properties(dump_fail PROPERTIES
