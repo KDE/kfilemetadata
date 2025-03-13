@@ -124,7 +124,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     QCOMPARE(result.types().constFirst(), Type::Image);
 
     const auto properties = result.properties();
-    QCOMPARE(properties.size(), 29);
+    QCOMPARE(properties.size(), 30);
 
     auto verifyProperty = [&properties](KFileMetaData::Property::Property prop, const QVariant &value)
     {
@@ -164,6 +164,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     verifyProperty(Property::PhotoSharpness, 0);
     verifyProperty(Property::Title, QStringLiteral("Title"));
     verifyProperty(Property::Subject, QStringLiteral("Subject"));
+    verifyProperty(Property::ColorSpace, QStringLiteral("sRGB"));
 }
 
 void Exiv2ExtractorTest::testJpegJxlProperties_data()
@@ -191,7 +192,7 @@ void Exiv2ExtractorTest::testHeifProperties()
     QCOMPARE(result.types().constFirst(), Type::Image);
 
     const auto properties = result.properties();
-    QCOMPARE(properties.size(), 23);
+    QCOMPARE(properties.size(), 24);
 
     auto verifyProperty = [&properties](KFileMetaData::Property::Property prop, const QVariant &value)
     {

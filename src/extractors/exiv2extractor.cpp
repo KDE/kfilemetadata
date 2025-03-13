@@ -88,7 +88,8 @@ QVariant toVariantDateTime(const Exiv2::Value& value)
 
 QVariant toVariantLong(const Exiv2::Value& value)
 {
-    if (value.typeId() == Exiv2::unsignedLong || value.typeId() == Exiv2::signedLong) {
+    if (value.typeId() == Exiv2::unsignedLong || value.typeId() == Exiv2::signedLong || value.typeId() == Exiv2::unsignedShort
+        || value.typeId() == Exiv2::signedShort) {
 #if EXIV2_TEST_VERSION(0,28,0)
         qlonglong val = value.toInt64();
 #else
@@ -246,6 +247,23 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     QByteArray longRef = fetchByteArray(data, EK{"Exif.GPSInfo.GPSLongitudeRef"s});
     if (!longRef.isEmpty() && longRef[0] == 'W') {
         longitude *= -1;
+    }
+
+    Exiv2::ExifData::const_iterator it = data.findKey(EK{"Exif.Photo.ColorSpace"s});
+    if (it != data.end()) {
+        QVariant value = toVariant(it->value(), QMetaType::Int);
+
+        // https://exiftool.org/TagNames/EXIF.html
+        // https://exiv2.org/tags.html
+        enum ColorSpaces {
+            sRGB = 0x1,
+            Uncalibrated = 0xffff
+        };
+        if (value == ColorSpaces::sRGB) {
+            result->add(Property::ColorSpace, QStringLiteral("sRGB"));
+        } else if (value == ColorSpaces::Uncalibrated) {
+            result->add(Property::ColorSpace, QStringLiteral("Uncalibrated"));
+        }
     }
 
     if (!std::isnan(latitude)) {
