@@ -23,9 +23,11 @@
 #endif
 
 extern "C" {
-#include <libavformat/avformat.h>
-#include <libavutil/dict.h>
 #include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libavutil/avutil.h>
+#include <libavutil/dict.h>
+#include <libavutil/pixdesc.h>
 }
 
 using namespace KFileMetaData;
@@ -118,7 +120,24 @@ void FFmpegExtractor::extract(ExtractionResult* result)
                 if (frameRate) {
                     result->add(Property::FrameRate, frameRate);
                 }
+
+                result->add(Property::VideoCodec, QString::fromUtf8(avcodec_get_name(codec->codec_id)));
+
+                const AVPixFmtDescriptor *desc = av_pix_fmt_desc_get((AVPixelFormat)codec->format);
+                if (desc) {
+                    result->add(Property::PixelFormat, QString::fromUtf8(desc->name));
+                }
+
+                result->add(Property::ColorSpace, QString::fromUtf8(av_color_space_name(codec->color_space)));
             }
+        }
+        
+        const auto audio_index_stream = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, nullptr, 0);
+        if (audio_index_stream >= 0) {
+            AVStream* stream = fmt_ctx->streams[audio_index_stream];
+
+            const AVCodecParameters* codec = stream->codecpar;
+            result->add(Property::AudioCodec, QString::fromUtf8(avcodec_get_name(codec->codec_id)));
         }
 
         AVDictionary* dict = fmt_ctx->metadata;
