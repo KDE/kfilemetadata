@@ -35,13 +35,13 @@ public:
     static auto fromName(const QString& name) -> const PropertyInfoData*;
 
     static const PropertyInfoData s_Empty;
-    static const std::array<PropertyInfoData, 78> s_allProperties;
+    static const std::array<PropertyInfoData, 82> s_allProperties;
     static const QHash<LcIdentifierName, const PropertyInfoData*> s_propertyHash;
 };
 
 const PropertyInfoData PropertyInfoData::s_Empty{ Property::Empty, false, QStringLiteral("empty"), kli18nc("@label", "Empty") };
 
-const std::array<PropertyInfoData, 78> PropertyInfoData::s_allProperties
+const std::array<PropertyInfoData, 82> PropertyInfoData::s_allProperties
 {
     PropertyInfoData{ Property::Album,                      true,  QStringLiteral("album"),                      kli18nc("@label music album", "Album"),                QMetaType::QString },
     PropertyInfoData{ Property::AlbumArtist,                true,  QStringLiteral("albumArtist"),                kli18nc("@label", "Album Artist"),                     QMetaType::QString },
@@ -87,6 +87,10 @@ const std::array<PropertyInfoData, 78> PropertyInfoData::s_allProperties
     PropertyInfoData{ Property::PhotoSaturation,            false, QStringLiteral("photoSaturation"),            kli18nc("@label EXIF", "Saturation"),                  QMetaType::Int },
     PropertyInfoData{ Property::PhotoSharpness,             false, QStringLiteral("photoSharpness"),             kli18nc("@label EXIF", "Sharpness"),                   QMetaType::Int },
     PropertyInfoData{ Property::PhotoWhiteBalance,          false, QStringLiteral("photoWhiteBalance"),          kli18nc("@label EXIF", "White Balance"),               QMetaType::Int },
+    PropertyInfoData{ Property::ColorSpace,                 false, QStringLiteral("colorSpace"),                 kli18nc("@label", "Color Space"),                      QMetaType::QString },
+    PropertyInfoData{ Property::VideoCodec,                 false, QStringLiteral("videoCodec"),                 kli18nc("@label", "Video Codec"),                      QMetaType::QString },
+    PropertyInfoData{ Property::AudioCodec,                 false, QStringLiteral("audioCodec"),                 kli18nc("@label", "Audio Codec"),                      QMetaType::QString },
+    PropertyInfoData{ Property::PixelFormat,                false, QStringLiteral("pixelFormat"),                kli18nc("@label", "Pixel Format"),                     QMetaType::QString },
     PropertyInfoData{ Property::Publisher,                  true,  QStringLiteral("publisher"),                  kli18nc("@label", "Publisher"),                        QMetaType::QString },
     PropertyInfoData{ Property::Label,                      true,  QStringLiteral("label"),                      kli18nc("@label", "Label"),                            QMetaType::QString },
     PropertyInfoData{ Property::ReleaseYear,                false, QStringLiteral("releaseYear"),                kli18nc("@label", "Release Year"),                     QMetaType::Int },

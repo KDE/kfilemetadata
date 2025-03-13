@@ -349,6 +349,24 @@ enum Property {
      * to the 'dc:description' tag from DublinCore
      */
     Description,
+
+    /**
+     * A string description of the codec used
+     */
+    VideoCodec,
+    /**
+     * A string description of the codec used
+     */
+    AudioCodec,
+
+    /**
+     * The Pixel format used by the media (image or video).
+     */
+    PixelFormat,
+    /**
+     * The Color space used by the media (image or video)
+     */
+    ColorSpace,
 };
 
 } // namespace Property
