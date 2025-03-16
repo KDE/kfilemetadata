@@ -9,7 +9,10 @@
         "application/vnd.openxmlformats-officedocument.presentationml.slideshow"    : { "Version" : "0.0" },
         "application/vnd.openxmlformats-officedocument.presentationml.template"     : { "Version" : "0.0" },
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"         : { "Version" : "0.0" },
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.template"      : { "Version" : "0.0" }
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.template"      : { "Version" : "0.0" },
+        "application/vnd.ms-xpsdocument"                                            : { "Version" : "0.0" },
+        "application/oxps"                                                          : { "Version" : "0.0" },
+        "model/3mf"                                                                 : { "Version" : "0.0" }
     }
 }
 

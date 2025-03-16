@@ -32,6 +32,9 @@ private Q_SLOTS:
     void test_pptx();
     void test_xlsx();
     void testMetaDataOnly();
+    void test_xps();
+    void test_oxps();
+    void test_3mf();
 };
 
 QString Office2007ExtractorTest::testFilePath(const QString& fileName) const
@@ -250,6 +253,66 @@ void Office2007ExtractorTest::testMetaDataOnly()
     QVERIFY(!result.types().isEmpty());
     QVERIFY(!result.properties().isEmpty());
     QVERIFY(result.text().isEmpty());
+}
+
+void Office2007ExtractorTest::test_xps()
+{
+    Office2007Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test_xpsdocument.xps"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QVERIFY(result.types().contains(Type::Document));
+
+    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
+    QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Subject")));
+}
+
+void Office2007ExtractorTest::test_oxps()
+{
+    Office2007Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test_xpsdocument.oxps"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QVERIFY(result.types().contains(Type::Document));
+
+    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("Title")));
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
+    QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Subject")));
+}
+
+void Office2007ExtractorTest::test_3mf()
+{
+    Office2007Extractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test_pyramid.3mf"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QVERIFY(result.types().contains(Type::Document));
+
+    QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("3mf Pyramid")));
+    QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
+    QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Subject")));
 }
 
 QTEST_GUILESS_MAIN(Office2007ExtractorTest)

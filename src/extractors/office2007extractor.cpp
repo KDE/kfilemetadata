@@ -44,6 +44,9 @@ const QStringList supportedMimeTypes = {
     QStringLiteral("application/vnd.openxmlformats-officedocument.presentationml.template"),
     QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
     QStringLiteral("application/vnd.openxmlformats-officedocument.spreadsheetml.template"),
+    QStringLiteral("application/vnd.ms-xpsdocument"),
+    QStringLiteral("application/oxps"),
+    QStringLiteral("model/3mf"),
 };
 
 QStringList Office2007Extractor::mimetypes() const
@@ -239,6 +242,11 @@ void Office2007Extractor::extract(ExtractionResult* result)
             std::unique_ptr<QIODevice> contentIODevice{file->createDevice()};
             extractTextWithTag(contentIODevice.get(), QStringLiteral("a:t"), result);
         }
+    }
+
+    else if (!relationsElem.isNull()) {
+        // Any other document type likely following OPC
+        result->addType(Type::Document);
     }
 }
 
