@@ -230,7 +230,7 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 # Mobipocket
 #
 if (QMobipocket6_FOUND)
-    add_library(kfilemetadata_mobiextractor MODULE mobiextractor.cpp)
+    add_library(kfilemetadata_mobiextractor MODULE mobiextractor.cpp ${debug_SRCS})
     target_link_libraries(kfilemetadata_mobiextractor
         KF6::FileMetaData
         QMobipocket6

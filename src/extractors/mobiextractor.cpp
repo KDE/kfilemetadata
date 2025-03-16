@@ -8,6 +8,7 @@
 */
 
 
+#include "kfilemetadata_debug.h"
 #include "mobiextractor.h"
 
 #include <qmobipocket/mobipocket.h>
@@ -53,8 +54,10 @@ void MobiExtractor::extract(ExtractionResult* result)
 {
     QFileStream stream(result->inputUrl());
     Mobipocket::Document doc(&stream);
-    if (!doc.isValid())
+    if (!doc.isValid()) {
+        qCDebug(KFILEMETADATA_LOG) << "Invalid file:" << result->inputUrl();
         return;
+    }
 
     result->addType(Type::Document);
 
@@ -90,7 +93,12 @@ void MobiExtractor::extract(ExtractionResult* result)
     }
 
 #if defined(ENABLE_TEXT_EXTRACTION)
-    if ((result->inputFlags() & ExtractionResult::Flag::ExtractPlainText) && !doc.hasDRM()) {
+    if (result->inputFlags() & ExtractionResult::Flag::ExtractPlainText) {
+        if (doc.hasDRM()) {
+            qCDebug(KFILEMETADATA_LOG) << "Skip DRM protected content:" << result->inputUrl();
+            return;
+        }
+
         QString html = doc.text();
 
         QTextDocument document;

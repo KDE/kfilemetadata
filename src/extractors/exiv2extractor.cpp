@@ -7,7 +7,6 @@
 
 #include "datetimeparser_p.h"
 #include "exiv2extractor.h"
-#include "kfilemetadata_debug.h"
 #include <QTimeZone>
 #include <cmath>
 #include <exiv2/exiv2.hpp>
