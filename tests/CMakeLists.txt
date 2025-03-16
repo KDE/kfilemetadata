@@ -11,7 +11,7 @@ install(TARGETS dump
 target_include_directories(dump  PUBLIC "$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>")
 
 target_link_libraries(dump
-    Qt6::Core
+    Qt6::Gui
     KF6FileMetaData
 )
 

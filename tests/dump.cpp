@@ -4,7 +4,7 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include <QCoreApplication>
+#include <QGuiApplication>
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QFileInfo>
@@ -21,7 +21,7 @@
 
 int main(int argc, char** argv)
 {
-    QCoreApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
 
     QCommandLineParser parser;
     parser.addOption({{QStringLiteral("f"), QStringLiteral("fulltext")}, QStringLiteral("Extract full text")});
