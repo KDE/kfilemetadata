@@ -89,7 +89,7 @@ void MobiExtractor::extract(ExtractionResult* result)
         }
     }
 
-#if ENABLE_TEXT_EXTRACTION
+#if defined(ENABLE_TEXT_EXTRACTION)
     if ((result->inputFlags() & ExtractionResult::Flag::ExtractPlainText) && !doc.hasDRM()) {
         QString html = doc.text();
 
