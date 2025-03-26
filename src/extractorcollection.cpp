@@ -67,7 +67,7 @@ void ExtractorCollectionPrivate::findExtractors()
             } else if (!metadataMap.contains(QLatin1String("MimeTypes"))) {
                 qCWarning(KFILEMETADATA_LOG) << "Found plugin with invalid metadata (missing MimeTypes):" << extractor.d->m_pluginPath;
             } else {
-                qCWarning(KFILEMETADATA_LOG) << "Found plugin with metadata:" << extractor.d->m_pluginPath;
+                qCDebug(KFILEMETADATA_LOG) << "Found plugin with metadata:" << extractor.d->m_pluginPath;
                 extractor.setMetaData(metadataMap);
                 m_allExtractors.push_back(std::move(extractor));
             }
