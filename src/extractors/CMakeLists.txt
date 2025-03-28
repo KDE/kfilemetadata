@@ -1,6 +1,6 @@
 
 if(TARGET Poppler::Qt6)
-    add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp)
+    add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp ${debug_SRCS})
 
     target_link_libraries(kfilemetadata_popplerextractor
         KF6::FileMetaData
@@ -94,7 +94,10 @@ endif()
 #
 # Plain Text
 #
-add_library(kfilemetadata_plaintextextractor MODULE plaintextextractor.cpp)
+add_library(kfilemetadata_plaintextextractor MODULE
+    plaintextextractor.cpp
+    ../kfilemetadata_debug.cpp
+)
 
 target_link_libraries( kfilemetadata_plaintextextractor
     KF6::FileMetaData

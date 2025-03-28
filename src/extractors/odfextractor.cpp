@@ -105,14 +105,14 @@ void OdfExtractor::extract(ExtractionResult* result)
 
     const KArchiveDirectory* directory = zip.directory();
     if (!directory) {
-        qWarning() << "Invalid document structure (main directory is missing)";
+        qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (main directory is missing)";
         return;
     }
 
     // we need a meta xml file in the archive!
     const auto metaXml = directory->file(QStringLiteral("meta.xml"));
     if (!metaXml) {
-        qWarning() << "Invalid document structure (meta.xml is missing)";
+        qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (meta.xml is missing)";
         return;
     }
 
@@ -141,7 +141,7 @@ void OdfExtractor::extract(ExtractionResult* result)
     // for content indexing, we need content xml file
     const auto contentXml = directory->file(QStringLiteral("content.xml"));
     if (!contentXml) {
-        qWarning() << "Invalid document structure (content.xml is missing)";
+        qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (content.xml is missing)";
         return;
     }
 

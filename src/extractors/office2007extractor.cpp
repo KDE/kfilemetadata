@@ -13,7 +13,6 @@
 
 #include <KZip>
 
-#include <QDebug>
 #include <QDomDocument>
 #include <QXmlStreamReader>
 
@@ -55,7 +54,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
     const KArchiveDirectory* rootDir = zip.directory();
     if (!rootDir) {
-        qWarning() << "Invalid document structure (main directory is missing)";
+        qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (main directory is missing)";
         return;
     }
 
@@ -155,7 +154,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         const KArchiveEntry* wordEntry = rootDir->entry(QStringLiteral("word"));
         if (!wordEntry->isDirectory()) {
-            qWarning() << "Invalid document structure (word is not a directory)";
+            qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (word is not a directory)";
             return;
         }
 
@@ -182,7 +181,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         const KArchiveEntry* xlEntry = rootDir->entry(QStringLiteral("xl"));
         if (!xlEntry->isDirectory()) {
-            qWarning() << "Invalid document structure (xl is not a directory)";
+            qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (xl is not a directory)";
             return;
         }
 
@@ -207,7 +206,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         const KArchiveEntry* pptEntry = rootDir->entry(QStringLiteral("ppt"));
         if (!pptEntry->isDirectory()) {
-            qWarning() << "Invalid document structure (ppt is not a directory)";
+            qCWarning(KFILEMETADATA_LOG) << "Invalid document structure (ppt is not a directory)";
             return;
         }
 

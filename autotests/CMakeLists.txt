@@ -31,6 +31,7 @@ ecm_add_test(extractorcoveragetest.cpp
 ecm_add_test(
     indexerextractortests.cpp
     ../src/extractors/plaintextextractor.cpp
+    ${KfileMetaDataAutotest_SRCS}
     TEST_NAME "indexextractortest"
     LINK_LIBRARIES Qt6::Test KF6::FileMetaData KF6::Codecs
 )
@@ -59,7 +60,7 @@ endif()
 # Poppler
 #
 if(Poppler_Qt6_FOUND)
-    ecm_add_test(popplerextractortest.cpp ../src/extractors/popplerextractor.cpp
+    ecm_add_test(popplerextractortest.cpp ../src/extractors/popplerextractor.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "popplerextractortest"
         LINK_LIBRARIES Qt6::Test KF6::FileMetaData Poppler::Qt6
     )

@@ -88,7 +88,7 @@ void XmlExtractor::extract(ExtractionResult* result)
         if (result->inputMimetype() == QLatin1String("image/svg+xml-compressed")) {
             gzReader.reset(new KCompressionDevice(&file, false, KCompressionDevice::CompressionType::GZip));
             if (!gzReader->open(QIODevice::ReadOnly)) {
-                qCDebug(KFILEMETADATA_LOG) << "Failed to open" << gzReader->fileName() << "-" << gzReader-.errorString();
+                qCDebug(KFILEMETADATA_LOG) << "Failed to open" << result->inputUrl() << "-" << gzReader->errorString();
                 return;
             }
             ioDevice = gzReader.get();
