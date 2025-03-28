@@ -28,6 +28,7 @@ void KritaExtractor::extract(ExtractionResult* result)
     // Krita files are secretly zip files
     KZip zip(result->inputUrl());
     if (!zip.open(QIODevice::ReadOnly)) {
+        qCDebug(KFILEMETADATA_LOG) << "Failed to open" << zip.fileName() << "-" << zip.errorString();
         return;
     }
 

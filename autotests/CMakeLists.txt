@@ -260,7 +260,7 @@ endif()
 # Krita
 #
 if(KF6Archive_FOUND)
-    ecm_add_test(kritaextractortest.cpp ../src/extractors/kritaextractor.cpp
+    ecm_add_test(kritaextractortest.cpp ../src/extractors/kritaextractor.cpp ${KfileMetaDataAutotest_SRCS}
         TEST_NAME "kritaextractortest"
         LINK_LIBRARIES
         KF6::Archive

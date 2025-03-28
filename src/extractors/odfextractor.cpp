@@ -8,12 +8,12 @@
 
 
 #include "datetimeparser_p.h"
+#include "kfilemetadata_debug.h"
 #include "odfextractor.h"
 #include <memory>
 
 #include <KZip>
 
-#include <QDebug>
 #include <QDomDocument>
 #include <QFile>
 #include <QXmlStreamReader>
@@ -99,7 +99,7 @@ void OdfExtractor::extract(ExtractionResult* result)
 
     KZip zip(result->inputUrl());
     if (!zip.open(QIODevice::ReadOnly)) {
-        qWarning() << "Document is not a valid ZIP archive";
+        qCWarning(KFILEMETADATA_LOG) << "Failed to open" << zip.fileName() << "-" << zip.errorString();
         return;
     }
 

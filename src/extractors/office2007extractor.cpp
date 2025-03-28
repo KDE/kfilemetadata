@@ -5,6 +5,7 @@
 */
 
 
+#include "kfilemetadata_debug.h"
 #include "office2007extractor.h"
 
 #include "dublincoreextractor.h"
@@ -48,7 +49,7 @@ void Office2007Extractor::extract(ExtractionResult* result)
 {
     KZip zip(result->inputUrl());
     if (!zip.open(QIODevice::ReadOnly)) {
-        qWarning() << "Document is not a valid ZIP archive";
+        qCWarning(KFILEMETADATA_LOG) << "Failed to open" << zip.fileName() << "-" << zip.errorString();
         return;
     }
 
