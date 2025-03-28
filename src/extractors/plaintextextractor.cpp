@@ -5,9 +5,9 @@
 */
 
 
+#include "kfilemetadata_debug.h"
 #include "plaintextextractor.h"
 
-#include <QDebug>
 #include <QFile>
 #include <QStringDecoder>
 #include <QtMinMax>
@@ -98,7 +98,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         QString text = codec.decode(file.readLine());
 
         if (codec.hasError()) {
-            qDebug() << "Invalid encoding. Ignoring" << result->inputUrl();
+            qCDebug(KFILEMETADATA_LOG) << "Invalid encoding. Ignoring" << result->inputUrl();
             return;
         }
 

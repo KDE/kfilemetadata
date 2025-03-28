@@ -6,6 +6,7 @@
 */
 
 
+#include "kfilemetadata_debug.h"
 #include "popplerextractor.h"
 
 #include <QScopedPointer>
@@ -79,7 +80,7 @@ void PopplerExtractor::extract(ExtractionResult* result)
     for (int i = 0; i < pdfDoc->numPages(); i++) {
         std::unique_ptr<Poppler::Page> page(pdfDoc->page(i));
         if (!page) { // broken pdf files do not return a valid page
-            qWarning() << "Could not read page content from" << fileUrl;
+            qCWarning(KFILEMETADATA_LOG) << "Could not read page content from" << fileUrl;
             break;
         }
         result->append(page->text(QRectF()));
