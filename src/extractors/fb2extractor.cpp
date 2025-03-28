@@ -58,6 +58,7 @@ void Fb2Extractor::extract(ExtractionResult *result)
     } else if (result->inputMimetype() == compressedMimeType()) {
         zip.reset(new KZip(result->inputUrl()));
         if (!zip->open(QIODevice::ReadOnly)) {
+            qCDebug(KFILEMETADATA_LOG) << "Failed to open" << zip->fileName() << "-" << zip->errorString();
             return;
         }
 

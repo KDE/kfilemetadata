@@ -304,6 +304,7 @@ if(KF6Archive_FOUND)
     target_sources(kfilemetadata_krita
         PRIVATE
             kritaextractor.cpp
+            ${debug_SRCS}
     )
 
     target_link_libraries(kfilemetadata_krita
