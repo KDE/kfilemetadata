@@ -112,9 +112,12 @@ void Office2007Extractor::extract(ExtractionResult* result)
 
         auto elem = cpElem.firstChildElement(QStringLiteral("keywords"));
         if (!elem.isNull() && elem.namespaceURI() == cpNS()) {
-            QString str = elem.text();
-            if (!str.isEmpty()) {
-                result->add(Property::Keywords, str);
+            for (auto c = elem.firstChild(); !c.isNull(); c = c.nextSibling()) {
+                if (const auto childElem = c.toElement(); childElem.localName() == QStringLiteral("value") && !childElem.text().isEmpty()) {
+                    result->add(Property::Keywords, childElem.text());
+                } else if (const auto tNode = c.toText(); !tNode.nodeValue().isEmpty()) {
+                    result->add(Property::Keywords, tNode.nodeValue());
+                }
             }
         }
     }

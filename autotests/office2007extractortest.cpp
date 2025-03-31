@@ -313,6 +313,10 @@ void Office2007ExtractorTest::test_3mf()
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("3mf Pyramid")));
     QCOMPARE(result.properties().value(Property::Author), QVariant(QStringLiteral("Author")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Subject")));
+    const auto keywords = result.properties().values(Property::Keywords);
+    QCOMPARE(keywords.size(), 2);
+    QVERIFY(keywords.contains(QVariant(QStringLiteral("Keyword 1"))));
+    QVERIFY(keywords.contains(QVariant(QStringLiteral("Keyword 2"))));
 }
 
 QTEST_GUILESS_MAIN(Office2007ExtractorTest)
