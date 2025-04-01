@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-07 00:37+0000\n"
+"POT-Creation-Date: 2025-04-01 00:38+0000\n"
 "PO-Revision-Date: 2024-12-25 19:40+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -528,170 +528,196 @@ msgstr "श्वेत संतुलन"
 
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
+msgid "Color Space"
+msgstr ""
+
+#: src/propertyinfo.cpp:91
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Video"
+msgctxt "@label"
+msgid "Video Codec"
+msgstr "विडिओ"
+
+#: src/propertyinfo.cpp:92
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Audio"
+msgctxt "@label"
+msgid "Audio Codec"
+msgstr "श्रव्यः"
+
+#: src/propertyinfo.cpp:93
+msgctxt "@label"
+msgid "Pixel Format"
+msgstr ""
+
+#: src/propertyinfo.cpp:94
+msgctxt "@label"
 msgid "Publisher"
 msgstr "प्रकाशक"
 
-#: src/propertyinfo.cpp:91
+#: src/propertyinfo.cpp:95
 msgctxt "@label"
 msgid "Label"
 msgstr "नामपत्र"
 
-#: src/propertyinfo.cpp:92
+#: src/propertyinfo.cpp:96
 msgctxt "@label"
 msgid "Release Year"
 msgstr "विमोचन वर्ष"
 
-#: src/propertyinfo.cpp:93
+#: src/propertyinfo.cpp:97
 msgctxt "@label"
 msgid "Sample Rate"
 msgstr "नमूना दर"
 
-#: src/propertyinfo.cpp:94
+#: src/propertyinfo.cpp:98
 msgctxt "@label"
 msgid "Subject"
 msgstr "विषयः"
 
-#: src/propertyinfo.cpp:95
+#: src/propertyinfo.cpp:99
 msgctxt "@label"
 msgid "Title"
 msgstr "शीर्षक"
 
-#: src/propertyinfo.cpp:96
+#: src/propertyinfo.cpp:100
 msgctxt "@label music track number"
 msgid "Track Number"
 msgstr "ट्रैक नम्बर"
 
-#: src/propertyinfo.cpp:97
+#: src/propertyinfo.cpp:101
 msgctxt "@label music disc number"
 msgid "Disc Number"
 msgstr "डिस्क संख्या"
 
-#: src/propertyinfo.cpp:98
+#: src/propertyinfo.cpp:102
 msgctxt "@label"
 msgid "Location"
 msgstr "स्थानीय"
 
-#: src/propertyinfo.cpp:99
+#: src/propertyinfo.cpp:103
 msgctxt "@label"
 msgid "Performer"
 msgstr "निष्पादक"
 
-#: src/propertyinfo.cpp:100
+#: src/propertyinfo.cpp:104
 msgctxt "@label"
 msgid "Ensemble"
 msgstr "समूहः"
 
-#: src/propertyinfo.cpp:101
+#: src/propertyinfo.cpp:105
 msgctxt "@label"
 msgid "Arranger"
 msgstr "व्यवस्थापकः"
 
-#: src/propertyinfo.cpp:102
+#: src/propertyinfo.cpp:106
 msgctxt "@label"
 msgid "Conductor"
 msgstr "संचालकः"
 
-#: src/propertyinfo.cpp:103
+#: src/propertyinfo.cpp:107
 msgctxt "@label"
 msgid "Compilation"
 msgstr "संकलनम्"
 
-#: src/propertyinfo.cpp:104
+#: src/propertyinfo.cpp:108
 msgctxt "@label"
 msgid "License"
 msgstr "अनुज्ञापत्रम्"
 
-#: src/propertyinfo.cpp:105
+#: src/propertyinfo.cpp:109
 msgctxt "@label"
 msgid "Lyrics"
 msgstr "गीत"
 
-#: src/propertyinfo.cpp:106
+#: src/propertyinfo.cpp:110
 msgctxt "@label"
 msgid "Opus"
 msgstr "ओपुस्"
 
-#: src/propertyinfo.cpp:107
+#: src/propertyinfo.cpp:111
 msgctxt "@label"
 msgid "Rating"
 msgstr "रेटिंग्"
 
-#: src/propertyinfo.cpp:108
+#: src/propertyinfo.cpp:112
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
 msgstr "ReplayGain एल्बम शिखर"
 
-#: src/propertyinfo.cpp:109
+#: src/propertyinfo.cpp:113
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
 msgstr "ReplayGain एल्बम लाभ"
 
-#: src/propertyinfo.cpp:110
+#: src/propertyinfo.cpp:114
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
 msgstr "ReplayGain ट्रैक शिखर"
 
-#: src/propertyinfo.cpp:111
+#: src/propertyinfo.cpp:115
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
 msgstr "ReplayGain ट्रैक लाभ"
 
-#: src/propertyinfo.cpp:112
+#: src/propertyinfo.cpp:116
 msgctxt "@label"
 msgid "Width"
 msgstr "विस्तार"
 
-#: src/propertyinfo.cpp:113
+#: src/propertyinfo.cpp:117
 msgctxt "@label number of words"
 msgid "Word Count"
 msgstr "शब्दगणना"
 
-#: src/propertyinfo.cpp:114
+#: src/propertyinfo.cpp:118
 msgctxt "@label number of translatable strings"
 msgid "Translatable Units"
 msgstr "अनुवादयोग्य इकाइयाँ"
 
-#: src/propertyinfo.cpp:115
+#: src/propertyinfo.cpp:119
 msgctxt "@label number of translated strings"
 msgid "Translations"
 msgstr "अनुवादाः"
 
-#: src/propertyinfo.cpp:116
+#: src/propertyinfo.cpp:120
 msgctxt "@label number of fuzzy translated strings"
 msgid "Draft Translations"
 msgstr "अनुवाद मसौदा"
 
-#: src/propertyinfo.cpp:117
+#: src/propertyinfo.cpp:121
 msgctxt "@label translation author"
 msgid "Author"
 msgstr "लेखकः"
 
-#: src/propertyinfo.cpp:118
+#: src/propertyinfo.cpp:122
 msgctxt "@label translations last update"
 msgid "Last Update"
 msgstr "अन्तिम अपडेट"
 
-#: src/propertyinfo.cpp:119
+#: src/propertyinfo.cpp:123
 msgctxt "@label date of template creation8"
 msgid "Template Creation"
 msgstr "टेम्पलेट निर्माण"
 
-#: src/propertyinfo.cpp:120
+#: src/propertyinfo.cpp:124
 msgctxt "@label the URL a file was originally downloaded from"
 msgid "Downloaded From"
 msgstr "Downloaded From"
 
-#: src/propertyinfo.cpp:121
+#: src/propertyinfo.cpp:125
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
 msgstr "ई-मेल संलग्नक विषय"
 
-#: src/propertyinfo.cpp:122
+#: src/propertyinfo.cpp:126
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
 msgstr "ई-मेल संलग्नक प्रेषक"
 
-#: src/propertyinfo.cpp:123
+#: src/propertyinfo.cpp:127
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "ई-मेल संलग्नक सन्देश आईडी"

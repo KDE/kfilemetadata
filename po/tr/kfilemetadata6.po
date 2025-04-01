@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-07 00:37+0000\n"
+"POT-Creation-Date: 2025-04-01 00:38+0000\n"
 "PO-Revision-Date: 2024-03-09 10:22+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -527,170 +527,196 @@ msgstr "Beyaz Dengesi"
 
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
+msgid "Color Space"
+msgstr ""
+
+#: src/propertyinfo.cpp:91
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Video"
+msgctxt "@label"
+msgid "Video Codec"
+msgstr "Video"
+
+#: src/propertyinfo.cpp:92
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Audio"
+msgctxt "@label"
+msgid "Audio Codec"
+msgstr "Ses"
+
+#: src/propertyinfo.cpp:93
+msgctxt "@label"
+msgid "Pixel Format"
+msgstr ""
+
+#: src/propertyinfo.cpp:94
+msgctxt "@label"
 msgid "Publisher"
 msgstr "Yayıncı"
 
-#: src/propertyinfo.cpp:91
+#: src/propertyinfo.cpp:95
 msgctxt "@label"
 msgid "Label"
 msgstr "Etiket"
 
-#: src/propertyinfo.cpp:92
+#: src/propertyinfo.cpp:96
 msgctxt "@label"
 msgid "Release Year"
 msgstr "Yayınlanma Yılı"
 
-#: src/propertyinfo.cpp:93
+#: src/propertyinfo.cpp:97
 msgctxt "@label"
 msgid "Sample Rate"
 msgstr "Örnek Oranı"
 
-#: src/propertyinfo.cpp:94
+#: src/propertyinfo.cpp:98
 msgctxt "@label"
 msgid "Subject"
 msgstr "Konu"
 
-#: src/propertyinfo.cpp:95
+#: src/propertyinfo.cpp:99
 msgctxt "@label"
 msgid "Title"
 msgstr "Başlık"
 
-#: src/propertyinfo.cpp:96
+#: src/propertyinfo.cpp:100
 msgctxt "@label music track number"
 msgid "Track Number"
 msgstr "Parça Numarası"
 
-#: src/propertyinfo.cpp:97
+#: src/propertyinfo.cpp:101
 msgctxt "@label music disc number"
 msgid "Disc Number"
 msgstr "Disk Numarası"
 
-#: src/propertyinfo.cpp:98
+#: src/propertyinfo.cpp:102
 msgctxt "@label"
 msgid "Location"
 msgstr "Konum"
 
-#: src/propertyinfo.cpp:99
+#: src/propertyinfo.cpp:103
 msgctxt "@label"
 msgid "Performer"
 msgstr "Müzisyen"
 
-#: src/propertyinfo.cpp:100
+#: src/propertyinfo.cpp:104
 msgctxt "@label"
 msgid "Ensemble"
 msgstr "Orkestra"
 
-#: src/propertyinfo.cpp:101
+#: src/propertyinfo.cpp:105
 msgctxt "@label"
 msgid "Arranger"
 msgstr "Aranjör"
 
-#: src/propertyinfo.cpp:102
+#: src/propertyinfo.cpp:106
 msgctxt "@label"
 msgid "Conductor"
 msgstr "Kondüktör"
 
-#: src/propertyinfo.cpp:103
+#: src/propertyinfo.cpp:107
 msgctxt "@label"
 msgid "Compilation"
 msgstr "Derleme"
 
-#: src/propertyinfo.cpp:104
+#: src/propertyinfo.cpp:108
 msgctxt "@label"
 msgid "License"
 msgstr "Lisans"
 
-#: src/propertyinfo.cpp:105
+#: src/propertyinfo.cpp:109
 msgctxt "@label"
 msgid "Lyrics"
 msgstr "Şarkı Sözleri"
 
-#: src/propertyinfo.cpp:106
+#: src/propertyinfo.cpp:110
 msgctxt "@label"
 msgid "Opus"
 msgstr "Yapıt"
 
-#: src/propertyinfo.cpp:107
+#: src/propertyinfo.cpp:111
 msgctxt "@label"
 msgid "Rating"
 msgstr "Derecelendirme"
 
-#: src/propertyinfo.cpp:108
+#: src/propertyinfo.cpp:112
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
 msgstr "ReplayGain Albüm Tavanı"
 
-#: src/propertyinfo.cpp:109
+#: src/propertyinfo.cpp:113
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
 msgstr "ReplayGain Albüm Kazanması"
 
-#: src/propertyinfo.cpp:110
+#: src/propertyinfo.cpp:114
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
 msgstr "ReplayGain Parça Tavanı"
 
-#: src/propertyinfo.cpp:111
+#: src/propertyinfo.cpp:115
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
 msgstr "ReplayGain Parça Kazanması"
 
-#: src/propertyinfo.cpp:112
+#: src/propertyinfo.cpp:116
 msgctxt "@label"
 msgid "Width"
 msgstr "Genişlik"
 
-#: src/propertyinfo.cpp:113
+#: src/propertyinfo.cpp:117
 msgctxt "@label number of words"
 msgid "Word Count"
 msgstr "Sözcük Sayımı"
 
-#: src/propertyinfo.cpp:114
+#: src/propertyinfo.cpp:118
 msgctxt "@label number of translatable strings"
 msgid "Translatable Units"
 msgstr "Çevrilebilir Birimler"
 
-#: src/propertyinfo.cpp:115
+#: src/propertyinfo.cpp:119
 msgctxt "@label number of translated strings"
 msgid "Translations"
 msgstr "Çeviriler"
 
-#: src/propertyinfo.cpp:116
+#: src/propertyinfo.cpp:120
 msgctxt "@label number of fuzzy translated strings"
 msgid "Draft Translations"
 msgstr "Taslak Çeviriler"
 
-#: src/propertyinfo.cpp:117
+#: src/propertyinfo.cpp:121
 msgctxt "@label translation author"
 msgid "Author"
 msgstr "Yazar"
 
-#: src/propertyinfo.cpp:118
+#: src/propertyinfo.cpp:122
 msgctxt "@label translations last update"
 msgid "Last Update"
 msgstr "Son Güncelleme"
 
-#: src/propertyinfo.cpp:119
+#: src/propertyinfo.cpp:123
 msgctxt "@label date of template creation8"
 msgid "Template Creation"
 msgstr "Şablon Oluşturma"
 
-#: src/propertyinfo.cpp:120
+#: src/propertyinfo.cpp:124
 msgctxt "@label the URL a file was originally downloaded from"
 msgid "Downloaded From"
 msgstr "İndirme Adresi"
 
-#: src/propertyinfo.cpp:121
+#: src/propertyinfo.cpp:125
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
 msgstr "E-posta Eki Konusu"
 
-#: src/propertyinfo.cpp:122
+#: src/propertyinfo.cpp:126
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
 msgstr "E-posta Eki Göndereni"
 
-#: src/propertyinfo.cpp:123
+#: src/propertyinfo.cpp:127
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "E-posta Eki İleti ID’si"

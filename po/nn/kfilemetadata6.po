@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-07 00:37+0000\n"
+"POT-Creation-Date: 2025-04-01 00:38+0000\n"
 "PO-Revision-Date: 2024-07-26 15:12+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -527,170 +527,196 @@ msgstr "Kvitbalanse"
 
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
+msgid "Color Space"
+msgstr ""
+
+#: src/propertyinfo.cpp:91
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Video"
+msgctxt "@label"
+msgid "Video Codec"
+msgstr "Video"
+
+#: src/propertyinfo.cpp:92
+#, fuzzy
+#| msgctxt "@label"
+#| msgid "Audio"
+msgctxt "@label"
+msgid "Audio Codec"
+msgstr "Lyd"
+
+#: src/propertyinfo.cpp:93
+msgctxt "@label"
+msgid "Pixel Format"
+msgstr ""
+
+#: src/propertyinfo.cpp:94
+msgctxt "@label"
 msgid "Publisher"
 msgstr "Utgjevar"
 
-#: src/propertyinfo.cpp:91
+#: src/propertyinfo.cpp:95
 msgctxt "@label"
 msgid "Label"
 msgstr "Merkelapp"
 
-#: src/propertyinfo.cpp:92
+#: src/propertyinfo.cpp:96
 msgctxt "@label"
 msgid "Release Year"
 msgstr "Utgjevingsår"
 
-#: src/propertyinfo.cpp:93
+#: src/propertyinfo.cpp:97
 msgctxt "@label"
 msgid "Sample Rate"
 msgstr "Samplingsrate"
 
-#: src/propertyinfo.cpp:94
+#: src/propertyinfo.cpp:98
 msgctxt "@label"
 msgid "Subject"
 msgstr "Emne"
 
-#: src/propertyinfo.cpp:95
+#: src/propertyinfo.cpp:99
 msgctxt "@label"
 msgid "Title"
 msgstr "Tittel"
 
-#: src/propertyinfo.cpp:96
+#: src/propertyinfo.cpp:100
 msgctxt "@label music track number"
 msgid "Track Number"
 msgstr "Spornummer"
 
-#: src/propertyinfo.cpp:97
+#: src/propertyinfo.cpp:101
 msgctxt "@label music disc number"
 msgid "Disc Number"
 msgstr "Platenummer"
 
-#: src/propertyinfo.cpp:98
+#: src/propertyinfo.cpp:102
 msgctxt "@label"
 msgid "Location"
 msgstr "Plassering"
 
-#: src/propertyinfo.cpp:99
+#: src/propertyinfo.cpp:103
 msgctxt "@label"
 msgid "Performer"
 msgstr "Utøvar"
 
-#: src/propertyinfo.cpp:100
+#: src/propertyinfo.cpp:104
 msgctxt "@label"
 msgid "Ensemble"
 msgstr "Gruppe"
 
-#: src/propertyinfo.cpp:101
+#: src/propertyinfo.cpp:105
 msgctxt "@label"
 msgid "Arranger"
 msgstr "Arrangert av"
 
-#: src/propertyinfo.cpp:102
+#: src/propertyinfo.cpp:106
 msgctxt "@label"
 msgid "Conductor"
 msgstr "Dirigent"
 
-#: src/propertyinfo.cpp:103
+#: src/propertyinfo.cpp:107
 msgctxt "@label"
 msgid "Compilation"
 msgstr "Samling"
 
-#: src/propertyinfo.cpp:104
+#: src/propertyinfo.cpp:108
 msgctxt "@label"
 msgid "License"
 msgstr "Lisens"
 
-#: src/propertyinfo.cpp:105
+#: src/propertyinfo.cpp:109
 msgctxt "@label"
 msgid "Lyrics"
 msgstr "Songtekst"
 
-#: src/propertyinfo.cpp:106
+#: src/propertyinfo.cpp:110
 msgctxt "@label"
 msgid "Opus"
 msgstr "Opus"
 
-#: src/propertyinfo.cpp:107
+#: src/propertyinfo.cpp:111
 msgctxt "@label"
 msgid "Rating"
 msgstr "Karakter"
 
-#: src/propertyinfo.cpp:108
+#: src/propertyinfo.cpp:112
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
 msgstr "ReplayGain – album-lydtopp"
 
-#: src/propertyinfo.cpp:109
+#: src/propertyinfo.cpp:113
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
 msgstr "ReplayGain – album-forsterking"
 
-#: src/propertyinfo.cpp:110
+#: src/propertyinfo.cpp:114
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
 msgstr "ReplayGai – spor-lydtopp"
 
-#: src/propertyinfo.cpp:111
+#: src/propertyinfo.cpp:115
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
 msgstr "ReplayGain – spor-forsterking"
 
-#: src/propertyinfo.cpp:112
+#: src/propertyinfo.cpp:116
 msgctxt "@label"
 msgid "Width"
 msgstr "Breidd"
 
-#: src/propertyinfo.cpp:113
+#: src/propertyinfo.cpp:117
 msgctxt "@label number of words"
 msgid "Word Count"
 msgstr "Ordteljing"
 
-#: src/propertyinfo.cpp:114
+#: src/propertyinfo.cpp:118
 msgctxt "@label number of translatable strings"
 msgid "Translatable Units"
 msgstr "Omsetbare einingar"
 
-#: src/propertyinfo.cpp:115
+#: src/propertyinfo.cpp:119
 msgctxt "@label number of translated strings"
 msgid "Translations"
 msgstr "Omsetjingar"
 
-#: src/propertyinfo.cpp:116
+#: src/propertyinfo.cpp:120
 msgctxt "@label number of fuzzy translated strings"
 msgid "Draft Translations"
 msgstr "Omsetjingsframlegg"
 
-#: src/propertyinfo.cpp:117
+#: src/propertyinfo.cpp:121
 msgctxt "@label translation author"
 msgid "Author"
 msgstr "Forfattar"
 
-#: src/propertyinfo.cpp:118
+#: src/propertyinfo.cpp:122
 msgctxt "@label translations last update"
 msgid "Last Update"
 msgstr "Sist oppdatert"
 
-#: src/propertyinfo.cpp:119
+#: src/propertyinfo.cpp:123
 msgctxt "@label date of template creation8"
 msgid "Template Creation"
 msgstr "Mal oppretta"
 
-#: src/propertyinfo.cpp:120
+#: src/propertyinfo.cpp:124
 msgctxt "@label the URL a file was originally downloaded from"
 msgid "Downloaded From"
 msgstr "Lasta ned frå"
 
-#: src/propertyinfo.cpp:121
+#: src/propertyinfo.cpp:125
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
 msgstr "Emne til e-postvedlegg"
 
-#: src/propertyinfo.cpp:122
+#: src/propertyinfo.cpp:126
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
 msgstr "Avsendar av e-postvedlegg"
 
-#: src/propertyinfo.cpp:123
+#: src/propertyinfo.cpp:127
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
 msgstr "Meldings-ID til e-postvedlegg"
