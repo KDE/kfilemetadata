@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-01 00:38+0000\n"
-"PO-Revision-Date: 2024-03-09 06:23+0100\n"
+"PO-Revision-Date: 2025-04-01 05:01+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -531,28 +531,22 @@ msgstr "თეთრის ბალანსი"
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "ფერის სივრცე"
 
 #: src/propertyinfo.cpp:91
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "ვიდეო"
+msgstr "ვიდეო კოდეკი"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "აუდიო"
+msgstr "აუდიო კოდეკი"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "პიქსელის ფორმატი"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"

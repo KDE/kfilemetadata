@@ -1,15 +1,15 @@
-# Spanish translations for kfilemetadata.po package.
-# Copyright (C) 2014 This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Spanish translations for kfilemetadata6.po package.
+# Copyright (C) 2014-2025 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kfilemetadata package.
 #
 # Automatically generated, 2014.
-# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: kfilemetadata\n"
+"Project-Id-Version: kfilemetadata6\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-01 00:38+0000\n"
-"PO-Revision-Date: 2024-03-10 17:48+0100\n"
+"PO-Revision-Date: 2025-04-02 00:58+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -529,28 +529,22 @@ msgstr "Balance de blancos"
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "Espacio de color"
 
 #: src/propertyinfo.cpp:91
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "Vídeo"
+msgstr "Códec de vídeo"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "Audio"
+msgstr "Códec de audio"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "Formato de píxel"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
@@ -766,43 +760,3 @@ msgstr "Vídeo"
 msgctxt "@label"
 msgid "Folder"
 msgstr "Carpeta"
-
-#~ msgctxt "@label"
-#~ msgid "Model"
-#~ msgstr "Modelo"
-
-#~ msgctxt "@label EXIF"
-#~ msgid "Image Make"
-#~ msgstr "Marca de la imagen"
-
-#~ msgctxt "@label EXIF"
-#~ msgid "Photo F Number"
-#~ msgstr "Número F de la foto"
-
-#~ msgctxt "@label EXIF"
-#~ msgid "Photo Saturation"
-#~ msgstr "Saturación de la foto"
-
-#~ msgctxt "Separation between multiple entries in a list"
-#~ msgid ", "
-#~ msgstr ", "
-
-#~ msgctxt "@label"
-#~ msgid "Software used to Generate the document"
-#~ msgstr "Software usado para generar el documento"
-
-#~ msgid "Path does not seem to contain a valid plugin"
-#~ msgstr "Parece que la ruta no contiene un complemento válido"
-
-#~ msgid "Manifest does not seem to be a valid JSON Object"
-#~ msgstr "Parece que el manifiesto no es un objeto JSON válido"
-
-#~ msgid "Something went wrong while trying to write data"
-#~ msgstr "Algo ha ido mal al intentar escribir datos"
-
-#~| msgid "Plugin could not be converted to an WriterPlugin"
-#~ msgid "Plugin could not be converted to a WriterPlugin"
-#~ msgstr "El complemento no se puede convertir en un complemento de Writer"
-
-#~ msgid "Plugin could not create instance"
-#~ msgstr "El complemento no puede crear una instancia"

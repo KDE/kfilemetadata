@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2023, 2024 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2023, 2024, 2025 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-01 00:38+0000\n"
-"PO-Revision-Date: 2024-03-09 11:58+0100\n"
+"PO-Revision-Date: 2025-04-01 16:51+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -528,28 +528,22 @@ msgstr "Witbalans"
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "Kleurruimte"
 
 #: src/propertyinfo.cpp:91
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "Video"
+msgstr "Video-codec"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "Geluid"
+msgstr "Audio-codec"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "Pixelformaat"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
