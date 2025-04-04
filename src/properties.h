@@ -352,19 +352,23 @@ enum Property {
 
     /**
      * A string description of the codec used
+     * @since 6.13
      */
     VideoCodec,
     /**
      * A string description of the codec used
+     * @since 6.13
      */
     AudioCodec,
 
     /**
      * The Pixel format used by the media (image or video).
+     * @since 6.13
      */
     PixelFormat,
     /**
      * The Color space used by the media (image or video)
+     * @since 6.13
      */
     ColorSpace,
 };
