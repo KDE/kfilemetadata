@@ -527,22 +527,22 @@ msgstr "白平衡"
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "色彩空间"
 
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
 msgid "Video Codec"
-msgstr ""
+msgstr "视频编码"
 
 #: src/propertyinfo.cpp:92
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr ""
+msgstr "音频编码"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "像素格式"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
