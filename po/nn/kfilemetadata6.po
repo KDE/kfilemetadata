@@ -532,16 +532,12 @@ msgstr ""
 
 #: src/propertyinfo.cpp:91
 #, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
 msgstr "Video"
 
 #: src/propertyinfo.cpp:92
 #, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
 msgstr "Lyd"
