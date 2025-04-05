@@ -9,6 +9,7 @@
 
 
 #include "kfilemetadata_debug.h"
+#include "config-kfilemetadata.h"
 #include "mobiextractor.h"
 
 #include <qmobipocket/mobipocket.h>
@@ -92,7 +93,7 @@ void MobiExtractor::extract(ExtractionResult* result)
         }
     }
 
-#if defined(ENABLE_TEXT_EXTRACTION)
+#if ENABLE_MOBIPOCKET_TEXT_EXTRACTION
     if (result->inputFlags() & ExtractionResult::Flag::ExtractPlainText) {
         if (doc.hasDRM()) {
             qCDebug(KFILEMETADATA_LOG) << "Skip DRM protected content:" << result->inputUrl();
