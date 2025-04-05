@@ -12,8 +12,6 @@
 #include "ffmpegextractor.h"
 #include "kfilemetadata_debug.h"
 
-#include "config-kfilemetadata.h"
-
 #ifdef __cplusplus
 #define __STDC_CONSTANT_MACROS
 #ifdef _STDINT_H
