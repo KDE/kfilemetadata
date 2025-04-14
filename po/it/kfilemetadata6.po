@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2014.
-# SPDX-FileCopyrightText: 2015, 2023, 2024 Vincenzo Reale <smart2128vr@gmail.com>
+# SPDX-FileCopyrightText: 2015, 2023, 2024, 2025 Vincenzo Reale <smart2128vr@gmail.com>
 # Paolo Zamponi <feus73@gmail.com>, 2017, 2018.
 # Valter Mura <valtermura@gmail.com>, 2019.
 #
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-01 00:38+0000\n"
-"PO-Revision-Date: 2024-03-09 21:09+0100\n"
+"PO-Revision-Date: 2025-04-05 17:58+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -533,28 +533,22 @@ msgstr "Bilanciamento del bianco"
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "Spazio di colori"
 
 #: src/propertyinfo.cpp:91
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "Video"
+msgstr "Codificatore video"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "Audio"
+msgstr "Codificatore audio"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "Formato pixel"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
