@@ -12,6 +12,7 @@
 #include "kfilemetadata_debug.h"
 
 #include <QDateTime>
+#include <QImage>
 #include <QRegularExpression>
 
 using namespace KFileMetaData;
@@ -40,12 +41,16 @@ void EPubExtractor::extract(ExtractionResult* result)
     EPubContainer epub;
     if (!epub.openFile(result->inputUrl())) {
         qCWarning(KFILEMETADATA_LOG) << epub.errorString();
+        return;
     }
 
     result->addType(Type::Document);
 
     // Metadata
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
+        for (const QString &value : epub.metadata(u"identifier"_s)) {
+            result->add(Property::Identifier, value);
+        }
 
         for (const QString &value : epub.metadata(u"title"_s)) {
             result->add(Property::Title, value);
@@ -103,6 +108,37 @@ void EPubExtractor::extract(ExtractionResult* result)
 
         for (const QString &value : epub.metadata(u"source"_s)) {
             result->add(Property::OriginUrl, value);
+        }
+
+        bool foundCover = false;
+        for (const QString &value : epub.metadata(u"cover"_s)) {
+            auto image = epub.image(value);
+            if (!image.isNull()) {
+                result->add(Property::Cover, image);
+                foundCover = true;
+                break;
+            }
+        }
+
+        if (!foundCover) {
+            const QStringList items = epub.items();
+            for (const auto &item : items) {
+                const auto epubItem = epub.epubItem(item);
+                if (epubItem.properties.contains("cover-image"_L1)) {
+                    auto image = epub.image(item);
+                    if (!image.isNull()) {
+                        result->add(Property::Cover, image);
+                        foundCover = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        const auto collections = epub.collections();
+        for (const auto &collection : collections) {
+            result->add(Property::Serie, collection.name);
+            result->add(Property::VolumeNumber, QString::number(collection.position));
         }
     }
 
