@@ -297,9 +297,6 @@ bool EPubContainer::parseMetadataItem(const QDomNode &metadataNode, const QDomNo
     if (metaName.isEmpty() || metaValue.isEmpty()) {
         return false;
     }
-    if (!m_metadata.contains(metaName)) {
-        m_metadata[metaName] = QStringList{};
-    }
 
     if (metaName != "subject"_L1) {
         m_metadata[metaName].append(metaValue);

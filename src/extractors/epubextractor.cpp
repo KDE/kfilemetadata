@@ -60,10 +60,6 @@ void EPubExtractor::extract(ExtractionResult* result)
             result->add(Property::Subject, value);
         }
 
-        for (const QString &value : epub.metadata(u"subject"_s)) {
-            result->add(Property::Subject, value);
-        }
-
         for (const QString &value : epub.metadata(u"language"_s)) {
             result->add(Property::Language, value);
         }
@@ -92,11 +88,31 @@ void EPubExtractor::extract(ExtractionResult* result)
             result->add(Property::License, value);
         }
 
-        for (const QString &value : epub.metadata(u"date"_s)) {
-            const QDateTime dt = Parser::dateTimeFromString(value);
+        bool foundPublicationDate = false;
+        for (const QString &value : epub.metadata(u"publication"_s)) {
+            QDateTime dt = Parser::dateTimeFromString(value);
+            if (dt.timeZone().timeSpec() == Qt::LocalTime) {
+                dt.setTimeZone(QTimeZone::UTC);
+            }
+
             if (!dt.isNull()) {
+                foundPublicationDate = true;
                 result->add(Property::CreationDate, dt);
                 result->add(Property::ReleaseYear, dt.date().year());
+            }
+        }
+
+        if (!foundPublicationDate) {
+            for (const QString &value : epub.metadata(u"date"_s)) {
+                QDateTime dt = Parser::dateTimeFromString(value);
+                if (dt.timeZone().timeSpec() == Qt::LocalTime) {
+                    dt.setTimeZone(QTimeZone::UTC);
+                }
+
+                if (!dt.isNull()) {
+                    result->add(Property::CreationDate, dt);
+                    result->add(Property::ReleaseYear, dt.date().year());
+                }
             }
         }
 
