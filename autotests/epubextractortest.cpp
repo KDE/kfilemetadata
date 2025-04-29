@@ -47,7 +47,7 @@ void EPubExtractorTest::test()
     QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(fileName, mimeType);
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractImageData | ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -61,12 +61,24 @@ void EPubExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Title), QVariant(QStringLiteral("The Big Brown Bear")));
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Baloo KFileMetaData")));
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
+    QCOMPARE(result.properties().value(Property::License), QVariant(QStringLiteral("License")));
+    QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("en")));
+    QCOMPARE(result.properties().value(Property::Generator), QVariant(QStringLiteral("Mowgli")));
+    QCOMPARE(result.properties().value(Property::OriginUrl), QVariant(QStringLiteral("0decd391f7ffc8e96184efdd1e8fe4b8")));
+    QCOMPARE(result.properties().value(Property::Identifier), QStringLiteral("c1aaf9ecc69bdd35ddbfdc5fc32eeb27"));
 
     QDateTime dt(QDate(2014, 1, 1), QTime(1, 1, 1), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2014));
 
-    QCOMPARE(result.properties().size(), 13);
+    const auto coverData = result.imageData().value(EmbeddedImageData::FrontCover);
+    QVERIFY(!coverData.isEmpty());
+
+    const auto cover = QImage::fromData(coverData);
+    QCOMPARE(cover.width(), QVariant(566));
+    QCOMPARE(cover.height(), QVariant(734));
+
+    QCOMPARE(result.properties().size(), 12);
 }
 
 void EPubExtractorTest::testRepeated()
@@ -78,7 +90,7 @@ void EPubExtractorTest::testRepeated()
     QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
 
-    SimpleExtractionResult result(fileName, mimeType);
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractImageData | ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText);
     plugin.extract(&result);
 
     QCOMPARE(result.types().size(), 1);
@@ -91,12 +103,23 @@ void EPubExtractorTest::testRepeated()
         QVariantList({QStringLiteral("Test with repeated keys"), QStringLiteral("Baloo KFileMetaData")})
     );
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
+    QCOMPARE(result.properties().value(Property::License), QVariant(QStringLiteral("License")));
+    QCOMPARE(result.properties().value(Property::Language), QVariant(QStringLiteral("en")));
+    QCOMPARE(result.properties().value(Property::Generator), QVariant(QStringLiteral("Mowgli")));
+    QCOMPARE(result.properties().value(Property::OriginUrl), QVariant(QStringLiteral("0decd391f7ffc8e96184efdd1e8fe4b8")));
 
     QDateTime dt(QDate(2012, 1, 1), QTime(0, 0, 0), QTimeZone::UTC);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2012));
 
-    QCOMPARE(result.properties().size(), 15);
+    const auto coverData = result.imageData().value(EmbeddedImageData::FrontCover);
+    QVERIFY(!coverData.isEmpty());
+
+    const auto cover = QImage::fromData(coverData);
+    QCOMPARE(cover.width(), QVariant(566));
+    QCOMPARE(cover.height(), QVariant(734));
+
+    QCOMPARE(result.properties().size(), 14);
 }
 
 void EPubExtractorTest::testMetaDataOnly()

@@ -7,7 +7,6 @@
 #include <KArchiveDirectory>
 #include <KArchiveFile>
 
-#include <QDebug>
 #include <QDir>
 #include <QDomDocument>
 #include <QImage>
@@ -18,7 +17,6 @@
 
 using namespace Qt::StringLiterals;
 
-static constexpr const auto metadataFolderName = "META-INF"_L1;
 static constexpr const auto mimetypeFileName = "mimetype"_L1;
 static constexpr const auto containerFileName = "META-INF/container.xml"_L1;
 
@@ -27,13 +25,13 @@ bool EPubContainer::openFile(const QString &path)
     m_archive = std::make_unique<KZip>(path);
 
     if (!m_archive->open(QIODevice::ReadOnly)) {
-        m_errorString = u"Failed to open %1"_s.arg(path);
+        qCWarning(KFILEMETADATA_LOG) << "Failed to open" << path;
         return false;
     }
 
     m_rootFolder = m_archive->directory();
     if (!m_rootFolder) {
-        m_errorString = u"Failed to read %1"_s.arg(path);
+        qCWarning(KFILEMETADATA_LOG) << "Failed to read" << path;
         return false;
     }
 
@@ -52,7 +50,7 @@ QSharedPointer<QIODevice> EPubContainer::ioDevice(const QString &path)
 {
     const KArchiveFile *archive = file(path);
     if (!archive) {
-        m_errorString = u"Unable to open file %1"_s.arg(path);
+        qCWarning(KFILEMETADATA_LOG) << "Unable to open file" << path;
         return QSharedPointer<QIODevice>();
     }
 
@@ -94,7 +92,7 @@ bool EPubContainer::parseMimetype()
     const KArchiveFile *mimetypeFile = m_rootFolder->file(mimetypeFileName);
 
     if (!mimetypeFile) {
-        m_errorString = u"Unable to find mimetype in file"_s;
+        qCWarning(KFILEMETADATA_LOG) << "Unable to find mimetype in file";
         return false;
     }
 
@@ -113,7 +111,7 @@ bool EPubContainer::parseContainer()
 
     const KArchiveFile *containerFile = file(containerFileName);
     if (!containerFile) {
-        m_errorString = u"Unable to find container information"_s;
+        qCWarning(KFILEMETADATA_LOG) << "Unable to find container information";
         return false;
     }
 
@@ -144,7 +142,7 @@ bool EPubContainer::parseContainer()
     //     - rights.xml (reserved for DRM, not standardized)
     //     - signatures.xml (signatures for files, standardized)
 
-    m_errorString = u"Unable to find and use any content files"_s;
+    qCWarning(KFILEMETADATA_LOG) << "Unable to find and use any content files";
     return false;
 }
 
@@ -152,7 +150,7 @@ bool EPubContainer::parseContentFile(const QString &filepath)
 {
     const KArchiveFile *rootFile = file(filepath);
     if (!rootFile) {
-        m_errorString = u"Malformed metadata, unable to get content metadata path"_s;
+        qCWarning(KFILEMETADATA_LOG) << "Malformed metadata, unable to get content metadata path";
         return false;
     }
     QScopedPointer<QIODevice> ioDevice(rootFile->createDevice());
@@ -341,11 +339,7 @@ bool EPubContainer::parseManifestItem(const QDomNode &manifestNode, const QStrin
     item.properties = manifestElement.attribute("properties"_L1);
     m_items[id] = item;
 
-    static const auto documentTypes = std::to_array<QString>({
-        u"text/x-oeb1-document"_s,
-        u"application/x-dtbook+xml"_s,
-        u"application/xhtml+xml"_s
-    });
+    static const auto documentTypes = std::to_array<QString>({u"text/x-oeb1-document"_s, u"application/x-dtbook+xml"_s, u"application/xhtml+xml"_s});
     // All items not listed in the spine should be in this
     if (std::find(documentTypes.cbegin(), documentTypes.cend(), type) != documentTypes.cend()) {
         m_unorderedItems.insert(id);
@@ -388,7 +382,7 @@ bool EPubContainer::parseGuideItem(const QDomNode &guideItem)
     const QString type = guideElement.attribute("type"_L1);
 
     if (target.isEmpty() || title.isEmpty() || type.isEmpty()) {
-        m_errorString = u"Invalid guide item %1 %2 %3"_s.arg(target, title, type);
+        qCWarning(KFILEMETADATA_LOG) << "Invalid guide item" << target << title << type;
         return false;
     }
 
@@ -514,11 +508,6 @@ EpubPageReference::StandardType EpubPageReference::typeFromString(const QStringV
 QList<Collection> EPubContainer::collections() const
 {
     return m_collections;
-}
-
-QString EPubContainer::errorString() const
-{
-    return m_errorString;
 }
 
 #include "moc_epubcontainer.cpp"
