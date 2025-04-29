@@ -18,6 +18,7 @@
 
 using namespace KFileMetaData;
 
+#if QT_VERSION_CHECK(3, 0, 0) < QMOBIPOCKET_VERSION
 class QFileStream : public Mobipocket::Stream
 {
 public:
@@ -33,11 +34,11 @@ public:
 private:
     QFile d;
 };
+#endif
 
 MobiExtractor::MobiExtractor(QObject* parent)
     : ExtractorPlugin(parent)
 {
-
 }
 
 static const QStringList supportedMimeTypes =
@@ -52,8 +53,18 @@ QStringList MobiExtractor::mimetypes() const
 
 void MobiExtractor::extract(ExtractionResult* result)
 {
+#if QT_VERSION_CHECK(3, 0, 0) < QMOBIPOCKET_VERSION
     QFileStream stream(result->inputUrl());
     Mobipocket::Document doc(&stream);
+#else
+    QFile file(result->inputUrl());
+    if (!file.open(QIODevice::ReadOnly)) {
+        qCDebug(KFILEMETADATA_LOG) << "Invalid file:" << result->inputUrl();
+        return;
+    }
+#endif
+
+    Mobipocket::Document doc(&file);
     if (!doc.isValid()) {
         qCDebug(KFILEMETADATA_LOG) << "Invalid file:" << result->inputUrl();
         return;
