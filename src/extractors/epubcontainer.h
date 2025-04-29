@@ -18,6 +18,7 @@ class QXmlStreamReader;
 struct EpubItem {
     QString path;
     QByteArray mimetype;
+    QString properties;
 };
 
 struct EpubPageReference {

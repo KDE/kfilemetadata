@@ -14,6 +14,8 @@
 #include <QImageReader>
 #include <QScopedPointer>
 
+#include "kfilemetadata_debug.h"
+
 using namespace Qt::StringLiterals;
 
 static constexpr const auto metadataFolderName = "META-INF"_L1;
@@ -60,14 +62,14 @@ QSharedPointer<QIODevice> EPubContainer::ioDevice(const QString &path)
 QImage EPubContainer::image(const QString &id)
 {
     if (!m_items.contains(id)) {
-        qWarning() << "Asked for unknown item" << id << m_items.keys();
+        qCWarning(KFILEMETADATA_LOG) << "Asked for unknown item" << id << m_items.keys();
         return {};
     }
 
     const EpubItem &item = m_items.value(id);
 
     if (!QImageReader::supportedMimeTypes().contains(item.mimetype)) {
-        qWarning() << "Asked for unsupported type" << item.mimetype;
+        qCWarning(KFILEMETADATA_LOG) << "Asked for unsupported type" << item.mimetype;
         return {};
     }
 
@@ -99,7 +101,7 @@ bool EPubContainer::parseMimetype()
     QScopedPointer<QIODevice> ioDevice(mimetypeFile->createDevice());
     QByteArray mimetype = ioDevice->readAll();
     if (mimetype != "application/epub+zip") {
-        qWarning() << "Unexpected mimetype" << mimetype;
+        qCWarning(KFILEMETADATA_LOG) << "Unexpected mimetype" << mimetype;
     }
 
     return true;
@@ -126,7 +128,7 @@ bool EPubContainer::parseContainer()
         QDomElement rootElement = rootNodes.at(i).toElement();
         QString rootfilePath = rootElement.attribute(u"full-path"_s);
         if (rootfilePath.isEmpty()) {
-            qWarning() << "Invalid root file entry";
+            qCWarning(KFILEMETADATA_LOG) << "Invalid root file entry";
             continue;
         }
         if (parseContentFile(rootfilePath)) {
@@ -283,10 +285,13 @@ bool EPubContainer::parseMetadataItem(const QDomNode &metadataNode, const QDomNo
         metaName = metadataElement.attribute("name"_L1);
         metaValue = metadataElement.attribute("content"_L1);
     } else if (metadataElement.prefix() != "dc"_L1) {
-        qWarning() << "Unsupported metadata tag" << tagName;
+        qCInfo(KFILEMETADATA_LOG) << "Unsupported metadata tag" << tagName;
         return false;
     } else if (tagName == "date"_L1) {
         metaName = metadataElement.attribute("event"_L1);
+        if (metaName.isEmpty()) {
+            metaName = tagName;
+        }
         metaValue = metadataElement.text();
     } else {
         metaName = tagName;
@@ -330,7 +335,7 @@ bool EPubContainer::parseManifestItem(const QDomNode &manifestNode, const QStrin
     const QString type = manifestElement.attribute("media-type"_L1);
 
     if (id.isEmpty() || path.isEmpty()) {
-        qWarning() << "Invalid item at line" << manifestElement.lineNumber();
+        qCWarning(KFILEMETADATA_LOG) << "Invalid item at line" << manifestElement.lineNumber();
         return false;
     }
 
@@ -340,6 +345,7 @@ bool EPubContainer::parseManifestItem(const QDomNode &manifestNode, const QStrin
     EpubItem item;
     item.mimetype = type.toUtf8();
     item.path = path;
+    item.properties = manifestElement.attribute("properties"_L1);
     m_items[id] = item;
 
     static const auto documentTypes = std::to_array<QString>({
@@ -366,12 +372,12 @@ bool EPubContainer::parseSpineItem(const QDomNode &spineNode)
 
     QString referenceName = spineElement.attribute("idref"_L1);
     if (referenceName.isEmpty()) {
-        qWarning() << "Invalid spine item at line" << spineNode.lineNumber();
+        qCWarning(KFILEMETADATA_LOG) << "Invalid spine item at line" << spineNode.lineNumber();
         return false;
     }
 
     if (!m_items.contains(referenceName)) {
-        qWarning() << "Unable to find" << referenceName << "in items";
+        qCWarning(KFILEMETADATA_LOG) << "Unable to find" << referenceName << "in items";
         return false;
     }
 
@@ -421,7 +427,7 @@ const KArchiveFile *EPubContainer::file(const QString &path)
         QString folderName = pathParts[i];
         const KArchiveEntry *entry = folder->entry(folderName);
         if (!entry) {
-            qWarning() << "Unable to find folder name" << folderName << "in" << path.left(100);
+            qCWarning(KFILEMETADATA_LOG) << "Unable to find folder name" << folderName << "in" << path.left(100);
             const QStringList entries = folder->entries();
             for (const QString &folderEntry : entries) {
                 if (folderEntry.compare(folderName, Qt::CaseInsensitive) == 0) {
@@ -431,13 +437,13 @@ const KArchiveFile *EPubContainer::file(const QString &path)
             }
 
             if (!entry) {
-                qWarning() << "Didn't even find with case-insensitive matching";
+                qCWarning(KFILEMETADATA_LOG) << "Didn't even find with case-insensitive matching";
                 return nullptr;
             }
         }
 
         if (!entry->isDirectory()) {
-            qWarning() << "Expected" << folderName << "to be a directory in path" << path;
+            qCWarning(KFILEMETADATA_LOG) << "Expected" << folderName << "to be a directory in path" << path;
             return nullptr;
         }
 
@@ -454,7 +460,7 @@ const KArchiveFile *EPubContainer::file(const QString &path)
 
     const KArchiveFile *file = folder->file(filename);
     if (!file) {
-        qWarning() << "Unable to find file" << filename << "in" << folder->name();
+        qCWarning(KFILEMETADATA_LOG) << "Unable to find file" << filename << "in" << folder->name();
 
         const QStringList entries = folder->entries();
         for (const QString &folderEntry : entries) {
@@ -465,7 +471,7 @@ const KArchiveFile *EPubContainer::file(const QString &path)
         }
 
         if (!file) {
-            qWarning() << "Unable to find file" << filename << "in" << folder->name() << "with case-insensitive matching" << entries;
+            qCWarning(KFILEMETADATA_LOG) << "Unable to find file" << filename << "in" << folder->name() << "with case-insensitive matching" << entries;
         }
     }
     return file;
