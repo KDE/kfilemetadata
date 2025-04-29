@@ -371,6 +371,27 @@ enum Property {
      * @since 6.13
      */
     ColorSpace,
+    /**
+     * The unique identifier stored in the file. This maps
+     * to the 'dc:identifier' tag from DublinCore
+     * @since 6.14
+     */
+    Identifier,
+    /**
+     * Thecover stored in the file.
+     * @since 6.14
+     */
+    Cover,
+    /**
+     * The name of the serie related to that document.
+     * @since 6.14
+     */
+    Serie,
+    /**
+     * The position in the of the document in the serie.
+     * @since 6.14
+     */
+    VolumeNumber,
 };
 
 } // namespace Property
