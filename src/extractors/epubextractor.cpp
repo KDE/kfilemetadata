@@ -5,14 +5,14 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
-#include "datetimeparser_p.h"
 #include "epubextractor.h"
+#include "datetimeparser_p.h"
 #include "epubcontainer.h"
 #include "kfilemetadata_debug.h"
 
 #include <QDateTime>
 #include <QImage>
+#include <QBuffer>
 #include <QRegularExpression>
 
 using namespace KFileMetaData;
@@ -40,7 +40,6 @@ void EPubExtractor::extract(ExtractionResult* result)
 {
     EPubContainer epub;
     if (!epub.openFile(result->inputUrl())) {
-        qCWarning(KFILEMETADATA_LOG) << epub.errorString();
         return;
     }
 
@@ -64,11 +63,11 @@ void EPubExtractor::extract(ExtractionResult* result)
             result->add(Property::Language, value);
         }
 
-        for (const QString &value: epub.metadata(u"creator"_s)) {
+        for (const QString &value : epub.metadata(u"creator"_s)) {
             result->add(Property::Author, value);
         }
 
-        for (const QString &value: epub.metadata(u"contributor"_s)) {
+        for (const QString &value : epub.metadata(u"contributor"_s)) {
             result->add(Property::Generator, value);
         }
 
@@ -91,7 +90,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         bool foundPublicationDate = false;
         for (const QString &value : epub.metadata(u"publication"_s)) {
             QDateTime dt = Parser::dateTimeFromString(value);
-            if (dt.timeZone().timeSpec() == Qt::LocalTime) {
+            if (!dt.timeZone().isValid() || dt.timeSpec() == Qt::LocalTime) {
                 dt.setTimeZone(QTimeZone::UTC);
             }
 
@@ -105,7 +104,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (!foundPublicationDate) {
             for (const QString &value : epub.metadata(u"date"_s)) {
                 QDateTime dt = Parser::dateTimeFromString(value);
-                if (dt.timeZone().timeSpec() == Qt::LocalTime) {
+                if (!dt.timeZone().isValid() || dt.timeSpec() == Qt::LocalTime) {
                     dt.setTimeZone(QTimeZone::UTC);
                 }
 
@@ -126,11 +125,23 @@ void EPubExtractor::extract(ExtractionResult* result)
             result->add(Property::OriginUrl, value);
         }
 
+        const auto collections = epub.collections();
+        for (const auto &collection : collections) {
+            result->add(Property::Series, collection.name);
+            result->add(Property::VolumeNumber, QString::number(collection.position));
+        }
+    }
+
+    if (result->inputFlags() & ExtractionResult::ExtractImageData) {
         bool foundCover = false;
         for (const QString &value : epub.metadata(u"cover"_s)) {
             auto image = epub.image(value);
             if (!image.isNull()) {
-                result->add(Property::Cover, image);
+                QByteArray ba;
+                QBuffer buffer(&ba);
+                buffer.open(QIODevice::WriteOnly);
+                image.save(&buffer, "PNG");
+                result->addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>{{EmbeddedImageData::FrontCover, ba}});
                 foundCover = true;
                 break;
             }
@@ -143,18 +154,15 @@ void EPubExtractor::extract(ExtractionResult* result)
                 if (epubItem.properties.contains("cover-image"_L1)) {
                     auto image = epub.image(item);
                     if (!image.isNull()) {
-                        result->add(Property::Cover, image);
-                        foundCover = true;
+                        QByteArray ba;
+                        QBuffer buffer(&ba);
+                        buffer.open(QIODevice::WriteOnly);
+                        image.save(&buffer, "PNG");
+                        result->addImageData(QMap<EmbeddedImageData::ImageType, QByteArray>{{EmbeddedImageData::FrontCover, ba}});
                         break;
                     }
                 }
             }
-        }
-
-        const auto collections = epub.collections();
-        for (const auto &collection : collections) {
-            result->add(Property::Serie, collection.name);
-            result->add(Property::VolumeNumber, QString::number(collection.position));
         }
     }
 
@@ -170,7 +178,7 @@ void EPubExtractor::extract(ExtractionResult* result)
         items.prepend(cover);
     }
 
-    while(!items.isEmpty()) {
+    while (!items.isEmpty()) {
         const QString &chapter = items.takeFirst();
         const auto currentItem = epub.epubItem(chapter);
 
@@ -183,7 +191,6 @@ void EPubExtractor::extract(ExtractionResult* result)
             qCWarning(KFILEMETADATA_LOG) << "Unable to get iodevice for chapter" << chapter;
             continue;
         }
-
 
         auto html = QString::fromUtf8(ioDevice->readAll());
         html.remove(QRegularExpression(u"<[^>]*>"_s));

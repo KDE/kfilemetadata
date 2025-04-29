@@ -35,13 +35,13 @@ public:
     static auto fromName(const QString& name) -> const PropertyInfoData*;
 
     static const PropertyInfoData s_Empty;
-    static const std::array<PropertyInfoData, 86> s_allProperties;
+    static const std::array<PropertyInfoData, 85> s_allProperties;
     static const QHash<LcIdentifierName, const PropertyInfoData*> s_propertyHash;
 };
 
 const PropertyInfoData PropertyInfoData::s_Empty{ Property::Empty, false, QStringLiteral("empty"), kli18nc("@label", "Empty") };
 
-const std::array<PropertyInfoData, 86> PropertyInfoData::s_allProperties
+const std::array<PropertyInfoData, 85> PropertyInfoData::s_allProperties
 {
     PropertyInfoData{ Property::Album,                      true,  QStringLiteral("album"),                      kli18nc("@label music album", "Album"),                QMetaType::QString },
     PropertyInfoData{ Property::AlbumArtist,                true,  QStringLiteral("albumArtist"),                kli18nc("@label", "Album Artist"),                     QMetaType::QString },
@@ -125,10 +125,9 @@ const std::array<PropertyInfoData, 86> PropertyInfoData::s_allProperties
     PropertyInfoData{ Property::OriginEmailSubject,         false, QStringLiteral("originEmailSubject"),         kli18nc("@label the subject of an email this file was attached to", "E-Mail Attachment Subject"),       QMetaType::QString },
     PropertyInfoData{ Property::OriginEmailSender,          false, QStringLiteral("originEmailSender"),          kli18nc("@label the sender of an email this file was attached to", "E-Mail Attachment Sender"),         QMetaType::QString },
     PropertyInfoData{ Property::OriginEmailMessageId,       false, QStringLiteral("originEmailMessageId"),       kli18nc("@label the message ID of an email this file was attached to", "E-Mail Attachment Message ID"), QMetaType::QString },
-    PropertyInfoData{ Property::Cover,       false, QStringLiteral("cover"),       kli18nc("@label the cover ofa book", "Cover"), QMetaType::QImage },
-    PropertyInfoData{ Property::Identifier,       false, QStringLiteral("identifier"),       kli18nc("@label the unique identifier of a document", "Identifier"), QMetaType::QString },
-    PropertyInfoData{ Property::Serie,       false, QStringLiteral("serie"),       kli18nc("@label the serir ofa book", "Serie"), QMetaType::QString },
-    PropertyInfoData{ Property::VolumeNumber,       false, QStringLiteral("volumeNumber"),       kli18nc("@label the volume number in the serie", "Volume Number"), QMetaType::Int },
+    PropertyInfoData{ Property::Identifier,                 false, QStringLiteral("identifier"),                 kli18nc("@label", "Identifier"),          QMetaType::QString },
+    PropertyInfoData{ Property::Series,                      false, QStringLiteral("series"),                      kli18nc("@label", "Series"),               QMetaType::QString },
+    PropertyInfoData{ Property::VolumeNumber,               false, QStringLiteral("volumeNumber"),               kli18nc("@label", "Volume Number"),       QMetaType::Int },
 };
 
 const QHash<LcIdentifierName, const PropertyInfoData*> PropertyInfoData::s_propertyHash = []()

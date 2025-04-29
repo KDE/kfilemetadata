@@ -3,13 +3,10 @@
 
 #pragma once
 
-#include <QMimeDatabase>
+#include <KZip>
 #include <QDomNode>
 #include <QHash>
 #include <QList>
-#include <QObject>
-#include <QSet>
-#include <KZip>
 
 class KArchiveDirectory;
 class KArchiveFile;
@@ -64,7 +61,9 @@ struct Collection {
 class EPubContainer
 {
 public:
-    explicit EPubContainer() {}
+    explicit EPubContainer()
+    {
+    }
 
     bool openFile(const QString &path);
 
@@ -77,7 +76,8 @@ public:
     QImage image(const QString &id);
     QList<Collection> collections() const;
     QStringList metadata(const QStringView &key) const;
-    QHash<QString, QStringList> metadata() const {
+    QHash<QString, QStringList> metadata() const
+    {
         return m_metadata;
     }
 
@@ -90,8 +90,6 @@ public:
     {
         return m_standardReferences.value(type).target;
     }
-
-    QString errorString() const;
 
 private:
     bool parseMimetype();
@@ -117,6 +115,4 @@ private:
 
     QHash<EpubPageReference::StandardType, EpubPageReference> m_standardReferences;
     QHash<QString, EpubPageReference> m_otherReferences;
-    QMimeDatabase m_mimeDatabase;
-    QString m_errorString;
 };

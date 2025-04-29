@@ -378,17 +378,12 @@ enum Property {
      */
     Identifier,
     /**
-     * Thecover stored in the file.
+     * The name of the series.
      * @since 6.14
      */
-    Cover,
+    Series,
     /**
-     * The name of the serie related to that document.
-     * @since 6.14
-     */
-    Serie,
-    /**
-     * The position in the of the document in the serie.
+     * The position in the of the document in the series.
      * @since 6.14
      */
     VolumeNumber,
