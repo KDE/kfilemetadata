@@ -93,11 +93,6 @@ set_package_properties(FFmpeg PROPERTIES DESCRIPTION "Video Tag reader"
                        URL "https://ffmpeg.org/" TYPE OPTIONAL
                        PURPOSE "Support for video metadata")
 
-find_package(EPub)
-set_package_properties(EPub PROPERTIES DESCRIPTION "Ebook epub reader"
-                       URL "https://sourceforge.net/projects/ebook-tools/" TYPE OPTIONAL
-                       PURPOSE "Support for epub metadata")
-
 find_package(CatDoc)
 set_package_properties(CatDoc PROPERTIES DESCRIPTION "catdoc executable"
                        URL "https://www.wagner.pp.ru/~vitus/software/catdoc/" TYPE RUNTIME

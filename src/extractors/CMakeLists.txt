@@ -72,23 +72,26 @@ if(AVCODEC_FOUND AND AVFORMAT_FOUND AND AVUTIL_FOUND)
 
 endif()
 
-
-if(EPUB_FOUND)
+if (TARGET Qt6::Gui)
     add_library(kfilemetadata_epubextractor MODULE
         epubextractor.cpp
+        epubextractor.h
+        epubcontainer.cpp
+        epubcontainer.h
         ../kfilemetadata_debug.cpp
     )
-    target_include_directories(kfilemetadata_epubextractor SYSTEM PRIVATE ${EPUB_INCLUDE_DIR})
-    target_link_libraries(kfilemetadata_epubextractor
+    target_link_libraries(kfilemetadata_epubextractor PUBLIC
+        Qt::Xml
+        Qt::Gui
         KF6::FileMetaData
-        ${EPUB_LIBRARIES}
+        KF6::Archive
+        KF6::I18n
     )
 
     set_target_properties(kfilemetadata_epubextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
     install(
     TARGETS kfilemetadata_epubextractor
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
-
 endif()
 
 #
