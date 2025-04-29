@@ -378,11 +378,6 @@ enum Property {
      */
     Identifier,
     /**
-     * Thecover stored in the file.
-     * @since 6.14
-     */
-    Cover,
-    /**
      * The name of the serie related to that document.
      * @since 6.14
      */
