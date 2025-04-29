@@ -66,7 +66,7 @@ void EPubExtractorTest::test()
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2014));
 
-    QCOMPARE(result.properties().size(), 7);
+    QCOMPARE(result.properties().size(), 13);
 }
 
 void EPubExtractorTest::testRepeated()
@@ -96,7 +96,7 @@ void EPubExtractorTest::testRepeated()
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2012));
 
-    QCOMPARE(result.properties().size(), 9);
+    QCOMPARE(result.properties().size(), 15);
 }
 
 void EPubExtractorTest::testMetaDataOnly()

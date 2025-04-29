@@ -69,15 +69,19 @@ endif()
 #
 # EPub
 #
-if(EPUB_FOUND)
-    include_directories(${EPUB_INCLUDE_DIR})
-
+if (TARGET Qt6::Gui AND TARGET KF6::Archive)
     ecm_add_test(
         epubextractortest.cpp
-	../src/extractors/epubextractor.cpp
-	../src/kfilemetadata_debug.cpp
+        ../src/extractors/epubextractor.cpp
+        ../src/extractors/epubcontainer.cpp
+        ../src/kfilemetadata_debug.cpp
         TEST_NAME "epubextractortest"
-        LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${EPUB_LIBRARIES}
+        LINK_LIBRARIES
+            Qt6::Test
+            Qt::Xml
+            Qt::Gui
+            KF6::FileMetaData
+            KF6::Archive
     )
 endif()
 
