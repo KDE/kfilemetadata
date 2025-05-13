@@ -534,20 +534,14 @@ msgid "Color Space"
 msgstr ""
 
 #: src/propertyinfo.cpp:91
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "Video"
+msgstr ""
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "Zvuk"
+msgstr ""
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
