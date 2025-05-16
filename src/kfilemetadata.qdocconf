@@ -12,6 +12,8 @@ excludedirs += extractors writers
 
 outputformats = HTML
 
+navigation.landingpage = "KFileMetaData"
+
 depends += \
     kde \
     qtcore \
