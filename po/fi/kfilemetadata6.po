@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2014, 2015, 2016, 2017.
-# Tommi Nieminen <translator@legisign.org>, 2017, 2018, 2019, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2017, 2018, 2019, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 #
 #
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-01 00:38+0000\n"
-"PO-Revision-Date: 2024-03-11 15:21+0200\n"
+"PO-Revision-Date: 2025-04-20 16:32+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -530,28 +531,22 @@ msgstr "Valkotasapaino"
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "Väriavaruus"
 
 #: src/propertyinfo.cpp:91
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "Video"
+msgstr "Videokoodekki"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "Äänitiedosto"
+msgstr "Äänikoodekki"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "Kuvapistemuoto"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
