@@ -32,3 +32,5 @@ qhp.KFileMetaData.subprojects.classes.title = C++ Classes
 qhp.KFileMetaData.subprojects.classes.indexTitle = KFileMetaData C++ Classes
 qhp.KFileMetaData.subprojects.classes.selectors = class fake:headerfile
 qhp.KFileMetaData.subprojects.classes.sortPages = true
+
+tagfile = kfilemetadata.tags
