@@ -8,6 +8,7 @@ Dependencies:
     'frameworks/kcodecs': '@same'
     'third-party/taglib': '@same'
     'third-party/poppler': '@same'
+    'graphics/kdegraphics-mobipocket': '@latest-kf6'
 
 Options:
  test-before-installing: True
