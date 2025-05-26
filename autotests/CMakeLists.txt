@@ -85,7 +85,7 @@ if(EPUB_FOUND)
     ecm_add_test(
         epubextractortest.cpp
 	../src/extractors/epubextractor.cpp
-	../src/kfilemetadata_debug.cpp
+../src/kfilemetadata_debug.cpp
         TEST_NAME "epubextractortest"
         LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${EPUB_LIBRARIES}
     )
@@ -94,10 +94,12 @@ endif()
 #
 # Mobi
 #
-if (QMobipocket_FOUND)
-    ecm_add_test(mobiextractortest.cpp ../src/extractors/mobiextractor.cpp
+if (QMobipocket6_FOUND)
+    ecm_add_test(mobiextractortest.cpp
+        ../src/extractors/mobiextractor.cpp
+        ../src/kfilemetadata_debug.cpp
         TEST_NAME "mobiextractortest"
-        LINK_LIBRARIES Qt6::Test KF6::FileMetaData qmobipocket
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData QMobipocket6
     )
 endif()
 

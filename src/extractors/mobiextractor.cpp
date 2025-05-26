@@ -74,6 +74,7 @@ void MobiExtractor::extract(ExtractionResult* result)
     result->addType(Type::Document);
 
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
+#if QMOBIPOCKET_VERSION_MAJOR < 3
         QMapIterator<Mobipocket::Document::MetaKey, QString> it(doc.metadata());
         while (it.hasNext()) {
             it.next();
@@ -88,6 +89,30 @@ void MobiExtractor::extract(ExtractionResult* result)
             case Mobipocket::Document::Description: {
                 QTextDocument document;
                 document.setHtml(it.value());
+#else
+        QMapIterator<Mobipocket::Document::MetaKey, QVariant> it(doc.metadata());
+        while (it.hasNext()) {
+            it.next();
+            switch (it.key()) {
+            case Mobipocket::Document::Title:
+                result->add(Property::Title, it.value());
+                break;
+            case Mobipocket::Document::Author:
+                result->add(Property::Author, it.value());
+                break;
+            case Mobipocket::Document::PublishingDate:
+                result->add(Property::CreationDate, it.value());
+                break;
+            case Mobipocket::Document::Language:
+                result->add(Property::Language, it.value());
+                break;
+            case Mobipocket::Document::CreatorSoftware:
+                result->add(Property::Generator, it.value());
+                break;
+            case Mobipocket::Document::Description: {
+                QTextDocument document;
+                document.setHtml(it.value().toString());
+#endif
 
                 QString plain = document.toPlainText();
                 if (!plain.isEmpty())

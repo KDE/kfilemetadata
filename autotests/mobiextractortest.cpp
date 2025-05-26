@@ -15,6 +15,7 @@
 #include <QMimeType>
 
 using namespace KFileMetaData;
+using namespace Qt::StringLiterals;
 
 QString MobiExtractorTest::testFilePath(const QString& fileName) const
 {
@@ -25,7 +26,7 @@ void MobiExtractorTest::test()
 {
     MobiExtractor plugin{this};
 
-    QString fileName = testFilePath("test.mobi");
+    QString fileName = testFilePath(u"test.mobi"_s);
     QMimeDatabase mimeDb;
     QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
@@ -41,6 +42,7 @@ void MobiExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Subject), QVariant(QStringLiteral("Baloo KFileMetaData")));
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
     QCOMPARE(result.properties().value(Property::Copyright), QVariant(QStringLiteral("License")));
+    QCOMPARE(result.properties().value(Property::CreationDate), QVariant(QDateTime(QDate(2014, 01, 01), QTime(01, 1, 1), QTimeZone::UTC)));
 
     QCOMPARE(result.properties().size(), 5);
 }
