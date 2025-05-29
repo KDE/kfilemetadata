@@ -43,9 +43,8 @@ namespace Type
  * \value Image Any Image file. This includes both raster and vector formats
  * \value Document Any file which counts as a document. Documents are generally
  *  files which contain rich text, formatting and maybe images, but also just plain text
- * \value Spreadsheet Any file which counts as a document. Documents are generally
- * files which contain rich text, formatting and maybe images,
- * but also just plain text.
+ * \value Spreadsheet A SpreadSheet file. This is a specialization of the Document type.
+ *  Any file which has this type should also have the Document type
  * \value Presentation A Presentation file. This is a specialization of the Document type.
  * Any file which has this type should also have the Document type
  * \value Text Any file which contains text data (i.e. not binary data) counts as
