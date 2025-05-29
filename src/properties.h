@@ -26,11 +26,11 @@ namespace Property {
  * The Property enum contains all files property types that KFileMetaData manipulates
  *
  * \value Empty
- * \value BitRate The Bit Rate of the Audio in the File. Represented as an integer in kbit/sec
- * \value Channels The number of channels of the Audio in the File. Represented as an integer
+ * \value BitRate The Bit Rate of the Audio in the file. Represented as an integer in kbit/sec
+ * \value Channels The number of channels of the Audio in the file. Represented as an integer
  * \value Duration The duration of the media in the file. Represented as an integer in seconds
- * \value Genre The Genre of an Audio file. This s represented as a string of genres and not integers. The IDv1 standard provides a list of commonly excepted genres.
- * \value SampleRate The same rate or frequency of the Audio in the file. This is represented as an integer in Hz. So a file with "44.1KHz" will have a frequency of 44100
+ * \value Genre The Genre of an Audio file. This is represented as a string of genres and not integers. The IDv1 standard provides a list of commonly excepted genres.
+ * \value SampleRate The sample rate or frequency of the Audio in the file. This is represented as an integer in Hz. So a file with "44.1KHz" will have a frequency of 44100
  * \value TrackNumber Represents the track number in a set. Typically maps to the "TRCK" tag in IDv3
  * \value ReleaseYear Indicates the year a track was released. Represented as an integer. Typically mapped to the "TYE (Year)" tag in IDv1
  * \value Comment Represents a comment stored in the file. This can map to e.g. the "COMM" field from IDv3
@@ -49,7 +49,7 @@ namespace Property {
  * \value[since 5.50] Language The language the document is written in. This directly maps to the 'dc:language' tag from DublinCore. We do NOT employ any language detection schemes on the text
  * \value Copyright The copyright of the file. Represented as a string
  * \value Publisher The publisher of the content. Represented as a string
- * \value CreationDate The date the content of the file was created. This is extracted from the File MetaData and not from the file system. In ODF, it corresponds to "meta:creation-date", in PDF to the "CreationDate" tag, and otherwise the "dcterms:created" tag
+ * \value CreationDate The date the content of the file was created. This is extracted from the file metadata and not from the file system. In ODF, it corresponds to "meta:creation-date", in PDF to the "CreationDate" tag, and otherwise the "dcterms:created" tag
  * \value Keywords The keywords used to represent the document. This is mostly a string list of all the keywords
  * \value Width Represents the width of the Media in pixels. This is generally only applicable for Images and Videos
  * \value Height Represents the height of the Media in pixels. This is generally only applicable for Images and Videos

@@ -35,7 +35,7 @@ namespace Type
  *
  * \omitvalue FirstType
  * \value Empty
- * \value Archive A file which contains a compressed collection of other files eg - tar, zip, rar, gz
+ * \value Archive A file which contains a compressed collection of other files, e.g. tar, zip, rar, gz.
  *  File types which use e.g. zip as an implementation detail -
  *  Java JAR files, OpenDocument formats, etc. - are not treated as Archive
  * \value Audio Used to mark any file which just contains audio. Do not use this type if the file also contains Video
