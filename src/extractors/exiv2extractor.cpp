@@ -261,15 +261,19 @@ void Exiv2Extractor::extract(ExtractionResult* result)
 
     const Exiv2::XmpData& xmpData = image->xmpData();
     for (const auto& entry : xmpData) {
-        if (entry.groupName() != "dc"s) {
-            continue;
+        std::map<std::string, Property::Property> propMap;
+        if (entry.groupName() == "dc"s) {
+            propMap = {
+                {"subject"s, Property::Subject},
+                {"title"s, Property::Title},
+                {"description"s, Property::Description},
+            };
+        } else if (entry.groupName() == "iptc"s) {
+            propMap = {
+                {"AltTextAccessibility"s, Property::AssistiveAlternateDescription},
+            };
         }
 
-        std::map<std::string, Property::Property> propMap = {
-            { "subject"s, Property::Subject },
-            { "title"s, Property::Title},
-            { "description"s, Property::Description},
-        };
         if (auto type = propMap.find(entry.tagName()); type != propMap.end()) {
             auto xmpType = Exiv2::XmpValue::xmpArrayType(entry.value().typeId());
             size_t limit = ((xmpType == Exiv2::XmpValue::xaBag) || (xmpType == Exiv2::XmpValue::xaSeq)) ? entry.count() : 1;
