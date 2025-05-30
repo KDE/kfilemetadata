@@ -74,6 +74,8 @@ void Exiv2ExtractorTest::test()
     QCOMPARE(result.properties().value(Description).toString(), QStringLiteral("Description"));
     QCOMPARE(result.properties().value(Copyright).toString(), QStringLiteral("Copyright"));
     QCOMPARE(result.properties().value(Generator).toString(), QStringLiteral("digiKam-5.9.0"));
+    QCOMPARE(result.properties().value(AssistiveAlternateDescription).toString(),
+             QStringLiteral("A blurry mess with a black-gray-blue area at the top and beige at the bottom"));
 }
 
 void Exiv2ExtractorTest::testGPS()
@@ -124,7 +126,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     QCOMPARE(result.types().constFirst(), Type::Image);
 
     const auto properties = result.properties();
-    QCOMPARE(properties.size(), 29);
+    QCOMPARE(properties.size(), 30);
 
     auto verifyProperty = [&properties](KFileMetaData::Property::Property prop, const QVariant &value)
     {
@@ -164,6 +166,7 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     verifyProperty(Property::PhotoSharpness, 0);
     verifyProperty(Property::Title, QStringLiteral("Title"));
     verifyProperty(Property::Subject, QStringLiteral("Subject"));
+    verifyProperty(Property::AssistiveAlternateDescription, QStringLiteral("A blurry mess with a black-gray-blue area at the top and beige at the bottom"));
 }
 
 void Exiv2ExtractorTest::testJpegJxlProperties_data()

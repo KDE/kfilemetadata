@@ -35,14 +35,15 @@ public:
     static auto fromName(const QString& name) -> const PropertyInfoData*;
 
     static const PropertyInfoData s_Empty;
-    static const std::array<PropertyInfoData, 82> s_allProperties;
+    static const std::array<PropertyInfoData, 83> s_allProperties;
     static const QHash<LcIdentifierName, const PropertyInfoData*> s_propertyHash;
 };
 
 const PropertyInfoData PropertyInfoData::s_Empty{ Property::Empty, false, QStringLiteral("empty"), kli18nc("@label", "Empty") };
 
-const std::array<PropertyInfoData, 82> PropertyInfoData::s_allProperties
+const std::array<PropertyInfoData, 83> PropertyInfoData::s_allProperties
 {
+    PropertyInfoData{ Property::AssistiveAlternateDescription, true,  QStringLiteral("assistiveDescription"),    kli18nc("@label accessible alt text", "Assistive Description"), QMetaType::QString },
     PropertyInfoData{ Property::Album,                      true,  QStringLiteral("album"),                      kli18nc("@label music album", "Album"),                QMetaType::QString },
     PropertyInfoData{ Property::AlbumArtist,                true,  QStringLiteral("albumArtist"),                kli18nc("@label", "Album Artist"),                     QMetaType::QString },
     PropertyInfoData{ Property::Artist,                     true,  QStringLiteral("artist"),                     kli18nc("@label", "Artist"),                           QMetaType::QString },
