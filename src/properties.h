@@ -108,6 +108,7 @@ namespace Property {
  * \value[since 6.13] AudioCodec A string description of the codec used
  * \value[since 6.13] PixelFormat The Pixel format used by the media (image or video)
  * \value[since 6.13] ColorSpace The Color space used by the media (image or video)
+ * \value[since 6.16] AccessibleAltText A brief textual description of the purpose and meaning of an image that can be accessed by assistive technology.
  */
 enum Property {
     Empty = 0,
@@ -197,6 +198,7 @@ enum Property {
     AudioCodec,
     PixelFormat,
     ColorSpace,
+    AccessibleAltText,
 };
 
 } // namespace Property
