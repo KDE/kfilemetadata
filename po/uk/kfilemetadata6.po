@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:39+0000\n"
-"PO-Revision-Date: 2025-04-01 09:04+0300\n"
+"PO-Revision-Date: 2025-06-27 11:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -309,12 +309,9 @@ msgid "Empty"
 msgstr "Порожньо"
 
 #: src/propertyinfo.cpp:46
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Description"
 msgctxt "@label accessible alt text"
 msgid "Assistive Description"
-msgstr "Опис"
+msgstr "Допоміжний опис"
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label music album"

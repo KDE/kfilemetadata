@@ -305,12 +305,9 @@ msgid "Empty"
 msgstr "空"
 
 #: src/propertyinfo.cpp:46
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Description"
 msgctxt "@label accessible alt text"
 msgid "Assistive Description"
-msgstr "描述"
+msgstr ""
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label music album"
