@@ -307,7 +307,7 @@ msgstr "空"
 #: src/propertyinfo.cpp:46
 msgctxt "@label accessible alt text"
 msgid "Assistive Description"
-msgstr ""
+msgstr "无障碍辅助描述信息"
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label music album"
