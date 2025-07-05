@@ -86,6 +86,8 @@ void IndexerExtractorTests::testPlainTextExtractor()
         QCOMPARE(result.properties().size(), 0);
     }
 
+    QEXPECT_FAIL("UTF-16 LE BOM text CRLF", "QIODevice::readLine is broken for 16bit encodings", Continue);
+    QEXPECT_FAIL("UTF-16 BE BOM text CRLF", "QIODevice::readLine is broken for 16bit encodings", Continue);
     QCOMPARE(result.text(), content);
 }
 
@@ -107,6 +109,18 @@ void IndexerExtractorTests::testPlainTextExtractor_data()
     QTest::addRow("No extraction")     << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractNothing}  << QString() << QVariant();
     QTest::addRow("Metadata only")     << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractMetaData} << QString() << QVariant();
     QTest::addRow("Metadata and text") << QStringLiteral("test_plain_text_file.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << plainTextContent << QVariant(4);
+
+    const QString unicodeTextContent = QStringLiteral( //
+                                     "The quick brown fox jumps over the lazy dog. "
+                                     "Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich. "
+                                     "Voyez le brick géant que j'examine près du wharf. "
+                                     "Ré só que vê galã sexy pôr kiwi talhado à força em baú põe juíza má em pânico. "
+                                     "12345 ①②③④⑤ ");
+    QTest::addRow("UTF-8 text") << QStringLiteral("test_plaintext_utf8.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << unicodeTextContent << QVariant(5);
+    QTest::addRow("UTF-16 LE BOM text") << QStringLiteral("test_plaintext_utf16_le.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << unicodeTextContent << QVariant(5);
+    QTest::addRow("UTF-16 BE BOM text") << QStringLiteral("test_plaintext_utf16_be.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << unicodeTextContent << QVariant(5);
+    QTest::addRow("UTF-16 LE BOM text CRLF") << QStringLiteral("test_plaintext_utf16_le_crlf.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << unicodeTextContent << QVariant(5);
+    QTest::addRow("UTF-16 BE BOM text CRLF") << QStringLiteral("test_plaintext_utf16_be_crlf.txt") << ER::Flags{ER::ExtractMetaData | ER::ExtractPlainText} << unicodeTextContent << QVariant(5);
 
     const QString emptyLineContent = QStringLiteral( //
                                    "This is a text file  It is ten lines long, "
