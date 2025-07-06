@@ -55,8 +55,8 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    result->addType(Type::Text);
     if (!(result->inputFlags() & ExtractionResult::ExtractPlainText)) {
+        result->addType(Type::Text);
         return;
     }
 
@@ -148,6 +148,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         start = end + eol.size();
     }
 
+    result->addType(Type::Text);
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
         result->add(Property::LineCount, lines);
     }
