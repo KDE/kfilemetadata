@@ -78,7 +78,8 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         prober.feed(buffer.constData());
 
         // we found codec with some confidence?
-        if (prober.confidence() > 0.5) {
+        if (auto confidence = prober.confidence(); (confidence > 0.5) //
+            || ((confidence > 0.1) && (prober.encoding().toLower() == "utf-8"))) {
             auto proberDecoder = QStringDecoder(prober.encoding().constData());
             // rare case, but if not valid, do not return proberDecoder
             if (proberDecoder.isValid()) {
