@@ -44,11 +44,11 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     const QByteArray filePath = QFile::encodeName(result->inputUrl());
     int fd = open(filePath.constData(), O_RDONLY | O_NOATIME);
     if (fd >= 0) {
-        isOpen = file.open(fd, QIODevice::ReadOnly | QIODevice::Text, QFileDevice::AutoCloseHandle);
+        isOpen = file.open(fd, QIODevice::ReadOnly, QFileDevice::AutoCloseHandle);
     } else
 #endif
     {
-        isOpen = file.open(QIODevice::ReadOnly | QIODevice::Text);
+        isOpen = file.open(QIODevice::ReadOnly);
     }
 
     if (!isOpen) {
@@ -60,9 +60,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return;
     }
 
-    auto autodetectCodec = [](QFile &file) -> QStringDecoder {
-        const qint64 BUFFER_SIZE = 256 * 1024;
-        const auto buffer = file.peek(BUFFER_SIZE);
+    auto autodetectCodec = [](const QByteArrayView buffer) -> QStringDecoder {
 
         // First 16 bytes for detecting by BOM.
         const QByteArrayView bufferForBom(buffer.begin(), qMin(16, buffer.size()));
@@ -70,12 +68,13 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         // first: try to get encoding by BOM handling
         // If BOM has been found, trust it
         if (auto encoding = QStringConverter::encodingForData(bufferForBom)) {
-            return QStringDecoder(encoding.value());
+            QStringDecoder decoder(encoding.value());
+            return decoder;
         }
 
         // second: try to get encoding by KEncodingProber
         KEncodingProber prober(KEncodingProber::Universal);
-        prober.feed(buffer.constData());
+        prober.feed(buffer);
 
         // we found codec with some confidence?
         if (auto confidence = prober.confidence(); (confidence > 0.5) //
@@ -90,36 +89,65 @@ void PlainTextExtractor::extract(ExtractionResult* result)
         return QStringDecoder{QStringConverter::System};
     };
 
-    QStringDecoder codec = {autodetectCodec(file)};
+    // Read the first chunk, detect the encoding and decode it
+    QByteArray chunk(256 * 1024, Qt::Uninitialized);
+    auto size = file.read(chunk.data(), chunk.size());
 
-    int lines = 0;
+    QStringDecoder codec{autodetectCodec({chunk.data(), size})};
 
+    QString text = codec.decode({chunk.data(), size});
+    if (codec.hasError()) {
+        qCDebug(KFILEMETADATA_LOG) << "Invalid" << codec.name() << "encoding. Ignoring" << result->inputUrl();
+        return;
+    }
+
+    // Detect the end-of-line variant
+    const auto eol = [](const QString &text) {
+        auto nl = text.indexOf(QLatin1Char('\n'));
+        if ((nl >= 1) && (text[nl - 1] == QLatin1Char('\r'))) {
+            return QStringLiteral("\r\n");
+        } else if (nl >= 0) {
+            return QStringLiteral("\n");
+        } else if (text.indexOf(QLatin1Char('\r')) >= 0) {
+            return QStringLiteral("\r");
+        }
+        return QStringLiteral("\n");
+    }(text);
+
+    qCDebug(KFILEMETADATA_LOG) << "Extracting" << codec.name() << eol << "plain text from" << result->inputUrl();
+
+    // Read and decode the remainder
     while (!file.atEnd()) {
-        QString text = codec.decode(file.readLine());
+        auto size = file.read(chunk.data(), chunk.size());
+        if (size < 0) {
+            // may happen when the file is truncated during read
+            qCWarning(KFILEMETADATA_LOG) << "Error reading" << result->inputUrl();
+            break;
+        } else if (size == 0) {
+            break;
+        }
 
+        text += codec.decode({chunk.data(), size});
         if (codec.hasError()) {
             qCDebug(KFILEMETADATA_LOG) << "Invalid encoding. Ignoring" << result->inputUrl();
             return;
         }
+    }
 
-        // Newline '\n' can be first symbol in line in case UTF-16LE.
-        if (!text.isEmpty() && text.front() == QLatin1Char('\n')) {
-            text.removeFirst();
-        } else if (!text.isEmpty() && text.back() == QLatin1Char('\n')) {
-            text.removeLast();
-        }
-
-        // This case is possible for Little-Endian encodings
-        // when '\00' part of the newline character
-        // is mistakenly read here as a separate line.
-        if (file.atEnd() && text.isEmpty()) {
+    // Split lines and count
+    int lines = 0;
+    qsizetype start = 0;
+    while (start < text.size()) {
+        auto end = text.indexOf(eol, start);
+        lines += 1;
+        if (end == -1) {
+            result->append(text.mid(start));
             break;
         }
-
-        result->append(text);
-
-        lines += 1;
+        result->append(text.mid(start, end - start));
+        start = end + eol.size();
     }
+
     if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
         result->add(Property::LineCount, lines);
     }

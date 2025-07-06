@@ -86,8 +86,6 @@ void IndexerExtractorTests::testPlainTextExtractor()
         QCOMPARE(result.properties().size(), 0);
     }
 
-    QEXPECT_FAIL("UTF-16 LE BOM text CRLF", "QIODevice::readLine is broken for 16bit encodings", Continue);
-    QEXPECT_FAIL("UTF-16 BE BOM text CRLF", "QIODevice::readLine is broken for 16bit encodings", Continue);
     QCOMPARE(result.text(), content);
 }
 
