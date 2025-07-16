@@ -178,6 +178,7 @@ void EPubExtractor::extract(ExtractionResult* result)
                         result->append(html);
                         free(data);
                     }
+                    free(clink);
                 } while (epub_tit_next(tit));
             }
             epub_free_titerator(tit);
