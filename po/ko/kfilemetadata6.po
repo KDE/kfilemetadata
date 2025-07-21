@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:39+0000\n"
-"PO-Revision-Date: 2025-04-06 23:07+0200\n"
+"PO-Revision-Date: 2025-07-21 01:03+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -305,12 +305,9 @@ msgid "Empty"
 msgstr "비어 있음"
 
 #: src/propertyinfo.cpp:46
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Description"
 msgctxt "@label accessible alt text"
 msgid "Assistive Description"
-msgstr "설명"
+msgstr "접근성 설명"
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label music album"
