@@ -5,11 +5,6 @@
 */
 
 #include "embeddedimagedata.h"
-#include "extractorcollection.h"
-#include "simpleextractionresult.h"
-#include "writedata.h"
-#include "writercollection.h"
-#include "kfilemetadata_debug.h"
 
 #include <QMimeDatabase>
 
