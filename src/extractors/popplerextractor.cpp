@@ -9,6 +9,8 @@
 #include "kfilemetadata_debug.h"
 #include "popplerextractor.h"
 
+#include <poppler-qt6.h>
+
 #include <QScopedPointer>
 #include <QDebug>
 #include <QDateTime>

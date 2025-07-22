@@ -9,7 +9,6 @@
 #define POPPLEREXTRACTOR_H
 
 #include "extractorplugin.h"
-#include <poppler-qt6.h>
 
 namespace KFileMetaData
 {
