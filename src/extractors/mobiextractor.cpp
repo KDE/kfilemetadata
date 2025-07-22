@@ -11,6 +11,7 @@
 #include "kfilemetadata_debug.h"
 #include "mobiextractor.h"
 
+#include <qmobipocket_version.h>
 #include <qmobipocket/mobipocket.h>
 
 #include <QFile>
