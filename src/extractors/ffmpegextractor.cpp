@@ -12,8 +12,6 @@
 #include "ffmpegextractor.h"
 #include "kfilemetadata_debug.h"
 
-#include "config-kfilemetadata.h"
-
 #ifdef __cplusplus
 #define __STDC_CONSTANT_MACROS
 #ifdef _STDINT_H
@@ -131,7 +129,7 @@ void FFmpegExtractor::extract(ExtractionResult* result)
                 result->add(Property::ColorSpace, QString::fromUtf8(av_color_space_name(codec->color_space)));
             }
         }
-        
+
         const auto audio_index_stream = av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, nullptr, 0);
         if (audio_index_stream >= 0) {
             AVStream* stream = fmt_ctx->streams[audio_index_stream];
