@@ -144,14 +144,16 @@ void EPubExtractor::extract(ExtractionResult* result)
     if (result->inputFlags() & ExtractionResult::ExtractPlainText) {
         if (auto iter = epub_get_iterator(ePubDoc, EITERATOR_SPINE, 0)) {
             do {
-                char* curr = epub_it_get_curr(iter);
-                if (!curr) {
-                    continue;
+                char *data = nullptr;
+                if (auto url = epub_it_get_curr_url(iter); url != nullptr) {
+                    const int size = epub_get_data(ePubDoc, url, &data);
+                    if (size >= 0 && data) {
+                        QString html = QString::fromUtf8(data, size);
+                        html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
+                        result->append(html);
+                    }
+                    free(data);
                 }
-
-                QString html = QString::fromUtf8(curr);
-                html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
-                result->append(html);
             } while (epub_it_get_next(iter));
 
             epub_free_iterator(iter);
