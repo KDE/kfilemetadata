@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "epubextractortest.h"
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/epubextractor.h"
@@ -15,6 +14,19 @@
 #include <QTimeZone>
 
 using namespace KFileMetaData;
+
+class EPubExtractorTest : public QObject
+{
+    Q_OBJECT
+private:
+    QString testFilePath(const QString& fileName) const;
+
+private Q_SLOTS:
+    void testNoExtraction();
+    void test();
+    void testRepeated();
+    void testMetaDataOnly();
+};
 
 QString EPubExtractorTest::testFilePath(const QString& fileName) const
 {
@@ -114,4 +126,4 @@ void EPubExtractorTest::testMetaDataOnly()
 
 QTEST_GUILESS_MAIN(EPubExtractorTest)
 
-#include "moc_epubextractortest.cpp"
+#include "epubextractortest.moc"
