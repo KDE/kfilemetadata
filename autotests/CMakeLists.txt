@@ -26,6 +26,16 @@ ecm_add_test(extractorcoveragetest.cpp
 )
 
 #
+# Date/Time parser and timezone handling
+#
+ecm_add_test(
+    datetimetests.cpp
+    ${KfileMetaDataAutotest_SRCS}
+    TEST_NAME "datetimetest"
+    LINK_LIBRARIES Qt6::Test
+)
+
+#
 # Full text extraction test
 #
 ecm_add_test(
