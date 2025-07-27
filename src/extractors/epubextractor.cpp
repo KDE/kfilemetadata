@@ -164,7 +164,6 @@ void EPubExtractor::extract(ExtractionResult* result)
         if (tit) {
             if (epub_tit_curr_valid(tit)) {
                 do {
-                    // get link, iterator handles freeing of it
                     char* clink = epub_tit_get_curr_link(tit);
 
                     // epub_get_data returns -1 on failure
@@ -176,8 +175,8 @@ void EPubExtractor::extract(ExtractionResult* result)
                         html.remove(QRegularExpression(QStringLiteral("<[^>]*>")));
 
                         result->append(html);
-                        free(data);
                     }
+                    free(data);
                     free(clink);
                 } while (epub_tit_next(tit));
             }
