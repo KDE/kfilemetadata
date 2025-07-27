@@ -148,11 +148,11 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     verifyProperty(Property::Height, 14);
     verifyProperty(Property::Manufacturer, QStringLiteral("LGE"));
     verifyProperty(Property::Model, QStringLiteral("Nexus 5"));
-    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43.000), QTimeZone::UTC));
+    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43, 0), QTimeZone::UTC));
     verifyProperty(Property::PhotoFlash, 0);
     verifyProperty(Property::PhotoPixelXDimension, 8);
     verifyProperty(Property::PhotoPixelYDimension, 14);
-    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43.000), QTimeZone::UTC));
+    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43, 0), QTimeZone::UTC));
     verifyProperty(Property::PhotoFocalLength, 4.f);
     verifyProperty(Property::PhotoFocalLengthIn35mmFilm, 10.f);
     verifyProperty(Property::PhotoExposureTime, 0.0027027f);
@@ -216,11 +216,11 @@ void Exiv2ExtractorTest::testHeifProperties()
     verifyProperty(Property::Height, 1000);
     verifyProperty(Property::Manufacturer, QStringLiteral("samsung"));
     verifyProperty(Property::Model, QStringLiteral("SM-J610N"));
-    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2022, 03, 24), QTime(18, 20, 07.000), QTimeZone::UTC));
+    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2022, 03, 24), QTime(18, 20, 07, 0), QTimeZone::UTC));
     verifyProperty(Property::PhotoFlash, 0);
     verifyProperty(Property::PhotoPixelXDimension, 750);
     verifyProperty(Property::PhotoPixelYDimension, 1000);
-    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2020, 03, 31), QTime(11, 14, 30.000), QTimeZone::UTC));
+    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2020, 03, 31), QTime(11, 14, 30, 0), QTimeZone::UTC));
     verifyProperty(Property::PhotoFocalLength, 3.6f);
     verifyProperty(Property::PhotoFocalLengthIn35mmFilm, 26.f);
     verifyProperty(Property::PhotoExposureTime, 0.00429185f);
