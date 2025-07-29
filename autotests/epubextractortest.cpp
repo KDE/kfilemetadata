@@ -104,7 +104,7 @@ void EPubExtractorTest::testRepeated()
     );
     QCOMPARE(result.properties().value(Property::Description), QVariant(QStringLiteral("Honey")));
 
-    QDateTime dt(QDate(2012, 1, 1), QTime(0, 0, 0), QTimeZone::UTC);
+    QDateTime dt(QDate(2012, 1, 1), QTime(0, 0, 0), QTimeZone::LocalTime);
     QCOMPARE(result.properties().value(Property::CreationDate), QVariant(dt));
     QCOMPARE(result.properties().value(Property::ReleaseYear), QVariant(2012));
 
