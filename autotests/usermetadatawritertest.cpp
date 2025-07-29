@@ -77,15 +77,14 @@ void UserMetaDataWriterTest::testMetadataSize()
     // extended attributes must fit in a single filesystem block (1/2/4 kB)
 
     // all implementations should support at least 512 B
-    const auto smallSize = 512; // 512 B
+    constexpr auto smallSize = 512; // 512 B
     auto smallValue = QString(smallSize, QLatin1Char('a'));
     auto result = md.setAttribute(QStringLiteral("test"), smallValue);
     QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
     QCOMPARE(md.attribute(QStringLiteral("test")), smallValue);
 
-    // a big value, equal to the maximum value of an extended attribute according to Linux VFS
-    // applies to XFS, btrfs...
-    auto maxSize = 64 * 1024;
+    // a big value, maxing-out the VFS-imposed limit on Linux
+    constexpr auto maxSize = 64 * 1024;
     const auto bigValue = QString(maxSize, QLatin1Char('a')); // 64 kB
     result = md.setAttribute(QStringLiteral("test"), bigValue);
 #if defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD) || defined(Q_OS_WIN)
@@ -93,10 +92,17 @@ void UserMetaDataWriterTest::testMetadataSize()
     QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
     QCOMPARE(md.attribute(QStringLiteral("test")), bigValue);
 #else
-    QCOMPARE(result, KFileMetaData::UserMetaData::NoSpace);
+    if (result == KFileMetaData::UserMetaData::NoSpace) {
+        // FS specific limit: nodesize (16 kB) for BTRFS, blocksize on Ext*, ...
+        QCOMPARE(result, KFileMetaData::UserMetaData::NoSpace);
+    } else {
+        // No FS specific limit, full VFS size supported, e.g. XFS
+        QCOMPARE(result, KFileMetaData::UserMetaData::NoError);
+        QCOMPARE(md.attribute(QStringLiteral("test")), bigValue);
+    }
 #endif
 
-    // In Linux, The VFS-imposed limits on attribute names and
+    // On Linux, the VFS-imposed limits on attribute names and
     // values are 255 bytes and 64 kB, respectively.
     auto excessiveValue = QString(maxSize + 1, QLatin1Char('a'));
     result = md.setAttribute(QStringLiteral("test"), excessiveValue);
