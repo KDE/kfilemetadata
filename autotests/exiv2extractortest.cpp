@@ -14,6 +14,7 @@
 #include <QTimeZone>
 
 using namespace KFileMetaData;
+using namespace Qt::Literals::StringLiterals;
 
 class Exiv2ExtractorTest : public QObject
 {
@@ -26,6 +27,8 @@ private Q_SLOTS:
     void testJpegJxlProperties();
     void testJpegJxlProperties_data();
     void testHeifProperties();
+    void testTimezone();
+    void testTimezone_data();
 };
 
 namespace {
@@ -148,11 +151,11 @@ void Exiv2ExtractorTest::testJpegJxlProperties()
     verifyProperty(Property::Height, 14);
     verifyProperty(Property::Manufacturer, QStringLiteral("LGE"));
     verifyProperty(Property::Model, QStringLiteral("Nexus 5"));
-    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43, 0), QTimeZone::UTC));
+    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43, 0), QTimeZone::LocalTime));
     verifyProperty(Property::PhotoFlash, 0);
     verifyProperty(Property::PhotoPixelXDimension, 8);
     verifyProperty(Property::PhotoPixelYDimension, 14);
-    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43, 0), QTimeZone::UTC));
+    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2014, 10, 04), QTime(13, 47, 43, 0), QTimeZone::LocalTime));
     verifyProperty(Property::PhotoFocalLength, 4.f);
     verifyProperty(Property::PhotoFocalLengthIn35mmFilm, 10.f);
     verifyProperty(Property::PhotoExposureTime, 0.0027027f);
@@ -216,11 +219,11 @@ void Exiv2ExtractorTest::testHeifProperties()
     verifyProperty(Property::Height, 1000);
     verifyProperty(Property::Manufacturer, QStringLiteral("samsung"));
     verifyProperty(Property::Model, QStringLiteral("SM-J610N"));
-    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2022, 03, 24), QTime(18, 20, 07, 0), QTimeZone::UTC));
+    verifyProperty(Property::ImageDateTime, QDateTime(QDate(2022, 03, 24), QTime(18, 20, 07, 0), QTimeZone::LocalTime));
     verifyProperty(Property::PhotoFlash, 0);
     verifyProperty(Property::PhotoPixelXDimension, 750);
     verifyProperty(Property::PhotoPixelYDimension, 1000);
-    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2020, 03, 31), QTime(11, 14, 30, 0), QTimeZone::UTC));
+    verifyProperty(Property::PhotoDateTimeOriginal, QDateTime(QDate(2020, 03, 31), QTime(11, 14, 30, 0), QTimeZone::LocalTime));
     verifyProperty(Property::PhotoFocalLength, 3.6f);
     verifyProperty(Property::PhotoFocalLengthIn35mmFilm, 26.f);
     verifyProperty(Property::PhotoExposureTime, 0.00429185f);
@@ -232,6 +235,33 @@ void Exiv2ExtractorTest::testHeifProperties()
     verifyProperty(Property::PhotoISOSpeedRatings, 40);
     verifyProperty(Property::PhotoSaturation, 0);
     verifyProperty(Property::PhotoSharpness, 0);
+}
+
+void Exiv2ExtractorTest::testTimezone()
+{
+    QFETCH(QString, fileName);
+    QFETCH(QString, mimeType);
+    QFETCH(QDateTime, dateTime);
+
+    Exiv2Extractor plugin{this};
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(testFilePath(fileName), mimeType);
+    plugin.extract(&result);
+
+    QCOMPARE(result.types().size(), 1);
+    QCOMPARE(result.types().constFirst(), Type::Image);
+
+    QCOMPARE(result.properties().value(Property::ImageDateTime), dateTime);
+}
+
+void Exiv2ExtractorTest::testTimezone_data()
+{
+    QTest::addColumn<QString>("fileName");
+    QTest::addColumn<QString>("mimeType");
+    QTest::addColumn<QDateTime>("dateTime");
+
+    QTest::addRow("CanonTi") << u"test_canonti.jpg"_s << u"image/jpeg"_s << QDateTime(QDate(2025, 8, 2), QTime(15, 28, 31, 290), QTimeZone(7200));
 }
 
 QTEST_GUILESS_MAIN(Exiv2ExtractorTest)

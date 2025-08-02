@@ -34,6 +34,7 @@ private Q_SLOTS:
 
     void initTestCase() {
         // Expected mimetypes
+        // clang-format off
         m_knownFiles = {
             { "test_plain_text_newlines.txt",  "text/plain"},
             { "test_plain_text_file.txt",      "text/plain"},
@@ -61,6 +62,7 @@ private Q_SLOTS:
             { "test.flac",                     "audio/flac"},
             { "test.heif",                     "image/heif"}, // alias for image/heic
             { "test.jpg",                      "image/jpeg"},
+            { "test_canonti.jpg",              "image/jpeg"},
             { "test.jxl",                      "image/jxl"},
             { "test_libreoffice.docx",         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
             { "test_libreoffice.pptx",         "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
@@ -122,6 +124,7 @@ private Q_SLOTS:
             { "test.it",                       "audio/x-it"},
             { "test.xm",                       "audio/x-xm"},
         };
+        // clang-format off
 
         // Collect all test files from the samplefiles directory
         QDirIterator it(filePath(), {QStringLiteral("test*")}, QDir::Files);

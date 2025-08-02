@@ -4,12 +4,12 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-
-#include "datetimeparser_p.h"
 #include "exiv2extractor.h"
+#include "datetimeparser_p.h"
 #include <QTimeZone>
 #include <cmath>
 #include <exiv2/exiv2.hpp>
+#include <optional>
 
 using namespace KFileMetaData;
 
@@ -71,18 +71,69 @@ QString toString(const Exiv2::Value& value)
     return QString::fromUtf8(str.c_str(), str.length());
 }
 
-QVariant toVariantDateTime(const Exiv2::Value& value)
+enum DateTimeType {
+    DateTime,
+    DateTimeOrig,
+};
+template<DateTimeType dtType>
+QDateTime getDateTime(const Exiv2::ExifData data)
 {
-    if (value.typeId() == Exiv2::asciiString) {
-        QDateTime val = Parser::dateTimeFromString(QString::fromStdString(value.toString()));
-        if (val.isValid()) {
-            // Datetime is stored in exif as local time.
-            val.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(0));
-            return QVariant(val);
+    using namespace std::string_literals;
+    using EK = Exiv2::ExifKey;
+
+    auto getStringValue = [&data](const Exiv2::ExifKey &key) -> std::optional<const std::string> {
+        const auto it = data.findKey(key);
+        if ((it != data.end()) && (it->typeId() == Exiv2::asciiString)) {
+            return it->toString();
         }
+        return {};
+    };
+    auto getIntegerValue = [&data](const Exiv2::ExifKey &key) -> std::optional<int64_t> {
+        if (const auto it = data.findKey(key); it == data.end()) {
+            return {};
+        } else if ((it->typeId() == Exiv2::signedLong) || (it->typeId() == Exiv2::signedShort)) {
+            return it->toInt64();
+        }
+        return {};
+    };
+
+    const auto [dateTime, offsetTime, subSecTime] = [&data, getStringValue]() {
+        if (dtType == DateTime) {
+            return std::make_tuple(getStringValue(EK{"Exif.Image.DateTime"s}),
+                                   getStringValue(EK{"Exif.Photo.OffsetTime"s}),
+                                   getStringValue(EK{"Exif.Photo.SubSecTime"s}));
+        } else {
+            return std::make_tuple(getStringValue(EK{"Exif.Photo.DateTimeOriginal"s}),
+                                   getStringValue(EK{"Exif.Photo.OffsetTimeOriginal"s}),
+                                   getStringValue(EK{"Exif.Photo.SubSecTimeOriginal"s}));
+        }
+    }();
+
+    if (!dateTime) {
+        return {};
     }
 
-    return QVariant();
+    const auto offsetFallback = [&]() -> std::optional<int64_t> {
+        if (offsetTime) {
+            return {};
+        }
+        // Offset in minutes, signed integer
+        if (const auto canonTiOffset = getIntegerValue(EK{"Exif.CanonTi.TimeZone"s})) {
+            return (*canonTiOffset * 60);
+        }
+        if (const auto nikonWtOffset = getIntegerValue(EK{"Exif.NikonWt.Timezone"s})) {
+            return (*nikonWtOffset * 60);
+        }
+        return {};
+    }();
+
+    auto dateTimeParsed = Parser::dateTimeFromExifString( //
+        QString::fromStdString(*dateTime),
+        subSecTime ? QString::fromStdString(*subSecTime) : QStringView{},
+        offsetTime ? QString::fromStdString(*offsetTime) : QStringView{},
+        offsetFallback);
+
+    return dateTimeParsed;
 }
 
 QVariant toVariantLong(const Exiv2::Value& value)
@@ -140,9 +191,6 @@ QVariant toVariant(const Exiv2::Value& value, QMetaType::Type type) {
     switch (type) {
     case QMetaType::Int:
         return toVariantLong(value);
-
-    case QMetaType::QDateTime:
-        return toVariantDateTime(value);
 
     case QMetaType::Double:
         return toVariantDouble(value);
@@ -213,12 +261,10 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     add(result, data, Property::Artist, EK{"Exif.Image.Artist"s}, QMetaType::QString);
     add(result, data, Property::Copyright, EK{"Exif.Image.Copyright"s}, QMetaType::QString);
     add(result, data, Property::Generator, EK{"Exif.Image.Software"s}, QMetaType::QString);
-    add(result, data, Property::ImageDateTime, EK{"Exif.Image.DateTime"s}, QMetaType::QDateTime);
     add(result, data, Property::ImageOrientation, EK{"Exif.Image.Orientation"s}, QMetaType::Int);
     add(result, data, Property::PhotoFlash, EK{"Exif.Photo.Flash"s}, QMetaType::Int);
     add(result, data, Property::PhotoPixelXDimension, EK{"Exif.Photo.PixelXDimension"s}, QMetaType::Int);
     add(result, data, Property::PhotoPixelYDimension, EK{"Exif.Photo.PixelYDimension"s}, QMetaType::Int);
-    add(result, data, Property::PhotoDateTimeOriginal, EK{"Exif.Photo.DateTimeOriginal"s}, QMetaType::QDateTime);
     add(result, data, Property::PhotoFocalLength, EK{"Exif.Photo.FocalLength"s}, QMetaType::Double);
     add(result, data, Property::PhotoFocalLengthIn35mmFilm, EK{"Exif.Photo.FocalLengthIn35mmFilm"s}, QMetaType::Double);
     add(result, data, Property::PhotoExposureTime, EK{"Exif.Photo.ExposureTime"s}, QMetaType::Double);
@@ -232,6 +278,13 @@ void Exiv2Extractor::extract(ExtractionResult* result)
     add(result, data, Property::PhotoSharpness, EK{"Exif.Photo.Sharpness"s}, QMetaType::Int);
     // https://exiv2.org/tags.html "Exif.Photo.ImageTitle" not natively supported, use tag value
     add(result, data, Property::Title, EK{0xa436, "Photo"s}, QMetaType::QString);
+
+    if (const auto dateTime = getDateTime<DateTime>(data); dateTime.isValid()) {
+        result->add(Property::ImageDateTime, dateTime);
+    }
+    if (const auto dateTimeOrig = getDateTime<DateTimeOrig>(data); dateTimeOrig.isValid()) {
+        result->add(Property::PhotoDateTimeOriginal, dateTimeOrig);
+    }
 
     double latitude = fetchGpsDouble(data, EK{"Exif.GPSInfo.GPSLatitude"s});
     double longitude = fetchGpsDouble(data, EK{"Exif.GPSInfo.GPSLongitude"s});
