@@ -4,10 +4,12 @@
     SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 */
 
-#include <QGuiApplication>
+#include <QBuffer>
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QFileInfo>
+#include <QGuiApplication>
+#include <QImageReader>
 #include <QMimeDatabase>
 #include <QTextStream>
 
@@ -36,8 +38,8 @@ int main(int argc, char** argv)
 
     using KFileMetaData::ExtractionResult;
     const ExtractionResult::Flags extractionLevel = (extractFulltext
-        ? ExtractionResult::ExtractMetaData | ExtractionResult::ExtractPlainText
-        : ExtractionResult::ExtractMetaData);
+        ? ExtractionResult::ExtractMetaData | ExtractionResult::ExtractImageData | ExtractionResult::ExtractPlainText
+        : ExtractionResult::ExtractMetaData | ExtractionResult::ExtractImageData);
 
     auto fi = QFileInfo(parser.positionalArguments().at(0));
     QString url = fi.absoluteFilePath();
@@ -85,6 +87,19 @@ int main(int argc, char** argv)
         for (; it != multiMap.constEnd(); it++) {
             out << "\t\t" << KFileMetaData::PropertyInfo(it.key()).displayName() << ": "
                 << it.value().toString() << " (" << it.value().typeName() << ")\n";
+        }
+        const auto imageMap = result.imageData();
+        if (!imageMap.empty()) {
+            out << "\t\tImages:\n";
+            for (const auto [type, imageData]: imageMap.asKeyValueRange()) {
+                QBuffer buffer;
+                buffer.setData(imageData);
+                std::ignore = buffer.open(QIODevice::ReadOnly);
+                QImageReader reader(&buffer);
+                auto format = reader.format();
+                const auto image = reader.read();
+                out << "\t\t  " << type << " " << format << " " << image.width() << "x" << image.height() << "\n";
+            }
         }
         if (extractFulltext) {
             out << "\t\tText: " << result.text() << "\n";
