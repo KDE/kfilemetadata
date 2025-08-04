@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:39+0000\n"
-"PO-Revision-Date: 2025-06-28 17:02+0400\n"
+"PO-Revision-Date: 2025-08-03 12:20+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -77,7 +77,7 @@ msgstr "مدورة 270° عكس اتجاه عقارب الساعة"
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash"
-msgstr "بدون وميض"
+msgstr "بلا وميض"
 
 #: src/formatstrings.cpp:97
 #, kde-format
