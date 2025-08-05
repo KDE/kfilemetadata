@@ -137,25 +137,25 @@ msgstr "لا، لم يستخدم، لم يرجع الضوء"
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto"
-msgstr "لا، آلي"
+msgstr "لا، آليّ"
 
 #: src/formatstrings.cpp:107
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto"
-msgstr "نعم، آلي"
+msgstr "نعم، آليّ"
 
 #: src/formatstrings.cpp:108
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light not detected"
-msgstr "نعم، آلي، لم يرجع الضوء"
+msgstr "نعم، آليّ، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:109
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light detected"
-msgstr "نعم، آلي، رجع الضوء"
+msgstr "نعم، آليّ، رجع الضوء"
 
 #: src/formatstrings.cpp:110
 #, kde-format
@@ -215,25 +215,25 @@ msgstr "لا، إنقاص العين الحمراء"
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto, red-eye reduction"
-msgstr "لا، آلي، إنقاص العين الحمراء"
+msgstr "لا، آليّ، إنقاص العين الحمراء"
 
 #: src/formatstrings.cpp:120
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction"
-msgstr "نعم، آلي، إنقاص العين الحمراء"
+msgstr "نعم، آليّ، إنقاص العين الحمراء"
 
 #: src/formatstrings.cpp:121
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light not detected"
-msgstr "نعم، آلي، إنقاص العين الحمراء، لم يرجع الضوء"
+msgstr "نعم، آليّ، إنقاص العين الحمراء، لم يرجع الضوء"
 
 #: src/formatstrings.cpp:122
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light detected"
-msgstr "نعم، آلي، إنقاص العين الحمراء، رجع الضوء"
+msgstr "نعم، آليّ، إنقاص العين الحمراء، رجع الضوء"
 
 #: src/formatstrings.cpp:127
 #, kde-format
