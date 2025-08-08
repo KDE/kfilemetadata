@@ -124,7 +124,7 @@ private Q_SLOTS:
             { "test.it",                       "audio/x-it"},
             { "test.xm",                       "audio/x-xm"},
         };
-        // clang-format off
+        // clang-format on
 
         // Collect all test files from the samplefiles directory
         QDirIterator it(filePath(), {QStringLiteral("test*")}, QDir::Files);
