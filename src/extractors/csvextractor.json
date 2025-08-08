@@ -1,0 +1,8 @@
+{
+    "Name" : "CsvExtractor",
+    "Id" :   "org.kde.csvextractor",
+    "MimeTypes" : {
+        "text/csv" : { "Version" : "0.0" }
+    }
+}
+
