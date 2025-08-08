@@ -47,11 +47,17 @@ ecm_add_test(
 )
 
 #
-# CSV test, unittest and extractor
+# CSV tests, unittest and extractor
 #
 ecm_add_test(csvdetectortest.cpp
     TEST_NAME "csvdetectortest"
     LINK_LIBRARIES Qt6::Test KF6::Codecs
+)
+ecm_add_test(csvextractortest.cpp
+    TEST_NAME "csvextractortest"
+    ../src/extractors/csvextractor.cpp
+    ${KfileMetaDataAutotest_SRCS}
+    LINK_LIBRARIES Qt6::Test KF6::FileMetaData KF6::Codecs
 )
 
 #
