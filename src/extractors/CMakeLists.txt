@@ -110,6 +110,23 @@ TARGETS kfilemetadata_plaintextextractor
 DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 
 #
+# Comma Separated Value (CSV)
+#
+add_library(kfilemetadata_csvextractor MODULE
+    csvextractor.cpp
+    ${debug_SRCS}
+)
+target_link_libraries( kfilemetadata_csvextractor
+    KF6::FileMetaData
+    KF6::Codecs
+)
+
+set_target_properties(kfilemetadata_csvextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
+install(
+TARGETS kfilemetadata_csvextractor
+DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
+
+#
 # PO
 #
 add_library(kfilemetadata_poextractor MODULE poextractor.cpp)
