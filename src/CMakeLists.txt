@@ -77,7 +77,7 @@ ecm_generate_headers(KF6FileMetaData_CamelCase_HEADERS
     EmbeddedImageData
     MimeUtils
 
-    PREFIX kfilemetadata
+    PREFIX KFileMetaData
     REQUIRED_HEADERS KF6FileMetaData_HEADERS
 )
 

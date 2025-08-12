@@ -8,10 +8,11 @@
 #include "indexerextractortestsconfig.h"
 #include "writers/taglibwriter.h"
 #include "writedata.h"
-#include <kfilemetadata/ExtractorCollection>
-#include <kfilemetadata/Extractor>
-#include <kfilemetadata/ExtractionResult>
-#include <kfilemetadata/SimpleExtractionResult>
+
+#include <KFileMetaData/ExtractorCollection>
+#include <KFileMetaData/Extractor>
+#include <KFileMetaData/ExtractionResult>
+#include <KFileMetaData/SimpleExtractionResult>
 
 #include <QTest>
 #include <QFile>
