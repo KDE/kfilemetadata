@@ -92,7 +92,11 @@ QDateTime getDateTime(const Exiv2::ExifData data)
         if (const auto it = data.findKey(key); it == data.end()) {
             return {};
         } else if ((it->typeId() == Exiv2::signedLong) || (it->typeId() == Exiv2::signedShort)) {
+#if EXIV2_TEST_VERSION(0,28,0)
             return it->toInt64();
+#else
+            return it->toLong();
+#endif
         }
         return {};
     };
