@@ -118,12 +118,18 @@ void PlainTextExtractor::extract(ExtractionResult* result)
     };
 
     // Read the first chunk, detect the encoding and decode it
-    QByteArray chunk(256 * 1024, Qt::Uninitialized);
-    auto size = file.read(chunk.data(), chunk.size());
+    constexpr int32_t chunkSize{256 * 1024};
+    QByteArray chunk(chunkSize, Qt::Uninitialized);
 
-    QStringDecoder codec{autodetectCodec({chunk.data(), size})};
+    QByteArrayView chunkData = [&file, &chunk]() {
+        // read() returns [0...chunkSize] or -1 (error), so no narrowing when casting from qint64
+        const auto size = static_cast<int32_t>(file.read(chunk.data(), chunkSize));
+        return QByteArrayView{chunk.data(), size};
+    }();
 
-    QString text = codec.decode({chunk.data(), size});
+    QStringDecoder codec{autodetectCodec(chunkData)};
+
+    QString text = codec.decode(chunkData);
     if (codec.hasError()) {
         qCDebug(KFILEMETADATA_LOG) << "Invalid" << codec.name() << "encoding. Ignoring" << result->inputUrl();
         return;
@@ -151,7 +157,7 @@ void PlainTextExtractor::extract(ExtractionResult* result)
 
     // Read and decode the remainder
     while (!file.atEnd()) {
-        auto size = file.read(chunk.data(), chunk.size());
+        const auto size = static_cast<int32_t>(file.read(chunk.data(), chunkSize));
         if (size < 0) {
             // may happen when the file is truncated during read
             qCWarning(KFILEMETADATA_LOG) << "Error reading" << result->inputUrl();
