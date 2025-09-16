@@ -34,7 +34,7 @@ void MobiExtractorTest::test()
 {
     MobiExtractor plugin{this};
 
-    QString fileName = testFilePath("test.mobi");
+    QString fileName = testFilePath(QStringLiteral("test.mobi"));
     QMimeDatabase mimeDb;
     QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
     QVERIFY(plugin.mimetypes().contains(mimeType));
