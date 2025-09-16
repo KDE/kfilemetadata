@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "mobiextractortest.h"
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/mobiextractor.h"
@@ -16,10 +15,20 @@
 
 using namespace KFileMetaData;
 
-QString MobiExtractorTest::testFilePath(const QString& fileName) const
+class MobiExtractorTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void test();
+};
+
+namespace {
+QString testFilePath(const QString& fileName)
 {
     return QLatin1String(INDEXER_TESTS_SAMPLE_FILES_PATH) + QLatin1Char('/') + fileName;
 }
+} // namespace <anonymous>
 
 void MobiExtractorTest::test()
 {
@@ -47,4 +56,4 @@ void MobiExtractorTest::test()
 
 QTEST_GUILESS_MAIN(MobiExtractorTest)
 
-#include "moc_mobiextractortest.cpp"
+#include "mobiextractortest.moc"
