@@ -21,6 +21,7 @@ class MobiExtractorTest : public QObject
 
 private Q_SLOTS:
     void test();
+    void testText();
 };
 
 namespace {
@@ -52,6 +53,25 @@ void MobiExtractorTest::test()
     QCOMPARE(result.properties().value(Property::Copyright), QVariant(QStringLiteral("License")));
 
     QCOMPARE(result.properties().size(), 5);
+}
+
+void MobiExtractorTest::testText()
+{
+    MobiExtractor plugin{this};
+
+    QString fileName = testFilePath(QStringLiteral("test.mobi"));
+    QMimeDatabase mimeDb;
+    QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+    QVERIFY(plugin.mimetypes().contains(mimeType));
+
+    SimpleExtractionResult result(fileName, mimeType);
+    plugin.extract(&result);
+
+#if !defined(ENABLE_TEXT_EXTRACTION)
+    QSKIP("Text extraction disabled");
+#endif
+
+    QCOMPARE(result.text(), QStringLiteral("This is a sample PDF file for KFileMetaData.  "));
 }
 
 QTEST_GUILESS_MAIN(MobiExtractorTest)

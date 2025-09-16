@@ -101,6 +101,9 @@ if (QMobipocket6_FOUND)
         TEST_NAME "mobiextractortest"
         LINK_LIBRARIES Qt6::Test KF6::FileMetaData QMobipocket6
     )
+    if (${ENABLE_MOBIPOCKET_TEXT_EXTRACTION})
+        target_compile_definitions(mobiextractortest PRIVATE ENABLE_TEXT_EXTRACTION=1)
+    endif()
 endif()
 
 #
