@@ -77,12 +77,14 @@ CsvStyle detectCsvStyle(const QStringView buffer)
             if (nlPos <= quotePos) {
                 auto match = CrnlRe.matchView(buffer, nlPos, QRegularExpression::PartialPreferFirstMatch);
                 auto lineSepMatch = match.captured(0);
+                // qDebug() << "linesep: " << lineSepMatch;
                 auto lineSep = (lineSepMatch == CR) ? CsvStyle::LineTerminator::CR :
                                (lineSepMatch == CRNL) ? CsvStyle::LineTerminator::CRNL : CsvStyle::LineTerminator::NL;
                 return {buffer.sliced(nlPos + lineSepMatch.size()), lineSep, commaCount, semicolonCount};
             }
 
             unquotedPos = quotePos + 1;
+            // qDebug() << "open:" << buffer.sliced(unquotedPos);
             // unquotedPos points 1 after opening quote
             do {
                 quotePos = buffer.indexOf(QUOTE, unquotedPos);
@@ -94,11 +96,14 @@ CsvStyle detectCsvStyle(const QStringView buffer)
             } while (true);
             // unquotedPos points 1 after closing quote
 
+            // qDebug() << "closed:" << buffer.sliced(unquotedPos);
             nlPos = std::max(nlPos, unquotedPos);
         }
+        qDebug() << "unclosed quote or empty input";
         return {{}, CsvStyle::LineTerminator::NL, commaCount, semicolonCount};
     };
 
+    // qDebug() << "input: " << buffer;
     auto [tail, nl, cc, sc] = analyzeLine(buffer);
 
     for (int line = 0; line < 10; line++) {
@@ -107,6 +112,9 @@ CsvStyle detectCsvStyle(const QStringView buffer)
         }
         auto [tail2, _, cc2, sc2] = analyzeLine(tail);
 
+        // qDebug() << "nl @" << (buffer.size() - tail.size()) << cc << sc;
+        // qDebug() << tail.chopped(tail2.size()) << "|" << tail2;
+//
         if (sc2 != sc && cc) {
             return {CsvStyle::Comma, nl};
         } else if (cc2 != cc && sc) {
@@ -160,6 +168,7 @@ auto decodeCsv(const QStringView buffer, CsvStyle style) -> std::pair<QList<QStr
             } while (true);
             auto part = buffer.sliced(startOfField + 1, endOfField - startOfField - 1).toString();
             part.replace(QLatin1String("\"\""), QLatin1String("\""));
+            // qDebug() << "A" << part;
             result.back().append(part);
 
             startOfField = endOfField + 1;
@@ -171,6 +180,7 @@ auto decodeCsv(const QStringView buffer, CsvStyle style) -> std::pair<QList<QStr
             }
 
             auto part = buffer.sliced(startOfField, endOfField - startOfField);
+            // qDebug() << "B" << part;
             result.back().append(QString{part});
 
             startOfField = endOfField;
