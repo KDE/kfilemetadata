@@ -33,7 +33,7 @@ ecm_setup_version(PROJECT
                   SOVERSION 3)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 6.7.0)
+set(REQUIRED_QT_VERSION 6.8.0)
 
 find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG OPTIONAL_COMPONENTS Gui)
 set_package_properties(Qt6Gui PROPERTIES DESCRIPTION "Qt6: Gui component"
