@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-27 00:39+0000\n"
-"PO-Revision-Date: 2024-07-26 15:12+0200\n"
+"PO-Revision-Date: 2025-10-26 13:34+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.08.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -536,24 +536,22 @@ msgstr "Kvitbalanse"
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "Fargerom"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "Video"
+msgstr "Videokodek"
 
 #: src/propertyinfo.cpp:93
-#, fuzzy
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "Lyd"
+msgstr "Lydkodek"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "Pikselformat"
 
 #: src/propertyinfo.cpp:95
 msgctxt "@label"
