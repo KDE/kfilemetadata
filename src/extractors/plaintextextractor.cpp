@@ -34,20 +34,17 @@ QStringList PlainTextExtractor::mimetypes() const
 void PlainTextExtractor::extract(ExtractionResult* result)
 {
     QFile file(result->inputUrl());
-    bool isOpen = false;
 
 #ifdef O_NOATIME
     const QByteArray filePath = QFile::encodeName(result->inputUrl());
     int fd = open(filePath.constData(), O_RDONLY | O_NOATIME);
     if (fd >= 0) {
-        isOpen = file.open(fd, QIODevice::ReadOnly, QFileDevice::AutoCloseHandle);
+        if (!file.open(fd, QIODevice::ReadOnly, QFileDevice::AutoCloseHandle)) {
+            return;
+        }
     } else
 #endif
-    {
-        isOpen = file.open(QIODevice::ReadOnly);
-    }
-
-    if (!isOpen) {
+    if (!file.open(QIODevice::ReadOnly)) {
         return;
     }
 
