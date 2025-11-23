@@ -93,6 +93,7 @@ private Q_SLOTS:
             { "test.fodt",                     "application/vnd.oasis.opendocument.text-flat-xml"},
             { "test_csv_export_comma.csv",     "text/csv"},
             { "test_csv_export_semicolon.csv", "text/csv"},
+            { "test_csv_export_tabulator.csv", "text/csv"},
             { "test.ogg",                      "audio/x-vorbis+ogg"},
             { "test.flac.ogg",                 "audio/x-flac+ogg"},
             { "test.mml",                      "application/mathml+xml"},
