@@ -75,9 +75,11 @@ void CsvExtractorTests::testCsvExtractor_data()
     QTest::addRow("No extraction")               << u"test_csv_export_comma.csv"_s     << ER::Flags{ER::ExtractNothing}    << QString() << QVariant();
     QTest::addRow("Extract text with comma")     << u"test_csv_export_comma.csv"_s     << ER::Flags{ER::ExtractPlainText}  << content << QVariant();
     QTest::addRow("Extract text with semicolon") << u"test_csv_export_semicolon.csv"_s << ER::Flags{ER::ExtractPlainText}  << content << QVariant();
+    QTest::addRow("Extract text with tabulator") << u"test_csv_export_tabulator.csv"_s << ER::Flags{ER::ExtractPlainText}  << content << QVariant();
 
     QTest::addRow("Extract text + meta with comma")     << u"test_csv_export_comma.csv"_s     << ER::Flags{ER::ExtractPlainText|ER::ExtractMetaData}  << content << QVariant(4);
     QTest::addRow("Extract text + meta with semicolon") << u"test_csv_export_semicolon.csv"_s << ER::Flags{ER::ExtractPlainText|ER::ExtractMetaData}  << content << QVariant(4);
+    QTest::addRow("Extract text + meta with tabulator") << u"test_csv_export_tabulator.csv"_s << ER::Flags{ER::ExtractPlainText|ER::ExtractMetaData}  << content << QVariant(4);
 }
 
 QTEST_GUILESS_MAIN(CsvExtractorTests)

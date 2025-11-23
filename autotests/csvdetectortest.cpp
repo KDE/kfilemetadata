@@ -66,11 +66,14 @@ void CsvDetectorTests::detectFieldSeparator_data()
 
         {"newline in quote",    {u"1234"_s, u"\"a \n b\""_s, u"x"_s}},
         {"crnl in quote",       {u"1234"_s, u"\"a \r\n b\""_s, u"x"_s}},
+
+        {"separators in quote", {u"\",,,\""_s, u"\";;;\""_s, u"\"\t\t\t\""_s}},
     };
 
     for (const auto &row : testData) {
         QTest::addRow("%s / ','", row.description) << row.fields.join(u","_s) << CsvStyle::Comma;
         QTest::addRow("%s / ';'", row.description) << row.fields.join(u";"_s) << CsvStyle::Semicolon;
+        QTest::addRow("%s / 'TAB'", row.description) << row.fields.join(u"\t"_s) << CsvStyle::Tabulator;
     }
 
     // The first row is ambigous on its own '1,2';'3,4';'5' or '1','2;3','4;5'
@@ -165,6 +168,7 @@ void CsvDetectorTests::decodeCsv_data()
     for (const auto &row : testData) {
         QTest::addRow("%s / ','", row.description) << row.fields.join(u","_s) << row.expected << CsvStyle::Comma;
         QTest::addRow("%s / ';'", row.description) << row.fields.join(u";"_s) << row.expected << CsvStyle::Semicolon;
+        QTest::addRow("%s / 'TAB'", row.description) << row.fields.join(u"\t"_s) << row.expected << CsvStyle::Tabulator;
     }
 }
 

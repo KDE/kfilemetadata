@@ -19,6 +19,7 @@ namespace
     auto QUOTE = QLatin1Char('\"');
     auto COMMA = QLatin1Char(',');
     auto SEMICOLON = QLatin1Char(';');
+    auto TABULATOR = QLatin1Char('\t');
     auto CR = QLatin1String("\r");
     auto NL = QLatin1String("\n");
     auto CRNL = QLatin1String("\r\n");
@@ -37,6 +38,7 @@ struct CsvStyle
     enum Delimiter {
         Comma,
         Semicolon,
+        Tabulator,
     } delimiter = Comma;
     enum LineTerminator {
         CR,
@@ -55,12 +57,13 @@ struct CsvStyle
   */
 CsvStyle detectCsvStyle(const QStringView buffer)
 {
-    auto analyzeLine = [&](const QStringView buffer) -> std::tuple<QStringView, CsvStyle::LineTerminator, size_t, size_t> {
+    auto analyzeLine = [&](const QStringView buffer) -> std::tuple<QStringView, CsvStyle::LineTerminator, size_t, size_t, size_t> {
         qsizetype unquotedPos = 0;
         qsizetype nlPos = 0;
 
         size_t commaCount = 0;
         size_t semicolonCount = 0;
+        size_t tabulatorCount = 0;
 
         while (unquotedPos < buffer.size()) {
             nlPos = buffer.indexOf(CrnlRe, nlPos);
@@ -73,13 +76,14 @@ CsvStyle detectCsvStyle(const QStringView buffer)
             auto part = buffer.sliced(unquotedPos, end - unquotedPos);
             commaCount += part.count(COMMA);
             semicolonCount += part.count(SEMICOLON);
+            tabulatorCount += part.count(TABULATOR);
 
             if (nlPos <= quotePos) {
                 auto match = CrnlRe.matchView(buffer, nlPos, QRegularExpression::PartialPreferFirstMatch);
                 auto lineSepMatch = match.captured(0);
                 auto lineSep = (lineSepMatch == CR) ? CsvStyle::LineTerminator::CR :
                                (lineSepMatch == CRNL) ? CsvStyle::LineTerminator::CRNL : CsvStyle::LineTerminator::NL;
-                return {buffer.sliced(nlPos + lineSepMatch.size()), lineSep, commaCount, semicolonCount};
+                return {buffer.sliced(nlPos + lineSepMatch.size()), lineSep, commaCount, semicolonCount, tabulatorCount};
             }
 
             unquotedPos = quotePos + 1;
@@ -96,32 +100,39 @@ CsvStyle detectCsvStyle(const QStringView buffer)
 
             nlPos = std::max(nlPos, unquotedPos);
         }
-        return {{}, CsvStyle::LineTerminator::NL, commaCount, semicolonCount};
+        return {{}, CsvStyle::LineTerminator::NL, commaCount, semicolonCount, tabulatorCount};
     };
 
-    auto [tail, nl, cc, sc] = analyzeLine(buffer);
+    auto [tail, nl, cc, sc, tc] = analyzeLine(buffer);
 
     for (int line = 0; line < 10; line++) {
         if (tail.isEmpty()) {
             break;
         }
-        auto [tail2, _, cc2, sc2] = analyzeLine(tail);
+        const auto [tail2, _, cc2, sc2, tc2] = analyzeLine(tail);
 
-        if (sc2 != sc && cc) {
+        if (sc2 != sc && tc2 != tc && cc) {
             return {CsvStyle::Comma, nl};
-        } else if (cc2 != cc && sc) {
+        } else if (cc2 != cc && tc2 != tc && sc) {
             return {CsvStyle::Semicolon, nl};
-        } else if (cc && !sc) {
+        } else if (cc && !sc && !tc) {
             return {CsvStyle::Comma, nl};
-        } else if (sc && !cc) {
+        } else if (sc && !cc && !tc) {
             return {CsvStyle::Semicolon, nl};
+        } else if (tc && !cc && !sc) {
+            return {CsvStyle::Tabulator, nl};
         }
         tail = tail2;
         cc = cc2;
         sc = sc2;
+        tc = tc2;
     }
 
-    return {cc < sc ? CsvStyle::Semicolon : CsvStyle::Comma, nl};
+    if ((sc > cc) && (sc > tc))
+        return {CsvStyle::Semicolon, nl};
+    if ((tc > cc) && (tc > sc))
+        return {CsvStyle::Tabulator, nl};
+    return {CsvStyle::Comma, nl};
 }
 
 /**
@@ -130,7 +141,8 @@ CsvStyle detectCsvStyle(const QStringView buffer)
  */
 auto decodeCsv(const QStringView buffer, CsvStyle style) -> std::pair<QList<QStringList>, qsizetype>
 {
-    const auto delimiter = (style.delimiter == CsvStyle::Comma) ? COMMA : SEMICOLON;
+    const auto delimiter = (style.delimiter == CsvStyle::Comma) ? COMMA :
+                           (style.delimiter == CsvStyle::Semicolon) ? SEMICOLON : TABULATOR;
     const auto lineTerminator = (style.lineTerminator == CsvStyle::CR) ? CR :
                                 (style.lineTerminator == CsvStyle::NL) ? NL : CRNL;
 
