@@ -34,19 +34,18 @@ private Q_SLOTS:
 
 void CsvDetectorTests::detectFieldSeparator()
 {
-    using KFileMetaData::Helper::CsvStyle;
     QFETCH(QString, input);
-    QFETCH(bool, usesComma);
+    QFETCH(CsvStyle::Delimiter, separator);
 
     auto res = Helper::detectCsvStyle(input);
 
-    QCOMPARE(res.delimiter, usesComma ? CsvStyle::Comma : CsvStyle::Semicolon);
+    QCOMPARE(res.delimiter, separator);
 }
 
 void CsvDetectorTests::detectFieldSeparator_data()
 {
     QTest::addColumn<QString>("input");
-    QTest::addColumn<bool>("usesComma");
+    QTest::addColumn<CsvStyle::Delimiter>("separator");
 
     struct TestData {
         const char *description;
@@ -70,18 +69,14 @@ void CsvDetectorTests::detectFieldSeparator_data()
     };
 
     for (const auto &row : testData) {
-        auto input = row.fields.join(u","_s);
-        QTest::addRow("%s / ','", row.description) << input << true;
-    }
-    for (const auto &row : testData) {
-        auto input = row.fields.join(u";"_s);
-        QTest::addRow("%s / ';'", row.description) << input << false;
+        QTest::addRow("%s / ','", row.description) << row.fields.join(u","_s) << CsvStyle::Comma;
+        QTest::addRow("%s / ';'", row.description) << row.fields.join(u";"_s) << CsvStyle::Semicolon;
     }
 
     // The first row is ambigous on its own '1,2';'3,4';'5' or '1','2;3','4;5'
-    QTest::addRow("ambiguous first row") << QStringLiteral("1,2;3,4;5\n") << true;
-    QTest::addRow("ambiguous first row, comma") << QStringLiteral("1,2;3,4;5\na,b,c\n") << true;
-    QTest::addRow("ambiguous first row, semicolon") << QStringLiteral("1,2;3,4;5\na;b;c\n") << false;
+    QTest::addRow("ambiguous first row") << QStringLiteral("1,2;3,4;5\n") << CsvStyle::Comma;
+    QTest::addRow("ambiguous first row, comma") << QStringLiteral("1,2;3,4;5\na,b,c\n") << CsvStyle::Comma;
+    QTest::addRow("ambiguous first row, semicolon") << QStringLiteral("1,2;3,4;5\na;b;c\n") << CsvStyle::Semicolon;
 }
 
 void CsvDetectorTests::detectLineSeparator()
@@ -128,11 +123,11 @@ void CsvDetectorTests::detectLineSeparator_data()
 
 void CsvDetectorTests::decodeCsv()
 {
-    using KFileMetaData::Helper::CsvStyle;
     QFETCH(QString, input);
     QFETCH(QList<QStringList>, expected);
+    QFETCH(CsvStyle::Delimiter, separator);
 
-    auto [rows, end] = Helper::decodeCsv(input, {CsvStyle::Comma, CsvStyle::NL});
+    auto [rows, end] = Helper::decodeCsv(input, {separator, CsvStyle::NL});
 
     QCOMPARE(rows.size(), expected.size());
     for (int i = 0; i < rows.size(); i++) {
@@ -144,20 +139,33 @@ void CsvDetectorTests::decodeCsv_data()
 {
     QTest::addColumn<QString>("input");
     QTest::addColumn<QList<QStringList>>("expected");
+    QTest::addColumn<CsvStyle::Delimiter>("separator");
 
-    QTest::addRow("RowCount 0 NL") << u"1234,5678"_s              << QList<QStringList>{{u"1234"_s, u"5678"_s}};
-    QTest::addRow("RowCount 1 NL") << u"1234,5678\nabcd,efgh"_s   << QList<QStringList>{{u"1234"_s, u"5678"_s},{u"abcd"_s, u"efgh"_s}};
-    QTest::addRow("RowCount 2 NL") << u"1234,5678\nabcd,efgh\n"_s << QList<QStringList>{{u"1234"_s, u"5678"_s},{u"abcd"_s, u"efgh"_s}};
+    struct TestData {
+        const char *description;
+        QStringList fields;
+        QList<QStringList> expected;
+    };
+    TestData testData[] = {
+        {"RowCount 0 NL", {u"1234"_s, u"5678"_s},                    {{u"1234"_s, u"5678"_s}}},
+        {"RowCount 1 NL", {u"1234"_s, u"5678\nabcd"_s, u"efgh"_s},   {{u"1234"_s, u"5678"_s},{u"abcd"_s, u"efgh"_s}}},
+        {"RowCount 2 NL", {u"1234"_s, u"5678\nabcd"_s, u"efgh\n"_s}, {{u"1234"_s, u"5678"_s},{u"abcd"_s, u"efgh"_s}}},
 
-    // Permute quoting
-    QTest::addRow("CheckQuotes 1") << u"\"12,34\",5678\n\"ab,cd\",efgh\n"_s         << QList<QStringList>{{u"12,34"_s, u"5678"_s},{u"ab,cd"_s, u"efgh"_s}};
-    QTest::addRow("CheckQuotes 2") << u"\"12,34\",\"5678\"\n\"ab,cd\",\"efgh\"\n"_s << QList<QStringList>{{u"12,34"_s, u"5678"_s},{u"ab,cd"_s, u"efgh"_s}};
-    QTest::addRow("CheckQuotes 3") << u"1234,\"56,78\"\nabcd,\"ef,gh\"\n"_s         << QList<QStringList>{{u"1234"_s, u"56,78"_s},{u"abcd"_s, u"ef,gh"_s}};
-    QTest::addRow("CheckQuotes 4") << u"\"1234\",\"56,78\"\n\"abcd\",\"ef,gh\"\n"_s << QList<QStringList>{{u"1234"_s, u"56,78"_s},{u"abcd"_s, u"ef,gh"_s}};
+        // Permute quoting
+        {"CheckQuotes 1", {u"\"12,34\""_s, u"5678\n\"ab,cd\""_s, u"efgh\n"_s},         {{u"12,34"_s, u"5678"_s},{u"ab,cd"_s, u"efgh"_s}}},
+        {"CheckQuotes 2", {u"\"12,34\""_s, u"\"5678\"\n\"ab,cd\""_s, u"\"efgh\"\n"_s}, {{u"12,34"_s, u"5678"_s},{u"ab,cd"_s, u"efgh"_s}}},
+        {"CheckQuotes 3", {u"1234"_s, u"\"56,78\"\nabcd"_s, u"\"ef,gh\"\n"_s},         {{u"1234"_s, u"56,78"_s},{u"abcd"_s, u"ef,gh"_s}}},
+        {"CheckQuotes 4", {u"\"1234\""_s, u"\"56,78\"\n\"abcd\""_s, u"\"ef,gh\"\n"_s}, {{u"1234"_s, u"56,78"_s},{u"abcd"_s, u"ef,gh"_s}}},
 
-    QTest::addRow("CheckQuotedNl 1") << u"\"12\n34\",5678\n\"ab cd\",efgh\n"_s << QList<QStringList>{{u"12\n34"_s, u"5678"_s},{u"ab cd"_s, u"efgh"_s}};
+        {"CheckQuotedNl 1", {u"\"12\n34\""_s, u"5678\n\"ab cd\""_s, u"efgh\n"_s}, {{u"12\n34"_s, u"5678"_s},{u"ab cd"_s, u"efgh"_s}}},
 
-    QTest::addRow("CheckEscapedQuote 1") << u"\" \"\" \",\"\"\"a\"\"\"\n"_s << QList<QStringList>{{u" \" "_s, u"\"a\""_s}};
+        {"CheckEscapedQuote 1", {u"\" \"\" \""_s, u"\"\"\"a\"\"\"\n"_s}, {{u" \" "_s, u"\"a\""_s}}},
+    };
+
+    for (const auto &row : testData) {
+        QTest::addRow("%s / ','", row.description) << row.fields.join(u","_s) << row.expected << CsvStyle::Comma;
+        QTest::addRow("%s / ';'", row.description) << row.fields.join(u";"_s) << row.expected << CsvStyle::Semicolon;
+    }
 }
 
 void CsvDetectorTests::decodeCsvChunked()
