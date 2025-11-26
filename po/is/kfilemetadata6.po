@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2025-11-24 18:35+0000\n"
+"PO-Revision-Date: 2025-11-25 09:03+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
 #: src/formatstrings.cpp:64
@@ -643,22 +643,22 @@ msgstr "Einkunn"
 #: src/propertyinfo.cpp:113
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr ""
+msgstr "Toppur ReplayGain-mögnunar hljómplötu"
 
 #: src/propertyinfo.cpp:114
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr ""
+msgstr "ReplayGain-mögnun hljómplötu"
 
 #: src/propertyinfo.cpp:115
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr ""
+msgstr "Toppur ReplayGain-mögnunar lags"
 
 #: src/propertyinfo.cpp:116
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr ""
+msgstr "Toppur ReplayGain-mögnunar lags"
 
 #: src/propertyinfo.cpp:117
 msgctxt "@label"
@@ -708,17 +708,17 @@ msgstr "Sótt frá"
 #: src/propertyinfo.cpp:126
 msgctxt "@label the subject of an email this file was attached to"
 msgid "E-Mail Attachment Subject"
-msgstr ""
+msgstr "Viðfangsefni tölvupóstviðhengis"
 
 #: src/propertyinfo.cpp:127
 msgctxt "@label the sender of an email this file was attached to"
 msgid "E-Mail Attachment Sender"
-msgstr ""
+msgstr "Sendandi tölvupóstviðhengis"
 
 #: src/propertyinfo.cpp:128
 msgctxt "@label the message ID of an email this file was attached to"
 msgid "E-Mail Attachment Message ID"
-msgstr ""
+msgstr "Auðkenni tölvupóstviðhengis"
 
 #: src/typeinfo.cpp:37
 msgctxt "@label"
