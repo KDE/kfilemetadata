@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Vít Pelčák <vit@pelcak.org>, 2014, 2015, 2016, 2017, 2018, 2019, 2023.
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2023, 2025 Vít Pelčák <vit@pelcak.org>
 # SPDX-FileCopyrightText: 2024 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2024-04-03 11:49+0200\n"
+"PO-Revision-Date: 2025-12-03 11:30+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 25.08.3\n"
 "X-Language: cs_CZ\n"
 "X-Source-Language: en_US\n"
 
@@ -310,7 +310,7 @@ msgstr "Prázdné"
 #: src/propertyinfo.cpp:46
 msgctxt "@label accessible alt text"
 msgid "Assistive Description"
-msgstr ""
+msgstr "Pomocný popis"
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label music album"
@@ -536,22 +536,22 @@ msgstr "Vyvážení bílé"
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "Barevný prostor"
 
 #: src/propertyinfo.cpp:92
 msgctxt "@label"
 msgid "Video Codec"
-msgstr ""
+msgstr "Video kodek"
 
 #: src/propertyinfo.cpp:93
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr ""
+msgstr "Kodek zvuku"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "Formát pixelů"
 
 #: src/propertyinfo.cpp:95
 msgctxt "@label"
