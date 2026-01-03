@@ -142,6 +142,12 @@ UserMetaData::Error UserMetaData::setAttribute(const QString& key, const QString
             return NameToolong;
         case E2BIG:
             return ValueTooBig;
+        case ENODATA:
+            if (value.isEmpty()) {
+                // when removing the key the metadata did not exist previously
+                return WasMissing;
+            }
+            [[fallthrough]];
         default:
             return UnknownError;
         }
