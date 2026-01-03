@@ -186,16 +186,16 @@ inline int k_removexattr(const QString& path, const QString& name)
 #endif
     const char* attributeName = n.constData();
 
-    #if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_removexattr))
-        int result = removexattr(encodedPath, attributeName);
-        return result == -1 ? errno : 0;
-    #elif defined(Q_OS_MAC)
-        int result = removexattr(encodedPath, attributeName, XATTR_NOFOLLOW );
-        return result == -1 ? errno : 0;
-    #elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
-        int result = extattr_delete_file (encodedPath, EXTATTR_NAMESPACE_USER, attributeName);
-        return result == -1 ? errno : 0;
-    #endif
+#if defined(Q_OS_LINUX) || (defined(__GLIBC__) && !defined(__stub_removexattr))
+    const int result = removexattr(encodedPath, attributeName);
+    return ((result == 0) || (errno == ENODATA)) ? 0 : errno;
+#elif defined(Q_OS_MAC)
+    const int result = removexattr(encodedPath, attributeName, XATTR_NOFOLLOW );
+    return ((result == 0) || (errno == ENOATTR)) ? 0 : errno;
+#elif defined(Q_OS_FREEBSD) || defined(Q_OS_NETBSD)
+    const int result = extattr_delete_file (encodedPath, EXTATTR_NAMESPACE_USER, attributeName);
+    return ((result == 0) || (errno == ENOATTR)) ? 0 : errno;
+#endif
 }
 
 inline bool k_hasAttribute(const QString& path, const QString& name)
@@ -400,6 +400,11 @@ inline int k_removexattr(const QString& path, const QString& name)
 {
     const QString fullADSName = path + QLatin1String(":user.") + name;
     int ret = (DeleteFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()))) ? 0 : -1;
+
+    if (ret == -1 && ::GetLastError() == ERROR_FILE_NOT_FOUND) {
+        // ignore error when removing a not present ADS / attribute
+        return 0;
+    }
     return ret;
 }
 
