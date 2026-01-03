@@ -42,6 +42,7 @@ public:
      * \value[since 6.2] MissingPermission Process doesn't have write permission to the file or the file is marked append-only
      * \value[since 6.2] ValueTooBig The value size exceeds the maximum size allowed per-value (64 kB for Linux VFS
      * \value[since 6.2] NameToolong The attribute name is too long (255 bytes for Linux VFS)
+     * \value[since 6.23] WasMissing Tried to removed an attribute not already set
      *
      */
     enum Error {
@@ -52,6 +53,7 @@ public:
         MissingPermission,
         ValueTooBig,
         NameToolong,
+        WasMissing,
     };
 
     /*!

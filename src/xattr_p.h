@@ -398,6 +398,10 @@ inline bool k_hasAttribute(const QString& path, const QString& name)
 
 inline int k_removexattr(const QString& path, const QString& name)
 {
+    if (!k_hasAttribute(path, name)) {
+        return ENODATA;
+    }
+
     const QString fullADSName = path + QLatin1String(":user.") + name;
     int ret = (DeleteFileW(reinterpret_cast<const WCHAR*>(fullADSName.utf16()))) ? 0 : -1;
     return ret;

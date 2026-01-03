@@ -243,6 +243,10 @@ void UserMetaDataWriterTest::testMetadataFolder()
     QCOMPARE(md.setAttribute(QStringLiteral("tag"), QString{}), KFileMetaData::UserMetaData::NoError);
     QVERIFY(!md.hasAttribute(QStringLiteral("tag")));
 
+    // test if the tag wasn't already present
+    QCOMPARE(md.setAttribute(QStringLiteral("tag"), QString{}), KFileMetaData::UserMetaData::WasMissing);
+    QVERIFY(!md.hasAttribute(QStringLiteral("tag")));
+
     QVERIFY(QDir().rmdir(dirPath));
 }
 
