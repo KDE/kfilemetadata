@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2024-04-24 01:10+0300\n"
+"PO-Revision-Date: 2026-01-09 23:14+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.8\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
@@ -309,12 +309,9 @@ msgid "Empty"
 msgstr "Tuščia"
 
 #: src/propertyinfo.cpp:46
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Description"
 msgctxt "@label accessible alt text"
 msgid "Assistive Description"
-msgstr "Aprašas"
+msgstr "Pagalbinis aprašas"
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label music album"
@@ -539,28 +536,22 @@ msgstr "Baltos spalvos balansas"
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "Spalvų erdvė"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "Vaizdo įrašas"
+msgstr "Vaizdo kodekas"
 
 #: src/propertyinfo.cpp:93
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "Garso įrašas"
+msgstr "Garso kodekas"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "Pikselių formatas"
 
 #: src/propertyinfo.cpp:95
 msgctxt "@label"
