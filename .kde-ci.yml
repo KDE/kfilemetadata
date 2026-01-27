@@ -8,6 +8,7 @@ Dependencies:
     'frameworks/kcodecs': '@same'
     'third-party/taglib': '@same'
     'third-party/poppler': '@same'
+    'libraries/qmobipocket': '@latest'
 
 Options:
  test-before-installing: True
