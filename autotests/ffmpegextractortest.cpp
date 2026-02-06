@@ -140,6 +140,7 @@ void ffmpegExtractorTest::testMetaData()
     QCOMPARE(result.properties().value(Property::Title).toString(), QStringLiteral("Title"));
     QCOMPARE(result.properties().value(Property::Copyright).toString(), QStringLiteral("Copyright"));
     QCOMPARE(result.properties().value(Property::Author).toString(), QStringLiteral("Author"));
+    QCOMPARE(result.properties().value(Property::Artist).toString(), QStringLiteral("Artist"));
     QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 2019);
 }
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)

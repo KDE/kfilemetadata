@@ -168,6 +168,11 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             result->add(Property::Comment, QString::fromUtf8(entry->value));
         }
 
+        entry = av_dict_get(dict, "artist", nullptr, 0);
+        if (entry) {
+            result->add(Property::Artist, QString::fromUtf8(entry->value));
+        }
+
         entry = av_dict_get(dict, "album", nullptr, 0);
         if (entry) {
             result->add(Property::Album, QString::fromUtf8(entry->value));
