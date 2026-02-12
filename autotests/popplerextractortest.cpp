@@ -14,7 +14,7 @@
 #include <QMimeDatabase>
 #include <QTimeZone>
 
-#include <qt6/poppler-version.h>
+#include <poppler-version.h>
 
 using namespace KFileMetaData;
 

@@ -10,7 +10,7 @@
 #include "popplerextractor.h"
 
 #include <poppler-qt6.h>
-#include <qt6/poppler-version.h>
+#include <poppler-version.h>
 
 #include <QScopedPointer>
 #include <QDebug>
