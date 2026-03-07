@@ -47,37 +47,37 @@ void ffmpegExtractorTest::testVideoProperties_data()
     QTest::addColumn<QString>("fileType");
     QTest::addColumn<QString>("codec");
     QTest::addColumn<QString>("audioCodec");
-    QTest::addColumn<QString>("colorSpace");
+    QTest::addColumn<QVariant>("colorSpace");
 
     QTest::addRow("WebM")
         << QStringLiteral("webm")
         << QStringLiteral("vp8")
         << QStringLiteral("vorbis")
-        << QStringLiteral("bt709");
+        << QVariant::fromValue(QStringLiteral("bt709"));
 
     QTest::addRow("Matroska Video")
         << QStringLiteral("mkv")
         << QStringLiteral("vp8")
         << QStringLiteral("vorbis")
-        << QStringLiteral("bt709");
+        << QVariant::fromValue(QStringLiteral("bt709"));
 
     QTest::addRow("Vorbis Video")
         << QStringLiteral("ogv")
         << QStringLiteral("theora")
         << QStringLiteral("vorbis")
-        << QStringLiteral("unknown");
+        << QVariant();
 
     QTest::addRow("MPEG Transport")
         << QStringLiteral("ts")
         << QStringLiteral("mpeg2video")
         << QStringLiteral("mp2")
-        << QStringLiteral("unknown");
+        << QVariant();
 
     QTest::addRow("MS AVI")
         << QStringLiteral("avi")
         << QStringLiteral("mpeg4")
         << QStringLiteral("mp3")
-        << QStringLiteral("unknown");
+        << QVariant();
 }
 
 // only for testing of intrinsic video properties
@@ -86,7 +86,7 @@ void ffmpegExtractorTest::testVideoProperties()
     QFETCH(QString, fileType);
     QFETCH(QString, codec);
     QFETCH(QString, audioCodec);
-    QFETCH(QString, colorSpace);
+    QFETCH(QVariant, colorSpace);
 
     QString fileName = testFilePath(QStringLiteral("test"), fileType);
     QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
@@ -108,7 +108,11 @@ void ffmpegExtractorTest::testVideoProperties()
     QCOMPARE(result.properties().value(Property::VideoCodec), codec);
     QCOMPARE(result.properties().value(Property::AudioCodec), audioCodec);
     QCOMPARE(result.properties().value(Property::PixelFormat), QStringLiteral("yuv420p"));
-    QCOMPARE(result.properties().value(Property::ColorSpace), colorSpace);
+    if (colorSpace.isNull()) {
+        QVERIFY(!result.properties().contains(Property::ColorSpace));
+    } else {
+        QCOMPARE(result.properties().value(Property::ColorSpace), colorSpace.toString());
+    }
 }
 
 void ffmpegExtractorTest::testMetaData_data()

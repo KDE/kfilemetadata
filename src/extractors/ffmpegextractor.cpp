@@ -126,7 +126,9 @@ void FFmpegExtractor::extract(ExtractionResult* result)
                     result->add(Property::PixelFormat, QString::fromUtf8(desc->name));
                 }
 
-                result->add(Property::ColorSpace, QString::fromUtf8(av_color_space_name(codec->color_space)));
+                if (codec->color_space != AVCOL_SPC_UNSPECIFIED) {
+                    result->add(Property::ColorSpace, QString::fromUtf8(av_color_space_name(codec->color_space)));
+                }
             }
         }
 
