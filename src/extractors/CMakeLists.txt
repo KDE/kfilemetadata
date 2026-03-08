@@ -34,10 +34,6 @@ if(LibExiv2_FOUND)
         KF6::FileMetaData
         LibExiv2::LibExiv2
     )
-    if(${LibExiv2_VERSION} VERSION_GREATER_EQUAL 0.27.4)
-        set(EXIV2_HAVE_BMFF_SUPPORT "1")
-    endif()
-    configure_file(exiv2extractor.json.in exiv2extractor.json)
 
     set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
 
