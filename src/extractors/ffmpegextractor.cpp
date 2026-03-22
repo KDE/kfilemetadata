@@ -63,13 +63,22 @@ void FFmpegExtractor::extract(ExtractionResult* result)
     av_register_all();
 #endif
 
-    QByteArray arr = result->inputUrl().toUtf8();
-
     fmt_ctx = avformat_alloc_context();
-    if (int ret = avformat_open_input(&fmt_ctx, arr.data(), nullptr, nullptr)) {
-        qCWarning(KFILEMETADATA_LOG) << "avformat_open_input error: " << ret;
+    if (!fmt_ctx) {
+        qCWarning(KFILEMETADATA_LOG) << "Failed to allocate format context";
         return;
     }
+
+    QByteArray arr = result->inputUrl().toUtf8();
+    if (int ret = avformat_open_input(&fmt_ctx, arr.data(), nullptr, nullptr)) {
+        qCWarning(KFILEMETADATA_LOG) << "avformat_open_input error: " << ret;
+        // The AVFormatContext will be freed on failure, no need to release it explicitly
+        return;
+    }
+
+    auto guard = qScopeGuard([&fmt_ctx]() {
+        avformat_close_input(&fmt_ctx);
+    });
 
     int ret = avformat_find_stream_info(fmt_ctx, nullptr);
     if (ret < 0) {
@@ -202,8 +211,6 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             result->add(Property::ReleaseYear, year);
         }
     }
-
-    avformat_close_input(&fmt_ctx);
 }
 
 #include "moc_ffmpegextractor.cpp"
