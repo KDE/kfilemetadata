@@ -21,7 +21,7 @@ The library also supports plugins that write back data.
 
 ## Extracting Metadata from a file
 
-This requires us to create a ExtractionPluginManager class, fetch the extractor
+This requires us to create an ExtractorCollection class, fetch the extractor
 plugins which are applicable for that file, and then pass the instance of
 ExtractionResult to each Extractor.
 
