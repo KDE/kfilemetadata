@@ -1,28 +1,28 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kfilemetadata package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SPDX-FileCopyrightText: 2026 charlotte <altronic25@protonmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 09:00+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2026-04-15 09:12+0100\n"
+"Last-Translator: charlotte <altronic25@protonmail.com>\n"
+"Language-Team: Irish\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
 "3 : 4\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: src/formatstrings.cpp:64
 #, kde-format
 msgctxt "@label bitrate (per second)"
 msgid "%1/s"
-msgstr ""
+msgstr "%1/s"
 
 #: src/formatstrings.cpp:78
 #, kde-format
@@ -237,62 +237,62 @@ msgstr ""
 #: src/formatstrings.cpp:127
 #, kde-format
 msgid "Unknown"
-msgstr ""
+msgstr "Anaithnid"
 
 #: src/formatstrings.cpp:134
 #, kde-format
 msgctxt "Symbol of degree, no space"
 msgid "%1°"
-msgstr ""
+msgstr "%1°"
 
 #: src/formatstrings.cpp:145
 #, kde-format
 msgctxt "Focal length given in mm"
 msgid "%1 mm"
-msgstr ""
+msgstr "%1 mm"
 
 #: src/formatstrings.cpp:150
 #, kde-format
 msgctxt "Symbol of frames per second, with space"
 msgid "%1 fps"
-msgstr ""
+msgstr "%1 fps"
 
 #: src/formatstrings.cpp:160
 #, kde-format
 msgctxt "Time period given in seconds as rational number, denominator is given"
 msgid "1/%1 s"
-msgstr ""
+msgstr "1/%1 s"
 
 #: src/formatstrings.cpp:163
 #, kde-format
 msgctxt "Time period given in seconds"
 msgid "%1 s"
-msgstr ""
+msgstr "%1 s"
 
 #: src/formatstrings.cpp:179
 #, kde-format
 msgctxt "Exposure bias/compensation in exposure value (EV)"
 msgid "%1 EV"
-msgstr ""
+msgstr "%1 EV"
 
 #: src/formatstrings.cpp:193
 #, kde-format
 msgctxt ""
 "Exposure compensation given as integral with fraction, in exposure value (EV)"
 msgid "%1 %2/%3 EV"
-msgstr ""
+msgstr "%1 %2/%3 EV"
 
 #: src/formatstrings.cpp:196
 #, kde-format
 msgctxt "Exposure compensation given as rational, in exposure value (EV)"
 msgid "%1/%2 EV"
-msgstr ""
+msgstr "%1/%2 EV"
 
 #: src/formatstrings.cpp:201
 #, kde-format
 msgctxt "Aspect ratio, normalized to one"
 msgid "%1:1"
-msgstr ""
+msgstr "%1:1"
 
 #: src/formatstrings.cpp:206
 #, kde-format
@@ -302,12 +302,12 @@ msgstr ""
 
 #: src/propertyinfo.cpp:34
 msgid "Empty"
-msgstr ""
+msgstr "Folamh"
 
 #: src/propertyinfo.cpp:38
 msgctxt "@label music album"
 msgid "Album"
-msgstr ""
+msgstr "Albam"
 
 #: src/propertyinfo.cpp:39
 msgctxt "@label"
@@ -327,17 +327,17 @@ msgstr ""
 #: src/propertyinfo.cpp:42
 msgctxt "@label"
 msgid "Author"
-msgstr ""
+msgstr "Údar"
 
 #: src/propertyinfo.cpp:43
 msgctxt "@label"
 msgid "Bitrate"
-msgstr ""
+msgstr "Ráta Giotáin"
 
 #: src/propertyinfo.cpp:44
 msgctxt "@label"
 msgid "Channels"
-msgstr ""
+msgstr "Cainéil"
 
 #: src/propertyinfo.cpp:45
 msgctxt "@label"
@@ -372,7 +372,7 @@ msgstr ""
 #: src/propertyinfo.cpp:51
 msgctxt "@label"
 msgid "Frame Rate"
-msgstr ""
+msgstr "Ráta Fráma"
 
 #: src/propertyinfo.cpp:52
 msgctxt "@label"
@@ -417,7 +417,7 @@ msgstr ""
 #: src/propertyinfo.cpp:60
 msgctxt "@label"
 msgid "Language"
-msgstr ""
+msgstr "Teanga"
 
 #: src/propertyinfo.cpp:61
 msgctxt "@label number of lines"
@@ -462,7 +462,7 @@ msgstr ""
 #: src/propertyinfo.cpp:69
 msgctxt "@label EXIF"
 msgid "F Number"
-msgstr ""
+msgstr "F Uimhir"
 
 #: src/propertyinfo.cpp:70
 msgctxt "@label EXIF"
@@ -477,7 +477,7 @@ msgstr ""
 #: src/propertyinfo.cpp:72
 msgctxt "@label EXIF"
 msgid "GPS Latitude"
-msgstr ""
+msgstr "Domhanleithead GPS"
 
 #: src/propertyinfo.cpp:73
 msgctxt "@label EXIF"
@@ -532,7 +532,7 @@ msgstr ""
 #: src/propertyinfo.cpp:83
 msgctxt "@label"
 msgid "Label"
-msgstr ""
+msgstr "Lipéad"
 
 #: src/propertyinfo.cpp:84
 msgctxt "@label"
@@ -542,7 +542,7 @@ msgstr ""
 #: src/propertyinfo.cpp:85
 msgctxt "@label"
 msgid "Sample Rate"
-msgstr ""
+msgstr "Ráta Samplála"
 
 #: src/propertyinfo.cpp:86
 msgctxt "@label"
@@ -552,7 +552,7 @@ msgstr ""
 #: src/propertyinfo.cpp:87
 msgctxt "@label"
 msgid "Title"
-msgstr ""
+msgstr "Teideal"
 
 #: src/propertyinfo.cpp:88
 msgctxt "@label music track number"
@@ -562,12 +562,12 @@ msgstr ""
 #: src/propertyinfo.cpp:89
 msgctxt "@label music disc number"
 msgid "Disc Number"
-msgstr ""
+msgstr "Uimhir an Diosca"
 
 #: src/propertyinfo.cpp:90
 msgctxt "@label"
 msgid "Location"
-msgstr ""
+msgstr "Suíomh"
 
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
@@ -607,7 +607,7 @@ msgstr ""
 #: src/propertyinfo.cpp:98
 msgctxt "@label"
 msgid "Opus"
-msgstr ""
+msgstr "Opus"
 
 #: src/propertyinfo.cpp:99
 msgctxt "@label"
@@ -662,7 +662,7 @@ msgstr ""
 #: src/propertyinfo.cpp:109
 msgctxt "@label translation author"
 msgid "Author"
-msgstr ""
+msgstr "Údar"
 
 #: src/propertyinfo.cpp:110
 msgctxt "@label translations last update"
@@ -704,7 +704,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label"
 msgid "Audio"
-msgstr ""
+msgstr "Fuaim"
 
 #: src/typeinfo.cpp:44
 #, kde-format
@@ -716,7 +716,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label"
 msgid "Image"
-msgstr ""
+msgstr "Íomhá"
 
 #: src/typeinfo.cpp:54
 #, kde-format
@@ -734,16 +734,16 @@ msgstr ""
 #, kde-format
 msgctxt "@label"
 msgid "Text"
-msgstr ""
+msgstr "Téacs"
 
 #: src/typeinfo.cpp:69
 #, kde-format
 msgctxt "@label"
 msgid "Video"
-msgstr ""
+msgstr "Físeán"
 
 #: src/typeinfo.cpp:74
 #, kde-format
 msgctxt "@label"
 msgid "Folder"
-msgstr ""
+msgstr "Fillteán"
