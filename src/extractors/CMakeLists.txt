@@ -1,6 +1,11 @@
+if(BUILD_SHARED_LIBS)
+    set(_lib_type MODULE)
+else()
+    set(_lib_type STATIC)
+endif()
 
 if(TARGET Poppler::Qt6)
-    add_library(kfilemetadata_popplerextractor MODULE popplerextractor.cpp ${debug_SRCS})
+    add_library(kfilemetadata_popplerextractor ${_lib_type} popplerextractor.cpp ${debug_SRCS})
 
     target_link_libraries(kfilemetadata_popplerextractor
         KF6::FileMetaData
@@ -15,7 +20,7 @@ if(TARGET Poppler::Qt6)
 endif()
 
 if(Taglib_FOUND)
-    add_library(kfilemetadata_taglibextractor MODULE taglibextractor.cpp ${debug_SRCS})
+    add_library(kfilemetadata_taglibextractor ${_lib_type} taglibextractor.cpp ${debug_SRCS})
     target_link_libraries( kfilemetadata_taglibextractor
         KF6::FileMetaData
         Taglib::Taglib
@@ -28,7 +33,7 @@ if(Taglib_FOUND)
 endif()
 
 if(LibExiv2_FOUND)
-    add_library(kfilemetadata_exiv2extractor MODULE exiv2extractor.cpp ${debug_SRCS})
+    add_library(kfilemetadata_exiv2extractor ${_lib_type} exiv2extractor.cpp ${debug_SRCS})
     kde_target_enable_exceptions(kfilemetadata_exiv2extractor PRIVATE)
     target_link_libraries(kfilemetadata_exiv2extractor
         KF6::FileMetaData
@@ -38,7 +43,7 @@ if(LibExiv2_FOUND)
     set_target_properties(kfilemetadata_exiv2extractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
 
     if (${LibExiv2_VERSION} VERSION_LESS 0.28.0)
-	# exiv2 0.27.x still uses std::auto_ptr, which is incompatible with C++17
+        # exiv2 0.27.x still uses std::auto_ptr, which is incompatible with C++17
         set_target_properties(kfilemetadata_exiv2extractor PROPERTIES CXX_STANDARD 14)
     endif()
 
@@ -49,16 +54,16 @@ if(LibExiv2_FOUND)
 endif()
 
 if(AVCODEC_FOUND AND AVFORMAT_FOUND AND AVUTIL_FOUND)
-    add_library(kfilemetadata_ffmpegextractor MODULE
+    add_library(kfilemetadata_ffmpegextractor ${_lib_type}
         ffmpegextractor.cpp
         ../kfilemetadata_debug.cpp
     )
     target_include_directories(kfilemetadata_ffmpegextractor SYSTEM PRIVATE ${AVCODEC_INCLUDE_DIRS} ${AVFORMAT_INCLUDE_DIRS} ${AVUTIL_INCLUDE_DIRS})
     target_link_libraries(kfilemetadata_ffmpegextractor
         KF6::FileMetaData
-	${AVCODEC_LIBRARIES}
-	${AVFORMAT_LIBRARIES}
-	${AVUTIL_LIBRARIES}
+        ${AVFORMAT_LIBRARIES}
+        ${AVCODEC_LIBRARIES}
+        ${AVUTIL_LIBRARIES}
     )
 
     set_target_properties(kfilemetadata_ffmpegextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
@@ -70,14 +75,14 @@ endif()
 
 
 if(EPUB_FOUND)
-    add_library(kfilemetadata_epubextractor MODULE
+    add_library(kfilemetadata_epubextractor ${_lib_type}
         epubextractor.cpp
         ../kfilemetadata_debug.cpp
     )
     target_include_directories(kfilemetadata_epubextractor SYSTEM PRIVATE ${EPUB_INCLUDE_DIR})
     target_link_libraries(kfilemetadata_epubextractor
         KF6::FileMetaData
-        ${EPUB_LIBRARIES}
+        EPub::EPub
     )
 
     set_target_properties(kfilemetadata_epubextractor PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/kf6/kfilemetadata")
@@ -90,7 +95,7 @@ endif()
 #
 # Plain Text
 #
-add_library(kfilemetadata_plaintextextractor MODULE
+add_library(kfilemetadata_plaintextextractor ${_lib_type}
     plaintextextractor.cpp
     ../kfilemetadata_debug.cpp
 )
@@ -108,7 +113,7 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 #
 # PO
 #
-add_library(kfilemetadata_poextractor MODULE poextractor.cpp)
+add_library(kfilemetadata_poextractor ${_lib_type} poextractor.cpp)
 target_link_libraries( kfilemetadata_poextractor
     KF6::FileMetaData
 )
@@ -122,7 +127,7 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 # XML
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for extracting data from compressed SVGs")
-add_library(kfilemetadata_xmlextractor MODULE
+add_library(kfilemetadata_xmlextractor ${_lib_type}
    dublincoreextractor.cpp
    xmlextractor.cpp
    ../kfilemetadata_debug.cpp
@@ -146,7 +151,7 @@ install(
 #
 # Postscript DSC
 #
-add_library(kfilemetadata_postscriptdscextractor MODULE
+add_library(kfilemetadata_postscriptdscextractor ${_lib_type}
    postscriptdscextractor.cpp
    ../kfilemetadata_debug.cpp
 )
@@ -166,7 +171,7 @@ install(
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for ODF extractor")
 if(KF6Archive_FOUND)
-    add_library(kfilemetadata_odfextractor MODULE odfextractor.cpp ${debug_SRCS})
+    add_library(kfilemetadata_odfextractor ${_lib_type} odfextractor.cpp ${debug_SRCS})
 
     target_link_libraries(kfilemetadata_odfextractor
         KF6::FileMetaData
@@ -186,7 +191,7 @@ endif()
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for Office 2007 extractor")
 if(KF6Archive_FOUND)
-    add_library(kfilemetadata_office2007extractor MODULE
+    add_library(kfilemetadata_office2007extractor ${_lib_type}
         office2007extractor.cpp
         dublincoreextractor.cpp
         ${debug_SRCS}
@@ -209,7 +214,7 @@ endif()
 # Office (binary formats)
 #
 
-add_library(kfilemetadata_officeextractor MODULE)
+add_library(kfilemetadata_officeextractor ${_lib_type})
 target_sources(kfilemetadata_officeextractor
     PRIVATE
         officeextractor.cpp
@@ -229,7 +234,7 @@ DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 # Mobipocket
 #
 if (QMobipocket6_FOUND)
-    add_library(kfilemetadata_mobiextractor MODULE mobiextractor.cpp ${debug_SRCS})
+    add_library(kfilemetadata_mobiextractor ${_lib_type} mobiextractor.cpp ${debug_SRCS})
     target_link_libraries(kfilemetadata_mobiextractor
         KF6::FileMetaData
         QMobipocket6
@@ -247,7 +252,7 @@ endif()
 
 set_package_properties(Qt6Gui PROPERTIES PURPOSE "- Required for AppImage extractor")
 if(libappimage_FOUND AND KF6Config_FOUND AND Qt6Gui_FOUND)
-    add_library(kfilemetadata_appimageextractor MODULE appimageextractor.cpp )
+    add_library(kfilemetadata_appimageextractor ${_lib_type} appimageextractor.cpp )
     target_link_libraries( kfilemetadata_appimageextractor
         KF6::FileMetaData
         KF6::ConfigCore
@@ -264,7 +269,7 @@ endif()
 
 set_package_properties(Qt6Gui PROPERTIES PURPOSE "- Required for Qt based PNG extractor")
 if(Qt6Gui_FOUND)
-    add_library(kfilemetadata_pngextractor MODULE pngextractor.cpp )
+    add_library(kfilemetadata_pngextractor ${_lib_type} pngextractor.cpp )
     target_link_libraries(kfilemetadata_pngextractor
         KF6::FileMetaData
         Qt6::Gui
@@ -281,7 +286,7 @@ endif()
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for FictionBook2 extractor")
 if(KF6Archive_FOUND)
-    add_library(kfilemetadata_fb2extractor MODULE fb2extractor.cpp ${debug_SRCS})
+    add_library(kfilemetadata_fb2extractor ${_lib_type} fb2extractor.cpp ${debug_SRCS})
     target_link_libraries(kfilemetadata_fb2extractor
         KF6::Archive
         KF6::FileMetaData
@@ -299,7 +304,7 @@ endif()
 #
 set_package_properties(KF6Archive PROPERTIES PURPOSE "- Required for Krita extractor")
 if(KF6Archive_FOUND)
-    add_library(kfilemetadata_krita MODULE)
+    add_library(kfilemetadata_krita ${_lib_type})
     target_sources(kfilemetadata_krita
         PRIVATE
             kritaextractor.cpp
@@ -316,5 +321,3 @@ if(KF6Archive_FOUND)
     TARGETS kfilemetadata_krita
     DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kfilemetadata)
 endif()
-
-

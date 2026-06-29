@@ -1,0 +1,47 @@
+/*
+ * SPDX-FileCopyrightText: 2025 Azhar Momin <azhar.momin@kdemail.net>
+ * SPDX-License-Identifier: LGPL-2.0-or-later
+ */
+
+#include <QByteArray>
+#include <QGuiApplication>
+#include <QMimeDatabase>
+#include <QTemporaryFile>
+
+#include "simpleextractionresult.h"
+
+#include "@EXTRACTOR_HEADER@.h"
+
+static void runExtractor(const QString &fileName, const QString &mimetype)
+{
+    KFileMetaData::@EXTRACTOR@ ex;
+    KFileMetaData::SimpleExtractionResult result(fileName, mimetype);
+    ex.extract(&result);
+}
+
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
+{
+    int argc = 0;
+    QGuiApplication app(argc, nullptr);
+
+    QByteArray b((const char *)data, size);
+
+    QTemporaryFile f;
+    if (!f.open()) {
+        return 0;
+    }
+    f.write(b);
+    f.close();
+
+    QMimeDatabase mimeDb;
+    QMimeType mimetype = mimeDb.mimeTypeForData(b);
+
+    runExtractor(f.fileName(), mimetype.name());
+    for (const QString &ancestor : mimetype.allAncestors()) {
+        if (ancestor != QLatin1String("application/octet-stream")) {
+            runExtractor(f.fileName(), ancestor);
+        }
+    }
+
+    return 0;
+}

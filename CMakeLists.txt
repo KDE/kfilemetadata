@@ -32,6 +32,9 @@ ecm_setup_version(PROJECT
                   PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KF6FileMetaDataConfigVersion.cmake"
                   SOVERSION 3)
 
+option(BUILD_FUZZERS "Build fuzzers" OFF)
+option(FUZZERS_USE_QT_MINIMAL_INTEGRATION_PLUGIN "Whether to use the Qt minimal integration plugin for fuzzers" OFF)
+
 # Dependencies
 set(REQUIRED_QT_VERSION 6.9.0)
 
@@ -132,6 +135,13 @@ if (BUILD_TESTING)
   add_subdirectory(autotests)
 endif()
 add_subdirectory(tests)
+if (BUILD_FUZZERS AND Qt6Gui_FOUND)
+  if (BUILD_SHARED_LIBS)
+    message(FATAL_ERROR "Fuzzers can only be built with static libraries")
+  else()
+    add_subdirectory(autotests/ossfuzz)
+  endif()
+endif()
 
 # Config files
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/KF6FileMetaData")

@@ -1,5 +1,11 @@
+if(BUILD_SHARED_LIBS)
+    set(_lib_type MODULE)
+else()
+    set(_lib_type STATIC)
+endif()
+
 if(Taglib_FOUND)
-    add_library(kfilemetadata_taglibwriter MODULE taglibwriter.cpp ${debug_SRCS})
+    add_library(kfilemetadata_taglibwriter ${_lib_type} taglibwriter.cpp ${debug_SRCS})
 
     target_link_libraries( kfilemetadata_taglibwriter
         KF6::FileMetaData

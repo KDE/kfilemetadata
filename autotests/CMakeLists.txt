@@ -87,7 +87,7 @@ if(EPUB_FOUND)
 	../src/extractors/epubextractor.cpp
 	../src/kfilemetadata_debug.cpp
         TEST_NAME "epubextractortest"
-        LINK_LIBRARIES Qt6::Test KF6::FileMetaData ${EPUB_LIBRARIES}
+        LINK_LIBRARIES Qt6::Test KF6::FileMetaData EPub::EPub
     )
 endif()
 

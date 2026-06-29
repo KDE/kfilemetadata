@@ -3,30 +3,38 @@
 #
 # This module defines
 #  EPUB_FOUND - whether the EPub library was found
-#  EPUB_LIBRARIES - the EPub library
+#  EPUB_LIBRARY - the EPub library
 #  EPUB_INCLUDE_DIR - the include path of the EPub library
+#  EPub::EPub - the EPub target
 
 # SPDX-FileCopyrightText: 2008 Pino Toscano <pino@kde.org>
+# SPDX-FileCopyrightText: 2025 Azhar Momin <azhar.momin@kdemail.net>
 # SPDX-License-Identifier: BSD-3-Clause
 
-if (EPUB_INCLUDE_DIR AND EPUB_LIBRARIES)
+find_path(EPUB_INCLUDE_DIR
+  NAMES epub.h
+)
 
-  # Already in cache
-  set (EPUB_FOUND TRUE)
+find_library(EPUB_LIBRARY
+  NAMES epub libepub
+)
 
-else (EPUB_INCLUDE_DIR AND EPUB_LIBRARIES)
+find_package(LibZip QUIET)
+find_package(LibXml2 QUIET)
 
-  find_library (EPUB_LIBRARIES
-    NAMES epub libepub
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(EPub
+  REQUIRED_VARS EPUB_LIBRARY EPUB_INCLUDE_DIR LibZip_FOUND LibXml2_FOUND
+  VERSION_VAR EPUB_VERSION
+)
+
+if (EPUB_FOUND AND NOT TARGET EPub::EPub)
+  add_library(EPub::EPub UNKNOWN IMPORTED)
+  set_target_properties(EPub::EPub PROPERTIES
+      IMPORTED_LOCATION "${EPUB_LIBRARY}"
+      INTERFACE_INCLUDE_DIRECTORIES "${EPUB_INCLUDE_DIR}"
+      INTERFACE_LINK_LIBRARIES "\$<LINK_ONLY:libzip::zip>;\$<LINK_ONLY:LibXml2::LibXml2>"
   )
+endif()
 
-  find_path (EPUB_INCLUDE_DIR
-    NAMES epub.h
-  )
-
-  include (FindPackageHandleStandardArgs)
-  find_package_handle_standard_args (EPub DEFAULT_MSG EPUB_LIBRARIES EPUB_INCLUDE_DIR)
-
-endif (EPUB_INCLUDE_DIR AND EPUB_LIBRARIES)
-
-mark_as_advanced(EPUB_INCLUDE_DIR EPUB_LIBRARIES)
+mark_as_advanced(EPUB_INCLUDE_DIR EPUB_LIBRARY)
