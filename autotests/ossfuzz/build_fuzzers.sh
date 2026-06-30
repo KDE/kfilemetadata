@@ -298,7 +298,13 @@ cmake -B build -G Ninja \
   -DBUILD_FUZZERS=ON \
   -DFUZZERS_USE_QT_MINIMAL_INTEGRATION_PLUGIN=ON \
   -DCMAKE_INSTALL_PREFIX=$WORK
-ninja -C build -j$(nproc)
+if [[ $FUZZING_ENGINE != "afl" ]]; then
+  ninja -C build -j$(nproc)
+else
+  # AFL builds can fail during linking under high parallelism due to memory pressure,
+  # so build serially.
+  ninja -C build -j1
+fi
 
 EXTENSIONS="epubextractor_fuzzer epub
             exiv2extractor_fuzzer heif webp jpg avif png jxl
