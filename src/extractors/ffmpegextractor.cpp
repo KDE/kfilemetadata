@@ -36,6 +36,7 @@ FFmpegExtractor::FFmpegExtractor(QObject* parent)
 }
 
 const QStringList supportedMimeTypes = {
+    QStringLiteral("video/matroska"),
     QStringLiteral("video/mp2t"),
     QStringLiteral("video/mp4"),
     QStringLiteral("video/mpeg"),
