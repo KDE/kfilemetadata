@@ -2,6 +2,7 @@
     "Name" : "FFMpegExtractor",
     "Id" :   "org.kde.ffmpegextractor",
     "MimeTypes" : {
+        "video/matroska"   : { "Version" : "0.0" },
         "video/mp2t"       : { "Version" : "0.0" },
         "video/mp4"        : { "Version" : "0.0" },
         "video/mpeg"       : { "Version" : "0.0" },
