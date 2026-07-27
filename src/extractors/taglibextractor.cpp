@@ -288,21 +288,23 @@ void extractId3Tags(TagLib::ID3v2::Tag* Id3Tags, ExtractionResult* result)
      */
     lstID3v2 = Id3Tags->frameListMap()["POPM"];
     if (!lstID3v2.isEmpty()) {
-        TagLib::ID3v2::PopularimeterFrame *ratingFrame = static_cast<TagLib::ID3v2::PopularimeterFrame *>(lstID3v2.front());
-        int rating = ratingFrame->rating();
-        if (rating == 0) {
-            rating = 0;
-        } else if (rating == 1) {
-            TagLib::String ratingProvider = ratingFrame->email();
-            if (ratingProvider == "no@email" || ratingProvider == "org.kde.kfilemetadata") {
-                rating = 1;
-            } else {
-                rating = 2;
+        TagLib::ID3v2::PopularimeterFrame *ratingFrame = dynamic_cast<TagLib::ID3v2::PopularimeterFrame *>(lstID3v2.front());
+        if (ratingFrame) {
+            int rating = ratingFrame->rating();
+            if (rating == 0) {
+                rating = 0;
+            } else if (rating == 1) {
+                TagLib::String ratingProvider = ratingFrame->email();
+                if (ratingProvider == "no@email" || ratingProvider == "org.kde.kfilemetadata") {
+                    rating = 1;
+                } else {
+                    rating = 2;
+                }
+            } else if (rating >= 1 && rating <= 255) {
+                rating = static_cast<int>(0.032 * rating + 2);
             }
-        } else if (rating >= 1 && rating <= 255) {
-            rating = static_cast<int>(0.032 * rating + 2);
+            result->add(Property::Rating, rating);
         }
-        result->add(Property::Rating, rating);
     }
 }
 
@@ -371,11 +373,13 @@ extractId3Cover(const TagLib::ID3v2::Tag* Id3Tags,
 
     using PictureFrame = TagLib::ID3v2::AttachedPictureFrame;
     for (const auto& frame : std::as_const(lstID3v2)) {
-        const auto *coverFrame = static_cast<PictureFrame *>(frame);
-        const auto imageType = mapTaglibType<PictureFrame::Type>(coverFrame->type());
-        if (types & imageType) {
-            const auto& picture = coverFrame->picture();
-            images.insert(imageType, QByteArray(picture.data(), picture.size()));
+        const auto *coverFrame = dynamic_cast<PictureFrame *>(frame);
+        if (coverFrame) {
+            const auto imageType = mapTaglibType<PictureFrame::Type>(coverFrame->type());
+            if (types & imageType) {
+                const auto& picture = coverFrame->picture();
+                images.insert(imageType, QByteArray(picture.data(), picture.size()));
+            }
         }
     }
     return images;
