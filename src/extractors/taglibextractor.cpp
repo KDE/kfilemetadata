@@ -41,6 +41,8 @@
 #include <popularimeterframe.h>
 #include <attachedpictureframe.h>
 
+#include <limits>
+
 using namespace KFileMetaData;
 
 namespace {
@@ -80,8 +82,9 @@ void extractAudioProperties(TagLib::File* file, ExtractionResult* result)
             result->add(Property::Duration, audioProp->lengthInSeconds());
         }
 
-        if (audioProp->bitrate()) {
-            result->add(Property::BitRate, audioProp->bitrate() * 1000);
+        const int bitRate = audioProp->bitrate();
+        if (bitRate > 0 && bitRate <= std::numeric_limits<int>::max() / 1000) {
+            result->add(Property::BitRate, bitRate * 1000);
         }
 
         if (audioProp->channels()) {
