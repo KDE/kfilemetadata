@@ -38,9 +38,7 @@ cmake . -G Ninja \
   -DEXPAT_BUILD_EXAMPLES=OFF
 ninja install -j$(nproc)
 
-cd $SRC/
-tar xzf libpng-*.tar.gz && rm -f libpng-*.tar.gz
-cd libpng-*
+cd $SRC/libpng
 cmake . -G Ninja \
     -DCMAKE_INSTALL_PREFIX=$WORK \
     -DPNG_SHARED=OFF \

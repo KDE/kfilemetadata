@@ -9,7 +9,7 @@ pip3 install meson ninja
 
 git clone --depth 1 https://github.com/madler/zlib.git
 git clone --depth=1 https://gitlab.freedesktop.org/freetype/freetype.git
-wget https://sourceforge.net/projects/libpng/files/libpng16/1.6.50/libpng-1.6.50.tar.gz
+git clone --depth 1 https://github.com/pnggroup/libpng.git
 git clone --depth=1 https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 git clone --depth 1 -b dev git://code.qt.io/qt/qtbase.git
 git clone --depth 1 https://invent.kde.org/frameworks/extra-cmake-modules.git
