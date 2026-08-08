@@ -87,11 +87,14 @@ void DscExtractor::extract(ExtractionResult* result)
                 auto dt = QDateTime::fromString(date.mid(2, 14), u"yyyyMMddhhmmss"_sv);
                 #if QT_VERSION < QT_VERSION_CHECK(6, 12, 0)
                 const auto offset = QTime::fromString(date.mid(17, 5), u"hh'\\''mm"_sv);
+                const auto x = QTime::fromString(u"01'02"_sv, u"hh'\\''mm"_sv);
                 #else
                 const auto offset = QTime::fromString(date.mid(17, 5), u"hh''mm"_sv);
+                const auto x = QTime::fromString(u"01'02"_sv, u"hh''mm"_sv);
                 #endif
 
                 const auto seconds = QTime(0, 0).secsTo(offset);
+                qDebug() << dt << x << offset << seconds;;
                 if (date.at(16) == QLatin1Char('+')) {
                     dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(seconds));
                 } else {
