@@ -11,6 +11,8 @@
 #include <QFile>
 #include <QTimeZone>
 
+using namespace Qt::StringLiterals;
+
 namespace KFileMetaData
 {
 
@@ -20,13 +22,14 @@ DscExtractor::DscExtractor(QObject* parent)
 
 }
 
+const QStringList supportedMimeTypes = {
+    u"application/postscript"_s,
+    u"image/x-eps"_s,
+};
+
 QStringList DscExtractor::mimetypes() const
 {
-    QStringList list;
-    list << QStringLiteral("application/postscript")
-         << QStringLiteral("image/x-eps");
-
-    return list;
+    return supportedMimeTypes;
 }
 
 void DscExtractor::extract(ExtractionResult* result)
@@ -81,16 +84,17 @@ void DscExtractor::extract(ExtractionResult* result)
             }
             if (date.startsWith(QLatin1String("D:")) && date.size() >= 23) {
                 // Standard PDF date format, ASN.1 like - (D:YYYYMMDDHHmmSSOHH'mm')
-                auto dt = QDateTime::fromString(date.mid(2, 14).toString(), QLatin1String("yyyyMMddhhmmss"));
-                auto offset = QTime::fromString(date.mid(17, 5).toString(), QLatin1String("hh'\\''mm"));
+                auto dt = QDateTime::fromString(date.mid(2, 14), u"yyyyMMddhhmmss"_sv);
+                const auto offset = QTime::fromString(date.mid(17, 5), u"hh'\\''mm"_sv);
+                const auto seconds = QTime(0, 0).secsTo(offset);
                 if (date.at(16) == QLatin1Char('+')) {
-                    dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(QTime(0, 0).secsTo(offset)));
+                    dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(seconds));
                 } else {
-                    dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(-1 * QTime(0, 0).secsTo(offset)));
+                    dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(-1 * seconds));
                 }
                 result->add(Property::CreationDate, dt);
             } else {
-                auto dt = QDateTime::fromString(date.toString());
+                auto dt = QDateTime::fromString(date);
                 if (dt.isValid()) {
                     result->add(Property::CreationDate, dt);
                 }
