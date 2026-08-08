@@ -9,6 +9,7 @@
 #include "kfilemetadata_debug.h"
 
 #include <QFile>
+#include <QLibraryInfo>
 #include <QTimeZone>
 
 using namespace Qt::StringLiterals;
@@ -85,7 +86,10 @@ void DscExtractor::extract(ExtractionResult* result)
             if (date.startsWith(QLatin1String("D:")) && date.size() >= 23) {
                 // Standard PDF date format, ASN.1 like - (D:YYYYMMDDHHmmSSOHH'mm')
                 auto dt = QDateTime::fromString(date.mid(2, 14), u"yyyyMMddhhmmss"_sv);
-                const auto offset = QTime::fromString(date.mid(17, 5), u"hh'\\''mm"_sv);
+                const auto offset = (QLibraryInfo::version() < QVersionNumber(6, 12))
+                    ? QTime::fromString(date.mid(17, 5), u"hh'\\''mm"_sv)
+                    : QTime::fromString(date.mid(17, 5), u"hh''mm"_sv);
+
                 const auto seconds = QTime(0, 0).secsTo(offset);
                 if (date.at(16) == QLatin1Char('+')) {
                     dt.setTimeZone(QTimeZone::fromSecondsAheadOfUtc(seconds));
