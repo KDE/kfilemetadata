@@ -72,13 +72,20 @@ QString ExtractorPlugin::getSupportedMimeType(const QString& mimetype) const
 
     QMimeDatabase db;
     auto type = db.mimeTypeForName(mimetype);
+
+    const QStringList aliases = type.aliases();
+    for (auto alias : aliases) {
+        if (allTypes.contains(alias)) {
+            return alias;
+        }
+    }
+
     const QStringList ancestors = type.allAncestors();
     for (auto ancestor : ancestors) {
         if (allTypes.contains(ancestor)) {
             return ancestor;
         }
     }
-
     return QString();
 }
 

@@ -165,9 +165,18 @@ QList<Extractor*> ExtractorCollection::fetchExtractors(const QString& mimetype) 
         return plugins;
     }
 
-    // try to find the best matching more generic extractor by mimetype inheritance
     QMimeDatabase db;
     auto type = db.mimeTypeForName(mimetype);
+    const QStringList aliases = type.aliases();
+    for (const auto &alias: aliases) {
+        QList<Extractor*> plugins = d->getExtractors(alias);
+        if (!plugins.isEmpty()) {
+            qCDebug(KFILEMETADATA_LOG) << "Using deprecated mimetype" << alias <<  "for" << mimetype;
+            return plugins;
+        }
+    }
+
+    // try to find the best matching more generic extractor by mimetype inheritance
     const QStringList ancestors = type.allAncestors();
 
     for (const auto &ancestor : ancestors) {
