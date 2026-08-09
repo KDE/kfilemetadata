@@ -9,11 +9,8 @@
 #define KFILEMETADATA_EMBEDDEDIMAGEDATA_H
 
 #include "kfilemetadata_export.h"
-#include <QByteArray>
 #include <QFlags>
-#include <QMap>
 #include <QMetaType>
-#include <memory>
 
 namespace KFileMetaData {
 
@@ -86,8 +83,7 @@ public:
     Q_DECLARE_FLAGS(ImageTypes, ImageType)
 
 private:
-    class Private;
-    std::unique_ptr<Private> d;
+    void *d = nullptr; // BIC placeholder
     EmbeddedImageData& operator=(const EmbeddedImageData&) = delete;
 };
 
