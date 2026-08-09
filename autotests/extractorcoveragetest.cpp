@@ -76,6 +76,7 @@ private Q_SLOTS:
             { "test_missing_content.odt",      "application/vnd.oasis.opendocument.text"},
             { "test_missing_meta.odt",         "application/vnd.oasis.opendocument.text"},
             { "test.mkv",                      "video/x-matroska"},
+            { "test_cover.mkv",                "video/x-matroska"},
             { "test.mp3",                      "audio/mpeg"},
             { "test.id3v1.mp3",                "audio/mpeg"},
             { "test.aax",                      "audio/vnd.audible.aax"},

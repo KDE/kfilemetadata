@@ -14,6 +14,7 @@
 #include <QTest>
 
 using namespace KFileMetaData;
+using namespace Qt::StringLiterals;
 
 namespace KFileMetaData {
 class ffmpegExtractorTest : public QObject
@@ -21,14 +22,18 @@ class ffmpegExtractorTest : public QObject
     Q_OBJECT
 
 private Q_SLOTS:
+    void initTestCase();
     void testNoExtraction();
     void testVideoProperties();
     void testVideoProperties_data();
     void testMetaData();
     void testMetaData_data();
+    void testCoverimage();
+    void testCoverimage_data();
 
 private:
     QMimeDatabase mimeDb;
+    QByteArray m_coverImage;
 };
 } // namespace KFileMetaData
 
@@ -41,6 +46,13 @@ QString testFilePath(const QString& baseName, const QString& extension)
 }
 
 } // namespace
+
+void ffmpegExtractorTest::initTestCase()
+{
+    QFile imgFile(testFilePath(u"cover"_s, u"jpg"_s));
+    QVERIFY(imgFile.open(QIODevice::ReadOnly));
+    m_coverImage = imgFile.readAll();
+}
 
 void ffmpegExtractorTest::testNoExtraction()
 {
@@ -164,6 +176,43 @@ void ffmpegExtractorTest::testMetaData()
     QCOMPARE(result.properties().value(Property::Author).toString(), QStringLiteral("Author"));
     QCOMPARE(result.properties().value(Property::Artist).toString(), QStringLiteral("Artist"));
     QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 2019);
+}
+
+void ffmpegExtractorTest::testCoverimage_data()
+{
+    using IT = EmbeddedImageData::ImageType;
+    QTest::addColumn<QString>("baseName");
+    QTest::addColumn<QString>("fileType");
+    QTest::addColumn<QList<IT>>("coverTypes");
+
+    // clang-format off
+    QTest::addRow("Matroska Video")            << u"test"_s       << u"mkv"_s << QList<IT>();
+    QTest::addRow("Matroska Video with cover") << u"test_cover"_s << u"mkv"_s << QList<IT>{IT::FrontCover};
+    // clang-format on
+}
+
+void ffmpegExtractorTest::testCoverimage()
+{
+    QFETCH(QString, baseName);
+    QFETCH(QString, fileType);
+    QFETCH(QList<EmbeddedImageData::ImageType>, coverTypes);
+
+    const QString fileName = testFilePath(baseName, fileType);
+    const QString mimeType = MimeUtils::strictMimeType(fileName, mimeDb).name();
+
+    FFmpegExtractor plugin{this};
+
+    SimpleExtractionResult result(fileName, mimeType, ExtractionResult::ExtractImageData);
+    plugin.extract(&result);
+
+    const auto imageMap = result.imageData();
+    QCOMPARE(imageMap.size(), coverTypes.size());
+    for (const auto type : coverTypes) {
+        QVERIFY(imageMap.contains(type));
+    }
+    for (const auto [type, imageData]: imageMap.asKeyValueRange()) {
+        QCOMPARE(imageData, m_coverImage);
+    }
 }
 
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)

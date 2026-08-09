@@ -10,6 +10,7 @@
 
 
 #include "ffmpegextractor.h"
+#include "embeddedimagedata.h"
 #include "kfilemetadata_debug.h"
 
 #ifdef __cplusplus
@@ -29,6 +30,36 @@ extern "C" {
 }
 
 using namespace KFileMetaData;
+
+namespace {
+QMap<EmbeddedImageData::ImageType, QByteArray>
+extractCover(const AVStream* stream)
+{
+    if (const auto e = av_dict_get(stream->metadata, "filename", nullptr, 0)) {
+        const std::string_view value{e->value};
+        if (!(value.starts_with("cover") || value.starts_with("small_cover"))) {
+            qCDebug(KFILEMETADATA_LOG) << "Ignore attached" << value;
+            return {};
+        }
+        if (!(value.ends_with(".png") || value.ends_with(".jpg") || value.ends_with(".jpeg"))) {
+            qCDebug(KFILEMETADATA_LOG) << "Ignore attached" << value;
+            return {};
+        }
+    }
+    if (const auto e = av_dict_get(stream->metadata, "mimetype", nullptr, 0)) {
+        const std::string_view value{e->value};
+        if (!value.starts_with("image/")) {
+            qCDebug(KFILEMETADATA_LOG) << "Ignore attached file with type" << value;
+            return {};
+        }
+    }
+    const auto &ap = stream->attached_pic;
+    if (!(ap.data && ap.size)) {
+        return {};
+    }
+    return {std::pair{EmbeddedImageData::FrontCover, QByteArray{QByteArrayView(ap.data, ap.size)}}};
+}
+} // namespace <anonymous>
 
 FFmpegExtractor::FFmpegExtractor(QObject* parent)
     : ExtractorPlugin(parent)
@@ -88,7 +119,7 @@ void FFmpegExtractor::extract(ExtractionResult* result)
 
     result->addType(Type::Video);
 
-    if (result->inputFlags() & ExtractionResult::ExtractMetaData) {
+    if (result->inputFlags() & (ExtractionResult::ExtractMetaData | ExtractionResult::ExtractImageData)) {
         int totalSecs = fmt_ctx->duration / AV_TIME_BASE;
         int bitrate = fmt_ctx->bit_rate;
 
@@ -96,12 +127,24 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         result->add(Property::BitRate, bitrate);
 
         const int index_stream = av_find_default_stream_index(fmt_ctx);
-        if (index_stream >= 0) {
-            AVStream* stream = fmt_ctx->streams[index_stream];
+
+        for (unsigned int index = 0; index < fmt_ctx->nb_streams; index++) {
+            AVStream* stream = fmt_ctx->streams[index];
 
             const AVCodecParameters* codec = stream->codecpar;
 
             if (codec->codec_type == AVMEDIA_TYPE_VIDEO) {
+                if (stream->disposition & AV_DISPOSITION_ATTACHED_PIC) {
+                    if (auto images = extractCover(stream); !images.isEmpty()) {
+                        result->addImageData(std::move(images));
+                    }
+                    continue;
+                } else if (index_stream < 0) {
+                    continue;
+                } else if (unsigned int t = index_stream; index != t) {
+                    continue;
+                }
+
                 result->add(Property::Width, codec->width);
                 result->add(Property::Height, codec->height);
 
