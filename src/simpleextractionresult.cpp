@@ -23,7 +23,7 @@ SimpleExtractionResult::SimpleExtractionResult(const QString& url, const QString
 }
 
 SimpleExtractionResult::SimpleExtractionResult(const SimpleExtractionResult& rhs)
-    : ExtractionResult(*this)
+    : ExtractionResult(rhs)
     , d(new SimpleExtractionResultPrivate(*rhs.d))
 {
 }
