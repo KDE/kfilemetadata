@@ -4,15 +4,33 @@
     SPDX-License-Identifier: LGPL-2.1-or-later
 */
 
-#include "ffmpegextractortest.h"
 #include "simpleextractionresult.h"
 #include "indexerextractortestsconfig.h"
 #include "extractors/ffmpegextractor.h"
 #include "mimeutils.h"
 
+#include <QMimeDatabase>
+#include <QObject>
 #include <QTest>
 
 using namespace KFileMetaData;
+
+namespace KFileMetaData {
+class ffmpegExtractorTest : public QObject
+{
+    Q_OBJECT
+
+private Q_SLOTS:
+    void testNoExtraction();
+    void testVideoProperties();
+    void testVideoProperties_data();
+    void testMetaData();
+    void testMetaData_data();
+
+private:
+    QMimeDatabase mimeDb;
+};
+} // namespace KFileMetaData
 
 namespace {
 
@@ -147,6 +165,7 @@ void ffmpegExtractorTest::testMetaData()
     QCOMPARE(result.properties().value(Property::Artist).toString(), QStringLiteral("Artist"));
     QCOMPARE(result.properties().value(Property::ReleaseYear).toInt(), 2019);
 }
+
 QTEST_GUILESS_MAIN(ffmpegExtractorTest)
 
-#include "moc_ffmpegextractortest.cpp"
+#include "ffmpegextractortest.moc"
