@@ -88,7 +88,7 @@ void TagLibWriterTest::initTestCase()
     QVERIFY(QDir().mkpath(testOutputPath({})));
 
     QFile imgFile(testFilePath(QStringLiteral("cover.jpg")));
-    imgFile.open(QIODevice::ReadOnly);
+    QVERIFY(imgFile.open(QIODevice::ReadOnly));
     m_coverImage = imgFile.readAll();
 }
 
@@ -801,7 +801,7 @@ void TagLibWriterTest::testImageDeleteInsert()
     WriteData data(testFileName, mimeType);
 
     QFile imgFile(testFilePath(QStringLiteral("test.jpg")));
-    imgFile.open(QIODevice::ReadOnly);
+    QVERIFY(imgFile.open(QIODevice::ReadOnly));
 
     QMap<EmbeddedImageData::ImageType, QByteArray> delImages;
     QMap<EmbeddedImageData::ImageType, QByteArray> writeImages;

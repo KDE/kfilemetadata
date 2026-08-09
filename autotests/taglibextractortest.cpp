@@ -75,7 +75,7 @@ QString TagLibExtractorTest::testFilePath(const QString& fileName) const
 void TagLibExtractorTest::initTestCase()
 {
     QFile imgFile(testFilePath(QStringLiteral("cover.jpg")));
-    imgFile.open(QIODevice::ReadOnly);
+    QVERIFY(imgFile.open(QIODevice::ReadOnly));
     m_coverImage = imgFile.readAll();
 }
 

@@ -43,15 +43,13 @@ ExternalWriter::ExternalWriter(const QString& pluginPath)
     d->path = pluginPath;
 
     QDir pluginDir(pluginPath);
-    QStringList pluginDirContents = pluginDir.entryList();
 
-    if (!pluginDirContents.contains(QStringLiteral("manifest.json"))) {
+    QFile manifest(pluginDir.filePath(QStringLiteral("manifest.json")));
+    if (!manifest.open(QIODevice::ReadOnly)) {
         qCDebug(KFILEMETADATA_LOG) << "Path does not seem to contain a valid plugin";
         return;
     }
 
-    QFile manifest(pluginDir.filePath(QStringLiteral("manifest.json")));
-    manifest.open(QIODevice::ReadOnly);
     QJsonDocument manifestDoc = QJsonDocument::fromJson(manifest.readAll());
     if (!manifestDoc.isObject()) {
         qCDebug(KFILEMETADATA_LOG) << "Manifest does not seem to be a valid JSON Object";
