@@ -665,12 +665,30 @@ void TagLibExtractor::extract(ExtractionResult* result)
             }
         }
     } else if (mimeType == QLatin1String("audio/ogg") || mimeType == QLatin1String("audio/x-vorbis+ogg")) {
-        TagLib::Ogg::Vorbis::File file(&stream, true);
-        if (file.isValid()) {
-            extractAudioProperties(&file, result);
-            readGenericProperties(file.properties(), result);
-            if (file.tag()) {
-                result->addImageData(extractFlacCover(file.tag()->pictureList(), imageTypes));
+        TagLib::Ogg::Vorbis::File vorbisFile(&stream, true);
+        if (vorbisFile.isValid()) {
+            extractAudioProperties(&vorbisFile, result);
+            readGenericProperties(vorbisFile.properties(), result);
+            if (vorbisFile.tag()) {
+                result->addImageData(extractFlacCover(vorbisFile.tag()->pictureList(), imageTypes));
+            }
+        } else {
+            TagLib::Ogg::Opus::File opusFile(&stream, true);
+            if (opusFile.isValid()) {
+                extractAudioProperties(&opusFile, result);
+                readGenericProperties(opusFile.properties(), result);
+                if (opusFile.tag()) {
+                    result->addImageData(extractFlacCover(opusFile.tag()->pictureList(), imageTypes));
+                }
+            } else {
+                TagLib::Ogg::Speex::File speexFile(&stream, true);
+                // Workaround for buggy taglib:
+                // isValid() returns true for invalid files, but XiphComment* tag() returns a nullptr
+                if (speexFile.isValid() && speexFile.tag()) {
+                    extractAudioProperties(&speexFile, result);
+                    readGenericProperties(speexFile.properties(), result);
+                    result->addImageData(extractFlacCover(speexFile.tag()->pictureList(), imageTypes));
+                }
             }
         }
     } else if (mimeType == QLatin1String("audio/x-opus+ogg")) {
