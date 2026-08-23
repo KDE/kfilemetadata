@@ -705,19 +705,21 @@ void TagLibExtractorTest::testImageData_data()
     QTest::addColumn<QString>("fileName");
 
     // clang-format: off
-    QTest::addRow("aiff")     << QStringLiteral("test.aif");
-    QTest::addRow("ape")      << QStringLiteral("test.ape");
-    QTest::addRow("opus")     << QStringLiteral("test.opus");
-    QTest::addRow("ogg")      << QStringLiteral("test.ogg");
-    QTest::addRow("flac")     << QStringLiteral("test.flac");
-    QTest::addRow("flac+ogg") << QStringLiteral("test.flac.ogg");
-    QTest::addRow("mp3")      << QStringLiteral("test.mp3");
-    QTest::addRow("m4a")      << QStringLiteral("test.m4a");
-    QTest::addRow("mpc")      << QStringLiteral("test.mpc");
-    QTest::addRow("speex")    << QStringLiteral("test.spx");
-    QTest::addRow("wav")      << QStringLiteral("test.wav");
-    QTest::addRow("wavpack")  << QStringLiteral("test.wv");
-    QTest::addRow("wma")      << QStringLiteral("test.wma");
+    QTest::addRow("aiff")      << QStringLiteral("test.aif");
+    QTest::addRow("ape")       << QStringLiteral("test.ape");
+    QTest::addRow("opus")      << QStringLiteral("test.opus");
+    QTest::addRow("ogg")       << QStringLiteral("test.ogg");
+    QTest::addRow("opus+ogg")  << QStringLiteral("test.opus.ogg");
+    QTest::addRow("speex+ogg") << QStringLiteral("test.speex.ogg");
+    QTest::addRow("flac")      << QStringLiteral("test.flac");
+    QTest::addRow("flac+ogg")  << QStringLiteral("test.flac.ogg");
+    QTest::addRow("mp3")       << QStringLiteral("test.mp3");
+    QTest::addRow("m4a")       << QStringLiteral("test.m4a");
+    QTest::addRow("mpc")       << QStringLiteral("test.mpc");
+    QTest::addRow("speex")     << QStringLiteral("test.spx");
+    QTest::addRow("wav")       << QStringLiteral("test.wav");
+    QTest::addRow("wavpack")   << QStringLiteral("test.wv");
+    QTest::addRow("wma")       << QStringLiteral("test.wma");
     // clang-format: on
 }
 
