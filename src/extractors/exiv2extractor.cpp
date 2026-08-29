@@ -91,7 +91,7 @@ QDateTime getDateTime(const Exiv2::ExifData data)
     auto getIntegerValue = [&data](const Exiv2::ExifKey &key) -> std::optional<int64_t> {
         if (const auto it = data.findKey(key); it == data.end()) {
             return {};
-        } else if ((it->typeId() == Exiv2::signedLong) || (it->typeId() == Exiv2::signedShort)) {
+        } else if (it->count() && ((it->typeId() == Exiv2::signedLong) || (it->typeId() == Exiv2::signedShort))) {
 #if EXIV2_TEST_VERSION(0,28,0)
             return it->toInt64();
 #else
