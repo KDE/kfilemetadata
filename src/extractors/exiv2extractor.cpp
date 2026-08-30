@@ -243,12 +243,18 @@ void Exiv2Extractor::extract(ExtractionResult* result)
         return;
     }
 
-    if (image->pixelHeight()) {
-        result->add(Property::Height, image->pixelHeight());
+    try {
+        if (image->pixelHeight()) {
+            result->add(Property::Height, image->pixelHeight());
+        }
+    } catch (const Exiv2::Error& e) {
     }
 
-    if (image->pixelWidth()) {
-        result->add(Property::Width, image->pixelWidth());
+    try {
+        if (image->pixelWidth()) {
+            result->add(Property::Width, image->pixelWidth());
+        }
+    } catch (const Exiv2::Error& e) {
     }
 
     std::string comment = image->comment();
