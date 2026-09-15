@@ -103,6 +103,20 @@ install(FILES
 
 configure_file(config-kfilemetadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kfilemetadata.h)
 
+ecm_add_installed_library_check(KF6FileMetaData
+    PACKAGE_NAME "KF6FileMetaData"
+    PACKAGE_TARGET_NAMESPACE "KF6::"
+)
+
+ecm_installed_library_check_include_strings(KF6FileMetaData
+    HEADERS ${KF6FileMetaData_CamelCase_HEADERS}
+    PREFIX KFileMetaData
+)
+
+ecm_installed_library_check_version_preprocessor_macros(KF6FileMetaData
+    PREFIX KFILEMETADATA
+)
+
 add_subdirectory(extractors)
 
 add_subdirectory(writers)
