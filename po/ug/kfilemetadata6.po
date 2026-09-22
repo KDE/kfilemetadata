@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kfilemetadata\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2026-05-31 18:29-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -22,7 +22,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label bitrate (per second)"
 msgid "%1/s"
-msgstr "%1/s"
+msgstr ""
 
 #: src/formatstrings.cpp:78
 #, kde-format
@@ -243,13 +243,13 @@ msgstr "يوچۇن"
 #, kde-format
 msgctxt "Symbol of degree, no space"
 msgid "%1°"
-msgstr "%1°"
+msgstr ""
 
 #: src/formatstrings.cpp:145
 #, kde-format
 msgctxt "Focal length given in mm"
 msgid "%1 mm"
-msgstr "%1 mm"
+msgstr ""
 
 #: src/formatstrings.cpp:150
 #, kde-format
@@ -403,7 +403,7 @@ msgstr ""
 #: src/propertyinfo.cpp:65
 msgctxt "@label EXIF"
 msgid "Manufacturer"
-msgstr ""
+msgstr "ئىشلەپچىقارغۇچى"
 
 #: src/propertyinfo.cpp:66
 msgctxt "@label EXIF"
