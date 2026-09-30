@@ -37,7 +37,7 @@ option(BUILD_FUZZERS "Build fuzzers" OFF)
 option(FUZZERS_USE_QT_MINIMAL_INTEGRATION_PLUGIN "Whether to use the Qt minimal integration plugin for fuzzers" OFF)
 
 # Dependencies
-set(REQUIRED_QT_VERSION 6.9.0)
+set(REQUIRED_QT_VERSION 6.10.0)
 
 find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG OPTIONAL_COMPONENTS Gui)
 set_package_properties(Qt6Gui PROPERTIES DESCRIPTION "Qt6: Gui component"
