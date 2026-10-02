@@ -9,10 +9,10 @@
 // KF
 #include <KDesktopFile>
 // Qt
-#include <QTextDocument>
+#include "htmltextdocument.h"
 #include <QDomDocument>
-#include <QTemporaryFile>
 #include <QLocale>
+#include <QTemporaryFile>
 // libappimage
 #include <appimage/appimage.h>
 
@@ -143,7 +143,7 @@ void AppDataParser::extractDescription(const QDomElement& e, const QString& loca
     });
     htmlElement.appendChild(clonedE);
 
-    QTextDocument textDocument;
+    HtmlTextDocument textDocument;
     textDocument.setHtml(descriptionDocument.toString(-1));
 
     m_localized.description = textDocument.toPlainText().trimmed();

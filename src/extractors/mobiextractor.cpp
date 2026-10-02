@@ -14,8 +14,8 @@
 #include <qmobipocket_version.h>
 #include <qmobipocket/mobipocket.h>
 
+#include "htmltextdocument.h"
 #include <QFile>
-#include <QTextDocument>
 
 using namespace KFileMetaData;
 
@@ -86,7 +86,7 @@ void MobiExtractor::extract(ExtractionResult* result)
                 break;
             }
             case Mobipocket::Document::Description: {
-                QTextDocument document;
+                HtmlTextDocument document;
                 document.setHtml(it.value());
 
                 QString plain = document.toPlainText();
@@ -113,7 +113,7 @@ void MobiExtractor::extract(ExtractionResult* result)
 
         QString html = doc.text();
 
-        QTextDocument document;
+        HtmlTextDocument document;
         document.setHtml(html);
 
         result->append(document.toPlainText());

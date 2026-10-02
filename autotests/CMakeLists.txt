@@ -233,6 +233,17 @@ if(KF6Archive_FOUND)
 endif()
 
 #
+# HTML to text
+#
+if(Qt6Gui_FOUND)
+    ecm_add_test(
+        htmltextdocumenttest.cpp
+        TEST_NAME "htmltextdocumenttest"
+        LINK_LIBRARIES Qt6::Test Qt6::Gui KF6::FileMetaData
+    )
+endif()
+
+#
 # Postscript DSC
 #
 ecm_add_test(
