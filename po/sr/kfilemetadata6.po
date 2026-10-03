@@ -1,12 +1,13 @@
 # Translation of kfilemetadata5.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2014, 2015, 2016, 2017.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kfilemetadata5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:49+0000\n"
-"PO-Revision-Date: 2017-10-30 23:08+0100\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-10-02 11:27+0200\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -22,300 +23,293 @@ msgstr ""
 #, kde-format
 msgctxt "@label bitrate (per second)"
 msgid "%1/s"
-msgstr ""
+msgstr "%1/s"
 
 #: src/formatstrings.cpp:78
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Unchanged"
-msgstr ""
+msgstr "Непромењена"
 
 #: src/formatstrings.cpp:79
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Horizontally flipped"
-msgstr ""
+msgstr "Преврнута водоравно"
 
 #: src/formatstrings.cpp:80
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "180° rotated"
-msgstr ""
+msgstr "Окренута за 180°"
 
 #: src/formatstrings.cpp:81
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Vertically flipped"
-msgstr ""
+msgstr "Преврнута усправно"
 
 #: src/formatstrings.cpp:82
-#, fuzzy, kde-format
-#| msgctxt "@label number of translated strings"
-#| msgid "Translations"
+#, kde-format
 msgctxt "Description of image orientation"
 msgid "Transposed"
-msgstr "преводи"
+msgstr "Транспонована"
 
 #: src/formatstrings.cpp:83
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr ""
+msgstr "Окренута за 90° супротно смеру казаљке сата "
 
 #: src/formatstrings.cpp:84
 #, kde-format
 msgctxt "Description of image orientation"
 msgid "Transversed"
-msgstr ""
+msgstr "Трансверзована"
 
 #: src/formatstrings.cpp:85
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr ""
+msgstr "Окренута за 270° супротно смеру казаљке сата"
 
 #: src/formatstrings.cpp:96
-#, fuzzy, kde-format
-#| msgctxt "@label EXIF"
-#| msgid "Photo Flash"
+#, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash"
-msgstr "блиц (слика)"
+msgstr "Без блица"
 
 #: src/formatstrings.cpp:97
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired"
-msgstr ""
+msgstr "Окинут"
 
 #: src/formatstrings.cpp:98
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light not detected"
-msgstr ""
+msgstr "Окинут, повратно светло није откривено"
 
 #: src/formatstrings.cpp:99
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Fired, return light detected"
-msgstr ""
+msgstr "Окинут, повратно светло откривено"
 
 #: src/formatstrings.cpp:100
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, did not fire"
-msgstr ""
+msgstr "Да, није окинут"
 
 #: src/formatstrings.cpp:101
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory"
-msgstr ""
+msgstr "Да, обавезно"
 
 #: src/formatstrings.cpp:102
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light not detected"
-msgstr ""
+msgstr "Да, обавезно, повратно светло није откривено"
 
 #: src/formatstrings.cpp:103
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, return light detected"
-msgstr ""
+msgstr "Да, обавезно, повратно светло откривено"
 
 #: src/formatstrings.cpp:104
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, compulsory"
-msgstr ""
+msgstr "Не, обавезно"
 
 #: src/formatstrings.cpp:105
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, did not fire, return light not detected"
-msgstr ""
+msgstr "Не, није окинут, повратно светло није откривено"
 
 #: src/formatstrings.cpp:106
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto"
-msgstr ""
+msgstr "Не, аутоматски"
 
 #: src/formatstrings.cpp:107
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto"
-msgstr ""
+msgstr "Да, аутоматски"
 
 #: src/formatstrings.cpp:108
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light not detected"
-msgstr ""
+msgstr "Да, аутоматски, повратно светло није откривено"
 
 #: src/formatstrings.cpp:109
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, return light detected"
-msgstr ""
+msgstr "Да, аутоматски, повратно светло откривено"
 
 #: src/formatstrings.cpp:110
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No flash function"
-msgstr ""
+msgstr "Нема блица"
 
 #: src/formatstrings.cpp:111
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, no flash function"
-msgstr ""
+msgstr "Не, нема блица"
 
 #: src/formatstrings.cpp:112
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction"
-msgstr ""
+msgstr "Да, смањење црвених очију"
 
 #: src/formatstrings.cpp:113
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction, return light not detected"
-msgstr ""
+msgstr "Да, смањење црвених очију, повратно светло није откривено"
 
 #: src/formatstrings.cpp:114
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, red-eye reduction, return light detected"
-msgstr ""
+msgstr "Да, смањење црвених очију, повратно светло откривено"
 
 #: src/formatstrings.cpp:115
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction"
-msgstr ""
+msgstr "Да, обавезно, смањење црвених очију"
 
 #: src/formatstrings.cpp:116
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light not detected"
-msgstr ""
+msgstr "Да, обавезно, смањење црвених очију, повратно светло није откривено"
 
 #: src/formatstrings.cpp:117
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, compulsory, red-eye reduction, return light detected"
-msgstr ""
+msgstr "Да, обавезно, смањење црвених очију, повратно светло откривено"
 
 #: src/formatstrings.cpp:118
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, red-eye reduction"
-msgstr ""
+msgstr "Не, смањење црвених очију"
 
 #: src/formatstrings.cpp:119
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "No, auto, red-eye reduction"
-msgstr ""
+msgstr "Не, аутоматски, смањење црвених очију"
 
 #: src/formatstrings.cpp:120
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction"
-msgstr ""
+msgstr "Да, аутоматски, смањење црвених очију"
 
 #: src/formatstrings.cpp:121
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light not detected"
-msgstr ""
+msgstr "Да, аутоматски, смањење црвених очију, повратно светло није откривено"
 
 #: src/formatstrings.cpp:122
 #, kde-format
 msgctxt "Description of photo flash"
 msgid "Yes, auto, red-eye reduction, return light detected"
-msgstr ""
+msgstr "Да, аутоматски, смањење црвених очију, повратно светло откривено"
 
 #: src/formatstrings.cpp:127
 #, kde-format
 msgid "Unknown"
-msgstr ""
+msgstr "Непознато"
 
 #: src/formatstrings.cpp:134
 #, kde-format
 msgctxt "Symbol of degree, no space"
 msgid "%1°"
-msgstr ""
+msgstr "%1°"
 
 #: src/formatstrings.cpp:145
 #, kde-format
 msgctxt "Focal length given in mm"
 msgid "%1 mm"
-msgstr ""
+msgstr "%1 mm"
 
 #: src/formatstrings.cpp:150
 #, kde-format
 msgctxt "Symbol of frames per second, with space"
 msgid "%1 fps"
-msgstr ""
+msgstr "%1 fps"
 
 #: src/formatstrings.cpp:160
 #, kde-format
 msgctxt "Time period given in seconds as rational number, denominator is given"
 msgid "1/%1 s"
-msgstr ""
+msgstr "1/%1 s"
 
 #: src/formatstrings.cpp:163
 #, kde-format
 msgctxt "Time period given in seconds"
 msgid "%1 s"
-msgstr ""
+msgstr "%1 s"
 
 #: src/formatstrings.cpp:179
 #, kde-format
 msgctxt "Exposure bias/compensation in exposure value (EV)"
 msgid "%1 EV"
-msgstr ""
+msgstr "%1 EV"
 
 #: src/formatstrings.cpp:193
 #, kde-format
 msgctxt ""
 "Exposure compensation given as integral with fraction, in exposure value (EV)"
 msgid "%1 %2/%3 EV"
-msgstr ""
+msgstr "%1 %2/%3 EV"
 
 #: src/formatstrings.cpp:196
 #, kde-format
 msgctxt "Exposure compensation given as rational, in exposure value (EV)"
 msgid "%1/%2 EV"
-msgstr ""
+msgstr "%1/%2 EV"
 
 #: src/formatstrings.cpp:201
 #, kde-format
 msgctxt "Aspect ratio, normalized to one"
 msgid "%1:1"
-msgstr ""
+msgstr "%1:1"
 
 #: src/formatstrings.cpp:206
 #, kde-format
 msgctxt "F number for photographs"
 msgid "f/%1"
-msgstr ""
+msgstr "f/%1"
 
 #: src/propertyinfo.cpp:42 src/typeinfo.cpp:33
 msgctxt "@label"
 msgid "Empty"
-msgstr ""
+msgstr "празно"
 
 #: src/propertyinfo.cpp:46
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Duration"
 msgctxt "@label accessible alt text"
 msgid "Assistive Description"
-msgstr "трајање"
+msgstr "опис за приступачност"
 
 #: src/propertyinfo.cpp:47
 msgctxt "@label music album"
@@ -358,12 +352,9 @@ msgid "Comment"
 msgstr "коментар"
 
 #: src/propertyinfo.cpp:55
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Duration"
 msgctxt "@label"
 msgid "Description"
-msgstr "трајање"
+msgstr "опис"
 
 #: src/propertyinfo.cpp:56
 msgctxt "@label"
@@ -408,20 +399,17 @@ msgstr "висина"
 #: src/propertyinfo.cpp:64
 msgctxt "@label EXIF"
 msgid "Image Date Time"
-msgstr "датум-време (слика)"
+msgstr "датум‑време (слика)"
 
 #: src/propertyinfo.cpp:65
 msgctxt "@label EXIF"
 msgid "Manufacturer"
-msgstr ""
+msgstr "произвођач"
 
 #: src/propertyinfo.cpp:66
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Image Model"
 msgctxt "@label EXIF"
 msgid "Model"
-msgstr "модел (слика)"
+msgstr "модел"
 
 #: src/propertyinfo.cpp:67
 msgctxt "@label EXIF"
@@ -454,174 +442,114 @@ msgid "Page Count"
 msgstr "број страница"
 
 #: src/propertyinfo.cpp:73
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Aperture Value"
 msgctxt "@label EXIF"
 msgid "Aperture Value"
-msgstr "вредност бленде (слика)"
+msgstr "вредност бленде"
 
 #: src/propertyinfo.cpp:74
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Original Date Time"
 msgctxt "@label EXIF"
 msgid "Original Date Time"
-msgstr "изворни датум-време (слика)"
+msgstr "изворни датум‑време"
 
 #: src/propertyinfo.cpp:75
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Exposure Bias"
 msgctxt "@label EXIF"
 msgid "Exposure Bias"
-msgstr "отклон експозиције (слика)"
+msgstr "отклон експозиције"
 
 #: src/propertyinfo.cpp:76
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Exposure Time"
 msgctxt "@label EXIF"
 msgid "Exposure Time"
-msgstr "време експозиције (слика)"
+msgstr "време експозиције"
 
 #: src/propertyinfo.cpp:77
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Flash"
 msgctxt "@label EXIF"
 msgid "Flash"
-msgstr "блиц (слика)"
+msgstr "блиц"
 
 #: src/propertyinfo.cpp:78
-#, fuzzy
-#| msgctxt "@label music disc number"
-#| msgid "Disc Number"
 msgctxt "@label EXIF"
 msgid "F Number"
-msgstr "број диска"
+msgstr "f‑број"
 
 #: src/propertyinfo.cpp:79
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Focal Length"
 msgctxt "@label EXIF"
 msgid "Focal Length"
-msgstr "фокусна дужина (слика)"
+msgstr "фокусна дужина"
 
 #: src/propertyinfo.cpp:80
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Focal Length 35mm"
 msgctxt "@label EXIF"
 msgid "Focal Length 35mm"
-msgstr "фокусна дужина 35 mm (слика)"
+msgstr "фокусна дужина 35 mm"
 
 #: src/propertyinfo.cpp:81
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo GPS Latitude"
 msgctxt "@label EXIF"
 msgid "GPS Latitude"
-msgstr "ГПС географска ширина (слика)"
+msgstr "ГПС географска ширина"
 
 #: src/propertyinfo.cpp:82
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo GPS Longitude"
 msgctxt "@label EXIF"
 msgid "GPS Longitude"
-msgstr "ГПС географска дужина (слика)"
+msgstr "ГПС географска дужина"
 
 #: src/propertyinfo.cpp:83
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo GPS Altitude"
 msgctxt "@label EXIF"
 msgid "GPS Altitude"
-msgstr "ГПС надморска висина (слика)"
+msgstr "ГПС надморска висина"
 
 #: src/propertyinfo.cpp:84
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo ISO Speed Rating"
 msgctxt "@label EXIF"
 msgid "ISO Speed Rating"
-msgstr "ИСО разреди брзине (слика)"
+msgstr "ИСО разреди брзине"
 
 #: src/propertyinfo.cpp:85
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Metering Mode"
 msgctxt "@label EXIF"
 msgid "Metering Mode"
-msgstr "мерење осветљења (слика)"
+msgstr "мерење осветљења"
 
 #: src/propertyinfo.cpp:86
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo X Dimension"
 msgctxt "@label EXIF"
 msgid "X Dimension"
-msgstr "x‑величина (слика)"
+msgstr "x‑величина"
 
 #: src/propertyinfo.cpp:87
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Y Dimension"
 msgctxt "@label EXIF"
 msgid "Y Dimension"
-msgstr "у‑величина (слика)"
+msgstr "y‑величина"
 
 #: src/propertyinfo.cpp:88
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Duration"
 msgctxt "@label EXIF"
 msgid "Saturation"
-msgstr "трајање"
+msgstr "засићење"
 
 #: src/propertyinfo.cpp:89
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo Sharpness"
 msgctxt "@label EXIF"
 msgid "Sharpness"
-msgstr "оштрина (слика)"
+msgstr "оштрина"
 
 #: src/propertyinfo.cpp:90
-#, fuzzy
-#| msgctxt "@label EXIF"
-#| msgid "Photo White Balance"
 msgctxt "@label EXIF"
 msgid "White Balance"
-msgstr "уравнотежавање беле (слика)"
+msgstr "баланс белог"
 
 #: src/propertyinfo.cpp:91
 msgctxt "@label"
 msgid "Color Space"
-msgstr ""
+msgstr "простор боја"
 
 #: src/propertyinfo.cpp:92
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Video"
 msgctxt "@label"
 msgid "Video Codec"
-msgstr "видео"
+msgstr "видео кодек"
 
 #: src/propertyinfo.cpp:93
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Audio"
 msgctxt "@label"
 msgid "Audio Codec"
-msgstr "аудио"
+msgstr "аудио кодек"
 
 #: src/propertyinfo.cpp:94
 msgctxt "@label"
 msgid "Pixel Format"
-msgstr ""
+msgstr "формат пиксела"
 
 #: src/propertyinfo.cpp:95
 msgctxt "@label"
@@ -631,7 +559,7 @@ msgstr "издавач"
 #: src/propertyinfo.cpp:96
 msgctxt "@label"
 msgid "Label"
-msgstr ""
+msgstr "етикета"
 
 #: src/propertyinfo.cpp:97
 msgctxt "@label"
@@ -664,80 +592,74 @@ msgid "Disc Number"
 msgstr "број диска"
 
 #: src/propertyinfo.cpp:103
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Duration"
 msgctxt "@label"
 msgid "Location"
-msgstr "трајање"
+msgstr "локација"
 
 #: src/propertyinfo.cpp:104
 msgctxt "@label"
 msgid "Performer"
-msgstr ""
+msgstr "интерпретатор"
 
 #: src/propertyinfo.cpp:105
 msgctxt "@label"
 msgid "Ensemble"
-msgstr ""
+msgstr "ансамбл"
 
 #: src/propertyinfo.cpp:106
 msgctxt "@label"
 msgid "Arranger"
-msgstr ""
+msgstr "аранжер"
 
 #: src/propertyinfo.cpp:107
 msgctxt "@label"
 msgid "Conductor"
-msgstr ""
+msgstr "диригент"
 
 #: src/propertyinfo.cpp:108
 msgctxt "@label"
 msgid "Compilation"
-msgstr ""
+msgstr "компилација"
 
 #: src/propertyinfo.cpp:109
 msgctxt "@label"
 msgid "License"
-msgstr ""
+msgstr "лиценца"
 
 #: src/propertyinfo.cpp:110
-#, fuzzy
-#| msgctxt "@label"
-#| msgid "Lyricist"
 msgctxt "@label"
 msgid "Lyrics"
-msgstr "текстописац"
+msgstr "стихови"
 
 #: src/propertyinfo.cpp:111
 msgctxt "@label"
 msgid "Opus"
-msgstr ""
+msgstr "опус"
 
 #: src/propertyinfo.cpp:112
 msgctxt "@label"
 msgid "Rating"
-msgstr ""
+msgstr "оцена"
 
 #: src/propertyinfo.cpp:113
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr ""
+msgstr "врх албума (поновљиво појачање)"
 
 #: src/propertyinfo.cpp:114
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr ""
+msgstr "појачање албума (поновљиво појачање)"
 
 #: src/propertyinfo.cpp:115
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr ""
+msgstr "врх нумере (поновљиво појачање)"
 
 #: src/propertyinfo.cpp:116
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr ""
+msgstr "појачање нумере (поновљиво појачање)"
 
 #: src/propertyinfo.cpp:117
 msgctxt "@label"
@@ -780,9 +702,6 @@ msgid "Template Creation"
 msgstr "стварање шаблона"
 
 #: src/propertyinfo.cpp:125
-#, fuzzy
-#| msgctxt "@label the URL a file was originally downloded from"
-#| msgid "Downloaded From"
 msgctxt "@label the URL a file was originally downloaded from"
 msgid "Downloaded From"
 msgstr "преузето са"
@@ -846,10 +765,3 @@ msgstr "видео"
 msgctxt "@label"
 msgid "Folder"
 msgstr "фасцикла"
-
-#, fuzzy
-#~| msgctxt "@label EXIF"
-#~| msgid "Image Model"
-#~ msgctxt "@label"
-#~ msgid "Model"
-#~ msgstr "модел (слика)"
