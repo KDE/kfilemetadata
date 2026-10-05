@@ -62,7 +62,7 @@ msgstr "Отражено относительно главной диагона�
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "90° rotated CCW "
-msgstr "Повёрнуто на 90°"
+msgstr "Повёрнуто на 90° против часовой стрелки "
 
 #: src/formatstrings.cpp:84
 #, kde-format
@@ -74,7 +74,7 @@ msgstr "Отражено относительно побочной диагон�
 #, kde-format
 msgctxt "Description of image orientation, counter clock-wise rotated"
 msgid "270° rotated CCW"
-msgstr "Повёрнуто на 270°"
+msgstr "Повёрнуто на 270° против часовой стрелки"
 
 #: src/formatstrings.cpp:96
 #, kde-format
@@ -632,7 +632,7 @@ msgstr "Лицензия"
 #: src/propertyinfo.cpp:110
 msgctxt "@label"
 msgid "Lyrics"
-msgstr "Автор текста"
+msgstr "Текст песни"
 
 #: src/propertyinfo.cpp:111
 msgctxt "@label"
