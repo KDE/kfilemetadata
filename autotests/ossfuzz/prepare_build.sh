@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: LGPL-2.0-or-later
 
 apt-get update && \
-    apt-get install -y cmake make autoconf automake libtool autopoint libmount-dev \
+    apt-get install -y make autoconf automake libtool autopoint libmount-dev \
     wget po4a gettext pkg-config nasm python3 gperf
 
-pip3 install meson ninja
+pip3 install meson ninja cmake
 
 git clone --depth 1 https://github.com/madler/zlib.git
 git clone --depth=1 https://gitlab.freedesktop.org/freetype/freetype.git
