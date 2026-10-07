@@ -158,7 +158,8 @@ cmake . -G Ninja \
   -DENABLE_LIBJPEG=OFF \
   -DENABLE_LIBOPENJPEG=OFF \
   -DENABLE_NSS3=OFF \
-  -DENABLE_GPGME=OFF
+  -DENABLE_GPGME=OFF \
+  -DENABLE_HARFBUZZ=OFF
 ninja install -j$(nproc)
 
 # Build taglib and its dependencies
