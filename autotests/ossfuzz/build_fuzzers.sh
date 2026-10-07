@@ -255,7 +255,8 @@ sed -i '/add_subdirectory *(tools)/d' src/CMakeLists.txt
 sed -i 's/add_library *(epub SHARED/add_library(epub/' src/libepub/CMakeLists.txt
 cmake . -G Ninja \
   -DBUILD_SHARED_LIBS=OFF \
-  -DCMAKE_INSTALL_PREFIX=$WORK
+  -DCMAKE_INSTALL_PREFIX=$WORK \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 ninja install -j$(nproc)
 
 # Build catdoc
