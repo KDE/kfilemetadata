@@ -131,6 +131,13 @@ cmake . -G Ninja \
   -DBUILD_TESTING=OFF
 ninja install -j$(nproc)
 
+cd $SRC/brotli
+cmake -B builddir -G Ninja \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_TESTING=OFF \
+  -DCMAKE_INSTALL_PREFIX=$WORK
+ninja install -C builddir -j$(nproc)
+
 # Build poppler
 cd $SRC/poppler
 cmake . -G Ninja \
@@ -175,13 +182,6 @@ cmake . -G Ninja \
 ninja install -j$(nproc)
 
 # Build exiv2 and its dependencies
-cd $SRC/brotli
-cmake -B builddir -G Ninja \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DBUILD_TESTING=OFF \
-  -DCMAKE_INSTALL_PREFIX=$WORK
-ninja install -C builddir -j$(nproc)
-
 cd $SRC/libexpat/expat
 cmake -B builddir -G Ninja \
   -DBUILD_SHARED_LIBS=OFF \
