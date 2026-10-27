@@ -645,22 +645,22 @@ msgstr "Evalutation"
 #: src/propertyinfo.cpp:113
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Peak"
-msgstr "ReplayGain (Ganio Repetite) Picco de album"
+msgstr "ReplayGain (Ganio Repetete) Picco de album"
 
 #: src/propertyinfo.cpp:114
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Album Gain"
-msgstr "ReplayGain (Ganio Repetite) Ganio de album"
+msgstr "ReplayGain (Ganio Repetete) Ganio de album"
 
 #: src/propertyinfo.cpp:115
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Peak"
-msgstr "ReplayGain (Ganio Repetite) Picco de tracia "
+msgstr "ReplayGain (Ganio Repetete) Picco de tracia "
 
 #: src/propertyinfo.cpp:116
 msgctxt "@label ReplayGain is the name of a standard"
 msgid "ReplayGain Track Gain"
-msgstr "ReplayGain (Ganio Repetite)  Ganio de tracia"
+msgstr "ReplayGain (Ganio Repetete)  Ganio de tracia"
 
 #: src/propertyinfo.cpp:117
 msgctxt "@label"
