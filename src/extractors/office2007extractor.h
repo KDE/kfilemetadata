@@ -12,8 +12,6 @@
 
 #include <QIODevice>
 
-class KArchiveDirectory;
-
 namespace KFileMetaData
 {
 
@@ -32,8 +30,6 @@ public:
 
 private:
     void extractTextWithTag(QIODevice* device, const QString& tag, ExtractionResult* result);
-    void extractAllText(QIODevice* device, ExtractionResult* result);
-    void extractTextFromFiles(const KArchiveDirectory* archiveDir, ExtractionResult* result);
 };
 }
 

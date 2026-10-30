@@ -25,9 +25,6 @@ public:
     QStringList writeMimetypes() const override;
 
 private:
-    bool runtimeInstalled() const;
-    bool dependenciesSatisfied() const;
-
     std::unique_ptr<ExternalWriterPrivate> d_ptr;
     Q_DECLARE_PRIVATE(ExternalWriter)
 };
