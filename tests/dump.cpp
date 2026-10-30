@@ -19,8 +19,6 @@
 #include "simpleextractionresult.h"
 #include "typeinfo.h"
 
-#include <iostream>
-
 int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
