@@ -8,7 +8,6 @@
 
 #include "externalextractor.h"
 #include "kfilemetadata_debug.h"
-#include "properties.h"
 #include "propertyinfo.h"
 #include "typeinfo.h"
 

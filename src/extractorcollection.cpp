@@ -7,7 +7,6 @@
 
 #include "extractorcollection.h"
 #include "extractor_p.h"
-#include "extractorplugin.h"
 #include "externalextractor.h"
 #include "kfilemetadata_debug.h"
 #include "config-kfilemetadata.h"
