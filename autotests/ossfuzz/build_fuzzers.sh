@@ -242,7 +242,7 @@ cmake -B builddir -G Ninja \
 ninja install -C builddir -j$(nproc)
 
 cd $SRC/libzip
-cmake . -G Ninja \
+cmake -B builddir -G Ninja \
   -DBUILD_SHARED_LIBS=OFF \
   -DCMAKE_INSTALL_PREFIX=$WORK
 ninja install -j$(nproc)
