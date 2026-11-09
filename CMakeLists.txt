@@ -127,7 +127,7 @@ set_package_properties(libappimage PROPERTIES DESCRIPTION "Core library of the A
 
 ecm_set_disabled_deprecation_versions(
     QT 6.4
-    KF 6.27
+    KF 6.32.0
 )
 
 add_definitions(-DTRANSLATION_DOMAIN=\"kfilemetadata6\")
