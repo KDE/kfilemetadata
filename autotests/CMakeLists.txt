@@ -36,6 +36,16 @@ ecm_add_test(
 )
 
 #
+# Location parser
+#
+ecm_add_test(
+    locationtests.cpp
+    ${KfileMetaDataAutotest_SRCS}
+    TEST_NAME "locationtest"
+    LINK_LIBRARIES Qt6::Test
+)
+
+#
 # Full text extraction test
 #
 ecm_add_test(
