@@ -201,46 +201,35 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             dict = fmt_ctx->streams[0]->metadata;
         }
 
-        AVDictionaryEntry* entry;
-
-        entry = av_dict_get(dict, "title", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "title", nullptr, 0); entry) {
             result->add(Property::Title, QString::fromUtf8(entry->value));
         }
 
-
-        entry = av_dict_get(dict, "author", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "author", nullptr, 0); entry) {
             result->add(Property::Author, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "copyright", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "copyright", nullptr, 0); entry) {
             result->add(Property::Copyright, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "comment", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "comment", nullptr, 0); entry) {
             result->add(Property::Comment, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "artist", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "artist", nullptr, 0); entry) {
             result->add(Property::Artist, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "album", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "album", nullptr, 0); entry) {
             result->add(Property::Album, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "genre", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "genre", nullptr, 0); entry) {
             result->add(Property::Genre, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "track", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "track", nullptr, 0); entry) {
             QString value = QString::fromUtf8(entry->value);
 
             bool ok = false;
@@ -250,17 +239,18 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             }
         }
 
-        entry = av_dict_get(dict, "year", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "year", nullptr, 0); entry) {
             int year = QString::fromUtf8(entry->value).toInt();
             result->add(Property::ReleaseYear, year);
         }
 
-        entry = av_dict_get(dict, "creation_time", nullptr, 0);
-        if (!entry) {
-            entry = av_dict_get(dict, "com.apple.quicktime.creationdate", nullptr, 0);
-        }
-        if (entry) {
+        if (AVDictionaryEntry *entry =
+                [dict] {
+                    auto e = av_dict_get(dict, "creation_time", nullptr, 0);
+                    return e ? e : av_dict_get(dict, "com.apple.quicktime.creationdate", nullptr, 0);
+                }();
+            entry) //
+        {
             const QDateTime date = QDateTime::fromString(QString::fromUtf8(entry->value), Qt::ISODate);
             if (date.isValid()) {
                 result->add(Property::CreationDate, date);
@@ -268,11 +258,13 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         }
 
         // TODO support localized location names through three letter language name (e.g. location-eng)
-        entry = av_dict_get(dict, "location", nullptr, 0);
-        if (!entry) {
-            entry = av_dict_get(dict, "com.apple.quicktime.location.ISO6709", nullptr, 0);
-        }
-        if (entry) {
+        if (AVDictionaryEntry *entry =
+                [dict] {
+                    auto e = av_dict_get(dict, "location", nullptr, 0);
+                    return e ? e : av_dict_get(dict, "com.apple.quicktime.location.ISO6709", nullptr, 0);
+                }();
+            entry) //
+        {
             const QString location = QString::fromUtf8(entry->value);
 
             // Format follows ISO 6709 Annex H: ±latitude±longitude±elevation/crs_name
@@ -299,18 +291,15 @@ void FFmpegExtractor::extract(ExtractionResult* result)
             }
         }
 
-        entry = av_dict_get(dict, "com.apple.quicktime.make", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "com.apple.quicktime.make", nullptr, 0); entry) {
             result->add(Property::Manufacturer, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "com.apple.quicktime.model", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "com.apple.quicktime.model", nullptr, 0); entry) {
             result->add(Property::Model, QString::fromUtf8(entry->value));
         }
 
-        entry = av_dict_get(dict, "com.apple.quicktime.software", nullptr, 0);
-        if (entry) {
+        if (AVDictionaryEntry *entry = av_dict_get(dict, "com.apple.quicktime.software", nullptr, 0); entry) {
             result->add(Property::Generator, QString::fromUtf8(entry->value));
         }
     }
