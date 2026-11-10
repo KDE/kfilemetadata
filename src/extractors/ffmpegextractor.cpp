@@ -12,8 +12,7 @@
 #include "ffmpegextractor.h"
 #include "embeddedimagedata.h"
 #include "kfilemetadata_debug.h"
-
-#include <QRegularExpression>
+#include "locationparser_p.h"
 
 #ifdef __cplusplus
 #define __STDC_CONSTANT_MACROS
@@ -267,27 +266,13 @@ void FFmpegExtractor::extract(ExtractionResult* result)
         {
             const QString location = QString::fromUtf8(entry->value);
 
-            // Format follows ISO 6709 Annex H: ±latitude±longitude±elevation/crs_name
-            // Latitude/longitude is always in integral degrees (i.e. 2 digit/3 digit) format
-            // Coordinate Reference System (crs) is omitted, though required
-            static const QRegularExpression iso6709rx(QStringLiteral(R"([+-]\d+(?:\.\d+)?)"));
-
-            auto matches = iso6709rx.globalMatch(location);
-            int i = 0;
-            while (matches.hasNext()) {
-                const auto match = matches.next();
-                bool ok;
-                const qreal value = match.captured(0).toFloat(&ok);
-                if (ok) {
-                    if (i == 0) {
-                        result->add(Property::PhotoGpsLatitude, value);
-                    } else if (i == 1) {
-                        result->add(Property::PhotoGpsLongitude, value);
-                    } else if (i == 2) { // elevation, optional
-                        result->add(Property::PhotoGpsAltitude, value);
-                    }
+            auto [latitude, longitude, altitude] = Parser::locationFromIso6709HString(location);
+            if (latitude && longitude) {
+                result->add(Property::PhotoGpsLatitude, *latitude);
+                result->add(Property::PhotoGpsLongitude, *longitude);
+                if (altitude) {
+                    result->add(Property::PhotoGpsAltitude, *altitude);
                 }
-                ++i;
             }
         }
 
