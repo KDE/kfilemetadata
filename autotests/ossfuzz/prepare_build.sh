@@ -30,7 +30,7 @@ git clone --depth 1 https://github.com/exiv2/exiv2.git
 git clone --depth 1 https://github.com/ffmpeg/ffmpeg.git
 git clone --depth 1 https://gitlab.gnome.org/GNOME/libxml2.git
 git clone --depth 1 https://github.com/nih-at/libzip.git
-wget https://sourceforge.net/projects/ebook-tools/files/ebook-tools/0.2.2/ebook-tools-0.2.2.tar.gz
+git clone --depth 1 https://invent.kde.org/libraries/ebook-tools.git
 git clone http://www.wagner.pp.ru/git/oss/catdoc.git
 wget https://download-mirror.savannah.gnu.org/releases/attr/attr-2.5.2.tar.gz
 git clone --depth 1 https://invent.kde.org/graphics/kdegraphics-mobipocket.git

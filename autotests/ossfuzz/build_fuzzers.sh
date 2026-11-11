@@ -248,15 +248,11 @@ cmake -B builddir -G Ninja \
 ninja install -C builddir -j$(nproc)
 
 cd $SRC
-tar -xzf ebook-tools-*.tar.gz && rm -f ebook-tools-*.tar.gz
-cd ebook-tools-*
-# disable the cli tools
-sed -i '/add_subdirectory *(tools)/d' src/CMakeLists.txt
-sed -i 's/add_library *(epub SHARED/add_library(epub/' src/libepub/CMakeLists.txt
+cd ebook-tools
 cmake . -G Ninja \
+  -DBUILD_TOOLS=OFF \
   -DBUILD_SHARED_LIBS=OFF \
-  -DCMAKE_INSTALL_PREFIX=$WORK \
-  -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+  -DCMAKE_INSTALL_PREFIX=$WORK
 ninja install -j$(nproc)
 
 # Build catdoc
