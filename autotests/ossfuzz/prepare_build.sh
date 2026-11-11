@@ -25,7 +25,9 @@ git clone --depth 1 https://github.com/google/brotli.git
 git clone --depth 1 https://github.com/libexpat/libexpat.git
 git clone --depth 1 https://github.com/fmtlib/fmt.git
 git clone --depth 1 https://github.com/exiv2/exiv2.git
-git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git
+# ffmpeg.org keeps failing, switch to github mirror for now
+# git clone --depth 1 https://git.ffmpeg.org/ffmpeg.git
+git clone --depth 1 https://github.com/ffmpeg/ffmpeg.git
 git clone --depth 1 https://gitlab.gnome.org/GNOME/libxml2.git
 git clone --depth 1 https://github.com/nih-at/libzip.git
 wget https://sourceforge.net/projects/ebook-tools/files/ebook-tools/0.2.2/ebook-tools-0.2.2.tar.gz
