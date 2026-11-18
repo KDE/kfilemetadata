@@ -11,6 +11,7 @@
 
 #include <QDomDocument>
 #include <QFile>
+#include <QList>
 #include <QXmlStreamReader>
 
 #ifdef SVG_XML_COMPRESSED_SUPPORT
@@ -26,19 +27,22 @@ inline QString ccNS()     { return QStringLiteral("http://creativecommons.org/ns
 
 void extractSvgText(KFileMetaData::ExtractionResult* result, const QDomElement &node)
 {
-    if (node.namespaceURI() != svgNS()) {
-        return;
-    }
-
-    if ((node.localName() == QLatin1String("g")) ||
-        (node.localName() == QLatin1String("a"))) {
-        QDomElement e = node.firstChildElement();
-        for (; !e.isNull(); e = e.nextSiblingElement()) {
-            extractSvgText(result, e);
+    QList<QDomElement> elements{node};
+    while (!elements.isEmpty()) {
+        const auto element = elements.takeLast();
+        if (element.namespaceURI() != svgNS()) {
+            continue;
         }
-    } else if (node.localName() == QLatin1String("text")) {
-        qCDebug(KFILEMETADATA_LOG) << node.text();
-        result->append(node.text());
+
+        if ((element.localName() == QLatin1String("g")) ||
+            (element.localName() == QLatin1String("a"))) {
+            for (auto child = element.lastChildElement(); !child.isNull(); child = child.previousSiblingElement()) {
+                elements.append(child);
+            }
+        } else if (element.localName() == QLatin1String("text")) {
+            qCDebug(KFILEMETADATA_LOG) << element.text();
+            result->append(element.text());
+        }
     }
 }
 
