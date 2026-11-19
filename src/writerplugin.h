@@ -10,6 +10,7 @@
 #define _KFILEMETADTA_WRITERPLUGIN_H
 
 #include "kfilemetadata_export.h"
+#include <QObject>
 #include <QStringList>
 
 #include "writedata.h"

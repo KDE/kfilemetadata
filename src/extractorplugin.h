@@ -10,6 +10,7 @@
 
 #include <QStringList>
 #include <QDateTime>
+#include <QObject>
 
 #include "kfilemetadata_export.h"
 #include "extractionresult.h"
